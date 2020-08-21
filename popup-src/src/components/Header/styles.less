@@ -1,0 +1,34 @@
+@import '~Root/styles/theme';
+
+:local(.comp) {
+  position: absolute;
+  z-index: 100000;
+}
+
+:local(.header) {
+  background: @Concrete;
+  height: 60px;
+  width: 360px;
+
+  .pure-g {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 7px 16px 6px 16px;
+  }
+}
+
+:local(.logo) {
+  width: 24px;
+  height: 46px;
+}
+
+:local(.icon) {
+  color: black;
+  font-size: 20px;
+  text-decoration: none !important;
+
+  .icon-lock {
+    float: right;
+  }
+}

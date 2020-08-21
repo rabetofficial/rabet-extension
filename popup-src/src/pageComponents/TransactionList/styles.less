@@ -1,0 +1,67 @@
+@import '~Root/styles/theme';
+
+:local(.list) {
+  padding-left: 0;
+  list-style: none;
+  overflow-y: auto;
+  //max-height: 237px;
+  margin: -8px 0 0;
+}
+
+:local(.list) > :local(.listItem) {
+  padding: 18px 16px 0 16px;
+}
+
+:local(.list) > :local(.listItem) :local(.border) {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-bottom: 15px;
+}
+
+:local(.list) > :local(.listItem):hover {
+  background-color: @Alabaster;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+:local(.logoContainer) {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: @Alabaster;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+
+  span {
+    font-size: 15px;
+    color: @Regent-gray;
+  }
+}
+
+:local(.div) {
+  display: flex;
+  flex-direction: column;
+}
+
+:local(.subject) {
+  font-size: 14px;
+  color: black;
+  margin: 0;
+}
+
+:local(.value) {
+  font-size: 12px;
+  color: @dove-gray;
+  margin: 4px 0 0 0;
+}
+
+:local(.next) {
+  margin-left: 60px;
+
+  span {
+    color: @heavy-metal;
+  }
+}
