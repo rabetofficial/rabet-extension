@@ -12,13 +12,9 @@ import styles from './styles.less';
 import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   onSubmit (values) {
     console.log(values);
-    this.props.history.push('/home');
+    this.props.history.push('/home'); // ?
   }
 
   validateForm (values) {
@@ -59,7 +55,7 @@ class Login extends Component {
                         content="Login"
                         style={ {marginTop: '32px'} }
                         disabled={ submitting }
-                        onClick={ () => {this.props.history.push('/home');} }
+                        // onClick={ () => {this.props.history.push('/home');} }
                       />
                     </form>
                 ) }
