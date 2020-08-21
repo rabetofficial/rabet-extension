@@ -1,27 +1,33 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Form, Field } from 'react-final-form';
+import React, {Component} from 'react';
 import { FORM_ERROR } from 'final-form';
-import Button from 'Root/components/Button';
-import {buttonSizes, buttonTypes, inputSize, inputTypes} from 'Root/staticRes/enum';
-import {confirmLoginPage} from 'Root/staticRes/routes';
-import Input from 'Root/components/Input';
-import Logo from 'Root/components/Logo';
-import styles from './styles.less';
 import { withRouter } from 'react-router-dom';
+import { Form, Field } from 'react-final-form';
+
+import Logo from 'Root/components/Logo';
+import Input from 'Root/components/Input';
+import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
+import {buttonSizes, buttonTypes, inputSize, inputTypes} from 'Root/staticRes/enum';
+
+import styles from './styles.less';
 
 class Login extends Component {
-  onSubmit (values) {
+  async onSubmit (values) {
     console.log(values);
-    this.props.history.push('/home'); // ?
+    // this.props.history.push('/home');
+
+    return { password: 'unknown password' }
   }
 
   validateForm (values) {
     const errors = {};
+
     if (!values.password) {
       errors.password = 'Required';
     }
+
     return errors;
   }
 
@@ -31,7 +37,7 @@ class Login extends Component {
           <div className="pure-u-1-1">
             <Logo/>
             <Form
-              onSubmit={ this.onSubmit }
+              onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
               render={ ({submitError, handleSubmit, submitting, values}) => (
                     <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
@@ -47,7 +53,9 @@ class Login extends Component {
                           />
                         )}
                       </Field>
+
                       {submitError && <div className="error">{submitError}</div>}
+
                       <Button
                         type="submit"
                         variant={ buttonTypes.primary }
@@ -55,7 +63,6 @@ class Login extends Component {
                         content="Login"
                         style={ {marginTop: '32px'} }
                         disabled={ submitting }
-                        // onClick={ () => {this.props.history.push('/home');} }
                       />
                     </form>
                 ) }

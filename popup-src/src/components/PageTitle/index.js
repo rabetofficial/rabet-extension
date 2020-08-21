@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
+
+import * as route from 'Root/staticRes/routes';
+
 import styles from './styles.less';
 
-const PageTitle = ({title, status, statusTitle}) => {
+const PageTitle = ({title, status, statusTitle, ...props}) => {
 
   const generateTitle = () => {
     if(status) {
@@ -20,7 +24,13 @@ const PageTitle = ({title, status, statusTitle}) => {
   return (
       <div className={ styles.div }>
         <div>{generateTitle()}</div>
-        <div><a href="/" className={ styles.close }><span className="icon-multiply" /></a></div>
+
+        <div className={styles.icon}>
+          <span
+            className="icon-multiply"
+            onClick={() => { props.history.goBack() }}
+          />
+        </div>
       </div>
   );
 };
@@ -37,4 +47,4 @@ PageTitle.propTypes = {
   statusTitle: PropTypes.string,
 };
 
-export default PageTitle;
+export default withRouter(PageTitle);

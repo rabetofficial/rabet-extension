@@ -1,7 +1,7 @@
 export const homePage = '/home';
-export const loginPage = '/';
+export const loginPage = '/login';
 export const confirmLoginPage = '/confirm-login';
-export const firstPage = '/first';
+export const firstPage = '/';
 export const successSubmitPage = '/success';
 export const errorPage = '/error';
 export const privateKeyPage = '/private-key';

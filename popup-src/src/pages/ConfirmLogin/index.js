@@ -1,28 +1,48 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Form, Field } from 'react-final-form';
+import React, {Component} from 'react';
 import { FORM_ERROR } from 'final-form';
-import Button from 'Root/components/Button';
-import {buttonSizes, buttonTypes, inputSize, inputTypes} from 'Root/staticRes/enum';
-import Input from 'Root/components/Input';
+import { Form, Field } from 'react-final-form';
+
 import Logo from 'Root/components/Logo';
+import Input from 'Root/components/Input';
+import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
+import {buttonSizes, buttonTypes, inputSize, inputTypes} from 'Root/staticRes/enum';
+
 import styles from './styles.less';
 
 class ConfirmLogin extends Component {
 
   onSubmit (values) {
-    console.warn(values);
+    const errors = {};
+
+    if (values.password !== values.confirm) {
+      errors.password = 'Passwords do not match.';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      return errors;
+    }
+
+    this.props.history.push(route.firstPage);
   }
 
   validateForm (values) {
     const errors = {};
+
     if (!values.password) {
-      errors.password = 'Required';
+      errors.password = 'Required.';
     }
+
     if (!values.confirm) {
-      errors.confirm = 'Required';
+      errors.confirm = 'Required.';
     }
+
+    if (values.password && values.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters.';
+    }
+
     return errors;
   }
 
@@ -32,7 +52,7 @@ class ConfirmLogin extends Component {
           <div className="pure-u-1-1">
             <Logo/>
             <Form
-              onSubmit={ this.onSubmit }
+              onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
               render={ ({submitError, handleSubmit, submitting, values}) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>

@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+
+import * as route from 'Root/staticRes/routes';
 import Logo from 'Root/components/Logo';
-import {buttonSizes, buttonTypes} from 'Root/staticRes/enum';
 import Button from 'Root/components/Button';
+import {buttonSizes, buttonTypes} from 'Root/staticRes/enum';
+
 import styles from './styles.less';
 
 const FirstPage = props => {
@@ -10,6 +14,7 @@ const FirstPage = props => {
       <div className="pure-g content">
         <div className="pure-u-1-1">
           <Logo/>
+
           <div className={ styles.container }>
             <Button
               type="button"
@@ -17,13 +22,16 @@ const FirstPage = props => {
               size={ buttonSizes.large }
               content="Create Wallet"
               style={ {marginBottom: '27px'} }
+              onClick={() => { props.history.push(route.createWalletPage) }}
             />
+
             <Button
               type="button"
               variant={ buttonTypes.outlined }
               size={ buttonSizes.large }
               content="Import Wallet"
               style={ {marginBottom: '27px'} }
+              onClick={() => { props.history.push(route.restoreWalletPage) }}
             />
           </div>
         </div>
@@ -35,4 +43,4 @@ FirstPage.propTypes = {
 
 };
 
-export default FirstPage;
+export default withRouter(FirstPage);
