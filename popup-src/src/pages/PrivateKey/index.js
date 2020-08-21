@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Header from 'Root/components/Header';
+import * as route from 'Root/staticRes/routes';
 import PageTitle from 'Root/components/PageTitle';
 import NoteCard from 'Root/pageComponents/NoteCard';
+
 import styles from './styles.less';
 
 const PrivateKey = props => {
@@ -16,6 +19,7 @@ const PrivateKey = props => {
           btnText="OK"
           icon="icon-key"
           iconClass={ styles.icon }
+          handleClick={() => { props.history.push(route.homePage) }}
           copy
         />
       </div>
@@ -23,7 +27,7 @@ const PrivateKey = props => {
 };
 
 PrivateKey.propTypes = {
-  
+
 };
 
 export default PrivateKey;

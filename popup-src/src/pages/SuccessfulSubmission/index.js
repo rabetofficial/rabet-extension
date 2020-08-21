@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+
 import Header from 'Root/components/Header';
+import * as route from 'Root/staticRes/routes';
 import PageTitle from 'Root/components/PageTitle';
 import NoteCard from 'Root/pageComponents/NoteCard';
+
 import styles from './styles.less';
 
 const SuccessfulSubmission = props => {
@@ -16,6 +20,7 @@ const SuccessfulSubmission = props => {
          btnText="OK"
          icon="icon-checkmark"
          iconClass={ styles.icon }
+         handleClick={() => { props.history.push(route.homePage) }}
          copy
        />
       </>
@@ -26,4 +31,4 @@ SuccessfulSubmission.propTypes = {
 
 };
 
-export default SuccessfulSubmission;
+export default withRouter(SuccessfulSubmission);

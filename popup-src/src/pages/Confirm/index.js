@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
 import classNames from 'classnames';
-import PageTitle from 'Root/components/PageTitle';
+import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
+
 import Card from 'Root/components/Card';
 import Button from 'Root/components/Button';
 import CopyText from 'Root/components/CopyText';
+import PageTitle from 'Root/components/PageTitle';
+
 import styles from './styles.less';
 
 const items = [
@@ -80,7 +83,9 @@ class Confirm extends Component {
               variant="btn-default"
               size="btn-medium"
               content="Back"
+              onClick={() => {this.props.history.goBack()}}
             />
+
             <Button
               variant="btn-primary"
               size="btn-medium"
@@ -92,4 +97,4 @@ class Confirm extends Component {
   }
 }
 
-export default Confirm;
+export default withRouter(Confirm);

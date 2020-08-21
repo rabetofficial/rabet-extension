@@ -1,11 +1,14 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
+
 import Header from 'Root/components/Header';
+import Button from 'Root/components/Button';
+import Tooltip from 'Root/components/Tooltip';
 import PageTitle from 'Root/components/PageTitle';
 import ToggleSwitch from 'Root/components/ToggleSwitch';
-import Tooltip from 'Root/components/Tooltip';
-import Button from 'Root/components/Button';
+
 import styles from './styles.less';
 
 class Flags extends Component {
@@ -16,6 +19,7 @@ class Flags extends Component {
       checkedRevocable: true,
       checkedImmutable: false,
     };
+
     this.handleCheckedRequired = this.handleCheckedRequired.bind(this);
     this.handleCheckedRevocable = this.handleCheckedRevocable.bind(this);
     this.handleCheckedImmutable = this.handleCheckedImmutable.bind(this);
@@ -85,6 +89,7 @@ class Flags extends Component {
                 variant="btn-default"
                 size="btn-medium"
                 content="Cancel"
+                onClick={() => {this.props.history.goBack()}}
               />
               <Button
                 variant="btn-primary"
@@ -101,4 +106,4 @@ class Flags extends Component {
 
 Flags.propTypes = {};
 
-export default Flags;
+export default withRouter(Flags);

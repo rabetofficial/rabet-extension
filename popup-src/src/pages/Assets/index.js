@@ -1,8 +1,11 @@
-import React, {Component} from 'react';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
+
 import Header from 'Root/components/Header';
-import PageTitle from 'Root/components/PageTitle';
 import Button from 'Root/components/Button';
+import PageTitle from 'Root/components/PageTitle';
+
 import styles from './styles.less';
 
 const assetInfo = [
@@ -54,6 +57,7 @@ class Assets extends Component {
               variant="btn-default"
               size="btn-medium"
               content="Cancel"
+              onClick={() => {this.props.history.goBack()}}
             />
             {/*<Button*/}
             {/*  variant="btn-primary"*/}
@@ -72,4 +76,4 @@ class Assets extends Component {
   }
 }
 
-export default Assets;
+export default withRouter(Assets);

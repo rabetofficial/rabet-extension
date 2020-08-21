@@ -6,7 +6,7 @@ import CopyText from 'Root/components/CopyText';
 import Button from 'Root/components/Button';
 import styles from './styles.less';
 
-const NoteCard = ({title, icon, iconClass, message, copy, btnText}) => {
+const NoteCard = ({title, icon, iconClass, message, copy, btnText, ...props}) => {
   return (
       <div className="flex-parent content" style={ {marginTop: '87px'} }>
         <Note>
@@ -24,6 +24,7 @@ const NoteCard = ({title, icon, iconClass, message, copy, btnText}) => {
             size="btn-small"
             className={ styles.btn }
             delayHide={ 500 }
+            onClick={props.handleClick}
           />
         </Note>
       </div>

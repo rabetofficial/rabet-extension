@@ -1,16 +1,18 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Form, Field } from 'react-final-form';
+import React, {Component} from 'react';
 import { FORM_ERROR } from 'final-form';
-import Header from 'Root/components/Header';
-import PageTitle from 'Root/components/PageTitle';
-import Button from 'Root/components/Button';
+import { withRouter } from 'react-router-dom';
+import { Form, Field } from 'react-final-form';
+
 import Input from 'Root/components/Input';
+import Header from 'Root/components/Header';
+import Button from 'Root/components/Button';
+import PageTitle from 'Root/components/PageTitle';
+
 import styles from './styles.less';
 
 class ShowPrivateKey extends Component {
-
   onSubmit (values) {
     console.warn(values);
   }
@@ -54,7 +56,7 @@ class ShowPrivateKey extends Component {
                           variant="btn-default"
                           size="btn-medium"
                           content="Cancel"
-                          onClick={ form.reset }
+                          onClick={() => {this.props.history.goBack()}}
                         />
                         <Button
                           type="submit"
@@ -75,4 +77,4 @@ class ShowPrivateKey extends Component {
 
 ShowPrivateKey.propTypes = {};
 
-export default ShowPrivateKey;
+export default withRouter(ShowPrivateKey);

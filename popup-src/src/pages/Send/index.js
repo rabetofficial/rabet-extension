@@ -1,10 +1,13 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
+
 import Header from 'Root/components/Header';
-import PageTitle from 'Root/components/PageTitle';
 import Button from 'Root/components/Button';
+import PageTitle from 'Root/components/PageTitle';
 import Operation from 'Root/pageComponents/Operation';
+
 import styles from './styles.less';
 
 const btnContent = <><span className="icon-plus-math"/>{''}Add Operation</>;
@@ -66,6 +69,7 @@ class Send extends Component {
                   variant="btn-default"
                   size="btn-medium"
                   content="Back"
+                  onClick={() => {this.props.history.goBack()}}
                 />
                 <Button
                   variant="btn-primary"
@@ -82,4 +86,4 @@ class Send extends Component {
 
 Send.propTypes = {};
 
-export default Send;
+export default withRouter(Send);

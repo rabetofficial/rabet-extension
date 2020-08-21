@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
+
 import Header from 'Root/components/Header';
 import PageTitle from 'Root/components/PageTitle';
 import Input from 'Root/components/Input';
@@ -82,7 +84,7 @@ class AddAsset extends Component {
                           variant="btn-default"
                           size="btn-medium"
                           content="Cancel"
-                          onClick={ form.reset }
+                          onClick={() => {this.props.history.goBack()}}
                         />
                         <Button
                           type="submit"
@@ -101,4 +103,4 @@ class AddAsset extends Component {
   }
 }
 
-export default AddAsset;
+export default withRouter(AddAsset);

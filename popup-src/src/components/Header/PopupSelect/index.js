@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Select, { components } from 'react-select';
+import {Link} from 'react-router-dom';
 import createClass from 'create-react-class';
+import Select, { components } from 'react-select';
+
+import * as route from 'Root/staticRes/routes';
 import PopupList from 'Root/pageComponents/PopupList';
+
 import styles from './styles.less';
 
 export const items = [
@@ -25,8 +29,8 @@ const Popup = props => {
               {this.props.label}
             </components.Option>
             <div className={ styles.group }>
-              <a href="" className={ styles.link }><span className="icon-plus-math" />Create Wallet</a>
-              <a href="" className={ styles.link }><span className="icon-file" />Import Wallet</a>
+              <Link to={route.createWalletPage} className={ styles.link }><span className="icon-plus-math" />Create Wallet</Link>
+              <Link to={route.restoreWalletPage} className={ styles.link }><span className="icon-file" />Import Wallet</Link>
             </div>
             {/*{(this.props.innerProps.id === `react-select-2-option-${items.length - 1}`) &&*/}
             {/*}*/}

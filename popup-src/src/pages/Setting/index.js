@@ -1,12 +1,15 @@
-import React, {Component} from 'react';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
+
 import Header from 'Root/components/Header';
-import PageTitle from 'Root/components/PageTitle';
 import Tooltip from 'Root/components/Tooltip';
+import PageTitle from 'Root/components/PageTitle';
 import ToggleSwitch from 'Root/components/ToggleSwitch';
+
 import styles from './styles.less';
-import SelectOption from '../../components/SelectOption';
 import Button from '../../components/Button';
+import SelectOption from '../../components/SelectOption';
 
 const items = [
   {value: 'xlm', label: 'XLM'},
@@ -96,6 +99,7 @@ class Setting extends Component {
                 variant="btn-default"
                 size="btn-medium"
                 content="Cancel"
+                onClick={() => {this.props.history.goBack()}}
               />
               <Button
                 variant="btn-primary"
@@ -110,4 +114,4 @@ class Setting extends Component {
   }
 }
 
-export default Setting;
+export default withRouter(Setting);

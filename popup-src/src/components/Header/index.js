@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
+
+import * as route from 'Root/staticRes/routes';
 import logo from 'Root/assets/images/logo.svg';
-import PopupSelect from './PopupSelect';
+
 import styles from './styles.less';
+import PopupSelect from './PopupSelect';
 
 const Header = props => {
   const [overlay, toggleOverLay] = useState(false);
@@ -19,13 +22,13 @@ const Header = props => {
           <div className={ styles.header }>
             <div className="pure-g">
               <div className="pure-u-4-24">
-                <Link to="/"><img src={ logo } alt="logo" className={ styles.logo } /></Link>
+                <Link to="/home"><img src={ logo } alt="logo" className={ styles.logo } /></Link>
               </div>
               <div className="pure-u-15-24">
                 <PopupSelect toggleOverlay={ toggleOverlay }/>
               </div>
-              <div className="pure-u-3-24"><a href="" className={ styles.icon }><span className="icon-setting" /></a></div>
-              <div className="pure-u-2-24"><a href="" className={ styles.icon }><span className="icon-lock" /></a></div>
+              <div className="pure-u-3-24"><Link to={route.settingPage} className={ styles.icon }><span className="icon-setting" /></Link></div>
+              <div className="pure-u-2-24"><Link to="#" className={ styles.icon }><span className="icon-lock" /></Link></div>
             </div>
           </div>
         </div>
