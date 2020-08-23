@@ -15,6 +15,10 @@ export default (state = initialState, action) => {
       ];
     }
 
+    case types.accounts.LOAD: {
+      return action.accounts;
+    }
+
     case types.accounts.REMOVE: {
       return state;
     }
