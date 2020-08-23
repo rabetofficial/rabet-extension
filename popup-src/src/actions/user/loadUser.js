@@ -1,8 +1,9 @@
 import store from 'Root/store';
 import types from 'Root/actions';
 
-export default () => new Promise((resolve, reject) => {
+export default () => new Promise((resolve) => {
   chrome.storage.local.get(['data'], function(result) {
+    console.log(result.data);
     if (result.data) {
       store.dispatch({
         registered: true,
