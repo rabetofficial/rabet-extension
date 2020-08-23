@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
+import loadUser from 'Root/actions/user/loadUser';
 import ProtectedRoute from 'Root/components/ProtectedRoute';
 
 import Home from './Home';
@@ -27,7 +28,24 @@ import LoadingOverlay from './LoadingOverlay';
 import SuccessfulSubmission from './SuccessfulSubmission';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true,
+    }
+  }
+
+  componendDidMount() {
+    loadUser().then(() => {
+      this.setState({
+        loading: false,
+      });
+    });
+  }
+
   render() {
+    console.log(this.state.loading);
     return (
       <Router>
         <div className="layout">

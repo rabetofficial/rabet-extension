@@ -1,4 +1,4 @@
-export const homePage = '/home';
+export const homePage = '/';
 export const loginPage = '/login';
 export const confirmLoginPage = '/confirm-login';
 export const firstPage = '/first';
@@ -16,6 +16,6 @@ export const addAssetPage = '/add-asset';
 export const settingPage = '/setting';
 export const contactPage = '/contact-request';
 export const fetchDataPage = '/fetch-data';
-export const assetsPage = '/';
+export const assetsPage = '/asset';
 export const loadingOnePage = '/loading-one';
 export const loadingOverlayPage = '/loading-overlay';

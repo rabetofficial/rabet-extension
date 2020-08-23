@@ -21,6 +21,13 @@ export default (state = initialState, action) => {
       }
     }
 
+    case types.user.IS_REGISTERED: {
+      return {
+        ...state,
+        registered: action.registered,
+      }
+    }
+
     default: {
       return state;
     }
