@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
+import registerUserAction from 'Root/actions/user/register';
 import Logo from 'Root/components/Logo';
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
@@ -24,6 +23,8 @@ class ConfirmLogin extends Component {
     if (Object.keys(errors).length > 0) {
       return errors;
     }
+
+    registerUserAction(values.password);
 
     this.props.history.push(route.firstPage);
   }
@@ -54,7 +55,7 @@ class ConfirmLogin extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, submitting, values}) => (
+              render={ ({submitError, handleSubmit, submitting}) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="password">
                     {({input, meta}) => (
