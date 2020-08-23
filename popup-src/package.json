@@ -35,6 +35,7 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
+    "aes256": "^1.0.4",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "create-react-class": "^15.6.3",
