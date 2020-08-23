@@ -24,9 +24,9 @@ class ConfirmLogin extends Component {
       return errors;
     }
 
-    registerUserAction(values.password);
-
-    this.props.history.push(route.firstPage);
+    registerUserAction(values.password).then(() => {
+      this.props.history.push(route.firstPage);
+    });
   }
 
   validateForm (values) {

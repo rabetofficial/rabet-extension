@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { withRouter } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 
@@ -9,6 +7,7 @@ import Logo from 'Root/components/Logo';
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
 import * as route from 'Root/staticRes/routes';
+import loginUserAction from 'Root/actions/user/login';
 import {buttonSizes, buttonTypes, inputSize, inputTypes} from 'Root/staticRes/enum';
 
 import styles from './styles.less';
@@ -16,9 +15,16 @@ import styles from './styles.less';
 class Login extends Component {
   async onSubmit (values) {
     console.log(values);
-    // this.props.history.push('/home');
 
-    return { password: 'unknown password' }
+    const isLogged = await loginUserAction(values.password);
+
+    console.log(isLogged);
+
+    if (!isLogged) {
+      return { password: 'unknown password' }
+    }
+
+    this.props.history.push(route.homePage);
   }
 
   validateForm (values) {
