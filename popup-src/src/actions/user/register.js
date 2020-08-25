@@ -12,6 +12,11 @@ export default async (password) => {
     store.dispatch({
       accounts,
       type: types.accounts.LOAD,
-    })
+    });
+
+    store.dispatch({
+      password,
+      type: types.user.LOGIN,
+    });
   });
 };

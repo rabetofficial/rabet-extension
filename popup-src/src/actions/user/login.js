@@ -19,6 +19,11 @@ export default (password) => new Promise((resolve) => {
     }
 
     store.dispatch({
+      password,
+      type: types.user.LOGIN,
+    });
+
+    store.dispatch({
       type: types.accounts.LOAD,
       accounts: jsonData,
     })
