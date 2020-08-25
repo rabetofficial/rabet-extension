@@ -25,7 +25,7 @@ class ConfirmLogin extends Component {
     }
 
     registerUserAction(values.password).then(() => {
-      this.props.history.push(route.firstPage);
+      this.props.history.push(route.accountManagerPage);
     });
   }
 

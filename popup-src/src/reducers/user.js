@@ -1,5 +1,16 @@
 import types from 'Root/actions';
 
+/*
+  User instance:
+
+  {
+    registered: Boolean,
+    logged: Boolean,
+    password: String,
+  }
+
+*/
+
 const initialState = {
   logged: false,
   registered: false,
@@ -11,6 +22,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         logged: true,
+        password: action.password,
       }
     }
 
@@ -18,6 +30,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         logged: false,
+        password: null,
       }
     }
 

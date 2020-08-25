@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 
 import * as route from 'Root/staticRes/routes';
 import logo from 'Root/assets/images/logo.svg';
+import logoutUserAction from 'Root/actions/user/logout';
 
 import styles from './styles.less';
 import PopupSelect from './PopupSelect';
@@ -28,7 +29,13 @@ const Header = props => {
                 <PopupSelect toggleOverlay={ toggleOverlay }/>
               </div>
               <div className="pure-u-3-24"><Link to={route.settingPage} className={ styles.icon }><span className="icon-setting" /></Link></div>
-              <div className="pure-u-2-24"><Link to="#" className={ styles.icon }><span className="icon-lock" /></Link></div>
+              <div
+                className="pure-u-2-24"
+              >
+                <Link to="#" className={ styles.icon } onClick={() => { logoutUserAction(); }}>
+                  <span className="icon-lock" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

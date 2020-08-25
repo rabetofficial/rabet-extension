@@ -24,7 +24,7 @@ class Login extends Component {
       return { password: 'unknown password' }
     }
 
-    this.props.history.push(route.homePage);
+    this.props.history.push(route.accountManagerPage);
   }
 
   validateForm (values) {

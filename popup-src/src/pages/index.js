@@ -25,6 +25,7 @@ import * as route from '../staticRes/routes';
 import ShowPrivateKey from './ShowPrivateKey';
 import ContactRequest from './ContactRequest';
 import LoadingOverlay from './LoadingOverlay';
+import AccountManager from './AccountManager';
 import SuccessfulSubmission from './SuccessfulSubmission';
 
 class App extends Component {
@@ -59,6 +60,7 @@ class App extends Component {
             <ProtectedRoute exact path={ route.addAssetPage } component={ AddAsset } />
             <ProtectedRoute exact path={ route.privateKeyPage } component={ PrivateKey } />
             <ProtectedRoute exact path={ route.ShowPrivateKeyPage } component={ ShowPrivateKey } />
+            <ProtectedRoute exact path={ route.accountManagerPage } component={ AccountManager } />
             <ProtectedRoute exact path={ route.successSubmitPage } component={ SuccessfulSubmission } />
 
             <Route exact path={ route.flagPage } component={ Flags } />

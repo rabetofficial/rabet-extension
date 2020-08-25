@@ -1,20 +1,15 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
-import Header from 'Root/components/Header';
-import PageTitle from 'Root/components/PageTitle';
-import Button from 'Root/components/Button';
+
 import Input from 'Root/components/Input';
-import styles from './styles.less';
+import Header from 'Root/components/Header';
+import Button from 'Root/components/Button';
+import PageTitle from 'Root/components/PageTitle';
+import createAccountAction from 'Root/actions/accounts/create';
 
 class CreateWallet extends Component {
-
-  onSubmit (values) {
-    // if (values.name !== 'erikras') {
-    //   return { name: 'Unknown username' };
-    // }
-    console.warn(values);
+  async onSubmit (values) {
+    const isDone = await createAccountAction(values.name);
   }
 
   validateForm (values) {
@@ -31,9 +26,9 @@ class CreateWallet extends Component {
           <PageTitle title="Create New Wallet"/>
           <div className="content" style={ {marginTop: '28px'} }>
             <Form
-              onSubmit={ this.onSubmit }
+              onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, submitting, pristine, values}) => (
+              render={ ({submitError, handleSubmit, form, submitting }) => (
                   <form className="form" onSubmit={ handleSubmit }>
                     <Field name="name">
                       {({input, meta}) => (
@@ -59,6 +54,7 @@ class CreateWallet extends Component {
                         style={ {marginRight: '12px'} }
                         onClick={() => {this.props.history.goBack()}}
                       />
+
                       <Button
                         type="submit"
                         variant="btn-primary"
