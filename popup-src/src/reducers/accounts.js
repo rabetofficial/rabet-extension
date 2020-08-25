@@ -1,5 +1,18 @@
 import types from 'Root/actions';
 
+/*
+  Accounts instance:
+
+  [{
+    address: String,
+    privateKey: String,
+    active: Boolean,
+    balance: Number,
+    type: String, [ 'only key pair', 'verified' ]
+  }]
+
+*/
+
 const initialState = [];
 
 export default (state = initialState, action) => {
