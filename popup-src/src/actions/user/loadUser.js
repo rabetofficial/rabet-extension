@@ -1,16 +1,19 @@
 import store from 'Root/store';
 import types from 'Root/actions';
 
-export default () => new Promise((resolve) => {
-  chrome.storage.local.get(['data'], function(result) {
-    console.log(result.data);
-    if (result.data) {
+import { get } from 'Root/helpers/storage';
+
+export default async () => {
+  try {
+    const data = await get('data');
+
+    if (data) {
       store.dispatch({
         registered: true,
         type: types.user.IS_REGISTERED,
       });
 
-      return resolve();
+      return true;
     }
 
     store.dispatch({
@@ -18,6 +21,8 @@ export default () => new Promise((resolve) => {
       type: types.user.IS_REGISTERED,
     });
 
-    return resolve();
-  });
-});
+    return true;
+  } catch (e) {
+    return false;
+  }
+};

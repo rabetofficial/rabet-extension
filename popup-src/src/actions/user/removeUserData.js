@@ -1,8 +1,8 @@
-import store from 'Root/store';
-import types from 'Root/actions';
+import { set } from 'Root/helpers/storage';
 
 export default () => new Promise((resolve) => {
-  chrome.storage.local.set({ data: null }, function() {
-    resolve()
-  });
+  set('data', null)
+    .then(() => {
+      resolve();
+    });
 });

@@ -1,22 +1,13 @@
 import store from 'Root/store';
 import types from 'Root/actions';
 
-import { decrypt } from 'Root/helpers/crypto';
+import { get } from 'Root/helpers/storage';
 
-export default (password) => new Promise((resolve) => {
-  chrome.storage.local.get(['data'], function(result) {
-    if (!result.data) {
-      return resolve(false);
-    }
+export default async (password) => {
+  try {
+    const data = await get('data', password);
 
-    const decrypredData = decrypt(password, result.data);
-    let jsonData;
-
-    try {
-      jsonData = JSON.parse(decrypredData);
-    } catch (e) {
-      return resolve(false);
-    }
+    console.log(data);
 
     store.dispatch({
       password,
@@ -25,9 +16,11 @@ export default (password) => new Promise((resolve) => {
 
     store.dispatch({
       type: types.accounts.LOAD,
-      accounts: jsonData,
+      accounts: data,
     })
 
-    return resolve(true);
-  });
-});
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
