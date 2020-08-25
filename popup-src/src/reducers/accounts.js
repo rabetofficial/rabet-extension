@@ -4,7 +4,7 @@ import types from 'Root/actions';
   Accounts instance:
 
   [{
-    address: String,
+    publicKey: String,
     privateKey: String,
     active: Boolean,
     balance: Number,
@@ -20,11 +20,7 @@ export default (state = initialState, action) => {
     case types.accounts.ADD: {
       return [
         ...state,
-        {
-          address: 'an',
-          privateKey: 'goh',
-          active: true,
-        },
+        action.account,
       ];
     }
 

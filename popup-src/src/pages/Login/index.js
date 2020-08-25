@@ -14,11 +14,7 @@ import styles from './styles.less';
 
 class Login extends Component {
   async onSubmit (values) {
-    console.log(values);
-
     const isLogged = await loginUserAction(values.password);
-
-    console.log(isLogged);
 
     if (!isLogged) {
       return { password: 'unknown password' }

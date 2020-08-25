@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 
@@ -9,7 +8,7 @@ import logoutUserAction from 'Root/actions/user/logout';
 import styles from './styles.less';
 import PopupSelect from './PopupSelect';
 
-const Header = props => {
+const Header = () => {
   const [overlay, toggleOverLay] = useState(false);
   const toggleOverlay= (open) => {toggleOverLay(open);};
   return (

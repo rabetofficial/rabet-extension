@@ -1,26 +1,38 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
-import Header from 'Root/components/Header';
-import PageTitle from 'Root/components/PageTitle';
-import Button from 'Root/components/Button';
+
 import Input from 'Root/components/Input';
-import styles from './styles.less';
+import Header from 'Root/components/Header';
+import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
+import PageTitle from 'Root/components/PageTitle';
+import restoreAccountAction from 'Root/actions/accounts/restore';
+import validatePrivateKey from 'Root/helpers/validate/privateKey';
 
 class RestoreWallet extends Component {
+  async onSubmit (values) {
+    if (!validatePrivateKey(values.key)) {
+      return { key: 'Invalid seed.' };
+    }
 
-  onSubmit (values) {
-    console.warn(values);
+    const account = await restoreAccountAction(values.key);
+
+    if (!account) {
+      return { key: 'Invalid seed.' };
+    }
+
+    this.props.history.push(route.homePage);
   }
 
   validateForm (values) {
     const errors = {};
     if (!values.key) {
-      errors.key = 'Required';
+      errors.key = 'Required.';
     }
+
     return errors;
   }
+
   render() {
     return (
         <>
@@ -28,9 +40,9 @@ class RestoreWallet extends Component {
           <PageTitle title="Import Wallet"/>
           <div className="content" style={ {marginTop: '28px'} }>
             <Form
-              onSubmit={ this.onSubmit }
+              onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, submitting, pristine, values}) => (
+              render={ ({submitError, handleSubmit, form, submitting }) => (
                 <form className="form" onSubmit={ handleSubmit }>
                   <Field name="key">
                     {({input, meta}) => (
