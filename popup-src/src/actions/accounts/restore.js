@@ -16,6 +16,7 @@ export default async (privateKey) => {
 
   const account = {
     privateKey,
+    name: 'My account',
     publicKey: source.publicKey(),
   };
 
@@ -24,7 +25,12 @@ export default async (privateKey) => {
     account,
   });
 
-  const stored = await storeAccount(account);
+  store.dispatch({
+    type: types.accounts.CHANGE_ACTIVE,
+    publicKey: account.publicKey,
+  });
+
+  await storeAccount();
 
   return account;
 };
