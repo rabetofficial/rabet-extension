@@ -14,11 +14,19 @@ export default async (privateKey) => {
     return null;
   }
 
+  const accounts = store.getState().accounts;
+
   const account = {
     privateKey,
     name: 'My account',
     publicKey: source.publicKey(),
   };
+
+  for (let i = 0; i < accounts.length; ++i) {
+    if (accounts[i].publicKey === account.publicKey) {
+      return 'duplicate';
+    }
+  }
 
   store.dispatch({
     type: types.accounts.ADD,
