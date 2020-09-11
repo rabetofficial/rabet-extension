@@ -1,5 +1,4 @@
 import store from 'Root/store';
-import types from 'Root/actions';
 import { set } from 'Root/helpers/storage';
 
 export default async () => {
