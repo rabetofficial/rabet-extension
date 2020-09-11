@@ -1,29 +1,38 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { withRouter } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
 import PageTitle from 'Root/components/PageTitle';
+import showPrivateKeyAction from 'Root/actions/accounts/showPrivateKey';
 
 import styles from './styles.less';
 
 class ShowPrivateKey extends Component {
-  onSubmit (values) {
-    console.warn(values);
+  async onSubmit (values) {
+    const isLogged = await showPrivateKeyAction(values.key);
+
+    if (!isLogged) {
+      return { key: 'Incorrect password.' };
+    }
+
+    return this.props.history.push(route.privateKeyPage);
   }
 
   validateForm (values) {
     const errors = {};
+
     if (!values.key) {
-      errors.key = 'Required';
+      errors.key = 'Required.';
     }
+
     return errors;
   }
+
   render() {
     return (
         <div className={ styles.div }>
@@ -31,9 +40,9 @@ class ShowPrivateKey extends Component {
           <PageTitle title="Show private key"/>
           <div className="content" style={ {marginTop: '28px'} }>
             <Form
-              onSubmit={ this.onSubmit }
+              onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, submitting, pristine, values}) => (
+              render={ ({submitError, handleSubmit, form, submitting}) => (
                     <form className="form" onSubmit={ handleSubmit }>
                       <Field name="key" >
                         {({input, meta}) => (
