@@ -1,19 +1,23 @@
-import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import { Form, Field } from 'react-final-form';
+import {Link, withRouter} from 'react-router-dom';
+
+import Tabs from 'Root/components/Tabs';
+import Input from 'Root/components/Input';
+import shorter from 'Root/helpers/shorter';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
-import {buttonSizes, buttonTypes, inputSize} from 'Root/staticRes/enum';
-import stellar from 'Root/assets/images/stellar.png';
+import * as route from 'Root/staticRes/routes';
 import DropMenu from 'Root/components/DropMenu';
-import Tabs from 'Root/components/Tabs';
+import CopyText from 'Root/components/CopyText';
+import stellar from 'Root/assets/images/stellar.png';
 import AssetList from 'Root/pageComponents/AssetList';
 import TransactionList from 'Root/pageComponents/TransactionList';
-import Input from 'Root/components/Input';
-import {privateKeyPage, flagPage} from 'Root/staticRes/routes';
-import CopyText from 'Root/components/CopyText';
+import { ShowPrivateKeyPage, flagPage } from 'Root/staticRes/routes';
+import {buttonSizes, buttonTypes, inputSize} from 'Root/staticRes/enum';
+
 import styles from './styles.less';
 
 const assetList = [
@@ -62,6 +66,24 @@ class Home extends Component {
   }
 
   render() {
+    const { accounts } = this.props;
+
+    let activeAccount;
+    let activeAccountIndex;
+
+    for (let i = 0; i < accounts.length; ++i) {
+      if (accounts[i].active) {
+        activeAccount = accounts[i];
+        activeAccountIndex = i;
+        break;
+      }
+    }
+
+    if (!activeAccount) {
+      activeAccountIndex = 0;
+      activeAccount = accounts[0];
+    }
+
     const tabs = [
       {id : '1',
         tabTitle: 'Assets',
@@ -82,7 +104,7 @@ class Home extends Component {
       {
         label: 'Show private key',
         icon: 'icon-key',
-        onClick: () => {this.props.history.push(privateKeyPage);}
+        onClick: () => {this.props.history.push(ShowPrivateKeyPage);}
       },
       {
         label: 'Show flags',
@@ -113,10 +135,10 @@ class Home extends Component {
                      <Form
                        onSubmit={ this.onSubmit }
                        validate={ (values) => this.validateForm(values) }
-                       render={ ({submitError, handleSubmit, submitting, values}) => (
+                       render={ ({ submitError, handleSubmit }) => (
                              <form className={ classNames(styles.form, 'form pure-g') } onSubmit={ handleSubmit }>
                                <div className={ styles.field }>
-                                 <Field name="name" initialValue="Amir Ansari">
+                                 <Field name="name" initialValue={activeAccount.name || `Account ${activeAccountIndex + 1}`}>
                                    {({input, meta}) => (
                                        <Input
                                          type="text"
@@ -139,10 +161,10 @@ class Home extends Component {
                              </form>
                          ) }
                      />
-                 ): <p className={ styles.info }>Amir Ansari</p>}
+                 ): <p className={ styles.info }>{activeAccount.name || `Account ${activeAccountIndex + 1}`}</p>}
                  <label className="label-secondary">Address:</label>
                  <p className={ styles.info }>
-                   <CopyText text="NTBokdonsWFji4fUJipWE5N"  button="NTBokdonsWo…Fji4fUJipWE5N" />
+                   <CopyText text={activeAccount.publicKey}  button={shorter(activeAccount.publicKey, 15)} />
                  </p>
                </div>
                <div className="pure-u-1-12">
@@ -151,8 +173,12 @@ class Home extends Component {
                  </DropMenu>
                </div>
                <div className={ styles.buttonBox }>
-                 <Button size={ buttonSizes.small } variant={ buttonTypes.primary } content="Operation" style={ {width: '112px'} } />
-                 <Button size={ buttonSizes.small } variant={ buttonTypes.outlined } content="Receive" style={ {width: '112px'} } />
+                 <Link to={route.SendPage}>
+                   <Button size={ buttonSizes.small } variant={ buttonTypes.primary } content="Operation" style={ {width: '112px'} } />
+                 </Link>
+                 <Link to={route.QRCodePage}>
+                   <Button size={ buttonSizes.small } variant={ buttonTypes.outlined } content="Receive" style={ {width: '112px'} } />
+                 </Link>
                </div>
              </div>
            </div>
@@ -165,4 +191,6 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home);
+export default withRouter(connect(state => ({
+  accounts: state.accounts,
+}))(Home));
