@@ -50,6 +50,16 @@ class Operation extends Component {
 
   onChange(e) {
     this.setState({selected: e});
+
+    const operations = this.props.state;
+
+    for (let i = 0; i < operations.length; i++) {
+      if (operations[i].id === this.props.id) {
+        operations[i].type = e.value;
+      }
+    }
+
+    this.props.setState({ operations });
   }
 
   generateOption() {
