@@ -108,7 +108,7 @@ class Setting extends Component {
               />
             </div>
           </div>
-          <p className={ styles.version }>Version 1.1.4</p>
+          <p className={ styles.version }>Version 0.0.1</p>
         </div>
     );
   }
