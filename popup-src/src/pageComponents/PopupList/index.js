@@ -1,22 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+import abbr from 'Root/helpers/abbr';
+
 import styles from './styles.less';
 
 const PopupList = ({info}) => {
   return (
-      <div className="popup-item" >
-        <div className="popup-avatar" >AA</div>
+      <div className="popup-item">
+        <div className="popup-avatar">{abbr(info.name)}</div>
         <div className="popup-div" >
           <div className="popup-name" >{info.name}</div>
-          <div className="popup-address" >{info.address}</div>
+          <div className="popup-address" >{info.publicKey}</div>
         </div>
-        <div className="popup-amount" >{info.amount}</div>
+        <div className="popup-amount" >{info.balance}</div>
       </div>
   );
 };
 
 PopupList.propTypes = {
-  
+
 };
 
 export default PopupList;
