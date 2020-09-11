@@ -1,14 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import QR from 'qrcode.react';
+import classNames from 'classnames';
+import { connect } from 'react-redux';
+
+import Card from 'Root/components/Card';
 import Header from 'Root/components/Header';
 import PageTitle from 'Root/components/PageTitle';
-import Card from 'Root/components/Card';
+
 import styles from './styles.less';
 import CopyText from '../../components/CopyText';
 
 const QRCode = props => {
+  const { accounts } = props;
+
+  let activeAccount;
+
+  for (let i = 0; i < accounts.length; ++i) {
+    if (accounts[i].active) {
+      activeAccount = accounts[i];
+      break;
+    }
+  }
+
+  if (!activeAccount) {
+    activeAccount = accounts[0];
+  }
+
   return (
       <>
         <Header/>
@@ -17,17 +34,18 @@ const QRCode = props => {
           <Card type="card-primary">
             <div className="pure-g">
               <div>
-                <QR value="NTBoWouUgEwfaZ3ExNrFsWEpFUJouUgEwfaZ3ExNrFsWEpFUJW5" size={ 123 }/>
+                <QR value={activeAccount.publicKey} size={ 123 }/>
               </div>
               <div className={ styles.msgContainer }>
                 <h2 className={ styles.msg }>SCAN ME</h2>
               </div>
             </div>
           </Card>
+
           <Card type="card-primary">
             <p className={styles.code}>
-              NTBoWouUgEwfaZ3ExNrFsWEpFUJouUgEwfaZ3ExNrFsWEpFUJW5{' '}
-              <CopyText text="NTBoWouUgEwfaZ3ExNrFsWEpFUJouUgEwfaZ3ExNrFsWEpFUJW5" />
+              {activeAccount.publicKey}{' '}
+              <CopyText text={activeAccount.publicKey} />
             </p>
           </Card>
         </div>
@@ -39,4 +57,6 @@ QRCode.propTypes = {
 
 };
 
-export default QRCode;
+export default connect(state => ({
+  accounts: state.accounts,
+}))(QRCode);
