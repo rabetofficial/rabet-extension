@@ -1,26 +1,43 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import createClass from 'create-react-class';
 import Select, { components } from 'react-select';
 
+import shorter from 'Root/helpers/shorter';
 import * as route from 'Root/staticRes/routes';
 import PopupList from 'Root/pageComponents/PopupList';
+import changeActiveAction from 'Root/actions/accounts/changeActive';
 
 import styles from './styles.less';
-
-export const items = [
-  { value: 'Amir Ansari 2', label: {name: 'Amir Ansari 2', address: 'NTBoWouU…UJWE5ftD', amount: '10 XLM'} },
-  { value: 'Mojtaba Mousavi', label: {name: 'Mojtaba Mousavi', address: 'NTBoWouU…UJWE5ftD', amount: '10 XLM'}},
-  { value: 'Shayan nm' ,label: {name: 'Shayan nm', address: 'NTBoWouU…UJWE5ftD', amount: '10 XLM'}},
-  { value: 'Reza Ahmadi' , label: {name: 'Reza Ahmadi', address: 'NTBoWouU…UJWE5ftD', amount: '10 XLM'}},
-];
-
-const options = items.map((item, index) =>(
-    {value: item.value, label: <PopupList info={ item.label }/> }
-) );
+//
+// export const items = [
+//   { value: 'Matin', label: {name: 'Amir Ansari 2', address: 'NTBoWouU…UJWE5ftD', amount: '10 XLM'} },
+//   { value: 'Mojtaba Mousavi', label: {name: 'Mojtaba Mousavi', address: 'NTBoWouU…UJWE5ftD', amount: '10 XLM'}},
+//   { value: 'Shayan nm' ,label: {name: 'Shayan nm', address: 'NTBoWouU…UJWE5ftD', amount: '10 XLM'}},
+//   { value: 'Reza Ahmadi' , label: {name: 'Reza Ahmadi', address: 'NTBoWouU…UJWE5ftD', amount: '10 XLM'}},
+// ];
+//
 
 const Popup = props => {
+  const items = props.accounts.map((item, index) => ({
+    active: item.active,
+    amount: item.balance || 0,
+    realPublicKey: item.publicKey,
+    publicKey: shorter(item.publicKey, 10),
+    name: item.name || `Account ${index + 1}`,
+  }));
+
+  let activeAccountIndex = items.findIndex(x => x.active);
+
+  if (activeAccountIndex === -1) {
+    activeAccountIndex = 0;
+  }
+
+  const options = items.map((item) =>(
+    {name: item.name, publicKey: item.realPublicKey, label: <PopupList info={ item }/> }
+  ) );
+
   const Option = createClass({
     render() {
       return (
@@ -40,7 +57,7 @@ const Popup = props => {
   });
 
   const onChange = (e) => {
-    console.log(e);
+    changeActiveAction(e.publicKey);
   };
 
   return (
@@ -48,9 +65,9 @@ const Popup = props => {
         <Select
           classNamePrefix="popup"
           separator={ false }
-          closeMenuOnSelect={ false }
+          closeMenuOnSelect={ true }
           components={ { Option } }
-          defaultValue={ options[0] }
+          defaultValue={ options[activeAccountIndex] }
           options={ options }
           hideSelectedOptions={ false }
           isSearchable={ false }
@@ -76,4 +93,6 @@ Popup.propTypes = {
 
 };
 
-export default Popup;
+export default connect(state => ({
+  accounts: state.accounts,
+}))(Popup);
