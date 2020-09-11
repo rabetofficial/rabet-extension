@@ -1,3 +1,4 @@
+import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
@@ -6,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
 import PageTitle from 'Root/components/PageTitle';
+import sendAction from 'Root/actions/accounts/send';
 import Operation from 'Root/pageComponents/Operation';
 
 import styles from './styles.less';
@@ -15,22 +17,32 @@ const btnContent = <><span className="icon-plus-math"/>{''}Add Operation</>;
 class Send extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       operations: [],
     };
+
+    this.onSend = this.onSend.bind(this);
     this.addOperation = this.addOperation.bind(this);
     this.deleteOperation = this.deleteOperation.bind(this);
   }
 
   componentDidMount() {
-    this.setState({operations: [{id: 'first'}]});
+    const id = shortid.generate();
+
+    this.setState({
+      operations: [{ type: 'payment', id }]
+    });
   }
 
   addOperation() {
-    const randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-    const randomId = randLetter + Date.now();
-    const newItem = {id: randomId};
-    this.setState({operations: [...this.state.operations, newItem]});
+    const id = shortid.generate();
+
+    const newItem = { type: 'payment', id };
+
+    this.setState({
+      operations: [...this.state.operations, newItem]
+    });
   }
 
   deleteOperation(id) {
@@ -39,6 +51,10 @@ class Send extends Component {
     });
 
     this.setState({operations: items});
+  }
+
+  onSend() {
+    sendAction(this.state.operations);
   }
 
   render() {
@@ -59,7 +75,10 @@ class Send extends Component {
             <div className="content">
               {this.state.operations.map((item) => (
                   <div key={ item.id }>
-                    <Operation deleteOperations={ this.deleteOperation }
+                    <Operation
+                      state={this.state.operations}
+                      setState={this.setState.bind(this)}
+                      deleteOperations={ this.deleteOperation }
                       id={ item.id }
                     />
                   </div>
@@ -72,6 +91,7 @@ class Send extends Component {
                   onClick={() => {this.props.history.goBack()}}
                 />
                 <Button
+                  onClick={this.onSend}
                   variant="btn-primary"
                   size="btn-medium"
                   content="Send"
