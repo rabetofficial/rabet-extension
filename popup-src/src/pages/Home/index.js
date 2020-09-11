@@ -14,6 +14,7 @@ import DropMenu from 'Root/components/DropMenu';
 import CopyText from 'Root/components/CopyText';
 import stellar from 'Root/assets/images/stellar.png';
 import AssetList from 'Root/pageComponents/AssetList';
+import changeNameAction from 'Root/actions/accounts/changeName';
 import TransactionList from 'Root/pageComponents/TransactionList';
 import { ShowPrivateKeyPage, flagPage } from 'Root/staticRes/routes';
 import {buttonSizes, buttonTypes, inputSize} from 'Root/staticRes/enum';
@@ -53,15 +54,18 @@ class Home extends Component {
     }));
   }
 
-  onSubmit (values) {
+  async onSubmit (values) {
+    const result = await changeNameAction(values.name)
     console.warn(values);
   }
 
   validateForm (values) {
     const errors = {};
+
     if (!values.name) {
-      errors.name = 'Required';
+      errors.name = 'Required.';
     }
+
     return errors;
   }
 
@@ -133,7 +137,7 @@ class Home extends Component {
                  <label className="label-secondary">Name</label>
                  {this.state.editName ? (
                      <Form
-                       onSubmit={ this.onSubmit }
+                       onSubmit={ (values) => this.onSubmit(values) }
                        validate={ (values) => this.validateForm(values) }
                        render={ ({ submitError, handleSubmit }) => (
                              <form className={ classNames(styles.form, 'form pure-g') } onSubmit={ handleSubmit }>

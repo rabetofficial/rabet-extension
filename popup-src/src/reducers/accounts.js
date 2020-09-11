@@ -33,6 +33,19 @@ export default (state = initialState, action) => {
       return state;
     }
 
+    case types.accounts.CHANGE_NAME: {
+      const accounts = [...state];
+
+      for (let i = 0; i < accounts.length; ++i) {
+        if (accounts[i].publicKey === action.publicKey) {
+          accounts[i].name = action.name;
+          accounts[i].active = true;
+        }
+      }
+
+      return accounts;
+    }
+
     case types.accounts.CHANGE_ACTIVE: {
       const accounts = [...state];
 

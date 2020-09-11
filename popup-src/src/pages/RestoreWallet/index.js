@@ -17,6 +17,10 @@ class RestoreWallet extends Component {
 
     const account = await restoreAccountAction(values.key);
 
+    if (account === 'duplicate') {
+      return { key: 'This account is already signed.' };
+    }
+
     if (!account) {
       return { key: 'Invalid seed.' };
     }

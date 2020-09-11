@@ -8,6 +8,7 @@ export default {
     ADD: 'accounts/ADD',
     LOAD: 'accounts/LOAD',
     REMOVE: 'accounts/REMOVE',
+    CHANGE_NAME: 'accounts/CHANGE_NAME',
     CHANGE_ACTIVE: 'accounts/CHANGE_ACTIVE',
   },
 }
