@@ -4,12 +4,21 @@ import { Form, Field } from 'react-final-form';
 import Input from 'Root/components/Input';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
 import PageTitle from 'Root/components/PageTitle';
 import createAccountAction from 'Root/actions/accounts/create';
 
 class CreateWallet extends Component {
   async onSubmit (values) {
     const isDone = await createAccountAction(values.name);
+
+    if (!isDone) {
+      return {
+        name: 'Error.',
+      };
+    }
+
+    this.props.history.push(route.homePage);
   }
 
   validateForm (values) {
