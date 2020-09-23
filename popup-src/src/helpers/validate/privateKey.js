@@ -1,15 +1,9 @@
-export default (privateKey) => {
-  if (!privateKey) {
+import StellarSdk from 'stellar-sdk';
+
+export default (address) => {
+  if (!address) {
     return false;
   }
 
-  if (privateKey.length !== 56) {
-    return false;
-  }
-
-  if (privateKey.charAt(0) !== 'S') {
-    return false;
-  }
-
-  return true;
+  return StellarSdk.StrKey.isValidEd25519SecretSeed(address);
 }

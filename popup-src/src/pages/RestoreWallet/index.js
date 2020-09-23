@@ -18,7 +18,7 @@ class RestoreWallet extends Component {
     const account = await restoreAccountAction(values.key);
 
     if (account === 'duplicate') {
-      return { key: 'This account is already signed.' };
+      return { key: 'The account you\'re trying to import is a duplicate.' };
     }
 
     if (!account) {

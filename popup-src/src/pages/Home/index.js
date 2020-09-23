@@ -9,9 +9,11 @@ import Input from 'Root/components/Input';
 import shorter from 'Root/helpers/shorter';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
+import Loading from 'Root/components/Loading';
 import * as route from 'Root/staticRes/routes';
 import DropMenu from 'Root/components/DropMenu';
 import CopyText from 'Root/components/CopyText';
+import getData from 'Root/actions/accounts/getData';
 import stellar from 'Root/assets/images/stellar.png';
 import AssetList from 'Root/pageComponents/AssetList';
 import changeNameAction from 'Root/actions/accounts/changeName';
@@ -44,8 +46,36 @@ class Home extends Component {
     super(props);
     this.state = {
       editName: false,
+      loading: true,
     };
+
     this.toggleEdit = this.toggleEdit.bind(this);
+  }
+
+  componentDidMount() {
+    const { accounts } = this.props;
+
+    let activeAccount;
+    let activeAccountIndex;
+
+    for (let i = 0; i < accounts.length; ++i) {
+      if (accounts[i].active) {
+        activeAccount = accounts[i];
+        activeAccountIndex = i;
+        break;
+      }
+    }
+
+    if (!activeAccount) {
+      activeAccountIndex = 0;
+      activeAccount = accounts[0];
+    }
+
+    getData(activeAccount.publicKey).then(() => {
+      this.setState({
+        loading: false,
+      });
+    });
   }
 
   toggleEdit() {
@@ -55,8 +85,7 @@ class Home extends Component {
   }
 
   async onSubmit (values) {
-    const result = await changeNameAction(values.name)
-    console.warn(values);
+    await changeNameAction(values.name);
   }
 
   validateForm (values) {
@@ -116,6 +145,11 @@ class Home extends Component {
         onClick: () => {this.props.history.push(flagPage);}
       },
     ];
+
+    if (this.state.loading) {
+      return <Loading />;
+    }
+
     return (
          <>
            <Header />
@@ -168,7 +202,7 @@ class Home extends Component {
                  ): <p className={ styles.info }>{activeAccount.name || `Account ${activeAccountIndex + 1}`}</p>}
                  <label className="label-secondary">Address:</label>
                  <p className={ styles.info }>
-                   <CopyText text={activeAccount.publicKey}  button={shorter(activeAccount.publicKey, 15)} />
+                   <CopyText text={activeAccount.publicKey}  button={shorter(activeAccount.publicKey, 8)} />
                  </p>
                </div>
                <div className="pure-u-1-12">

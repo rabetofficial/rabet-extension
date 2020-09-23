@@ -17,7 +17,7 @@ class Login extends Component {
     const isLogged = await loginUserAction(values.password);
 
     if (!isLogged) {
-      return { password: 'unknown password' }
+      return { password: 'Incorrect password.' }
     }
 
     this.props.history.push(route.accountManagerPage);
@@ -27,7 +27,7 @@ class Login extends Component {
     const errors = {};
 
     if (!values.password) {
-      errors.password = 'Required';
+      errors.password = 'Required.';
     }
 
     return errors;

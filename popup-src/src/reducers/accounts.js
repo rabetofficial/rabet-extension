@@ -9,7 +9,9 @@ import types from 'Root/actions';
     privateKey: String,
     active: Boolean,
     balance: Number,
-    type: String, [ 'only key pair', 'verified' ]
+    flags: Object,
+    thresholds: Object,
+    balances: Array,
   }]
 
 */
