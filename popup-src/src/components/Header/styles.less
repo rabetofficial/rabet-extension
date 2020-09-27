@@ -49,17 +49,16 @@
   }
 
   .net__menu {
-    //width: 328px;
-    //right: 0;
+    width: 160px;
     z-index: 1000;
     border-radius: 0;
     box-shadow: 0 2px 10px rgba(134, 146, 164, 0.08);
+    left: 50%;
+    transform: translate(-50%);
   }
 
   .net__menu-list {
     max-height: initial;
-    padding-top: 3px;
-    padding-bottom: 0;
   }
 
   .net__menu-list {
@@ -69,9 +68,10 @@
   }
 
   .net__option {
-    //padding: 0 0 0 17px;
+    padding: 10px 12px;
     font-family: 'Roboto', sans-serif;
     cursor: pointer;
+    font-size: 15px;
   }
 
   .net__option--is-selected,
@@ -92,12 +92,38 @@
 
   .net__indicator {
     padding-left: 0;
-    padding-right: 5px;
+    padding-right: 10px;
   }
 
   .net__value-container {
     height: 40px;
     padding: 2px 5px;
     font-size: 16px;
+  }
+
+  .net__single-value {
+    margin-left: 6px;
+    display: flex;
+    align-items: center;
+  }
+
+  .net__single-value:before {
+    content: "•";
+    font-weight: bold;
+    width: 8px;
+    font-size: 28px;
+    margin-right: 6px;
+  }
+}
+
+:local(.main) {
+  .net__single-value:before {
+    color: @Apple;
+  }
+}
+
+:local(.test) {
+  .net__single-value:before {
+    color: @Tangerine;
   }
 }
