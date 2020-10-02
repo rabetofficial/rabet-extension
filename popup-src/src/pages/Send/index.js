@@ -50,10 +50,11 @@ class Send extends Component {
       return operation.id !== id;
     });
 
-    this.setState({operations: items});
+    this.setState({ operations: items });
   }
 
   onSend() {
+    console.log(this.state.operations);
     sendAction(this.state.operations);
   }
 
