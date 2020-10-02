@@ -5,8 +5,6 @@ import currentActiveAccount from 'Root/helpers/activeAccount';
 export default (name) => {
   const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
-  console.log(name, activeAccount.publicKey);
-
   store.dispatch({
     name,
     type: types.accounts.CHANGE_NAME,

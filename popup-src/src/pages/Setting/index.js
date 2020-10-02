@@ -78,12 +78,6 @@ class Setting extends Component {
   }
 
   handleSubmit() {
-    console.log({
-      privacyMode: this.state.checked,
-      network: this.state.selectedNetwork,
-      autoTimeLocker: this.state.selectedTimer,
-    });
-
     changeOptionsAction({
       privacyMode: this.state.checked,
       network: this.state.selectedNetwork,

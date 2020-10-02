@@ -2,6 +2,7 @@ export default {
   options: {
     LOAD: 'options/LOAD',
     CHANGE: 'options/CHANGE',
+    CHANGE_NETWORK: 'options/CHANGE_NETWORK',
   },
   user: {
     LOGIN: 'user/LOGIN',

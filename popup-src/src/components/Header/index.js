@@ -1,25 +1,39 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
 import Select from 'react-select';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import * as route from 'Root/staticRes/routes';
 import logo from 'Root/assets/images/logo.svg';
 import logoutUserAction from 'Root/actions/user/logout';
-import PopupSelect from './PopupSelect';
+import changeNetworkAction from 'Root/actions/options/changeNetwork';
 
 import styles from './styles.less';
+import PopupSelect from './PopupSelect';
 
 export const items = [
-  { value: 'main', label: 'Main Network' },
-  { value: 'test', label: 'Test Network' },
+  { value: 'MAINNET', label: 'Main Network' },
+  { value: 'TESTNET', label: 'Test Network' },
 ];
 
-const Header = () => {
+const Header = (props) => {
+  const { options } = props;
+
+  let index = 0;
+
+  if (options.network === 'MAINNET') {
+    index = 0;
+  } else if (options.network === 'TESTNET') {
+    index = 1;
+  }
+
   const [overlay, toggleOverLay] = useState(false);
-  const [selected, setSelected] = useState(items[0]);
+  const [selected, setSelected] = useState(items[index]);
 
   const onChangeNetwork = (e) => {
+    changeNetworkAction(e);
+
     setSelected(e);
   };
   const toggleOverlay= (open) => {toggleOverLay(open);};
@@ -42,7 +56,7 @@ const Header = () => {
                      classNamePrefix="net"
                      separator={ false }
                      closeMenuOnSelect={ true }
-                     defaultValue={ items[0] }
+                     defaultValue={ items[index] }
                      options={ items }
                      hideSelectedOptions={ false }
                      isSearchable={ false }
@@ -75,4 +89,6 @@ Header.propTypes = {
 
 };
 
-export default Header;
+export default connect(state => ({
+  options: state.options,
+}))(Header);

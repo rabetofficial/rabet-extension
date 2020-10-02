@@ -33,6 +33,13 @@ export default (state = initialState, action) => {
       return action.options;
     }
 
+    case types.options.CHANGE_NETWORK: {
+      return {
+        ...state,
+        network: action.network,
+      }
+    }
+
     default: {
       return state;
     }
