@@ -51,7 +51,7 @@ class App extends Component {
         <div className="layout">
           <Switch>
             <ProtectedRoute exact path={ route.homePage } component={ Home } />
-            <ProtectedRoute exact path={ route.SendPage } component={ Send } />
+            <Route exact path={ route.SendPage } component={ Send } />
             <ProtectedRoute exact path={ route.errorPage } component={ Error } />
             <ProtectedRoute exact path={ route.QRCodePage } component={ QRCode } />
             <ProtectedRoute exact path={ route.ConfirmPage } component={ Confirm } />

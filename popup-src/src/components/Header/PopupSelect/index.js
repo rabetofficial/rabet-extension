@@ -65,6 +65,7 @@ const Popup = props => {
           hideSelectedOptions={ false }
           isSearchable={ false }
           backspaceRemovesValue={ false }
+          placeholder="A"
           onChange={ (e) => onChange(e) }
           onMenuOpen={ () =>  {props.toggleOverlay(true);} }
           onMenuClose={ () =>  {props.toggleOverlay(false);} }

@@ -20,18 +20,15 @@ const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, 
    const generateBtn = () => {
      
      if(variant === inputTypes.passVisible) {
-       if(isError) {
-         return errorBtn;
-       }
-       return (
-           <button
-             type="button"
-             className={ styles.icon }
-             onClick={ toggleVisible }
-           >
-             <span className="icon-visible-eye"/>
-           </button>
-       );
+           return (
+               <button
+                   type="button"
+                   className={ styles.icon }
+                   onClick={ toggleVisible }
+               >
+                 <span className="icon-visible-eye"/>
+               </button>
+           )
      }
 
      if(isError) {
