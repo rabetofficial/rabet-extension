@@ -2,44 +2,29 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, {Component} from 'react';
 import { Form, Field } from 'react-final-form';
-import {Link, withRouter} from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 
 import Tabs from 'Root/components/Tabs';
 import Input from 'Root/components/Input';
 import shorter from 'Root/helpers/shorter';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
-import Loading from 'Root/components/Loading';
+import LoadingOne from 'Root/pages/LoadingOne';
 import * as route from 'Root/staticRes/routes';
 import DropMenu from 'Root/components/DropMenu';
 import CopyText from 'Root/components/CopyText';
 import getData from 'Root/actions/accounts/getData';
 import stellar from 'Root/assets/images/stellar.png';
 import AssetList from 'Root/pageComponents/AssetList';
+import formatCurrency from 'Root/helpers/formatCurrency';
+import intervalAction from 'Root/actions/accounts/interval';
+import currentActiveAccount from 'Root/helpers/activeAccount';
 import changeNameAction from 'Root/actions/accounts/changeName';
 import TransactionList from 'Root/pageComponents/TransactionList';
 import { ShowPrivateKeyPage, flagPage } from 'Root/staticRes/routes';
 import {buttonSizes, buttonTypes, inputSize} from 'Root/staticRes/enum';
 
 import styles from './styles.less';
-
-const assetList = [
-  {logo: stellar, value: '2553', currency: 'GAS'},
-  {logo: stellar, value: '2553', currency: 'GAS'},
-  {logo: stellar, value: '2553', currency: 'GAS'},
-  {logo: stellar, value: '2553', currency: 'GAS'},
-  {logo: stellar, value: '2553', currency: 'GAS'},
-  {logo: stellar, value: '2553', currency: 'GAS'},
-];
-
-const transactionList = [
-  {address: 'f050fi5c…hjsDA89a', time: '22 sec ago', ops: '12'},
-  {address: 'f050fi5c…hjsDA89a', time: '22 sec ago', ops: '12'},
-  {address: 'f050fi5c…hjsDA89a', time: '22 sec ago', ops: '12'},
-  {address: 'f050fi5c…hjsDA89a', time: '22 sec ago', ops: '12'},
-  {address: 'f050fi5c…hjsDA89a', time: '22 sec ago', ops: '12'},
-  {address: 'f050fi5c…hjsDA89a', time: '22 sec ago', ops: '12'},
-];
 
 class Home extends Component {
   constructor(props) {
@@ -53,29 +38,15 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { accounts } = this.props;
-
-    let activeAccount;
-    let activeAccountIndex;
-
-    for (let i = 0; i < accounts.length; ++i) {
-      if (accounts[i].active) {
-        activeAccount = accounts[i];
-        activeAccountIndex = i;
-        break;
-      }
-    }
-
-    if (!activeAccount) {
-      activeAccountIndex = 0;
-      activeAccount = accounts[0];
-    }
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
     getData(activeAccount.publicKey).then(() => {
       this.setState({
         loading: false,
       });
     });
+
+    intervalAction(activeAccount.publicKey);
   }
 
   toggleEdit() {
@@ -99,32 +70,16 @@ class Home extends Component {
   }
 
   render() {
-    const { accounts } = this.props;
-
-    let activeAccount;
-    let activeAccountIndex;
-
-    for (let i = 0; i < accounts.length; ++i) {
-      if (accounts[i].active) {
-        activeAccount = accounts[i];
-        activeAccountIndex = i;
-        break;
-      }
-    }
-
-    if (!activeAccount) {
-      activeAccountIndex = 0;
-      activeAccount = accounts[0];
-    }
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
     const tabs = [
       {id : '1',
         tabTitle: 'Assets',
-        tabContent: <AssetList items={ assetList } maxHeight={ this.state.editName ? 212: 222 }/>
+        tabContent: <AssetList items={ activeAccount.balances } maxHeight={ this.state.editName ? 212: 222 }/>
       },
       {id : '2',
         tabTitle: 'Transaction',
-        tabContent: <TransactionList items={ transactionList } maxHeight={ this.state.editName ? 220: 230 }/>
+        tabContent: <TransactionList items={ activeAccount.transactions || [] } maxHeight={ this.state.editName ? 220: 230 }/>
       },
     ];
 
@@ -147,7 +102,7 @@ class Home extends Component {
     ];
 
     if (this.state.loading) {
-      return <Loading />;
+      return <LoadingOne />
     }
 
     return (
@@ -157,11 +112,11 @@ class Home extends Component {
              <div className="pure-g">
                <div className="pure-u-1-2">
                  <h6 className={ styles.subject }><img className={ styles.xlm } src={ stellar } alt="xlm"/>XLM</h6>
-                 <p className={ styles.value }>1254</p>
+                 <p className={ styles.value }>{formatCurrency(activeAccount.balance)}</p>
                </div>
                <div className="pure-u-1-2">
                  <h6 className={ styles.subject }>Total (USD)</h6>
-                 <p className={ styles.value }><span>$</span> 6374.87</p>
+                 <p className={ styles.value }><span>$</span>{formatCurrency(activeAccount.usd)}</p>
                </div>
              </div>
            </div>
