@@ -1,25 +1,38 @@
-import React, {Component} from 'react';
-import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { FORM_ERROR } from 'final-form';
 import { withRouter } from 'react-router-dom';
+import { Form, Field } from 'react-final-form';
 
+import Input from 'Root/components/Input';
 import Header from 'Root/components/Header';
 import PageTitle from 'Root/components/PageTitle';
-import Input from 'Root/components/Input';
+import validateAddress from 'Root/helpers/validate/address';
+import addAssetAction from 'Root/actions/operations/addAsset';
+
 import styles from './styles.less';
 import Button from '../../components/Button';
 
 class AddAsset extends Component {
   onSubmit (values) {
-    console.warn(values);
+    addAssetAction(values, this.props.history.push);
   }
 
   validateForm (values) {
     const errors = {};
+
     if (!values.code) {
-      errors.code = 'Required';
+      errors.code = 'Required.';
     }
+
+    if (!values.issuer) {
+      errors.issuer = 'Required.'
+    }
+
+    if (values.issuer && !validateAddress(values.issuer)) {
+      errors.issuer = 'Incorrect issuer.';
+    }
+
     return errors;
   }
 
@@ -27,10 +40,12 @@ class AddAsset extends Component {
     return (
         <div className={ styles.div }>
           <Header/>
+
           <PageTitle title="Add assets" />
+
           <div className="content">
             <Form
-              onSubmit={ this.onSubmit }
+              onSubmit={(values) => { this.onSubmit(values) }}
               validate={ (values) => this.validateForm(values) }
               render={ ({submitError, handleSubmit, submitting, values , form, pristine}) => (
                     <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
@@ -48,6 +63,7 @@ class AddAsset extends Component {
                             </div>
                         )}
                       </Field>
+
                       <Field name="issuer">
                         {({input, meta}) => (
                             <div className="group">
@@ -62,6 +78,7 @@ class AddAsset extends Component {
                             </div>
                         )}
                       </Field>
+
                       <Field name="limit">
                         {({input, meta}) => (
                             <div className="group">
@@ -78,7 +95,9 @@ class AddAsset extends Component {
                             </div>
                         )}
                       </Field>
+
                       {submitError && <div className="error">{submitError}</div>}
+
                       <div className={ classNames('pure-g justify-end', styles.buttons) }>
                         <Button
                           variant="btn-default"
@@ -86,6 +105,7 @@ class AddAsset extends Component {
                           content="Cancel"
                           onClick={() => {this.props.history.goBack()}}
                         />
+
                         <Button
                           type="submit"
                           variant="btn-primary"
