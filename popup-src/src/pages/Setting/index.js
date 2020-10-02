@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -6,16 +7,21 @@ import Header from 'Root/components/Header';
 import Tooltip from 'Root/components/Tooltip';
 import PageTitle from 'Root/components/PageTitle';
 import ToggleSwitch from 'Root/components/ToggleSwitch';
+import changeOptionsAction from 'Root/actions/options/change';
 
 import styles from './styles.less';
 import Button from '../../components/Button';
 import SelectOption from '../../components/SelectOption';
 
-const items = [
-  {value: 'xlm', label: 'XLM'},
-  {value: 'aa', label: 'AA'},
-  {value: 'bb', label: 'BB'},
-  {value: 'cc', label: 'CC'},
+const networkOptions = [
+  { value: 'mainnet', label: 'MAINNET' },
+  { value: 'testnet', label: 'TESTNET' },
+];
+
+const timerOptions = [
+  { value: 15, label: '15 minutes' },
+  { value: 30, label: '30 minutes' },
+  { value: 60, label: '1 hour' },
 ];
 
 class Setting extends Component {
@@ -26,20 +32,72 @@ class Setting extends Component {
       selectedNetwork: {},
       selectedTimer: {},
     };
-    this.handleChecked = this.handleChecked.bind(this);
-    this.onChangeNetwork = this.onChangeNetwork.bind(this);
-    this.onChangeTimer = this.onChangeTimer.bind(this);
-  }
-  handleChecked(checked) { this.setState({checked}); }
-  onChangeNetwork(e) {this.setState({selectedNetwork: e});}
-  onChangeTimer(e) {this.setState({selectedTimer: e});}
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChecked = this.handleChecked.bind(this);
+    this.onChangeTimer = this.onChangeTimer.bind(this);
+    this.onChangeNetwork = this.onChangeNetwork.bind(this);
+  }
+
+  componentDidMount() {
+    const { options } = this.props;
+
+    this.setState({
+      selectedNetwork: { value: options.network.toLowerCase(), label: options.network.toUpperCase() },
+    });
+
+    let timerLabel;
+
+    if (options.autoTimeLocker === 15) {
+      timerLabel = '15 minutes';
+    } else if (options.autoTimeLocker === 30) {
+      timerLabel = '30 minutes';
+    } else if (options.autoTimeLocker === 60) {
+      timerLabel = '1 hour';
+    }
+
+    this.setState({
+      selectedTimer: { value: options.autoTimeLocker, label: timerLabel },
+    });
+
+    this.setState({
+      checked: options.privacyMode,
+    });
+  }
+
+  handleChecked(checked) {
+    this.setState({ checked });
+  }
+
+  onChangeNetwork(e) {
+    this.setState({ selectedNetwork: e });
+  }
+
+  onChangeTimer(e) {
+    this.setState({ selectedTimer: e });
+  }
+
+  handleSubmit() {
+    console.log({
+      privacyMode: this.state.checked,
+      network: this.state.selectedNetwork,
+      autoTimeLocker: this.state.selectedTimer,
+    });
+
+    changeOptionsAction({
+      privacyMode: this.state.checked,
+      network: this.state.selectedNetwork,
+      autoTimeLocker: this.state.selectedTimer,
+    }, this.props.history.push);
+  }
 
   render() {
     return (
         <div className={ styles.page }>
           <Header/>
+
           <PageTitle title="Setting" />
+
           <div className="content">
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-3">
@@ -49,17 +107,20 @@ class Setting extends Component {
                   </Tooltip>
                 </h3>
               </div>
+
               <div className="pure-u-1-3">
                 <div className={ styles.select }>
                   <SelectOption
-                    items={ items }
+                    items={networkOptions}
                     onChange={ this.onChangeNetwork }
                     variant="select-outlined"
                     isSearchable={ false }
+                    defaultValue={this.state.selectedNetwork}
                   />
                 </div>
               </div>
             </div>
+
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-3">
                 <h3 className={ styles.title }>Auto-lock timer
@@ -68,17 +129,20 @@ class Setting extends Component {
                   </Tooltip>
                 </h3>
               </div>
+
               <div className="pure-u-1-3">
                 <div className={ styles.select }>
                   <SelectOption
-                    items={ items }
+                    items={timerOptions}
                     onChange={ this.onChangeTimer }
                     variant="select-outlined"
                     isSearchable={ false }
+                    defaultValue={this.state.selectedTimer}
                   />
                 </div>
               </div>
             </div>
+
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-3">
                 <h3 className={ styles.title }>Privacy mode
@@ -87,6 +151,7 @@ class Setting extends Component {
                   </Tooltip>
                 </h3>
               </div>
+
               <div className="pure-u-1-3">
                 <ToggleSwitch
                   checked={ this.state.checked }
@@ -94,6 +159,7 @@ class Setting extends Component {
                 />
               </div>
             </div>
+
             <div className={ classNames('pure-g justify-end', styles.buttons) }>
               <Button
                 variant="btn-default"
@@ -101,17 +167,22 @@ class Setting extends Component {
                 content="Cancel"
                 onClick={() => {this.props.history.goBack()}}
               />
+
               <Button
+                onClick={this.handleSubmit}
                 variant="btn-primary"
                 size="btn-medium"
                 content="Save"
               />
             </div>
           </div>
+
           <p className={ styles.version }>Version 0.0.1</p>
         </div>
     );
   }
 }
 
-export default withRouter(Setting);
+export default withRouter(connect(state => ({
+  options: state.options,
+}))(Setting));
