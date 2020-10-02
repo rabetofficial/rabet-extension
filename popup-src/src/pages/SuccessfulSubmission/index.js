@@ -13,10 +13,12 @@ const SuccessfulSubmission = props => {
   return (
       <>
        <Header/>
+
        <PageTitle />
+
        <NoteCard
          title="Transaction Sent"
-         message="kjbjksdbbjlsdbvlsdvdkbli84y2838909603say37ahkjc937330964"
+         message={props.history.location.state.hash || 'SUCCESS!'}
          btnText="OK"
          icon="icon-checkmark"
          iconClass={ styles.icon }
