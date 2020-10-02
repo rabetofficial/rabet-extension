@@ -12,11 +12,13 @@ const Error = props => {
   return (
       <>
         <Header/>
+
         <PageTitle/>
+
         <div className={ styles.card }>
           <NoteCard
             title="Error"
-            message={ 'Your received address is not allowed for this token'.toUpperCase() }
+            message={props.history.location.state.hash || 'ERROR!'}
             btnText="Got it"
             icon="icon-exclamation-triangle"
             iconClass={ styles.icon }
