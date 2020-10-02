@@ -54,13 +54,13 @@ class App extends Component {
             <ProtectedRoute exact path={ route.SendPage } component={ Send } />
             <ProtectedRoute exact path={ route.errorPage } component={ Error } />
             <ProtectedRoute exact path={ route.QRCodePage } component={ QRCode } />
-            <ProtectedRoute exact path={ route.assetsPage } component={ Assets } />
             <ProtectedRoute exact path={ route.ConfirmPage } component={ Confirm } />
             <ProtectedRoute exact path={ route.settingPage } component={ Setting } />
             <ProtectedRoute exact path={ route.addAssetPage } component={ AddAsset } />
             <ProtectedRoute exact path={ route.privateKeyPage } component={ PrivateKey } />
             <ProtectedRoute exact path={ route.ShowPrivateKeyPage } component={ ShowPrivateKey } />
             <ProtectedRoute exact path={ route.accountManagerPage } component={ AccountManager } />
+            <ProtectedRoute exact path={ `${route.assetsPage}/:asset_code` } component={ Assets } />
             <ProtectedRoute exact path={ route.successSubmitPage } component={ SuccessfulSubmission } />
 
             <Route exact path={ route.flagPage } component={ Flags } />

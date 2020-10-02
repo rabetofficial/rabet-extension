@@ -7,6 +7,7 @@ import Select, { components } from 'react-select';
 import shorter from 'Root/helpers/shorter';
 import * as route from 'Root/staticRes/routes';
 import PopupList from 'Root/pageComponents/PopupList';
+import formatCurrency from 'Root/helpers/formatCurrency';
 import changeActiveAction from 'Root/actions/accounts/changeActive';
 
 import styles from './styles.less';
@@ -14,10 +15,10 @@ import styles from './styles.less';
 const Popup = props => {
   const items = props.accounts.map((item, index) => ({
     active: item.active,
-    balance: item.balance || 10,
     realPublicKey: item.publicKey,
     publicKey: shorter(item.publicKey, 8),
     name: item.name || `Account ${index + 1}`,
+    balance: formatCurrency(item.balance || 0),
   }));
 
   let activeAccountIndex = items.findIndex(x => x.active);

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styles from './styles.less';
 
-const SelectOption = ({items, onChange, variant, isSearchable}) => {
+const SelectOption = ({ items, onChange, variant, isSearchable, defaultValue }) => {
   const borderColor = (variant === 'select-default') ? '#f8f8f8' : '#ededed';
   const style = {
     ...styles,
@@ -19,10 +19,11 @@ const SelectOption = ({items, onChange, variant, isSearchable}) => {
   return (
       <div className={ classNames(styles.select, variant) }>
         <Select
+          value={defaultValue}
           classNamePrefix="ops"
           separator={ false }
           closeMenuOnSelect
-          defaultValue={ items[0] }
+          defaultValue={defaultValue}
           options={ items }
           hideSelectedOptions={ false }
           isSearchable={ isSearchable }

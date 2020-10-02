@@ -18,25 +18,38 @@ const items = [
 class PaymentOps extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       selected: {},
     };
+
     this.onChange = this.onChange.bind(this);
   }
 
   onChange(e) {
-    this.setState({selected: e});
+    this.setState({ selected: e });
   }
 
   onSubmit (values) {
     console.warn(values);
+    /*
+      values.destination
+      values.amount
+      this.state.selected
+    */
   }
 
   validateForm (values) {
     const errors = {};
+
     if (!values.destination) {
-      errors.destination = 'Required';
+      errors.destination = 'Required.';
     }
+
+    if (!values.amount) {
+      errors.amount = 'Required.';
+    }
+
     return errors;
   }
 
