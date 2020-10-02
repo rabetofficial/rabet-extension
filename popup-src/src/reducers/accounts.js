@@ -62,6 +62,23 @@ export default (state = initialState, action) => {
       return accounts;
     }
 
+    case types.accounts.CHANGE_DATA: {
+      const accounts = [...state];
+
+      for (let i = 0; i < accounts.length; ++i) {
+        if (accounts[i].publicKey === action.accountData.address) {
+          accounts[i].usd = action.accountData.usd;
+          accounts[i].flags = action.accountData.flags;
+          accounts[i].balance = action.accountData.balance;
+          accounts[i].balances = action.accountData.balances;
+          accounts[i].thresholds = action.accountData.thresholds;
+          accounts[i].transactions = action.accountData.transactions;
+        }
+      }
+
+      return accounts;
+    }
+
     default: {
       return state;
     }

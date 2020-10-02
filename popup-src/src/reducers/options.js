@@ -14,9 +14,10 @@ import types from 'Root/actions';
 */
 
 const initialState = {
-  network: StellarSdk.NETWORK,
-  privacyMode: false,
-  autoTimeLocker: 0,
+  explorer: 'steexp',
+  network: 'MAINNET',
+  privacyMode: true,
+  autoTimeLocker: 30,
 };
 
 export default (state = initialState, action) => {
@@ -24,8 +25,12 @@ export default (state = initialState, action) => {
     case types.options.CHANGE: {
       return {
         ...state,
-        ...action,
+        ...action.options,
       }
+    }
+
+    case types.options.LOAD: {
+      return action.options;
     }
 
     default: {
