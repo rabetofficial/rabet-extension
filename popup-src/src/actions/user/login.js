@@ -8,12 +8,12 @@ export default async (password) => {
     const data = await get('data', password);
     const options = await get('options', password);
 
-    console.log('options', options);
-
-    store.dispatch({
-      options,
-      type: types.options.LOAD,
-    });
+    if (options) {
+      store.dispatch({
+        options,
+        type: types.options.LOAD,
+      });
+    }
 
     store.dispatch({
       password,

@@ -50,13 +50,18 @@ class Home extends Component {
   }
 
   toggleEdit() {
-    this.setState(prevState => ({
-      editName: !prevState.editName,
-    }));
+    this.setState(prevState => {
+      return {
+        editName: !prevState.editName,
+      };
+    });
+
   }
 
-  async onSubmit (values) {
-    await changeNameAction(values.name);
+  onSubmit (values) {
+    changeNameAction(values.name);
+
+    this.toggleEdit();
   }
 
   validateForm (values) {
@@ -126,7 +131,7 @@ class Home extends Component {
                  <label className="label-secondary">Name</label>
                  {this.state.editName ? (
                      <Form
-                       onSubmit={ (values) => this.onSubmit(values) }
+                       onSubmit={ (values) => { this.onSubmit(values) } }
                        validate={ (values) => this.validateForm(values) }
                        render={ ({ submitError, handleSubmit }) => (
                              <form className={ classNames(styles.form, 'form pure-g') } onSubmit={ handleSubmit }>

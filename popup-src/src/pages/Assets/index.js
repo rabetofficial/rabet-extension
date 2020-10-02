@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
 import PageTitle from 'Root/components/PageTitle';
+import currentActiveAccount from 'Root/helpers/activeAccount';
 import getAssetWebsite from 'Root/helpers/horizon/getAssetData';
 
 import styles from './styles.less';
@@ -13,16 +14,6 @@ import styles from './styles.less';
 class Assets extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      asset: null,
-      flags: {
-        auth_required: false,
-        auth_revocable: false,
-        auth_immutable: false
-      },
-      homeDomain: '',
-    };
 
     this.handleDelete = this.handleDelete.bind(this);
   }
@@ -32,43 +23,31 @@ class Assets extends Component {
   }
 
   render() {
-    const { accounts } = this.props;
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
-    let activeAccount;
-    let activeAccountIndex;
-
-    for (let i = 0; i < accounts.length; ++i) {
-      if (accounts[i].active) {
-        activeAccount = accounts[i];
-        activeAccountIndex = i;
-        break;
-      }
-    }
-
-    if (!activeAccount) {
-      activeAccountIndex = 0;
-      activeAccount = accounts[0];
-    }
-
-    const { flags } = this.state;
     const { balances } = activeAccount;
     const asset = balances.find(x => x.asset_code === this.props.match.params.asset_code);
 
-    this.setState({
-      asset,
-    });
+    let currentData = {
+      flags: {
+        auth_required: false,
+        auth_revocable: false,
+        auth_immutable: false
+      },
+      homeDomain: '',
+    };
+
+    currentData.asset = asset;
 
     getAssetWebsite(asset).then((assetData) => {
-      this.setState({
-        flags: assetData.flags,
-        homeDomain: assetData.homeDomain,
-      });
+      currentData.flags = assetData.flags;
+      currentData.homeDomain = assetData.homeDomain;
     });
 
     const assetInfo = [
       { title: 'Assets code', value: asset.asset_code },
       { title: 'Issuer', value: asset.asset_issuer },
-      { title: 'Website', value: this.state.homeDomain },
+      { title: 'Website', value: currentData.homeDomain },
       { title: 'Assets type', value: asset.asset_type },
     ];
 
@@ -98,9 +77,9 @@ class Assets extends Component {
                   </thead>
                   <tbody>
                   <tr>
-                    <td>{flags.auth_required ? 'True' : 'False'}</td>
-                    <td>{flags.auth_revocable ? 'True' : 'False'}</td>
-                    <td>{flags.auth_immutable ? 'True' : 'False'}</td>
+                    <td>{currentData.flags.auth_required ? 'True' : 'False'}</td>
+                    <td>{currentData.flags.auth_revocable ? 'True' : 'False'}</td>
+                    <td>{currentData.flags.auth_immutable ? 'True' : 'False'}</td>
                   </tr>
                   </tbody>
                 </table>

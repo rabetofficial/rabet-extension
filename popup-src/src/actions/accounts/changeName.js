@@ -2,8 +2,10 @@ import store from 'Root/store';
 import types from 'Root/actions';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 
-export default async (name) => {
+export default (name) => {
   const { activeAccount, activeAccountIndex } = currentActiveAccount();
+
+  console.log(name, activeAccount.publicKey);
 
   store.dispatch({
     name,
