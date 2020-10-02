@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
 import PageTitle from 'Root/components/PageTitle';
+import addAssetAction from 'Root/actions/operations/addAsset';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import getAssetWebsite from 'Root/helpers/horizon/getAssetData';
 
@@ -18,8 +19,8 @@ class Assets extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  handleDelete() {
-    console.log('deleted', this.state.asset);
+  handleDelete({ code, issuer }) {
+    addAssetAction({ code, issuer, limit: '0' }, this.props.history.push);
   }
 
   render() {
@@ -103,7 +104,7 @@ class Assets extends Component {
               variant="btn-danger"
               size="btn-medium"
               content={deleteBtn}
-              onClick={this.handleDelete}
+              onClick={() => { this.handleDelete({ code: asset.asset_code, issuer: asset.asset_issuer }) }}
             />
           </div>
         </>
