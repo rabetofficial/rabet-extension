@@ -1,29 +1,84 @@
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
 import PageTitle from 'Root/components/PageTitle';
+import getAssetWebsite from 'Root/helpers/horizon/getAssetData';
 
 import styles from './styles.less';
 
-const assetInfo = [
-  {title: 'Assets code', value: 'USD'},
-  {title: 'Issuer', value: 'GDTYMQRK2SUSIDEIHZBXCQ3TVCCHLPCDN7VWGY7KPW5AXFNFNIPZ4T7B'},
-  {title: 'Website', value: 'www.sample.com'},
-  {title: 'Assets type', value: 'Credit_alphanum 4'},
-];
-
-const deleteBtn = <><span className="icon-trash" />{''}Delete</>;
-
 class Assets extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      asset: null,
+      flags: {
+        auth_required: false,
+        auth_revocable: false,
+        auth_immutable: false
+      },
+      homeDomain: '',
+    };
+
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete() {
+    console.log('deleted', this.state.asset);
+  }
+
   render() {
+    const { accounts } = this.props;
+
+    let activeAccount;
+    let activeAccountIndex;
+
+    for (let i = 0; i < accounts.length; ++i) {
+      if (accounts[i].active) {
+        activeAccount = accounts[i];
+        activeAccountIndex = i;
+        break;
+      }
+    }
+
+    if (!activeAccount) {
+      activeAccountIndex = 0;
+      activeAccount = accounts[0];
+    }
+
+    const { flags } = this.state;
+    const { balances } = activeAccount;
+    const asset = balances.find(x => x.asset_code === this.props.match.params.asset_code);
+
+    this.setState({
+      asset,
+    });
+
+    getAssetWebsite(asset).then((assetData) => {
+      this.setState({
+        flags: assetData.flags,
+        homeDomain: assetData.homeDomain,
+      });
+    });
+
+    const assetInfo = [
+      { title: 'Assets code', value: asset.asset_code },
+      { title: 'Issuer', value: asset.asset_issuer },
+      { title: 'Website', value: this.state.homeDomain },
+      { title: 'Assets type', value: asset.asset_type },
+    ];
+
+    const deleteBtn = <><span className="icon-trash" />{''}Delete</>;
+
     return (
         <>
           <div className={ classNames(styles.page, 'hidden-scroll content-scroll') }>
             <Header/>
-            <PageTitle title="Assets | USD" />
+            <PageTitle title={`Assets | ${asset.asset_code}`} />
             <div className="content">
               {assetInfo.map((item, index) => (
                   <div key={ index } className={ styles.assets }>
@@ -43,9 +98,9 @@ class Assets extends Component {
                   </thead>
                   <tbody>
                   <tr>
-                    <td>True</td>
-                    <td>False</td>
-                    <td>False</td>
+                    <td>{flags.auth_required ? 'True' : 'False'}</td>
+                    <td>{flags.auth_revocable ? 'True' : 'False'}</td>
+                    <td>{flags.auth_immutable ? 'True' : 'False'}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -68,7 +123,8 @@ class Assets extends Component {
               type="button"
               variant="btn-danger"
               size="btn-medium"
-              content={ deleteBtn }
+              content={deleteBtn}
+              onClick={this.handleDelete}
             />
           </div>
         </>
@@ -76,4 +132,6 @@ class Assets extends Component {
   }
 }
 
-export default withRouter(Assets);
+export default withRouter(connect(state => ({
+  accounts: state.accounts,
+}))(Assets));
