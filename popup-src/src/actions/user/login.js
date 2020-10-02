@@ -6,8 +6,14 @@ import { get } from 'Root/helpers/storage';
 export default async (password) => {
   try {
     const data = await get('data', password);
+    const options = await get('options', password);
 
-    console.log(data);
+    console.log('options', options);
+
+    store.dispatch({
+      options,
+      type: types.options.LOAD,
+    });
 
     store.dispatch({
       password,
@@ -17,7 +23,7 @@ export default async (password) => {
     store.dispatch({
       type: types.accounts.LOAD,
       accounts: data,
-    })
+    });
 
     return true;
   } catch (e) {
