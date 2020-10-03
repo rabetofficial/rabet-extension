@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import React, {Component} from 'react';
 import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
 import SelectOption from 'Root/components/SelectOption';
+import validateAddress from 'Root/helpers/validate/address';
 import currentActiveAccount from 'Root/helpers/activeAccount';
+import changeOperationAction from 'Root/actions/operations/change';
 
 import styles from './styles.less';
 
@@ -23,16 +26,6 @@ class PaymentOps extends Component {
   }
 
   onChange(e) {
-    const operations = this.props.state;
-
-    for (let i = 0; i < operations.length; i++) {
-      if (operations[i].id === this.props.id) {
-        operations[i].asset = e.value;
-      }
-    }
-
-    this.props.setState({ operations });
-
     this.setState({ selected: e });
   }
 
@@ -65,16 +58,13 @@ class PaymentOps extends Component {
       errors.amount = 'Required.';
     }
 
-    const operations = this.props.state;
-
-    for (let i = 0; i < operations.length; i++) {
-      if (operations[i].id === this.props.id) {
-        operations[i].amount = values.amount;
-        operations[i].destination = values.destination;
-      }
+    if (!validateAddress(values.destination)) {
+      errors.destination = 'Invalid.';
     }
 
-    this.props.setState({ operations });
+    if (!errors.amount && !errors.destination) {
+      console.log('clear');
+    }
 
     return errors;
   }
@@ -110,6 +100,7 @@ class PaymentOps extends Component {
                     {({input, meta}) => (
                        <div className="group">
                          <label className="label-primary">Destination</label>
+
                          <Input
                            type="text"
                            placeholder="G…"
@@ -120,15 +111,16 @@ class PaymentOps extends Component {
                        </div>
                     )}
                   </Field>
+
                   <Field name="amount">
                     {({input, meta}) => (
                         <div className="pure-g group">
                           <div className={ styles.selectInput }>
                             <label className="label-primary">
                               <span>Amount</span>
-                              // <span onClick={() => {this.handleMax(values) }}>Max <span className="icon-caret-up" /></span>
                               <span>Max <span className="icon-caret-up" /></span>
                             </label>
+
                             <Input
                               type="number"
                               placeholder="1"
@@ -137,16 +129,19 @@ class PaymentOps extends Component {
                               meta={ meta }
                             />
                           </div>
+
                           <div className={ styles.select }>
                             <SelectOption
                               items={list}
                               onChange={ this.onChange }
                               variant="select-outlined"
+                              defaultValue={list[0]}
                             />
                           </div>
                         </div>
                     )}
                   </Field>
+
                   {submitError && <div className="error">{submitError}</div>}
                 </form>
             ) }

@@ -21,4 +21,9 @@ export default {
     CHANGE_NAME: 'accounts/CHANGE_NAME',
     CHANGE_ACTIVE: 'accounts/CHANGE_ACTIVE',
   },
+  operations: {
+    ADD: 'operations/ADD',
+    REMOVE: 'operations/REMOVE',
+    CHANGE: 'operations/CHANGE',
+  },
 }

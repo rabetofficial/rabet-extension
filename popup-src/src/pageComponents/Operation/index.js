@@ -1,19 +1,21 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Button from 'Root/components/Button';
-import Card from 'Root/components/Card';
-import SelectOption from 'Root/components/SelectOption';
+import React, {Component} from 'react';
 
-import PaymentOps from 'Root/pageComponents/Operation/PaymentOps';
-import PaymentSendOps from 'Root/pageComponents/Operation/PaymentSendOps';
-import PaymentReceiveOps from 'Root/pageComponents/Operation/PaymentReceiveOps';
+import Card from 'Root/components/Card';
+import Button from 'Root/components/Button';
+import SelectOption from 'Root/components/SelectOption';
+import removeOperationAction from 'Root/actions/operations/remove';
+
 import OfferOps from 'Root/pageComponents/Operation/OfferOps';
-import SetOptionOps from 'Root/pageComponents/Operation/SetOptionOps';
 import SignerOps from 'Root/pageComponents/Operation/SignerOps';
+import PaymentOps from 'Root/pageComponents/Operation/PaymentOps';
+import SetOptionOps from 'Root/pageComponents/Operation/SetOptionOps';
 import ThresholdOps from 'Root/pageComponents/Operation/ThresholdOps';
-import ChangeTrustOps from 'Root/pageComponents/Operation/ChangeTrustops';
 import AllowTrustOps from 'Root/pageComponents/Operation/AllowTrustOps';
 import ManageDataOps from 'Root/pageComponents/Operation/ManageDataOps';
+import PaymentSendOps from 'Root/pageComponents/Operation/PaymentSendOps';
+import ChangeTrustOps from 'Root/pageComponents/Operation/ChangeTrustops';
+import PaymentReceiveOps from 'Root/pageComponents/Operation/PaymentReceiveOps';
 
 import styles from './styles.less';
 
@@ -47,40 +49,49 @@ class Operation extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.removeOperation = this.removeOperation.bind(this);
   }
 
   onChange(e) {
     this.setState({ selected: e });
+  }
 
-    const operations = this.props.state;
-
-    for (let i = 0; i < operations.length; i++) {
-      if (operations[i].id === this.props.id) {
-        operations[i].type = e.value;
-      }
-    }
-
-    this.props.setState({ operations });
+  removeOperation() {
+    removeOperationAction(this.props.id);
   }
 
   generateOption() {
-    if(this.state.selected === items[0]) return <PaymentOps />;
-    if(this.state.selected === items[1]) return <PaymentSendOps />;
-    if(this.state.selected === items[2]) return <PaymentReceiveOps />;
-    if((this.state.selected === items[3]) || (this.state.selected === items[4])) return <OfferOps />;
-    if(this.state.selected === items[5]) return <SetOptionOps label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } />;
-    if(this.state.selected === items[6]) return <SetOptionOps label="Clear flag" inputInfo={ {type: 'number', placeholder: '1'} } />;
-    if(this.state.selected === items[7]) return <SetOptionOps label="Set flag" inputInfo={ {type: 'number', placeholder: '1'} } />;
-    if(this.state.selected === items[8]) return <SetOptionOps label="Master weight" inputInfo={ {type: 'number', placeholder: '1'} } />;
-    if(this.state.selected === items[9]) return <SetOptionOps label="Home domain" inputInfo={ {type: 'text', placeholder: 'www.sample.com'} } />;
-    if(this.state.selected === items[10]) return <SignerOps />;
-    if(this.state.selected === items[11]) return <ThresholdOps />;
-    if(this.state.selected === items[12]) return <ChangeTrustOps />;
-    if(this.state.selected === items[13]) return <AllowTrustOps />;
-    if(this.state.selected === items[14]) return <SetOptionOps label="Destination" inputInfo={ {type: 'text', placeholder: 'G...'} } />;
-    if(this.state.selected === items[15]) return <ManageDataOps />;
-    if(this.state.selected === items[16]) return <SetOptionOps label="Bump to" inputInfo={ {type: 'number', placeholder: '1234'} } />;
-    return <PaymentOps />;
+    const { id } = this.props;
+
+    if(this.state.selected === items[0]) return <PaymentOps id={id} />;
+    if(this.state.selected === items[1]) return <PaymentSendOps id={id} />;
+    if(this.state.selected === items[2]) return <PaymentReceiveOps id={id} />;
+    if((this.state.selected === items[3]) || (this.state.selected === items[4])) return <OfferOps id={id} />;
+    if(this.state.selected === items[5]) return <SetOptionOps label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } id={id} />;
+    if(this.state.selected === items[6]) return <SetOptionOps label="Clear flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} />;
+    if(this.state.selected === items[7]) return <SetOptionOps label="Set flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} />;
+    if(this.state.selected === items[8]) return <SetOptionOps label="Master weight" inputInfo={ {type: 'number', placeholder: '1'} } id={id} />;
+    if(this.state.selected === items[9]) return <SetOptionOps label="Home domain" inputInfo={ {type: 'text', placeholder: 'www.sample.com'} } id={id} />;
+    if(this.state.selected === items[10]) return <SignerOps id={id} />;
+    if(this.state.selected === items[11]) return <ThresholdOps id={id} />;
+    if(this.state.selected === items[12]) return <ChangeTrustOps id={id} />;
+    if(this.state.selected === items[13]) return <AllowTrustOps id={id} />;
+    if(this.state.selected === items[14]) return <SetOptionOps label="Destination" inputInfo={ {type: 'text', placeholder: 'G...'} } id={id} />;
+    if(this.state.selected === items[15]) return <ManageDataOps id={id} />;
+    if(this.state.selected === items[16]) return <SetOptionOps label="Bump to" inputInfo={ {type: 'number', placeholder: '1234'} } id={id} />;
+    return <PaymentOps id={id} />;
+  }
+
+  componentDidMount() {
+    const { type } = this.props;
+
+    const defaultItem = items.find(x => x.value === type);
+
+    if (type) {
+      this.setState({
+        selected: defaultItem,
+      });
+    }
   }
 
   render() {
@@ -88,19 +99,22 @@ class Operation extends Component {
         <div className={ styles.main }>
           <Card type="card-secondary">
             <SelectOption
-              items={ items }
+              items={items}
+              defaultValue={items[0]}
               variant="select-default"
-              onChange={ this.onChange }
+              onChange={this.onChange}
             />
+
             <div className={ styles.ops }>
               {this.generateOption()}
+
               <div className={ styles.delete }>
                 <Button
                   type="button"
                   variant="btn-danger"
                   size="btn-medium"
                   content={ deleteBtn }
-                  onClick={ () =>  this.props.deleteOperations(this.props.id) }
+                  onClick={ this.removeOperation }
                 />
               </div>
             </div>
@@ -111,7 +125,6 @@ class Operation extends Component {
 }
 
 Operation.propTypes = {
-  deleteOperations: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };
 

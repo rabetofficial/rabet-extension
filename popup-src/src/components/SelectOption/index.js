@@ -19,7 +19,6 @@ const SelectOption = ({ items, onChange, variant, isSearchable, defaultValue }) 
   return (
       <div className={ classNames(styles.select, variant) }>
         <Select
-          value={defaultValue}
           classNamePrefix="ops"
           separator={ false }
           closeMenuOnSelect
