@@ -1,7 +1,9 @@
 import fetch from 'node-fetch';
 
+import currentNetwork from './currentNetwork';
+
 export default async (address) => new Promise((resolve, reject) => {
-  fetch(`https://horizon.stellar.org/accounts/${address}`)
+  fetch(`${currentNetwork().url}/accounts/${address}`)
     .then(res => {
       return res.json()
     })

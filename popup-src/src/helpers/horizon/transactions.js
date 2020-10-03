@@ -1,10 +1,10 @@
 import fetch from 'node-fetch';
 
-import config from 'Root/config';
+import currentNetwork from './currentNetwork';
 
 export default async (account) => new Promise((resolve, reject) => {
   try {
-    fetch(`${config.HORIZON_API}/accounts/${account}/transactions?limit=10&order=desc`)
+    fetch(`${currentNetwork().url}/accounts/${account}/transactions?limit=10&order=desc`)
     .then(res => res.json())
     .then(data => {
       const transactions = [];

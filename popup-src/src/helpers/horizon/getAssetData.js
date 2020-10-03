@@ -1,9 +1,9 @@
 import fetch from 'node-fetch';
 
-import config from 'Root/config';
+import currentNetwork from './currentNetwork';
 
 export default async (asset) => {
-  const accountDetail = await fetch(`${config.HORIZON_API}/accounts/${asset.asset_issuer}`)
+  const accountDetail = await fetch(`${currentNetwork().url}/accounts/${asset.asset_issuer}`)
     .then(res => res.json());
 
   if (accountDetail.status) {

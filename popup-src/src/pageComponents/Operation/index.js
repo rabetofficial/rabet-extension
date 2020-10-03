@@ -45,11 +45,12 @@ class Operation extends Component {
     this.state = {
       selected: {},
     };
+
     this.onChange = this.onChange.bind(this);
   }
 
   onChange(e) {
-    this.setState({selected: e});
+    this.setState({ selected: e });
 
     const operations = this.props.state;
 
@@ -86,7 +87,11 @@ class Operation extends Component {
     return (
         <div className={ styles.main }>
           <Card type="card-secondary">
-            <SelectOption items={ items } onChange={ this.onChange } variant="select-default" />
+            <SelectOption
+              items={ items }
+              variant="select-default"
+              onChange={ this.onChange }
+            />
             <div className={ styles.ops }>
               {this.generateOption()}
               <div className={ styles.delete }>

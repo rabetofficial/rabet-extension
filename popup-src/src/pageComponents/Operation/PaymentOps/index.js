@@ -1,25 +1,21 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { FORM_ERROR } from 'final-form';
+import { Form, Field } from 'react-final-form';
+
 import Input from 'Root/components/Input';
 import SelectOption from 'Root/components/SelectOption';
-import styles from './styles.less';
+import currentActiveAccount from 'Root/helpers/activeAccount';
 
-const items = [
-  {value: 'xlm', label: 'XLM'},
-  {value: 'aa', label: 'AA'},
-  {value: 'bb', label: 'BB'},
-  {value: 'cc', label: 'CC'},
-  {value: 'ee', label: 'EE'},
-];
+import styles from './styles.less';
 
 class PaymentOps extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      list: [],
       selected: {},
     };
 
@@ -27,17 +23,36 @@ class PaymentOps extends Component {
   }
 
   onChange(e) {
+    const operations = this.props.state;
+
+    for (let i = 0; i < operations.length; i++) {
+      if (operations[i].id === this.props.id) {
+        operations[i].asset = e.value;
+      }
+    }
+
+    this.props.setState({ operations });
+
     this.setState({ selected: e });
   }
 
   onSubmit (values) {
-    console.warn(values);
+    // console.warn(values);
+    // console.log({
+    //   destination: values.destination,
+    //   amount: values.amount,
+    //   asset: this.state.selected.value,
+    // });
     /*
       values.destination
       values.amount
       this.state.selected
     */
   }
+
+  // handleMax(values) {
+  //   values.amount = this.state.selected.balance;
+  // }
 
   validateForm (values) {
     const errors = {};
@@ -50,10 +65,41 @@ class PaymentOps extends Component {
       errors.amount = 'Required.';
     }
 
+    const operations = this.props.state;
+
+    for (let i = 0; i < operations.length; i++) {
+      if (operations[i].id === this.props.id) {
+        operations[i].amount = values.amount;
+        operations[i].destination = values.destination;
+      }
+    }
+
+    this.props.setState({ operations });
+
     return errors;
   }
 
+  componentDidMount() {
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+
+    const { balances } = activeAccount;
+
+    const list = [];
+
+    for (let i = 0; i < balances.length; i++) {
+      list.push({
+        value: balances[i].asset_code,
+        label: balances[i].asset_code,
+        balance: balances[i].balance,
+      });
+    }
+
+    this.setState({ list });
+  }
+
   render() {
+    const { list } = this.state;
+
     return (
         <Form
           onSubmit={ this.onSubmit }
@@ -80,6 +126,7 @@ class PaymentOps extends Component {
                           <div className={ styles.selectInput }>
                             <label className="label-primary">
                               <span>Amount</span>
+                              // <span onClick={() => {this.handleMax(values) }}>Max <span className="icon-caret-up" /></span>
                               <span>Max <span className="icon-caret-up" /></span>
                             </label>
                             <Input
@@ -91,7 +138,8 @@ class PaymentOps extends Component {
                             />
                           </div>
                           <div className={ styles.select }>
-                            <SelectOption items={ items }
+                            <SelectOption
+                              items={list}
                               onChange={ this.onChange }
                               variant="select-outlined"
                             />
