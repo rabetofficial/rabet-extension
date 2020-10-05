@@ -4,7 +4,9 @@ import React, {Component} from 'react';
 import Card from 'Root/components/Card';
 import Button from 'Root/components/Button';
 import SelectOption from 'Root/components/SelectOption';
+import * as operations from 'Root/staticRes/operations';
 import removeOperationAction from 'Root/actions/operations/remove';
+import changeOperationAction from 'Root/actions/operations/change';
 
 import OfferOps from 'Root/pageComponents/Operation/OfferOps';
 import SignerOps from 'Root/pageComponents/Operation/SignerOps';
@@ -22,23 +24,23 @@ import styles from './styles.less';
 const deleteBtn = <><span className="icon-trash" />{''}Delete</>;
 
 const items = [
-  {value: 'payment', label: 'Payment'},
-  {value: 'path-send', label: 'Path payment strict send'},
-  {value: 'path-receive', label: 'Path payment strict receive'},
-  {value: 'offer', label: 'Manage offer'},
+  {value: operations.payment, label: 'Payment'},
+  {value: operations.pathPaymentStrictSend, label: 'Path payment strict send'},
+  {value: operations.pathPaymentStrictReceive, label: 'Path payment strict receive'},
+  {value: operations.manageBuyOffer, label: 'Manage offer'},
   {value: 'passive-offer', label: 'Manage passive offer'},
-  {value: 'option-inflation', label: 'Set Options (inflation)'},
-  {value: 'option-clear-flag', label: 'Set Options (Clear flag)'},
-  {value: 'option-set-flag', label: 'Set Options (Set flag)'},
-  {value: 'option-master-weight', label: 'Set Options (Master weight)'},
-  {value: 'option-domain', label: 'Set Options (Home domain)'},
-  {value: 'option-signer', label: 'Set Options (Signer)'},
-  {value: 'option-threshold', label: 'Set Options (Threshold)'},
-  {value: 'change-trust', label: 'Change trust'},
-  {value: 'allow-trust', label: 'Allow trust'},
-  {value: 'account', label: 'Account merge'},
-  {value: 'manage', label: 'Manage data'},
-  {value: 'bump', label: 'Bump sequence'},
+  {value: operations.setOptionsInflationDest, label: 'Set Options (inflation)'},
+  {value: operations.setOptionsClearFlags, label: 'Set Options (Clear flag)'},
+  {value: operations.setOptionsSetFlags, label: 'Set Options (Set flag)'},
+  {value: operations.setOptionsMasterWeight, label: 'Set Options (Master weight)'},
+  {value: operations.setOptionsHomeDomain, label: 'Set Options (Home domain)'},
+  {value: operations.setOptionsSigner, label: 'Set Options (Signer)'},
+  {value: operations.setOptionsThreshold, label: 'Set Options (Threshold)'},
+  {value: operations.changeTrust, label: 'Change trust'},
+  {value: operations.allowTrust, label: 'Allow trust'},
+  {value: operations.accountMerge, label: 'Account merge'},
+  {value: operations.manageData, label: 'Manage data'},
+  {value: operations.bumpSequence, label: 'Bump sequence'},
 ];
 
 class Operation extends Component {
@@ -53,11 +55,19 @@ class Operation extends Component {
   }
 
   onChange(e) {
+    changeOperationAction(this.props.id, { type: e.value });
+
     this.setState({ selected: e });
   }
 
   removeOperation() {
     removeOperationAction(this.props.id);
+
+    const newOperations = this.props.state.operations.filter(x => x.id !== this.props.id);
+
+    this.props.setState({
+      operations: newOperations,
+    });
   }
 
   generateOption() {
@@ -78,7 +88,7 @@ class Operation extends Component {
     if(this.state.selected === items[13]) return <AllowTrustOps id={id} />;
     if(this.state.selected === items[14]) return <SetOptionOps label="Destination" inputInfo={ {type: 'text', placeholder: 'G...'} } id={id} />;
     if(this.state.selected === items[15]) return <ManageDataOps id={id} />;
-    if(this.state.selected === items[16]) return <SetOptionOps label="Bump to" inputInfo={ {type: 'number', placeholder: '1234'} } id={id} />;
+    if(this.state.selected === items[16]) return <SetOptionOps label="Bump to" inputInfo={ {type: 'number', placeholder: '1234'} } id={id} type="bumpSequence"/>;
     return <PaymentOps id={id} />;
   }
 

@@ -13,9 +13,11 @@ class ThresholdOps extends Component {
 
   validateForm (values) {
     const errors = {};
+
     if (!values.low) {
       errors.low = 'Required';
     }
+
     return errors;
   }
 

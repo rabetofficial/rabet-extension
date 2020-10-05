@@ -6,6 +6,7 @@ import styles from './styles.less';
 
 const SelectOption = ({ items, onChange, variant, isSearchable, defaultValue }) => {
   const borderColor = (variant === 'select-default') ? '#f8f8f8' : '#ededed';
+
   const style = {
     ...styles,
     control: (base, state) => ({
@@ -22,7 +23,7 @@ const SelectOption = ({ items, onChange, variant, isSearchable, defaultValue }) 
           classNamePrefix="ops"
           separator={ false }
           closeMenuOnSelect
-          defaultValue={defaultValue}
+          defaultValue={defaultValue || items[0]}
           options={ items }
           hideSelectedOptions={ false }
           isSearchable={ isSearchable }

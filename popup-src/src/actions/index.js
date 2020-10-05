@@ -23,6 +23,7 @@ export default {
   },
   operations: {
     ADD: 'operations/ADD',
+    CLEAR: 'operations/CLEAR',
     REMOVE: 'operations/REMOVE',
     CHANGE: 'operations/CHANGE',
   },

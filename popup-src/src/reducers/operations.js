@@ -40,10 +40,16 @@ export default (state = initialState, action) => {
             ...operations[i],
             ...action.values,
           };
+
+          break;
         }
       }
 
       return operations;
+    }
+
+    case types.operations.CLEAR: {
+      return [];
     }
 
     default: {

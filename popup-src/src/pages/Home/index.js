@@ -77,14 +77,19 @@ class Home extends Component {
   render() {
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
+    let transactions = activeAccount.transactions || [];
+    let balances = activeAccount.balances || [];
+
+    balances = balances.filter(x => x.asset_type !== 'native');
+
     const tabs = [
       {id : '1',
         tabTitle: 'Assets',
-        tabContent: <AssetList items={ activeAccount.balances } maxHeight={ this.state.editName ? 212: 222 }/>
+        tabContent: <AssetList items={ balances } maxHeight={ this.state.editName ? 212: 222 }/>
       },
       {id : '2',
         tabTitle: 'Transaction',
-        tabContent: <TransactionList items={ activeAccount.transactions || [] } maxHeight={ this.state.editName ? 220: 230 }/>
+        tabContent: <TransactionList items={ transactions } maxHeight={ this.state.editName ? 220: 230 }/>
       },
     ];
 

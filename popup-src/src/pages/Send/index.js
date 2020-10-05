@@ -11,6 +11,7 @@ import PageTitle from 'Root/components/PageTitle';
 import sendAction from 'Root/actions/operations/send';
 import Operation from 'Root/pageComponents/Operation';
 import addOperationAction from 'Root/actions/operations/add';
+import clearOperationsAction from 'Root/actions/operations/clear';
 
 import styles from './styles.less';
 
@@ -20,20 +21,34 @@ class Send extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      operations: [],
+    };
+
     this.onSend = this.onSend.bind(this);
     this.addOperation = this.addOperation.bind(this);
   }
 
   componentDidMount() {
-    addOperationAction();
+    clearOperationsAction();
+    this.addOperation();
   }
 
   addOperation() {
-    addOperationAction();
+    const operation = {
+      type: 'payment',
+      id: shortid.generate(),
+    };
+
+    this.setState((prevState) => ({
+      operations: [...prevState.operations, operation],
+    }));
+
+    addOperationAction(operation.id);
   }
 
   onSend() {
-    sendAction();
+    sendAction(this.props.history.push);
   }
 
   render() {
@@ -55,9 +70,14 @@ class Send extends Component {
             </div>
 
             <div className="content">
-              {this.props.operations.map((item) => (
+              {this.state.operations.map((item) => (
                   <div key={ item.id }>
-                    <Operation id={item.id} type={item.type} />
+                    <Operation
+                      id={item.id}
+                      type={item.type}
+                      state={this.state}
+                      setState={this.setState.bind(this)}
+                    />
                   </div>
               ))}
 
@@ -84,6 +104,8 @@ class Send extends Component {
 
 Send.propTypes = {};
 
-export default withRouter(connect(state => ({
-  operations: state.operations,
-}))(Send));
+// export default withRouter(connect(state => ({
+//   operations: state.operations,
+// }))(Send));
+
+export default withRouter(Send);

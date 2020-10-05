@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { FORM_ERROR } from 'final-form';
+import { Form, Field } from 'react-final-form';
+
 import Input from 'Root/components/Input';
+import changeOperationAction from 'Root/actions/operations/change';
+
 import styles from './styles.less';
 
 class SetOptionOps extends Component {
@@ -12,15 +15,34 @@ class SetOptionOps extends Component {
   }
 
   validateForm (values) {
+    const { type } = this.props;
+
     const errors = {};
+
     if (!values.value) {
-      errors.value = 'Required';
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+
+      errors.value = 'Required.';
     }
+
+    if (!errors.value) {
+      console.log(type);
+      if (type === 'bumpSequence') {
+        changeOperationAction(this.props.id, {
+          checked: true,
+          bumpTo: values.value,
+        });
+      }
+    }
+
     return errors;
   }
 
   render() {
-    const {label, inputInfo: {type, placeholder}} = this.props;
+    const { label, inputInfo: { type, placeholder } } = this.props;
+
     return (
         <Form
           onSubmit={ this.onSubmit }

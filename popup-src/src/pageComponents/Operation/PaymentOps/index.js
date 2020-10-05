@@ -9,6 +9,7 @@ import Input from 'Root/components/Input';
 import SelectOption from 'Root/components/SelectOption';
 import validateAddress from 'Root/helpers/validate/address';
 import currentActiveAccount from 'Root/helpers/activeAccount';
+import getAccountData from 'Root/helpers/horizon/isAddressFound';
 import changeOperationAction from 'Root/actions/operations/change';
 
 import styles from './styles.less';
@@ -28,7 +29,7 @@ class PaymentOps extends Component {
   onChange(e) {
     this.setState({ selected: e });
   }
-
+  //
   onSubmit (values) {
     // console.warn(values);
     // console.log({
@@ -43,27 +44,82 @@ class PaymentOps extends Component {
     */
   }
 
-  // handleMax(values) {
-  //   values.amount = this.state.selected.balance;
-  // }
+  handleMax(values) {
+    values.amount = this.state.selected.balance;
+  }
 
-  validateForm (values) {
+  async validateForm (values) {
     const errors = {};
 
     if (!values.destination) {
       errors.destination = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
     }
 
     if (!values.amount) {
       errors.amount = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
     }
 
     if (!validateAddress(values.destination)) {
       errors.destination = 'Invalid.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
     }
 
-    if (!errors.amount && !errors.destination) {
-      console.log('clear');
+    if (!errors.amount && !errors.destination && this.state.selected.value) {
+      const accountData = await getAccountData(values.destination);
+
+      let isAccountNew = false;
+      let checked = true;
+
+      if (accountData.status === 404) {
+        isAccountNew = true;
+
+        if (this.state.selected.value !== 'XLM') {
+          errors.destination = 'Inactive accounts cannot receive tokens.';
+          checked = false;
+        }
+
+      } else if (accountData.status === 400) {
+        errors.destination = 'Wrong.';
+
+        checked: false;
+      } else {
+        const destinationTokens = accountData.balances || [];
+
+        let selectedToken = destinationTokens.find(x => x.asset_type === 'native')
+
+        if (this.state.selected.value !== 'XLM') {
+          selectedToken = destinationTokens.find(x => x.asset_code === this.state.selected.value);
+        }
+
+        if (!selectedToken) {
+          errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+          checked = false;
+        } else {
+          if (Number(selectedToken.limit) < Number(values.amount)) {
+            errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+            checked = false;
+          }
+        }
+      }
+
+      changeOperationAction(this.props.id, {
+        checked,
+        isAccountNew,
+        amount: values.amount,
+        destination: values.destination,
+        asset: this.state.selected.value,
+      });
     }
 
     return errors;
@@ -75,6 +131,12 @@ class PaymentOps extends Component {
     const { balances } = activeAccount;
 
     const list = [];
+
+    list.push({
+      value: 'XLM',
+      label: 'XLM',
+      balance: activeAccount.balance,
+    });
 
     for (let i = 0; i < balances.length; i++) {
       list.push({

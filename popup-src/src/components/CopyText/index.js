@@ -6,29 +6,26 @@ import styles from './styles.less';
 
 const CopyText = ({text, button}) => {
   const [visible, setVisible] = useState(false);
+
   const [tooltipText, setText] = useState('Copy to clipboard');
+
   const toggle = () => {
-    setVisible(false);
-    setTimeout(() => {
-      setText('Copied!');
-      setVisible(true);
-    }, 50);
-    setTimeout(() => {
-     setVisible(false);
-     setText('Copy to clipboard');
-    }, 800);
+    setText('Copied!');
+    setVisible(true);
   };
 
   return (
       <span
         onMouseEnter={ () => {setVisible(true);} }
-        onMouseLeave={ () => {setVisible(false);} }
+        onMouseLeave={ () => {setVisible(false); setText('Copy to clipboard');} }
         onClick={ () => { toggle();} }
         className={ styles.container }
       >
         <Tooltip trigger={ ['click', 'hover'] } tooltipShown={ visible } tooltip={ tooltipText } placement="top">
           <CopyToClipboard text={ text } >
+
             {button ? <span>{button}</span> : <span className="icon-sheet"/>}
+
           </CopyToClipboard>
         </Tooltip>
       </span>

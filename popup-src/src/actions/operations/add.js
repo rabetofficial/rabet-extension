@@ -3,10 +3,10 @@ import shortid from 'shortid';
 import store from 'Root/store';
 import types from 'Root/actions';
 
-export default async () => {
+export default async (id = shortid.generate()) => {
   const operation = {
     type: 'payment',
-    id: shortid.generate(),
+    id,
   };
 
   store.dispatch({
