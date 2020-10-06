@@ -77,38 +77,57 @@ class PaymentOps extends Component {
 
     if (!errors.amount && !errors.destination && this.state.selected.value) {
       const accountData = await getAccountData(values.destination);
+      const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
       let isAccountNew = false;
       let checked = true;
 
-      if (accountData.status === 404) {
-        isAccountNew = true;
+      let selectedTokenBalance;
 
-        if (this.state.selected.value !== 'XLM') {
-          errors.destination = 'Inactive accounts cannot receive tokens.';
-          checked = false;
-        }
-
-      } else if (accountData.status === 400) {
-        errors.destination = 'Wrong.';
-
-        checked: false;
+      if (this.state.selected.value === 'XLM') {
+        selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
       } else {
-        const destinationTokens = accountData.balances || [];
+        selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.selected.value);
+      }
 
-        let selectedToken = destinationTokens.find(x => x.asset_type === 'native')
+      if (!selectedTokenBalance) {
+        selectedTokenBalance = {
+          balance: 0,
+        };
+      }
 
-        if (this.state.selected.value !== 'XLM') {
-          selectedToken = destinationTokens.find(x => x.asset_code === this.state.selected.value);
-        }
+      if (Number(selectedTokenBalance.balance || '0') < values.amount) {
+        errors.amount = `Insufficient ${this.state.selected.value} balance.`;
+      } else {
+        if (accountData.status === 404) {
+          isAccountNew = true;
 
-        if (!selectedToken) {
-          errors.destination = 'The destination account does not trust the asset you are attempting to send.';
-          checked = false;
-        } else {
-          if (Number(selectedToken.limit) < Number(values.amount)) {
-            errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+          if (this.state.selected.value !== 'XLM') {
+            errors.destination = 'Inactive accounts cannot receive tokens.';
             checked = false;
+          }
+
+        } else if (accountData.status === 400) {
+          errors.destination = 'Wrong.';
+
+          checked: false;
+        } else {
+          const destinationTokens = accountData.balances || [];
+
+          let selectedToken = destinationTokens.find(x => x.asset_type === 'native')
+
+          if (this.state.selected.value !== 'XLM') {
+            selectedToken = destinationTokens.find(x => x.asset_code === this.state.selected.value);
+          }
+
+          if (!selectedToken) {
+            errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+            checked = false;
+          } else {
+            if (Number(selectedToken.limit) < Number(values.amount) + Number(selectedToken.balance)) {
+              errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+              checked = false;
+            }
           }
         }
       }

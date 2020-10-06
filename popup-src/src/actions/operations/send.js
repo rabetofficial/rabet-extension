@@ -3,7 +3,12 @@ import StellarSdk from 'stellar-sdk';
 import store from 'Root/store';
 import payment from 'Root/operations/payment';
 import * as route from 'Root/staticRes/routes';
+import allowTrust from 'Root/operations/allowTrust';
+import manageData from 'Root/operations/manageData';
 import codeToIssuer from 'Root/helpers/codeToIssuer';
+import changeTrust from 'Root/operations/changeTrust';
+import accountMerge from 'Root/operations/accountMerge';
+import bumpSequence from 'Root/operations/bumpSequence';
 import createAccount from 'Root/operations/createAccount';
 import * as operationsName from 'Root/staticRes/operations';
 import currentActiveAccount from 'Root/helpers/activeAccount';
@@ -65,6 +70,42 @@ export default async (push) => {
             }));
           }
         }
+
+        else if (operations[i].type === operationsName.bumpSequence) {
+          transaction = transaction.addOperation(bumpSequence({
+            bumpTo: operations[i].bumpTo,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.manageData) {
+          transaction = transaction.addOperation(manageData({
+            name: operations[i].name,
+            value: operations[i].value,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.accountMerge) {
+          transaction = transaction.addOperation(accountMerge({
+            destination: operations[i].destination,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.allowTrust) {
+          transaction = transaction.addOperation(allowTrust({
+            trustor: operations[i].trustor,
+            assetCode: operations[i].assetCode,
+            authorize: operations[i].authorize,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.changeTrust) {
+          transaction = transaction.addOperation(changeTrust({
+            limit: operations[i].limit,
+            asset: new StellarSdk.Asset(operations[i].code, operations[i].issuer),
+          }));
+        }
+
+        // set options and path payments
       }
 
       transaction = transaction

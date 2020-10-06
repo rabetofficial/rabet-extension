@@ -48,7 +48,7 @@ const Header = (props) => {
           <div className={ styles.header }>
             <div className="pure-g">
               <div className="pure-u-4-24">
-                <Link to="/home"><img src={ logo } alt="logo" className={ styles.logo } /></Link>
+                <Link to={route.homePage}><img src={ logo } alt="logo" className={ styles.logo } /></Link>
               </div>
               <div className="pure-u-16-24">
                <div className={classNames(styles.select, (selected === items[0]) ? styles.main : styles.test)}>
