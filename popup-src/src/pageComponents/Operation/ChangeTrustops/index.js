@@ -1,9 +1,15 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { FORM_ERROR } from 'final-form';
+import { Form, Field } from 'react-final-form';
+
 import Input from 'Root/components/Input';
+import validateNumber from 'Root/helpers/validate/number';
+import validateAddress from 'Root/helpers/validate/address';
+import getAccountData from 'Root/helpers/horizon/isAddressFound';
+import changeOperationAction from 'Root/actions/operations/change';
+
 import styles from './styles.less';
 
 class ChangeTrustOps extends Component {
@@ -11,11 +17,70 @@ class ChangeTrustOps extends Component {
     console.warn(values);
   }
 
-  validateForm (values) {
+  async validateForm (values) {
     const errors = {};
+
+    let accountData;
+
     if (!values.code) {
-      errors.code = 'Required';
+      errors.code = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
     }
+
+    if (!values.issuer) {
+      errors.issuer = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else {
+      if (!validateAddress(values.issuer)) {
+        errors.issuer = 'Invalid address.';
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      } else {
+        accountData = await getAccountData(values.issuer);
+
+        if (accountData.status) {
+          changeOperationAction(this.props.id, {
+            checked: false,
+          });
+
+          errors.issuer = 'Address is inactive.';
+        }
+      }
+    }
+
+    if (!values.limit) {
+      errors.limit = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else {
+      if (!validateNumber(values.limit)) {
+        errors.limit = 'Not a number';
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
+    }
+
+    if (!errors.limit && !errors.issuer && !errors.code) {
+      changeOperationAction(this.props.id, {
+        checked: true,
+        code: values.code,
+        limit: values.limit,
+        issuer: values.issuer,
+      });
+    }
+
     return errors;
   }
 
@@ -40,6 +105,7 @@ class ChangeTrustOps extends Component {
                         </div>
                     )}
                   </Field>
+
                   <Field name="issuer">
                     {({input, meta}) => (
                         <div className="group">
@@ -54,6 +120,7 @@ class ChangeTrustOps extends Component {
                         </div>
                     )}
                   </Field>
+
                   <Field name="limit">
                     {({input, meta}) => (
                         <div className="group">

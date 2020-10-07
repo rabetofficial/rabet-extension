@@ -77,18 +77,18 @@ class Operation extends Component {
     if(this.state.selected === items[1]) return <PaymentSendOps id={id} />;
     if(this.state.selected === items[2]) return <PaymentReceiveOps id={id} />;
     if((this.state.selected === items[3]) || (this.state.selected === items[4])) return <OfferOps id={id} />;
-    if(this.state.selected === items[5]) return <SetOptionOps label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } id={id} />;
-    if(this.state.selected === items[6]) return <SetOptionOps label="Clear flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} />;
-    if(this.state.selected === items[7]) return <SetOptionOps label="Set flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} />;
-    if(this.state.selected === items[8]) return <SetOptionOps label="Master weight" inputInfo={ {type: 'number', placeholder: '1'} } id={id} />;
-    if(this.state.selected === items[9]) return <SetOptionOps label="Home domain" inputInfo={ {type: 'text', placeholder: 'www.sample.com'} } id={id} />;
+    if(this.state.selected === items[5]) return <SetOptionOps label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } id={id} type={operations.setOptionsInflationDest} />;
+    if(this.state.selected === items[6]) return <SetOptionOps label="Clear flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsClearFlags} />;
+    if(this.state.selected === items[7]) return <SetOptionOps label="Set flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsSetFlags} />;
+    if(this.state.selected === items[8]) return <SetOptionOps label="Master weight" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsMasterWeight} />;
+    if(this.state.selected === items[9]) return <SetOptionOps label="Home domain" inputInfo={ {type: 'text', placeholder: 'www.sample.com'} } id={id} type={operations.setOptionsHomeDomain} />;
     if(this.state.selected === items[10]) return <SignerOps id={id} />;
     if(this.state.selected === items[11]) return <ThresholdOps id={id} />;
     if(this.state.selected === items[12]) return <ChangeTrustOps id={id} />;
     if(this.state.selected === items[13]) return <AllowTrustOps id={id} />;
-    if(this.state.selected === items[14]) return <SetOptionOps label="Destination" inputInfo={ {type: 'text', placeholder: 'G...'} } id={id} />;
+    if(this.state.selected === items[14]) return <SetOptionOps label="Destination" inputInfo={ {type: 'text', placeholder: 'G...'} } id={id} type={operations.accountMerge} />;
     if(this.state.selected === items[15]) return <ManageDataOps id={id} />;
-    if(this.state.selected === items[16]) return <SetOptionOps label="Bump to" inputInfo={ {type: 'number', placeholder: '1234'} } id={id} type="bumpSequence"/>;
+    if(this.state.selected === items[16]) return <SetOptionOps label="Bump to" inputInfo={ {type: 'number', placeholder: '1234'} } id={id} type={operations.bumpSequence} />;
     return <PaymentOps id={id} />;
   }
 
