@@ -14,10 +14,10 @@ import types from 'Root/actions';
 */
 
 const initialState = {
+  privacyMode: true,
   explorer: 'steexp',
   network: 'MAINNET',
-  privacyMode: true,
-  autoTimeLocker: 30,
+  autoTimeLocker: 60,
 };
 
 export default (state = initialState, action) => {

@@ -98,12 +98,23 @@ class PaymentOps extends Component {
 
       if (Number(selectedTokenBalance.balance || '0') < values.amount) {
         errors.amount = `Insufficient ${this.state.selected.value} balance.`;
+
+        checked = false;
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
       } else {
         if (accountData.status === 404) {
           isAccountNew = true;
 
           if (this.state.selected.value !== 'XLM') {
             errors.destination = 'Inactive accounts cannot receive tokens.';
+
+            changeOperationAction(this.props.id, {
+              checked: false,
+            });
+
             checked = false;
           }
 
@@ -122,10 +133,20 @@ class PaymentOps extends Component {
 
           if (!selectedToken) {
             errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+
+            changeOperationAction(this.props.id, {
+              checked: false,
+            });
+
             checked = false;
           } else {
             if (Number(selectedToken.limit) < Number(values.amount) + Number(selectedToken.balance)) {
               errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+
+              changeOperationAction(this.props.id, {
+                checked: false,
+              });
+
               checked = false;
             }
           }

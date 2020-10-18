@@ -7,17 +7,35 @@ import Logo from 'Root/components/Logo';
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
 import * as route from 'Root/staticRes/routes';
+import setTimer from 'Root/actions/options/setTimer';
 import loginUserAction from 'Root/actions/user/login';
+import hadLoggedBeforeAction from 'Root/actions/user/hadLoggedBeforeAction';
 import {buttonSizes, buttonTypes, inputSize, inputTypes} from 'Root/staticRes/enum';
 
 import styles from './styles.less';
 
 class Login extends Component {
+  componentDidMount() {
+    hadLoggedBeforeAction()
+      .then(hasLogged => {
+        if (hasLogged) {
+          loginUserAction(hasLogged)
+            .then(isLogged => {
+              if (isLogged) {
+                this.props.history.push(route.accountManagerPage);
+              }
+            });
+        }
+      });
+  }
+
   async onSubmit (values) {
     const isLogged = await loginUserAction(values.password);
 
     if (!isLogged) {
       return { password: 'Incorrect password.' }
+    } else {
+      await setTimer();
     }
 
     this.props.history.push(route.accountManagerPage);

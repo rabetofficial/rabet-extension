@@ -6,13 +6,13 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Component from './pages';
 import loadUser from './actions/user/loadUser';
-import removeUserData from './actions/user/removeUserData';
+import removeData from './actions/user/removeData';
 import '../node_modules/purecss/build/pure-min.css';
 import '../node_modules/react-popper-tooltip/dist/styles.css';
 import './styles/style.less';
 
 (async () => {
-  // await removeUserData();
+  // await removeData('options');
   await loadUser();
 
   render(

@@ -3,10 +3,9 @@ import { set } from 'Root/helpers/storage';
 
 export default async () => {
   try {
-    const { password } = store.getState().user;
     const { options } = store.getState();
 
-    await set('options', options, password);
+    await set('options', options);
 
     return true;
   } catch (e) {

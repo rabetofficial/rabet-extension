@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
 import PageTitle from 'Root/components/PageTitle';
+import SendButton from 'Root/components/SendButton';
 import sendAction from 'Root/actions/operations/send';
 import Operation from 'Root/pageComponents/Operation';
 import addOperationAction from 'Root/actions/operations/add';
@@ -88,12 +89,8 @@ class Send extends Component {
                   content="Back"
                   onClick={() => {this.props.history.goBack()}}
                 />
-                <Button
-                  onClick={this.onSend}
-                  variant="btn-primary"
-                  size="btn-medium"
-                  content="Send"
-                />
+
+                <SendButton />
               </div>
             </div>
           </div>

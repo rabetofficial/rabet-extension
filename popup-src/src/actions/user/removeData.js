@@ -1,7 +1,7 @@
 import { set } from 'Root/helpers/storage';
 
-export default () => new Promise((resolve) => {
-  set('data', null)
+export default (entity) => new Promise((resolve) => {
+  set(entity, null)
     .then(() => {
       resolve();
     });

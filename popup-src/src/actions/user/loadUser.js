@@ -6,6 +6,14 @@ import { get } from 'Root/helpers/storage';
 export default async () => {
   try {
     const data = await get('data');
+    const options = await get('options');
+
+    if (options) {
+      store.dispatch({
+        options,
+        type: types.options.LOAD,
+      });
+    }
 
     if (data) {
       store.dispatch({
