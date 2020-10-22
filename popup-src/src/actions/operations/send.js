@@ -110,21 +110,51 @@ export default async (push) => {
           }));
         }
 
-        else if (operations[i].type.includes('setOptions')) {
-          transaction = transaction.addOperation(setOptions({
+        else if (operations[i].type === operationsName.setOptionsSigner) {
+          transaction = transaction.addOperation(StellarSdk.Operation.setOptions({
             signer: {
               ed25519PublicKey: operations[i].signer,
               weight: operations[i].weight,
             },
+          }))
+        }
+
+        else if (operations[i].type === operationsName.setOptionsSetFlags) {
+          transaction = transaction.addOperation(StellarSdk.Operation.setOptions({
             setFlags: operations[i].setFlags,
-            clearFlags: operations[i].clearFlags,
-            homeDomain: operations[i].homeDomain,
-            masterWeight: operations[i].masterWeight,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.setOptionsInflationDest) {
+          transaction = transaction.addOperation(StellarSdk.Operation.setOptions({
+            inflationDest: operations[i].destination,
+          }));
+        }
+        
+        else if (operations[i].type === operationsName.setOptionsThreshold) {
+          transaction = transaction.addOperation(StellarSdk.Operation.setOptions({
             lowThreshold: operations[i].low,
             medThreshold: operations[i].medium,
             highThreshold: operations[i].high,
-            inflationDest: operations[i].destination,
-          }))
+          }));
+        }
+
+        else if (operations[i].type === operationsName.setOptionsClearFlags) {
+          transaction = transaction.addOperation(StellarSdk.Operation.setOptions({
+            clearFlags: operations[i].clearFlags,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.setOptionsHomeDomain) {
+          transaction = transaction.addOperation(StellarSdk.Operation.setOptions({
+            homeDomain: operations[i].homeDomain,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.setOptionsMasterWeight) {
+          transaction = transaction.addOperation(StellarSdk.Operation.setOptions({
+            masterWeight: operations[i].masterWeight,
+          }));
         }
 
         else if (operations[i].type === operationsName.manageBuyOffer) {

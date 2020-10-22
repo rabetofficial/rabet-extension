@@ -1,17 +1,24 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { FORM_ERROR } from 'final-form';
+import { Form, Field } from 'react-final-form';
+
 import Input from 'Root/components/Input';
+import validateAddress from 'Root/helpers/validate/address';
+import currentActiveAccount from 'Root/helpers/activeAccount';
+import changeOperationAction from 'Root/actions/operations/change';
+
 import styles from './styles.less';
 
 class AllowTrustOps extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       activeButton: 'false',
     };
+
     this.toggleBtn = this.toggleBtn.bind(this);
   }
 
@@ -24,10 +31,63 @@ class AllowTrustOps extends Component {
   }
 
   validateForm (values) {
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+
     const errors = {};
+
     if (!values.trustor) {
-      errors.trustor = 'Required';
+      errors.trustor = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else {
+      if (!validateAddress(values.trustor)) {
+        errors.trustor = 'Invalid address.';
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
     }
+
+    if (!values.code) {
+      errors.code = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else {
+      const balances = activeAccount.balances || [];
+
+      const ownedAsset = balances.find(x => x.asset_code === values.code && x.asset_issuer === activeAccount.publicKey);
+
+      if (!ownedAsset) {
+        errors.code = 'You do not own this asset.';
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
+    }
+
+    if (!values.authorize) {
+      errors.authorize = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    }
+
+    if (!errors.trustor && !errors.code && !errors.authorize) {
+      changeOperationAction(this.props.id, {
+        checked: true,
+        assetCode: values.code,
+        trustor: values.trustor,
+        authorize: values.authorize,
+      });
+    }
+
     return errors;
   }
 
@@ -58,8 +118,8 @@ class AllowTrustOps extends Component {
                         <div className="group">
                           <label className="label-primary">Assets code</label>
                           <Input
-                            type="number"
-                            placeholder="1"
+                            type="text"
+                            placeholder="BTC"
                             size="input-medium"
                             input={ input }
                             meta={ meta }
@@ -67,21 +127,20 @@ class AllowTrustOps extends Component {
                         </div>
                     )}
                   </Field>
-                  <div className="group">
-                    <label className="label-primary">Authorize</label>
-                    <div className={ styles.buttons }>
-                      {buttons.map((item, index) => (
-                          <button
-                            key={ index }
-                            type="button"
-                            className={ this.state.activeButton === item.value ? 'active' : '' }
-                            onClick={ () => this.toggleBtn(item.value) }
-                          >
-                            {item.name}
-                          </button>
-                      ))}
-                    </div>
-                  </div>
+                  <Field name="authorize">
+                    {({input, meta}) => (
+                        <div className="group">
+                          <label className="label-primary">Authorize</label>
+                          <Input
+                            type="number"
+                            placeholder="0 | 1 | 2"
+                            size="input-medium"
+                            input={ input }
+                            meta={ meta }
+                          />
+                        </div>
+                    )}
+                  </Field>
                   {submitError && <div className="error">{submitError}</div>}
                 </form>
             ) }

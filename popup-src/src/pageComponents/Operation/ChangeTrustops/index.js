@@ -56,20 +56,12 @@ class ChangeTrustOps extends Component {
       }
     }
 
-    if (!values.limit) {
-      errors.limit = 'Required.';
+    if (values.limit && !validateNumber(values.limit)) {
+      errors.limit = 'Not a number';
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
-    } else {
-      if (!validateNumber(values.limit)) {
-        errors.limit = 'Not a number';
-
-        changeOperationAction(this.props.id, {
-          checked: false,
-        });
-      }
     }
 
     if (!errors.limit && !errors.issuer && !errors.code) {

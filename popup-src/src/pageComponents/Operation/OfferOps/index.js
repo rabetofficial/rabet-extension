@@ -126,6 +126,7 @@ class OfferOps extends Component {
       value: 'XLM',
       label: 'XLM',
       balance: activeAccount.balance,
+      asset_type: "native",
     });
 
     for (let i = 0; i < balances.length; i++) {
@@ -133,6 +134,9 @@ class OfferOps extends Component {
         value: balances[i].asset_code,
         label: balances[i].asset_code,
         balance: balances[i].balance,
+        asset_issuer: balances[i].asset_issuer,
+        asset_code: balances[i].asset_code,
+        asset_type: balances[i].asset_type,
       });
     }
 
