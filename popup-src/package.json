@@ -44,6 +44,7 @@
     "cross-env": "^6.0.3",
     "final-form": "^4.20.1",
     "install": "^0.13.0",
+    "is-valid-domain": "0.0.16",
     "moment": "^2.29.0",
     "node-fetch": "^2.6.0",
     "npm": "^6.14.8",

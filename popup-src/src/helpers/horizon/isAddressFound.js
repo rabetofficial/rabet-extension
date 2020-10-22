@@ -11,6 +11,8 @@ export default async (address) => new Promise((resolve, reject) => {
       resolve(data);
     })
     .catch(e => {
-      reject(e);
+      resolve({
+        "status": 400,
+      });
     });
 });

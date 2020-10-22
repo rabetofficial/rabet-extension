@@ -1,51 +1,199 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { FORM_ERROR } from 'final-form';
+import { Form, Field } from 'react-final-form';
+
+
 import Input from 'Root/components/Input';
 import SelectOption from 'Root/components/SelectOption';
-import styles from './styles.less';
+import validateAddress from 'Root/helpers/validate/address';
+import currentActiveAccount from 'Root/helpers/activeAccount';
+import getAccountData from 'Root/helpers/horizon/isAddressFound';
+import changeOperationAction from 'Root/actions/operations/change';
 
-const items = [
-  {value: 'xlm', label: 'XLM'},
-  {value: 'aa', label: 'AA'},
-  {value: 'bb', label: 'BB'},
-  {value: 'cc', label: 'CC'},
-];
+import styles from './styles.less';
 
 class PaymentReceiveOps extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      selectedMax: {},
-      selectedAmount: {},
+      list: [],
+      sendAsset: {},
+      destAsset: {},
     };
-    this.onChangeMax = this.onChangeMax.bind(this);
-    this.onChangeAmount = this.onChangeAmount.bind(this);
+
+    this.onChangeSendAsset = this.onChangeSendAsset.bind(this);
+    this.onChangeDestAsset = this.onChangeDestAsset.bind(this);
   }
 
-  onChangeMax(e) {
-    this.setState({selectedMax: e});
+  onChangeSendAsset(e) {
+    this.setState({ sendAsset: e });
   }
 
-  onChangeAmount(e) {
-    this.setState({selectedAmount: e});
+  onChangeDestAsset(e) {
+    this.setState({ destAsset: e });
   }
 
   onSubmit (values) {
     console.warn(values);
   }
 
-  validateForm (values) {
+  async validateForm (values) {
+    let accountData;
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+
     const errors = {};
+
     if (!values.destination) {
-      errors.destination = 'Required';
+      errors.destination = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else if (!validateAddress(values.destination)) {
+      errors.destination = 'Invalid address.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else {
+      accountData = await getAccountData(values.destination);
+
+      if (accountData.status === 404) {
+        errors.destination = 'Inactive account.';
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      } else if (accountData.status === 400) {
+        errors.destination = 'Wrong address.';
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
     }
+
+    if (!values.sendMax) {
+      errors.sendMax = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else {
+      if (this.state.sendAsset.value) {
+        let selectedTokenBalance;
+
+        if (this.state.sendAsset.value === 'XLM') {
+          selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+        } else {
+          selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.sendAsset.value);
+        }
+  
+        if (!selectedTokenBalance) {
+          selectedTokenBalance = {
+            balance: 0,
+          };
+        }
+
+        if (Number(selectedTokenBalance.balance || '0') < values.sendMax) {
+          errors.sendMax = `Insufficient ${this.state.sendAsset.value} balance.`;
+ 
+          changeOperationAction(this.props.id, {
+            checked: false,
+          });
+        }
+      } else {
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
+    }
+
+    if (!values.destAmount) {
+      errors.destAmount = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else {
+      if (this.state.destAsset.value) {
+        const destinationTokens = accountData.balances || [];
+
+        let selectedToken = destinationTokens.find(x => x.asset_type === 'native');
+
+        if (this.state.destAsset.value !== 'XLM') {
+          selectedToken = destinationTokens.find(x => x.asset_code === this.state.destAsset.value);
+        }
+
+        if (!selectedToken) {
+          errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+
+          changeOperationAction(this.props.id, {
+            checked: false,
+          });
+        } else {
+          if (Number(selectedToken.limit) < Number(values.destAmount) + Number(selectedToken.balance)) {
+            errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+
+            changeOperationAction(this.props.id, {
+              checked: false,
+            });
+          }
+        }
+
+      } else {
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
+    }
+
+    if (!errors.destination && !errors.sendMax && !errors.destAmount && this.state.sendAsset.value && this.state.destAsset.value) {
+      changeOperationAction(this.props.id, {
+        checked: true,
+        destination: values.destination,
+
+        sendMax: values.sendMax,
+        sendAsset: this.state.sendAsset,
+
+        destAmount: values.destAmount,
+        destAsset: this.state.destAsset,
+      });
+    }
+
     return errors;
   }
 
+  componentDidMount() {
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+
+    const { balances } = activeAccount;
+
+    const list = [];
+
+    list.push({
+      value: 'XLM',
+      label: 'XLM',
+      balance: activeAccount.balance,
+    });
+
+    for (let i = 0; i < balances.length; i++) {
+      list.push({
+        value: balances[i].asset_code,
+        label: balances[i].asset_code,
+        balance: balances[i].balance,
+      });
+    }
+
+    this.setState({ list });
+  }
+
   render() {
+    const { list } = this.state;
+
     return (
         <Form
           onSubmit={ this.onSubmit }
@@ -66,7 +214,7 @@ class PaymentReceiveOps extends Component {
                         </div>
                     )}
                   </Field>
-                  <Field name="max">
+                  <Field name="sendMax">
                     {({input, meta}) => (
                         <div className='pure-g group'>
                           <div className={ styles.selectInput }>
@@ -84,15 +232,16 @@ class PaymentReceiveOps extends Component {
                           </div>
                           <div className={ styles.select }>
                             <SelectOption
-                              items={ items }
-                              onChange={ this.onChangeMax }
+                              items={ list }
+                              defaultValue={list[0]}
+                              onChange={ this.onChangeSendAsset }
                               variant="select-outlined"
                             />
                           </div>
                         </div>
                     )}
                   </Field>
-                  <Field name="amount">
+                  <Field name="destAmount">
                     {({input, meta}) => (
                         <div className='pure-g group'>
                           <div  className={ styles.selectInput }>
@@ -107,8 +256,9 @@ class PaymentReceiveOps extends Component {
                           </div>
                           <div className={ styles.select }>
                             <SelectOption
-                              items={ items }
-                              onChange={ this.onChangeAmount }
+                              items={ list }
+                              defaultValue={list[0]}
+                              onChange={ this.onChangeDestAsset }
                               variant="select-outlined"
                             />
                           </div>

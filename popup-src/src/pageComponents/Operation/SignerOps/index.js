@@ -1,9 +1,13 @@
-import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Form, Field } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { FORM_ERROR } from 'final-form';
+import { Form, Field } from 'react-final-form';
+
 import Input from 'Root/components/Input';
+import validateAddress from 'Root/helpers/validate/address';
+import changeOperationAction from 'Root/actions/operations/change';
+
 import styles from './styles.less';
 
 class SignerOps extends Component {
@@ -13,9 +17,39 @@ class SignerOps extends Component {
 
   validateForm (values) {
     const errors = {};
+
     if (!values.signer) {
-      errors.signer = 'Required';
+      errors.signer = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else {
+      if (!validateAddress(values.signer)) {
+        errors.signer = 'Invalid address.';
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
     }
+
+    if (!values.weight) {
+      errors.weight = 'Required.';
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    }
+
+    if (!errors.signer && !errors.weight) {
+      changeOperationAction(this.props.id, {
+        checked: true,
+        signer: values.signer,
+        weight: values.weight,
+      });
+    }
+
     return errors;
   }
 

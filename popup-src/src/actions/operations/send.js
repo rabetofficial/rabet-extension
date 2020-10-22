@@ -1,8 +1,9 @@
-import StellarSdk from 'stellar-sdk';
+import StellarSdk, { Operation } from 'stellar-sdk';
 
 import store from 'Root/store';
 import payment from 'Root/operations/payment';
 import * as route from 'Root/staticRes/routes';
+import setOptions from 'Root/operations/setOptions';
 import allowTrust from 'Root/operations/allowTrust';
 import manageData from 'Root/operations/manageData';
 import codeToIssuer from 'Root/helpers/codeToIssuer';
@@ -10,9 +11,13 @@ import changeTrust from 'Root/operations/changeTrust';
 import accountMerge from 'Root/operations/accountMerge';
 import bumpSequence from 'Root/operations/bumpSequence';
 import createAccount from 'Root/operations/createAccount';
+import manageBuyOffer from 'Root/operations/manageBuyOffer';
 import * as operationsName from 'Root/staticRes/operations';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import currentNetwork from 'Root/helpers/horizon/currentNetwork';
+import pathPaymentStrictSend from 'Root/operations/pathPaymentStrictSend';
+import createPassiveSellOffer from 'Root/operations/createPassiveSellOffer';
+import pathPaymentStrictReceive from 'Root/operations/pathPaymentStrictReceive';
 
 export default async (push) => {
   push(route.loadingOnePage);
@@ -105,7 +110,128 @@ export default async (push) => {
           }));
         }
 
-        // set options and path payments
+        else if (operations[i].type.includes('setOptions')) {
+          transaction = transaction.addOperation(setOptions({
+            signer: {
+              ed25519PublicKey: operations[i].signer,
+              weight: operations[i].weight,
+            },
+            setFlags: operations[i].setFlags,
+            clearFlags: operations[i].clearFlags,
+            homeDomain: operations[i].homeDomain,
+            masterWeight: operations[i].masterWeight,
+            lowThreshold: operations[i].low,
+            medThreshold: operations[i].medium,
+            highThreshold: operations[i].high,
+            inflationDest: operations[i].destination,
+          }))
+        }
+
+        else if (operations[i].type === operationsName.manageBuyOffer) {
+          let sellingAsset;
+          let buyingAsset;
+
+          if (operations[i].sellingAsset.asset_type === 'native') {
+            sellingAsset = StellarSdk.Asset.native();
+          } else {
+            sellingAsset = new StellarSdk.Asset(operations[i].sellingAsset.asset_code, operations[i].sellingAsset.asset_issuer);
+          }
+
+          if (operations[i].buyingAsset.asset_type === 'native') {
+            buyingAsset = StellarSdk.Asset.native();
+          } else {
+            buyingAsset = new StellarSdk.Asset(operations[i].buyingAsset.asset_code, operations[i].buyingAsset.asset_issuer);
+          }
+
+          transaction = transaction.addOperation(manageBuyOffer({
+            selling: sellingAsset,
+            buying: buyingAsset,
+            buyAmount: operations[i].buying,
+            price: {
+              n: Number(operations[i].buying),
+              d: Number(operations[i].selling),
+            },
+            offerId: operations[i].offerId,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.createPassiveSellOffer) {
+          let sellingAsset;
+          let buyingAsset;
+
+          if (operations[i].sellingAsset.asset_type === 'native') {
+            sellingAsset = StellarSdk.Asset.native();
+          } else {
+            sellingAsset = new StellarSdk.Asset(operations[i].sellingAsset.asset_code, operations[i].sellingAsset.asset_issuer);
+          }
+
+          if (operations[i].buyingAsset.asset_type === 'native') {
+            buyingAsset = StellarSdk.Asset.native();
+          } else {
+            buyingAsset = new StellarSdk.Asset(operations[i].buyingAsset.asset_code, operations[i].buyingAsset.asset_issuer);
+          }
+
+          transaction = transaction.addOperation(createPassiveSellOffer({
+            selling: sellingAsset,
+            buying: buyingAsset,
+            amount: operations[i].selling,
+            price: {
+              n: Number(operations[i].selling),
+              d: Number(operations[i].buying),
+            },
+            offerId: operations[i].offerId,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.pathPaymentStrictSend) {
+          let sendAsset;
+          let destAsset;
+
+          if (operations[i].destAsset.asset_type === 'native') {
+            destAsset = StellarSdk.Asset.native();
+          } else {
+            destAsset = new StellarSdk.Asset(operations[i].destAsset.asset_code, operations[i].destAsset.asset_issuer);
+          }
+
+          if (operations[i].sendAsset.asset_type === 'native') {
+            sendAsset = StellarSdk.Asset.native();
+          } else {
+            sendAsset = new StellarSdk.Asset(operations[i].sendAsset.asset_code, operations[i].sendAsset.asset_issuer);
+          }
+
+          transaction = transaction.addOperation(pathPaymentStrictSend({
+            destAsset,
+            sendAsset,
+            destMin: operations[i].destMin,
+            sendAmount: operations[i].sendAmount,
+            destination: operations[i].destination,
+          }));
+        }
+
+        else if (operations[i].type === operationsName.pathPaymentStrictReceive) {
+          let sendAsset;
+          let destAsset;
+
+          if (operations[i].destAsset.asset_type === 'native') {
+            destAsset = StellarSdk.Asset.native();
+          } else {
+            destAsset = new StellarSdk.Asset(operations[i].destAsset.asset_code, operations[i].destAsset.asset_issuer);
+          }
+
+          if (operations[i].sendAsset.asset_type === 'native') {
+            sendAsset = StellarSdk.Asset.native();
+          } else {
+            sendAsset = new StellarSdk.Asset(operations[i].sendAsset.asset_code, operations[i].sendAsset.asset_issuer);
+          }
+
+          transaction = transaction.addOperation(pathPaymentStrictReceive({
+            sendAsset,
+            destAsset,
+            sendMax: operations[i].sendMax,
+            destAmount: operations[i].destAmount,
+            destination: operations[i].destination,
+          }));
+        }
       }
 
       transaction = transaction

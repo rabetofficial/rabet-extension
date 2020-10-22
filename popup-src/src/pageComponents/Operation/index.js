@@ -28,7 +28,7 @@ const items = [
   {value: operations.pathPaymentStrictSend, label: 'Path payment strict send'},
   {value: operations.pathPaymentStrictReceive, label: 'Path payment strict receive'},
   {value: operations.manageBuyOffer, label: 'Manage offer'},
-  {value: 'passive-offer', label: 'Manage passive offer'},
+  {value: operations.createPassiveSellOffer, label: 'Manage passive offer'},
   {value: operations.setOptionsInflationDest, label: 'Set Options (inflation)'},
   {value: operations.setOptionsClearFlags, label: 'Set Options (Clear flag)'},
   {value: operations.setOptionsSetFlags, label: 'Set Options (Set flag)'},
@@ -76,12 +76,13 @@ class Operation extends Component {
     if(this.state.selected === items[0]) return <PaymentOps id={id} />;
     if(this.state.selected === items[1]) return <PaymentSendOps id={id} />;
     if(this.state.selected === items[2]) return <PaymentReceiveOps id={id} />;
-    if((this.state.selected === items[3]) || (this.state.selected === items[4])) return <OfferOps id={id} />;
+    if(this.state.selected === items[3]) return <OfferOps id={id} type={operations.manageBuyOffer} />;
+    if(this.state.selected === items[4]) return <OfferOps id={id} type={operations.createPassiveSellOffer} />
     if(this.state.selected === items[5]) return <SetOptionOps label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } id={id} type={operations.setOptionsInflationDest} />;
     if(this.state.selected === items[6]) return <SetOptionOps label="Clear flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsClearFlags} />;
     if(this.state.selected === items[7]) return <SetOptionOps label="Set flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsSetFlags} />;
     if(this.state.selected === items[8]) return <SetOptionOps label="Master weight" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsMasterWeight} />;
-    if(this.state.selected === items[9]) return <SetOptionOps label="Home domain" inputInfo={ {type: 'text', placeholder: 'www.sample.com'} } id={id} type={operations.setOptionsHomeDomain} />;
+    if(this.state.selected === items[9]) return <SetOptionOps label="Home domain" inputInfo={ {type: 'text', placeholder: 'sample.com'} } id={id} type={operations.setOptionsHomeDomain} />;
     if(this.state.selected === items[10]) return <SignerOps id={id} />;
     if(this.state.selected === items[11]) return <ThresholdOps id={id} />;
     if(this.state.selected === items[12]) return <ChangeTrustOps id={id} />;

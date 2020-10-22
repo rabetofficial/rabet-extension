@@ -9,12 +9,23 @@ import shorter from 'Root/helpers/shorter';
 import Button from 'Root/components/Button';
 import CopyText from 'Root/components/CopyText';
 import PageTitle from 'Root/components/PageTitle';
+import sendAction from 'Root/actions/operations/send';
 import operationMapper from 'Root/helpers/operationMapper';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 
 import styles from './styles.less';
 
 class Confirm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleConfirm = this.handleConfirm.bind(this);
+  }
+
+  handleConfirm() {
+    sendAction(this.props.history.push);
+  }
+
   render() {
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
     const networkStatus = this.props.options.network === 'MAINNET' ? 'success' : 'warn';
@@ -26,8 +37,6 @@ class Confirm extends Component {
     for (const operation of operations) {
       operationsMapped.push(operationMapper(operation));
     }
-
-    console.log(operationsMapped);
 
     return (
         <>
@@ -77,6 +86,7 @@ class Confirm extends Component {
               variant="btn-primary"
               size="btn-medium"
               content="Confirm"
+              onClick={this.handleConfirm}
             />
           </div>
         </>

@@ -1,3 +1,5 @@
+import isValidDomain from 'is-valid-domain';
+
 export default (domain) => {
-  return true;
+  return isValidDomain(domain);
 };
