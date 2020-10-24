@@ -18,18 +18,19 @@ const AssetList = ({items, maxHeight}) => {
       <ul className={ classNames(styles.list, 'scroll') } style={ {maxHeight: `${maxHeight}px`} }>
         <Link to={route.addAssetPage} className={styles.addAsset}>+ Add assets</Link>
         {items.map((item, index) => (
-            <Link to={`${route.assetsPage}/${item.asset_code}`} className={ styles.listItem } key={shortid.generate()}>
               <li
                 key={ index }
                 style={ { marginTop: (index === 0) && '-18px' } }
+                className={ styles.listItem }
               >
+                <Link to={`${route.assetsPage}/${item.asset_code}`} key={shortid.generate()}>
                 <div className={ styles.border } style={ {borderBottom: !(index === (items.length - 1 )) && '1px solid #f8f8f8'} }>
                   <div className={ styles.logoContainer }><img src={stellar} alt="logo"/></div>
                   <div className={ styles.value }>{formatCurrency(item.balance)}</div>
                   <div className={ styles.currency }>{item.asset_code}</div>
                 </div>
+                 </Link>
               </li>
-            </Link>
           ))}
       </ul>
   );

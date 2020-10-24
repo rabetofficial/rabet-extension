@@ -6,17 +6,18 @@
   overflow-y: auto;
   //max-height: 237px;
   margin: -8px 0 0;
+  overflow-x: hidden;
 }
 
 :local(.list) > :local(.listItem) {
-  padding: 18px 16px 0 16px;
+  padding: 22px 16px 0 16px;
 }
 
 :local(.list) > :local(.listItem) :local(.border) {
   display: flex;
   align-items: center;
   height: 100%;
-  padding-bottom: 15px;
+  padding-bottom: 20px;
 }
 
 :local(.list) > :local(.listItem):hover {
@@ -59,7 +60,7 @@
 }
 
 :local(.next) {
-  margin-left: 60px;
+  margin-left: auto;
 
   span {
     color: @heavy-metal;
