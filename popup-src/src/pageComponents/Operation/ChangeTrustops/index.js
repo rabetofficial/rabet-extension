@@ -6,6 +6,7 @@ import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
 import validateNumber from 'Root/helpers/validate/number';
+import assetExists from 'Root/helpers/horizon/assetExists';
 import validateAddress from 'Root/helpers/validate/address';
 import getAccountData from 'Root/helpers/horizon/isAddressFound';
 import changeOperationAction from 'Root/actions/operations/change';
@@ -65,12 +66,25 @@ class ChangeTrustOps extends Component {
     }
 
     if (!errors.limit && !errors.issuer && !errors.code) {
-      changeOperationAction(this.props.id, {
-        checked: true,
+      const assetExistsResult = await assetExists({
         code: values.code,
-        limit: values.limit,
         issuer: values.issuer,
       });
+
+      if (!assetExistsResult) {
+        errors.issuer = 'Asset not found.';
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      } else {
+        changeOperationAction(this.props.id, {
+          checked: true,
+          code: values.code,
+          limit: values.limit,
+          issuer: values.issuer,
+        });
+      }
     }
 
     return errors;

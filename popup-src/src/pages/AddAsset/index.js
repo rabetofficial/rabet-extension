@@ -7,6 +7,7 @@ import { Form, Field } from 'react-final-form';
 import Input from 'Root/components/Input';
 import Header from 'Root/components/Header';
 import PageTitle from 'Root/components/PageTitle';
+import assetExists from 'Root/helpers/horizon/assetExists';
 import validateAddress from 'Root/helpers/validate/address';
 import addAssetAction from 'Root/actions/operations/addAsset';
 
@@ -18,7 +19,7 @@ class AddAsset extends Component {
     addAssetAction(values, this.props.history.push);
   }
 
-  validateForm (values) {
+  async validateForm (values) {
     const errors = {};
 
     if (!values.code) {
@@ -27,10 +28,21 @@ class AddAsset extends Component {
 
     if (!values.issuer) {
       errors.issuer = 'Required.'
+    } else {
+      if (!validateAddress(values.issuer)) {
+        errors.issuer = 'Invalid address.';
+      }
     }
 
-    if (values.issuer && !validateAddress(values.issuer)) {
-      errors.issuer = 'Incorrect issuer.';
+    if (!errors.code && !errors.issuer) {
+      const assetExistsResult = await assetExists({
+        code: values.code,
+        issuer: values.issuer,
+      });
+
+      if (!assetExistsResult) {
+        errors.issuer = 'Asset not found.';
+      }
     }
 
     return errors;
