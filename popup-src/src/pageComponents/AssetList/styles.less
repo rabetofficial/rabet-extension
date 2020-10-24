@@ -9,14 +9,33 @@
 }
 
 :local(.list) > :local(.listItem) {
-  padding: 14px 16px 0 16px;
+  padding: 23px 16px 0 16px;
+  display: flex;
+  align-items: center;
+}
+
+:local(.list) > :local(.listItem):hover {
+  background-color: @Alabaster;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+:local(.list) > :local(.listItem):hover:after {
+  font-family: 'icomoon';
+  content: "\e90e";
+  margin-left: auto;
+  margin-top: -17px;
 }
 
 :local(.list) > :local(.listItem) :local(.border) {
   display: flex;
   align-items: center;
   height: 100%;
-  padding-bottom: 14px;
+  padding-bottom: 21px;
+}
+
+:local(.list) > :local(.listItem) a {
+  width: 100%;
 }
 
 :local(.logoContainer) {
@@ -37,7 +56,14 @@
 :local(.value) {
   font-size: 16px;
   color: black;
-  margin-left: 6px;
+  //margin-left: 6px;
+}
+
+:local(.cost) {
+  font-size: 12px;
+  line-height: 1.33;
+  color: @dove-gray;
+  margin-top: 2px;
 }
 
 :local(.currency) {
@@ -54,4 +80,5 @@
   padding-right: 16px;
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 18px;
 }
