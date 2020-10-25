@@ -13,7 +13,7 @@ import styles from './styles.less';
 const AssetList = ({items, maxHeight}) => {
 
   return (
-      <ul className={ classNames(styles.list, 'scroll') } style={ {maxHeight: `${maxHeight}px`} }>
+      <ul className={ classNames(styles.list, 'hidden-scroll') } style={ {maxHeight: `${maxHeight}px`} }>
         <Link to={route.addAssetPage} className={styles.addAsset}>+ Add assets</Link>
         {items.map((item, index) => (
             <li

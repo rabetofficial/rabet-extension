@@ -37,7 +37,7 @@ const Item = ({items, item, index}) =>  {
 
 const TransactionList = ({ items, maxHeight }) => {
   return (
-      <ul className={ classNames(styles.list, 'scroll') } style={ {maxHeight: `${maxHeight}px`} }>
+      <ul className={ classNames(styles.list, 'hidden-scroll') } style={ {maxHeight: `${maxHeight}px`} }>
         {items.map((item, index) => (
             <Fragment key={ index }>
               <Item item={ item } index={ index } items={ items } />
