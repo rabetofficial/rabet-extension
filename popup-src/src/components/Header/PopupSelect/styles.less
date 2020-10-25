@@ -54,9 +54,13 @@
   }
 
   .popup__option--is-selected,
-  .popup__option--is-focused,
-  .popup__option:hover {
+  .popup__option--is-focused {
     background-color: white;
+  }
+
+  .popup__option:hover {
+    background-color: @Alabaster;
+    transition: 0.3s ease-in-out;
   }
 
   .popup__indicator-separator {
@@ -79,7 +83,7 @@
 
     .popup-address,
     .popup-amount,
-    .popup-name   {
+    .popup-name {
       display: none;
     }
 
