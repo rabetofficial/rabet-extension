@@ -222,16 +222,16 @@ class PaymentReceiveOps extends Component {
                     {({input, meta}) => (
                         <div className='pure-g group'>
                           <div className={ styles.selectInput }>
-                            <label className="label-primary">
-                              <span>Send max</span>
-                              <span>Max <span className="icon-caret-up" /></span>
-                            </label>
+                            <label className="label-primary">Send max</label>
+
                             <Input
                               type="number"
                               placeholder="1"
                               size="input-medium"
                               input={ input }
                               meta={ meta }
+                              variant="max"
+                              setMax={() => {}}
                             />
                           </div>
                           <div className={ styles.select }>

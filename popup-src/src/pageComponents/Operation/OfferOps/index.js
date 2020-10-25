@@ -156,16 +156,16 @@ class OfferOps extends Component {
                     {({input, meta}) => (
                         <div className="pure-g group">
                           <div className={ styles.selectInput }>
-                            <label className="label-primary max">
-                              <span>Selling amount</span>
-                              <span>Max <span className="icon-caret-up" /></span>
-                            </label>
+                            <label className="label-primary max">Selling amount</label>
+
                             <Input
                               type="number"
                               placeholder="1"
                               size="input-medium"
                               input={ input }
                               meta={ meta }
+                              variant="max"
+                              setMax={() => {}}
                             />
                           </div>
                           <div className={ styles.select }>

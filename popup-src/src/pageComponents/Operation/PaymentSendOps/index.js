@@ -223,16 +223,15 @@ class PaymentSendOps extends Component {
                     {({input, meta}) => (
                         <div className="pure-g group">
                           <div className={ styles.selectInput }>
-                            <label className="label-primary">
-                              <span>Send amount</span>
-                              <span>Max <span className="icon-caret-up" /></span>
-                            </label>
+                            <label className="label-primary">Send amount</label>
                             <Input
                               type="number"
                               placeholder="1"
                               size="input-medium"
                               input={ input }
                               meta={ meta }
+                              variant="max"
+                              setMax={() => {}}
                             />
                           </div>
                           <div className={ styles.select }>

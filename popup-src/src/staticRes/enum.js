@@ -14,6 +14,7 @@ export const buttonSizes = {
 
 export const inputTypes = {
     passVisible: 'pass-visible',
+    max: 'max'
 };
 
 export const inputSize = {

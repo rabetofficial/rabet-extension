@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {inputSize, inputTypes} from 'Root/staticRes/enum';
+import arrow from 'Root/assets/images/double-arrow.svg';
 import styles from './styles.less';
 
-const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, icon, style, input, meta}) => {
+const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, icon, style, input, meta, setMax}) => {
    const [visibleType, setVisibleType] = useState(type);
    const toggleVisible = () => {
      if(visibleType === 'password') {
@@ -29,6 +30,17 @@ const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, 
                  <span className="icon-visible-eye"/>
                </button>
            )
+     }
+
+     if (variant === inputTypes.max) {
+       return (
+           <button
+               type="button"
+               className={ styles.max }
+           >
+             <img src={arrow} onClick={() => { setMax() }} width={15} height={16} alt="icon"/>
+           </button>
+       )
      }
 
      if(isError) {
@@ -65,6 +77,7 @@ Input.defaultProps = {
   name: '',
   icon: '',
   style: {},
+  setMax: () => {}
 };
 
 Input.propTypes = {
@@ -77,6 +90,7 @@ Input.propTypes = {
   name: PropTypes.string,
   icon: PropTypes.string,
   style: PropTypes.object,
+  setMax: PropTypes.func,
 };
 
 export default Input;

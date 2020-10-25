@@ -121,7 +121,7 @@ class PaymentOps extends Component {
         } else if (accountData.status === 400) {
           errors.destination = 'Wrong.';
 
-          checked: false;
+          false;
         } else {
           const destinationTokens = accountData.balances || [];
 
@@ -218,10 +218,7 @@ class PaymentOps extends Component {
                     {({input, meta}) => (
                         <div className="pure-g group">
                           <div className={ styles.selectInput }>
-                            <label className="label-primary">
-                              <span>Amount</span>
-                              <span>Max <span className="icon-caret-up" /></span>
-                            </label>
+                            <label className="label-primary">Amount</label>
 
                             <Input
                               type="number"
@@ -229,6 +226,8 @@ class PaymentOps extends Component {
                               size="input-medium"
                               input={ input }
                               meta={ meta }
+                              variant="max"
+                              setMax={() => {}}
                             />
                           </div>
 
