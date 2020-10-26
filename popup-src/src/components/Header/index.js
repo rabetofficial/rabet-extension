@@ -11,6 +11,7 @@ import changeNetworkAction from 'Root/actions/options/changeNetwork';
 
 import styles from './styles.less';
 import PopupSelect from './PopupSelect';
+import PopupSearch from './PopupSearch';
 
 export const items = [
   { value: 'MAINNET', label: 'Main Network' },
@@ -46,7 +47,7 @@ const Header = (props) => {
         />
         <div className={ styles.comp }>
           <div className={ styles.header }>
-            <div className="pure-g">
+            <div className="pure-g" style={{position: 'relative'}}>
               <div className="pure-u-4-24">
                 <Link to={route.homePage}><img src={ logo } alt="logo" className={ styles.logo } /></Link>
               </div>
@@ -76,6 +77,7 @@ const Header = (props) => {
               </div>
               <div className="pure-u-4-24">
                 <PopupSelect toggleOverlay={ toggleOverlay }/>
+                {/*<PopupSearch toggleOverlay={ toggleOverlay } />*/}
               </div>
             </div>
           </div>

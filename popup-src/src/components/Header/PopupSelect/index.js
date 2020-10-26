@@ -63,7 +63,7 @@ const Popup = props => {
           defaultValue={ options[activeAccountIndex] }
           options={ options }
           hideSelectedOptions={ false }
-          isSearchable={ false }
+          isSearchable
           backspaceRemovesValue={ false }
           placeholder="A"
           onChange={ (e) => onChange(e) }
