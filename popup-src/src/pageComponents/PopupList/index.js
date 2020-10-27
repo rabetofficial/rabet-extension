@@ -8,11 +8,11 @@ const PopupList = ({info}) => {
   return (
       <div className="popup-item">
         <div className="popup-avatar">{abbr(info.name)}</div>
-        <div className="popup-div" >
-          <div className="popup-name" >{info.name}</div>
-          <div className="popup-address" >{info.publicKey}</div>
+        <div className="popup-div">
+          <div className="popup-name">{info.name}</div>
+          <div className="popup-address">{info.publicKey}</div>
         </div>
-        <div className="popup-amount" >{info.balance}</div>
+        <div className="popup-amount">{info.balance}</div>
       </div>
   );
 };
