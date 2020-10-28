@@ -6,17 +6,24 @@ import shorter from 'Root/helpers/shorter';
 import formatCurrency from 'Root/helpers/formatCurrency';
 import PopupList from 'Root/pageComponents/PopupList';
 import * as route from 'Root/staticRes/routes';
+import changeActiveAction from 'Root/actions/accounts/changeActive';
 import styles from './styles.less';
+import {items} from '../index';
 
 const PopupSearch = props => {
   const [searchString, setSearchString] = useState('');
-  const [result, setResult] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [toggle, setToggle] = useState(false);
 
   const handleChange = (e) => {
     setSearchString(e.target.value);
   };
+
+  let activeAccountIndex = accounts.findIndex(x => x.active);
+
+  if (activeAccountIndex === -1) {
+    activeAccountIndex = 0;
+  }
 
   useEffect(() => {
     const items = props.accounts.map((item, index) => ({
@@ -37,17 +44,7 @@ const PopupSearch = props => {
       setAccounts(list);
     }
 
-    console.warn(accounts);
-
   }, [searchString]);
-
-  let activeAccountIndex = accounts.findIndex(x => x.active);
-
-  if (activeAccountIndex === -1) {
-    activeAccountIndex = 0;
-  }
-
-  // console.warn(activeAccountIndex);
 
   const toggleMenu = () => {
     setToggle(!toggle);
@@ -60,6 +57,11 @@ const PopupSearch = props => {
     {link: '/', icon: 'icon-settings-2',iconSize: '15', label: 'Setting'},
     {link: '/', icon: 'icon-lock-2',iconSize: '15', label: 'Lock'},
   ];
+
+  const changeAccount = (account) => {
+    changeActiveAction(account.publicKey);
+    // console.warn(activeAccountIndex);
+  };
 
   return (
       <>
@@ -76,24 +78,26 @@ const PopupSearch = props => {
               className={styles.search}
           />
           {(accounts && accounts.length > 0) ?
-              <div>
               <ul className={styles.list}>
                 {accounts.map((account, index) =>
-                    <li key={index} className={((accounts.length -1) !== index) ? styles.border : ''}>
+                    <li
+                        key={index}
+                        className={((accounts.length -1) !== index) ? styles.border : ''}
+                        onClick={() => { changeAccount(account) }}
+                    >
                       <PopupList info={ account }/>
                     </li>
                 )}
-              </ul>
-                <div className={ styles.group }>
-                  {buttons.map((item, index) => (
-                      <Link key={index} to={item.link} className={ styles.link }>
-                        <span className={item.icon} style={{fontSize: `${item.iconSize}px`}} />{item.label}
-                      </Link>
-                  ))}
-                </div>
-              </div>:
-              <span>No accounts found</span>
+              </ul>:
+              <span className={styles.notFound}>No accounts found</span>
           }
+          <div className={ styles.group }>
+            {buttons.map((item, index) => (
+                <Link key={index} to={item.link} className={ styles.link }>
+                  <span className={item.icon} style={{fontSize: `${item.iconSize}px`}} />{item.label}
+                </Link>
+            ))}
+          </div>
         </div>
         }
       </>
