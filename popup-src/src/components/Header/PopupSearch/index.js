@@ -101,10 +101,10 @@ const PopupSearch = props => {
                 {accounts.map((account, index) =>
                     <li
                         key={index}
-                        className={((accounts.length -1) !== index) ? styles.border : ''}
                         onClick={() => { changeAccount(account) }}
                     >
                       <PopupList info={ account }/>
+                      <div className={((accounts.length -1) !== index) ? styles.border : ''} />
                     </li>
                 )}
               </ul>:
