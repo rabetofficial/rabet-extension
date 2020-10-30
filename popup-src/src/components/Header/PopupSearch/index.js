@@ -1,19 +1,20 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import classNames from 'classnames';
 import shorter from 'Root/helpers/shorter';
 import formatCurrency from 'Root/helpers/formatCurrency';
 import PopupList from 'Root/pageComponents/PopupList';
 import * as route from 'Root/staticRes/routes';
 import changeActiveAction from 'Root/actions/accounts/changeActive';
 import styles from './styles.less';
-import {items} from '../index';
 
 const PopupSearch = props => {
   const [searchString, setSearchString] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const node = useRef();
 
   const handleChange = (e) => {
     setSearchString(e.target.value);
@@ -51,20 +52,38 @@ const PopupSearch = props => {
     props.toggleOverlay(!toggle);
   };
 
+  const changeAccount = (account) => {
+    changeActiveAction(account.realPublicKey);
+    toggleMenu();
+  };
+
+  const handleClick = e => {
+    if (node.current.contains(e.target)) {
+      // inside click
+      return;
+    }
+    setToggle(false);
+    props.toggleOverlay(false);
+  };
+
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener("mousedown", handleClick);
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+
   const buttons = [
     {link: route.createWalletPage, icon: 'icon-plus-math', iconSize: '14',  label: 'Create Wallet'},
     {link: route.restoreWalletPage, icon: 'icon-file',iconSize: '14', label: 'Import Wallet'},
-    {link: '/', icon: 'icon-settings-2',iconSize: '15', label: 'Setting'},
-    {link: '/', icon: 'icon-lock-2',iconSize: '15', label: 'Lock'},
+    {link: route.settingPage , icon: 'icon-settings-2',iconSize: '15', label: 'Setting'},
+    {link: route.accountManagerPage , icon: 'icon-lock-2',iconSize: '15', label: 'Lock'},
   ];
 
-  const changeAccount = (account) => {
-    changeActiveAction(account.publicKey);
-    // console.warn(activeAccountIndex);
-  };
-
   return (
-      <>
+      <div ref={node}>
         <button className={styles.toggle} onClick={() => {toggleMenu()}}>
           {props.accounts[activeAccountIndex].name.substr(0, 1).toUpperCase()}
         </button>
@@ -78,7 +97,7 @@ const PopupSearch = props => {
               className={styles.search}
           />
           {(accounts && accounts.length > 0) ?
-              <ul className={styles.list}>
+              <ul className={classNames(styles.list, 'hidden-scroll')}>
                 {accounts.map((account, index) =>
                     <li
                         key={index}
@@ -100,7 +119,7 @@ const PopupSearch = props => {
           </div>
         </div>
         }
-      </>
+      </div>
   );
 };
 

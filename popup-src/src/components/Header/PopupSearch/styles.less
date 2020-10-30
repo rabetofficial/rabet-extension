@@ -47,11 +47,17 @@
   padding-left: 16px;
   list-style: none;
   margin-top: 18px;
-  margin-bottom: 12px;
+  margin-bottom: 0;
+  max-height: 210px;
+  overflow-y: scroll;
 }
 
 :local(.list) > li {
   cursor: pointer;
+}
+
+:local(.list) > li:last-child {
+  margin-bottom: 12px;
 }
 
 :local(.notFound ) {
