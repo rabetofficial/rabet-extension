@@ -55,7 +55,6 @@ class Home extends Component {
         editName: !prevState.editName,
       };
     });
-
   }
 
   onSubmit (values) {
@@ -155,11 +154,10 @@ class Home extends Component {
                                  {submitError && <div className="error">{submitError}</div>}
                                </div>
                                <Button
-                                 type="button"
+                                 type="submit"
                                  variant={ buttonTypes.primary }
                                  content={ <span className="icon-checkmark" /> }
                                  className={ styles.btn }
-                                 onClick={ this.toggleEdit }
                                />
                              </form>
                          ) }
