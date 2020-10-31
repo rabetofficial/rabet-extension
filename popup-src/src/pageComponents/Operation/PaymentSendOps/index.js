@@ -240,6 +240,7 @@ class PaymentSendOps extends Component {
                               onChange={ this.onChangeSendAsset }
                               variant="select-outlined"
                               defaultValue={list[0]}
+                              selected={this.state.sendAsset}
                             />
                           </div>
                         </div>
@@ -264,6 +265,7 @@ class PaymentSendOps extends Component {
                               onChange={ this.onChangeDestAsset }
                               variant="select-outlined"
                               defaultValue={list[0]}
+                              selected={this.state.destAsset}
                             />
                           </div>
                         </div>

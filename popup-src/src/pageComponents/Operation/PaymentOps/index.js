@@ -237,6 +237,7 @@ class PaymentOps extends Component {
                               onChange={ this.onChange }
                               variant="select-outlined"
                               defaultValue={list[0]}
+                              selected={this.state.selected}
                             />
                           </div>
                         </div>

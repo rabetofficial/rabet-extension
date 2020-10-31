@@ -240,6 +240,7 @@ class PaymentReceiveOps extends Component {
                               defaultValue={list[0]}
                               onChange={ this.onChangeSendAsset }
                               variant="select-outlined"
+                              selected={this.state.sendAsset}
                             />
                           </div>
                         </div>
@@ -264,6 +265,7 @@ class PaymentReceiveOps extends Component {
                               defaultValue={list[0]}
                               onChange={ this.onChangeDestAsset }
                               variant="select-outlined"
+                              selected={this.state.destAsset}
                             />
                           </div>
                         </div>

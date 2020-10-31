@@ -114,6 +114,7 @@ class Operation extends Component {
               defaultValue={items[0]}
               variant="select-default"
               onChange={this.onChange}
+              selected={this.state.selected}
             />
 
             <div className={ styles.ops }>

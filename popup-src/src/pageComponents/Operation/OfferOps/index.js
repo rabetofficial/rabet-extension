@@ -174,6 +174,7 @@ class OfferOps extends Component {
                               defaultValue={list[0]}
                               onChange={ this.onChangeSellingAmount }
                               variant="select-outlined"
+                              selected={this.state.sellingAsset}
                             />
                           </div>
                         </div>
@@ -198,6 +199,7 @@ class OfferOps extends Component {
                               defaultValue={list[0]}
                               onChange={ this.onChangeBuyingAmount }
                               variant="select-outlined"
+                              selected={this.state.buyingAsset}
                             />
                           </div>
                         </div>
