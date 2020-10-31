@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {inputSize, inputTypes} from 'Root/staticRes/enum';
-import arrow from 'Root/assets/images/double-arrow.svg';
 import styles from './styles.less';
 
 const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, icon, style, input, meta, setMax}) => {
@@ -38,7 +37,8 @@ const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, 
                type="button"
                className={ styles.max }
            >
-             <img src={arrow} onClick={() => { setMax() }} width={15} height={16} alt="icon"/>
+             {/*<img src={arrow} onClick={() => { setMax() }} width={15} height={16} alt="icon"/>*/}
+             <span className="icon-double-arrow-up" onClick={() => { setMax() }} />
            </button>
        )
      }
