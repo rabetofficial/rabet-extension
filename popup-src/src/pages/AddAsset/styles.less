@@ -1,3 +1,4 @@
+@import '~Root/styles/theme';
 
 :local(.div) {
   .content {
@@ -9,15 +10,35 @@
   }
 }
 
+:local(.tab) {
+  padding: 6px 16px 0 16px;
 
-:local(.buttons) {
-  margin-top: 32px;
-
-  button {
-    width: 100px;
+  .tabs-titles {
+    border-bottom: 1px solid @abbey;
   }
 
-  button:first-child {
-    margin-right: 12px;
+  .tab-title {
+    font-size: 16px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    text-align: left;
+    border-bottom: 1px solid white;
+    width: auto!important;
+  }
+
+  .tab-title:first-child {
+    padding-left: 0;
+    padding-right: 8px;
+  }
+
+
+  .tab-title:last-child {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .tab-title-active {
+    font-weight: bold;
+    border-bottom: 2px solid @shark;
   }
 }
