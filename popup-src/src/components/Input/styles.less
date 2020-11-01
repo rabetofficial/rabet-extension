@@ -40,13 +40,18 @@
   background: transparent;
   border: 1px solid transparent;
   cursor: default;
+}
 
-   span {
-     cursor: pointer;
-     color: @abbey;
-     margin-right: 0!important;
-     font-size: 15px;
-   }
+:local(.maxIcon) {
+  cursor: pointer;
+  color: @abbey;
+  margin-right: 0!important;
+  font-size: 15px;
+}
+
+:local(.maxIcon):hover{
+  transition: 0.3s ease-in;
+  color: @shark;
 }
 
 .input {
