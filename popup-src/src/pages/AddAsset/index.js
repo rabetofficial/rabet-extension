@@ -5,6 +5,7 @@ import Header from 'Root/components/Header';
 import PageTitle from 'Root/components/PageTitle';
 
 import CustomAsset from './CustomAsset';
+import SearchAsset from './SearchAsset';
 
 import styles from './styles.less';
 
@@ -13,7 +14,7 @@ const AddAsset = () => {
     {
       id : '1',
       tabTitle: 'Search',
-      tabContent: 1,
+      tabContent: <SearchAsset />,
     },
     {
       id : '2',
