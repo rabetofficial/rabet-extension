@@ -9,17 +9,17 @@ import SearchAsset from './SearchAsset';
 
 import styles from './styles.less';
 
-const AddAsset = () => {
+const AddAsset = ({history}) => {
   const tabs = [
     {
       id : '1',
       tabTitle: 'Search',
-      tabContent: <SearchAsset />,
+      tabContent: <SearchAsset history={history} />,
     },
     {
       id : '2',
       tabTitle: 'Custom Assets',
-      tabContent: <CustomAsset />
+      tabContent: <CustomAsset history={history} />
     },
   ];
 

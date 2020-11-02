@@ -51,6 +51,7 @@
     "purecss": "^2.0.3",
     "qrcode": "^1.4.4",
     "qrcode.react": "^1.0.0",
+    "randomcolor": "^0.6.2",
     "react": "^16.10.2",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.10.2",

@@ -27,7 +27,7 @@
   padding: 0 12px;
 }
 
-:local(.name), :local(.web){
+:local(.name), :local(.web) {
   margin: 0;
   font-size: 16px;
   line-height: 1.25;
@@ -42,4 +42,31 @@
 :local(.web) {
   color: @dove-gray;
   font-weight: normal;
+}
+
+:local(.logo) {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+
+  img {
+    width: 18px;
+    height: auto;
+  }
+}
+
+:local(.buttons) {
+  margin-top: 19px;
+
+  button {
+    width: 100px;
+  }
+
+  button:first-child {
+    margin-right: 12px;
+  }
 }
