@@ -55,7 +55,7 @@ class ConfirmLogin extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, submitting}) => (
+              render={ ({submitError, handleSubmit, submitting, invalid, pristine}) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="password">
                     {({input, meta}) => (
@@ -88,7 +88,7 @@ class ConfirmLogin extends Component {
                     size={ buttonSizes.large }
                     content="Continue"
                     style={ {marginTop: '32px'} }
-                    disabled={ submitting }
+                    disabled={ invalid || pristine || submitting }
                   />
                 </form>
                 ) }
