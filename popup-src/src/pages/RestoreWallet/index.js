@@ -70,7 +70,12 @@ class RestoreWallet extends Component {
                       content="Cancel"
                       onClick={ form.reset }
                       style={ {marginRight: '12px'} }
-                      onClick={() => {this.props.history.goBack()}}
+                      onClick={() => { this.props.history.push({
+                        pathname: route.homePage,
+                        state: {
+                          alreadyLoaded: true,
+                        },
+                      }) }}
                     />
                     <Button
                       type="submit"

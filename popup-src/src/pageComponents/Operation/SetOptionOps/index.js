@@ -9,6 +9,7 @@ import validateDomain from 'Root/helpers/validate/domain';
 import validateNumber from 'Root/helpers/validate/number';
 import validateAddress from 'Root/helpers/validate/address';
 import * as operationNames from 'Root/staticRes/operations';
+import getAccountData from 'Root/helpers/horizon/isAddressFound';
 import changeOperationAction from 'Root/actions/operations/change';
 
 import styles from './styles.less';
@@ -57,10 +58,20 @@ class SetOptionOps extends Component {
 
           errors.value = 'Address is invalid.';
         } else {
-          changeOperationAction(this.props.id, {
-            checked: true,
-            destination: values.value,
-          });
+          const accountData = await getAccountData(values.destination);
+
+          if (accountData.status === 404) {
+            errors.value = 'You cannot merge your account to an inactive account.';
+
+            changeOperationAction(this.props.id, {
+              checked: false,
+            });
+          } else {
+            changeOperationAction(this.props.id, {
+              checked: true,
+              destination: values.value,
+            });
+          }
         }
       }
 

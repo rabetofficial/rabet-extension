@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import {Field, Form} from 'react-final-form';
 import randomColor from 'randomcolor';
 
+import * as route from 'Root/staticRes/routes';
 import sample from 'Root/assets/images/stellar.png';
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
@@ -66,7 +67,12 @@ class SearchAsset extends Component {
                           variant="btn-default"
                           size="btn-medium"
                           content="Cancel"
-                          onClick={() => {this.props.history.goBack()}}
+                          onClick={() => { this.props.history.push({
+                            pathname: route.homePage,
+                            state: {
+                              alreadyLoaded: true,
+                            },
+                          }) }}
                       />
 
                       <Button

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import createClass from 'create-react-class';
 import Select, { components } from 'react-select';
 
@@ -49,8 +49,14 @@ const Popup = props => {
     }
   });
 
-  const onChange = (e) => {
-    changeActiveAction(e.publicKey);
+  const onChange = async (e) => {
+    await changeActiveAction(e.publicKey);
+
+    console.log('this happened');
+
+    this.props.history.push(route.homePage);
+
+    console.log('this happened');
   };
 
   return (
@@ -87,6 +93,6 @@ Popup.propTypes = {
 
 };
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
   accounts: state.accounts,
-}))(Popup);
+}))(Popup));

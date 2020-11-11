@@ -6,6 +6,7 @@ import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
 import assetExists from 'Root/helpers/horizon/assetExists';
 import validateAddress from 'Root/helpers/validate/address';
 import addAssetAction from 'Root/actions/operations/addAsset';
@@ -39,7 +40,7 @@ class CustomAsset extends Component {
       });
 
       if (!assetExistsResult) {
-        errors.issuer = 'Asset not found.';
+        errors.code = 'Asset not found.';
       }
     }
 
@@ -108,7 +109,12 @@ class CustomAsset extends Component {
                           variant="btn-default"
                           size="btn-medium"
                           content="Cancel"
-                          onClick={() => {this.props.history.goBack()}}
+                          onClick={() => { this.props.history.push({
+                            pathname: route.homePage,
+                            state: {
+                              alreadyLoaded: true,
+                            },
+                          }) }}
                       />
 
                       <Button

@@ -72,7 +72,7 @@ class ChangeTrustOps extends Component {
       });
 
       if (!assetExistsResult) {
-        errors.issuer = 'Asset not found.';
+        errors.code = 'Asset not found.';
 
         changeOperationAction(this.props.id, {
           checked: false,

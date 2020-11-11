@@ -9,7 +9,7 @@ import Input from 'Root/components/Input';
 import shorter from 'Root/helpers/shorter';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
-import LoadingOne from 'Root/pages/LoadingOne';
+import LoadingOne from 'Root/components/Note';
 import * as route from 'Root/staticRes/routes';
 import DropMenu from 'Root/components/DropMenu';
 import CopyText from 'Root/components/CopyText';
@@ -38,15 +38,21 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    if (!this.props.history.location?.state?.alreadyLoaded) {
+      const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
-    getData(activeAccount.publicKey).then(() => {
+      getData(activeAccount.publicKey).then(() => {
+        this.setState({
+          loading: false,
+        });
+      });
+
+      intervalAction(activeAccount.publicKey);
+    } else {
       this.setState({
         loading: false,
       });
-    });
-
-    intervalAction(activeAccount.publicKey);
+    }
   }
 
   toggleEdit() {

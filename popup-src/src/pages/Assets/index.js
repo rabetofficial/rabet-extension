@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
 import PageTitle from 'Root/components/PageTitle';
 import addAssetAction from 'Root/actions/operations/addAsset';
 import currentActiveAccount from 'Root/helpers/activeAccount';
@@ -17,6 +18,15 @@ class Assets extends Component {
     super(props);
 
     this.handleDelete = this.handleDelete.bind(this);
+
+    this.state = {
+      homeDomain: '',
+      flags: {
+        auth_required: false,
+        auth_revocable: false,
+        auth_immutable: false,
+      },
+    };
   }
 
   handleDelete({ code, issuer }) {
@@ -29,27 +39,24 @@ class Assets extends Component {
     const { balances } = activeAccount;
     const asset = balances.find(x => x.asset_code === this.props.match.params.asset_code);
 
+
+    getAssetWebsite(asset).then((assetData) => {
+      this.setState({
+        flags: assetData.flags,
+        homeDomain: assetData.homeDomain,
+      });
+    });
+
     let currentData = {
-      flags: {
-        auth_required: false,
-        auth_revocable: false,
-        auth_immutable: false
-      },
-      homeDomain: '',
+      flags: this.state.flags,
     };
 
     currentData.asset = asset;
 
-    getAssetWebsite(asset).then((assetData) => {
-      currentData.flags = assetData.flags;
-      currentData.homeDomain = assetData.homeDomain;
-    });
-
     const assetInfo = [
       { title: 'Assets code', value: asset.asset_code },
       { title: 'Issuer', value: asset.asset_issuer },
-      { title: 'Website', value: currentData.homeDomain },
-      { title: 'Assets type', value: asset.asset_type },
+      { title: 'Website', value: this.state.homeDomain },
     ];
 
     const deleteBtn = <><span className="icon-trash" />{''}Delete</>;
@@ -92,7 +99,12 @@ class Assets extends Component {
               variant="btn-default"
               size="btn-medium"
               content="Cancel"
-              onClick={() => {this.props.history.goBack()}}
+              onClick={() => { this.props.history.push({
+                pathname: route.homePage,
+                state: {
+                  alreadyLoaded: true,
+                },
+              }) }}
             />
             {/*<Button*/}
             {/*  variant="btn-primary"*/}

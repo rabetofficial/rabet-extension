@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 import Header from 'Root/components/Header';
 import Tooltip from 'Root/components/Tooltip';
+import * as route from 'Root/staticRes/routes';
 import PageTitle from 'Root/components/PageTitle';
 import ToggleSwitch from 'Root/components/ToggleSwitch';
 import changeOptionsAction from 'Root/actions/options/change';
@@ -159,7 +160,12 @@ class Setting extends Component {
                 variant="btn-default"
                 size="btn-medium"
                 content="Cancel"
-                onClick={() => {this.props.history.goBack()}}
+                onClick={() => { this.props.history.push({
+                  pathname: route.homePage,
+                  state: {
+                    alreadyLoaded: true,
+                  },
+                }) }}
               />
 
               <Button

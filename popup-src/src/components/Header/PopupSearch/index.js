@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import shorter from 'Root/helpers/shorter';
 import formatCurrency from 'Root/helpers/formatCurrency';
@@ -54,6 +54,8 @@ const PopupSearch = props => {
 
   const changeAccount = (account) => {
     changeActiveAction(account.realPublicKey);
+
+    props.history.push(route.homePage);
     toggleMenu();
   };
 
@@ -127,6 +129,6 @@ PopupSearch.propTypes = {
 
 };
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
   accounts: state.accounts,
-}))(PopupSearch);
+}))(PopupSearch));

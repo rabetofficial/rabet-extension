@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
 import PageTitle from 'Root/components/PageTitle';
 import SendButton from 'Root/components/SendButton';
 import sendAction from 'Root/actions/operations/send';
@@ -87,7 +88,12 @@ class Send extends Component {
                   variant="btn-default"
                   size="btn-medium"
                   content="Back"
-                  onClick={() => {this.props.history.goBack()}}
+                  onClick={() => { this.props.history.push({
+                    pathname: route.homePage,
+                    state: {
+                      alreadyLoaded: true,
+                    },
+                  }) }}
                 />
 
                 <SendButton />

@@ -5,6 +5,7 @@ import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
+import randomNumber from 'Root/helpers/randomNumber';
 import SelectOption from 'Root/components/SelectOption';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import changeOperationAction from 'Root/actions/operations/change';
@@ -58,7 +59,7 @@ class OfferOps extends Component {
         } else {
           selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.sellingAsset.value);
         }
-  
+
         if (!selectedTokenBalance) {
           selectedTokenBalance = {
             balance: 0,
@@ -105,7 +106,7 @@ class OfferOps extends Component {
       changeOperationAction(this.props.id, {
         checked: true,
         buying: values.buying,
-        offerId: values.offerId,
+        offerId: values.offerId || randomNumber(8),
         selling: values.selling,
         buyingAsset: this.state.buyingAsset,
         sellingAsset: this.state.sellingAsset,

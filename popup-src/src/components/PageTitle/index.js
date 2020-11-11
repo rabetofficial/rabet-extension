@@ -28,7 +28,12 @@ const PageTitle = ({title, status, statusTitle, ...props}) => {
         <div className={styles.icon}>
           <span
             className="icon-multiply"
-            onClick={() => { props.history.goBack() }}
+            onClick={() => { props.history.push({
+              pathname: route.homePage,
+              state: {
+                alreadyLoaded: true,
+              },
+            }) }}
           />
         </div>
       </div>
