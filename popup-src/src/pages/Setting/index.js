@@ -14,12 +14,14 @@ import styles from './styles.less';
 import Button from '../../components/Button';
 import SelectOption from '../../components/SelectOption';
 
-const networkOptions = [
-  { value: 'mainnet', label: 'MAINNET' },
-  { value: 'testnet', label: 'TESTNET' },
+const explorerOptions = [
+  { value: 'steexp', label: 'Steexp ' },
+  { value: 'lumenswap', label: 'Lumenswap' },
+  { value: 'stellarExpert', label: 'StellarExpert' },
 ];
 
 const timerOptions = [
+  { value: 5, label: '5 minutes' },
   { value: 15, label: '15 minutes' },
   { value: 30, label: '30 minutes' },
   { value: 60, label: '1 hour' },
@@ -29,8 +31,8 @@ class Setting extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: false,
-      selectedNetwork: {},
+      checked: true,
+      selectedExplorer: {},
       selectedTimer: {},
     };
 
@@ -44,7 +46,8 @@ class Setting extends Component {
     const { options } = this.props;
 
     this.setState({
-      selectedNetwork: { value: options.network.toLowerCase(), label: options.network.toUpperCase() },
+      selectedExplorer: explorerOptions[0],
+    // { value: options.network.toLowerCase(), label: options.network.toUpperCase() }
     });
 
     let timerLabel;
@@ -71,7 +74,7 @@ class Setting extends Component {
   }
 
   onChangeNetwork(e) {
-    this.setState({ selectedNetwork: e });
+    this.setState({ selectedExplorer: e });
   }
 
   onChangeTimer(e) {
@@ -81,7 +84,7 @@ class Setting extends Component {
   handleSubmit() {
     changeOptionsAction({
       privacyMode: this.state.checked,
-      network: this.state.selectedNetwork,
+      network: this.state.selectedExplorer,
       autoTimeLocker: this.state.selectedTimer,
     }, this.props.history.push);
   }
@@ -96,7 +99,7 @@ class Setting extends Component {
           <div className="content">
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-3">
-                <h3 className={ styles.title }>Network
+                <h3 className={ styles.title }>Explorer
                   <Tooltip trigger="hover" tooltip="Some text" placement="top">
                     <span className="icon-question-mark" />
                   </Tooltip>
@@ -106,11 +109,11 @@ class Setting extends Component {
               <div className="pure-u-1-3">
                 <div className={ styles.select }>
                   <SelectOption
-                    items={networkOptions}
+                    items={explorerOptions}
                     onChange={ this.onChangeNetwork }
                     variant="select-outlined"
                     isSearchable={ false }
-                    defaultValue={this.state.selectedNetwork}
+                    defaultValue={this.state.selectedExplorer}
                   />
                 </div>
               </div>
