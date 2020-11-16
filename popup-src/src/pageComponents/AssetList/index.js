@@ -14,7 +14,7 @@ const AssetList = ({items, maxHeight}) => {
 
   return (
       <ul className={ classNames(styles.list, 'hidden-scroll') } style={ {maxHeight: `${maxHeight}px`} }>
-        <Link to={route.addAssetPage} className={styles.addAsset}>+ Add assets</Link>
+        <Link to={route.addAssetPage} className={styles.addAsset}>+ Add asset</Link>
         {items.map((item, index) => (
             <li
                 key={ index }

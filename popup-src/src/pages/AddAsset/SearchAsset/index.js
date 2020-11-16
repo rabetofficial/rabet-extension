@@ -25,11 +25,11 @@ class SearchAsset extends Component {
     const colorSetting = {luminosity: 'bright', format: 'rgba', alpha: 0.3};
 
     const items = [
-      {name: 'DAI', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
-      {name: 'USDT', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
-      {name: 'STL', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
-      {name: 'DAO', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
-      {name: 'AAA', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
+      {name: 'DAI', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: true},
+      {name: 'USDT', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: false},
+      {name: 'STL', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: true},
+      {name: 'DAO', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: true},
+      {name: 'AAA', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: true},
     ];
 
     return (
@@ -54,7 +54,7 @@ class SearchAsset extends Component {
                     <h6 className={styles.result}>Search result</h6>
                     <ul className={classNames(styles.list, 'hidden-scroll', styles.scroll)}>
                       {items.map((item, index) => (
-                          <li key={index} className={styles.item}>
+                          <li key={index} className={styles.item} aria-disabled={!item.active}>
                             <div className={styles.logo} style={{backgroundColor: `${item.color}`}} >
                               <img src={sample} alt="logo"/>
                             </div>

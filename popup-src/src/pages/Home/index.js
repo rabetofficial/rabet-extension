@@ -93,7 +93,7 @@ class Home extends Component {
         tabContent: <AssetList items={ balances } maxHeight={ this.state.editName ? 205: 214 }/>
       },
       {id : '2',
-        tabTitle: 'Transaction',
+        tabTitle: 'Transactions',
         tabContent: <TransactionList items={ transactions } maxHeight={ this.state.editName ? 215: 221 }/>
       },
     ];

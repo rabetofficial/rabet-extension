@@ -18,7 +18,7 @@ const AddAsset = ({history}) => {
     },
     {
       id : '2',
-      tabTitle: 'Custom Assets',
+      tabTitle: 'Custom Asset',
       tabContent: <CustomAsset history={history} />
     },
   ];

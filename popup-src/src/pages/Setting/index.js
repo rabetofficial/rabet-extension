@@ -98,7 +98,7 @@ class Setting extends Component {
 
           <div className="content">
             <div className={ classNames('pure-g', styles.div) }>
-              <div className="pure-u-2-3">
+              <div className="pure-u-2-5">
                 <h3 className={ styles.title }>Explorer
                   <Tooltip trigger="hover" tooltip="Some text" placement="top">
                     <span className="icon-question-mark" />
@@ -106,7 +106,7 @@ class Setting extends Component {
                 </h3>
               </div>
 
-              <div className="pure-u-1-3">
+              <div className="pure-u-3-5">
                 <div className={ styles.select }>
                   <SelectOption
                     items={explorerOptions}
@@ -120,7 +120,7 @@ class Setting extends Component {
             </div>
 
             <div className={ classNames('pure-g', styles.div) }>
-              <div className="pure-u-2-3">
+              <div className="pure-u-2-5">
                 <h3 className={ styles.title }>Auto-lock timer
                   <Tooltip trigger="hover" tooltip="Some text" placement="top">
                     <span className="icon-question-mark" />
@@ -128,7 +128,7 @@ class Setting extends Component {
                 </h3>
               </div>
 
-              <div className="pure-u-1-3">
+              <div className="pure-u-3-5">
                 <div className={ styles.select }>
                   <SelectOption
                     items={timerOptions}
