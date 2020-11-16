@@ -28,7 +28,8 @@ class SearchAsset extends Component {
       {name: 'DAI', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
       {name: 'USDT', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
       {name: 'STL', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
-      // {name: 'DAO', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
+      {name: 'DAO', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
+      {name: 'AAA', web: 'Sample.com', logo: '', color: randomColor(colorSetting)},
     ];
 
     return (
@@ -51,7 +52,7 @@ class SearchAsset extends Component {
                       )}
                     </Field>
                     <h6 className={styles.result}>Search result</h6>
-                    <ul className={styles.list}>
+                    <ul className={classNames(styles.list, 'hidden-scroll', styles.scroll)}>
                       {items.map((item, index) => (
                           <li key={index} className={styles.item}>
                             <div className={styles.logo} style={{backgroundColor: `${item.color}`}} >
