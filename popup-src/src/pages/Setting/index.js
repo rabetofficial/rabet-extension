@@ -100,7 +100,7 @@ class Setting extends Component {
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-5">
                 <h3 className={ styles.title }>Explorer
-                  <Tooltip trigger="hover" tooltip="Some text" placement="top">
+                  <Tooltip trigger="hover" tooltip="You will be referred to this Explorer to see the details of your transactions." placement="top">
                     <span className="icon-question-mark" />
                   </Tooltip>
                 </h3>
@@ -122,7 +122,7 @@ class Setting extends Component {
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-5">
                 <h3 className={ styles.title }>Auto-lock timer
-                  <Tooltip trigger="hover" tooltip="Some text" placement="top">
+                  <Tooltip trigger="hover" tooltip="Stenk will lock automatically after a set amount of time." placement="top">
                     <span className="icon-question-mark" />
                   </Tooltip>
                 </h3>
@@ -144,7 +144,7 @@ class Setting extends Component {
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-3">
                 <h3 className={ styles.title }>Privacy mode
-                  <Tooltip trigger="hover" tooltip="Some text" placement="top">
+                  <Tooltip trigger="hover" tooltip="Websites must request access to view your account information." placement="top">
                     <span className="icon-question-mark" />
                   </Tooltip>
                 </h3>
