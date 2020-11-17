@@ -4,6 +4,9 @@ import styles from './styles.less';
 
 const Tabs = ({data, tabTitleStyle}) => {
   const [visibleTab, setVisibleTab] = useState(data[0].id);
+  const useForceUpdate = () => useState()[1];
+  const forceUpdate = useForceUpdate();
+
 
   const width = (100 / data.length);
 
@@ -18,7 +21,7 @@ const Tabs = ({data, tabTitleStyle}) => {
             {data.map((item, index) => (
                <li
                  key={ index }
-                 onClick={ () => setVisibleTab(item.id) }
+                 onClick={ () => {setVisibleTab(item.id); forceUpdate();} }
                  className={ visibleTab === item.id ? 'tab-title tab-title-active' : 'tab-title' }
                  style={ {width: `${width}%`} }
                >

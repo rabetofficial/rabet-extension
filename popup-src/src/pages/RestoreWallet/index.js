@@ -55,9 +55,10 @@ class RestoreWallet extends Component {
                           <Input
                             type="text"
                             size="input-medium"
-                            placeholder="S"
+                            placeholder="S..."
                             input={ input }
                             meta={ meta }
+                            autoFocus
                           />
                         </div>
                     )}

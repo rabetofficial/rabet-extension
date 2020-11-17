@@ -48,6 +48,7 @@ class SearchAsset extends Component {
                                 input={ input }
                                 meta={ meta }
                                 style={{fontFamily: 'Roboto, \'icomoon\''}}
+                                autoFocus
                             />
                       )}
                     </Field>

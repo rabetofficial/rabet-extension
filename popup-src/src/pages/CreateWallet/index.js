@@ -49,6 +49,7 @@ class CreateWallet extends Component {
                               placeholder="John"
                               input={ input }
                               meta={ meta }
+                              autoFocus
                             />
                           </div>
                       )}

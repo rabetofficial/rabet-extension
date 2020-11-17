@@ -5,7 +5,7 @@ import {inputSize, inputTypes} from 'Root/staticRes/enum';
 import Tooltip from 'Root/components/Tooltip';
 import styles from './styles.less';
 
-const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, icon, style, input, meta, setMax}) => {
+const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, icon, style, input, meta, setMax, autoFocus}) => {
    const [visibleType, setVisibleType] = useState(type);
    const toggleVisible = () => {
      if(visibleType === 'password') {
@@ -63,6 +63,7 @@ const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, 
             placeholder={ placeholder }
             name={ name }
             { ...input }
+            autoFocus={autoFocus}
           />
           {generateBtn()}
         </div>
@@ -79,7 +80,8 @@ Input.defaultProps = {
   name: '',
   icon: '',
   style: {},
-  setMax: () => {}
+  setMax: () => {},
+  autoFocus: false
 };
 
 Input.propTypes = {
@@ -93,6 +95,7 @@ Input.propTypes = {
   icon: PropTypes.string,
   style: PropTypes.object,
   setMax: PropTypes.func,
+  autoFocus: PropTypes.bool,
 };
 
 export default Input;

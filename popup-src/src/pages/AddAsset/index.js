@@ -14,12 +14,12 @@ const AddAsset = ({history}) => {
     {
       id : '1',
       tabTitle: 'Search',
-      tabContent: <SearchAsset history={history} />,
+      tabContent: <SearchAsset history={history} key="searchAsset" />,
     },
     {
       id : '2',
       tabTitle: 'Custom Asset',
-      tabContent: <CustomAsset history={history} />
+      tabContent: <CustomAsset history={history} key="customAsset" />
     },
   ];
 

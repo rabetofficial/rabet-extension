@@ -70,6 +70,7 @@ class SignerOps extends Component {
                             size="input-medium"
                             input={ input }
                             meta={ meta }
+                            autoFocus
                           />
                         </div>
                     )}

@@ -167,6 +167,7 @@ class OfferOps extends Component {
                               meta={ meta }
                               variant="max"
                               setMax={() => {}}
+                              autoFocus
                             />
                           </div>
                           <div className={ styles.select }>

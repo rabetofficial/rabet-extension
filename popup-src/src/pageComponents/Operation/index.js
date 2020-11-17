@@ -55,6 +55,7 @@ class Operation extends Component {
   }
 
   onChange(e) {
+    this.forceUpdate();
     changeOperationAction(this.props.id, { type: e.value });
 
     this.setState({ selected: e });
@@ -77,7 +78,7 @@ class Operation extends Component {
     if(this.state.selected === items[1]) return <PaymentSendOps id={id} />;
     if(this.state.selected === items[2]) return <PaymentReceiveOps id={id} />;
     if(this.state.selected === items[3]) return <OfferOps id={id} type={operations.manageBuyOffer} />;
-    if(this.state.selected === items[4]) return <OfferOps id={id} type={operations.createPassiveSellOffer} />
+    if(this.state.selected === items[4]) return <OfferOps id={id} type={operations.createPassiveSellOffer} />;
     if(this.state.selected === items[5]) return <SetOptionOps label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } id={id} type={operations.setOptionsInflationDest} />;
     if(this.state.selected === items[6]) return <SetOptionOps label="Clear flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsClearFlags} />;
     if(this.state.selected === items[7]) return <SetOptionOps label="Set flag" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsSetFlags} />;
