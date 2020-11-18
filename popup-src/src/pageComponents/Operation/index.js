@@ -150,7 +150,7 @@ class Operation extends Component {
                       <Field name="memo">
                         {({input, meta}) => (
                             <div className="group">
-                              <label className="label-primary">Memo</label>
+                              <label className="label-primary">Memo <span className="label-optional">(optional)</span></label>
                               <Input
                                   type="text"
                                   placeholder="Gift"
