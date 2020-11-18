@@ -28,13 +28,18 @@
   cursor: pointer;
 }
 
-:local(.item).active {
+:local(.item):hover,
+:local(.item).active,{
+  transition: 0.3s ease-in-out;
   border: 1px solid black;
 }
 
 :local(.item)[aria-disabled="true"] {
   cursor: not-allowed;
   opacity: 0.6;
+}
+:local(.item)[aria-disabled="true"]:hover {
+  border: 1px solid @Gallery;
 }
 
 :local(.name), :local(.web) {

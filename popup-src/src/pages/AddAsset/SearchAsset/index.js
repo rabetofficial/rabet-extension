@@ -17,14 +17,24 @@ class SearchAsset extends Component {
   constructor() {
     super();
     this.state = {
-      'active': -1
+      'active': -1,
+      'list': [],
     };
 
     this.setActive = this.setActive.bind(this);
   }
 
   setActive( index ) {
-    this.setState({ 'active': index });
+    let list = [];
+    if(!this.state.list.includes(index)) {
+      list.push(...this.state.list, index);
+      this.setState({ 'list': list });
+    } else {
+      list.push(...this.state.list);
+      const resultIndex = list.findIndex(s => s === index);
+      list.splice(resultIndex, 1);
+      this.setState({ 'list': list });
+    }
   }
 
   onSubmit (values) {
@@ -46,9 +56,9 @@ class SearchAsset extends Component {
       {name: 'AAA', web: 'Sample.com', logo: '', color: colors[4], active: true},
     ];
 
-    const currentItem = this.state.active;
+    const listItem = this.state.list;
     const getClass = function( name, index ) {
-      if ( index === currentItem ) {
+      if (listItem.includes(index)) {
         return name + ' active';
       }
       return name;
