@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
+import {Field, Form} from 'react-final-form';
+import classNames from 'classnames';
 
 import Card from 'Root/components/Card';
 import Button from 'Root/components/Button';
@@ -18,6 +20,7 @@ import ManageDataOps from 'Root/pageComponents/Operation/ManageDataOps';
 import PaymentSendOps from 'Root/pageComponents/Operation/PaymentSendOps';
 import ChangeTrustOps from 'Root/pageComponents/Operation/ChangeTrustops';
 import PaymentReceiveOps from 'Root/pageComponents/Operation/PaymentReceiveOps';
+import Input from 'Root/components/Input';
 
 import styles from './styles.less';
 
@@ -106,6 +109,12 @@ class Operation extends Component {
     }
   }
 
+  onSubmit (values) {
+    console.warn(values);
+  }
+
+  async validateForm (values) {}
+
   render() {
     return (
         <div className={ styles.main }>
@@ -131,6 +140,31 @@ class Operation extends Component {
                 />
               </div>
             </div>
+          </Card>
+          <Card type="card-secondary">
+            <Form
+                onSubmit={ this.onSubmit }
+                validate={ (values) => this.validateForm(values) }
+                render={ ({submitError, handleSubmit, submitting, values}) => (
+                    <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
+                      <Field name="memo">
+                        {({input, meta}) => (
+                            <div className="group">
+                              <label className="label-primary">Memo</label>
+                              <Input
+                                  type="text"
+                                  placeholder="Gift"
+                                  size="input-medium"
+                                  input={ input }
+                                  meta={ meta }
+                              />
+                            </div>
+                        )}
+                      </Field>
+                      {submitError && <div className="error">{submitError}</div>}
+                    </form>
+                ) }
+            />
           </Card>
         </div>
     );
