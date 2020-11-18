@@ -131,7 +131,9 @@ class ChangeTrustOps extends Component {
                   <Field name="limit">
                     {({input, meta}) => (
                         <div className="group">
-                          <label className="label-primary">Limit</label>
+                          <label className="label-primary">Limit
+                            <span className="label-optional">{' '}(optional)</span>
+                          </label>
                           <Input
                             type="number"
                             placeholder="1000"

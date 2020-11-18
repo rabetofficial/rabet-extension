@@ -82,8 +82,8 @@ class Operation extends Component {
     if(this.state.selected === items[5]) return <SetOptionOps label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } id={id} type={operations.setOptionsInflationDest} />;
     if(this.state.selected === items[6]) return <SetOptionOps label="Flag number" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsClearFlags} />;
     if(this.state.selected === items[7]) return <SetOptionOps label="Flag number" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsSetFlags} />;
-    if(this.state.selected === items[8]) return <SetOptionOps label="Master weight" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsMasterWeight} />;
-    if(this.state.selected === items[9]) return <SetOptionOps label="Home domain" inputInfo={ {type: 'text', placeholder: 'sample.com'} } id={id} type={operations.setOptionsHomeDomain} />;
+    if(this.state.selected === items[8]) return <SetOptionOps label="Weight" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsMasterWeight} />;
+    if(this.state.selected === items[9]) return <SetOptionOps label="Domain address" inputInfo={ {type: 'text', placeholder: 'sample.com'} } id={id} type={operations.setOptionsHomeDomain} />;
     if(this.state.selected === items[10]) return <SignerOps id={id} />;
     if(this.state.selected === items[11]) return <ThresholdOps id={id} />;
     if(this.state.selected === items[12]) return <ChangeTrustOps id={id} />;
