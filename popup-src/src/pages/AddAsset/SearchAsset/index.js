@@ -10,7 +10,23 @@ import Button from 'Root/components/Button';
 
 import styles from './styles.less';
 
+const colorSetting = {luminosity: 'bright', format: 'rgba', alpha: 0.3, count: 5};
+const colors = randomColor(colorSetting);
+
 class SearchAsset extends Component {
+  constructor() {
+    super();
+    this.state = {
+      'active': -1
+    };
+
+    this.setActive = this.setActive.bind(this);
+  }
+
+  setActive( index ) {
+    this.setState({ 'active': index });
+  }
+
   onSubmit (values) {
     // console.warn(values);
   }
@@ -22,15 +38,21 @@ class SearchAsset extends Component {
 
   render() {
 
-    const colorSetting = {luminosity: 'bright', format: 'rgba', alpha: 0.3};
-
     const items = [
-      {name: 'DAI', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: true},
-      {name: 'USDT', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: false},
-      {name: 'STL', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: true},
-      {name: 'DAO', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: true},
-      {name: 'AAA', web: 'Sample.com', logo: '', color: randomColor(colorSetting), active: true},
+      {name: 'DAI', web: 'Sample.com', logo: '', color: colors[0], active: true},
+      {name: 'USDT', web: 'Sample.com', logo: '', color: colors[1], active: false},
+      {name: 'STL', web: 'Sample.com', logo: '', color: colors[2], active: true},
+      {name: 'DAO', web: 'Sample.com', logo: '', color: colors[3], active: true},
+      {name: 'AAA', web: 'Sample.com', logo: '', color: colors[4], active: true},
     ];
+
+    const currentItem = this.state.active;
+    const getClass = function( name, index ) {
+      if ( index === currentItem ) {
+        return name + ' active';
+      }
+      return name;
+    };
 
     return (
         <div className={styles.content}>
@@ -55,7 +77,12 @@ class SearchAsset extends Component {
                     <h6 className={styles.result}>Search result</h6>
                     <ul className={classNames(styles.list, 'hidden-scroll', styles.scroll)}>
                       {items.map((item, index) => (
-                          <li key={index} className={styles.item} aria-disabled={!item.active}>
+                          <li
+                              key={index}
+                              className={getClass(styles.item, index)}
+                              aria-disabled={!item.active}
+                              onClick={() => item.active && this.setActive(index)}
+                          >
                             <div className={styles.logo} style={{backgroundColor: `${item.color}`}} >
                               <img src={sample} alt="logo"/>
                             </div>
