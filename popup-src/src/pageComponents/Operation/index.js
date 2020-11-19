@@ -78,20 +78,20 @@ class Operation extends Component {
     if(this.state.selected === items[0]) return <PaymentOps id={id} />;
     if(this.state.selected === items[1]) return <PaymentSendOps id={id} />;
     if(this.state.selected === items[2]) return <PaymentReceiveOps id={id} />;
-    if(this.state.selected === items[3]) return <OfferOps id={id} type={operations.manageBuyOffer} />;
-    if(this.state.selected === items[4]) return <OfferOps id={id} type={operations.createPassiveSellOffer} />;
-    if(this.state.selected === items[5]) return <SetOptionOps label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } id={id} type={operations.setOptionsInflationDest} />;
-    if(this.state.selected === items[6]) return <SetOptionOps label="Flag number" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsClearFlags} />;
-    if(this.state.selected === items[7]) return <SetOptionOps label="Flag number" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsSetFlags} />;
-    if(this.state.selected === items[8]) return <SetOptionOps label="Weight" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsMasterWeight} />;
-    if(this.state.selected === items[9]) return <SetOptionOps label="Domain address" inputInfo={ {type: 'text', placeholder: 'sample.com'} } id={id} type={operations.setOptionsHomeDomain} />;
+    if(this.state.selected === items[3]) return <OfferOps key="offer1" id={id} type={operations.manageBuyOffer} />;
+    if(this.state.selected === items[4]) return <OfferOps key="offer2" id={id} type={operations.createPassiveSellOffer} />;
+    if(this.state.selected === items[5]) return <SetOptionOps key="Inflation" label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } id={id} type={operations.setOptionsInflationDest} />;
+    if(this.state.selected === items[6]) return <SetOptionOps key="flag1" label="Flag number" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsClearFlags} />;
+    if(this.state.selected === items[7]) return <SetOptionOps key="flag2" label="Flag number" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsSetFlags} />;
+    if(this.state.selected === items[8]) return <SetOptionOps key="weight" label="Weight" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsMasterWeight} />;
+    if(this.state.selected === items[9]) return <SetOptionOps key="domain" label="Domain address" inputInfo={ {type: 'text', placeholder: 'sample.com'} } id={id} type={operations.setOptionsHomeDomain} />;
     if(this.state.selected === items[10]) return <SignerOps id={id} />;
     if(this.state.selected === items[11]) return <ThresholdOps id={id} />;
     if(this.state.selected === items[12]) return <ChangeTrustOps id={id} />;
     if(this.state.selected === items[13]) return <AllowTrustOps id={id} />;
-    if(this.state.selected === items[14]) return <SetOptionOps label="Destination" inputInfo={ {type: 'text', placeholder: 'G...'} } id={id} type={operations.accountMerge} />;
+    if(this.state.selected === items[14]) return <SetOptionOps key="destination" label="Destination" inputInfo={ {type: 'text', placeholder: 'G...'} } id={id} type={operations.accountMerge} />;
     if(this.state.selected === items[15]) return <ManageDataOps id={id} />;
-    if(this.state.selected === items[16]) return <SetOptionOps label="Bump to" inputInfo={ {type: 'number', placeholder: '1234'} } id={id} type={operations.bumpSequence} />;
+    if(this.state.selected === items[16]) return <SetOptionOps key="bump" label="Bump to" inputInfo={ {type: 'number', placeholder: '1234'} } id={id} type={operations.bumpSequence} />;
     return <PaymentOps id={id} />;
   }
 
