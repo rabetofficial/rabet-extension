@@ -22,10 +22,14 @@
   background: transparent;
   border: 1px solid transparent;
 
-  .icon-visible-eye {
+  .icon-visible-eye, .icon-invisible {
     font-size: 16px;
     color: @abbey;
     margin-right: 0;
+  }
+
+  .icon-invisible {
+    margin-top: -1px;
   }
 
   .icon-exclamation-circle {
@@ -45,11 +49,11 @@
 :local(.maxIcon) {
   cursor: pointer;
   color: @abbey;
-  margin-right: 0!important;
+  margin-right: 0 !important;
   font-size: 15px;
 }
 
-:local(.maxIcon):hover{
+:local(.maxIcon):hover {
   transition: 0.3s ease-in;
   color: @shark;
 }
