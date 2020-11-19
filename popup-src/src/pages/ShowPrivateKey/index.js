@@ -55,6 +55,7 @@ class ShowPrivateKey extends Component {
                                 placeholder="Enter your password"
                                 input={ input }
                                 meta={ meta }
+                                autoFocus
                               />
                             </div>
                         )}
