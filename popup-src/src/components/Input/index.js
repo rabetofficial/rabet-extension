@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {inputSize, inputTypes} from 'Root/staticRes/enum';
@@ -52,18 +52,25 @@ const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, 
      return null;
    };
 
+  const inputRef = useRef(null);
+  useEffect(() => {
+    if(autoFocus && inputRef.current){
+      inputRef.current.focus();
+    }
+  }, []);
+
     return (
         <>
         <div className={ classNames(styles.group, size) } style={ style }>
           <input
-            type={ visibleType }
-            className="input"
-            value={ defaultValue }
-            disabled={ disabled }
-            placeholder={ placeholder }
-            name={ name }
-            { ...input }
-            autoFocus={autoFocus}
+              type={ visibleType }
+              className="input"
+              value={ defaultValue }
+              disabled={ disabled }
+              placeholder={ placeholder }
+              name={ name }
+              { ...input }
+              ref={inputRef}
           />
           {generateBtn()}
         </div>
