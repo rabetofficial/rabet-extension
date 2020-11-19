@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
+import {Field, Form} from 'react-final-form';
 
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
@@ -14,6 +15,8 @@ import sendAction from 'Root/actions/operations/send';
 import Operation from 'Root/pageComponents/Operation';
 import addOperationAction from 'Root/actions/operations/add';
 import clearOperationsAction from 'Root/actions/operations/clear';
+import Card from 'Root/components/Card';
+import Input from 'Root/components/Input';
 
 import styles from './styles.less';
 
@@ -53,6 +56,12 @@ class Send extends Component {
     sendAction(this.props.history.push);
   }
 
+  onSubmit (values) {
+    console.warn(values);
+  }
+
+  async validateForm (values) {}
+
   render() {
     return (
         <>
@@ -82,6 +91,36 @@ class Send extends Component {
                     />
                   </div>
               ))}
+
+              <div className={styles.card}>
+                <Card type="card-secondary">
+                  <Form
+                      onSubmit={ this.onSubmit }
+                      validate={ (values) => this.validateForm(values) }
+                      render={ ({submitError, handleSubmit, submitting, values}) => (
+                          <form className="form" onSubmit={ handleSubmit }>
+                            <Field name="memo">
+                              {({input, meta}) => (
+                                  <div className="group">
+                                    <label className="label-primary">Memo
+                                      <span className="label-optional">{' '}(optional)</span>
+                                    </label>
+                                    <Input
+                                        type="text"
+                                        placeholder="Gift"
+                                        size="input-medium"
+                                        input={ input }
+                                        meta={ meta }
+                                    />
+                                  </div>
+                              )}
+                            </Field>
+                            {submitError && <div className="error">{submitError}</div>}
+                          </form>
+                      ) }
+                  />
+                </Card>
+              </div>
 
               <div className={ classNames('pure-g justify-end', styles.buttons) }>
                 <Button

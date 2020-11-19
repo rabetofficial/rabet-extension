@@ -45,7 +45,7 @@ const PopupSearch = props => {
       setAccounts(list);
     }
 
-  }, [searchString]);
+  }, [searchString, props.accounts]);
 
   const toggleMenu = () => {
     setToggle(!toggle);
