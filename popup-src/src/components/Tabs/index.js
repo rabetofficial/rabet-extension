@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import FocusLock, { AutoFocusInside } from 'react-focus-lock';
 import styles from './styles.less';
 
 const Tabs = ({data, tabTitleStyle}) => {
@@ -10,9 +11,7 @@ const Tabs = ({data, tabTitleStyle}) => {
 
   const width = (100 / data.length);
 
-  const listContent = data.map((item, index) =>
-      <div key={index} style={ visibleTab === item.id ? {} : {display: 'none'} }>{item.tabContent}</div>
-  );
+  const listContent = data.map((item, index) => (visibleTab === item.id) && <div key={index}>{item.tabContent}</div>);
 
   return (
       <div className={ styles.tab }>
