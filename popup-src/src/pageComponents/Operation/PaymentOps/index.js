@@ -24,6 +24,7 @@ class PaymentOps extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
+    this.maxAmount = this.maxAmount.bind(this);
   }
 
   onChange(e) {
@@ -52,7 +53,7 @@ class PaymentOps extends Component {
     const errors = {};
 
     if (!values.destination) {
-      errors.destination = 'Required.';
+      errors.destination = 'Destination is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -60,7 +61,7 @@ class PaymentOps extends Component {
     }
 
     if (!values.amount) {
-      errors.amount = 'Required.';
+      errors.amount = 'Amount is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -120,8 +121,6 @@ class PaymentOps extends Component {
 
         } else if (accountData.status === 400) {
           errors.destination = 'Wrong.';
-
-          false;
         } else {
           const destinationTokens = accountData.balances || [];
 
@@ -156,13 +155,19 @@ class PaymentOps extends Component {
       changeOperationAction(this.props.id, {
         checked,
         isAccountNew,
-        amount: values.amount,
+        amount: parseFloat(values.amount, 10).toFixed(7),
         destination: values.destination,
         asset: this.state.selected.value,
       });
     }
 
     return errors;
+  }
+
+  maxAmount() {
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { balances } = activeAccount;
+    
   }
 
   componentDidMount() {
@@ -186,7 +191,10 @@ class PaymentOps extends Component {
       });
     }
 
-    this.setState({ list });
+    this.setState({
+      list,
+      selected: list[0],
+    });
   }
 
   render() {
@@ -228,7 +236,7 @@ class PaymentOps extends Component {
                               input={ input }
                               meta={ meta }
                               variant="max"
-                              setMax={() => {}}
+                              setMax={() => { this.maxAmount() }}
                             />
                           </div>
 

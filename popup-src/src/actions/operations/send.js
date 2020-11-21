@@ -130,7 +130,7 @@ export default async (push) => {
             inflationDest: operations[i].destination,
           }));
         }
-        
+
         else if (operations[i].type === operationsName.setOptionsThreshold) {
           transaction = transaction.addOperation(StellarSdk.Operation.setOptions({
             lowThreshold: operations[i].low,
@@ -279,12 +279,9 @@ export default async (push) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       push({
         pathname: route.errorPage,
-        state: { message: 'ERROR! Please try again.' },
+        state: { message: err.message, },
       });
     });
-
-  console.log(operations);
 };

@@ -10,6 +10,7 @@ import * as route from 'Root/staticRes/routes';
 import assetExists from 'Root/helpers/horizon/assetExists';
 import validateAddress from 'Root/helpers/validate/address';
 import addAssetAction from 'Root/actions/operations/addAsset';
+import currentActiveAccount from 'Root/helpers/activeAccount';
 
 import styles from './styles.less';
 
@@ -22,11 +23,11 @@ class CustomAsset extends Component {
     const errors = {};
 
     if (!values.code) {
-      errors.code = 'Required.';
+      errors.code = 'Code is required.';
     }
 
     if (!values.issuer) {
-      errors.issuer = 'Required.'
+      errors.issuer = 'Issuer is required.'
     } else {
       if (!validateAddress(values.issuer)) {
         errors.issuer = 'Invalid address.';
@@ -34,10 +35,22 @@ class CustomAsset extends Component {
     }
 
     if (!errors.code && !errors.issuer) {
+      const { activeAccount } = currentActiveAccount();
+
+      const { balances } = activeAccount;
+
+      const findAsset = balances.find(x => x.asset_code === values.code && x.asset_issuer === values.issuer);
+
+      if (findAsset) {
+        errors.code = 'Asset is already added.';
+      }
+
       const assetExistsResult = await assetExists({
         code: values.code,
         issuer: values.issuer,
       });
+
+      console.log(assetExistsResult)
 
       if (!assetExistsResult) {
         errors.code = 'Asset not found.';

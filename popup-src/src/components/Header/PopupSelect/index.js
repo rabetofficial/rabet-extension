@@ -52,11 +52,7 @@ const Popup = props => {
   const onChange = async (e) => {
     await changeActiveAction(e.publicKey);
 
-    console.log('this happened');
-
     this.props.history.push(route.homePage);
-
-    console.log('this happened');
   };
 
   return (

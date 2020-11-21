@@ -2,7 +2,9 @@ import store from 'Root/store';
 import types from 'Root/actions';
 import xlmPrice from 'Root/helpers/xlmPrice';
 import horizonData from 'Root/helpers/horizon/data';
+import setUsdPrice from 'Root/actions/options/setUsdPrice';
 import transactions from 'Root/helpers/horizon/transactions';
+import toNativePrice from 'Root/helpers/horizon/toNativePrice';
 
 export default async (address) => {
   const data = await horizonData(address);
@@ -30,7 +32,11 @@ export default async (address) => {
     const accountTransactions = await transactions(address);
 
     accountData.transactions = accountTransactions;
+
+    accountData.balances = await toNativePrice(accountData.balances);
   }
+
+  await setUsdPrice();
 
   store.dispatch({
     accountData,

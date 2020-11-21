@@ -31,7 +31,7 @@ class RestoreWallet extends Component {
   validateForm (values) {
     const errors = {};
     if (!values.key) {
-      errors.key = 'Required.';
+      errors.key = 'Key is required.';
     }
 
     return errors;
@@ -46,7 +46,7 @@ class RestoreWallet extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, submitting }) => (
+              render={ ({submitError, handleSubmit, form, submitting, invalid }) => (
                 <form className="form" onSubmit={ handleSubmit }>
                   <Field name="key">
                     {({input, meta}) => (
@@ -83,7 +83,7 @@ class RestoreWallet extends Component {
                       variant="btn-primary"
                       size="btn-small"
                       content="Import"
-                      disabled={ submitting }
+                      disabled={ submitting || invalid }
                     />
                   </div>
                 </form>

@@ -99,16 +99,16 @@ export default (operation) => {
       title: 'Change Trust',
       info: [
         {
-          title: 'Limit',
-          value: operation.limit,
-        },
-        {
           title: 'Asset',
           value: operation.code,
         },
         {
           title: 'Issuer',
           value: operation.issuer,
+        },
+        {
+          title: 'Limit',
+          value: operation.limit,
         },
       ],
     }
@@ -239,16 +239,16 @@ export default (operation) => {
       title: 'Path Payment Strict Send',
       info: [
         {
+          title: 'Destination',
+          value: operation.destination,
+        },
+        {
           title: 'Send Amount',
           value: `${operation.sendAmount} ${operation.sendAsset.value}`,
         },
         {
           title: 'Destination Min',
           value: `${operation.destMin} ${operation.destAsset.value}`,
-        },
-        {
-          title: 'Destination',
-          value: operation.destination,
         },
       ],
     }
@@ -262,16 +262,16 @@ export default (operation) => {
       title: 'Path Payment Strict Receive',
       info: [
         {
+          title: 'Destination',
+          value: operation.destination,
+        },
+        {
           title: 'Send Max',
           value: `${operation.sendMax} ${operation.sendAsset.value}`,
         },
         {
           title: 'Destination Min',
           value: `${operation.destAmount} ${operation.destAsset.value}`,
-        },
-        {
-          title: 'Destination',
-          value: operation.destination,
         },
       ],
     }
@@ -285,12 +285,12 @@ export default (operation) => {
       title: 'Manage Buy Offer',
       info: [
         {
-          title: 'Buying',
-          value: `${operation.buying} ${operation.buyingAsset.value}`,
-        },
-        {
           title: 'Selling',
           value: `${operation.selling} ${operation.sellingAsset.value}`,
+        },
+        {
+          title: 'Buying',
+          value: `${operation.buying} ${operation.buyingAsset.value}`,
         },
         {
           title: 'Offer ID',
@@ -308,12 +308,12 @@ export default (operation) => {
         title: 'Create Passive Sell Offer',
         info: [
           {
-            title: 'Buying',
-            value: `${operation.buying} ${operation.buyingAsset.value}`,
-          },
-          {
             title: 'Selling',
             value: `${operation.selling} ${operation.sellingAsset.value}`,
+          },
+          {
+            title: 'Buying',
+            value: `${operation.buying} ${operation.buyingAsset.value}`,
           },
           {
             title: 'Offer ID',
@@ -321,7 +321,7 @@ export default (operation) => {
           },
         ],
       }
-  
+
       return mapper;
     }
 };

@@ -73,7 +73,7 @@ class Home extends Component {
     const errors = {};
 
     if (!values.name) {
-      errors.name = 'Required.';
+      errors.name = 'Name is required.';
     }
 
     return errors;
@@ -85,7 +85,13 @@ class Home extends Component {
     let transactions = activeAccount.transactions || [];
     let balances = activeAccount.balances || [];
 
-    balances = balances.filter(x => x.asset_type !== 'native');
+    const nativeIndex = balances.findIndex(x => x.asset_type === 'native');
+
+    if (nativeIndex !== -1) {
+      balances[nativeIndex].asset_code = 'XLM';
+      balances[nativeIndex].toNative = balances[nativeIndex].balance;
+    }
+
 
     const tabs = [
       {id : '1',

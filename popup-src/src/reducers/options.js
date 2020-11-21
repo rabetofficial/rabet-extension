@@ -6,14 +6,17 @@ import types from 'Root/actions';
   Option instance:
 
   {
+    usd: Number,
     network: String,
-    autoTimeLocker: String,
+    explorer: String,
     privacyMode: Boolean,
+    autoTimeLocker: String,
   }
 
 */
 
 const initialState = {
+  usd: 0,
   privacyMode: true,
   explorer: 'steexp',
   network: 'MAINNET',
@@ -38,6 +41,13 @@ export default (state = initialState, action) => {
         ...state,
         network: action.network,
       }
+    }
+
+    case types.options.SET_USD: {
+      return {
+        ...state,
+        usd: action.price,
+      };
     }
 
     default: {

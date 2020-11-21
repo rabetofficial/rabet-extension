@@ -55,7 +55,7 @@ export default async ({ code, issuer, limit }, push) => {
     .catch((err) => {
       push({
         pathname: route.errorPage,
-        state: { message: 'ERROR! Please try again.' },
+        state: { message: err.message },
       });
     });
 };

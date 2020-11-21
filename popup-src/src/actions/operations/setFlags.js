@@ -63,7 +63,7 @@ export default async ({ auth_required, auth_revocable, auth_immutable }, push) =
     .catch((err) => {
       push({
         pathname: route.errorPage,
-        state: { message: 'ERROR! Please try again.' },
+        state: { message: err.message },
       });
     });
 };

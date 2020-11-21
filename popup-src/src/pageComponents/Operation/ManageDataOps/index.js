@@ -18,7 +18,7 @@ class ManageDataOps extends Component {
     const errors = {};
 
     if (!values.name) {
-      errors.name = 'Required.';
+      errors.name = 'Name is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -26,7 +26,7 @@ class ManageDataOps extends Component {
     }
 
     if (!values.value) {
-      errors.value = 'Required.';
+      errors.value = 'Value is equired.';
 
       changeOperationAction(this.props.id, {
         checked: false,

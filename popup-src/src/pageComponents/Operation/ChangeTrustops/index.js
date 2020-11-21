@@ -24,7 +24,7 @@ class ChangeTrustOps extends Component {
     let accountData;
 
     if (!values.code) {
-      errors.code = 'Required.';
+      errors.code = 'Code is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -32,7 +32,7 @@ class ChangeTrustOps extends Component {
     }
 
     if (!values.issuer) {
-      errors.issuer = 'Required.';
+      errors.issuer = 'Issuer is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,

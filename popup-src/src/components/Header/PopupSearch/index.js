@@ -1,13 +1,16 @@
-import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import {Link, withRouter } from 'react-router-dom';
-import classNames from 'classnames';
+import React, {useState, useEffect, useRef} from 'react';
+
 import shorter from 'Root/helpers/shorter';
-import formatCurrency from 'Root/helpers/formatCurrency';
-import PopupList from 'Root/pageComponents/PopupList';
 import * as route from 'Root/staticRes/routes';
+import lockAction from 'Root/actions/accounts/lock';
+import PopupList from 'Root/pageComponents/PopupList';
+import formatCurrency from 'Root/helpers/formatCurrency';
 import changeActiveAction from 'Root/actions/accounts/changeActive';
+
 import styles from './styles.less';
 
 const PopupSearch = props => {
@@ -52,6 +55,10 @@ const PopupSearch = props => {
     props.toggleOverlay(!toggle);
   };
 
+  const handleLock = () => {
+    lockAction(props.history.push);
+  };
+
   const changeAccount = (account) => {
     changeActiveAction(account.realPublicKey);
 
@@ -81,7 +88,7 @@ const PopupSearch = props => {
     {link: route.createWalletPage, icon: 'icon-plus-math', iconSize: '14',  label: 'Create Wallet'},
     {link: route.restoreWalletPage, icon: 'icon-file',iconSize: '14', label: 'Import Wallet'},
     {link: route.settingPage , icon: 'icon-settings-2',iconSize: '15', label: 'Setting'},
-    {link: route.accountManagerPage , icon: 'icon-lock-2',iconSize: '15', label: 'Lock'},
+    {link: '#', icon: 'icon-lock-2', iconSize: '15', label: 'Lock', onClick: handleLock },
   ];
 
   return (
@@ -114,7 +121,7 @@ const PopupSearch = props => {
           }
           <div className={ styles.group }>
             {buttons.map((item, index) => (
-                <Link key={index} to={item.link} className={ styles.link }>
+                <Link key={index} to={item.link} className={ styles.link } onClick={item.onClick}>
                   <span className={item.icon} style={{fontSize: `${item.iconSize}px`}} />{item.label}
                 </Link>
             ))}

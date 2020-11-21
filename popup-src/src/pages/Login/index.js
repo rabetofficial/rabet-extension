@@ -16,17 +16,21 @@ import styles from './styles.less';
 
 class Login extends Component {
   componentDidMount() {
-    hadLoggedBeforeAction()
+    const { state } = this.props.location;
+
+    if (!state) {
+      hadLoggedBeforeAction()
       .then(hasLogged => {
         if (hasLogged) {
           loginUserAction(hasLogged)
-            .then(isLogged => {
-              if (isLogged) {
-                this.props.history.push(route.accountManagerPage);
-              }
-            });
+          .then(isLogged => {
+            if (isLogged) {
+              this.props.history.push(route.accountManagerPage);
+            }
+          });
         }
       });
+    }
   }
 
   async onSubmit (values) {
@@ -45,7 +49,11 @@ class Login extends Component {
     const errors = {};
 
     if (!values.password) {
-      errors.password = 'Required.';
+      errors.password = 'Password is required.';
+    } else {
+      if (values.password.length < 8) {
+        errors.password = 'Password must be 8 or more characters.';
+      }
     }
 
     return errors;

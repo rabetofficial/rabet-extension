@@ -36,7 +36,7 @@ class AllowTrustOps extends Component {
     const errors = {};
 
     if (!values.trustor) {
-      errors.trustor = 'Required.';
+      errors.trustor = 'Trustor is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -52,7 +52,7 @@ class AllowTrustOps extends Component {
     }
 
     if (!values.code) {
-      errors.code = 'Required.';
+      errors.code = 'Code is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -72,7 +72,7 @@ class AllowTrustOps extends Component {
     }
 
     if (!values.authorize) {
-      errors.authorize = 'Required.';
+      errors.authorize = 'Authorize is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,

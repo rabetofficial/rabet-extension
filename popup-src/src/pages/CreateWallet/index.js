@@ -37,7 +37,7 @@ class CreateWallet extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, submitting }) => (
+              render={ ({submitError, handleSubmit, form, submitting, invalid }) => (
                   <form className="form" onSubmit={ handleSubmit }>
                     <Field name="name">
                       {({input, meta}) => (
@@ -75,7 +75,7 @@ class CreateWallet extends Component {
                         variant="btn-primary"
                         size="btn-small"
                         content="Create"
-                        disabled={ submitting }
+                        disabled={ submitting || invalid }
                       />
                     </div>
                   </form>

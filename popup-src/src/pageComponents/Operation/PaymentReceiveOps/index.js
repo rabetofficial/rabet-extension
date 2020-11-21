@@ -47,7 +47,7 @@ class PaymentReceiveOps extends Component {
     const errors = {};
 
     if (!values.destination) {
-      errors.destination = 'Required.';
+      errors.destination = 'Destination is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -77,7 +77,7 @@ class PaymentReceiveOps extends Component {
     }
 
     if (!values.sendMax) {
-      errors.sendMax = 'Required.';
+      errors.sendMax = 'Send Max is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -91,7 +91,7 @@ class PaymentReceiveOps extends Component {
         } else {
           selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.sendAsset.value);
         }
-  
+
         if (!selectedTokenBalance) {
           selectedTokenBalance = {
             balance: 0,
@@ -100,7 +100,7 @@ class PaymentReceiveOps extends Component {
 
         if (Number(selectedTokenBalance.balance || '0') < values.sendMax) {
           errors.sendMax = `Insufficient ${this.state.sendAsset.value} balance.`;
- 
+
           changeOperationAction(this.props.id, {
             checked: false,
           });
@@ -113,7 +113,7 @@ class PaymentReceiveOps extends Component {
     }
 
     if (!values.destAmount) {
-      errors.destAmount = 'Required.';
+      errors.destAmount = 'Dest amount is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -156,10 +156,10 @@ class PaymentReceiveOps extends Component {
         checked: true,
         destination: values.destination,
 
-        sendMax: values.sendMax,
+        sendMax: parseFloat(values.sendMax, 10).toFixed(7),
         sendAsset: this.state.sendAsset,
 
-        destAmount: values.destAmount,
+        destAmount: parseFloat(values.destAmount, 10).toFixed(7),
         destAsset: this.state.destAsset,
       });
     }
@@ -192,7 +192,11 @@ class PaymentReceiveOps extends Component {
       });
     }
 
-    this.setState({ list });
+    this.setState({
+      list,
+      sendAsset: list[0],
+      destAsset: list[0],
+    });
   }
 
   render() {

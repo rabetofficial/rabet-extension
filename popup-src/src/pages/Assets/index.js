@@ -116,6 +116,7 @@ class Assets extends Component {
               variant="btn-danger"
               size="btn-medium"
               content={deleteBtn}
+              disabled={asset.balance !== '0'}
               onClick={() => { this.handleDelete({ code: asset.asset_code, issuer: asset.asset_issuer }) }}
             />
           </div>

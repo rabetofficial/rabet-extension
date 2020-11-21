@@ -45,7 +45,7 @@ class OfferOps extends Component {
 
 
     if (!values.selling) {
-      errors.selling = 'Required.';
+      errors.selling = 'Selling is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -77,7 +77,7 @@ class OfferOps extends Component {
     }
 
     if (!values.buying) {
-      errors.buying = 'Required.';
+      errors.buying = 'Buying is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -105,9 +105,9 @@ class OfferOps extends Component {
     if (!errors.selling && !errors.buying && this.state.buyingAsset.value && this.state.sellingAsset.value) {
       changeOperationAction(this.props.id, {
         checked: true,
-        buying: values.buying,
+        buying: parseFloat(values.buying, 10).toFixed(7),
         offerId: values.offerId || randomNumber(8),
-        selling: values.selling,
+        selling: parseFloat(values.selling, 10).toFixed(7),
         buyingAsset: this.state.buyingAsset,
         sellingAsset: this.state.sellingAsset,
       });
@@ -141,7 +141,11 @@ class OfferOps extends Component {
       });
     }
 
-    this.setState({ list });
+    this.setState({
+      list,
+      sellingAsset: list[0],
+      buyingAsset: list[0],
+    });
   }
 
   render() {

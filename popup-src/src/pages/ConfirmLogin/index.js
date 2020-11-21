@@ -33,11 +33,11 @@ class ConfirmLogin extends Component {
     const errors = {};
 
     if (!values.password) {
-      errors.password = 'Required.';
+      errors.password = 'Password is required.';
     }
 
     if (!values.confirm) {
-      errors.confirm = 'Required.';
+      errors.confirm = 'Confirm password is required.';
     }
 
     if (values.password && values.password.length < 8) {

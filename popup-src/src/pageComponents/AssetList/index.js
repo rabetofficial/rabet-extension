@@ -1,8 +1,9 @@
-import React, {Fragment, useState} from 'react';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import React, {Fragment, useState} from 'react';
 
 import * as route from 'Root/staticRes/routes';
 import stellar from 'Root/assets/images/stellar.png';
@@ -10,8 +11,7 @@ import formatCurrency from 'Root/helpers/formatCurrency';
 
 import styles from './styles.less';
 
-const AssetList = ({items, maxHeight}) => {
-
+const AssetList = ({items, maxHeight, ...props}) => {
   return (
       <ul className={ classNames(styles.list, 'hidden-scroll') } style={ {maxHeight: `${maxHeight}px`} }>
         <Link to={route.addAssetPage} className={styles.addAsset}>+ Add asset</Link>
@@ -30,7 +30,7 @@ const AssetList = ({items, maxHeight}) => {
                       <div className={ styles.currency }>{item.asset_code}</div>
                     </div>
                     <div className={styles.cost}>
-                      $194,000
+                      {item.toNative ? '$' : ''}{formatCurrency(props.options.usd * Number.parseFloat(item.toNative, 10)) || ''}
                     </div>
                   </div>
                 </div>
@@ -46,4 +46,6 @@ AssetList.propTypes = {
   maxHeight: PropTypes.number.isRequired,
 };
 
-export default AssetList;
+export default connect(state => ({
+  options: state.options,
+}))(AssetList);

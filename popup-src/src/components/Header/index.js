@@ -2,11 +2,10 @@ import Select from 'react-select';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import * as route from 'Root/staticRes/routes';
 import logo from 'Root/assets/images/logo.svg';
-import logoutUserAction from 'Root/actions/user/logout';
 import changeNetworkAction from 'Root/actions/options/changeNetwork';
 
 import styles from './styles.less';
@@ -33,7 +32,7 @@ const Header = (props) => {
   const [selected, setSelected] = useState(items[index]);
 
   const onChangeNetwork = (e) => {
-    changeNetworkAction(e);
+    changeNetworkAction(e, props.history.push);
 
     setSelected(e);
   };
@@ -90,6 +89,6 @@ Header.propTypes = {
 
 };
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
   options: state.options,
-}))(Header);
+}))(Header));

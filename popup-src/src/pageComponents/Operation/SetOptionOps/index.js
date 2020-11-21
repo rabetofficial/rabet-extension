@@ -29,7 +29,7 @@ class SetOptionOps extends Component {
         checked: false,
       });
 
-      errors.value = 'Required.';
+      errors.value = 'Value is required.';
     }
 
     if (!errors.value) {

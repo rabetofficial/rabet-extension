@@ -46,7 +46,7 @@ class PaymentSendOps extends Component {
     const errors = {};
 
     if (!values.destination) {
-      errors.destination = 'Required.';
+      errors.destination = 'Destination is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -90,7 +90,7 @@ class PaymentSendOps extends Component {
         } else {
           selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.sendAsset.value);
         }
-  
+
         if (!selectedTokenBalance) {
           selectedTokenBalance = {
             balance: 0,
@@ -99,7 +99,7 @@ class PaymentSendOps extends Component {
 
         if (Number(selectedTokenBalance.balance || '0') < values.sendAmount) {
           errors.sendAmount = `Insufficient ${this.state.sendAsset.value} balance.`;
- 
+
           changeOperationAction(this.props.id, {
             checked: false,
           });
@@ -112,7 +112,7 @@ class PaymentSendOps extends Component {
     }
 
     if (!values.destMin) {
-      errors.destMin = 'Required.';
+      errors.destMin = 'Dest min is required.';
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -155,10 +155,10 @@ class PaymentSendOps extends Component {
         checked: true,
         destination: values.destination,
 
-        sendAmount: values.sendAmount,
+        sendAmount: parseFloat(values.sendAmount, 10).toFixed(7),
         sendAsset: this.state.sendAsset,
 
-        destMin: values.destMin,
+        destMin: parseFloat(values.destMin, 10).toFixed(7),
         destAsset: this.state.destAsset,
       });
     }
@@ -192,12 +192,15 @@ class PaymentSendOps extends Component {
       });
     }
 
-    this.setState({ list });
+    this.setState({
+      list,
+      sendAsset: list[0],
+      destAsset: list[0],
+    });
   }
 
   render() {
     const { list } = this.state;
-
 
     return (
         <Form
