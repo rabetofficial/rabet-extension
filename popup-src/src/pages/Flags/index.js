@@ -14,6 +14,13 @@ import setFlagsAction from 'Root/actions/operations/setFlags';
 
 import styles from './styles.less';
 
+const tooltipInfo = {
+  required: 'Requires the issuing account to give other accounts permission before they can hold the issuing account’s credit.',
+  revocable: 'Allows the issuing account to revoke its credit held by other accounts.',
+  immutable: 'If this is set then none of the authorization flags can be changed and the account can never be deleted.',
+};
+
+
 class Flags extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +71,7 @@ class Flags extends Component {
             <div className={ classNames('pure-g', styles.div, styles.first) }>
               <div className="pure-u-2-3">
                 <h3 className={ styles.toggleTitle }>Authorization required
-                  <Tooltip trigger="hover" tooltip="Some text" placement="top">
+                  <Tooltip trigger="hover" tooltip={tooltipInfo.required} placement="top">
                     <span className="icon-question-mark" />
                   </Tooltip>
                 </h3>
@@ -81,7 +88,7 @@ class Flags extends Component {
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-3">
                 <h3 className={ styles.toggleTitle }>Authorization revocable
-                  <Tooltip trigger="hover" tooltip="Some text" placement="top">
+                  <Tooltip trigger="hover" tooltip={tooltipInfo.revocable} placement="top">
                     <span className="icon-question-mark" />
                   </Tooltip>
                 </h3>
@@ -98,7 +105,7 @@ class Flags extends Component {
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-3">
                 <h3 className={ styles.toggleTitle }>Authorization immutable
-                  <Tooltip trigger="hover" tooltip="Some text" placement="top">
+                  <Tooltip trigger="hover" tooltip={tooltipInfo.immutable} placement="top">
                     <span className="icon-question-mark" />
                   </Tooltip>
                 </h3>
