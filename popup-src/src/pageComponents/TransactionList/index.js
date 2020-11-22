@@ -37,14 +37,18 @@ const Item = ({items, item, index}) =>  {
 
 const TransactionList = ({ items, maxHeight }) => {
   return (
-      <ul className={ classNames(styles.list, 'hidden-scroll') } style={ {maxHeight: `${maxHeight}px`} }>
-        {items.map((item, index) => (
-            <Fragment key={ index }>
-              <Item item={ item } index={ index } items={ items } />
-            </Fragment>
-        ))
+      <>
+        {items && items.length > 0 ?
+            <ul className={ classNames(styles.list, 'hidden-scroll') } style={ {maxHeight: `${maxHeight}px`} }>
+              {items.map((item, index) => (
+                  <Fragment key={ index }>
+                    <Item item={ item } index={ index } items={ items } />
+                  </Fragment>
+              ))
+              }
+            </ul> : <div className={styles.noData}>You have no transaction</div>
         }
-      </ul>
+        </>
   );
 };
 
