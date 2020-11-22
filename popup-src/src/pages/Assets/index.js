@@ -65,7 +65,7 @@ class Assets extends Component {
         <>
           <div className={ classNames(styles.page, 'hidden-scroll content-scroll') }>
             <Header/>
-            <PageTitle title={`Assets | ${asset.asset_code}`} />
+            <PageTitle title={`Asset | ${asset.asset_code}`} />
             <div className="content">
               {assetInfo.map((item, index) => (
                   <div key={ index } className={ styles.assets }>

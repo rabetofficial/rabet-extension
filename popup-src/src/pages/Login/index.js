@@ -88,7 +88,7 @@ class Login extends Component {
                         type="submit"
                         variant={ buttonTypes.primary }
                         size={ buttonSizes.large }
-                        content="Login"
+                        content="Unlock"
                         style={ {marginTop: '32px'} }
                         disabled={ invalid || pristine || submitting }
                       />

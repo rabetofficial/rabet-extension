@@ -13,7 +13,7 @@ const AddAsset = ({history}) => {
   const tabs = [
     {
       id : '1',
-      tabTitle: 'Search',
+      tabTitle: 'Search Asset',
       tabContent: <SearchAsset history={history} key="searchAsset" />,
     },
     {
