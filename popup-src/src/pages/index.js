@@ -27,6 +27,7 @@ import ContactRequest from './ContactRequest';
 import LoadingOverlay from './LoadingOverlay';
 import AccountManager from './AccountManager';
 import SuccessfulSubmission from './SuccessfulSubmission';
+import ConfirmFlag from './ConfirmFlag';
 
 class App extends Component {
   // constructor(props) {
@@ -64,6 +65,7 @@ class App extends Component {
             <ProtectedRoute exact path={ route.successSubmitPage } component={ SuccessfulSubmission } />
 
             <Route exact path={ route.flagPage } component={ Flags } />
+            <Route exact path={ route.confirmFlagPage } component={ ConfirmFlag } />
             <Route exact path={ route.loginPage } component={ Login } />
             <Route exact path={ route.firstPage } component={ FirstPage } />
             <Route exact path={ route.fetchDataPage } component={ FetchData } />

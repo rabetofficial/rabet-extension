@@ -12,6 +12,7 @@ export const SendPage = '/send';
 export const ConfirmPage = '/confirm';
 export const ShowPrivateKeyPage = '/show-private-key';
 export const flagPage = '/flag';
+export const confirmFlagPage = '/confirm-flag';
 export const addAssetPage = '/add-asset';
 export const settingPage = '/setting';
 export const contactPage = '/contact-request';
