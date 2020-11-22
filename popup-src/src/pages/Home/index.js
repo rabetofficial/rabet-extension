@@ -174,7 +174,13 @@ class Home extends Component {
                              </form>
                          ) }
                      />
-                 ): <p className={ styles.info }>{activeAccount.name || `Account ${activeAccountIndex + 1}`}</p>}
+                 ): (
+                     <p className={ styles.info }>
+                       {((activeAccount && activeAccount.name.length < 30) ?
+                           activeAccount.name : activeAccount.name.substr(0, 30).concat('...'))
+                           || `Account ${activeAccountIndex + 1}`}
+                     </p>
+                 )}
                  <label className="label-secondary">Address:</label>
                  <p className={ styles.info }>
                    <CopyText text={activeAccount.publicKey}  button={shorter(activeAccount.publicKey, 8)} />
