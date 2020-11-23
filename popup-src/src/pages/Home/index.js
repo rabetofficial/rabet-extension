@@ -73,7 +73,7 @@ class Home extends Component {
     const errors = {};
 
     if (!values.name) {
-      errors.name = 'Name is required.';
+      errors.name = null;
     }
 
     return errors;
@@ -176,8 +176,7 @@ class Home extends Component {
                      />
                  ): (
                      <p className={ styles.info }>
-                       {((activeAccount && activeAccount.name.length < 30) ?
-                           activeAccount.name : activeAccount.name.substr(0, 30).concat('...'))
+                       {activeAccount.name && (activeAccount.name.length < 30 ? activeAccount.name : activeAccount.name.substr(0, 30).concat('...'))
                            || `Account ${activeAccountIndex + 1}`}
                      </p>
                  )}

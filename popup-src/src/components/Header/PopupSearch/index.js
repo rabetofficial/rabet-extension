@@ -94,7 +94,9 @@ const PopupSearch = props => {
   return (
       <div ref={node}>
         <button className={styles.toggle} onClick={() => {toggleMenu()}}>
-          {props.accounts[activeAccountIndex].name.substr(0, 1).toUpperCase()}
+          {props.accounts[activeAccountIndex].name ?
+              props.accounts[activeAccountIndex].name.substr(0, 1).toUpperCase() : 'A'
+          }
         </button>
         {toggle &&
         <div className={styles.card}>
