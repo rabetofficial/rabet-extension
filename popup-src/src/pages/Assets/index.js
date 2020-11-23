@@ -92,6 +92,9 @@ class Assets extends Component {
                   </tbody>
                 </table>
               </div>
+              <div className="error-box" style={{marginTop: '16px'}}>
+                Lorem ipsum is placeholder text commonly used in the graphic!
+              </div>
             </div>
           </div>
           <div className={ classNames('pure-g justify-end', styles.buttons) }>
