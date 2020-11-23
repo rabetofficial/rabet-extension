@@ -31,7 +31,7 @@ class RestoreWallet extends Component {
   validateForm (values) {
     const errors = {};
     if (!values.key) {
-      errors.key = 'Key is required.';
+      errors.key = null;
     }
 
     return errors;

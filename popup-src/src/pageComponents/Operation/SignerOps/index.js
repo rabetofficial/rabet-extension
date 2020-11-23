@@ -19,7 +19,7 @@ class SignerOps extends Component {
     const errors = {};
 
     if (!values.signer) {
-      errors.signer = 'Signer is required.';
+      errors.signer = null;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -35,7 +35,7 @@ class SignerOps extends Component {
     }
 
     if (!values.weight) {
-      errors.weight = 'Weight is required.';
+      errors.weight = null;
 
       changeOperationAction(this.props.id, {
         checked: false,

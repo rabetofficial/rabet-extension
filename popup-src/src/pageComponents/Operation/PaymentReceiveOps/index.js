@@ -47,7 +47,7 @@ class PaymentReceiveOps extends Component {
     const errors = {};
 
     if (!values.destination) {
-      errors.destination = 'Destination is required.';
+      errors.destination = null;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -77,7 +77,7 @@ class PaymentReceiveOps extends Component {
     }
 
     if (!values.sendMax) {
-      errors.sendMax = 'Send Max is required.';
+      errors.sendMax = null;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -113,7 +113,7 @@ class PaymentReceiveOps extends Component {
     }
 
     if (!values.destAmount) {
-      errors.destAmount = 'Dest amount is required.';
+      errors.destAmount = null;
 
       changeOperationAction(this.props.id, {
         checked: false,

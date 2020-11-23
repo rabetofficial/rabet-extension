@@ -27,7 +27,7 @@ class ShowPrivateKey extends Component {
     const errors = {};
 
     if (!values.key) {
-      errors.key = 'Key is required.';
+      errors.key = null;
     }
 
     return errors;

@@ -53,7 +53,7 @@ class PaymentOps extends Component {
     const errors = {};
 
     if (!values.destination) {
-      errors.destination = 'Destination is required.';
+      errors.destination = null;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -61,7 +61,7 @@ class PaymentOps extends Component {
     }
 
     if (!values.amount) {
-      errors.amount = 'Amount is required.';
+      errors.amount = null;
 
       changeOperationAction(this.props.id, {
         checked: false,

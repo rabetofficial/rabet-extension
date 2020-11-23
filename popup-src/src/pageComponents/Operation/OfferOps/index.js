@@ -45,7 +45,7 @@ class OfferOps extends Component {
 
 
     if (!values.selling) {
-      errors.selling = 'Selling is required.';
+      errors.selling = null;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -77,7 +77,7 @@ class OfferOps extends Component {
     }
 
     if (!values.buying) {
-      errors.buying = 'Buying is required.';
+      errors.buying = null;
 
       changeOperationAction(this.props.id, {
         checked: false,

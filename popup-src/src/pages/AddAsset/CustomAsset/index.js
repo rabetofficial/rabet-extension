@@ -23,11 +23,11 @@ class CustomAsset extends Component {
     const errors = {};
 
     if (!values.code) {
-      errors.code = 'Code is required.';
+      errors.code = null;
     }
 
     if (!values.issuer) {
-      errors.issuer = 'Issuer is required.'
+      errors.issuer = null
     } else {
       if (!validateAddress(values.issuer)) {
         errors.issuer = 'Invalid address.';

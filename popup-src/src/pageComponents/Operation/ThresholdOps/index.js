@@ -18,7 +18,7 @@ class ThresholdOps extends Component {
     const errors = {};
 
     if (!values.low) {
-      errors.low = 'Low is required.';
+      errors.low = null;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -26,7 +26,7 @@ class ThresholdOps extends Component {
     }
 
     if (!values.medium) {
-      errors.medium = 'Medium is required.';
+      errors.medium = null;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -34,7 +34,7 @@ class ThresholdOps extends Component {
     }
 
     if (!values.high) {
-      errors.high = 'High is required.';
+      errors.high = null;
 
       changeOperationAction(this.props.id, {
         checked: false,

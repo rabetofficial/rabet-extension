@@ -49,7 +49,7 @@ class Login extends Component {
     const errors = {};
 
     if (!values.password) {
-      errors.password = 'Password is required.';
+      errors.password = null;
     } else {
       if (values.password.length < 8) {
         errors.password = 'Password must be 8 or more characters.';

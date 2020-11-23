@@ -18,7 +18,7 @@ class ManageDataOps extends Component {
     const errors = {};
 
     if (!values.name) {
-      errors.name = 'Name is required.';
+      errors.name = null;
 
       changeOperationAction(this.props.id, {
         checked: false,
