@@ -1,8 +1,9 @@
 import store from 'Root/store';
 import types from 'Root/actions';
 
-export default () => {
+export default (memo) => {
   store.dispatch({
-    type: types.transaction.CLEAR_OP,
+    type: types.transaction.ADD_MEMO,
+    memo,
   });
-}
+};

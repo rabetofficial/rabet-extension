@@ -22,10 +22,11 @@ export default {
     CHANGE_NAME: 'accounts/CHANGE_NAME',
     CHANGE_ACTIVE: 'accounts/CHANGE_ACTIVE',
   },
-  operations: {
-    ADD: 'operations/ADD',
-    CLEAR: 'operations/CLEAR',
-    REMOVE: 'operations/REMOVE',
-    CHANGE: 'operations/CHANGE',
+  transaction: {
+    ADD_MEMO: 'transaction/ADD_MEMO',
+    ADD_OP: 'transaction/ADD_OP',
+    CLEAR_OP: 'transaction/CLEAR_OP',
+    REMOVE_OP: 'transaction/REMOVE_OP',
+    CHANGE_OP: 'transaction/CHANGE_OP',
   },
 }

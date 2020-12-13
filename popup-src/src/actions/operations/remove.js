@@ -5,7 +5,7 @@ import types from 'Root/actions';
 
 export default async (id) => {
   store.dispatch({
-    type: types.operations.REMOVE,
+    type: types.transaction.REMOVE_OP,
     id,
   });
 };

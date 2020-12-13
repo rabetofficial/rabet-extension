@@ -18,7 +18,7 @@ const Error = props => {
         <div className={ styles.card }>
           <NoteCard
             title="Error"
-            message={props.history.location.state.hash || 'ERROR!'}
+            message={props.history.location.state.message || 'ERROR!'}
             btnText="Got it"
             icon="icon-exclamation-triangle"
             iconClass={ styles.icon }

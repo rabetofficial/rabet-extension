@@ -13,6 +13,7 @@ import PageTitle from 'Root/components/PageTitle';
 import SendButton from 'Root/components/SendButton';
 import sendAction from 'Root/actions/operations/send';
 import Operation from 'Root/pageComponents/Operation';
+import addMemoAction from 'Root/actions/operations/addMemo';
 import addOperationAction from 'Root/actions/operations/add';
 import clearOperationsAction from 'Root/actions/operations/clear';
 import Card from 'Root/components/Card';
@@ -60,7 +61,25 @@ class Send extends Component {
     console.warn(values);
   }
 
-  async validateForm (values) {}
+  async validateForm (values) {
+    if (values.memo) {
+      if (values.memo.length > 28) {
+        addMemoAction({
+          checked: false,
+          text: values.memo,
+        });
+
+        return {
+          memo: 'Memo should not be more than 28 characters.',
+        };
+      } else {
+        addMemoAction({
+          checked: true,
+          text: values.memo,
+        });
+      }
+    }
+  }
 
   render() {
     return (

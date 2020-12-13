@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
@@ -11,10 +12,6 @@ import validatePrivateKey from 'Root/helpers/validate/privateKey';
 
 class RestoreWallet extends Component {
   async onSubmit (values) {
-    if (!validatePrivateKey(values.key)) {
-      return { key: 'Invalid seed.' };
-    }
-
     const account = await restoreAccountAction(values.key);
 
     if (account === 'duplicate') {
@@ -30,8 +27,17 @@ class RestoreWallet extends Component {
 
   validateForm (values) {
     const errors = {};
-    if (!values.key) {
-      errors.key = null;
+
+    if (!validatePrivateKey(values.key)) {
+      errors.key = 'Invalid private key.';
+    } else {
+      const { accounts } = this.props;
+
+      const isDuplicated = accounts.some(x => x.privateKey === values.key);
+
+      if (isDuplicated) {
+        errors.key = 'Account is duplicated.';
+      }
     }
 
     return errors;
@@ -99,4 +105,6 @@ RestoreWallet.propTypes = {
 
 };
 
-export default RestoreWallet;
+export default connect(state => ({
+  accounts: state.accounts,
+}))(RestoreWallet);

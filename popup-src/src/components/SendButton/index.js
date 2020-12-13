@@ -17,7 +17,7 @@ class SendButton extends Component {
   }
 
   render() {
-    const { operations } = this.props;
+    const { operations, memo } = this.props.transaction;
 
     let isDisabled = false;
 
@@ -29,6 +29,10 @@ class SendButton extends Component {
       if (!operations[i].checked) {
         isDisabled = true;
       }
+    }
+
+    if (!memo.checked) {
+      isDisabled = true;
     }
 
     return (
@@ -44,5 +48,5 @@ class SendButton extends Component {
 }
 
 export default withRouter(connect(state => ({
-  operations: state.operations,
+  transaction: state.transaction,
 }))(SendButton));

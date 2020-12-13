@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import React, {Fragment, useState} from 'react';
 
 import * as route from 'Root/staticRes/routes';
-import stellar from 'Root/assets/images/stellar.png';
+import stellar from 'Root/assets/images/question-circle.png';
 import formatCurrency from 'Root/helpers/formatCurrency';
 
 import styles from './styles.less';

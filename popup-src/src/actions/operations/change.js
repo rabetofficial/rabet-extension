@@ -3,7 +3,7 @@ import types from 'Root/actions';
 
 export default async (id, values) => {
   store.dispatch({
-    type: types.operations.CHANGE,
+    type: types.transaction.CHANGE_OP,
     id,
     values,
   });

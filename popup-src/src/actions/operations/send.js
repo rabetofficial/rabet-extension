@@ -22,7 +22,7 @@ import pathPaymentStrictReceive from 'Root/operations/pathPaymentStrictReceive';
 export default async (push) => {
   push(route.loadingOnePage);
 
-  const { operations } = store.getState();
+  const { operations, memo } = store.getState().transaction;
 
   if (!operations.length) {
     // ERROR! NO OPERATION FOUND
@@ -262,6 +262,11 @@ export default async (push) => {
             destination: operations[i].destination,
           }));
         }
+      }
+
+      if (memo.checked && memo.text) {
+        transaction = transaction
+          .addMemo(StellarSdk.Memo.text(memo.text));
       }
 
       transaction = transaction

@@ -6,6 +6,7 @@ import { Form, Field } from 'react-final-form';
 import Logo from 'Root/components/Logo';
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
+import LoadingOne from 'Root/pages/LoadingOne';
 import * as route from 'Root/staticRes/routes';
 import setTimer from 'Root/actions/options/setTimer';
 import loginUserAction from 'Root/actions/user/login';
@@ -15,7 +16,19 @@ import {buttonSizes, buttonTypes, inputSize, inputTypes} from 'Root/staticRes/en
 import styles from './styles.less';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false,
+    };
+  }
+
   componentDidMount() {
+    this.setState({
+      loading: true,
+    });
+
     const { state } = this.props.location;
 
     if (!state) {
@@ -25,8 +38,16 @@ class Login extends Component {
           loginUserAction(hasLogged)
           .then(isLogged => {
             if (isLogged) {
+              this.setState({
+                loading: false,
+              });
+
               this.props.history.push(route.accountManagerPage);
             }
+          });
+        } else {
+          this.setState({
+            loading: false,
           });
         }
       });
@@ -34,7 +55,15 @@ class Login extends Component {
   }
 
   async onSubmit (values) {
+    this.setState({
+      loading: true,
+    });
+
     const isLogged = await loginUserAction(values.password);
+
+    this.setState({
+      loading: false,
+    });
 
     if (!isLogged) {
       return { password: 'Incorrect password.' }
@@ -60,6 +89,10 @@ class Login extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return <LoadingOne />
+    }
+
     return (
         <div className="pure-g content">
           <div className="pure-u-1-1">

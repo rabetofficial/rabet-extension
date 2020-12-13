@@ -153,9 +153,25 @@ class OfferOps extends Component {
 
     return (
         <Form
+          mutators={{
+            sellingMax: (args, state, utils) => {
+              const { activeAccount } = currentActiveAccount();
+              const { balances } = activeAccount;
+
+              let maxBalance;
+
+              if (this.state.sellingAsset.value === 'XLM') {
+                maxBalance = balances.find(x => x.asset_type === 'native').balance;
+              } else {
+                maxBalance = balances.find(x => x.asset_code === this.state.sellingAsset.value).balance;
+              }
+
+              utils.changeValue(state, 'selling', () => maxBalance)
+            },
+          }}
           onSubmit={ this.onSubmit }
           validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit, submitting, values}) => (
+          render={ ({ submitError, handleSubmit, submitting, values, form }) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="selling">
                     {({input, meta}) => (
@@ -170,7 +186,7 @@ class OfferOps extends Component {
                               input={ input }
                               meta={ meta }
                               variant="max"
-                              setMax={() => {}}
+                              setMax={() => { form.mutators.sellingMax() }}
                               autoFocus
                             />
                           </div>

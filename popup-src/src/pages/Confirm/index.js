@@ -30,7 +30,8 @@ class Confirm extends Component {
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
     const networkStatus = this.props.options.network === 'MAINNET' ? 'success' : 'warn';
     const network = this.props.options.network === 'MAINNET' ? 'Main network' : 'Test network';
-    const { operations } = this.props;
+    const { operations } = this.props.transaction;
+    const { memo } = this.props.transaction;
 
     const operationsMapped = [];
 
@@ -72,6 +73,13 @@ class Confirm extends Component {
                     </Card>
                   </div>
               ))}
+
+              {(memo.checked && memo.text) &&
+                <Card type="card-secondary">
+                <h1 className={styles.title}>Memo</h1>
+                   <p className={ styles.value }>{memo.text}</p>
+                </Card>
+              }
             </div>
           </div>
           <div className={ classNames('pure-g justify-end', styles.buttons) }>
@@ -96,5 +104,5 @@ class Confirm extends Component {
 
 export default withRouter(connect(state => ({
   options: state.options,
-  operations: state.operations,
+  transaction: state.transaction,
 }))(Confirm));

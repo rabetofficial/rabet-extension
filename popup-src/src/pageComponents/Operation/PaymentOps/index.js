@@ -167,7 +167,16 @@ class PaymentOps extends Component {
   maxAmount() {
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
     const { balances } = activeAccount;
-    
+
+    let maxBalance;
+
+    if (this.state.selected.value === 'XLM') {
+      maxBalance = activeAccount.balances.find(x => x.asset_type === 'native').balance;
+    } else {
+      maxBalance = activeAccount.balances.find(x => x.asset_code === this.state.selected.value).balance;
+    }
+
+    return maxBalance;
   }
 
   componentDidMount() {
@@ -202,9 +211,25 @@ class PaymentOps extends Component {
 
     return (
         <Form
+          mutators={{
+            setMax: (args, state, utils) => {
+              const { activeAccount } = currentActiveAccount();
+              const { balances } = activeAccount;
+
+              let maxBalance;
+
+              if (this.state.selected.value === 'XLM') {
+                maxBalance = balances.find(x => x.asset_type === 'native').balance;
+              } else {
+                maxBalance = balances.find(x => x.asset_code === this.state.selected.value).balance;
+              }
+
+              utils.changeValue(state, 'amount', () => maxBalance)
+            },
+          }}
           onSubmit={ this.onSubmit }
           validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit, submitting, values}) => (
+          render={ ({submitError, handleSubmit, submitting, values, form }) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="destination">
                     {({input, meta}) => (
@@ -236,7 +261,8 @@ class PaymentOps extends Component {
                               input={ input }
                               meta={ meta }
                               variant="max"
-                              setMax={() => { this.maxAmount() }}
+                              // setMax={() => { this.maxAmount() }}
+                              setMax={() => { form.mutators.setMax() }}
                             />
                           </div>
 

@@ -10,7 +10,7 @@ export default async (id = shortid.generate()) => {
   };
 
   store.dispatch({
-    type: types.operations.ADD,
+    type: types.transaction.ADD_OP,
     operation,
   });
 };
