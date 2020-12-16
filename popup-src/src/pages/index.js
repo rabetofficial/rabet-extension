@@ -28,6 +28,7 @@ import LoadingOverlay from './LoadingOverlay';
 import AccountManager from './AccountManager';
 import SuccessfulSubmission from './SuccessfulSubmission';
 import ConfirmFlag from './ConfirmFlag';
+import XLMAsset from "./XLMAsset";
 
 class App extends Component {
   // constructor(props) {
@@ -62,6 +63,7 @@ class App extends Component {
             <ProtectedRoute exact path={ route.ShowPrivateKeyPage } component={ ShowPrivateKey } />
             <ProtectedRoute exact path={ route.accountManagerPage } component={ AccountManager } />
             <ProtectedRoute exact path={ `${route.assetsPage}/:asset_code` } component={ Assets } />
+            <ProtectedRoute exact path={ route.xlmAssetPage } component={ XLMAsset } />
             <ProtectedRoute exact path={ route.successSubmitPage } component={ SuccessfulSubmission } />
 
             <Route exact path={ route.flagPage } component={ Flags } />

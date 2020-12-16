@@ -18,6 +18,7 @@ export const settingPage = '/setting';
 export const contactPage = '/contact-request';
 export const fetchDataPage = '/fetch-data';
 export const assetsPage = '/asset';
+export const xlmAssetPage = '/xlm-asset';
 export const loadingOnePage = '/loading-one';
 export const loadingOverlayPage = '/loading-overlay';
 export const accountManagerPage = '/account-manager';
