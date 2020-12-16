@@ -39,7 +39,6 @@ class Assets extends Component {
     const { balances } = activeAccount;
     const asset = balances.find(x => x.asset_code === this.props.match.params.asset_code);
 
-
     getAssetWebsite(asset).then((assetData) => {
       this.setState({
         flags: assetData.flags,
@@ -92,13 +91,19 @@ class Assets extends Component {
                   </tbody>
                 </table>
               </div>
-              <div className="error-box" style={{marginTop: '16px'}}>
-                Lorem ipsum is placeholder text commonly used in the graphic!
-              </div>
+
+              {parseFloat(asset.balance) > 0
+                ? (
+                  <div className="error-box" style={{marginTop: '16px'}}>
+                    You cannot remove this asset unless the asset's balance is zero.
+                  </div>
+                ) : ''
+              }
             </div>
           </div>
           <div className={ classNames('pure-g justify-end', styles.buttons) }>
             <Button
+              disabled={!parseFloat(asset.balance) > 0}
               variant="btn-default"
               size="btn-medium"
               content="Cancel"

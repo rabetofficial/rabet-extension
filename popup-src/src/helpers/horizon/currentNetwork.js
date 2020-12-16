@@ -8,18 +8,18 @@ export default () => {
 
   if (options.network === 'MAINNET') {
     return {
-      url: config.HORIZON_API,
+      url: config.HORIZON.mainnet,
       passphrase: StellarSdk.Networks.PUBLIC,
     };
   } else if (options.network === 'TESTNET') {
     return {
-      url: config.HORIZON_TESTNET_API,
+      url: config.HORIZON.testnet,
       passphrase: StellarSdk.Networks.TESTNET,
     };
   }
 
   return {
-    url: config.HORIZON_API,
+    url: config.HORIZON.mainnet,
     passphrase: StellarSdk.Networks.PUBLIC,
   };
 };

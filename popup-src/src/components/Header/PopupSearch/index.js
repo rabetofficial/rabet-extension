@@ -62,7 +62,10 @@ const PopupSearch = props => {
   const changeAccount = (account) => {
     changeActiveAction(account.realPublicKey);
 
-    props.history.push(route.homePage);
+    if (props.location.pathname !== route.homePage) {
+      props.history.push(route.homePage);
+    }
+
     toggleMenu();
   };
 

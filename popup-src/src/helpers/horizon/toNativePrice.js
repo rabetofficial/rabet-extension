@@ -1,9 +1,10 @@
 import fetch from 'node-fetch';
 
+import config from 'Root/config';
+
 const assetPrice = async (asset) => {
   try {
-
-    const assetDetail = await fetch(`https://horizon.stellar.org/order_book?selling_asset_type=native&buying_asset_type=${asset.asset_type}&buying_asset_code=${asset.asset_code}&buying_asset_issuer=${asset.asset_issuer}&limit=1&c=0.8775033647205482`)
+    const assetDetail = await fetch(`${config.HORIZON.mainnet}/order_book?selling_asset_type=native&buying_asset_type=${asset.asset_type}&buying_asset_code=${asset.asset_code}&buying_asset_issuer=${asset.asset_issuer}&limit=1&c=0.8775033647205482`)
       .then(res => res.json());
 
     if (assetDetail.status) {

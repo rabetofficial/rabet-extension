@@ -15,9 +15,9 @@ import Button from '../../components/Button';
 import SelectOption from '../../components/SelectOption';
 
 const explorerOptions = [
-  { value: 'steexp', label: 'Steexp ' },
-  { value: 'lumenswap', label: 'Lumenswap' },
-  { value: 'stellarExpert', label: 'StellarExpert' },
+  { value: 'steexp', label: 'Steexp' },
+  { value: 'lumenscan', label: 'Lumenscan' },
+  { value: 'stellarexpert', label: 'StellarExpert' },
 ];
 
 const timerOptions = [
@@ -45,9 +45,23 @@ class Setting extends Component {
   componentDidMount() {
     const { options } = this.props;
 
+    let label;
+
+    if (options.explorer === 'stellarexpert') {
+      label = 'StellarExpert';
+    } else if (options.explorer === 'lumenscan') {
+      label = 'Lumenscan';
+    } else {
+      label = 'Steexp';
+    }
+
+    const selectedExplorer = {
+      label,
+      value: options.explorer.toLowerCase(),
+    }
+
     this.setState({
-      selectedExplorer: explorerOptions[0],
-    // { value: options.network.toLowerCase(), label: options.network.toUpperCase() }
+      selectedExplorer,
     });
 
     let timerLabel;
@@ -84,7 +98,7 @@ class Setting extends Component {
   handleSubmit() {
     changeOptionsAction({
       privacyMode: this.state.checked,
-      network: this.state.selectedExplorer,
+      explorer: this.state.selectedExplorer,
       autoTimeLocker: this.state.selectedTimer,
     }, this.props.history.push);
   }

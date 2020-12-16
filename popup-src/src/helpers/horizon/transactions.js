@@ -7,17 +7,21 @@ export default async (account) => new Promise((resolve, reject) => {
     fetch(`${currentNetwork().url}/accounts/${account}/transactions?limit=10&order=desc`)
     .then(res => res.json())
     .then(data => {
-      const transactions = [];
+      if (data.status) {
+        resolve([]);
+      } else {
+        const transactions = [];
 
-      for (const transaction of data._embedded.records) {
-        transactions.push({
-          id: transaction.id,
-          created_at: transaction.created_at,
-          operation_count: transaction.operation_count,
-        });
+        for (const transaction of data._embedded.records) {
+          transactions.push({
+            id: transaction.id,
+            created_at: transaction.created_at,
+            operation_count: transaction.operation_count,
+          });
+        }
+
+        resolve(transactions);
       }
-
-      resolve(transactions);
     });
   } catch (e) {
     resolve([]);

@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
 import Tooltip from 'Root/components/Tooltip';
+import * as route from 'Root/staticRes/routes';
 import PageTitle from 'Root/components/PageTitle';
 import ToggleSwitch from 'Root/components/ToggleSwitch';
 import currentActiveAccount from 'Root/helpers/activeAccount';
@@ -26,8 +27,9 @@ class Flags extends Component {
     super(props);
 
     this.state = {
+      disabled: false,
       auth_required: false,
-      auth_revocable: true,
+      auth_revocable: false,
       auth_immutable: false,
     };
 
@@ -44,6 +46,12 @@ class Flags extends Component {
   componentDidMount() {
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
+    if (activeAccount.flags.auth_immutable) {
+      this.setState({
+        disabled: true,
+      });
+    }
+
     this.setState({
       auth_required: activeAccount.flags.auth_required || false,
       auth_revocable: activeAccount.flags.auth_revocable || false,
@@ -52,12 +60,23 @@ class Flags extends Component {
   }
 
   handleSubmit() {
-    setFlagsAction(this.state, this.props.history.push);
+    if (this.state.auth_immutable) {
+      this.props.history.push({
+        pathname: route.confirmFlagPage,
+        state: {
+          ...this.state,
+        },
+      });
+    } else {
+      setFlagsAction(this.state, this.props.history.push);
+    }
   }
 
   render() {
+
     return (
-        <div className={ styles.page }>
+      <>
+        <div className={ classNames(styles.page, 'hidden-scroll content-scroll') }>
           <Header/>
 
           <PageTitle title="Flags" />
@@ -79,6 +98,7 @@ class Flags extends Component {
 
               <div className="pure-u-1-3">
                 <ToggleSwitch
+                  disabled={this.state.disabled}
                   checked={ this.state.auth_required }
                   handleChange={ this.handleCheckedRequired }
                 />
@@ -96,6 +116,7 @@ class Flags extends Component {
 
               <div className="pure-u-1-3">
                 <ToggleSwitch
+                  disabled={this.state.disabled}
                   checked={ this.state.auth_revocable }
                   handleChange={ this.handleCheckedRevocable }
                 />
@@ -113,10 +134,21 @@ class Flags extends Component {
 
               <div className="pure-u-1-3">
                 <ToggleSwitch
+                  disabled={this.state.disabled}
                   checked={ this.state.auth_immutable }
                   handleChange={ this.handleCheckedImmutable }
                 />
               </div>
+
+              {this.state.disabled
+                ? (
+                  <div className="error-box" style={{marginTop: '16px'}}>
+                    You can no longer change the status of your flags because you have already activated the Immutable flag.
+                  </div>
+                ) : ''
+              }
+            </div>
+            </div>
             </div>
 
             <div className={ classNames('pure-g justify-end', styles.buttons) }>
@@ -128,14 +160,14 @@ class Flags extends Component {
               />
 
               <Button
+                disabled={this.state.disabled}
                 onClick={this.handleSubmit}
                 variant="btn-primary"
                 size="btn-medium"
                 content="Save"
               />
             </div>
-          </div>
-        </div>
+          </>
     );
   }
 }

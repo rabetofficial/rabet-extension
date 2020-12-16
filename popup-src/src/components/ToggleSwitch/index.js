@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import Switch from 'react-switch';
 import styles from './styles.less';
 
-const ToggleSwitch = ({handleChange, checked}) => {
+const ToggleSwitch = ({ handleChange, checked, disabled }) => {
 
   return (
      <div className={ styles.switch }>
        <Switch
+         disabled={disabled}
          onChange={ handleChange }
          checked={ checked }
          checkedIcon={ false }

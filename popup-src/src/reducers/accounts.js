@@ -71,6 +71,7 @@ export default (state = initialState, action) => {
           accounts[i].flags = action.accountData.flags;
           accounts[i].balance = action.accountData.balance;
           accounts[i].balances = action.accountData.balances;
+          accounts[i].operations = action.accountData.operations;
           accounts[i].thresholds = action.accountData.thresholds;
           accounts[i].transactions = action.accountData.transactions;
         }

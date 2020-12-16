@@ -82,7 +82,7 @@ class Home extends Component {
   render() {
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
-    let transactions = activeAccount.transactions || [];
+    let transactions = activeAccount.operations || [];
     let balances = activeAccount.balances || [];
 
     const nativeIndex = balances.findIndex(x => x.asset_type === 'native');

@@ -1,14 +1,26 @@
-import React, {Component} from 'react';
 import classNames from 'classnames';
+import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom';
 
+import Alert from 'Root/components/Alert';
+import Button from 'Root/components/Button';
 import Header from 'Root/components/Header';
 import PageTitle from 'Root/components/PageTitle';
-import Button from 'Root/components/Button';
-import Alert from 'Root/components/Alert';
+import setFlagsAction from 'Root/actions/operations/setFlags';
 
 import styles from './styles.less';
 
 class ConfirmFlag extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit() {
+    setFlagsAction(this.props.location.state, this.props.history.push);
+  }
+
   render() {
     return (
         <>
@@ -25,6 +37,7 @@ class ConfirmFlag extends Component {
                   variant="btn-default"
                   size="btn-medium"
                   content="Cancel"
+                  onClick={() => {this.props.history.goBack()}}
               />
 
               <Button
@@ -32,6 +45,7 @@ class ConfirmFlag extends Component {
                   variant="btn-primary"
                   size="btn-medium"
                   content="Confirm"
+                  onClick={this.handleSubmit}
               />
             </div>
           </div>
@@ -41,4 +55,4 @@ class ConfirmFlag extends Component {
   }
 }
 
-export default ConfirmFlag;
+export default withRouter(ConfirmFlag);
