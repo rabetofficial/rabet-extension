@@ -151,7 +151,7 @@ class Flags extends Component {
             </div>
             </div>
 
-            <div className={ classNames('pure-g justify-end', styles.buttons) }>
+            <div className={ classNames('pure-g justify-end content', styles.buttons) }>
               <Button
                 variant="btn-default"
                 size="btn-medium"
