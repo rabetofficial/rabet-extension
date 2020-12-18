@@ -19,7 +19,10 @@ import types from 'Root/actions';
 */
 
 const initialState = {
-  memo: '',
+  memo: {
+    text: '',
+    checked: true,
+  },
   operations: [],
 };
 

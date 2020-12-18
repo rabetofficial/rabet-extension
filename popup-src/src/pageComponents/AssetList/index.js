@@ -12,6 +12,8 @@ import formatCurrency from 'Root/helpers/formatCurrency';
 import styles from './styles.less';
 
 const AssetList = ({items, maxHeight, ...props}) => {
+  console.log(props.options.usd);
+
   return (
       <ul className={ classNames(styles.list, 'hidden-scroll') } style={ {maxHeight: `${maxHeight}px`} }>
         <Link to={route.addAssetPage} className={styles.addAsset}>+ Add asset</Link>
@@ -30,7 +32,7 @@ const AssetList = ({items, maxHeight, ...props}) => {
                       <div className={ styles.currency }>{item.asset_code}</div>
                     </div>
                     <div className={styles.cost}>
-                      {item.toNative ? '$' : ''}{formatCurrency(props.options.usd * Number.parseFloat(item.toNative, 10)) || ''}
+                      {item.toNative ? '$' : ''}{formatCurrency(props.options.usd * Number.parseFloat(item.toNative, 10) * Number.parseFloat(item.balance, 10)) || ''}
                     </div>
                   </div>
                 </div>

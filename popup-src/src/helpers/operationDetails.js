@@ -133,7 +133,7 @@ export default function OperationDetails(data) {
     }
 
     default: {
-      return '';
+      return '-';
     }
   }
 }

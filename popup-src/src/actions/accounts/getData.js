@@ -29,10 +29,12 @@ export default async (address) => {
 
     const xlmToUsd = await xlmPrice();
 
-    accountData.usd = xlmToUsd * accountData.balance;
+    accountData.usd = accountData.balance * xlmToUsd;
     accountData.transactions = await transactions(address);
     accountData.balances = await toNativePrice(accountData.balances);
     accountData.operations = await operations(accountData.transactions);
+
+    console.log(accountData.balances)
   }
 
   await setUsdPrice();

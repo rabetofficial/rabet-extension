@@ -47,7 +47,7 @@ class Home extends Component {
         });
       });
 
-      intervalAction(activeAccount.publicKey);
+      // intervalAction(activeAccount.publicKey);
     } else {
       this.setState({
         loading: false,

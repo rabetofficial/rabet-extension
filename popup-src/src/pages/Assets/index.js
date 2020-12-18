@@ -103,7 +103,6 @@ class Assets extends Component {
           </div>
           <div className={ classNames('pure-g justify-end', styles.buttons) }>
             <Button
-              disabled={!parseFloat(asset.balance) > 0}
               variant="btn-default"
               size="btn-medium"
               content="Cancel"
@@ -124,7 +123,7 @@ class Assets extends Component {
               variant="btn-danger"
               size="btn-medium"
               content={deleteBtn}
-              disabled={asset.balance !== '0'}
+              disabled={parseFloat(asset.balance) > 0}
               onClick={() => { this.handleDelete({ code: asset.asset_code, issuer: asset.asset_issuer }) }}
             />
           </div>
