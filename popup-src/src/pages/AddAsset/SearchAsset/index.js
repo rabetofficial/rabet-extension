@@ -1,61 +1,100 @@
-import React, {Component} from 'react';
 import classNames from 'classnames';
-import {Field, Form} from 'react-final-form';
 import randomColor from 'randomcolor';
+import React, {Component} from 'react';
+import {Field, Form} from 'react-final-form';
+import { withRouter } from 'react-router-dom';
 
-import * as route from 'Root/staticRes/routes';
-import sample from 'Root/assets/images/stellar.png';
+import config from 'Root/config';
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
+import sample from 'Root/assets/images/stellar.png';
+import getAssetsAction from 'Root/helpers/server/getAssets';
+import currentActiveAccount from 'Root/helpers/activeAccount';
+import addMultipleAssets from 'Root/actions/operations/addMultipleAssets';
 
 import styles from './styles.less';
 
 const colorSetting = {luminosity: 'bright', format: 'rgba', alpha: 0.3, count: 5};
+
 const colors = randomColor(colorSetting);
 
 class SearchAsset extends Component {
   constructor() {
     super();
     this.state = {
-      'active': -1,
-      'list': [],
+      active: -1,
+      list: [],
+      value: '',
+      selectedList: [],
     };
 
     this.setActive = this.setActive.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   setActive( index ) {
-    let list = [];
-    if(!this.state.list.includes(index)) {
-      list.push(...this.state.list, index);
-      this.setState({ 'list': list });
+    const { list, selectedList } = this.state;
+
+    if (selectedList.some(x => x.asset_code === list[index].asset_code && x.asset_issuer === list[index].asset_issuer)) {
+      const newSelectedList = selectedList.filter(x => x.asset_code !== list[index].asset_code && x.asset_issuer !== list[index].asset_issuer);
+
+      this.setState({
+        selectedList: newSelectedList,
+      });
     } else {
-      list.push(...this.state.list);
-      const resultIndex = list.findIndex(s => s === index);
-      list.splice(resultIndex, 1);
-      this.setState({ 'list': list });
+      this.setState((prevState) => ({
+        selectedList: [
+          ...prevState.selectedList,
+          list[index],
+        ],
+      }))
     }
   }
 
   onSubmit (values) {
-    // console.warn(values);
+    addMultipleAssets(this.state.selectedList, this.props.history.push);
   }
 
   async validateForm (values) {
-    const errors = {};
-    // console.warn(values)
+    if (values.token && this.state.value !== values.token) {
+      this.setState({ value: values.token });
+
+      const { activeAccount } = currentActiveAccount();
+      const currentBalances = activeAccount.balances || [];
+
+      getAssetsAction(values.token)
+      .then(assetList => {
+        let newAssetList = [];
+
+        for (let i = 0; i < assetList.length; i++) {
+          const isOld = currentBalances.some(x => x.asset_code === assetList[i].asset_code && x.asset_issuer === assetList[i].asset_issuer);
+
+          if (isOld) {
+            newAssetList.push({
+              ...assetList[i],
+              active: false,
+            });
+          } else {
+            newAssetList.push({
+              ...assetList[i],
+              active: true,
+            });
+          }
+        }
+
+        this.setState({
+          list: newAssetList,
+        });
+      })
+    }
+  }
+
+  handleChange(e) {
+    console.log(e)
   }
 
   render() {
-
-    const items = [
-      {name: 'DAI', web: 'Sample.com', logo: '', color: colors[0], active: true},
-      {name: 'USDT', web: 'Sample.com', logo: '', color: colors[1], active: false},
-      {name: 'STL', web: 'Sample.com', logo: '', color: colors[2], active: true},
-      {name: 'DAO', web: 'Sample.com', logo: '', color: colors[3], active: true},
-      {name: 'AAA', web: 'Sample.com', logo: '', color: colors[4], active: true},
-    ];
-
     const listItem = this.state.list;
     const getClass = function( name, index ) {
       if (listItem.includes(index)) {
@@ -68,7 +107,7 @@ class SearchAsset extends Component {
         <div className={styles.content}>
           <Form
               onSubmit={(values) => { this.onSubmit(values) }}
-              validate={ (values) => this.validateForm(values) }
+              validate={ (values) => { this.validateForm(values) } }
               render={ ({submitError, handleSubmit, submitting, values , form, pristine}) => (
                   <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                     <Field name="token">
@@ -86,7 +125,7 @@ class SearchAsset extends Component {
                     </Field>
                     <h6 className={styles.result}>Search result</h6>
                     <ul className={classNames(styles.list, 'hidden-scroll', styles.scroll)}>
-                      {items.map((item, index) => (
+                      {listItem.map((item, index) => (
                           <li
                               key={index}
                               className={getClass(styles.item, index)}
@@ -94,10 +133,10 @@ class SearchAsset extends Component {
                               onClick={() => item.active && this.setActive(index)}
                           >
                             <div className={styles.logo} style={{backgroundColor: `${item.color}`}} >
-                              <img src={sample} alt="logo"/>
+                              <img src={`${config.ASSET_SERVER}/uploads/${item.logo}`} alt="logo"/>
                             </div>
-                            <h4 className={styles.name}>{item.name}</h4>
-                            <p className={styles.web}>{item.web}</p>
+                            <h4 className={styles.name}>{item.asset_code}</h4>
+                            <p className={styles.web}>{item.home_domain}</p>
                           </li>
                       ))}
                     </ul>
@@ -119,7 +158,7 @@ class SearchAsset extends Component {
                           variant="btn-primary"
                           size="btn-medium"
                           content="Add"
-                          disabled={ submitting }
+                          disabled={!this.state.selectedList.length}
                       />
                     </div>
                   </form>
@@ -130,4 +169,4 @@ class SearchAsset extends Component {
   }
 }
 
-export default SearchAsset;
+export default withRouter(SearchAsset);

@@ -6,14 +6,13 @@ import { Link } from 'react-router-dom';
 import React, {Fragment, useState} from 'react';
 
 import * as route from 'Root/staticRes/routes';
-import stellar from 'Root/assets/images/question-circle.png';
 import formatCurrency from 'Root/helpers/formatCurrency';
+import stellar from 'Root/assets/images/question-circle.png';
+import getAssetsImages from 'Root/helpers/server/getAssetsImages';
 
 import styles from './styles.less';
 
 const AssetList = ({items, maxHeight, ...props}) => {
-  console.log(props.options.usd);
-
   return (
       <ul className={ classNames(styles.list, 'hidden-scroll') } style={ {maxHeight: `${maxHeight}px`} }>
         <Link to={route.addAssetPage} className={styles.addAsset}>+ Add asset</Link>
