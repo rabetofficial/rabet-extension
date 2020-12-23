@@ -32,9 +32,13 @@ export default async (address) => {
     accountData.usd = accountData.balance * xlmToUsd;
     accountData.transactions = await transactions(address);
     accountData.balances = await toNativePrice(accountData.balances);
-    accountData.operations = await operations(accountData.transactions);
 
-    console.log(accountData.balances)
+    // MOVING XLM TO THE BEGINNING OF AN ARRAY
+    const xlm = accountData.balances.find(x => x.asset_type === 'native');
+    accountData.balances.filter(x => x.asset_type !== 'native');
+    accountData.balances.unshift(xlm);
+
+    accountData.operations = await operations(accountData.transactions);
   }
 
   await setUsdPrice();

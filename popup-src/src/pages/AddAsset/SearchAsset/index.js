@@ -87,6 +87,12 @@ class SearchAsset extends Component {
           list: newAssetList,
         });
       })
+    } else if (!values.token && this.state.list.length) {
+      this.setState({
+        list: [],
+        selectedList: [],
+        value: '',
+      })
     }
   }
 
@@ -114,7 +120,7 @@ class SearchAsset extends Component {
                       {({input, meta}) => (
                             <Input
                                 type="text"
-                                placeholder="&#xe915;&nbsp;&nbsp;Search tokens"
+                                placeholder="&#xe915;&nbsp;&nbsp;Search assets"
                                 size="input-medium"
                                 input={ input }
                                 meta={ meta }

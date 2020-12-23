@@ -1,4 +1,8 @@
 export default (number) => {
+    if (isNaN(number)) {
+      return 0;
+    }
+
     if (number === 0 || number < 0) {
       return number;
     }
