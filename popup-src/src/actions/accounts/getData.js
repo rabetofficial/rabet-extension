@@ -10,7 +10,7 @@ import toNativePrice from 'Root/helpers/horizon/toNativePrice';
 export default async (address) => {
   const data = await horizonData(address);
 
-  const accountData = {
+  let accountData = {
     usd: 0,
     address,
     balance: 0,
@@ -35,7 +35,7 @@ export default async (address) => {
 
     // MOVING XLM TO THE BEGINNING OF AN ARRAY
     const xlm = accountData.balances.find(x => x.asset_type === 'native');
-    accountData.balances.filter(x => x.asset_type !== 'native');
+    accountData.balances = accountData.balances.filter(x => x.asset_type !== 'native');
     accountData.balances.unshift(xlm);
 
     accountData.operations = await operations(accountData.transactions);
