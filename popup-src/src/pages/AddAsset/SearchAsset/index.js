@@ -34,7 +34,7 @@ class SearchAsset extends Component {
   }
 
   setActive( index ) {
-    const { list, selectedList } = this.state;
+    const { list, selectedList, selectedListCode } = this.state;
 
     if (selectedList.some(x => x.asset_code === list[index].asset_code && x.asset_issuer === list[index].asset_issuer)) {
       const newSelectedList = selectedList.filter(x => x.asset_code !== list[index].asset_code && x.asset_issuer !== list[index].asset_issuer);
@@ -102,13 +102,6 @@ class SearchAsset extends Component {
 
   render() {
     const listItem = this.state.list;
-    const getClass = function( name, index ) {
-      if (listItem.includes(index)) {
-        return name + ' active';
-      }
-      return name;
-    };
-
     return (
         <div className={styles.content}>
           <Form
@@ -134,9 +127,10 @@ class SearchAsset extends Component {
                       {listItem.map((item, index) => (
                           <li
                               key={index}
-                              className={getClass(styles.item, index)}
+                              className={styles.item}
                               aria-disabled={!item.active}
                               onClick={() => item.active && this.setActive(index)}
+                              style={{border: item.active && this.state.selectedList.includes(item) && '1px solid black'}}
                           >
                             <div className={styles.logo} style={{backgroundColor: `${item.color}`}} >
                               <img src={`${config.ASSET_SERVER}/uploads/${item.logo}`} alt="logo"/>
