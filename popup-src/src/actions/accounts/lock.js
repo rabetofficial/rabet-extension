@@ -18,7 +18,7 @@ export default (push) => {
   set('timer', {});
 
   push({
-    pathname: route.loginPage,
+    pathname: route.settingPage,
     state: {
       hadLogged: false,
     },

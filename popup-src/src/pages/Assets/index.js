@@ -37,7 +37,10 @@ class Assets extends Component {
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
     const { balances } = activeAccount;
-    const asset = balances.find(x => x.asset_code === this.props.match.params.asset_code);
+    const asset = balances.find(x =>
+      x.asset_code === this.props.match.params.asset_code
+      && x.asset_issuer === this.props.match.params.asset_issuer
+    );
 
     getAssetWebsite(asset).then((assetData) => {
       this.setState({

@@ -32,16 +32,12 @@ class ConfirmLogin extends Component {
   validateForm (values) {
     const errors = {};
 
-    if (!values.password) {
-      errors.password = null;
-    }
-
-    if (!values.confirm) {
-      errors.confirm = null;
-    }
-
-    if (values.password && values.password.length < 8) {
+    if (!values.password || values.password.length < 8) {
       errors.password = 'Password must be at least 8 characters.';
+    }
+
+    if (values.password !== values.confirm) {
+      errors.password = 'Passwords do not match.';
     }
 
     return errors;

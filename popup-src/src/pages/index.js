@@ -62,7 +62,7 @@ class App extends Component {
             <ProtectedRoute exact path={ route.privateKeyPage } component={ PrivateKey } />
             <ProtectedRoute exact path={ route.ShowPrivateKeyPage } component={ ShowPrivateKey } />
             <ProtectedRoute exact path={ route.accountManagerPage } component={ AccountManager } />
-            <ProtectedRoute exact path={ `${route.assetsPage}/:asset_code` } component={ Assets } />
+            <ProtectedRoute exact path={ `${route.assetsPage}/:asset_code/:asset_issuer` } component={ Assets } />
             <ProtectedRoute exact path={ route.xlmAssetPage } component={ XLMAsset } />
             <ProtectedRoute exact path={ route.successSubmitPage } component={ SuccessfulSubmission } />
 

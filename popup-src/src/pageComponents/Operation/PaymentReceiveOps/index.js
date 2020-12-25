@@ -45,15 +45,18 @@ class PaymentReceiveOps extends Component {
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
     const errors = {};
+    const hasError = {};
 
     if (!values.destination) {
       errors.destination = null;
+      hasError.destination = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
     } else if (!validateAddress(values.destination)) {
       errors.destination = 'Invalid address.';
+      hasError.destination = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -63,12 +66,14 @@ class PaymentReceiveOps extends Component {
 
       if (accountData.status === 404) {
         errors.destination = 'Inactive account.';
+        hasError.destination = true;
 
         changeOperationAction(this.props.id, {
           checked: false,
         });
       } else if (accountData.status === 400) {
         errors.destination = 'Wrong address.';
+        hasError.destination = true;
 
         changeOperationAction(this.props.id, {
           checked: false,
@@ -78,6 +83,7 @@ class PaymentReceiveOps extends Component {
 
     if (!values.sendMax) {
       errors.sendMax = null;
+      hasError.sendMax = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -100,6 +106,7 @@ class PaymentReceiveOps extends Component {
 
         if (Number(selectedTokenBalance.balance || '0') < values.sendMax) {
           errors.sendMax = `Insufficient ${this.state.sendAsset.value} balance.`;
+          hasError.sendMax = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
@@ -114,6 +121,7 @@ class PaymentReceiveOps extends Component {
 
     if (!values.destAmount) {
       errors.destAmount = null;
+      hasError.destAmount = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -130,6 +138,7 @@ class PaymentReceiveOps extends Component {
 
         if (!selectedToken) {
           errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+          hasError.destination = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
@@ -137,6 +146,7 @@ class PaymentReceiveOps extends Component {
         } else {
           if (Number(selectedToken.limit) < Number(values.destAmount) + Number(selectedToken.balance)) {
             errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+            hasError.destination = true;
 
             changeOperationAction(this.props.id, {
               checked: false,
@@ -151,7 +161,7 @@ class PaymentReceiveOps extends Component {
       }
     }
 
-    if (!errors.destination && !errors.sendMax && !errors.destAmount && this.state.sendAsset.value && this.state.destAsset.value) {
+    if (!hasError.destination && !hasError.sendMax && !hasError.destAmount && this.state.sendAsset.value && this.state.destAsset.value) {
       changeOperationAction(this.props.id, {
         checked: true,
         destination: values.destination,

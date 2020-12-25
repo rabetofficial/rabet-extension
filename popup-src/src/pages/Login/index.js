@@ -21,6 +21,7 @@ class Login extends Component {
 
     this.state = {
       loading: false,
+      hasError: true,
     };
   }
 
@@ -55,15 +56,7 @@ class Login extends Component {
   }
 
   async onSubmit (values) {
-    this.setState({
-      loading: true,
-    });
-
     const isLogged = await loginUserAction(values.password);
-
-    this.setState({
-      loading: false,
-    });
 
     if (!isLogged) {
       return { password: 'Incorrect password.' }
@@ -77,12 +70,8 @@ class Login extends Component {
   validateForm (values) {
     const errors = {};
 
-    if (!values.password) {
-      errors.password = null;
-    } else {
-      if (values.password.length < 8) {
-        errors.password = 'Password must be 8 or more characters.';
-      }
+    if (!values.password || values.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters.';
     }
 
     return errors;

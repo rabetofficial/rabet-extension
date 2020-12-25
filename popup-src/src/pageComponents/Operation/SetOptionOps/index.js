@@ -23,6 +23,7 @@ class SetOptionOps extends Component {
     const { type } = this.props;
 
     const errors = {};
+    const hasError = {};
 
     if (!values.value) {
       changeOperationAction(this.props.id, {
@@ -30,6 +31,7 @@ class SetOptionOps extends Component {
       });
 
       errors.value = null;
+      hasError.value = true;
     }
 
     if (!errors.value) {
@@ -41,6 +43,7 @@ class SetOptionOps extends Component {
           });
 
           errors.value = 'Not a number.';
+          hasError.value = true;
         } else {
           changeOperationAction(this.props.id, {
             checked: true,
@@ -57,11 +60,13 @@ class SetOptionOps extends Component {
           });
 
           errors.value = 'Address is invalid.';
+          hasError.value = true;
         } else {
           const accountData = await getAccountData(values.destination);
 
           if (accountData.status === 404) {
             errors.value = 'You cannot merge your account to an inactive account.';
+            hasError.value = true;
 
             changeOperationAction(this.props.id, {
               checked: false,
@@ -78,6 +83,7 @@ class SetOptionOps extends Component {
       else if (type === operationNames.setOptionsSetFlags) {
         if (!validateNumber(values.value)) {
           errors.value = 'Not a number.';
+          hasError.value = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
@@ -93,6 +99,7 @@ class SetOptionOps extends Component {
       else if (type === operationNames.setOptionsInflationDest) {
         if (!validateAddress(values.value)) {
           errors.value = 'Address is invalid.';
+          hasError.value = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
@@ -108,6 +115,7 @@ class SetOptionOps extends Component {
       else if (type === operationNames.setOptionsClearFlags) {
         if (!validateNumber(values.value)) {
           errors.value = 'Not a number.';
+          hasError.value = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
@@ -123,6 +131,7 @@ class SetOptionOps extends Component {
       else if (type === operationNames.setOptionsHomeDomain) {
         if (!validateDomain(values.value)) {
           errors.value = 'Invalid address.';
+          hasError.value = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
@@ -138,6 +147,7 @@ class SetOptionOps extends Component {
       else if (type === operationNames.setOptionsMasterWeight) {
         if (!validateNumber(values.value)) {
           errors.value = 'Not a number.';
+          hasError.value = true;
 
           changeOperationAction(this.props.id, {
             checked: false,

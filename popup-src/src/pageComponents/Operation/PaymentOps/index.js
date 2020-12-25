@@ -51,9 +51,14 @@ class PaymentOps extends Component {
 
   async validateForm (values) {
     const errors = {};
+    const hasError = {
+      amount: false,
+      destination: false,
+    };
 
     if (!values.destination) {
       errors.destination = null;
+      hasError.destination = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -62,6 +67,7 @@ class PaymentOps extends Component {
 
     if (!values.amount) {
       errors.amount = null;
+      hasError.amount = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -70,13 +76,14 @@ class PaymentOps extends Component {
 
     if (!validateAddress(values.destination)) {
       errors.destination = 'Invalid.';
+      hasError.destination = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
     }
 
-    if (!errors.amount && !errors.destination && this.state.selected.value) {
+    if (!hasError.amount && !hasError.destination && this.state.selected.value) {
       const accountData = await getAccountData(values.destination);
       const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
@@ -99,6 +106,7 @@ class PaymentOps extends Component {
 
       if (Number(selectedTokenBalance.balance || '0') < values.amount) {
         errors.amount = `Insufficient ${this.state.selected.value} balance.`;
+        hasError.amount = true;
 
         checked = false;
 
@@ -111,6 +119,7 @@ class PaymentOps extends Component {
 
           if (this.state.selected.value !== 'XLM') {
             errors.destination = 'Inactive accounts cannot receive tokens.';
+            hasError.destination = true;
 
             changeOperationAction(this.props.id, {
               checked: false,
@@ -121,6 +130,7 @@ class PaymentOps extends Component {
 
         } else if (accountData.status === 400) {
           errors.destination = 'Wrong.';
+          hasError.destination = true;
         } else {
           const destinationTokens = accountData.balances || [];
 
@@ -132,6 +142,7 @@ class PaymentOps extends Component {
 
           if (!selectedToken) {
             errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+            hasError.destination = true;
 
             changeOperationAction(this.props.id, {
               checked: false,
@@ -141,6 +152,7 @@ class PaymentOps extends Component {
           } else {
             if (Number(selectedToken.limit) < Number(values.amount) + Number(selectedToken.balance)) {
               errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+              hasError.destination = true;
 
               changeOperationAction(this.props.id, {
                 checked: false,
@@ -158,6 +170,10 @@ class PaymentOps extends Component {
         amount: parseFloat(values.amount, 10).toFixed(7),
         destination: values.destination,
         asset: this.state.selected.value,
+      });
+    } else {
+      changeOperationAction(this.props.id, {
+        checked: false,
       });
     }
 
