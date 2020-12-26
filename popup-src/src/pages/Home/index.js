@@ -180,7 +180,7 @@ class Home extends Component {
                            || `Account ${activeAccountIndex + 1}`}
                      </p>
                  )}
-                 <label className="label-secondary">Address:</label>
+                 <label className="label-secondary">Address</label>
                  <p className={ styles.info }>
                    <CopyText text={activeAccount.publicKey}  button={shorter(activeAccount.publicKey, 8)} />
                  </p>
