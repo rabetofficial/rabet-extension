@@ -123,7 +123,7 @@ class Home extends Component {
     ];
 
     if (this.state.loading) {
-      return <LoadingOne />
+      return <LoadingOne title="Waiting for network" size={95} />
     }
 
     return (

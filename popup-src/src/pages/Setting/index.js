@@ -66,7 +66,9 @@ class Setting extends Component {
 
     let timerLabel;
 
-    if (options.autoTimeLocker === 15) {
+    if (options.autoTimeLocker === 5) {
+      timerLabel = '5 minutes';
+    } else if (options.autoTimeLocker === 15) {
       timerLabel = '15 minutes';
     } else if (options.autoTimeLocker === 30) {
       timerLabel = '30 minutes';

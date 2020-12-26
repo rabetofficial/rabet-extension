@@ -6,7 +6,7 @@ import currentActiveAccount from 'Root/helpers/activeAccount';
 import currentNetwork from 'Root/helpers/horizon/currentNetwork';
 
 export default async ({ auth_required, auth_revocable, auth_immutable }, push) => {
-  push(route.loadingOnePage);
+  push(route.loadingNetworkPage);
 
   const { activeAccount } = currentActiveAccount();
   const { url, passphrase } = currentNetwork();

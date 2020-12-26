@@ -7,9 +7,11 @@ import currentActiveAccount from 'Root/helpers/activeAccount';
 import currentNetwork from 'Root/helpers/horizon/currentNetwork';
 
 export default async ({ code, issuer, limit }, push) => {
-  limit = limit.toString();
+  if (limit) {
+    limit = limit.toString();
+  }
 
-  push(route.loadingOnePage);
+  push(route.loadingNetworkPage);
 
   const { activeAccount } = currentActiveAccount();
   const { url, passphrase } = currentNetwork();
