@@ -34,9 +34,13 @@ class AllowTrustOps extends Component {
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
     const errors = {};
+    const hasError = {
+      trustor: false,
+    }
 
     if (!values.trustor) {
       errors.trustor = null;
+      hasError.trustor = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -44,6 +48,7 @@ class AllowTrustOps extends Component {
     } else {
       if (!validateAddress(values.trustor)) {
         errors.trustor = 'Invalid address.';
+        hasError.trustor = true;
 
         changeOperationAction(this.props.id, {
           checked: false,
@@ -53,6 +58,7 @@ class AllowTrustOps extends Component {
 
     if (!values.code) {
       errors.code = null;
+      hasError.code = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -64,6 +70,7 @@ class AllowTrustOps extends Component {
 
       if (!ownedAsset) {
         errors.code = 'You do not own this asset.';
+        hasError.code = true;
 
         changeOperationAction(this.props.id, {
           checked: false,
@@ -73,13 +80,14 @@ class AllowTrustOps extends Component {
 
     if (!values.authorize) {
       errors.authorize = null;
+      hasError.authorize = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
     }
 
-    if (!errors.trustor && !errors.code && !errors.authorize) {
+    if (!hasError.trustor && !hasError.code && !hasError.authorize) {
       changeOperationAction(this.props.id, {
         checked: true,
         assetCode: values.code,

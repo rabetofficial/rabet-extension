@@ -21,20 +21,31 @@ class CustomAsset extends Component {
 
   async validateForm (values) {
     const errors = {};
+    const hasError = {
+      code: false,
+      issuer: false,
+    }
 
     if (!values.code) {
       errors.code = null;
+      hasError.code = true;
     }
 
     if (!values.issuer) {
       errors.issuer = null
+      hasError.issuer = true;
     } else {
+      errors.issuer = null;
+      hasError.issuer = true;
       if (!validateAddress(values.issuer)) {
         errors.issuer = 'Invalid address.';
+        hasError.issuer = true;
+      } else {
+        hasError.issuer = false;
       }
     }
 
-    if (!errors.code && !errors.issuer) {
+    if (!hasError.code && !hasError.issuer) {
       const { activeAccount } = currentActiveAccount();
 
       const { balances } = activeAccount;
@@ -50,9 +61,8 @@ class CustomAsset extends Component {
         issuer: values.issuer,
       });
 
-      console.log(assetExistsResult)
-
       if (!assetExistsResult) {
+        hasError.code = true;
         errors.code = 'Asset not found.';
       }
     }

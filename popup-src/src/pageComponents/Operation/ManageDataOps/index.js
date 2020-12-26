@@ -16,9 +16,14 @@ class ManageDataOps extends Component {
 
   validateForm (values) {
     const errors = {};
+    const hasError = {
+      name: false,
+      value: false,
+    }
 
     if (!values.name) {
       errors.name = null;
+      hasError.name = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -27,13 +32,14 @@ class ManageDataOps extends Component {
 
     if (!values.value) {
       errors.value = 'Value is equired.';
+      hasError.value = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
     }
 
-    if (!errors.value && !errors.name) {
+    if (!hasError.value && !hasError.name) {
       changeOperationAction(this.props.id, {
         checked: true,
         name: values.name,

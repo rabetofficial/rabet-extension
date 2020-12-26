@@ -65,7 +65,7 @@ class AssetList extends Component {
                 style={ { marginTop: (index === 0) && '-18px' } }
                 className={ styles.listItem }
             >
-              <Link to={item.asset_code === 'XLM' ? route.xlmAssetPage :`${route.assetsPage}/${item.asset_code}`} key={shortid.generate()}>
+              <Link to={item.asset_code === 'XLM' ? route.xlmAssetPage :`${route.assetsPage}/${item.asset_code}/${item.asset_issuer}`} key={shortid.generate()}>
                 <div className={ styles.border } style={ {borderBottom: !(index === (items.length - 1 )) && '1px solid #f8f8f8'} }>
                   <div className={ styles.logoContainer }>
                     <img src={this.handleAssetImage(item)} alt="logo"/>

@@ -17,9 +17,11 @@ class SignerOps extends Component {
 
   validateForm (values) {
     const errors = {};
+    const hasError = {};
 
     if (!values.signer) {
       errors.signer = null;
+      hasError.signer = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -27,6 +29,7 @@ class SignerOps extends Component {
     } else {
       if (!validateAddress(values.signer)) {
         errors.signer = 'Invalid address.';
+        hasError.signer = true;
 
         changeOperationAction(this.props.id, {
           checked: false,
@@ -36,13 +39,14 @@ class SignerOps extends Component {
 
     if (!values.weight) {
       errors.weight = null;
+      hasError.weight = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
     }
 
-    if (!errors.signer && !errors.weight) {
+    if (!hasError.signer && !hasError.weight) {
       changeOperationAction(this.props.id, {
         checked: true,
         signer: values.signer,

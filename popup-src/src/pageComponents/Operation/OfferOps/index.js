@@ -40,12 +40,16 @@ class OfferOps extends Component {
 
   async validateForm (values) {
     const errors = {};
+    const hasError = {
+      selling: false,
+    };
 
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
 
     if (!values.selling) {
       errors.selling = null;
+      hasError.selling = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -68,6 +72,7 @@ class OfferOps extends Component {
 
         if (Number(selectedTokenBalance.balance || '0') < values.selling) {
           errors.selling = `Insufficient ${this.state.sellingAsset.value} balance.`;
+          hasError.selling = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
@@ -78,6 +83,7 @@ class OfferOps extends Component {
 
     if (!values.buying) {
       errors.buying = null;
+      hasError.buying = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -94,6 +100,7 @@ class OfferOps extends Component {
 
         if (Number(selectedTokenBalance.limit || '0') < values.buying) {
           errors.buying = `The balance would exceed the trust of the account in the asset.`;
+          hasError.buying = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
@@ -102,7 +109,7 @@ class OfferOps extends Component {
       }
     }
 
-    if (!errors.selling && !errors.buying && this.state.buyingAsset.value && this.state.sellingAsset.value) {
+    if (!hasError.selling && !hasError.buying && this.state.buyingAsset.value && this.state.sellingAsset.value) {
       changeOperationAction(this.props.id, {
         checked: true,
         buying: parseFloat(values.buying, 10).toFixed(7),

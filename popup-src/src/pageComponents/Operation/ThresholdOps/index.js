@@ -16,9 +16,11 @@ class ThresholdOps extends Component {
 
   validateForm (values) {
     const errors = {};
+    const hasError = {}
 
     if (!values.low) {
       errors.low = null;
+      hasError.low = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -27,6 +29,7 @@ class ThresholdOps extends Component {
 
     if (!values.medium) {
       errors.medium = null;
+      hasError.medium = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -35,13 +38,14 @@ class ThresholdOps extends Component {
 
     if (!values.high) {
       errors.high = null;
+      hasError.high = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
     }
 
-    if (!errors.low && !errors.medium && !errors.high) {
+    if (!hasError.low && !hasError.medium && !hasError.high) {
       changeOperationAction(this.props.id, {
         checked: true,
         low: values.low,

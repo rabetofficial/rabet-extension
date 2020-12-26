@@ -20,11 +20,15 @@ class ChangeTrustOps extends Component {
 
   async validateForm (values) {
     const errors = {};
+    const hasError = {
+      code: false,
+    }
 
     let accountData;
 
     if (!values.code) {
       errors.code = null;
+      hasError.code = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -33,6 +37,7 @@ class ChangeTrustOps extends Component {
 
     if (!values.issuer) {
       errors.issuer = null;
+      hasError.issuer = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
@@ -40,6 +45,7 @@ class ChangeTrustOps extends Component {
     } else {
       if (!validateAddress(values.issuer)) {
         errors.issuer = 'Invalid address.';
+        hasError.issuer = true;
 
         changeOperationAction(this.props.id, {
           checked: false,
@@ -53,19 +59,21 @@ class ChangeTrustOps extends Component {
           });
 
           errors.issuer = 'Address is inactive.';
+          hasError.issuer = true;
         }
       }
     }
 
     if (values.limit && !validateNumber(values.limit)) {
       errors.limit = 'Not a number';
+      hasError.limit = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
     }
 
-    if (!errors.limit && !errors.issuer && !errors.code) {
+    if (!hasError.limit && !hasError.issuer && !hasError.code) {
       const assetExistsResult = await assetExists({
         code: values.code,
         issuer: values.issuer,
@@ -73,6 +81,7 @@ class ChangeTrustOps extends Component {
 
       if (!assetExistsResult) {
         errors.code = 'Asset not found.';
+        hasError.code = true;
 
         changeOperationAction(this.props.id, {
           checked: false,

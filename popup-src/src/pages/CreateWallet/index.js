@@ -14,7 +14,7 @@ class CreateWallet extends Component {
 
     if (!isDone) {
       return {
-        name: 'Error.',
+        _name: 'Error.',
       };
     }
 
@@ -23,11 +23,14 @@ class CreateWallet extends Component {
 
   validateForm (values) {
     const errors = {};
+
     if (!values.name) {
-      errors.name = 'Required';
+      errors._name = 'Required';
     }
+
     return errors;
   }
+
   render() {
     return (
         <>
