@@ -12,10 +12,11 @@ const Trigger = children => ({ triggerRef, getTriggerProps }) => (
     </span>
 );
 
-const Tooltip = (tooltip, hideArrow) => ({arrowRef, tooltipRef, getArrowProps, getTooltipProps, placement}) => (
+const Tooltip = (tooltip, hideArrow, styleClass) => ({arrowRef, tooltipRef, getArrowProps, getTooltipProps, placement}) =>  {
+    return(
     <div
       { ...getTooltipProps({
-          className: 'tooltip-container',
+          className: `tooltip-container ${styleClass}`,
           ref: tooltipRef
         }) }
     >
@@ -30,11 +31,11 @@ const Tooltip = (tooltip, hideArrow) => ({arrowRef, tooltipRef, getArrowProps, g
       )}
       {tooltip}
     </div>
-);
+)};
 
 const BasicTooltipTrigger = memo(
     ({ tooltip, children, hideArrow, ...props }) => (
-        <TooltipTrigger { ...props } tooltip={ Tooltip(tooltip, hideArrow) }>
+        <TooltipTrigger { ...props } tooltip={ Tooltip(tooltip, hideArrow, props.styleClass) }>
           {Trigger(children)}
         </TooltipTrigger>
     )

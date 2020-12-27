@@ -21,7 +21,7 @@ const CopyText = ({text, button}) => {
         onClick={ () => { toggle();} }
         className={ styles.container }
       >
-        <Tooltip trigger={ ['click', 'hover'] } tooltipShown={ visible } tooltip={ tooltipText } placement="top">
+        <Tooltip trigger={ ['click', 'hover'] } tooltipShown={ visible } tooltip={ tooltipText } placement="top" styleClass="tooltip-copy">
           <CopyToClipboard text={ text } >
 
             {button ? <span>{button}</span> : <span className="icon-sheet"/>}
