@@ -20,7 +20,7 @@ import createPassiveSellOffer from 'Root/operations/createPassiveSellOffer';
 import pathPaymentStrictReceive from 'Root/operations/pathPaymentStrictReceive';
 
 export default async (push) => {
-  push(route.loadingOnePage);
+  push(route.loadingNetworkPage);
 
   const { operations, memo } = store.getState().transaction;
 

@@ -12,6 +12,18 @@ import validatePrivateKey from 'Root/helpers/validate/privateKey';
 
 class RestoreWallet extends Component {
   async onSubmit (values) {
+    if (!validatePrivateKey(values.key)) {
+      return { key: 'Invalid private key.' };
+    }
+
+    const { accounts } = this.props;
+
+    const isDuplicated = accounts.some(x => x.privateKey === values.key);
+
+    if (isDuplicated) {
+      return { key: 'Account is duplicated.' };
+    }
+
     const account = await restoreAccountAction(values.key);
 
     if (account === 'duplicate') {
@@ -28,17 +40,7 @@ class RestoreWallet extends Component {
   validateForm (values) {
     const errors = {};
 
-    if (!validatePrivateKey(values.key)) {
-      errors.key = 'Invalid private key.';
-    } else {
-      const { accounts } = this.props;
-
-      const isDuplicated = accounts.some(x => x.privateKey === values.key);
-
-      if (isDuplicated) {
-        errors.key = 'Account is duplicated.';
-      }
-    }
+    console.log(errors);
 
     return errors;
   }
@@ -89,7 +91,7 @@ class RestoreWallet extends Component {
                       variant="btn-primary"
                       size="btn-small"
                       content="Import"
-                      disabled={ submitting || invalid }
+                      disabled={ submitting }
                     />
                   </div>
                 </form>

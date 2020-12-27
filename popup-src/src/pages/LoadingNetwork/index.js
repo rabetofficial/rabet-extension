@@ -1,0 +1,24 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import Logo from 'Root/components/Logo';
+import Loading from 'Root/components/Loading';
+
+import styles from './styles.less';
+
+const LoadingOne = props => {
+  return (
+      <div style={ { marginTop: '215px'} }>
+
+       <div className={styles.loading}>
+         <Loading title="Waiting for network" size={95} />
+       </div>
+      </div>
+  );
+};
+
+LoadingOne.propTypes = {
+
+};
+
+export default LoadingOne;

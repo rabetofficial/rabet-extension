@@ -56,15 +56,6 @@ class PaymentOps extends Component {
       destination: false,
     };
 
-    if (!values.destination) {
-      errors.destination = null;
-      hasError.destination = true;
-
-      changeOperationAction(this.props.id, {
-        checked: false,
-      });
-    }
-
     if (!values.amount) {
       errors.amount = null;
       hasError.amount = true;
@@ -74,7 +65,14 @@ class PaymentOps extends Component {
       });
     }
 
-    if (!validateAddress(values.destination)) {
+    if (!values.destination) {
+      errors.destination = null;
+      hasError.destination = true;
+
+      changeOperationAction(this.props.id, {
+        checked: false,
+      });
+    } else if (!validateAddress(values.destination)) {
       errors.destination = 'Invalid.';
       hasError.destination = true;
 

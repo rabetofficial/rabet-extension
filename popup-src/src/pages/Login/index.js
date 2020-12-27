@@ -70,7 +70,7 @@ class Login extends Component {
   validateForm (values) {
     const errors = {};
 
-    if (!values.password || values.password.length < 8) {
+    if (values.password && values.password.length < 8) {
       errors.password = 'Password must be at least 8 characters.';
     }
 
@@ -112,7 +112,7 @@ class Login extends Component {
                         size={ buttonSizes.large }
                         content="Unlock"
                         style={ {marginTop: '32px'} }
-                        disabled={ invalid || pristine || submitting }
+                        disabled={ pristine || submitting }
                       />
                     </form>
                 ) }

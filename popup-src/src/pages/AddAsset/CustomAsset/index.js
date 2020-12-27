@@ -41,6 +41,7 @@ class CustomAsset extends Component {
         errors.issuer = 'Invalid address.';
         hasError.issuer = true;
       } else {
+        delete errors.issuer;
         hasError.issuer = false;
       }
     }
@@ -53,6 +54,7 @@ class CustomAsset extends Component {
       const findAsset = balances.find(x => x.asset_code === values.code && x.asset_issuer === values.issuer);
 
       if (findAsset) {
+        hasError.code = true;
         errors.code = 'Asset is already added.';
       }
 

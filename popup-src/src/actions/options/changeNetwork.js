@@ -9,7 +9,7 @@ import getData from '../accounts/getData';
 export default async (network, push) => {
   const { activeAccount } = currentActiveAccount();
 
-  push(route.loadingOnePage);
+  push(route.loadingNetworkPage);
 
   store.dispatch({
     type: types.options.CHANGE_NETWORK,

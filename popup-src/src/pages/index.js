@@ -18,6 +18,7 @@ import FirstPage from './FirstPage';
 import FetchData from './FetchData';
 import PrivateKey from './PrivateKey';
 import LoadingOne from './LoadingOne';
+import LoadingNetwork from './LoadingNetwork';
 import ConfirmLogin from './ConfirmLogin';
 import CreateWallet from './CreateWallet';
 import RestoreWallet from './RestoreWallet';
@@ -72,6 +73,7 @@ class App extends Component {
             <Route exact path={ route.firstPage } component={ FirstPage } />
             <Route exact path={ route.fetchDataPage } component={ FetchData } />
             <Route exact path={ route.loadingOnePage } component={ LoadingOne } />
+            <Route exact path={ route.loadingNetworkPage } component={ LoadingNetwork } />            
             <Route exact path={ route.contactPage } component={ ContactRequest } />
             <Route exact path={ route.confirmLoginPage } component={ ConfirmLogin } />
             <Route exact path={ route.createWalletPage } component={ CreateWallet } />
