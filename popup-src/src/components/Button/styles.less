@@ -11,12 +11,6 @@ button {
   }
 }
 
-button:disabled {
-  background: @Silver-chalice;
-  border: 1px solid @Silver-chalice;
-  color: white;
-}
-
 button:focus {
   outline: none;
 }
@@ -91,4 +85,27 @@ button:focus {
   padding-right: 20px;
   padding-left: 20px;
   border-radius: 2px;
+}
+
+
+// disabled
+button:disabled {
+  cursor: default !important;
+}
+
+button:disabled:hover {
+  box-shadow: none !important;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  background: @Silver-chalice;
+  border: 1px solid @Silver-chalice;
+  color: white;
+}
+
+.btn-danger:disabled {
+  background-color: @Alabaster;
+  border: 1px solid @Alabaster;
+  color: @Secondary-Silver-chalice;
 }
