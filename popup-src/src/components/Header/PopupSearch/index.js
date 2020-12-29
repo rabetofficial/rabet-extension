@@ -87,6 +87,10 @@ const PopupSearch = props => {
     };
   }, []);
 
+  useEffect(() => {
+    setSearchString('');
+  }, [props.isOpen])
+
   const buttons = [
     {link: route.createWalletPage, icon: 'icon-plus-math', iconSize: '14',  label: 'Create Wallet'},
     {link: route.restoreWalletPage, icon: 'icon-file',iconSize: '14', label: 'Import Wallet'},

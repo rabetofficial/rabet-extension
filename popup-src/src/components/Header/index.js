@@ -75,7 +75,7 @@ const Header = (props) => {
                </div>
               </div>
               <div className="pure-u-4-24">
-                <PopupSearch toggleOverlay={ toggleOverlay } />
+                <PopupSearch toggleOverlay={ toggleOverlay } isOpen={overlay} />
               </div>
             </div>
           </div>
