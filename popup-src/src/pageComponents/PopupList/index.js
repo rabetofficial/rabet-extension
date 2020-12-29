@@ -10,7 +10,7 @@ const PopupList = ({info}) => {
         <div className="popup-avatar">{abbr(info.name)}</div>
         <div className="popup-div">
           <div className="popup-name">
-              {(info.name && info.name.length > 18) ? info.name.substr(0, 18).concat('...') : info.name}
+              {(info.name && info.name.length > 13) ? info.name.substr(0, 13).concat('...') : info.name}
           </div>
           <div className="popup-address">
               {info.publicKey}

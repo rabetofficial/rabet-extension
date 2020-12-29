@@ -176,7 +176,7 @@ class Home extends Component {
                      />
                  ): (
                      <p className={ styles.info }>
-                       {activeAccount.name && (activeAccount.name.length < 30 ? activeAccount.name : activeAccount.name.substr(0, 30).concat('...'))
+                       {activeAccount.name && (activeAccount.name.length < 13 ? activeAccount.name : activeAccount.name.substr(0, 13).concat('...'))
                            || `Account ${activeAccountIndex + 1}`}
                      </p>
                  )}
