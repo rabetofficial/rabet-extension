@@ -35,7 +35,7 @@ const Item = ({items, item, index}) =>  {
             </h6>
             <p className={ styles.value }>{moment(item.created_at).fromNow()}</p>
           </div>
-          <div className={ styles.div } style={ {marginLeft: '59px'} }>
+          <div className={ styles.div } style={ {marginLeft: 'auto', paddingRight: '33px'} }>
             <h6 className={ styles.subject }>{operationCount}</h6>
             <p className={ styles.value }>ops</p>
           </div>

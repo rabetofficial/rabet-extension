@@ -62,8 +62,14 @@
   font-weight: normal;
 }
 
+:local(.border) {
+  position: relative;
+}
+
 :local(.next) {
   margin-left: auto;
+  position: absolute;
+  right: 0;
 
   span {
     color: @heavy-metal;
