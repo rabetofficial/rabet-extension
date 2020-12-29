@@ -5,6 +5,7 @@ import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
+import SelectOption from 'Root/components/SelectOption';
 import validateNumber from 'Root/helpers/validate/number';
 import assetExists from 'Root/helpers/horizon/assetExists';
 import validateAddress from 'Root/helpers/validate/address';
@@ -14,6 +15,19 @@ import changeOperationAction from 'Root/actions/operations/change';
 import styles from './styles.less';
 
 class ChangeTrustOps extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: {},
+    };
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({ selected: e });
+  }
+
   onSubmit (values) {
     console.warn(values);
   }
@@ -100,56 +114,38 @@ class ChangeTrustOps extends Component {
   }
 
   render() {
+    const list = [
+      {value: 'ltc', label: 'LTC'},
+      {value: 'ltc2', label: 'LTC2'},
+    ]
     return (
         <Form
           onSubmit={ this.onSubmit }
           validate={ (values) => this.validateForm(values) }
           render={ ({submitError, handleSubmit, submitting, values}) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  <Field name="code">
-                    {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">Assets code</label>
-                          <Input
-                            type="text"
-                            placeholder="USD"
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                            autoFocus
-                          />
-                        </div>
-                    )}
-                  </Field>
-
-                  <Field name="issuer">
-                    {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">Assets issuer</label>
-                          <Input
-                            type="text"
-                            placeholder="G…"
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                          />
-                        </div>
-                    )}
-                  </Field>
-
                   <Field name="limit">
                     {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">Limit
-                            <span className="label-optional">{' '}(optional)</span>
-                          </label>
-                          <Input
-                            type="number"
-                            placeholder="1000"
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                          />
+                        <div className="pure-g group">
+                          <div className={ styles.selectInput }>
+                            <label className="label-primary">Limit amount</label>
+                            <Input
+                                type="number"
+                                placeholder="1000"
+                                size="input-medium"
+                                input={ input }
+                                meta={ meta }
+                            />
+                          </div>
+                          <div className={ styles.select }>
+                            <SelectOption
+                                items={list}
+                                onChange={ this.onChange }
+                                variant="select-outlined"
+                                defaultValue={list[0]}
+                                selected={this.state.selected}
+                            />
+                          </div>
                         </div>
                     )}
                   </Field>
