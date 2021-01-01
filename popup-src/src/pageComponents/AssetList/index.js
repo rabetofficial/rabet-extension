@@ -32,7 +32,7 @@ class AssetList extends Component {
       return stellar;
     }
 
-    const assetImage = this.state.assets.find(x => x.asset_code === item.asset_code);
+    const assetImage = this.state.assets.find(x => x.asset_code === item.asset_code && x.asset_issuer === item.asset_issuer);
 
     if (assetImage) {
       return `${config.ASSET_SERVER}/uploads/${assetImage.logo}`;
