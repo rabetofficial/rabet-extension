@@ -1,6 +1,7 @@
 import store from 'Root/store';
 import types from 'Root/actions';
 import * as route from 'Root/staticRes/routes';
+import updateBalances from 'Root/helpers/updateBalances';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 
 import storeOptions from './store';
@@ -9,12 +10,14 @@ import getData from '../accounts/getData';
 export default async (network, push) => {
   const { activeAccount } = currentActiveAccount();
 
-  push(route.loadingNetworkPage);
+  push(route.loadingOnePage);
 
   store.dispatch({
     type: types.options.CHANGE_NETWORK,
     network: network.value,
   });
+
+  await updateBalances();
 
   await getData(activeAccount.publicKey);
 

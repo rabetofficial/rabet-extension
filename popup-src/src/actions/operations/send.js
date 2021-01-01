@@ -106,7 +106,7 @@ export default async (push) => {
         else if (operations[i].type === operationsName.changeTrust) {
           transaction = transaction.addOperation(changeTrust({
             limit: operations[i].limit,
-            asset: new StellarSdk.Asset(operations[i].code, operations[i].issuer),
+            asset: new StellarSdk.Asset(operations[i].asset.asset_code, operations[i].asset.asset_issuer),
           }));
         }
 
@@ -266,7 +266,7 @@ export default async (push) => {
 
       if (memo.checked && memo.text) {
         transaction = transaction
-          .addMemo(StellarSdk.Memo.text(memo.text));
+          .addMemo(StellarSdk.Memo.hash(memo.text));
       }
 
       transaction = transaction

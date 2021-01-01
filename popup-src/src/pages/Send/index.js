@@ -63,14 +63,14 @@ class Send extends Component {
 
   async validateForm (values) {
     if (values.memo) {
-      if (values.memo.length > 28) {
+      if (values.memo.length > 32) {
         addMemoAction({
           checked: false,
           text: values.memo,
         });
 
         return {
-          memo: 'Memo should not be more than 28 characters.',
+          memo: 'Memo should not be more than 32 characters.',
         };
       } else {
         addMemoAction({

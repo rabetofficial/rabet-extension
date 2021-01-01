@@ -55,7 +55,7 @@ class PaymentReceiveOps extends Component {
         checked: false,
       });
     } else if (!validateAddress(values.destination)) {
-      errors.destination = 'Invalid address.';
+      errors.destination = 'Invalid destination.';
       hasError.destination = true;
 
       changeOperationAction(this.props.id, {
@@ -65,14 +65,14 @@ class PaymentReceiveOps extends Component {
       accountData = await getAccountData(values.destination);
 
       if (accountData.status === 404) {
-        errors.destination = 'Inactive account.';
+        errors.destination = 'Inactive destination.';
         hasError.destination = true;
 
         changeOperationAction(this.props.id, {
           checked: false,
         });
       } else if (accountData.status === 400) {
-        errors.destination = 'Wrong address.';
+        errors.destination = 'Wrong destination.';
         hasError.destination = true;
 
         changeOperationAction(this.props.id, {
@@ -89,22 +89,22 @@ class PaymentReceiveOps extends Component {
         checked: false,
       });
     } else {
-      if (this.state.sendAsset.value) {
-        let selectedTokenBalance;
+      let selectedTokenBalance;
 
-        if (this.state.sendAsset.value === 'XLM') {
-          selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
-        } else {
-          selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.sendAsset.value);
-        }
+      if (this.state.sendAsset.value === 'XLM') {
+        selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+      } else {
+        selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.sendAsset.value);
+      }
 
-        if (!selectedTokenBalance) {
-          selectedTokenBalance = {
-            balance: 0,
-          };
-        }
+      if (!selectedTokenBalance) {
+        selectedTokenBalance = {
+          balance: 0,
+        };
+      }
 
-        if (Number(selectedTokenBalance.balance || '0') < values.sendMax) {
+      if (selectedTokenBalance.asset_type === 'native') {
+        if (Number(selectedTokenBalance.balance || '0') - activeAccount.maxXLM < parseFloat(values.sendMax, 10)) {
           errors.sendMax = `Insufficient ${this.state.sendAsset.value} balance.`;
           hasError.sendMax = true;
 
@@ -113,9 +113,14 @@ class PaymentReceiveOps extends Component {
           });
         }
       } else {
-        changeOperationAction(this.props.id, {
-          checked: false,
-        });
+        if (Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendMax, 10)) {
+          errors.sendMax = `Insufficient ${this.state.sendAsset.value} balance.`;
+          hasError.sendMax = true;
+
+          changeOperationAction(this.props.id, {
+            checked: false,
+          });
+        }
       }
     }
 
@@ -126,42 +131,37 @@ class PaymentReceiveOps extends Component {
       changeOperationAction(this.props.id, {
         checked: false,
       });
-    } else {
-      if (this.state.destAsset.value) {
-        const destinationTokens = accountData.balances || [];
+    }
 
-        let selectedToken = destinationTokens.find(x => x.asset_type === 'native');
+    if (!hasError.destination && !hasError.sendMax && !hasError.destAmount && this.state.sendAsset.value && this.state.destAsset.value) {
+      const destinationTokens = accountData.balances || [];
 
-        if (this.state.destAsset.value !== 'XLM') {
-          selectedToken = destinationTokens.find(x => x.asset_code === this.state.destAsset.value);
-        }
+      let selectedToken = destinationTokens.find(x => x.asset_type === 'native');
 
-        if (!selectedToken) {
-          errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+      if (this.state.destAsset.value !== 'XLM') {
+        selectedToken = destinationTokens.find(x => x.asset_code === this.state.destAsset.value);
+      } else {
+        selectedToken.limit = 999999999;
+      }
+
+      if (!selectedToken) {
+        errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+        hasError.destination = true;
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      } else {
+        if (Number(selectedToken.limit) < Number(values.destAmount) + Number(selectedToken.balance)) {
+          errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
           hasError.destination = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
           });
-        } else {
-          if (Number(selectedToken.limit) < Number(values.destAmount) + Number(selectedToken.balance)) {
-            errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
-            hasError.destination = true;
-
-            changeOperationAction(this.props.id, {
-              checked: false,
-            });
-          }
         }
-
-      } else {
-        changeOperationAction(this.props.id, {
-          checked: false,
-        });
       }
-    }
 
-    if (!hasError.destination && !hasError.sendMax && !hasError.destAmount && this.state.sendAsset.value && this.state.destAsset.value) {
       changeOperationAction(this.props.id, {
         checked: true,
         destination: values.destination,
@@ -183,13 +183,6 @@ class PaymentReceiveOps extends Component {
     const { balances } = activeAccount;
 
     const list = [];
-
-    list.push({
-      value: 'XLM',
-      label: 'XLM',
-      balance: activeAccount.balance,
-      asset_type: "native",
-    });
 
     for (let i = 0; i < balances.length; i++) {
       list.push({
@@ -222,7 +215,9 @@ class PaymentReceiveOps extends Component {
               let maxBalance;
 
               if (this.state.sendAsset.value === 'XLM') {
-                maxBalance = balances.find(x => x.asset_type === 'native').balance;
+                let xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+
+                maxBalance = parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM;
               } else {
                 maxBalance = balances.find(x => x.asset_code === this.state.sendAsset.value).balance;
               }

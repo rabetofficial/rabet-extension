@@ -15,7 +15,6 @@ export default async (address) => new Promise((resolve, reject) => {
       }
     })
     .catch(e => {
-      console.log('i always happen');
       reject(e);
     });
 });

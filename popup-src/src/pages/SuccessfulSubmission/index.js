@@ -22,7 +22,12 @@ const SuccessfulSubmission = props => {
          btnText="OK"
          icon="icon-checkmark"
          iconClass={ styles.icon }
-         handleClick={() => { props.history.push(route.homePage) }}
+         handleClick={() => { props.history.push({
+           pathname: route.homePage,
+           state: {
+             alreadyLoaded: false,
+           }
+         }) }}
          copy
        />
       </>

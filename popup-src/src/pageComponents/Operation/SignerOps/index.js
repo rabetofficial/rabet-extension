@@ -28,7 +28,7 @@ class SignerOps extends Component {
       });
     } else {
       if (!validateAddress(values.signer)) {
-        errors.signer = 'Invalid address.';
+        errors.signer = 'Invalid signer.';
         hasError.signer = true;
 
         changeOperationAction(this.props.id, {

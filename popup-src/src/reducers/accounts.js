@@ -12,6 +12,7 @@ import types from 'Root/actions';
     flags: Object,
     thresholds: Object,
     balances: Array,
+    subentry_count: Number,
   }]
 
 */
@@ -69,11 +70,25 @@ export default (state = initialState, action) => {
         if (accounts[i].publicKey === action.accountData.address) {
           accounts[i].usd = action.accountData.usd;
           accounts[i].flags = action.accountData.flags;
+          accounts[i].maxXLM = action.accountData.maxXLM;
           accounts[i].balance = action.accountData.balance;
           accounts[i].balances = action.accountData.balances;
           accounts[i].operations = action.accountData.operations;
           accounts[i].thresholds = action.accountData.thresholds;
           accounts[i].transactions = action.accountData.transactions;
+          accounts[i].subentry_count = action.accountData.subentry_count;
+        }
+      }
+
+      return accounts;
+    }
+
+    case types.accounts.UPDATE_BALANCE: {
+      const accounts = [...state];
+
+      for (let i = 0; i < accounts.length; ++i) {
+        if (accounts[i].publicKey === action.balance.address) {
+          accounts[i].balance = action.balance.balance;
         }
       }
 

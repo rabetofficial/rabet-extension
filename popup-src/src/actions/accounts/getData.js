@@ -19,6 +19,7 @@ export default async (address) => {
     thresholds: {},
     operations: [],
     transactions: [],
+    subentry_count: 0,
   };
 
   if (JSON.stringify(data) !== '{}') {
@@ -26,6 +27,7 @@ export default async (address) => {
     accountData.flags = data.flags;
     accountData.balances = data.balances;
     accountData.thresholds = data.thresholds;
+    accountData.subentry_count = data.subentry_count;
 
     const xlmToUsd = await xlmPrice();
 
@@ -39,6 +41,9 @@ export default async (address) => {
     accountData.balances.unshift(xlm);
 
     accountData.operations = await operations(accountData.transactions);
+
+    // Adding a new field: Subentry_count
+    accountData.maxXLM = (accountData.subentry_count + 2) * 0.5;
   }
 
   await setUsdPrice();

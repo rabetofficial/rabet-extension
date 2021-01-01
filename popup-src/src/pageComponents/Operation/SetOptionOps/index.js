@@ -34,7 +34,7 @@ class SetOptionOps extends Component {
       hasError.value = true;
     }
 
-    if (!errors.value) {
+    if (!hasError.value) {
       if (type === operationNames.bumpSequence) {
         if (!validateNumber(values.value)) {
           changeOperationAction(this.props.id, {
@@ -42,7 +42,7 @@ class SetOptionOps extends Component {
             bumpTo: values.value,
           });
 
-          errors.value = 'Not a number.';
+          errors.value = null;
           hasError.value = true;
         } else {
           changeOperationAction(this.props.id, {
@@ -53,13 +53,13 @@ class SetOptionOps extends Component {
       }
 
       else if (type === operationNames.accountMerge) {
-        if (!validateAddress(values.value)) {
+        if (values.value && !validateAddress(values.value)) {
           changeOperationAction(this.props.id, {
             checked: false,
             destination: values.value,
           });
 
-          errors.value = 'Address is invalid.';
+          errors.value = 'Invalid destination.';
           hasError.value = true;
         } else {
           const accountData = await getAccountData(values.destination);
@@ -81,24 +81,29 @@ class SetOptionOps extends Component {
       }
 
       else if (type === operationNames.setOptionsSetFlags) {
-        if (!validateNumber(values.value)) {
-          errors.value = 'Not a number.';
-          hasError.value = true;
+        const flagNumber = parseInt(values.value, 10);
 
+        if (!validateNumber(values.value)) {
           changeOperationAction(this.props.id, {
             checked: false,
           });
         } else {
-          changeOperationAction(this.props.id, {
-            checked: true,
-            setFlags: values.value,
-          });
+          if (flagNumber < 1 || flagNumber > 7) {
+            errors.value = 'Enter a number between 1 and 7';
+            hasError.value = true;
+
+          } else {
+            changeOperationAction(this.props.id, {
+              checked: true,
+              setFlags: values.value,
+            });
+          }
         }
       }
 
       else if (type === operationNames.setOptionsInflationDest) {
         if (!validateAddress(values.value)) {
-          errors.value = 'Address is invalid.';
+          errors.value = 'Invalid destination.';
           hasError.value = true;
 
           changeOperationAction(this.props.id, {
@@ -113,24 +118,32 @@ class SetOptionOps extends Component {
       }
 
       else if (type === operationNames.setOptionsClearFlags) {
+        const flagNumber = parseInt(values.value, 10);
+
         if (!validateNumber(values.value)) {
-          errors.value = 'Not a number.';
+          errors.value = null;
           hasError.value = true;
 
           changeOperationAction(this.props.id, {
             checked: false,
           });
         } else {
-          changeOperationAction(this.props.id, {
-            checked: true,
-            clearFlags: values.value,
-          });
+          if (flagNumber < 1 || flagNumber > 7) {
+            errors.value = 'Enter a number between 1 and 7';
+            hasError.value = true;
+
+          } else {
+            changeOperationAction(this.props.id, {
+              checked: true,
+              clearFlags: values.value,
+            });
+          }
         }
       }
 
       else if (type === operationNames.setOptionsHomeDomain) {
         if (!validateDomain(values.value)) {
-          errors.value = 'Invalid address.';
+          errors.value = 'Invalid domain.';
           hasError.value = true;
 
           changeOperationAction(this.props.id, {
@@ -146,7 +159,7 @@ class SetOptionOps extends Component {
 
       else if (type === operationNames.setOptionsMasterWeight) {
         if (!validateNumber(values.value)) {
-          errors.value = 'Not a number.';
+          errors.value = null;
           hasError.value = true;
 
           changeOperationAction(this.props.id, {

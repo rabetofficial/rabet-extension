@@ -62,7 +62,9 @@ class Confirm extends Component {
                               className={ styles.valueTitle }
                               style={ {margin: !item.title && '0'} }
                             >{info.title}</h2>
-                            <p className={ styles.value }>{info.value}</p>
+                            <p className={ styles.value }>
+                            {isNaN(info.value) ? info.value : parseFloat(info.value, 10).toString()}
+                            </p>
                             {info.error &&
                             <p className="error">
                               <span className="icon-exclamation-circle"/>{' '}{info.error}

@@ -16,6 +16,7 @@ class ManageDataOps extends Component {
 
   validateForm (values) {
     const errors = {};
+
     const hasError = {
       name: false,
       value: false,
@@ -28,15 +29,33 @@ class ManageDataOps extends Component {
       changeOperationAction(this.props.id, {
         checked: false,
       });
+    } else {
+      if (values.name.length > 64) {
+        errors.name = 'Enter a name with less than 64 characters.';
+        hasError.name = true;
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
     }
 
     if (!values.value) {
-      errors.value = 'Value is equired.';
+      errors.value = null;
       hasError.value = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
+    } else {
+      if (values.value.length > 64) {
+        errors.value = 'Enter a value with less than 64 characters.';
+        hasError.value = true;
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
     }
 
     if (!hasError.value && !hasError.name) {

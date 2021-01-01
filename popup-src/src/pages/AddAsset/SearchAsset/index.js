@@ -97,7 +97,7 @@ class SearchAsset extends Component {
   }
 
   handleChange(e) {
-    console.log(e)
+    // console.log(e)
   }
 
   render() {

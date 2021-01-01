@@ -39,7 +39,7 @@ export default function OperationDetails(data) {
     }
 
     case 'path_payment_strict_receive': {
-      return `Path payment`;
+      return `Path payment to ${data.to} with source ${data.source}`;
     }
 
     case 'manage_sell_offer': {

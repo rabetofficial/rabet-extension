@@ -98,13 +98,15 @@ class OfferOps extends Component {
           selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.buyingAsset.value);
         }
 
-        if (Number(selectedTokenBalance.limit || '0') < values.buying) {
-          errors.buying = `The balance would exceed the trust of the account in the asset.`;
-          hasError.buying = true;
+        if (this.state.buyingAsset.value !== 'XLM') {          
+          if (Number(selectedTokenBalance.limit || '0') < values.buying) {
+            errors.buying = `The balance would exceed the trust of the account in the asset.`;
+            hasError.buying = true;
 
-          changeOperationAction(this.props.id, {
-            checked: false,
-          });
+            changeOperationAction(this.props.id, {
+              checked: false,
+            });
+          }
         }
       }
     }

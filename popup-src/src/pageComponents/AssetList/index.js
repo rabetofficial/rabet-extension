@@ -77,7 +77,8 @@ class AssetList extends Component {
                       <div className={ styles.currency }>{item.asset_code}</div>
                     </div>
                     <div className={styles.cost}>
-                      {item.toNative ? '$' : ''}{formatCurrency(1 / Number.parseFloat(item.toNative, 10) * options.usd * Number.parseFloat(item.balance, 10)) || '0'}
+                      {item.toNative ? '$' : ''}
+                      {item.asset_type === 'native' ? formatCurrency(Number.parseFloat(item.balance, 10) * options.usd) : formatCurrency(1 / Number.parseFloat(item.toNative, 10) * options.usd * Number.parseFloat(item.balance, 10)) || '0'}
                     </div>
                   </div>
                 </div>

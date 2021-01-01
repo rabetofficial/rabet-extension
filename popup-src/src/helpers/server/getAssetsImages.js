@@ -7,17 +7,17 @@ export default async (assets) => {
     return [];
   }
 
-  let balances = assets.reduce((sum, balance) => {
-    if (balance.asset_type === 'native')
-      return sum + 'XLM' + ',';
-
-    return sum + balance.asset_code + ','
-  }, '');
-
-  balances = balances.slice(0, balances.length - 1);
-
   try {
-    const assetsDetails = await fetch(`${config.ASSET_SERVER}/v1/image-assets?assets=${balances}`)
+    const assetsDetails = await fetch(`${config.ASSET_SERVER}/v1/image-assets`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        assets,
+      }),
+    })
     .then(res => res.json())
 
     return assetsDetails.assets.filter(x => x !== null);

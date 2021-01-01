@@ -11,7 +11,7 @@ const LoadingOne = props => {
       <div style={ { marginTop: '215px'} }>
 
        <div className={styles.loading}>
-         <Loading title="Waiting for network" size={95} />
+         <Loading title="Sending to network" size={95} />
        </div>
       </div>
   );

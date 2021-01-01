@@ -75,6 +75,16 @@ export default (state = initialState, action) => {
       };
     }
 
+    case types.transaction.CLEAR_MEMO: {
+      return {
+        ...state,
+        memo: {
+          text: '',
+          checked: true,
+        },
+      };
+    }
+
     case types.transaction.ADD_MEMO: {
       return {
         ...state,

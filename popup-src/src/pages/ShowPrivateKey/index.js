@@ -26,10 +26,6 @@ class ShowPrivateKey extends Component {
   validateForm (values) {
     const errors = {};
 
-    if (!values.key) {
-      errors.key = null;
-    }
-
     return errors;
   }
 
@@ -42,7 +38,7 @@ class ShowPrivateKey extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, submitting}) => (
+              render={ ({ submitError, handleSubmit, form, submitting, pristine }) => (
                     <form className="form" onSubmit={ handleSubmit }>
                       <Field name="key" >
                         {({input, meta}) => (
@@ -66,14 +62,19 @@ class ShowPrivateKey extends Component {
                           variant="btn-default"
                           size="btn-medium"
                           content="Cancel"
-                          onClick={() => {this.props.history.goBack()}}
+                          onClick={() => {this.props.history.push({
+                            pathname: route.homePage,
+                            state: {
+                              alreadyLoaded: true,
+                            }
+                          })}}
                         />
                         <Button
                           type="submit"
                           variant="btn-primary"
                           size="btn-medium"
                           content="Show"
-                          disabled={ submitting }
+                          disabled={ pristine || submitting }
                         />
                       </div>
                     </form>

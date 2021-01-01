@@ -22,7 +22,12 @@ const Error = props => {
             btnText="Got it"
             icon="icon-exclamation-triangle"
             iconClass={ styles.icon }
-            handleClick={() => { props.history.push(route.homePage) }}
+            handleClick={() => { props.history.push({
+              pathname: route.homePage,
+              state: {
+                alreadyLoaded: true,
+              }
+            }) }}
           />
         </div>
       </>

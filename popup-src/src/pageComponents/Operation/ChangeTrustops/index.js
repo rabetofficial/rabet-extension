@@ -9,6 +9,7 @@ import SelectOption from 'Root/components/SelectOption';
 import validateNumber from 'Root/helpers/validate/number';
 import assetExists from 'Root/helpers/horizon/assetExists';
 import validateAddress from 'Root/helpers/validate/address';
+import currentActiveAccount from 'Root/helpers/activeAccount';
 import getAccountData from 'Root/helpers/horizon/isAddressFound';
 import changeOperationAction from 'Root/actions/operations/change';
 
@@ -18,6 +19,7 @@ class ChangeTrustOps extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      list: [],
       selected: {},
     };
 
@@ -40,84 +42,59 @@ class ChangeTrustOps extends Component {
 
     let accountData;
 
-    if (!values.code) {
-      errors.code = null;
-      hasError.code = true;
-
-      changeOperationAction(this.props.id, {
-        checked: false,
-      });
-    }
-
-    if (!values.issuer) {
-      errors.issuer = null;
-      hasError.issuer = true;
-
-      changeOperationAction(this.props.id, {
-        checked: false,
-      });
-    } else {
-      if (!validateAddress(values.issuer)) {
-        errors.issuer = 'Invalid address.';
-        hasError.issuer = true;
-
-        changeOperationAction(this.props.id, {
-          checked: false,
-        });
-      } else {
-        accountData = await getAccountData(values.issuer);
-
-        if (accountData.status) {
-          changeOperationAction(this.props.id, {
-            checked: false,
-          });
-
-          errors.issuer = 'Address is inactive.';
-          hasError.issuer = true;
-        }
-      }
-    }
-
     if (values.limit && !validateNumber(values.limit)) {
-      errors.limit = 'Not a number';
+      errors.limit = null;
       hasError.limit = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
+    } else {
+      let l = parseInt(values.limit, 10);
+
+      if (l > 922337203685 || l < 1) {
+        errors.limit = 'Limit number must be between 1 and 922,337,203,685';
+        hasError.limit = true;
+      }
     }
 
-    if (!hasError.limit && !hasError.issuer && !hasError.code) {
-      const assetExistsResult = await assetExists({
-        code: values.code,
-        issuer: values.issuer,
+    if (!hasError.limit && this.state.selected.value) {
+      changeOperationAction(this.props.id, {
+        checked: true,
+        limit: values.limit,
+        asset: this.state.selected,
       });
-
-      if (!assetExistsResult) {
-        errors.code = 'Asset not found.';
-        hasError.code = true;
-
-        changeOperationAction(this.props.id, {
-          checked: false,
-        });
-      } else {
-        changeOperationAction(this.props.id, {
-          checked: true,
-          code: values.code,
-          limit: values.limit,
-          issuer: values.issuer,
-        });
-      }
     }
 
     return errors;
   }
 
+  componentDidMount() {
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+
+    const { balances } = activeAccount;
+
+    let list = [];
+
+    for (let i = 0; i < balances.length; i++) {
+      list.push({
+        value: balances[i].asset_code,
+        label: balances[i].asset_code,
+        ...balances[i],
+      });
+    }
+
+    list = list.filter(x => x.asset_type !== 'native');
+
+    this.setState({
+      list,
+      selected: list[0],
+    });
+  }
+
   render() {
-    const list = [
-      {value: 'ltc', label: 'LTC'},
-      {value: 'ltc2', label: 'LTC2'},
-    ]
+    const { list } = this.state;
+
     return (
         <Form
           onSubmit={ this.onSubmit }

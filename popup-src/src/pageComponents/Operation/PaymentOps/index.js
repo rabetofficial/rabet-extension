@@ -51,6 +51,7 @@ class PaymentOps extends Component {
 
   async validateForm (values) {
     const errors = {};
+
     const hasError = {
       amount: false,
       destination: false,
@@ -73,7 +74,7 @@ class PaymentOps extends Component {
         checked: false,
       });
     } else if (!validateAddress(values.destination)) {
-      errors.destination = 'Invalid.';
+      errors.destination = 'Invalid destination.';
       hasError.destination = true;
 
       changeOperationAction(this.props.id, {
@@ -91,7 +92,10 @@ class PaymentOps extends Component {
       let selectedTokenBalance;
 
       if (this.state.selected.value === 'XLM') {
-        selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+        const xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+        xlmBalance.balance = parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM;
+
+        selectedTokenBalance = xlmBalance;
       } else {
         selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.selected.value);
       }
@@ -185,7 +189,9 @@ class PaymentOps extends Component {
     let maxBalance;
 
     if (this.state.selected.value === 'XLM') {
-      maxBalance = activeAccount.balances.find(x => x.asset_type === 'native').balance;
+      let xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+
+      maxBalance = parseFloat(xlmBalance.balance, 10) - xlmBalance.maxXLM;
     } else {
       maxBalance = activeAccount.balances.find(x => x.asset_code === this.state.selected.value).balance;
     }
@@ -200,17 +206,11 @@ class PaymentOps extends Component {
 
     const list = [];
 
-    list.push({
-      value: 'XLM',
-      label: 'XLM',
-      balance: activeAccount.balance,
-    });
-
     for (let i = 0; i < balances.length; i++) {
       list.push({
         value: balances[i].asset_code,
         label: balances[i].asset_code,
-        balance: balances[i].balance,
+        ...balances[i],
       });
     }
 
@@ -233,7 +233,9 @@ class PaymentOps extends Component {
               let maxBalance;
 
               if (this.state.selected.value === 'XLM') {
-                maxBalance = balances.find(x => x.asset_type === 'native').balance;
+                let xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+
+                maxBalance = parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM;
               } else {
                 maxBalance = balances.find(x => x.asset_code === this.state.selected.value).balance;
               }

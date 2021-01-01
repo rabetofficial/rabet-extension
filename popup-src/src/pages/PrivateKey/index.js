@@ -36,7 +36,12 @@ const PrivateKey = props => {
           title="Your private key"
           iconClass={ styles.icon }
           message={activeAccount.privateKey}
-          handleClick={() => { props.history.push(route.homePage) }}
+          handleClick={() => { props.history.push({
+            pathname: route.homePage,
+            state: {
+              alreadyLoaded: true,
+            }
+          }) }}
           copy
         />
       </div>

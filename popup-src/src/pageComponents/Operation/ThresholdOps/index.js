@@ -70,7 +70,7 @@ class ThresholdOps extends Component {
                           <label className="label-primary">Low threshold</label>
                           <Input
                             type="number"
-                            placeholder="1"
+                            placeholder="0"
                             size="input-medium"
                             input={ input }
                             meta={ meta }
@@ -85,7 +85,7 @@ class ThresholdOps extends Component {
                           <label className="label-primary">Medium threshold</label>
                           <Input
                             type="number"
-                            placeholder="2"
+                            placeholder="0"
                             size="input-medium"
                             input={ input }
                             meta={ meta }
@@ -99,7 +99,7 @@ class ThresholdOps extends Component {
                           <label className="label-primary">High threshold</label>
                           <Input
                             type="number"
-                            placeholder="3"
+                            placeholder="0"
                             size="input-medium"
                             input={ input }
                             meta={ meta }

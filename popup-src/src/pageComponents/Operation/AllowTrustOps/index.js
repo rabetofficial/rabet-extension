@@ -47,7 +47,7 @@ class AllowTrustOps extends Component {
       });
     } else {
       if (!validateAddress(values.trustor)) {
-        errors.trustor = 'Invalid address.';
+        errors.trustor = 'Invalid trustor.';
         hasError.trustor = true;
 
         changeOperationAction(this.props.id, {
@@ -85,6 +85,17 @@ class AllowTrustOps extends Component {
       changeOperationAction(this.props.id, {
         checked: false,
       });
+    } else {
+      let auth = parseInt(values.authorize, 10);
+
+      if (![0,1,2].includes(auth)) {
+        errors.authorize = 'Authorize must be 0 or 1 or 2';
+        hasError.authorize = true;
+
+        changeOperationAction(this.props.id, {
+          checked: false,
+        });
+      }
     }
 
     if (!hasError.trustor && !hasError.code && !hasError.authorize) {
