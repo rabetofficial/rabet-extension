@@ -266,7 +266,7 @@ export default async (push) => {
 
       if (memo.checked && memo.text) {
         transaction = transaction
-          .addMemo(StellarSdk.Memo.hash(memo.text));
+          .addMemo(StellarSdk.Memo.text(memo.text));
       }
 
       transaction = transaction
@@ -284,6 +284,7 @@ export default async (push) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       push({
         pathname: route.errorPage,
         state: { message: err.message, },

@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import randomColor from 'randomcolor';
 import React, {Component} from 'react';
 import {Field, Form} from 'react-final-form';
@@ -119,6 +120,7 @@ class SearchAsset extends Component {
                                 meta={ meta }
                                 style={{fontFamily: 'Roboto, \'icomoon\''}}
                                 autoFocus
+                                disabled={this.props.options.network !== 'MAINNET'}
                             />
                       )}
                     </Field>
@@ -169,4 +171,6 @@ class SearchAsset extends Component {
   }
 }
 
-export default withRouter(SearchAsset);
+export default withRouter(connect(state => ({
+  options: state.options,
+}))(SearchAsset));

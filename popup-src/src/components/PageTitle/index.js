@@ -7,7 +7,7 @@ import * as route from 'Root/staticRes/routes';
 
 import styles from './styles.less';
 
-const PageTitle = ({title, status, statusTitle, ...props}) => {
+const PageTitle = ({ title, status, statusTitle, alreadyLoaded, ...props }) => {
 
   const generateTitle = () => {
     if(status) {
@@ -31,7 +31,7 @@ const PageTitle = ({title, status, statusTitle, ...props}) => {
             onClick={() => { props.history.push({
               pathname: route.homePage,
               state: {
-                alreadyLoaded: true,
+                alreadyLoaded: alreadyLoaded === undefined ? true : false,
               },
             }) }}
           />

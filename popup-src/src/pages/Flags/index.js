@@ -156,7 +156,12 @@ class Flags extends Component {
                 variant="btn-default"
                 size="btn-medium"
                 content="Cancel"
-                onClick={() => {this.props.history.goBack()}}
+                onClick={() => {this.props.history.push({
+                  pathname: route.homePage,
+                  state: {
+                    alreadyLoaded: true,
+                  }
+                })}}
               />
 
               <Button

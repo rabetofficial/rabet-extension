@@ -14,7 +14,7 @@ const SuccessfulSubmission = props => {
       <>
        <Header/>
 
-       <PageTitle />
+       <PageTitle alreadyLoaded={false} />
 
        <NoteCard
          title="Transaction Sent"

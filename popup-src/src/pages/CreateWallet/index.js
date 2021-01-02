@@ -14,7 +14,7 @@ class CreateWallet extends Component {
 
     if (!isDone) {
       return {
-        _name: 'Error.',
+        name: 'Error.',
       };
     }
 
@@ -25,7 +25,7 @@ class CreateWallet extends Component {
     const errors = {};
 
     if (!values.name) {
-      errors._name = 'Required';
+      errors.name = null;
     }
 
     return errors;
@@ -40,7 +40,7 @@ class CreateWallet extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, submitting, invalid }) => (
+              render={ ({submitError, handleSubmit, form, submitting, invalid, pristine }) => (
                   <form className="form" onSubmit={ handleSubmit }>
                     <Field name="name">
                       {({input, meta}) => (
@@ -78,7 +78,7 @@ class CreateWallet extends Component {
                         variant="btn-primary"
                         size="btn-small"
                         content="Create"
-                        disabled={ submitting || invalid }
+                        disabled={ pristine }
                       />
                     </div>
                   </form>

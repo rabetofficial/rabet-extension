@@ -40,7 +40,9 @@ class RestoreWallet extends Component {
   validateForm (values) {
     const errors = {};
 
-    console.log(errors);
+    if (!values.key) {
+      errors.key = null;
+    }
 
     return errors;
   }
@@ -54,7 +56,7 @@ class RestoreWallet extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, submitting, invalid }) => (
+              render={ ({submitError, handleSubmit, form, submitting, invalid, pristine }) => (
                 <form className="form" onSubmit={ handleSubmit }>
                   <Field name="key">
                     {({input, meta}) => (
@@ -91,7 +93,7 @@ class RestoreWallet extends Component {
                       variant="btn-primary"
                       size="btn-small"
                       content="Import"
-                      disabled={ submitting }
+                      disabled={ pristine }
                     />
                   </div>
                 </form>

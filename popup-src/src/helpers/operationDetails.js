@@ -1,15 +1,16 @@
 import formatCurrency from './formatCurrency';
 
 function manageOffer(data, opType) {
+  console.log(data, opType);
   if (parseFloat(data.amount) === 0) {
     return `Delete offer`;
   }
 
   if (data.offer_id === '0') {
-    return `Create offer`;
+    return `Create offer [ buying ${formatCurrency(data.amount)} ${data.buying_asset_code || 'XLM'} selling ${data.price_r.n}]`;
   }
 
-  return `Update offer`;
+  return `Update offer [ buying ${formatCurrency(data.amount)}]`;
 }
 
 function updatePassive(data, opType) {

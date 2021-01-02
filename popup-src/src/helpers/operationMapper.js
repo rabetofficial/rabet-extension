@@ -1,5 +1,6 @@
 import * as operations from 'Root/staticRes/operations';
 
+import shorter from './shorter';
 import removeTrailingZeroes from './removeTrailingZeroes';
 
 export default (operation) => {
@@ -102,11 +103,7 @@ export default (operation) => {
       info: [
         {
           title: 'Asset',
-          value: operation.code,
-        },
-        {
-          title: 'Issuer',
-          value: operation.issuer,
+          value: `${operation.asset.value} ${shorter(operation.asset.asset_issuer, 8)}`,
         },
         {
           title: 'Limit',
