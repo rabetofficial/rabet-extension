@@ -103,7 +103,7 @@ export default (operation) => {
       info: [
         {
           title: 'Asset',
-          value: `${operation.asset.value} ${shorter(operation.asset.asset_issuer, 8)}`,
+          value: `${operation.asset.value}`,
         },
         {
           title: 'Limit',
