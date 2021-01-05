@@ -138,7 +138,7 @@ class Setting extends Component {
             <div className={ classNames('pure-g', styles.div) }>
               <div className="pure-u-2-5">
                 <h3 className={ styles.title }>Auto-lock timer
-                  <Tooltip trigger="hover" tooltip="Stenk will lock automatically after a set amount of time." placement="top">
+                  <Tooltip trigger="hover" tooltip="Rabet will lock automatically after a set amount of time." placement="top">
                     <span className="icon-question-mark" />
                   </Tooltip>
                 </h3>
