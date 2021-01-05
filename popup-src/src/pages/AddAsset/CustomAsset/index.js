@@ -38,7 +38,7 @@ class CustomAsset extends Component {
       errors.issuer = null;
       hasError.issuer = true;
       if (!validateAddress(values.issuer)) {
-        errors.issuer = 'Invalid address.';
+        errors.issuer = 'Invalid issuer.';
         hasError.issuer = true;
       } else {
         delete errors.issuer;

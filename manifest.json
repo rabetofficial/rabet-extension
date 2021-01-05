@@ -1,15 +1,19 @@
 {
   "manifest_version": 2,
-  "name": "Stenk",
+  "name": "Rabet",
   "version": "0.0.1",
-  "description": "Stenk extension, a simple way to interact with Stellar network.",
+  "description": "Rabet extension, a simple way to interact with Stellar network.",
   "homepage_url": "https://github.com/alper95polat/stenk-extension",
   "icons": {
-    "256": "256x256.png"
+    "16": "assets/16x16.png",
+    "32": "assets/32x32.png",
+    "48": "assets/48x48.png",
+    "128": "assets/128x128.png",
+    "256": "assets/256x256.png"
   },
   "browser_action": {
-    "default_title": "Stenk",
-    "default_icon": "256x256.png",
+    "default_title": "Rabet",
+    "default_icon": "assets/256x256.png",
     "default_popup": "popup/index.html"
   },
   "permissions": [

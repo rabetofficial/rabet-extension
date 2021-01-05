@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        newOperations,
+        operations: newOperations,
       };
     }
 

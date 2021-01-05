@@ -92,10 +92,7 @@ class PaymentOps extends Component {
       let selectedTokenBalance;
 
       if (this.state.selected.value === 'XLM') {
-        const xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
-        xlmBalance.balance = parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM;
-
-        selectedTokenBalance = xlmBalance;
+        selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
       } else {
         selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.selected.value);
       }
@@ -106,7 +103,7 @@ class PaymentOps extends Component {
         };
       }
 
-      if (Number(selectedTokenBalance.balance || '0') < values.amount) {
+      if (Number(selectedTokenBalance.balance || '0') - activeAccount.maxXLM < values.amount) {
         errors.amount = `Insufficient ${this.state.selected.value} balance.`;
         hasError.amount = true;
 

@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import Card from 'Root/components/Card';
 import shorter from 'Root/helpers/shorter';
 import Button from 'Root/components/Button';
+import * as route from 'Root/staticRes/routes';
 import CopyText from 'Root/components/CopyText';
 import PageTitle from 'Root/components/PageTitle';
 import sendAction from 'Root/actions/operations/send';
@@ -88,8 +89,13 @@ class Confirm extends Component {
             <Button
               variant="btn-default"
               size="btn-medium"
-              content="Back"
-              onClick={() => {this.props.history.goBack()}}
+              content="Reject"
+              onClick={() => {this.props.history.push({
+                pathname: route.homePage,
+                state: {
+                  alreadyLoaded: true,
+                }
+              })}}
             />
 
             <Button

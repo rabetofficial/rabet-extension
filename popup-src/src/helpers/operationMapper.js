@@ -281,7 +281,7 @@ export default (operation) => {
   // MANAGE BUY OFFER
   if (operation.type === operations.manageBuyOffer) {
     const mapper = {
-      title: 'Manage Buy Offer',
+      title: 'Manage Offer',
       info: [
         {
           title: 'Selling',
@@ -304,7 +304,7 @@ export default (operation) => {
     // CREATE PASSIVE SELL OFFER
     if (operation.type === operations.createPassiveSellOffer) {
       const mapper = {
-        title: 'Create Passive Sell Offer',
+        title: 'Manage Passive Offer',
         info: [
           {
             title: 'Selling',
