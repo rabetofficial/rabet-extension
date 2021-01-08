@@ -1,6 +1,6 @@
 const configs = {
   INTERVAL_TIME_SECONDS: 3,
-  ASSET_SERVER: 'https://assets.stenk.io',
+  ASSET_SERVER: 'https://assets.rabet.io',
   HORIZON: {
     mainnet: 'https://horizon.stellar.org',
     testnet: 'https://horizon-testnet.stellar.org',

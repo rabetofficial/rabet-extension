@@ -285,6 +285,7 @@ export default async (push) => {
     })
     .catch((err) => {
       console.log(err);
+      console.log(JSON.stringify(err));
       push({
         pathname: route.errorPage,
         state: { message: err.message, },

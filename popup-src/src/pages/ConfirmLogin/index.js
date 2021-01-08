@@ -31,13 +31,33 @@ class ConfirmLogin extends Component {
 
   validateForm (values) {
     const errors = {};
+    const hasError = {
+      password: false,
+      confirm: false,
+    }
 
-    if (!values.password || values.password.length < 8) {
+    if (!values.password) {
+      errors.password = null;
+      hasError.password = true;
+    } else if (values.password.length < 8) {
+      hasError.password = true;
       errors.password = 'Password must be at least 8 characters.';
     }
 
-    if (values.confirm && values.password !== values.confirm) {
-      errors.password = 'Passwords do not match.';
+    if (!values.confirm) {
+      errors.confirm = null;
+      hasError.confirm = true;
+    } else if (values.confirm.length < 8) {
+      hasError.confirm = true;
+      errors.password = 'Confirm password must be at least 8 characters.';
+    }
+
+    console.log(hasError);
+
+    if (!hasError.password && !hasError.confirm) {
+      if (values.password !== values.confirm) {
+        errors.password = 'Passwords do not match.';
+      }
     }
 
     return errors;
@@ -53,6 +73,7 @@ class ConfirmLogin extends Component {
               validate={ (values) => this.validateForm(values) }
               render={ ({submitError, handleSubmit, submitting, invalid, pristine}) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
+                  {console.log(submitting, invalid, pristine)}
                   <Field name="password">
                     {({input, meta}) => (
                     <Input
@@ -84,7 +105,7 @@ class ConfirmLogin extends Component {
                     size={ buttonSizes.large }
                     content="Continue"
                     style={ {marginTop: '32px'} }
-                    disabled={ invalid || pristine || submitting }
+                    disabled={ invalid }
                   />
                 </form>
                 ) }
