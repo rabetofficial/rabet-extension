@@ -104,8 +104,8 @@ class PaymentSendOps extends Component {
         };
       }
 
-      if (selectedTokenBalance.asset_type === 'native') {
-        if (Number(selectedTokenBalance.balance || '0') - activeAccount.maxXLM < parseFloat(values.sendAmount, 10)) {
+      if (this.state.sendAsset.value === 'XLM') {
+        if (Number(selectedTokenBalance.balance || '0') < Number(values.sendAmount, 10) + activeAccount.maxXLM) {
           errors.sendAmount = `Insufficient ${this.state.sendAsset.value} balance.`;
           hasError.sendAmount = true;
 

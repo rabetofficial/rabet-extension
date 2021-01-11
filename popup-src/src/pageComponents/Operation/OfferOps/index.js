@@ -70,13 +70,24 @@ class OfferOps extends Component {
           };
         }
 
-        if (Number(selectedTokenBalance.balance || '0') < values.selling) {
-          errors.selling = `Insufficient ${this.state.sellingAsset.value} balance.`;
-          hasError.selling = true;
+        if (this.state.sellingAsset.value === 'XLM') {
+          if (Number(selectedTokenBalance.balance || '0') < Number(values.selling) + activeAccount.maxXLM) {
+            errors.selling = `Insufficient ${this.state.sellingAsset.value} balance.`;
+            hasError.selling = true;
 
-          changeOperationAction(this.props.id, {
-            checked: false,
-          });
+            changeOperationAction(this.props.id, {
+              checked: false,
+            });
+          }
+        } else {
+          if (Number(selectedTokenBalance.balance || '0') < values.selling) {
+            errors.selling = `Insufficient ${this.state.sellingAsset.value} balance.`;
+            hasError.selling = true;
+
+            changeOperationAction(this.props.id, {
+              checked: false,
+            });
+          }
         }
       }
     }
@@ -115,7 +126,7 @@ class OfferOps extends Component {
       changeOperationAction(this.props.id, {
         checked: true,
         buying: parseFloat(values.buying, 10).toFixed(7),
-        offerId: values.offerId || randomNumber(8),
+        offerId: values.offerId || 0,
         selling: parseFloat(values.selling, 10).toFixed(7),
         buyingAsset: this.state.buyingAsset,
         sellingAsset: this.state.sellingAsset,
@@ -163,7 +174,9 @@ class OfferOps extends Component {
               let maxBalance;
 
               if (this.state.sellingAsset.value === 'XLM') {
-                maxBalance = balances.find(x => x.asset_type === 'native').balance;
+                let xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+
+                maxBalance = parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM;
               } else {
                 maxBalance = balances.find(x => x.asset_code === this.state.sellingAsset.value).balance;
               }

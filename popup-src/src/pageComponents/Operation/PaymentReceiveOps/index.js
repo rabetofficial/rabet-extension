@@ -103,8 +103,8 @@ class PaymentReceiveOps extends Component {
         };
       }
 
-      if (selectedTokenBalance.asset_type === 'native') {
-        if (Number(selectedTokenBalance.balance || '0') - activeAccount.maxXLM < parseFloat(values.sendMax, 10)) {
+      if (this.state.sendAsset.value === 'XLM') {
+        if (Number(selectedTokenBalance.balance || '0') < Number(values.sendMax, 10) + activeAccount.maxXLM) {
           errors.sendMax = `Insufficient ${this.state.sendAsset.value} balance.`;
           hasError.sendMax = true;
 

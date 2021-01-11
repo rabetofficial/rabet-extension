@@ -50,6 +50,8 @@ class PaymentOps extends Component {
   }
 
   async validateForm (values) {
+    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+
     const errors = {};
 
     const hasError = {
@@ -64,6 +66,42 @@ class PaymentOps extends Component {
       changeOperationAction(this.props.id, {
         checked: false,
       });
+    } else {
+      let selectedTokenBalance;
+
+      if (this.state.selected.value === 'XLM') {
+        selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+      } else {
+        selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.selected.value);
+      }
+
+      if (!selectedTokenBalance) {
+        selectedTokenBalance = {
+          balance: 0,
+        };
+      }
+
+      if (this.state.selected.value === 'XLM') {
+        if (Number(selectedTokenBalance.balance || '0') < Number(values.amount) + activeAccount.maxXLM) {
+          errors.amount = `Insufficient ${this.state.selected.value} balance.`;
+          hasError.amount = true;
+
+          changeOperationAction(this.props.id, {
+            checked: false,
+          });
+        }
+      } else {
+        if (Number(selectedTokenBalance.balance || '0') < Number(values.amount)) {
+          errors.amount = `Insufficient ${this.state.selected.value} balance.`;
+          hasError.amount = true;
+
+          checked = false;
+
+          changeOperationAction(this.props.id, {
+            checked: false,
+          });
+        }
+      }
     }
 
     if (!values.destination) {
@@ -84,63 +122,48 @@ class PaymentOps extends Component {
 
     if (!hasError.amount && !hasError.destination && this.state.selected.value) {
       const accountData = await getAccountData(values.destination);
-      const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
       let isAccountNew = false;
       let checked = true;
 
-      let selectedTokenBalance;
+      if (accountData.status === 404) {
+        isAccountNew = true;
 
-      if (this.state.selected.value === 'XLM') {
-        selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
-      } else {
-        selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.selected.value);
-      }
-
-      if (!selectedTokenBalance) {
-        selectedTokenBalance = {
-          balance: 0,
-        };
-      }
-
-      if (Number(selectedTokenBalance.balance || '0') - activeAccount.maxXLM < values.amount) {
-        errors.amount = `Insufficient ${this.state.selected.value} balance.`;
-        hasError.amount = true;
-
-        checked = false;
-
-        changeOperationAction(this.props.id, {
-          checked: false,
-        });
-      } else {
-        if (accountData.status === 404) {
-          isAccountNew = true;
-
-          if (this.state.selected.value !== 'XLM') {
-            errors.destination = 'Inactive accounts cannot receive tokens.';
-            hasError.destination = true;
-
-            changeOperationAction(this.props.id, {
-              checked: false,
-            });
-
-            checked = false;
-          }
-
-        } else if (accountData.status === 400) {
-          errors.destination = 'Wrong.';
+        if (this.state.selected.value !== 'XLM') {
+          errors.destination = 'Inactive accounts cannot receive tokens.';
           hasError.destination = true;
+
+          changeOperationAction(this.props.id, {
+            checked: false,
+          });
+
+          checked = false;
+        }
+
+      } else if (accountData.status === 400) {
+        errors.destination = 'Wrong.';
+        hasError.destination = true;
+      } else {
+        const destinationTokens = accountData.balances || [];
+
+        let selectedToken = destinationTokens.find(x => x.asset_type === 'native')
+
+        if (this.state.selected.value !== 'XLM') {
+          selectedToken = destinationTokens.find(x => x.asset_code === this.state.selected.value);
+        }
+
+        if (!selectedToken) {
+          errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+          hasError.destination = true;
+
+          changeOperationAction(this.props.id, {
+            checked: false,
+          });
+
+          checked = false;
         } else {
-          const destinationTokens = accountData.balances || [];
-
-          let selectedToken = destinationTokens.find(x => x.asset_type === 'native')
-
-          if (this.state.selected.value !== 'XLM') {
-            selectedToken = destinationTokens.find(x => x.asset_code === this.state.selected.value);
-          }
-
-          if (!selectedToken) {
-            errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+          if (Number(selectedToken.limit) < Number(values.amount) + Number(selectedToken.balance)) {
+            errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
             hasError.destination = true;
 
             changeOperationAction(this.props.id, {
@@ -148,17 +171,6 @@ class PaymentOps extends Component {
             });
 
             checked = false;
-          } else {
-            if (Number(selectedToken.limit) < Number(values.amount) + Number(selectedToken.balance)) {
-              errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
-              hasError.destination = true;
-
-              changeOperationAction(this.props.id, {
-                checked: false,
-              });
-
-              checked = false;
-            }
           }
         }
       }

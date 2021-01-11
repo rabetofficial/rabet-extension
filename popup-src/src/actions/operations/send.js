@@ -178,8 +178,8 @@ export default async (push) => {
             buying: buyingAsset,
             buyAmount: operations[i].buying,
             price: {
-              n: Number(operations[i].buying),
-              d: Number(operations[i].selling),
+              n: Math.round(Number(operations[i].buying) * 10000000),
+              d: Math.round(Number(operations[i].selling) * 10000000),
             },
             offerId: operations[i].offerId,
           }));
@@ -206,10 +206,9 @@ export default async (push) => {
             buying: buyingAsset,
             amount: operations[i].selling,
             price: {
-              n: Number(operations[i].selling),
-              d: Number(operations[i].buying),
+              n: Math.round(Number(operations[i].selling) * 10000000),
+              d: Math.round(Number(operations[i].buying) * 10000000),
             },
-            offerId: operations[i].offerId,
           }));
         }
 
