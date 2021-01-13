@@ -215,51 +215,77 @@ export default async (push) => {
         else if (operations[i].type === operationsName.pathPaymentStrictSend) {
           let sendAsset;
           let destAsset;
+          let isOneXLM = false;
 
           if (operations[i].destAsset.asset_type === 'native') {
+            isOneXLM = true;
             destAsset = StellarSdk.Asset.native();
           } else {
             destAsset = new StellarSdk.Asset(operations[i].destAsset.asset_code, operations[i].destAsset.asset_issuer);
           }
 
           if (operations[i].sendAsset.asset_type === 'native') {
+            isOneXLM = true;
             sendAsset = StellarSdk.Asset.native();
           } else {
             sendAsset = new StellarSdk.Asset(operations[i].sendAsset.asset_code, operations[i].sendAsset.asset_issuer);
           }
 
-          transaction = transaction.addOperation(pathPaymentStrictSend({
+          const params = {
             destAsset,
             sendAsset,
             destMin: operations[i].destMin,
             sendAmount: operations[i].sendAmount,
             destination: operations[i].destination,
-          }));
+          };
+
+          if (!isOneXLM) {
+            params.path = [
+              sendAsset,
+              StellarSdk.Asset.native(),
+              destAsset,
+            ];
+          }
+
+          transaction = transaction.addOperation(pathPaymentStrictSend(params));
         }
 
         else if (operations[i].type === operationsName.pathPaymentStrictReceive) {
           let sendAsset;
           let destAsset;
+          let isOneXLM = false;
 
           if (operations[i].destAsset.asset_type === 'native') {
+            isOneXLM = true;
             destAsset = StellarSdk.Asset.native();
           } else {
             destAsset = new StellarSdk.Asset(operations[i].destAsset.asset_code, operations[i].destAsset.asset_issuer);
           }
 
           if (operations[i].sendAsset.asset_type === 'native') {
+            isOneXLM = true;
             sendAsset = StellarSdk.Asset.native();
           } else {
             sendAsset = new StellarSdk.Asset(operations[i].sendAsset.asset_code, operations[i].sendAsset.asset_issuer);
           }
 
-          transaction = transaction.addOperation(pathPaymentStrictReceive({
+          const params = {
             sendAsset,
             destAsset,
             sendMax: operations[i].sendMax,
             destAmount: operations[i].destAmount,
             destination: operations[i].destination,
-          }));
+          };
+
+          if (!isOneXLM) {
+            params.path = [
+              sendAsset,
+              StellarSdk.Asset.native(),
+              destAsset,
+            ];
+          }
+
+          transaction = transaction.addOperation(pathPaymentStrictReceive(params));
         }
       }
 

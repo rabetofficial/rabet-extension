@@ -12,7 +12,7 @@
   },
   "browser_action": {
     "default_title": "Rabet",
-    "default_icon": "assets/256x256.png",
+    "default_icon": "assets/128x128.png",
     "default_popup": "popup/index.html"
   },
   "permissions": [
