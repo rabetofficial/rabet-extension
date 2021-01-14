@@ -239,23 +239,25 @@ class OfferOps extends Component {
                         </div>
                     )}
                   </Field>
-                  <Field name="offerId">
+                  {this.props.offer ? (
+                    <Field name="offerId">
                     {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">
-                            Offer ID
-                            <span className="label-optional">{' '}(optional)</span>
-                          </label>
-                          <Input
-                            type="number"
-                            placeholder="12345"
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                          />
-                        </div>
+                      <div className="group">
+                      <label className="label-primary">
+                      Offer ID
+                      <span className="label-optional">{' '}(optional)</span>
+                      </label>
+                      <Input
+                      type="number"
+                      placeholder="12345"
+                      size="input-medium"
+                      input={ input }
+                      meta={ meta }
+                      />
+                      </div>
                     )}
-                  </Field>
+                    </Field>
+                  ) : ''}
                   {submitError && <div className="error">{submitError}</div>}
                 </form>
             ) }

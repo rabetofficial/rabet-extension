@@ -77,8 +77,8 @@ class Operation extends Component {
     if(this.state.selected === items[0]) return <PaymentOps id={id} />;
     if(this.state.selected === items[1]) return <PaymentSendOps id={id} />;
     if(this.state.selected === items[2]) return <PaymentReceiveOps id={id} />;
-    if(this.state.selected === items[3]) return <OfferOps key="offer1" id={id} type={operations.manageBuyOffer} />;
-    if(this.state.selected === items[4]) return <OfferOps key="offer2" id={id} type={operations.createPassiveSellOffer} />;
+    if(this.state.selected === items[3]) return <OfferOps key="offer1" id={id} type={operations.manageBuyOffer} offer={true} />;
+    if(this.state.selected === items[4]) return <OfferOps key="offer2" id={id} type={operations.createPassiveSellOffer} offer={false} />;
     if(this.state.selected === items[5]) return <SetOptionOps key="Inflation" label="Inflation destination" inputInfo={ {type: 'text', placeholder: 'G…'} } id={id} type={operations.setOptionsInflationDest} />;
     if(this.state.selected === items[6]) return <SetOptionOps key="flag1" label="Flag number" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsClearFlags} />;
     if(this.state.selected === items[7]) return <SetOptionOps key="flag2" label="Flag number" inputInfo={ {type: 'number', placeholder: '1'} } id={id} type={operations.setOptionsSetFlags} />;

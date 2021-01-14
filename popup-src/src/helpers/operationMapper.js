@@ -313,10 +313,6 @@ export default (operation) => {
             title: 'Buying',
             value: `${removeTrailingZeroes(operation.buying)} ${operation.buyingAsset.value}`,
           },
-          {
-            title: 'Offer ID',
-            value: removeTrailingZeroes(operation.offerId),
-          },
         ],
       }
 
