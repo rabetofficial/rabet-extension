@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Logo from 'Root/components/Logo';
 import Loading from 'Root/components/Loading';
+
 import styles from './styles.less';
 
-const LoadingOne = props => {
+const LoadingOne = () => {
   return (
       <div style={ { marginTop: '167px'} }>
        <Logo/>

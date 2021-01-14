@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
@@ -31,7 +29,7 @@ class AllowTrustOps extends Component {
   }
 
   validateForm (values) {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
     const errors = {};
     const hasError = {
@@ -111,12 +109,11 @@ class AllowTrustOps extends Component {
   }
 
   render() {
-    const buttons = [{name: 'True', value: 'true'}, {name: 'False', value: 'false'}];
     return (
         <Form
           onSubmit={ this.onSubmit }
           validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit, submitting, values}) => (
+          render={ ({submitError, handleSubmit }) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="trustor">
                     {({input, meta}) => (

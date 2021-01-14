@@ -1,5 +1,3 @@
-import StellarSdk from 'stellar-sdk';
-
 import types from 'Root/actions';
 
 export default (state = 0, action) => {
@@ -12,7 +10,7 @@ export default (state = 0, action) => {
       clearInterval(state);
 
       return 0;
-    };
+    }
 
     default: {
       return state;

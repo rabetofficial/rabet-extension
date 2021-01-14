@@ -1,7 +1,5 @@
 import shortid from 'shortid';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import {Field, Form} from 'react-final-form';
@@ -116,7 +114,7 @@ class Send extends Component {
                   <Form
                       onSubmit={ this.onSubmit }
                       validate={ (values) => this.validateForm(values) }
-                      render={ ({submitError, handleSubmit, submitting, values}) => (
+                      render={ ({ submitError, handleSubmit }) => (
                           <form className="form" onSubmit={ handleSubmit }>
                             <Field name="memo">
                               {({input, meta}) => (

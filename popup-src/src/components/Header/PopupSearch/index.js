@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import {Link, withRouter } from 'react-router-dom';

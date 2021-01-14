@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import styles from './styles.less';
 
 const Tabs = ({data, tabTitleStyle}) => {
@@ -36,7 +35,7 @@ const Tabs = ({data, tabTitleStyle}) => {
 };
 
 Tabs.propTypes = {
-  
+
 };
 
 export default Tabs;

@@ -1,7 +1,6 @@
 import formatCurrency from './formatCurrency';
 
-function manageOffer(data, opType) {
-  console.log(data, opType);
+function manageOffer(data) {
   if (parseFloat(data.amount) === 0) {
     return `Delete offer`;
   }
@@ -13,7 +12,7 @@ function manageOffer(data, opType) {
   return `Update offer [ buying ${formatCurrency(data.amount)}]`;
 }
 
-function updatePassive(data, opType) {
+function updatePassive(data) {
   if (parseFloat(data.amount) === 0) {
     return `Delete Passive offer`;
   }

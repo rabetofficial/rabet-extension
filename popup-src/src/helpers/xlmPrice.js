@@ -1,7 +1,6 @@
-import fetch from 'node-fetch';
 import CoinGecko from 'coingecko-api';
 
-export default () => new Promise(async (resolve, reject) => {
+export default () => new Promise(async (resolve) => {
   try {
     const CoinGeckoClient = new CoinGecko();
 

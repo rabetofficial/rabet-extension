@@ -1,16 +1,11 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
 import SelectOption from 'Root/components/SelectOption';
 import validateNumber from 'Root/helpers/validate/number';
-import assetExists from 'Root/helpers/horizon/assetExists';
-import validateAddress from 'Root/helpers/validate/address';
 import currentActiveAccount from 'Root/helpers/activeAccount';
-import getAccountData from 'Root/helpers/horizon/isAddressFound';
 import changeOperationAction from 'Root/actions/operations/change';
 
 import styles from './styles.less';
@@ -40,8 +35,6 @@ class ChangeTrustOps extends Component {
       code: false,
     }
 
-    let accountData;
-
     if (values.limit && !validateNumber(values.limit)) {
       errors.limit = null;
       hasError.limit = true;
@@ -70,7 +63,7 @@ class ChangeTrustOps extends Component {
   }
 
   componentDidMount() {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
     const { balances } = activeAccount;
 
@@ -99,7 +92,7 @@ class ChangeTrustOps extends Component {
         <Form
           onSubmit={ this.onSubmit }
           validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit, submitting, values}) => (
+          render={ ({submitError, handleSubmit }) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="limit">
                     {({input, meta}) => (

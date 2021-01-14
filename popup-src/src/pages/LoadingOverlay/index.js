@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import Overlay from 'react-loading-overlay';
 import Loading from 'Root/components/Loading';
 import styles from './styles.less';
 
-const LoadingOverlay = props => {
-  const [isActive, setActive] = useState(true);
+const LoadingOverlay = () => {
+  const [isActive] = useState(true);
   return (
       <div className={ styles.container }>
         <Overlay
@@ -23,7 +22,7 @@ const LoadingOverlay = props => {
 };
 
 LoadingOverlay.propTypes = {
-  
+
 };
 
 export default LoadingOverlay;

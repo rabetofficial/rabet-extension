@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 
@@ -42,7 +40,7 @@ class PaymentReceiveOps extends Component {
 
   async validateForm (values) {
     let accountData;
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
     const errors = {};
     const hasError = {};
@@ -178,7 +176,7 @@ class PaymentReceiveOps extends Component {
   }
 
   componentDidMount() {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
     const { balances } = activeAccount;
 
@@ -227,7 +225,7 @@ class PaymentReceiveOps extends Component {
           }}
           onSubmit={ this.onSubmit }
           validate={ (values) => this.validateForm(values) }
-          render={ ({ submitError, handleSubmit, submitting, values, form }) => (
+          render={ ({ submitError, handleSubmit, form }) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="destination">
                     {({input, meta}) => (

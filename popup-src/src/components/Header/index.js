@@ -9,7 +9,6 @@ import logo from 'Root/assets/images/logo.svg';
 import changeNetworkAction from 'Root/actions/options/changeNetwork';
 
 import styles from './styles.less';
-import PopupSelect from './PopupSelect';
 import PopupSearch from './PopupSearch';
 
 export const items = [

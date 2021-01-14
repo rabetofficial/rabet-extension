@@ -1,11 +1,13 @@
-import React, {useState, useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import {inputSize, inputTypes} from 'Root/staticRes/enum';
+import React, {useState, useEffect, useRef} from 'react';
+
 import Tooltip from 'Root/components/Tooltip';
+import { inputTypes } from 'Root/staticRes/enum';
+
 import styles from './styles.less';
 
-const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, icon, style, input, meta, setMax, autoFocus}) => {
+const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, style, input, meta, setMax, autoFocus}) => {
    const [visibleType, setVisibleType] = useState(type);
    const toggleVisible = () => {
      if(visibleType === 'password') {
@@ -19,7 +21,7 @@ const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, 
    const errorBtn = <button type="button" className={ styles.icon }><span className="icon-exclamation-circle"/></button>;
 
    const generateBtn = () => {
-     
+
      if(variant === inputTypes.passVisible) {
            return (
                <button

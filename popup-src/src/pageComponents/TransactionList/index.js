@@ -1,10 +1,8 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import React, { Fragment, useState } from 'react';
 
-import shorter from 'Root/helpers/shorter';
 import createTab from 'Root/helpers/createTab';
 import explorer from 'Root/helpers/horizon/getTransaction';
 import operationDetails from 'Root/helpers/operationDetails';

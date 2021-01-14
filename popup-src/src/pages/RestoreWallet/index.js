@@ -56,7 +56,7 @@ class RestoreWallet extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, submitting, invalid, pristine }) => (
+              render={ ({submitError, handleSubmit, form, pristine }) => (
                 <form className="form" onSubmit={ handleSubmit }>
                   <Field name="key">
                     {({input, meta}) => (

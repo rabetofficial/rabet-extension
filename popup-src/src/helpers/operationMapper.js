@@ -1,6 +1,5 @@
 import * as operations from 'Root/staticRes/operations';
 
-import shorter from './shorter';
 import removeTrailingZeroes from './removeTrailingZeroes';
 
 export default (operation) => {

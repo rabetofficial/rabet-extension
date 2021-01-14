@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 import currentNetwork from './currentNetwork';
 
-export default async (account) => new Promise((resolve, reject) => {
+export default async (account) => new Promise((resolve) => {
   try {
     fetch(`${currentNetwork().url}/accounts/${account}/transactions?limit=10&order=desc`)
     .then(res => res.json())

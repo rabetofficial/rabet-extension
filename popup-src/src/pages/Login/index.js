@@ -67,7 +67,7 @@ class Login extends Component {
     this.props.history.push(route.accountManagerPage);
   }
 
-  validateForm (values) {
+  validateForm () {
     const errors = {};
 
     return errors;
@@ -85,7 +85,7 @@ class Login extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, submitting, values, pristine, invalid}) => (
+              render={ ({ submitError, handleSubmit, submitting, pristine }) => (
                     <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                       <Field name="password">
                         {({input, meta}) => (

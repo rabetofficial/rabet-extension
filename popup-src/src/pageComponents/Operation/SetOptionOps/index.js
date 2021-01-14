@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
@@ -184,7 +183,7 @@ class SetOptionOps extends Component {
         <Form
           onSubmit={ this.onSubmit }
           validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit, submitting, values}) => (
+          render={ ({submitError, handleSubmit }) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="value">
                     {({input, meta}) => (

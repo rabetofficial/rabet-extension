@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import React, { Fragment, useState, Component } from 'react';
+import React, { Component } from 'react';
 
 import config from 'Root/config';
 import * as route from 'Root/staticRes/routes';
@@ -53,7 +53,6 @@ class AssetList extends Component {
   }
 
   render() {
-    const { assets } = this.state;
     const { items, maxHeight, options } = this.props;
 
     return (

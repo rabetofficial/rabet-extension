@@ -1,5 +1,3 @@
-import StellarSdk from 'stellar-sdk';
-
 import types from 'Root/actions';
 
 /*

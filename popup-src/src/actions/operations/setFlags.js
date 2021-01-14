@@ -1,6 +1,5 @@
 import StellarSdk from 'stellar-sdk';
 
-import store from 'Root/store';
 import * as route from 'Root/staticRes/routes';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import currentNetwork from 'Root/helpers/horizon/currentNetwork';

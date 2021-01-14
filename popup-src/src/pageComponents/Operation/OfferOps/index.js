@@ -1,11 +1,8 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
-import randomNumber from 'Root/helpers/randomNumber';
 import SelectOption from 'Root/components/SelectOption';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import changeOperationAction from 'Root/actions/operations/change';
@@ -44,7 +41,7 @@ class OfferOps extends Component {
       selling: false,
     };
 
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
 
     if (!values.selling) {
@@ -137,7 +134,7 @@ class OfferOps extends Component {
   }
 
   componentDidMount() {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
     const { balances } = activeAccount;
 
@@ -186,7 +183,7 @@ class OfferOps extends Component {
           }}
           onSubmit={ this.onSubmit }
           validate={ (values) => this.validateForm(values) }
-          render={ ({ submitError, handleSubmit, submitting, values, form }) => (
+          render={ ({ submitError, handleSubmit, form }) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="selling">
                     {({input, meta}) => (

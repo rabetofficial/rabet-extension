@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, {Component} from 'react';
@@ -44,7 +43,7 @@ class Flags extends Component {
   handleCheckedImmutable(checked) { this.setState({ auth_immutable: checked }); }
 
   componentDidMount() {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
     if (activeAccount.flags.auth_immutable) {
       this.setState({

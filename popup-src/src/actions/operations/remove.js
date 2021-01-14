@@ -1,5 +1,3 @@
-import shortid from 'shortid';
-
 import store from 'Root/store';
 import types from 'Root/actions';
 

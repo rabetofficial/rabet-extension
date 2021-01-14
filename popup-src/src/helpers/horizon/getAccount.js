@@ -1,5 +1,3 @@
-import StellarSdk from 'stellar-sdk';
-
 import store from 'Root/store';
 import config from 'Root/config';
 

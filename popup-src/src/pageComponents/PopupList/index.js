@@ -2,8 +2,6 @@ import React from 'react';
 
 import abbr from 'Root/helpers/abbr';
 
-import styles from './styles.less';
-
 const PopupList = ({info}) => {
   return (
       <div className="popup-item">

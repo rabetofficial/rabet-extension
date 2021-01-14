@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { withRouter } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 
@@ -78,7 +77,7 @@ class CustomAsset extends Component {
           <Form
               onSubmit={(values) => { this.onSubmit(values) }}
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, submitting, values , pristine, invalid}) => (
+              render={ ({submitError, handleSubmit, submitting, pristine, invalid}) => (
                   <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                     <Field name="code">
                       {({input, meta}) => (

@@ -23,7 +23,7 @@ class ShowPrivateKey extends Component {
     return this.props.history.push(route.privateKeyPage);
   }
 
-  validateForm (values) {
+  validateForm () {
     const errors = {};
 
     return errors;

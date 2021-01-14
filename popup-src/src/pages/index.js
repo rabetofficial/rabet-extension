@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
-import loadUser from 'Root/actions/user/loadUser';
 import ProtectedRoute from 'Root/components/ProtectedRoute';
 
 import Home from './Home';
@@ -73,7 +72,7 @@ class App extends Component {
             <Route exact path={ route.firstPage } component={ FirstPage } />
             <Route exact path={ route.fetchDataPage } component={ FetchData } />
             <Route exact path={ route.loadingOnePage } component={ LoadingOne } />
-            <Route exact path={ route.loadingNetworkPage } component={ LoadingNetwork } />            
+            <Route exact path={ route.loadingNetworkPage } component={ LoadingNetwork } />
             <Route exact path={ route.contactPage } component={ ContactRequest } />
             <Route exact path={ route.confirmLoginPage } component={ ConfirmLogin } />
             <Route exact path={ route.createWalletPage } component={ CreateWallet } />

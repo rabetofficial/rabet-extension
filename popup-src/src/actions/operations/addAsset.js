@@ -1,6 +1,5 @@
 import StellarSdk from 'stellar-sdk';
 
-import store from 'Root/store';
 import * as route from 'Root/staticRes/routes';
 import changeTrust from 'Root/operations/changeTrust';
 import currentActiveAccount from 'Root/helpers/activeAccount';
@@ -23,7 +22,7 @@ export default async ({ code, issuer, limit }, push) => {
 
   server
     .loadAccount(issuer)
-    .catch((error) => {
+    .catch(() => {
       push({
         pathname: route.errorPage,
         state: { message: 'ERROR. The issuer account does not exist.' },

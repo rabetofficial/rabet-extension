@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
@@ -62,7 +60,7 @@ class ThresholdOps extends Component {
         <Form
           onSubmit={ (values) => this.onSubmit(values) }
           validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit, submitting, values}) => (
+          render={ ({submitError, handleSubmit }) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="low">
                     {({input, meta}) => (

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Header from 'Root/components/Header';
 import * as route from 'Root/staticRes/routes';

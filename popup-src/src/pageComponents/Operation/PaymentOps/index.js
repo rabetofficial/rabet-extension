@@ -1,8 +1,5 @@
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
 import React, {Component} from 'react';
-import { FORM_ERROR } from 'final-form';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
@@ -31,7 +28,7 @@ class PaymentOps extends Component {
     this.setState({ selected: e });
   }
   //
-  onSubmit (values) {
+  onSubmit () {
     // console.warn(values);
     // console.log({
     //   destination: values.destination,
@@ -50,7 +47,7 @@ class PaymentOps extends Component {
   }
 
   async validateForm (values) {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
     const errors = {};
 
@@ -94,8 +91,6 @@ class PaymentOps extends Component {
         if (Number(selectedTokenBalance.balance || '0') < Number(values.amount)) {
           errors.amount = `Insufficient ${this.state.selected.value} balance.`;
           hasError.amount = true;
-
-          checked = false;
 
           changeOperationAction(this.props.id, {
             checked: false,
@@ -192,24 +187,24 @@ class PaymentOps extends Component {
   }
 
   maxAmount() {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
     const { balances } = activeAccount;
 
     let maxBalance;
 
     if (this.state.selected.value === 'XLM') {
-      let xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+      let xlmBalance = balances.find(x => x.asset_type === 'native');
 
       maxBalance = parseFloat(xlmBalance.balance, 10) - xlmBalance.maxXLM;
     } else {
-      maxBalance = activeAccount.balances.find(x => x.asset_code === this.state.selected.value).balance;
+      maxBalance = balances.find(x => x.asset_code === this.state.selected.value).balance;
     }
 
     return maxBalance;
   }
 
   componentDidMount() {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
     const { balances } = activeAccount;
 
@@ -254,7 +249,7 @@ class PaymentOps extends Component {
           }}
           onSubmit={ this.onSubmit }
           validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit, submitting, values, form }) => (
+          render={ ({submitError, handleSubmit, form }) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                   <Field name="destination">
                     {({input, meta}) => (

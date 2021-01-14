@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import styles from './styles.less';
 
 const Button = ({disabled, content, variant, size, type, onClick, style, className}) => {
     return (

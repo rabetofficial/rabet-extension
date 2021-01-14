@@ -1,9 +1,8 @@
-import StellarSdk, { Operation } from 'stellar-sdk';
+import StellarSdk from 'stellar-sdk';
 
 import store from 'Root/store';
 import payment from 'Root/operations/payment';
 import * as route from 'Root/staticRes/routes';
-import setOptions from 'Root/operations/setOptions';
 import allowTrust from 'Root/operations/allowTrust';
 import manageData from 'Root/operations/manageData';
 import codeToIssuer from 'Root/helpers/codeToIssuer';

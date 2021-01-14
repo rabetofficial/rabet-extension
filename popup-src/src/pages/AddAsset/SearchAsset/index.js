@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import randomColor from 'randomcolor';
 import React, {Component} from 'react';
 import {Field, Form} from 'react-final-form';
 import { withRouter } from 'react-router-dom';
@@ -9,16 +8,11 @@ import config from 'Root/config';
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
 import * as route from 'Root/staticRes/routes';
-import sample from 'Root/assets/images/stellar.png';
 import getAssetsAction from 'Root/helpers/server/getAssets';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import addMultipleAssets from 'Root/actions/operations/addMultipleAssets';
 
 import styles from './styles.less';
-
-const colorSetting = {luminosity: 'bright', format: 'rgba', alpha: 0.3, count: 5};
-
-const colors = randomColor(colorSetting);
 
 class SearchAsset extends Component {
   constructor() {
@@ -35,7 +29,7 @@ class SearchAsset extends Component {
   }
 
   setActive( index ) {
-    const { list, selectedList, selectedListCode } = this.state;
+    const { list, selectedList } = this.state;
 
     if (selectedList.some(x => x.asset_code === list[index].asset_code && x.asset_issuer === list[index].asset_issuer)) {
       const newSelectedList = selectedList.filter(x => x.asset_code !== list[index].asset_code && x.asset_issuer !== list[index].asset_issuer);
@@ -53,7 +47,7 @@ class SearchAsset extends Component {
     }
   }
 
-  onSubmit (values) {
+  onSubmit () {
     addMultipleAssets(this.state.selectedList, this.props.history.push);
   }
 
@@ -97,7 +91,7 @@ class SearchAsset extends Component {
     }
   }
 
-  handleChange(e) {
+  handleChange() {
     // console.log(e)
   }
 
@@ -108,7 +102,7 @@ class SearchAsset extends Component {
           <Form
               onSubmit={(values) => { this.onSubmit(values) }}
               validate={ (values) => { this.validateForm(values) } }
-              render={ ({submitError, handleSubmit, submitting, values , form, pristine}) => (
+              render={ ({ handleSubmit, form }) => (
                   <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                     <Field name="token">
                       {({input, meta}) => (

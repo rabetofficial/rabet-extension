@@ -5,7 +5,7 @@ import currentActiveAccount from 'Root/helpers/activeAccount';
 import storeAccount from './store';
 
 export default (name) => {
-  const { activeAccount, activeAccountIndex } = currentActiveAccount();
+  const { activeAccount } = currentActiveAccount();
 
   store.dispatch({
     name,

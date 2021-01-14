@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import logo from 'Root/assets/images/text-logo.svg';
 import styles from './styles.less';
 
-const Logo = props => {
+const Logo = () => {
   return (
       <>
         <img src={ logo } alt="logo" className={ styles.logo }/>

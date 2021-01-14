@@ -34,7 +34,7 @@ class Assets extends Component {
   }
 
   render() {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
 
     const { balances } = activeAccount;
     const asset = balances.find(x =>
@@ -98,7 +98,7 @@ class Assets extends Component {
               {parseFloat(asset.balance) > 0
                 ? (
                   <div className="error-box" style={{marginTop: '16px'}}>
-                    You cannot remove this asset unless the asset's balance is zero.
+                    You cannot remove this asset unless the asset&apos;s balance is zero.
                   </div>
                 ) : ''
               }

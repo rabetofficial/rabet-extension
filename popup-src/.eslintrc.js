@@ -22,6 +22,9 @@ module.exports = {
         "react"
     ],
     "rules": {
+      'no-undef': 0,
       'react/prop-types': 0,
+      'no-async-promise-executor': 0,
+      'react/jsx-no-duplicate-props': 0,
     }
 };

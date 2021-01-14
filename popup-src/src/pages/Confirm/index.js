@@ -28,7 +28,7 @@ class Confirm extends Component {
   }
 
   render() {
-    const { activeAccount, activeAccountIndex } = currentActiveAccount();
+    const { activeAccount } = currentActiveAccount();
     const networkStatus = this.props.options.network === 'MAINNET' ? 'success' : 'warn';
     const network = this.props.options.network === 'MAINNET' ? 'Main network' : 'Test network';
     const { operations } = this.props.transaction;
