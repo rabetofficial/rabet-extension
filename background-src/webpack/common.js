@@ -6,9 +6,13 @@ const { resolve } = require('path');
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
-  entry: resolve(__dirname, '..', 'src/app.js'),
+  entry: {
+    app: resolve(__dirname, '..', 'src/app.js'),
+    script: resolve(__dirname, '..', 'src/script.js'),
+    background: resolve(__dirname, '..', 'src/background.js'),
+  },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     path: resolve(__dirname, '..', '..', 'background'),
   },
   module: {

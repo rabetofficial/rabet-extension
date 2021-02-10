@@ -17,8 +17,10 @@
     "webpack-cli": "^3.3.9"
   },
   "dependencies": {
+    "aes256": "^1.1.0",
     "babel-polyfill": "^6.26.0",
     "cross-env": "^6.0.3",
+    "shortid": "^2.2.16",
     "socket.io-client": "^2.3.0"
   }
 }
