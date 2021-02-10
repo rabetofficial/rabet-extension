@@ -59,8 +59,8 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
-              limit: 500,
-              outputPath: 'assets'
+              limit: 500000,
+              // outputPath: 'assets'
             },
           },
         ]
