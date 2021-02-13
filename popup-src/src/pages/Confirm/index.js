@@ -49,7 +49,7 @@ class Confirm extends Component {
               <p className={ styles.source }>
                 <span className={ styles.sourceTitle }>Source account:</span>
                 <span className={ styles.sourceValue }>
-                  <CopyText text="GAMMnonojnVS3O" button={shorter(activeAccount.publicKey, 5)} />
+                  <CopyText text={activeAccount.publicKey} button={shorter(activeAccount.publicKey, 5)} />
                 </span>
               </p>
 
