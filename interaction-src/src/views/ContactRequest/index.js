@@ -20,6 +20,10 @@ class ContactRequest extends Component {
         type: 'RABET_EXTENSION_CONTACT_REQUEST_RESPONSE',
         id: global.sessionStorage.getItem('generatedId'),
         result: 'reject',
+        detail: {
+          host,
+          title,
+        },
         activeAcconut: {
           name,
           publicKey,
@@ -32,6 +36,10 @@ class ContactRequest extends Component {
         type: 'RABET_EXTENSION_CONTACT_REQUEST_RESPONSE',
         id: global.sessionStorage.getItem('generatedId'),
         result: 'confirm',
+        detail: {
+          host,
+          title,
+        },
         activeAcconut: {
           name,
           publicKey,

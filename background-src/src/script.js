@@ -22,12 +22,34 @@ document.addEventListener('RABET_EXTENSION_CONNECT', function(e) {
   });
 });
 
+// document.addEventListener('RABET_EXTENSION_ISCONNECTED', function(e) {
+//   chrome.runtime.sendMessage({
+//     type: 'RABET_EXTENSION_ISCONNECTED',
+//     detail: e.detail,
+//   }, (response) => {
+//     document.dispatchEvent(new CustomEvent('RABET_EXTENSION_ISCONNECTED_RESPONSE', {
+//       detail: response,
+//     }));
+//   });
+// });
+
 document.addEventListener('RABET_EXTENSION_LOGIN', function(e) {
   chrome.runtime.sendMessage({
     type: 'RABET_EXTENSION_LOGIN',
     detail: e,
   }, (response) => {
     document.dispatchEvent(new CustomEvent('RABET_EXTENSION_LOGIN_RESPONSE', {
+      detail: response,
+    }));
+  });
+});
+
+document.addEventListener('RABET_EXTENSION_SIGN', function(e) {
+  chrome.runtime.sendMessage({
+    type: 'RABET_EXTENSION_SIGN',
+    detail: e.detail,
+  }, (response) => {
+    document.dispatchEvent(new CustomEvent('RABET_EXTENSION_SIGN_RESPONSE', {
       detail: response,
     }));
   });

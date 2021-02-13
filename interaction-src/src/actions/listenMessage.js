@@ -11,6 +11,15 @@ export default async () => new Promise((resolve, reject) => {
         global.sessionStorage.setItem('accountPublicKey', message.activeAcconut.publicKey);
       }
 
+      if (message.xdr) {
+        global.sessionStorage.setItem('xdr', message.xdr.xdr);
+        global.sessionStorage.setItem('network', message.xdr.network);
+      }
+
+      if (message.destination) {
+        global.sessionStorage.setItem('destination', message.destination);
+      }
+
       sendResponse({ type: 'RABET_GENERATED_ID_RECEIVED' });
       resolve(true);
     }

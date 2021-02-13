@@ -57,6 +57,7 @@
     "react-final-form": "^6.5.1",
     "react-popper-tooltip": "^2.11.1",
     "react-router-dom": "^5.0.1",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "xdr-parser": "^1.0.6"
   }
 }

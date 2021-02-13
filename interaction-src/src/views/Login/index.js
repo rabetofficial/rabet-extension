@@ -12,30 +12,75 @@ import hadLoggedBeforeAction from 'Root/actions/hadLoggedBeforeAction';
 import styles from './styles.less';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      error: '',
+    };
+  }
 
   onSubmit (values) {
-    global.chrome.runtime.sendMessage({
-      type: 'RABET_EXTENSION_LOGIN',
-      values,
-      id: global.sessionStorage.getItem('generatedId')
-    }, (response) => {
-      if (response.ok) {
-        sessionStorage.setItem('accountName', response.message.name);
-        sessionStorage.setItem('accountPublicKey', response.message.publicKey);
+    const destination = global.sessionStorage.getItem('destination');
 
-        this.props.history.push('/contact-request');
-      }
-    });
+    if (destination === 'sign') {
+      global.chrome.runtime.sendMessage({
+        type: 'RABET_EXTENSION_LOGIN_TO_SIGN',
+        values,
+        id: global.sessionStorage.getItem('generatedId'),
+        destination,
+        detail: {
+          host: global.sessionStorage.getItem('host'),
+          title: global.sessionStorage.getItem('title'),
+        },
+        xdr: {
+          xdr: global.sessionStorage.getItem('xdr'),
+          network: global.sessionStorage.getItem('network'),
+        }
+      }, (response) => {
+        if (response.ok) {
+          this.props.history.push('/confirm');
+        } else {
+          if (response.message === 'wrong-password') {
+            this.setState({
+              error: 'Wrong password.',
+            });
+          }
+        }
+      });
+    } else {
+      global.chrome.runtime.sendMessage({
+        type: 'RABET_EXTENSION_LOGIN',
+        values,
+        id: global.sessionStorage.getItem('generatedId'),
+        destination,
+        detail: {
+          host: global.sessionStorage.getItem('host'),
+          title: global.sessionStorage.getItem('title'),
+        }
+      }, (response) => {
+        if (response.ok) {
+          sessionStorage.setItem('accountName', response.message.name);
+          sessionStorage.setItem('accountPublicKey', response.message.publicKey);
+
+          this.props.history.push('/contact-request');
+        } else {
+          if (response.message === 'wrong-password') {
+            this.setState({
+              error: 'Wrong password.',
+            });
+          }
+        }
+      });
+    }
   }
 
   validateForm (values) {
-
   }
 
   componentDidMount() {
     hadLoggedBeforeAction()
     .then(hasLogged => {
-      console.log(hasLogged);
       if (hasLogged) {
         const page = global.sessionStorage.getItem('page');
 
@@ -47,6 +92,7 @@ class Login extends Component {
   }
 
   render() {
+    const { error } = this.state;
 
     return (
         <div className="pure-g content">
@@ -55,7 +101,7 @@ class Login extends Component {
             <Form
               onSubmit={ (values) => this.onSubmit(values) }
               validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, submitting, values, pristine, invalid}) => (
+              render={ ({handleSubmit, submitting, values, pristine, invalid}) => (
                     <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
                       <Field name="password">
                         {({input, meta}) => (
@@ -70,7 +116,7 @@ class Login extends Component {
                         )}
                       </Field>
 
-                      {submitError && <div className="error">{submitError}</div>}
+                      {error && <div className="error">{error}</div>}
 
                       <Button
                         type="submit"
