@@ -250,7 +250,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         get('options')
         .then((options) => {
-          if (!options.privacyMode) {
+          if (!options || !options.privacyMode) {
             sendResponse({ ok: true });
             return;
           }
