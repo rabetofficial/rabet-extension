@@ -71,10 +71,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
               const activeAcconut = accounts.find(x => x.active === true);
 
+              console.log(activeAcconut);
+
               get('options')
               .then((options) => {
                 // When user has accounts and privacyMode is off
-                if (!options.privacyMode) {
+                if (!options || !options.privacyMode) {
                   sendResponse({
                     ok: true,
                     message: {
@@ -174,7 +176,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         get('options')
         .then((options) => {
-          if (!options.privacyMode) {
+          if (!options || !options.privacyMode) {
             sendResponseCollection[message.id]({
               ok: true,
               message: {

@@ -60,6 +60,7 @@ class Login extends Component {
         }
       }, (response) => {
         if (response.ok) {
+          console.log(response.ok);
           sessionStorage.setItem('accountName', response.message.name);
           sessionStorage.setItem('accountPublicKey', response.message.publicKey);
 
