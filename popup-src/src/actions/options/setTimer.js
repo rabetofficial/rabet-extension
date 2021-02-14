@@ -5,6 +5,7 @@ import { encrypt } from 'Root/helpers/crypto';
 export default async () => {
   const { password } = store.getState().user;
   const { autoTimeLocker } = store.getState().options;
+
   const date = new Date();
 
   date.setMinutes( date.getMinutes() + autoTimeLocker );

@@ -16,6 +16,7 @@ class Confirm extends Component {
   constructor(props) {
     super(props);
 
+    this.handleClose = this.handleClose.bind(this);
     this.handleReject = this.handleReject.bind(this);
     this.handleConfirm = this.handleConfirm.bind(this);
   }
@@ -62,6 +63,14 @@ class Confirm extends Component {
     });
   }
 
+  handleClose() {
+    global.chrome.runtime.sendMessage({
+      type: 'RABET_EXTENSION_SIGN_XDR_RESPONSE',
+      id: global.sessionStorage.getItem('generatedId'),
+      result: 'close',
+    });
+  }
+
   render() {
     const xdr = global.sessionStorage.getItem('xdr');
     const network = global.sessionStorage.getItem('network');
@@ -78,6 +87,15 @@ class Confirm extends Component {
 
               <div className="content">
                 <p>Invalid XDR</p>
+              </div>
+
+              <div className={ classNames('pure-g', styles.buttons) }>
+                <Button
+                  variant="btn-primary"
+                  size="btn-medium"
+                  content="Close"
+                  onClick={this.handleClose}
+                />
               </div>
             </div>
           </>
@@ -98,8 +116,9 @@ class Confirm extends Component {
             <div className="content">
               <p className={ styles.source }>
                 <span className={ styles.sourceTitle }>Source account:</span>
+
                 <span className={ styles.sourceValue }>
-                <CopyText text={parsed.sourceAccount} button={shorter(parsed.sourceAccount, 10)} />
+                  <CopyText text={parsed.sourceAccount} button={shorter(parsed.sourceAccount, 10)} />
                 </span>
               </p>
 

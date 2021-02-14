@@ -1,5 +1,8 @@
 import 'babel-polyfill';
 import shortid from 'shortid';
+
+import sign from './helpers/sign';
+import setTimer from './helpers/setTimer';
 import { get, set } from './helpers/storage';
 import createWindow from './helpers/createWindow';
 import hasLoggedBefore from './helpers/hasLoggedBefore';
@@ -42,7 +45,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                       detail: message.detail,
                     },
                     function(response) {
-                    if (response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                    if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                       clearInterval(p);
                     }
                   });
@@ -143,7 +146,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                             },
                           },
                           function(response) {
-                          if (response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                          if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                             clearInterval(p);
                           }
                         });
@@ -164,6 +167,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // sendResponseCollection[message.id]({ ok: true })
     get('data', message.values.password)
       .then((accounts) => {
+        setTimer(message.values.password);
+
         if (!accounts) {
           sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
           chrome.windows.remove(window.id);
@@ -246,6 +251,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   else if (message.type === 'RABET_EXTENSION_LOGIN_TO_SIGN') {
     get('data', message.values.password)
       .then((accounts) => {
+        setTimer(message.values.password);
+
         if (!accounts) {
           sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
           chrome.windows.remove(window.id);
@@ -323,7 +330,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
         });
 
-        if (options.privacyMode) {
+        let isPrivacyModeOn;
+
+        if (!options) {
+          isPrivacyModeOn = true;
+        } else {
+          isPrivacyModeOn = options.privacyMode;
+        }
+
+        if (isPrivacyModeOn) {
           get('connectedWebsites')
           .then((websites) => {
             const newWebsites = websites || [];
@@ -393,7 +408,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                       },
                     },
                     function(response) {
-                    if (response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                    if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                       clearInterval(p);
                     }
                   });
@@ -459,7 +474,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                           },
                         },
                         function(response) {
-                        if (response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                        if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                           clearInterval(p);
                         }
                       });
@@ -505,7 +520,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                               },
                             },
                             function(response) {
-                            if (response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                            if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                               clearInterval(p);
                             }
                           });
@@ -529,11 +544,60 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   else if (message.type === 'RABET_EXTENSION_SIGN_XDR_RESPONSE') {
     if (message.result === 'confirm') {
-      sendResponseCollection[message.id]({
-        ok: true,
-        message: message.xdr.xdr,
+      hasLoggedBefore()
+      .then((hasLogged) => {
+        if (!hasLogged) {
+          sendResponseCollection[message.id]({
+            ok: false,
+            message: 'no-user-logged',
+          });
+
+          return;
+        }
+
+        get('data', hasLogged)
+        .then((accounts) => {
+          if (!accounts) {
+            sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
+
+            return;
+          }
+
+          // When user has no accounts
+          if (!accounts.length) {
+            sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
+
+            return;
+          }
+
+          const activeAcconut = accounts.find(x => x.active === true);
+
+          const signed = sign(message.xdr.xdr, message.xdr.network, activeAcconut);
+
+          sendResponseCollection[message.id]({
+            ok: true,
+            message: {
+              xdr: signed,
+            },
+          });
+        })
       })
-    } else {
+      .catch(() => {
+        sendResponseCollection[message.id]({
+          ok: false,
+          message: 'no-user-logged',
+        });
+      });
+    }
+
+    else if (message.result === 'close') {
+      sendResponseCollection[message.id]({
+        ok: false,
+        message: 'invalid-xdr',
+      });
+    }
+
+    else {
       sendResponseCollection[message.id]({ ok: false, message: 'user-rejected' });
     }
 

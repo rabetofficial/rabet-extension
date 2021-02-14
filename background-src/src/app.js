@@ -2,7 +2,25 @@ const rabet = {};
 
 rabet.connect = () => new Promise((resolve, reject) => {
   document.addEventListener('RABET_EXTENSION_CONNECT_RESPONSE', function(e) {
-    resolve(e.detail);
+    if (!e.detail) {
+      reject({
+        error: 'no-message-received',
+      });
+
+      return;
+    }
+
+    if (!e.detail.ok) {
+      reject({
+        error: e.detail.message,
+      });
+
+      return;
+    }
+
+    resolve({
+      ...e.detail.message,
+    });
   });
 
   setTimeout(() => {
@@ -33,17 +51,41 @@ rabet.connect = () => new Promise((resolve, reject) => {
 
 rabet.sign = (xdr, network) => new Promise((resolve, reject) => {
   if (!xdr) {
-    reject('No XDR')
+    reject({
+      error: 'No XDR',
+    });
+
     return;
   }
 
   if (!network) {
-    reject('No networkch')
+    reject({
+      error: 'No network',
+    });
+
     return;
   }
 
   document.addEventListener('RABET_EXTENSION_SIGN_RESPONSE', function(e) {
-    resolve(e.detail);
+    if (!e.detail) {
+      reject({
+        error: 'no-message-received',
+      });
+
+      return;
+    }
+
+    if (!e.detail.ok) {
+      reject({
+        error: e.detail.message,
+      });
+
+      return;
+    }
+
+    resolve({
+      ...e.detail.message,
+    });
   });
 
   setTimeout(() => {
