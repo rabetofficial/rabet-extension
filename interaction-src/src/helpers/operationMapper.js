@@ -273,12 +273,12 @@ export default (operation) => {
       title: 'Manage Buy Offer',
       info: [
         {
-          title: 'Selling',
-          // value: `${removeTrailingZeroes(operation.selling)} ${operation.sellingAsset.value}`,
+          title: 'Buying',
+          value: `${removeTrailingZeroes(operation.buyAmount)} ${returnAsset(operation.buying)}`,
         },
         {
-          title: 'Buying',
-          // value: `${removeTrailingZeroes(operation.buying)} ${operation.buyingAsset.value}`,
+          title: 'Selling',
+          value: `${returnAsset(operation.selling)}`,
         },
         {
           title: 'Offer ID',

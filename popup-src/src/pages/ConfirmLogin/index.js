@@ -71,7 +71,6 @@ class ConfirmLogin extends Component {
               validate={ (values) => this.validateForm(values) }
               render={ ({submitError, handleSubmit, submitting, invalid, pristine}) => (
                 <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  {console.log(submitting, invalid, pristine)}
                   <Field name="password">
                     {({input, meta}) => (
                     <Input

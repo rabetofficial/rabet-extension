@@ -31,7 +31,7 @@ class Setting extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: false,
+      checked: true,
       selectedExplorer: {},
       selectedTimer: {},
     };

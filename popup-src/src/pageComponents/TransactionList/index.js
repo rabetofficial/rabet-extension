@@ -17,7 +17,6 @@ const Item = ({items, item, index}) =>  {
   const { activeAccount } = currentActiveAccount();
   const { transactions } = activeAccount;
 
-  console.log(activeAccount);
   const operationCount = transactions.find(x => x.id === item.transaction_hash).operation_count;
 
   return (

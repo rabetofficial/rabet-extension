@@ -19,7 +19,7 @@ const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, 
    const errorBtn = <button type="button" className={ styles.icon }><span className="icon-exclamation-circle"/></button>;
 
    const generateBtn = () => {
-     
+
      if(variant === inputTypes.passVisible) {
            return (
                <button
@@ -27,7 +27,7 @@ const Input = ({type, defaultValue, variant, size, disabled, placeholder, name, 
                    className={ styles.icon }
                    onClick={ toggleVisible }
                >
-                 <span className={visibleType === 'text' ? 'icon-invisible': 'icon-visible-eye'}/>
+                 <span className={visibleType !== 'text' ? 'icon-invisible': 'icon-visible-eye'}/>
                </button>
            )
      }

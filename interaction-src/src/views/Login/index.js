@@ -60,7 +60,6 @@ class Login extends Component {
         }
       }, (response) => {
         if (response.ok) {
-          console.log(response.ok);
           sessionStorage.setItem('accountName', response.message.name);
           sessionStorage.setItem('accountPublicKey', response.message.publicKey);
 
@@ -84,8 +83,6 @@ class Login extends Component {
     .then(hasLogged => {
       if (hasLogged) {
         const page = global.sessionStorage.getItem('page');
-
-        console.log(page);
 
         this.props.history.push(page);
       }

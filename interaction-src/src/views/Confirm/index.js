@@ -103,19 +103,21 @@ class Confirm extends Component {
                 </span>
               </p>
 
-              <p className={ styles.source } style={{ marginTop: '10px' }}>
+              {/*
+                <p className={ styles.source } style={{ marginTop: '10px' }}>
                 <span className={ styles.sourceTitle }>Fee:</span>
                 <span className={ styles.sourceValue }>
-                  <CopyText text={parsed.fee} button={parsed.fee.toString()} />
+                <CopyText text={parsed.fee} button={parsed.fee.toString()} />
                 </span>
-              </p>
+                </p>
 
-              <p className={ styles.source } style={{ marginTop: '10px' }}>
+                <p className={ styles.source } style={{ marginTop: '10px' }}>
                 <span className={ styles.sourceTitle }>Sequence number:</span>
                 <span className={ styles.sourceValue }>
-                  <CopyText text={parsed.seqNum} button={parsed.seqNum.toString()} />
+                <CopyText text={parsed.seqNum} button={parsed.seqNum.toString()} />
                 </span>
-              </p>
+                </p>
+              */}
 
               {operationsMapped.map((item, index) => (
                 <div className={ styles.box } key={shortid.generate()}>

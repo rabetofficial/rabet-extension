@@ -13,7 +13,6 @@ const assetPrice = async (asset) => {
 
     return { ...asset, toNative: assetDetail.bids[0].price };
   } catch(e) {
-    console.log(e);
     return { ...asset, toNative: 0 };
   }
 };

@@ -12,7 +12,9 @@ const PageTitle = ({ title, status, statusTitle, alreadyLoaded, ...props }) => {
   return (
       <div className={ styles.div }>
         <div>
-          <h1 className={ classNames(styles.title, title !== 'mainnet' ? styles.warn : styles.success) }><span />{title} network</h1>
+          <h1 className={ classNames(styles.status, title !== 'mainnet' ? styles.warn : styles.success) }><span />
+            {title === 'mainnet' ? 'Main network' : 'Test network'}
+          </h1>
         </div>
       </div>
   );

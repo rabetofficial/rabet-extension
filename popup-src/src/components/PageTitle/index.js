@@ -15,9 +15,11 @@ const PageTitle = ({ title, status, statusTitle, alreadyLoaded, ...props }) => {
         <span />{statusTitle}
       </h1>;
     }
+
     if(title) {
       return <h1 className={ styles.title }>{title}</h1>;
     }
+
     return null;
   };
 

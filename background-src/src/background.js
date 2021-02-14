@@ -71,12 +71,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
               const activeAcconut = accounts.find(x => x.active === true);
 
-              console.log(activeAcconut);
-
               get('options')
               .then((options) => {
+                let isPrivacyModeOn;
+
+                if (!options) {
+                  isPrivacyModeOn = true;
+                } else {
+                  isPrivacyModeOn = options.privacyMode;
+                }
+
                 // When user has accounts and privacyMode is off
-                if (!options || !options.privacyMode) {
+                if (!isPrivacyModeOn) {
                   sendResponse({
                     ok: true,
                     message: {
@@ -176,7 +182,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         get('options')
         .then((options) => {
-          if (!options || !options.privacyMode) {
+          let isPrivacyModeOn;
+
+          if (!options) {
+            isPrivacyModeOn = true;
+          } else {
+            isPrivacyModeOn = options.privacyMode;
+          }
+
+          if (!isPrivacyModeOn) {
             sendResponseCollection[message.id]({
               ok: true,
               message: {
@@ -250,7 +264,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
         get('options')
         .then((options) => {
-          if (!options || !options.privacyMode) {
+          let isPrivacyModeOn;
+
+          if (!options) {
+            isPrivacyModeOn = true;
+          } else {
+            isPrivacyModeOn = options.privacyMode;
+          }
+
+          if (!isPrivacyModeOn) {
             sendResponse({ ok: true });
             return;
           }
@@ -402,7 +424,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
               get('options')
               .then((options) => {
-                if (!options.privacyMode) {
+                let isPrivacyModeOn;
+
+                if (!options) {
+                  isPrivacyModeOn = true;
+                } else {
+                  isPrivacyModeOn = options.privacyMode;
+                }
+
+                if (!isPrivacyModeOn) {
                   chrome.windows.create({
                       type : 'popup',
                       url : chrome.runtime.getURL('interaction/index.html'),
