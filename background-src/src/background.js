@@ -12,25 +12,26 @@ const sendResponseCollection = {};
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'RABET_EXTENSION_CONNECT') {
-    get('data')
-      .then(storageString => {
-        // When data == null
-        if (!storageString) {
-          return sendResponse({ ok: false, message: 'no-account' });
-        }
+    get('data').then((storageString) => {
+      // When data == null
+      if (!storageString) {
+        return sendResponse({ ok: false, message: 'no-account' });
+      }
 
-        hasLoggedBefore()
-          .then(hasLogged => {
-            // When the user has not logged before
-            if (!hasLogged) {
-              chrome.windows.create({
-                  type: 'popup',
-                  url: chrome.runtime.getURL('interaction/index.html'),
-                  top: 0,
-                  left: 200000,
-                  width: 380,
-                  height: 640,
-              }, function(newWindow) {
+      hasLoggedBefore()
+        .then((hasLogged) => {
+          // When the user has not logged before
+          if (!hasLogged) {
+            chrome.windows.create(
+              {
+                type: 'popup',
+                url: chrome.runtime.getURL('interaction/index.html'),
+                top: 0,
+                left: 200000,
+                width: 380,
+                height: 640,
+              },
+              function (newWindow) {
                 window = newWindow;
                 const generatedId = shortid.generate();
                 sendResponseCollection[generatedId] = sendResponse;
@@ -44,90 +45,93 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                       page: '/login',
                       detail: message.detail,
                     },
-                    function(response) {
-                    if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
-                      clearInterval(p);
+                    function (response) {
+                      if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                        clearInterval(p);
+                      }
                     }
-                  });
+                  );
                 }, 100);
-              });
+              }
+            );
+
+            return;
+          }
+
+          // When the user has logged before
+          get('data', hasLogged).then((accounts) => {
+            // When user has no accounts
+            if (!accounts) {
+              sendResponse({ ok: false, message: 'no-account' });
 
               return;
             }
 
-            // When the user has logged before
-            get('data', hasLogged)
-            .then((accounts) => {
-              // When user has no accounts
-              if (!accounts) {
-                sendResponse({ ok: false, message: 'no-account' });
+            // When user has no accounts
+            if (!accounts.length) {
+              sendResponse({ ok: false, message: 'no-account' });
+
+              return;
+            }
+
+            const activeAcconut = accounts.find((x) => x.active === true);
+
+            get('options').then((options) => {
+              let isPrivacyModeOn;
+
+              if (!options) {
+                isPrivacyModeOn = true;
+              } else {
+                isPrivacyModeOn = options.privacyMode;
+              }
+
+              // When user has accounts and privacyMode is off
+              if (!isPrivacyModeOn) {
+                sendResponse({
+                  ok: true,
+                  message: {
+                    // name: activeAcconut.name,
+                    publicKey: activeAcconut.publicKey,
+                  },
+                });
 
                 return;
               }
 
-              // When user has no accounts
-              if (!accounts.length) {
-                sendResponse({ ok: false, message: 'no-account' });
+              // When user has accounts and privacyMode is on
+              get('connectedWebsites').then((connectedWebsites) => {
+                let isHostConnected = false;
 
-                return;
-              }
-
-              const activeAcconut = accounts.find(x => x.active === true);
-
-              get('options')
-              .then((options) => {
-                let isPrivacyModeOn;
-
-                if (!options) {
-                  isPrivacyModeOn = true;
+                if (!connectedWebsites || !connectedWebsites.length) {
+                  isHostConnected = false;
                 } else {
-                  isPrivacyModeOn = options.privacyMode;
+                  isHostConnected = connectedWebsites.some(
+                    (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`
+                  );
                 }
 
-                // When user has accounts and privacyMode is off
-                if (!isPrivacyModeOn) {
+                // When the host is trusted
+                if (isHostConnected) {
                   sendResponse({
                     ok: true,
                     message: {
-                      name: activeAcconut.name,
+                      // name: activeAcconut.name,
                       publicKey: activeAcconut.publicKey,
-                    }
+                    },
                   });
-
-                  return;
                 }
-
-                // When user has accounts and privacyMode is on
-                get('connectedWebsites')
-                .then(connectedWebsites => {
-                  let isHostConnected = false;
-
-                  if (!connectedWebsites || !connectedWebsites.length) {
-                    isHostConnected = false;
-                  } else {
-                    isHostConnected = connectedWebsites.some(x => x === `${message.detail.host}/${activeAcconut.publicKey}`);
-                  }
-
-                  // When the host is trusted
-                  if (isHostConnected) {
-                    sendResponse({
-                      ok: true,
-                      message: {
-                        name: activeAcconut.name,
-                        publicKey: activeAcconut.publicKey,
-                      }
-                    });
-                  }
-                  // When the host is not trusted
-                  else {
-                    chrome.windows.create({
-                        type : 'popup',
-                        url : chrome.runtime.getURL('interaction/index.html'),
-                        top: 0,
-                        left: 200000,
-                        width: 380,
-                        height: 640,
-                    }, function(newWindow) {
+                // When the host is not trusted
+                else {
+                  chrome.windows.create(
+                    {
+                      type: 'popup',
+                      url: chrome.runtime.getURL('interaction/index.html'),
+                      top: 0,
+                      left: 200000,
+                      width: 380,
+                      height: 640,
+                    },
+                    function (newWindow) {
                       window = newWindow;
                       const generatedId = shortid.generate();
                       sendResponseCollection[generatedId] = sendResponse;
@@ -145,25 +149,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                               publicKey: activeAcconut.publicKey,
                             },
                           },
-                          function(response) {
-                          if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
-                            clearInterval(p);
+                          function (response) {
+                            if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                              clearInterval(p);
+                            }
                           }
-                        });
+                        );
                       }, 100);
-                    });
-                  }
-                })
-              })
-            })
-          })
-          .catch(() => {
-            sendResponse({ ok: false, message: 'wrong-password' });
+                    }
+                  );
+                }
+              });
+            });
           });
-      });
-  }
-
-  else if (message.type === 'RABET_EXTENSION_LOGIN') {
+        })
+        .catch(() => {
+          sendResponse({ ok: false, message: 'wrong-password' });
+        });
+    });
+  } else if (message.type === 'RABET_EXTENSION_LOGIN') {
     // sendResponseCollection[message.id]({ ok: true })
     get('data', message.values.password)
       .then((accounts) => {
@@ -183,10 +187,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           return;
         }
 
-        const activeAcconut = accounts.find(x => x.active === true);
+        const activeAcconut = accounts.find((x) => x.active === true);
 
-        get('options')
-        .then((options) => {
+        get('options').then((options) => {
           let isPrivacyModeOn;
 
           if (!options) {
@@ -199,9 +202,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             sendResponseCollection[message.id]({
               ok: true,
               message: {
-                name: activeAcconut.name,
+                // name: activeAcconut.name,
                 publicKey: activeAcconut.publicKey,
-              }
+              },
             });
 
             chrome.windows.remove(window.id);
@@ -209,14 +212,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             return;
           }
 
-          get('connectedWebsites')
-          .then((connectedWebsites) => {
+          get('connectedWebsites').then((connectedWebsites) => {
             let isHostConnected = false;
 
             if (!connectedWebsites || !connectedWebsites.length) {
               isHostConnected = false;
             } else {
-              isHostConnected = connectedWebsites.some(x => x === `${message.detail.host}/${activeAcconut.publicKey}`);
+              isHostConnected = connectedWebsites.some(
+                (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`
+              );
             }
 
             // When the host is trusted
@@ -224,7 +228,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               sendResponseCollection[message.id]({
                 ok: true,
                 message: {
-                  name: activeAcconut.name,
+                  // name: activeAcconut.name,
                   publicKey: activeAcconut.publicKey,
                 },
               });
@@ -240,15 +244,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               });
             }
           });
-
-        })
+        });
       })
       .catch(() => {
         sendResponse({ ok: false, message: 'wrong-password' });
       });
-  }
-
-  else if (message.type === 'RABET_EXTENSION_LOGIN_TO_SIGN') {
+  } else if (message.type === 'RABET_EXTENSION_LOGIN_TO_SIGN') {
     get('data', message.values.password)
       .then((accounts) => {
         setTimer(message.values.password);
@@ -267,10 +268,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           return;
         }
 
-        const activeAcconut = accounts.find(x => x.active === true);
+        const activeAcconut = accounts.find((x) => x.active === true);
 
-        get('options')
-        .then((options) => {
+        get('options').then((options) => {
           let isPrivacyModeOn;
 
           if (!options) {
@@ -280,23 +280,34 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           }
 
           if (!isPrivacyModeOn) {
-            sendResponse({ ok: true });
+            sendResponse({
+              ok: true,
+              message: {
+                publicKey: activeAcconut.publicKey,
+              },
+            });
             return;
           }
 
-          get('connectedWebsites')
-          .then((connectedWebsites) => {
+          get('connectedWebsites').then((connectedWebsites) => {
             let isHostConnected = false;
 
             if (!connectedWebsites || !connectedWebsites.length) {
               isHostConnected = false;
             } else {
-              isHostConnected = connectedWebsites.some(x => x === `${message.detail.host}/${activeAcconut.publicKey}`);
+              isHostConnected = connectedWebsites.some(
+                (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`
+              );
             }
 
             // When the host is trusted
             if (isHostConnected) {
-              sendResponse({ ok: true });
+              sendResponse({
+                ok: true,
+                message: {
+                  publicKey: activeAcconut.publicKey,
+                },
+              });
             } else {
               sendResponseCollection[message.id]({
                 ok: false,
@@ -306,28 +317,21 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               chrome.windows.remove(window.id);
             }
           });
-
-        })
+        });
       })
       .catch(() => {
         sendResponse({ ok: false, message: 'wrong-password' });
       });
-  }
-
-  else if (message.type === 'RABET_EXTENSION_CONTACT_REQUEST_RESPONSE') {
+  } else if (message.type === 'RABET_EXTENSION_CONTACT_REQUEST_RESPONSE') {
     if (message.result === 'reject') {
       sendResponseCollection[message.id]({ ok: false, message: 'user-rejected' });
-    }
-
-    else if (message.result === 'confirm') {
-      get('options')
-      .then((options) => {
+    } else if (message.result === 'confirm') {
+      get('options').then((options) => {
         sendResponseCollection[message.id]({
           ok: true,
           message: {
-            name: message.activeAcconut.name,
             publicKey: message.activeAcconut.publicKey,
-          }
+          },
         });
 
         let isPrivacyModeOn;
@@ -339,12 +343,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
 
         if (isPrivacyModeOn) {
-          get('connectedWebsites')
-          .then((websites) => {
+          get('connectedWebsites').then((websites) => {
             const newWebsites = websites || [];
             const newWebsite = `${message.detail.host}/${message.activeAcconut.publicKey}`;
 
-            if (!newWebsites.some(x => x === newWebsite)) {
+            if (!newWebsites.some((x) => x === newWebsite)) {
               newWebsites.push(newWebsite);
             }
 
@@ -352,16 +355,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           });
         }
       });
-    }
-
-    else {
+    } else {
       sendResponseCollection[message.id]({ ok: false, message: 'user-rejected' });
     }
 
     chrome.windows.remove(window.id);
-  }
-
-  else if (message.type === 'RABET_EXTENSION_SIGN') {
+  } else if (message.type === 'RABET_EXTENSION_SIGN') {
     let network;
 
     if (message.detail.network.includes('main') || message.detail.network.includes('MAIN')) {
@@ -370,25 +369,26 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       network = 'testnet';
     }
 
-    get('data')
-      .then(storageString => {
-        // When data == null
-        if (!storageString) {
-          return sendResponse({ ok: false, message: 'no-account' });
-        }
+    get('data').then((storageString) => {
+      // When data == null
+      if (!storageString) {
+        return sendResponse({ ok: false, message: 'no-account' });
+      }
 
-        hasLoggedBefore()
-          .then(hasLogged => {
-            // When the user has not logged before
-            if (!hasLogged) {
-              chrome.windows.create({
-                  type: 'popup',
-                  url: chrome.runtime.getURL('interaction/index.html'),
-                  top: 0,
-                  left: 200000,
-                  width: 380,
-                  height: 640,
-              }, function(newWindow) {
+      hasLoggedBefore()
+        .then((hasLogged) => {
+          // When the user has not logged before
+          if (!hasLogged) {
+            chrome.windows.create(
+              {
+                type: 'popup',
+                url: chrome.runtime.getURL('interaction/index.html'),
+                top: 0,
+                left: 200000,
+                width: 380,
+                height: 640,
+              },
+              function (newWindow) {
                 window = newWindow;
                 const generatedId = shortid.generate();
                 sendResponseCollection[generatedId] = sendResponse;
@@ -407,55 +407,57 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                         network,
                       },
                     },
-                    function(response) {
-                    if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
-                      clearInterval(p);
+                    function (response) {
+                      if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                        clearInterval(p);
+                      }
                     }
-                  });
+                  );
                 }, 100);
-              });
+              }
+            );
+
+            return;
+          }
+
+          // When the user has logged before
+          get('data', hasLogged).then((accounts) => {
+            // When user has no accounts
+            if (!accounts) {
+              sendResponse({ ok: false, message: 'no-account' });
 
               return;
             }
 
-            // When the user has logged before
-            get('data', hasLogged)
-            .then((accounts) => {
-              // When user has no accounts
-              if (!accounts) {
-                sendResponse({ ok: false, message: 'no-account' });
+            // When user has no accounts
+            if (!accounts.length) {
+              sendResponse({ ok: false, message: 'no-account' });
 
-                return;
+              return;
+            }
+
+            const activeAcconut = accounts.find((x) => x.active === true);
+
+            get('options').then((options) => {
+              let isPrivacyModeOn;
+
+              if (!options) {
+                isPrivacyModeOn = true;
+              } else {
+                isPrivacyModeOn = options.privacyMode;
               }
 
-              // When user has no accounts
-              if (!accounts.length) {
-                sendResponse({ ok: false, message: 'no-account' });
-
-                return;
-              }
-
-              const activeAcconut = accounts.find(x => x.active === true);
-
-              get('options')
-              .then((options) => {
-                let isPrivacyModeOn;
-
-                if (!options) {
-                  isPrivacyModeOn = true;
-                } else {
-                  isPrivacyModeOn = options.privacyMode;
-                }
-
-                if (!isPrivacyModeOn) {
-                  chrome.windows.create({
-                      type : 'popup',
-                      url : chrome.runtime.getURL('interaction/index.html'),
-                      top: 0,
-                      left: 200000,
-                      width: 380,
-                      height: 640,
-                  }, function(newWindow) {
+              if (!isPrivacyModeOn) {
+                chrome.windows.create(
+                  {
+                    type: 'popup',
+                    url: chrome.runtime.getURL('interaction/index.html'),
+                    top: 0,
+                    left: 200000,
+                    width: 380,
+                    height: 640,
+                  },
+                  function (newWindow) {
                     window = newWindow;
                     const generatedId = shortid.generate();
                     sendResponseCollection[generatedId] = sendResponse;
@@ -472,36 +474,44 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                             xdr: message.detail.xdr,
                             network,
                           },
+                          activeAcconut: {
+                            publicKey: activeAcconut.publicKey,
+                          },
                         },
-                        function(response) {
-                        if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
-                          clearInterval(p);
+                        function (response) {
+                          if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                            clearInterval(p);
+                          }
                         }
-                      });
+                      );
                     }, 100);
-                  });
-                } else {
-                  // When user has accounts and privacyMode is on
-                  get('connectedWebsites')
-                  .then(connectedWebsites => {
-                    let isHostConnected = false;
+                  }
+                );
+              } else {
+                // When user has accounts and privacyMode is on
+                get('connectedWebsites').then((connectedWebsites) => {
+                  let isHostConnected = false;
 
-                    if (!connectedWebsites || !connectedWebsites.length) {
-                      isHostConnected = false;
-                    } else {
-                      isHostConnected = connectedWebsites.some(x => x === `${message.detail.host}/${activeAcconut.publicKey}`);
-                    }
+                  if (!connectedWebsites || !connectedWebsites.length) {
+                    isHostConnected = false;
+                  } else {
+                    isHostConnected = connectedWebsites.some(
+                      (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`
+                    );
+                  }
 
-                    // When the host is trusted
-                    if (isHostConnected) {
-                      chrome.windows.create({
-                          type : 'popup',
-                          url : chrome.runtime.getURL('interaction/index.html'),
-                          top: 0,
-                          left: 200000,
-                          width: 380,
-                          height: 640,
-                      }, function(newWindow) {
+                  // When the host is trusted
+                  if (isHostConnected) {
+                    chrome.windows.create(
+                      {
+                        type: 'popup',
+                        url: chrome.runtime.getURL('interaction/index.html'),
+                        top: 0,
+                        left: 200000,
+                        width: 380,
+                        height: 640,
+                      },
+                      function (newWindow) {
                         window = newWindow;
                         const generatedId = shortid.generate();
                         sendResponseCollection[generatedId] = sendResponse;
@@ -518,86 +528,84 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                                 xdr: message.detail.xdr,
                                 network,
                               },
+                              activeAcconut: {
+                                publicKey: activeAcconut.publicKey,
+                              },
                             },
-                            function(response) {
-                            if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
-                              clearInterval(p);
+                            function (response) {
+                              if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
+                                clearInterval(p);
+                              }
                             }
-                          });
+                          );
                         }, 100);
-                      });
-                    }
-                    // When the host is not trusted
-                    else {
-                      sendResponse({ ok: false, message: 'not-connected' });
-                    }
-                  })
-                }
-              })
-            })
-          })
-          .catch(() => {
-            sendResponse({ ok: false, message: 'wrong-password' });
+                      }
+                    );
+                  }
+                  // When the host is not trusted
+                  else {
+                    sendResponse({ ok: false, message: 'not-connected' });
+                  }
+                });
+              }
+            });
           });
-      });
-  }
-
-  else if (message.type === 'RABET_EXTENSION_SIGN_XDR_RESPONSE') {
+        })
+        .catch(() => {
+          sendResponse({ ok: false, message: 'wrong-password' });
+        });
+    });
+  } else if (message.type === 'RABET_EXTENSION_SIGN_XDR_RESPONSE') {
     if (message.result === 'confirm') {
       hasLoggedBefore()
-      .then((hasLogged) => {
-        if (!hasLogged) {
+        .then((hasLogged) => {
+          if (!hasLogged) {
+            sendResponseCollection[message.id]({
+              ok: false,
+              message: 'no-user-logged',
+            });
+
+            return;
+          }
+
+          get('data', hasLogged).then((accounts) => {
+            if (!accounts) {
+              sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
+
+              return;
+            }
+
+            // When user has no accounts
+            if (!accounts.length) {
+              sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
+
+              return;
+            }
+
+            const activeAcconut = accounts.find((x) => x.active === true);
+
+            const signed = sign(message.xdr.xdr, message.xdr.network, activeAcconut);
+
+            sendResponseCollection[message.id]({
+              ok: true,
+              message: {
+                xdr: signed,
+              },
+            });
+          });
+        })
+        .catch(() => {
           sendResponseCollection[message.id]({
             ok: false,
             message: 'no-user-logged',
           });
-
-          return;
-        }
-
-        get('data', hasLogged)
-        .then((accounts) => {
-          if (!accounts) {
-            sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
-
-            return;
-          }
-
-          // When user has no accounts
-          if (!accounts.length) {
-            sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
-
-            return;
-          }
-
-          const activeAcconut = accounts.find(x => x.active === true);
-
-          const signed = sign(message.xdr.xdr, message.xdr.network, activeAcconut);
-
-          sendResponseCollection[message.id]({
-            ok: true,
-            message: {
-              xdr: signed,
-            },
-          });
-        })
-      })
-      .catch(() => {
-        sendResponseCollection[message.id]({
-          ok: false,
-          message: 'no-user-logged',
         });
-      });
-    }
-
-    else if (message.result === 'close') {
+    } else if (message.result === 'close') {
       sendResponseCollection[message.id]({
         ok: false,
         message: 'invalid-xdr',
       });
-    }
-
-    else {
+    } else {
       sendResponseCollection[message.id]({ ok: false, message: 'user-rejected' });
     }
 

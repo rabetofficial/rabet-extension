@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import shorter from 'Root/helpers/shorter';
 import Button from 'Root/components/Button';
@@ -48,47 +48,42 @@ class ContactRequest extends Component {
     };
 
     return (
-        <div className={ styles.page }>
-          <div className="content">
-            <h6 className={ styles.contact }>Contact Request</h6>
-            <div className={ styles.step }>
-              <div className="pure-g step-container">
-                <div className="step step-one step-one-container">
-                  <img src={`https://s2.googleusercontent.com/s2/favicons?domain=${host}`} alt={host} />
-                </div>
-                <div className="step step-two">{shortName(name)}</div>
-                <div className="icon-checkmark step-checked" />
+      <div className={styles.page}>
+        <div className="content">
+          <h6 className={styles.contact}>Connect Request</h6>
+          <div className={styles.step}>
+            <div className="pure-g step-container">
+              <div className="step step-one step-one-container">
+                <img src={`https://s2.googleusercontent.com/s2/favicons?domain=${host}`} alt={host} />
               </div>
-              <div className="pure-g step-name-container">
-                <div className="pure-u-4-24">
-                  <p className="step-name">{smallDetail(title, 15)}</p>
-                  <p className="step-detail">{host}</p>
-                </div>
-                <div className="pure-u-5-24">
-                  <p className="step-name">{name}</p>
-                  <p className="step-detail">{shorter(publicKey, 5)}</p>
-                </div>
-              </div>
+              <div className="step step-two">{shortName(name)}</div>
+              <div className="icon-checkmark step-checked" />
             </div>
-            <h1 className={ styles.title }>{smallDetail(title, 15)} would like to connect to your account</h1>
-            <div className={ classNames('pure-g', styles.buttons) }>
-              <Button
-                variant="btn-default"
-                size="btn-medium"
-                content="Reject"
-                onClick={handleReject}
-              />
-
-              <Button
-                type="submit"
-                variant="btn-primary"
-                size="btn-medium"
-                content="Connect"
-                onClick={handleConnect}
-              />
+            <div className="pure-g step-name-container">
+              <div className="pure-u-4-24">
+                <p className="step-name">{smallDetail(title, 15)}</p>
+                <p className="step-detail">{host}</p>
+              </div>
+              <div className="pure-u-5-24">
+                <p className="step-name">{name}</p>
+                <p className="step-detail">{shorter(publicKey, 5)}</p>
+              </div>
             </div>
           </div>
+          <h1 className={styles.title}>{smallDetail(title, 15)} would like to connect to your account</h1>
+          <div className={classNames('pure-g', styles.buttons)}>
+            <Button variant="btn-default" size="btn-medium" content="Reject" onClick={handleReject} />
+
+            <Button
+              type="submit"
+              variant="btn-primary"
+              size="btn-medium"
+              content="Connect"
+              onClick={handleConnect}
+            />
+          </div>
         </div>
+      </div>
     );
   }
 }

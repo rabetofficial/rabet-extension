@@ -1,6 +1,6 @@
 import shortid from 'shortid';
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { parse } from 'xdr-parser';
 
 import shorter from 'Root/helpers/shorter';
@@ -72,6 +72,7 @@ class Confirm extends Component {
   }
 
   render() {
+    const publicKey = global.sessionStorage.getItem('accountPublicKey');
     const xdr = global.sessionStorage.getItem('xdr');
     const network = global.sessionStorage.getItem('network');
 
@@ -81,24 +82,19 @@ class Confirm extends Component {
       parsed = parse(xdr);
     } catch (e) {
       return (
-          <>
-            <div className={ classNames(styles.confirm, 'hidden-scroll content-scroll') }>
-              <PageTitle status="Confirm" statusTitle="network" title={network} />
+        <>
+          <div className={classNames(styles.confirm, 'hidden-scroll content-scroll')}>
+            <PageTitle status="Confirm" statusTitle="network" title={network} />
 
-              <div className="content">
-                <p>Invalid XDR</p>
-              </div>
-
-              <div className={ classNames('pure-g', styles.buttons) }>
-                <Button
-                  variant="btn-primary"
-                  size="btn-medium"
-                  content="Close"
-                  onClick={this.handleClose}
-                />
-              </div>
+            <div className="content">
+              <p>Invalid XDR</p>
             </div>
-          </>
+
+            <div className={classNames('pure-g', styles.buttons)}>
+              <Button variant="btn-primary" size="btn-medium" content="Close" onClick={this.handleClose} />
+            </div>
+          </div>
+        </>
       );
     }
 
@@ -109,20 +105,20 @@ class Confirm extends Component {
     }
 
     return (
-        <>
-          <div className={ classNames(styles.confirm, 'hidden-scroll content-scroll') }>
-            <PageTitle status="Confirm" statusTitle="network" title={network} />
+      <>
+        <div className={classNames(styles.confirm, 'hidden-scroll content-scroll')}>
+          <PageTitle status="Confirm" statusTitle="network" title={network} />
 
-            <div className="content">
-              <p className={ styles.source }>
-                <span className={ styles.sourceTitle }>Source account:</span>
+          <div className="content">
+            <p className={styles.source}>
+              <span className={styles.sourceTitle}>Source account:</span>
 
-                <span className={ styles.sourceValue }>
-                  <CopyText text={parsed.sourceAccount} button={shorter(parsed.sourceAccount, 10)} />
-                </span>
-              </p>
+              <span className={styles.sourceValue}>
+                <CopyText text={parsed.sourceAccount} button={shorter(publicKey, 5)} />
+              </span>
+            </p>
 
-              {/*
+            {/*
                 <p className={ styles.source } style={{ marginTop: '10px' }}>
                 <span className={ styles.sourceTitle }>Fee:</span>
                 <span className={ styles.sourceValue }>
@@ -138,56 +134,50 @@ class Confirm extends Component {
                 </p>
               */}
 
-              {operationsMapped.map((item, index) => (
-                <div className={ styles.box } key={shortid.generate()}>
-                  <Card type="card-secondary">
-                    <h1 className={styles.title}>#{index + 1} {item.title}</h1>
-                    {item.info && item.info.map((info) => (
-                        <div key={ shortid.generate() }>
-                          <h2
-                            className={ styles.valueTitle }
-                            style={ {margin: !item.title && '0'} }
-                          >{info.title}</h2>
-                          <p className={ styles.value }>
+            {operationsMapped.map((item, index) => (
+              <div className={styles.box} key={shortid.generate()}>
+                <Card type="card-secondary">
+                  <h1 className={styles.title}>
+                    #{index + 1} {item.title}
+                  </h1>
+                  {item.info &&
+                    item.info.map((info) => (
+                      <div key={shortid.generate()}>
+                        <h2 className={styles.valueTitle} style={{ margin: !item.title && '0' }}>
+                          {info.title}
+                        </h2>
+                        <p className={styles.value}>
                           {isNaN(info.value) ? info.value : parseFloat(info.value, 10).toString()}
-                          </p>
-                          {info.error &&
+                        </p>
+                        {info.error && (
                           <p className="error">
-                            <span className="icon-exclamation-circle"/>{' '}{info.error}
+                            <span className="icon-exclamation-circle" /> {info.error}
                           </p>
-                          }
-                        </div>
+                        )}
+                      </div>
                     ))}
-                  </Card>
-                </div>
-              ))}
+                </Card>
+              </div>
+            ))}
 
-              <Card type="card-secondary">
-                <h1 className={styles.title}>Memo</h1>
-                <p className={ styles.value }>
-                  {parsed.memo && (
-                    <span>{parsed.memo.value} [{parsed.memo.type}]</span>
-                  )}
-                </p>
-              </Card>
-            </div>
+            <Card type="card-secondary">
+              <h1 className={styles.title}>Memo</h1>
+              <p className={styles.value}>
+                {parsed.memo && (
+                  <span>
+                    {parsed.memo.value} [{parsed.memo.type}]
+                  </span>
+                )}
+              </p>
+            </Card>
           </div>
-          <div className={ classNames('pure-g justify-end', styles.buttons) }>
-            <Button
-              variant="btn-default"
-              size="btn-medium"
-              content="Reject"
-              onClick={this.handleReject}
-            />
+        </div>
+        <div className={classNames('pure-g justify-end', styles.buttons)}>
+          <Button variant="btn-default" size="btn-medium" content="Reject" onClick={this.handleReject} />
 
-            <Button
-              variant="btn-primary"
-              size="btn-medium"
-              content="Confirm"
-              onClick={this.handleConfirm}
-            />
-          </div>
-        </>
+          <Button variant="btn-primary" size="btn-medium" content="Confirm" onClick={this.handleConfirm} />
+        </div>
+      </>
     );
   }
 }
