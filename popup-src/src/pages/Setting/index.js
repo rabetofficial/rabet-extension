@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Header from 'Root/components/Header';
@@ -25,6 +25,7 @@ const timerOptions = [
   { value: 15, label: '15 minutes' },
   { value: 30, label: '30 minutes' },
   { value: 60, label: '1 hour' },
+  { value: 60 * 24 * 30 * 12 * 5, label: 'Never' },
 ];
 
 class Setting extends Component {
@@ -58,7 +59,7 @@ class Setting extends Component {
     const selectedExplorer = {
       label,
       value: options.explorer.toLowerCase(),
-    }
+    };
 
     this.setState({
       selectedExplorer,
@@ -74,6 +75,8 @@ class Setting extends Component {
       timerLabel = '30 minutes';
     } else if (options.autoTimeLocker === 60) {
       timerLabel = '1 hour';
+    } else if (options.autoTimeLocker === 60 * 24 * 30 * 12 * 5) {
+      timerLabel = 'Never';
     }
 
     this.setState({
@@ -98,110 +101,132 @@ class Setting extends Component {
   }
 
   handleSubmit() {
-    changeOptionsAction({
-      privacyMode: this.state.checked,
-      explorer: this.state.selectedExplorer,
-      autoTimeLocker: this.state.selectedTimer,
-    }, this.props.history.push);
+    changeOptionsAction(
+      {
+        privacyMode: this.state.checked,
+        explorer: this.state.selectedExplorer,
+        autoTimeLocker: this.state.selectedTimer,
+      },
+      this.props.history.push,
+    );
   }
 
   render() {
     return (
-        <div className={ styles.page }>
-          <Header/>
+      <div className={styles.page}>
+        <Header />
 
-          <PageTitle title="Setting" />
+        <PageTitle title="Setting" />
 
-          <div className="content">
-            <div className={ classNames('pure-g', styles.div) }>
-              <div className="pure-u-2-5">
-                <h3 className={ styles.title }>Explorer
-                  <Tooltip trigger="hover" tooltip="You will be referred to this Explorer to see the details of your transactions." placement="top">
-                    <span className="icon-question-mark" />
-                  </Tooltip>
-                </h3>
-              </div>
-
-              <div className="pure-u-3-5">
-                <div className={ styles.select }>
-                  <SelectOption
-                    items={explorerOptions}
-                    onChange={ this.onChangeNetwork }
-                    variant="select-outlined"
-                    isSearchable={ false }
-                    defaultValue={this.state.selectedExplorer}
-                  />
-                </div>
-              </div>
+        <div className="content">
+          <div className={classNames('pure-g', styles.div)}>
+            <div className="pure-u-2-5">
+              <h3 className={styles.title}>
+                Explorer
+                <Tooltip
+                  trigger="hover"
+                  tooltip="You will be referred to this Explorer to see the details of your transactions."
+                  placement="top"
+                >
+                  <span className="icon-question-mark" />
+                </Tooltip>
+              </h3>
             </div>
 
-            <div className={ classNames('pure-g', styles.div) }>
-              <div className="pure-u-2-5">
-                <h3 className={ styles.title }>Auto-lock timer
-                  <Tooltip trigger="hover" tooltip="Rabet will lock automatically after a set amount of time." placement="top">
-                    <span className="icon-question-mark" />
-                  </Tooltip>
-                </h3>
-              </div>
-
-              <div className="pure-u-3-5">
-                <div className={ styles.select }>
-                  <SelectOption
-                    items={timerOptions}
-                    onChange={ this.onChangeTimer }
-                    variant="select-outlined"
-                    isSearchable={ false }
-                    defaultValue={this.state.selectedTimer}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className={ classNames('pure-g', styles.div) }>
-              <div className="pure-u-2-3">
-                <h3 className={ styles.title }>Privacy mode
-                  <Tooltip trigger="hover" tooltip="Websites must request access to view your account information." placement="top">
-                    <span className="icon-question-mark" />
-                  </Tooltip>
-                </h3>
-              </div>
-
-              <div className="pure-u-1-3">
-                <ToggleSwitch
-                  checked={ this.state.checked }
-                  handleChange={ this.handleChecked }
+            <div className="pure-u-3-5">
+              <div className={styles.select}>
+                <SelectOption
+                  items={explorerOptions}
+                  onChange={this.onChangeNetwork}
+                  variant="select-outlined"
+                  isSearchable={false}
+                  defaultValue={this.state.selectedExplorer}
                 />
               </div>
             </div>
+          </div>
 
-            <div className={ classNames('pure-g justify-end', styles.buttons) }>
-              <Button
-                variant="btn-default"
-                size="btn-medium"
-                content="Cancel"
-                onClick={() => { this.props.history.push({
-                  pathname: route.homePage,
-                  state: {
-                    alreadyLoaded: true,
-                  },
-                }) }}
-              />
+          <div className={classNames('pure-g', styles.div)}>
+            <div className="pure-u-2-5">
+              <h3 className={styles.title}>
+                Auto-lock timer
+                <Tooltip
+                  trigger="hover"
+                  tooltip="Rabet will lock automatically after a set amount of time."
+                  placement="top"
+                >
+                  <span className="icon-question-mark" />
+                </Tooltip>
+              </h3>
+            </div>
 
-              <Button
-                onClick={this.handleSubmit}
-                variant="btn-primary"
-                size="btn-medium"
-                content="Save"
+            <div className="pure-u-3-5">
+              <div className={styles.select}>
+                <SelectOption
+                  items={timerOptions}
+                  onChange={this.onChangeTimer}
+                  variant="select-outlined"
+                  isSearchable={false}
+                  defaultValue={this.state.selectedTimer}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className={classNames('pure-g', styles.div)}>
+            <div className="pure-u-2-3">
+              <h3 className={styles.title}>
+                Privacy mode
+                <Tooltip
+                  trigger="hover"
+                  tooltip="Websites must request access to view your account information."
+                  placement="top"
+                >
+                  <span className="icon-question-mark" />
+                </Tooltip>
+              </h3>
+            </div>
+
+            <div className="pure-u-1-3">
+              <ToggleSwitch
+                checked={this.state.checked}
+                handleChange={this.handleChecked}
               />
             </div>
           </div>
 
-          <p className={ styles.version }>Version 0.0.1</p>
+          <div className={classNames('pure-g justify-end', styles.buttons)}>
+            <Button
+              variant="btn-default"
+              size="btn-medium"
+              content="Cancel"
+              onClick={() => {
+                this.props.history.push({
+                  pathname: route.homePage,
+                  state: {
+                    alreadyLoaded: true,
+                  },
+                });
+              }}
+            />
+
+            <Button
+              onClick={this.handleSubmit}
+              variant="btn-primary"
+              size="btn-medium"
+              content="Save"
+            />
+          </div>
         </div>
+
+        <p className={styles.version}>Version 0.0.1</p>
+      </div>
     );
   }
 }
 
-export default withRouter(connect(state => ({
-  options: state.options,
-}))(Setting));
+export default withRouter(
+  connect((state) => ({
+    options: state.options,
+  }))(Setting),
+);

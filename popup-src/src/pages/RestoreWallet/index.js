@@ -11,14 +11,14 @@ import restoreAccountAction from 'Root/actions/accounts/restore';
 import validatePrivateKey from 'Root/helpers/validate/privateKey';
 
 class RestoreWallet extends Component {
-  async onSubmit (values) {
+  async onSubmit(values) {
     if (!validatePrivateKey(values.key)) {
       return { key: 'Invalid private key.' };
     }
 
     const { accounts } = this.props;
 
-    const isDuplicated = accounts.some(x => x.privateKey === values.key);
+    const isDuplicated = accounts.some((x) => x.privateKey === values.key);
 
     if (isDuplicated) {
       return { key: 'Account is duplicated.' };
@@ -27,7 +27,7 @@ class RestoreWallet extends Component {
     const account = await restoreAccountAction(values.key);
 
     if (account === 'duplicate') {
-      return { key: 'The account you\'re trying to import is a duplicate.' };
+      return { key: "The account you're trying to import is a duplicate." };
     }
 
     if (!account) {
@@ -37,7 +37,7 @@ class RestoreWallet extends Component {
     this.props.history.push(route.homePage);
   }
 
-  validateForm (values) {
+  validateForm(values) {
     const errors = {};
 
     if (!values.key) {
@@ -48,67 +48,73 @@ class RestoreWallet extends Component {
   }
 
   render() {
+    const { accounts } = this.props;
+
     return (
-        <>
-          <Header/>
-          <PageTitle title="Import Wallet"/>
-          <div className="content" style={ {marginTop: '28px'} }>
-            <Form
-              onSubmit={ (values) => this.onSubmit(values) }
-              validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, form, pristine }) => (
-                <form className="form" onSubmit={ handleSubmit }>
-                  <Field name="key">
-                    {({input, meta}) => (
-                        <div>
-                          <label className="label-primary">Private key</label>
-                          <Input
-                            type="text"
-                            size="input-medium"
-                            placeholder="S..."
-                            input={ input }
-                            meta={ meta }
-                            autoFocus
-                          />
-                        </div>
-                    )}
-                  </Field>
-                  {submitError && <div className="error">{submitError}</div>}
-                  <div className="pure-g justify-end" style={ {marginTop: '28px'} }>
-                    <Button
-                      variant="btn-default"
-                      size="btn-small"
-                      content="Cancel"
-                      onClick={ form.reset }
-                      style={ {marginRight: '12px'} }
-                      onClick={() => { this.props.history.push({
-                        pathname: route.homePage,
-                        state: {
-                          alreadyLoaded: true,
-                        },
-                      }) }}
-                    />
-                    <Button
-                      type="submit"
-                      variant="btn-primary"
-                      size="btn-small"
-                      content="Import"
-                      disabled={ pristine }
-                    />
-                  </div>
-                </form>
-                ) }
-            />
-          </div>
-        </>
+      <>
+        <Header />
+        <PageTitle title="Import Wallet" />
+        <div className="content" style={{ marginTop: '28px' }}>
+          <Form
+            onSubmit={(values) => this.onSubmit(values)}
+            validate={(values) => this.validateForm(values)}
+            render={({ submitError, handleSubmit, form, pristine }) => (
+              <form className="form" onSubmit={handleSubmit}>
+                <Field name="key">
+                  {({ input, meta }) => (
+                    <div>
+                      <label className="label-primary">Private key</label>
+                      <Input
+                        type="text"
+                        size="input-medium"
+                        placeholder="S..."
+                        input={input}
+                        meta={meta}
+                        autoFocus
+                      />
+                    </div>
+                  )}
+                </Field>
+                {submitError && <div className="error">{submitError}</div>}
+                <div className="pure-g justify-end" style={{ marginTop: '28px' }}>
+                  <Button
+                    variant="btn-default"
+                    size="btn-small"
+                    content="Cancel"
+                    onClick={form.reset}
+                    style={{ marginRight: '12px' }}
+                    onClick={() => {
+                      accounts.length
+                        ? this.props.history.push({
+                            pathname: route.homePage,
+                            state: {
+                              alreadyLoaded: true,
+                            },
+                          })
+                        : this.props.history.push({
+                            pathname: route.firstPage,
+                          });
+                    }}
+                  />
+                  <Button
+                    type="submit"
+                    variant="btn-primary"
+                    size="btn-small"
+                    content="Import"
+                    disabled={pristine}
+                  />
+                </div>
+              </form>
+            )}
+          />
+        </div>
+      </>
     );
   }
 }
 
-RestoreWallet.propTypes = {
+RestoreWallet.propTypes = {};
 
-};
-
-export default connect(state => ({
+export default connect((state) => ({
   accounts: state.accounts,
 }))(RestoreWallet);
