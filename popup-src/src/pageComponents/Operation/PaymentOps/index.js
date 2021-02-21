@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
 import SelectOption from 'Root/components/SelectOption';
+import arithmeticNumber from 'Root/helpers/arithmetic';
 import validateAddress from 'Root/helpers/validate/address';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import getAccountData from 'Root/helpers/horizon/isAddressFound';
@@ -28,7 +29,7 @@ class PaymentOps extends Component {
     this.setState({ selected: e });
   }
   //
-  onSubmit () {
+  onSubmit() {
     // console.warn(values);
     // console.log({
     //   destination: values.destination,
@@ -46,7 +47,7 @@ class PaymentOps extends Component {
     values.amount = this.state.selected.balance;
   }
 
-  async validateForm (values) {
+  async validateForm(values) {
     const { activeAccount } = currentActiveAccount();
 
     const errors = {};
@@ -67,9 +68,13 @@ class PaymentOps extends Component {
       let selectedTokenBalance;
 
       if (this.state.selected.value === 'XLM') {
-        selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+        selectedTokenBalance = activeAccount.balances.find(
+          (x) => x.asset_type === 'native',
+        );
       } else {
-        selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.selected.value);
+        selectedTokenBalance = activeAccount.balances.find(
+          (x) => x.asset_code === this.state.selected.value,
+        );
       }
 
       if (!selectedTokenBalance) {
@@ -79,7 +84,10 @@ class PaymentOps extends Component {
       }
 
       if (this.state.selected.value === 'XLM') {
-        if (Number(selectedTokenBalance.balance || '0') < Number(values.amount) + activeAccount.maxXLM) {
+        if (
+          Number(selectedTokenBalance.balance || '0') <
+          Number(values.amount) + activeAccount.maxXLM
+        ) {
           errors.amount = `Insufficient ${this.state.selected.value} balance.`;
           hasError.amount = true;
 
@@ -134,21 +142,23 @@ class PaymentOps extends Component {
 
           checked = false;
         }
-
       } else if (accountData.status === 400) {
         errors.destination = 'Wrong.';
         hasError.destination = true;
       } else {
         const destinationTokens = accountData.balances || [];
 
-        let selectedToken = destinationTokens.find(x => x.asset_type === 'native')
+        let selectedToken = destinationTokens.find((x) => x.asset_type === 'native');
 
         if (this.state.selected.value !== 'XLM') {
-          selectedToken = destinationTokens.find(x => x.asset_code === this.state.selected.value);
+          selectedToken = destinationTokens.find(
+            (x) => x.asset_code === this.state.selected.value,
+          );
         }
 
         if (!selectedToken) {
-          errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+          errors.destination =
+            'The destination account does not trust the asset you are attempting to send.';
           hasError.destination = true;
 
           changeOperationAction(this.props.id, {
@@ -157,8 +167,12 @@ class PaymentOps extends Component {
 
           checked = false;
         } else {
-          if (Number(selectedToken.limit) < Number(values.amount) + Number(selectedToken.balance)) {
-            errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+          if (
+            Number(selectedToken.limit) <
+            Number(values.amount) + Number(selectedToken.balance)
+          ) {
+            errors.destination =
+              'The destination account balance would exceed the trust of the destination in the asset.';
             hasError.destination = true;
 
             changeOperationAction(this.props.id, {
@@ -193,11 +207,12 @@ class PaymentOps extends Component {
     let maxBalance;
 
     if (this.state.selected.value === 'XLM') {
-      let xlmBalance = balances.find(x => x.asset_type === 'native');
+      let xlmBalance = balances.find((x) => x.asset_type === 'native');
 
       maxBalance = parseFloat(xlmBalance.balance, 10) - xlmBalance.maxXLM;
     } else {
-      maxBalance = balances.find(x => x.asset_code === this.state.selected.value).balance;
+      maxBalance = balances.find((x) => x.asset_code === this.state.selected.value)
+        .balance;
     }
 
     return maxBalance;
@@ -228,81 +243,89 @@ class PaymentOps extends Component {
     const { list } = this.state;
 
     return (
-        <Form
-          mutators={{
-            setMax: (args, state, utils) => {
-              const { activeAccount } = currentActiveAccount();
-              const { balances } = activeAccount;
+      <Form
+        mutators={{
+          setMax: (args, state, utils) => {
+            const { activeAccount } = currentActiveAccount();
+            const { balances } = activeAccount;
 
-              let maxBalance;
+            let maxBalance;
 
-              if (this.state.selected.value === 'XLM') {
-                let xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+            if (this.state.selected.value === 'XLM') {
+              let xlmBalance = activeAccount.balances.find(
+                (x) => x.asset_type === 'native',
+              );
 
-                maxBalance = parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM;
-              } else {
-                maxBalance = balances.find(x => x.asset_code === this.state.selected.value).balance;
-              }
+              maxBalance = arithmeticNumber(
+                parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
+              );
+            } else {
+              maxBalance = balances.find(
+                (x) => x.asset_code === this.state.selected.value,
+              ).balance;
+            }
 
-              utils.changeValue(state, 'amount', () => maxBalance)
-            },
-          }}
-          onSubmit={ this.onSubmit }
-          validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit, form }) => (
-                <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  <Field name="destination">
-                    {({input, meta}) => (
-                       <div className="group">
-                         <label className="label-primary">Destination</label>
+            utils.changeValue(state, 'amount', () => maxBalance);
+          },
+        }}
+        onSubmit={this.onSubmit}
+        validate={(values) => this.validateForm(values)}
+        render={({ submitError, handleSubmit, form }) => (
+          <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit}>
+            <Field name="destination">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">Destination</label>
 
-                         <Input
-                           type="text"
-                           placeholder="G…"
-                           size="input-medium"
-                           input={ input }
-                           meta={ meta }
-                           autoFocus
-                         />
-                       </div>
-                    )}
-                  </Field>
+                  <Input
+                    type="text"
+                    placeholder="G…"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                    autoFocus
+                  />
+                </div>
+              )}
+            </Field>
 
-                  <Field name="amount">
-                    {({input, meta}) => (
-                        <div className="pure-g group">
-                          <div className={ styles.selectInput }>
-                            <label className="label-primary">Amount</label>
+            <Field name="amount">
+              {({ input, meta }) => (
+                <div className="pure-g group">
+                  <div className={styles.selectInput}>
+                    <label className="label-primary">Amount</label>
 
-                            <Input
-                              type="number"
-                              placeholder="1"
-                              size="input-medium"
-                              input={ input }
-                              meta={ meta }
-                              variant="max"
-                              // setMax={() => { this.maxAmount() }}
-                              setMax={() => { form.mutators.setMax() }}
-                            />
-                          </div>
+                    <Input
+                      type="number"
+                      placeholder="1"
+                      size="input-medium"
+                      input={input}
+                      meta={meta}
+                      variant="max"
+                      // setMax={() => { this.maxAmount() }}
+                      setMax={() => {
+                        form.mutators.setMax();
+                      }}
+                    />
+                  </div>
 
-                          <div className={ styles.select }>
-                            <SelectOption
-                              items={list}
-                              onChange={ this.onChange }
-                              variant="select-outlined"
-                              defaultValue={list[0]}
-                              selected={this.state.selected}
-                            />
-                          </div>
-                        </div>
-                    )}
-                  </Field>
+                  <div className={styles.select}>
+                    <SelectOption
+                      items={list}
+                      onChange={this.onChange}
+                      variant="select-outlined"
+                      defaultValue={list[0]}
+                      selected={this.state.selected}
+                    />
+                  </div>
+                </div>
+              )}
+            </Field>
 
-                  {submitError && <div className="error">{submitError}</div>}
-                </form>
-            ) }
-        />
+            {submitError && <div className="error">{submitError}</div>}
+          </form>
+        )}
+      />
     );
   }
 }

@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
 import SelectOption from 'Root/components/SelectOption';
+import arithmeticNumber from 'Root/helpers/arithmetic';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import changeOperationAction from 'Root/actions/operations/change';
 
@@ -31,18 +32,17 @@ class OfferOps extends Component {
     this.setState({ buyingAsset: e });
   }
 
-  onSubmit (values) {
+  onSubmit(values) {
     console.warn(values);
   }
 
-  async validateForm (values) {
+  async validateForm(values) {
     const errors = {};
     const hasError = {
       selling: false,
     };
 
     const { activeAccount } = currentActiveAccount();
-
 
     if (!values.selling) {
       errors.selling = null;
@@ -56,9 +56,13 @@ class OfferOps extends Component {
         let selectedTokenBalance;
 
         if (this.state.sellingAsset.value === 'XLM') {
-          selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+          selectedTokenBalance = activeAccount.balances.find(
+            (x) => x.asset_type === 'native',
+          );
         } else {
-          selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.sellingAsset.value);
+          selectedTokenBalance = activeAccount.balances.find(
+            (x) => x.asset_code === this.state.sellingAsset.value,
+          );
         }
 
         if (!selectedTokenBalance) {
@@ -68,7 +72,10 @@ class OfferOps extends Component {
         }
 
         if (this.state.sellingAsset.value === 'XLM') {
-          if (Number(selectedTokenBalance.balance || '0') < Number(values.selling) + activeAccount.maxXLM) {
+          if (
+            Number(selectedTokenBalance.balance || '0') <
+            Number(values.selling) + activeAccount.maxXLM
+          ) {
             errors.selling = `Insufficient ${this.state.sellingAsset.value} balance.`;
             hasError.selling = true;
 
@@ -101,9 +108,13 @@ class OfferOps extends Component {
         let selectedTokenBalance;
 
         if (this.state.buyingAsset.value === 'XLM') {
-          selectedTokenBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+          selectedTokenBalance = activeAccount.balances.find(
+            (x) => x.asset_type === 'native',
+          );
         } else {
-          selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.buyingAsset.value);
+          selectedTokenBalance = activeAccount.balances.find(
+            (x) => x.asset_code === this.state.buyingAsset.value,
+          );
         }
 
         if (this.state.buyingAsset.value !== 'XLM') {
@@ -119,7 +130,12 @@ class OfferOps extends Component {
       }
     }
 
-    if (!hasError.selling && !hasError.buying && this.state.buyingAsset.value && this.state.sellingAsset.value) {
+    if (
+      !hasError.selling &&
+      !hasError.buying &&
+      this.state.buyingAsset.value &&
+      this.state.sellingAsset.value
+    ) {
       changeOperationAction(this.props.id, {
         checked: true,
         buying: parseFloat(values.buying, 10).toFixed(7),
@@ -162,106 +178,116 @@ class OfferOps extends Component {
     const { list } = this.state;
 
     return (
-        <Form
-          mutators={{
-            sellingMax: (args, state, utils) => {
-              const { activeAccount } = currentActiveAccount();
-              const { balances } = activeAccount;
+      <Form
+        mutators={{
+          sellingMax: (args, state, utils) => {
+            const { activeAccount } = currentActiveAccount();
+            const { balances } = activeAccount;
 
-              let maxBalance;
+            let maxBalance;
 
-              if (this.state.sellingAsset.value === 'XLM') {
-                let xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+            if (this.state.sellingAsset.value === 'XLM') {
+              let xlmBalance = activeAccount.balances.find(
+                (x) => x.asset_type === 'native',
+              );
 
-                maxBalance = parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM;
-              } else {
-                maxBalance = balances.find(x => x.asset_code === this.state.sellingAsset.value).balance;
-              }
+              maxBalance = arithmeticNumber(
+                parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
+              );
+            } else {
+              maxBalance = balances.find(
+                (x) => x.asset_code === this.state.sellingAsset.value,
+              ).balance;
+            }
 
-              utils.changeValue(state, 'selling', () => maxBalance)
-            },
-          }}
-          onSubmit={ this.onSubmit }
-          validate={ (values) => this.validateForm(values) }
-          render={ ({ submitError, handleSubmit, form }) => (
-                <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  <Field name="selling">
-                    {({input, meta}) => (
-                        <div className="pure-g group">
-                          <div className={ styles.selectInput }>
-                            <label className="label-primary max">Selling amount</label>
+            utils.changeValue(state, 'selling', () => maxBalance);
+          },
+        }}
+        onSubmit={this.onSubmit}
+        validate={(values) => this.validateForm(values)}
+        render={({ submitError, handleSubmit, form }) => (
+          <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit}>
+            <Field name="selling">
+              {({ input, meta }) => (
+                <div className="pure-g group">
+                  <div className={styles.selectInput}>
+                    <label className="label-primary max">Selling amount</label>
 
-                            <Input
-                              type="number"
-                              placeholder="1"
-                              size="input-medium"
-                              input={ input }
-                              meta={ meta }
-                              variant="max"
-                              setMax={() => { form.mutators.sellingMax() }}
-                              autoFocus
-                            />
-                          </div>
-                          <div className={ styles.select }>
-                            <SelectOption
-                              items={list}
-                              defaultValue={list[0]}
-                              onChange={ this.onChangeSellingAmount }
-                              variant="select-outlined"
-                              selected={this.state.sellingAsset}
-                            />
-                          </div>
-                        </div>
-                    )}
-                  </Field>
-                  <Field name="buying">
-                    {({input, meta}) => (
-                        <div className="pure-g group">
-                          <div className={ styles.selectInput }>
-                            <label className="label-primary">Buying amount</label>
-                            <Input
-                              type="number"
-                              placeholder="1"
-                              size="input-medium"
-                              input={ input }
-                              meta={ meta }
-                            />
-                          </div>
-                          <div className={ styles.select }>
-                            <SelectOption
-                              items={list}
-                              defaultValue={list[0]}
-                              onChange={ this.onChangeBuyingAmount }
-                              variant="select-outlined"
-                              selected={this.state.buyingAsset}
-                            />
-                          </div>
-                        </div>
-                    )}
-                  </Field>
-                  {this.props.offer ? (
-                    <Field name="offerId">
-                    {({input, meta}) => (
-                      <div className="group">
-                      <label className="label-primary">
+                    <Input
+                      type="number"
+                      placeholder="1"
+                      size="input-medium"
+                      input={input}
+                      meta={meta}
+                      variant="max"
+                      setMax={() => {
+                        form.mutators.sellingMax();
+                      }}
+                      autoFocus
+                    />
+                  </div>
+                  <div className={styles.select}>
+                    <SelectOption
+                      items={list}
+                      defaultValue={list[0]}
+                      onChange={this.onChangeSellingAmount}
+                      variant="select-outlined"
+                      selected={this.state.sellingAsset}
+                    />
+                  </div>
+                </div>
+              )}
+            </Field>
+            <Field name="buying">
+              {({ input, meta }) => (
+                <div className="pure-g group">
+                  <div className={styles.selectInput}>
+                    <label className="label-primary">Buying amount</label>
+                    <Input
+                      type="number"
+                      placeholder="1"
+                      size="input-medium"
+                      input={input}
+                      meta={meta}
+                    />
+                  </div>
+                  <div className={styles.select}>
+                    <SelectOption
+                      items={list}
+                      defaultValue={list[0]}
+                      onChange={this.onChangeBuyingAmount}
+                      variant="select-outlined"
+                      selected={this.state.buyingAsset}
+                    />
+                  </div>
+                </div>
+              )}
+            </Field>
+            {this.props.offer ? (
+              <Field name="offerId">
+                {({ input, meta }) => (
+                  <div className="group">
+                    <label className="label-primary">
                       Offer ID
-                      <span className="label-optional">{' '}(optional)</span>
-                      </label>
-                      <Input
+                      <span className="label-optional"> (optional)</span>
+                    </label>
+                    <Input
                       type="number"
                       placeholder="12345"
                       size="input-medium"
-                      input={ input }
-                      meta={ meta }
-                      />
-                      </div>
-                    )}
-                    </Field>
-                  ) : ''}
-                  {submitError && <div className="error">{submitError}</div>}
-                </form>
-            ) }
-        />
+                      input={input}
+                      meta={meta}
+                    />
+                  </div>
+                )}
+              </Field>
+            ) : (
+              ''
+            )}
+            {submitError && <div className="error">{submitError}</div>}
+          </form>
+        )}
+      />
     );
   }
 }

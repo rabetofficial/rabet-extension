@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
 import SelectOption from 'Root/components/SelectOption';
+import arithmeticNumber from 'Root/helpers/arithmetic';
 import validateAddress from 'Root/helpers/validate/address';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import getAccountData from 'Root/helpers/horizon/isAddressFound';
@@ -33,11 +34,11 @@ class PaymentSendOps extends Component {
     this.setState({ destAsset: e });
   }
 
-  onSubmit (values) {
+  onSubmit(values) {
     console.warn(values);
   }
 
-  async validateForm (values) {
+  async validateForm(values) {
     let accountData;
     const { activeAccount } = currentActiveAccount();
 
@@ -89,11 +90,13 @@ class PaymentSendOps extends Component {
       let selectedTokenBalance;
 
       if (this.state.sendAsset.value === 'XLM') {
-        const xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+        const xlmBalance = activeAccount.balances.find((x) => x.asset_type === 'native');
 
         selectedTokenBalance = xlmBalance;
       } else {
-        selectedTokenBalance = activeAccount.balances.find(x => x.asset_code === this.state.sendAsset.value);
+        selectedTokenBalance = activeAccount.balances.find(
+          (x) => x.asset_code === this.state.sendAsset.value,
+        );
       }
 
       if (!selectedTokenBalance) {
@@ -103,7 +106,10 @@ class PaymentSendOps extends Component {
       }
 
       if (this.state.sendAsset.value === 'XLM') {
-        if (Number(selectedTokenBalance.balance || '0') < Number(values.sendAmount, 10) + activeAccount.maxXLM) {
+        if (
+          Number(selectedTokenBalance.balance || '0') <
+          Number(values.sendAmount, 10) + activeAccount.maxXLM
+        ) {
           errors.sendAmount = `Insufficient ${this.state.sendAsset.value} balance.`;
           hasError.sendAmount = true;
 
@@ -112,7 +118,9 @@ class PaymentSendOps extends Component {
           });
         }
       } else {
-        if (Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendAmount, 10)) {
+        if (
+          Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendAmount, 10)
+        ) {
           errors.sendAmount = `Insufficient ${this.state.sendAsset.value} balance.`;
           hasError.sendAmount = true;
 
@@ -132,26 +140,39 @@ class PaymentSendOps extends Component {
       });
     }
 
-    if (!hasError.destination && !hasError.sendAmount && !hasError.destMin && this.state.sendAsset.value && this.state.destAsset.value) {
+    if (
+      !hasError.destination &&
+      !hasError.sendAmount &&
+      !hasError.destMin &&
+      this.state.sendAsset.value &&
+      this.state.destAsset.value
+    ) {
       const destinationTokens = accountData.balances || [];
-      let selectedToken = destinationTokens.find(x => x.asset_type === 'native');
+      let selectedToken = destinationTokens.find((x) => x.asset_type === 'native');
 
       if (this.state.destAsset.value !== 'XLM') {
-        selectedToken = destinationTokens.find(x => x.asset_code === this.state.destAsset.value);
+        selectedToken = destinationTokens.find(
+          (x) => x.asset_code === this.state.destAsset.value,
+        );
       } else {
         selectedToken.limit = 999999999;
       }
 
       if (!selectedToken) {
-        errors.destMin = 'The destination account does not trust the asset you are attempting to send.';
+        errors.destMin =
+          'The destination account does not trust the asset you are attempting to send.';
         hasError.destMin = true;
 
         changeOperationAction(this.props.id, {
           checked: false,
         });
       } else {
-        if (Number(selectedToken.limit) < Number(values.destMin) + Number(selectedToken.balance)) {
-          errors.destMin = 'The destination account balance would exceed the trust of the destination in the asset.';
+        if (
+          Number(selectedToken.limit) <
+          Number(values.destMin) + Number(selectedToken.balance)
+        ) {
+          errors.destMin =
+            'The destination account balance would exceed the trust of the destination in the asset.';
           hasError.destMin = true;
 
           changeOperationAction(this.props.id, {
@@ -174,7 +195,6 @@ class PaymentSendOps extends Component {
 
     return errors;
   }
-
 
   componentDidMount() {
     const { activeAccount } = currentActiveAccount();
@@ -205,100 +225,108 @@ class PaymentSendOps extends Component {
     const { list } = this.state;
 
     return (
-        <Form
-          mutators={{
-            sendAmountMax: (args, state, utils) => {
-              const { activeAccount } = currentActiveAccount();
-              const { balances } = activeAccount;
+      <Form
+        mutators={{
+          sendAmountMax: (args, state, utils) => {
+            const { activeAccount } = currentActiveAccount();
+            const { balances } = activeAccount;
 
-              let maxBalance;
+            let maxBalance;
 
-              if (this.state.sendAsset.value === 'XLM') {
-                let xlmBalance = activeAccount.balances.find(x => x.asset_type === 'native');
+            if (this.state.sendAsset.value === 'XLM') {
+              let xlmBalance = activeAccount.balances.find(
+                (x) => x.asset_type === 'native',
+              );
 
-                maxBalance = parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM;
-              } else {
-                maxBalance = balances.find(x => x.asset_code === this.state.sendAsset.value).balance;
-              }
+              maxBalance = arithmeticNumber(
+                parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
+              );
+            } else {
+              maxBalance = balances.find(
+                (x) => x.asset_code === this.state.sendAsset.value,
+              ).balance;
+            }
 
-              utils.changeValue(state, 'sendAmount', () => maxBalance);
-            },
-          }}
-          onSubmit={ this.onSubmit }
-          validate={ (values) => this.validateForm(values) }
-          render={ ({ submitError, handleSubmit, form }) => (
-                <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  <Field name="destination">
-                    {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">Destination</label>
-                          <Input
-                            type="text"
-                            placeholder="G…"
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                            autoFocus
-                          />
-                        </div>
-                    )}
-                  </Field>
-                  <Field name="sendAmount">
-                    {({input, meta}) => (
-                        <div className="pure-g group">
-                          <div className={ styles.selectInput }>
-                            <label className="label-primary">Send amount</label>
-                            <Input
-                              type="number"
-                              placeholder="1"
-                              size="input-medium"
-                              input={ input }
-                              meta={ meta }
-                              variant="max"
-                              setMax={() => { form.mutators.sendAmountMax() }}
-                            />
-                          </div>
-                          <div className={ styles.select }>
-                            <SelectOption
-                              items={ list }
-                              onChange={ this.onChangeSendAsset }
-                              variant="select-outlined"
-                              defaultValue={list[0]}
-                              selected={this.state.sendAsset}
-                            />
-                          </div>
-                        </div>
-                    )}
-                  </Field>
-                  <Field name="destMin">
-                    {({input, meta}) => (
-                        <div className="pure-g group">
-                          <div className={ styles.selectInput }>
-                            <label className="label-primary">Destination min</label>
-                            <Input
-                              type="number"
-                              placeholder="1"
-                              size="input-medium"
-                              input={ input }
-                              meta={ meta }
-                            />
-                          </div>
-                          <div className={ styles.select }>
-                            <SelectOption
-                              items={ list }
-                              onChange={ this.onChangeDestAsset }
-                              variant="select-outlined"
-                              defaultValue={list[0]}
-                              selected={this.state.destAsset}
-                            />
-                          </div>
-                        </div>
-                    )}
-                  </Field>
-                  {submitError && <div className="error">{submitError}</div>}
-                </form>
-            ) }
-        />
+            utils.changeValue(state, 'sendAmount', () => maxBalance);
+          },
+        }}
+        onSubmit={this.onSubmit}
+        validate={(values) => this.validateForm(values)}
+        render={({ submitError, handleSubmit, form }) => (
+          <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit}>
+            <Field name="destination">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">Destination</label>
+                  <Input
+                    type="text"
+                    placeholder="G…"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                    autoFocus
+                  />
+                </div>
+              )}
+            </Field>
+            <Field name="sendAmount">
+              {({ input, meta }) => (
+                <div className="pure-g group">
+                  <div className={styles.selectInput}>
+                    <label className="label-primary">Send amount</label>
+                    <Input
+                      type="number"
+                      placeholder="1"
+                      size="input-medium"
+                      input={input}
+                      meta={meta}
+                      variant="max"
+                      setMax={() => {
+                        form.mutators.sendAmountMax();
+                      }}
+                    />
+                  </div>
+                  <div className={styles.select}>
+                    <SelectOption
+                      items={list}
+                      onChange={this.onChangeSendAsset}
+                      variant="select-outlined"
+                      defaultValue={list[0]}
+                      selected={this.state.sendAsset}
+                    />
+                  </div>
+                </div>
+              )}
+            </Field>
+            <Field name="destMin">
+              {({ input, meta }) => (
+                <div className="pure-g group">
+                  <div className={styles.selectInput}>
+                    <label className="label-primary">Destination min</label>
+                    <Input
+                      type="number"
+                      placeholder="1"
+                      size="input-medium"
+                      input={input}
+                      meta={meta}
+                    />
+                  </div>
+                  <div className={styles.select}>
+                    <SelectOption
+                      items={list}
+                      onChange={this.onChangeDestAsset}
+                      variant="select-outlined"
+                      defaultValue={list[0]}
+                      selected={this.state.destAsset}
+                    />
+                  </div>
+                </div>
+              )}
+            </Field>
+            {submitError && <div className="error">{submitError}</div>}
+          </form>
+        )}
+      />
     );
   }
 }
