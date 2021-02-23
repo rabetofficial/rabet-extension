@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
+import icon from 'Root/assets/images/globe.svg';
 import styles from './styles.less';
 
 class ContactRequest extends Component {
@@ -13,8 +14,9 @@ class ContactRequest extends Component {
             <h6 className={ styles.contact }>Contact Request</h6>
             <div className={ styles.step }>
               <div className="pure-g step-container">
-                <div className="step step-one">
+                <div className="step step-one flex-parent" style={{alignItems: 'center'}}>
                  {/*step one*/}
+                  <img src={icon} alt="icon"/>
                 </div>
                 <div className="step step-two">AA</div>
                 <div className="icon-checkmark step-checked" />
