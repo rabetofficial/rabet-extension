@@ -54,7 +54,7 @@ class ContactRequest extends Component {
           <div className={styles.step}>
             <div className="pure-g step-container">
               <div className="step step-one step-one-container flex-parent" style={{ alignItems: 'center' }}>
-                <img src={`https://s2.googleusercontent.com/s2/favicons?domain=${host}`} width="31" style={{ height: 'auto' }} alt={host} />
+                <img src={`https://s2.googleusercontent.com/s2/favicons?domain=${host}`} width="24" style={{ height: 'auto' }} alt={host} />
               </div>
               <div className="step step-two">{shortName(name)}</div>
               <div className="icon-checkmark step-checked" />

@@ -1,6 +1,8 @@
 @import "base";
 @import "theme";
 
+@height: 572px;
+
 html, body, div[class^="pure"], div[class^="pure-u"] {
   font-family: 'Roboto', sans-serif !important;
 }
@@ -14,7 +16,7 @@ body {
 }
 
 .layout {
-  height: 600px;
+  height: @height;
   width: 360px;
   overflow: hidden;
   padding: 0;
@@ -29,7 +31,7 @@ body {
 }
 
 .content-scroll {
-  max-height: calc(600px - (48px + 32px + 16px));
+  max-height: calc(@height - (48px + 32px + 16px));
   overflow-y: auto;
   overflow-x: hidden;
 }
