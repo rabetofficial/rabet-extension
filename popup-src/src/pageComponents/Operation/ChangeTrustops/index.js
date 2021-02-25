@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
@@ -25,15 +25,15 @@ class ChangeTrustOps extends Component {
     this.setState({ selected: e });
   }
 
-  onSubmit (values) {
+  onSubmit(values) {
     console.warn(values);
   }
 
-  async validateForm (values) {
+  async validateForm(values) {
     const errors = {};
     const hasError = {
       code: false,
-    }
+    };
 
     if (values.limit && !validateNumber(values.limit)) {
       errors.limit = null;
@@ -77,7 +77,7 @@ class ChangeTrustOps extends Component {
       });
     }
 
-    list = list.filter(x => x.asset_type !== 'native');
+    list = list.filter((x) => x.asset_type !== 'native');
 
     this.setState({
       list,
@@ -89,45 +89,48 @@ class ChangeTrustOps extends Component {
     const { list } = this.state;
 
     return (
-        <Form
-          onSubmit={ this.onSubmit }
-          validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit }) => (
-                <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  <Field name="limit">
-                    {({input, meta}) => (
-                        <div className="pure-g group">
-                          <div className={ styles.selectInput }>
-                            <label className="label-primary">Limit amount</label>
-                            <Input
-                                type="number"
-                                placeholder="1000"
-                                size="input-medium"
-                                input={ input }
-                                meta={ meta }
-                            />
-                          </div>
-                          <div className={ styles.select }>
-                            <SelectOption
-                                items={list}
-                                onChange={ this.onChange }
-                                variant="select-outlined"
-                                defaultValue={list[0]}
-                                selected={this.state.selected}
-                            />
-                          </div>
-                        </div>
-                    )}
-                  </Field>
-                  {submitError && <div className="error">{submitError}</div>}
-                </form>
-            ) }
-        />
+      <Form
+        onSubmit={this.onSubmit}
+        validate={(values) => this.validateForm(values)}
+        render={({ submitError, handleSubmit }) => (
+          <form
+            className={classNames(styles.form, 'form')}
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
+            <Field name="limit">
+              {({ input, meta }) => (
+                <div className="pure-g group">
+                  <div className={styles.selectInput}>
+                    <label className="label-primary">Limit amount</label>
+                    <Input
+                      type="number"
+                      placeholder="1000"
+                      size="input-medium"
+                      input={input}
+                      meta={meta}
+                    />
+                  </div>
+                  <div className={styles.select}>
+                    <SelectOption
+                      items={list}
+                      onChange={this.onChange}
+                      variant="select-outlined"
+                      defaultValue={list[0]}
+                      selected={this.state.selected}
+                    />
+                  </div>
+                </div>
+              )}
+            </Field>
+            {submitError && <div className="error">{submitError}</div>}
+          </form>
+        )}
+      />
     );
   }
 }
 
-ChangeTrustOps.propTypes = {
-};
+ChangeTrustOps.propTypes = {};
 
 export default ChangeTrustOps;

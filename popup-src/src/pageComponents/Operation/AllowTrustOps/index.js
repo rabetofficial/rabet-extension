@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
@@ -24,17 +24,17 @@ class AllowTrustOps extends Component {
     this.setState({ activeButton: value });
   }
 
-  onSubmit (values) {
+  onSubmit(values) {
     console.warn(values);
   }
 
-  validateForm (values) {
+  validateForm(values) {
     const { activeAccount } = currentActiveAccount();
 
     const errors = {};
     const hasError = {
       trustor: false,
-    }
+    };
 
     if (!values.trustor) {
       errors.trustor = null;
@@ -64,7 +64,9 @@ class AllowTrustOps extends Component {
     } else {
       const balances = activeAccount.balances || [];
 
-      const ownedAsset = balances.find(x => x.asset_code === values.code && x.asset_issuer === activeAccount.publicKey);
+      const ownedAsset = balances.find(
+        (x) => x.asset_code === values.code && x.asset_issuer === activeAccount.publicKey,
+      );
 
       if (!ownedAsset) {
         errors.code = 'You do not own this asset.';
@@ -86,7 +88,7 @@ class AllowTrustOps extends Component {
     } else {
       let auth = parseInt(values.authorize, 10);
 
-      if (![0,1,2].includes(auth)) {
+      if (![0, 1, 2].includes(auth)) {
         errors.authorize = 'Authorize must be 0 or 1 or 2';
         hasError.authorize = true;
 
@@ -110,63 +112,66 @@ class AllowTrustOps extends Component {
 
   render() {
     return (
-        <Form
-          onSubmit={ this.onSubmit }
-          validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit }) => (
-                <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  <Field name="trustor">
-                    {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">Trustor</label>
-                          <Input
-                            type="text"
-                            placeholder="G..."
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                            autoFocus
-                          />
-                        </div>
-                    )}
-                  </Field>
-                  <Field name="code">
-                    {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">Assets code</label>
-                          <Input
-                            type="text"
-                            placeholder="BTC"
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                          />
-                        </div>
-                    )}
-                  </Field>
-                  <Field name="authorize">
-                    {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">Authorize</label>
-                          <Input
-                            type="number"
-                            placeholder="0 | 1 | 2"
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                          />
-                        </div>
-                    )}
-                  </Field>
-                  {submitError && <div className="error">{submitError}</div>}
-                </form>
-            ) }
-        />
+      <Form
+        onSubmit={this.onSubmit}
+        validate={(values) => this.validateForm(values)}
+        render={({ submitError, handleSubmit }) => (
+          <form
+            className={classNames(styles.form, 'form')}
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
+            <Field name="trustor">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">Trustor</label>
+                  <Input
+                    type="text"
+                    placeholder="G..."
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                    autoFocus
+                  />
+                </div>
+              )}
+            </Field>
+            <Field name="code">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">Assets code</label>
+                  <Input
+                    type="text"
+                    placeholder="BTC"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                  />
+                </div>
+              )}
+            </Field>
+            <Field name="authorize">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">Authorize</label>
+                  <Input
+                    type="number"
+                    placeholder="0 | 1 | 2"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                  />
+                </div>
+              )}
+            </Field>
+            {submitError && <div className="error">{submitError}</div>}
+          </form>
+        )}
+      />
     );
   }
 }
 
-AllowTrustOps.propTypes = {
-};
+AllowTrustOps.propTypes = {};
 
 export default AllowTrustOps;

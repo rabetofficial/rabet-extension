@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import registerUserAction from 'Root/actions/user/register';
@@ -7,13 +7,12 @@ import Logo from 'Root/components/Logo';
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
 import * as route from 'Root/staticRes/routes';
-import {buttonSizes, buttonTypes, inputSize, inputTypes} from 'Root/staticRes/enum';
+import { buttonSizes, buttonTypes, inputSize, inputTypes } from 'Root/staticRes/enum';
 
 import styles from './styles.less';
 
 class ConfirmLogin extends Component {
-
-  onSubmit (values) {
+  onSubmit(values) {
     const errors = {};
 
     if (values.password !== values.confirm) {
@@ -29,12 +28,12 @@ class ConfirmLogin extends Component {
     });
   }
 
-  validateForm (values) {
+  validateForm(values) {
     const errors = {};
     const hasError = {
       password: false,
       confirm: false,
-    }
+    };
 
     if (!values.password) {
       errors.password = null;
@@ -63,58 +62,60 @@ class ConfirmLogin extends Component {
 
   render() {
     return (
-        <div className="pure-g content">
-          <div className="pure-u-1-1">
-            <Logo/>
-            <Form
-              onSubmit={ (values) => this.onSubmit(values) }
-              validate={ (values) => this.validateForm(values) }
-              render={ ({submitError, handleSubmit, submitting, invalid, pristine}) => (
-                <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  <Field name="password">
-                    {({input, meta}) => (
+      <div className="pure-g content">
+        <div className="pure-u-1-1">
+          <Logo />
+          <Form
+            onSubmit={(values) => this.onSubmit(values)}
+            validate={(values) => this.validateForm(values)}
+            render={({ submitError, handleSubmit, submitting, invalid, pristine }) => (
+              <form
+                className={classNames(styles.form, 'form')}
+                onSubmit={handleSubmit}
+                autoComplete="off"
+              >
+                <Field name="password">
+                  {({ input, meta }) => (
                     <Input
                       type="password"
                       placeholder="Password"
-                      size={ inputSize.large }
-                      variant={ inputTypes.passVisible }
-                      input={ input }
-                      meta={ meta }
+                      size={inputSize.large}
+                      variant={inputTypes.passVisible}
+                      input={input}
+                      meta={meta}
                     />
-                    )}
-                  </Field>
-                  <Field name="confirm">
-                    {({input, meta}) => (
+                  )}
+                </Field>
+                <Field name="confirm">
+                  {({ input, meta }) => (
                     <Input
                       type="password"
                       placeholder="Confirm Password"
-                      size={ inputSize.large }
-                      variant={ inputTypes.passVisible }
-                      input={ input }
-                      meta={ meta }
+                      size={inputSize.large}
+                      variant={inputTypes.passVisible}
+                      input={input}
+                      meta={meta}
                     />
-                    )}
-                  </Field>
-                  {submitError && <div className="error">{submitError}</div>}
-                  <Button
-                    type="submit"
-                    variant={ buttonTypes.primary }
-                    size={ buttonSizes.large }
-                    content="Continue"
-                    style={ {marginTop: '32px'} }
-                    disabled={ invalid }
-                  />
-                </form>
-                ) }
-            />
-          </div>
+                  )}
+                </Field>
+                {submitError && <div className="error">{submitError}</div>}
+                <Button
+                  type="submit"
+                  variant={buttonTypes.primary}
+                  size={buttonSizes.large}
+                  content="Continue"
+                  style={{ marginTop: '32px' }}
+                  disabled={invalid}
+                />
+              </form>
+            )}
+          />
         </div>
+      </div>
     );
   }
 }
 
-ConfirmLogin.propTypes = {
-
-};
+ConfirmLogin.propTypes = {};
 
 export default ConfirmLogin;

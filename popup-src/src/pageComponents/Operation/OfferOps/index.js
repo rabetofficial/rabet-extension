@@ -206,7 +206,11 @@ class OfferOps extends Component {
         onSubmit={this.onSubmit}
         validate={(values) => this.validateForm(values)}
         render={({ submitError, handleSubmit, form }) => (
-          <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit}>
+          <form
+            className={classNames(styles.form, 'form')}
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
             <Field name="selling">
               {({ input, meta }) => (
                 <div className="pure-g group">

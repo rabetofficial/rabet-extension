@@ -50,7 +50,7 @@ class Login extends Component {
               });
             }
           }
-        }
+        },
       );
     } else {
       global.chrome.runtime.sendMessage(
@@ -77,7 +77,7 @@ class Login extends Component {
               });
             }
           }
-        }
+        },
       );
     }
   }
@@ -105,7 +105,11 @@ class Login extends Component {
             onSubmit={(values) => this.onSubmit(values)}
             validate={(values) => this.validateForm(values)}
             render={({ handleSubmit, submitting, values, pristine, invalid }) => (
-              <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit}>
+              <form
+                className={classNames(styles.form, 'form')}
+                onSubmit={handleSubmit}
+                autoComplete="off"
+              >
                 <Field name="password">
                   {({ input, meta }) => (
                     <Input

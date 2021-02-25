@@ -1,8 +1,8 @@
 import shortid from 'shortid';
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import {Field, Form} from 'react-final-form';
+import { Field, Form } from 'react-final-form';
 
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
@@ -19,7 +19,12 @@ import Input from 'Root/components/Input';
 
 import styles from './styles.less';
 
-const btnContent = <><span className="icon-plus-math"/>{''}Add Operation</>;
+const btnContent = (
+  <>
+    <span className="icon-plus-math" />
+    {''}Add Operation
+  </>
+);
 
 class Send extends Component {
   constructor(props) {
@@ -55,11 +60,11 @@ class Send extends Component {
     sendAction(this.props.history.push);
   }
 
-  onSubmit (values) {
+  onSubmit(values) {
     console.warn(values);
   }
 
-  async validateForm (values) {
+  async validateForm(values) {
     if (values.memo) {
       if (values.memo.length > 28) {
         addMemoAction({
@@ -81,82 +86,85 @@ class Send extends Component {
 
   render() {
     return (
-        <>
-          <div className={ classNames(styles.page, styles.scroll, 'hidden-scroll') }>
-            <Header/>
+      <>
+        <div className={classNames(styles.page, styles.scroll, 'hidden-scroll')}>
+          <Header />
 
-            <PageTitle title="Operation"/>
+          <PageTitle title="Operation" />
 
-            <div className={ classNames('content', styles.content) }>
-              <Button
-                variant="btn-outlined"
-                size="btn-medium"
-                content={ btnContent }
-                className={ styles.btn }
-                onClick={ this.addOperation }
-              />
+          <div className={classNames('content', styles.content)}>
+            <Button
+              variant="btn-outlined"
+              size="btn-medium"
+              content={btnContent}
+              className={styles.btn}
+              onClick={this.addOperation}
+            />
+          </div>
+
+          <div className="content">
+            {this.state.operations.map((item) => (
+              <div key={item.id}>
+                <Operation
+                  id={item.id}
+                  type={item.type}
+                  state={this.state}
+                  setState={this.setState.bind(this)}
+                />
+              </div>
+            ))}
+
+            <div className={styles.card}>
+              <Card type="card-secondary">
+                <Form
+                  onSubmit={this.onSubmit}
+                  validate={(values) => this.validateForm(values)}
+                  render={({ submitError, handleSubmit }) => (
+                    <form className="form" onSubmit={handleSubmit} autoComplete="off">
+                      <Field name="memo">
+                        {({ input, meta }) => (
+                          <div className="group">
+                            <label className="label-primary">
+                              Memo
+                              <span className="label-optional"> (optional)</span>
+                            </label>
+                            <Input
+                              type="text"
+                              placeholder="Gift"
+                              size="input-medium"
+                              input={input}
+                              meta={meta}
+                            />
+                          </div>
+                        )}
+                      </Field>
+                      {submitError && <div className="error">{submitError}</div>}
+                    </form>
+                  )}
+                />
+              </Card>
             </div>
 
-            <div className="content">
-              {this.state.operations.map((item) => (
-                  <div key={ item.id }>
-                    <Operation
-                      id={item.id}
-                      type={item.type}
-                      state={this.state}
-                      setState={this.setState.bind(this)}
-                    />
-                  </div>
-              ))}
-
-              <div className={styles.card}>
-                <Card type="card-secondary">
-                  <Form
-                      onSubmit={ this.onSubmit }
-                      validate={ (values) => this.validateForm(values) }
-                      render={ ({ submitError, handleSubmit }) => (
-                          <form className="form" onSubmit={ handleSubmit }>
-                            <Field name="memo">
-                              {({input, meta}) => (
-                                  <div className="group">
-                                    <label className="label-primary">Memo
-                                      <span className="label-optional">{' '}(optional)</span>
-                                    </label>
-                                    <Input
-                                        type="text"
-                                        placeholder="Gift"
-                                        size="input-medium"
-                                        input={ input }
-                                        meta={ meta }
-                                    />
-                                  </div>
-                              )}
-                            </Field>
-                            {submitError && <div className="error">{submitError}</div>}
-                          </form>
-                      ) }
-                  />
-                </Card>
-              </div>
-
-              <div className={ classNames('pure-g justify-end', styles.buttons) }>
-                <Button
-                  variant="btn-default"
-                  size="btn-medium"
-                  content="Back"
-                  onClick={() => { this.props.history.push({
+            <div className={classNames('pure-g justify-end', styles.buttons)}>
+              <Button
+                variant="btn-default"
+                size="btn-medium"
+                content="Back"
+                onClick={() => {
+                  this.props.history.push({
                     pathname: route.homePage,
                     state: {
                       alreadyLoaded: true,
                     },
-                  }) }}
-                />
+                  });
+                }}
+              />
 
-                <SendButton />
-              </div>
+              <SendButton />
             </div>
           </div>
-        </>
+        </div>
+      </>
     );
   }
 }

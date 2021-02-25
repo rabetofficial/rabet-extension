@@ -219,7 +219,7 @@ class Setting extends Component {
           </div>
         </div>
 
-        <p className={styles.version}>Version 0.0.1</p>
+        <p className={styles.version}>Version 0.0.2</p>
       </div>
     );
   }

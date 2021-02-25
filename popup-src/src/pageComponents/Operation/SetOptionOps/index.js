@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
@@ -14,11 +14,11 @@ import changeOperationAction from 'Root/actions/operations/change';
 import styles from './styles.less';
 
 class SetOptionOps extends Component {
-  onSubmit (values) {
+  onSubmit(values) {
     console.warn(values);
   }
 
-  async validateForm (values) {
+  async validateForm(values) {
     const { type } = this.props;
 
     const errors = {};
@@ -49,9 +49,7 @@ class SetOptionOps extends Component {
             bumpTo: values.value,
           });
         }
-      }
-
-      else if (type === operationNames.accountMerge) {
+      } else if (type === operationNames.accountMerge) {
         if (values.value && !validateAddress(values.value)) {
           changeOperationAction(this.props.id, {
             checked: false,
@@ -77,9 +75,7 @@ class SetOptionOps extends Component {
             });
           }
         }
-      }
-
-      else if (type === operationNames.setOptionsSetFlags) {
+      } else if (type === operationNames.setOptionsSetFlags) {
         const flagNumber = parseInt(values.value, 10);
 
         if (!validateNumber(values.value)) {
@@ -90,7 +86,6 @@ class SetOptionOps extends Component {
           if (flagNumber < 1 || flagNumber > 7) {
             errors.value = 'Enter a number between 1 and 7';
             hasError.value = true;
-
           } else {
             changeOperationAction(this.props.id, {
               checked: true,
@@ -98,9 +93,7 @@ class SetOptionOps extends Component {
             });
           }
         }
-      }
-
-      else if (type === operationNames.setOptionsInflationDest) {
+      } else if (type === operationNames.setOptionsInflationDest) {
         if (!validateAddress(values.value)) {
           errors.value = 'Invalid destination.';
           hasError.value = true;
@@ -114,9 +107,7 @@ class SetOptionOps extends Component {
             destination: values.value,
           });
         }
-      }
-
-      else if (type === operationNames.setOptionsClearFlags) {
+      } else if (type === operationNames.setOptionsClearFlags) {
         const flagNumber = parseInt(values.value, 10);
 
         if (!validateNumber(values.value)) {
@@ -130,7 +121,6 @@ class SetOptionOps extends Component {
           if (flagNumber < 1 || flagNumber > 7) {
             errors.value = 'Enter a number between 1 and 7';
             hasError.value = true;
-
           } else {
             changeOperationAction(this.props.id, {
               checked: true,
@@ -138,9 +128,7 @@ class SetOptionOps extends Component {
             });
           }
         }
-      }
-
-      else if (type === operationNames.setOptionsHomeDomain) {
+      } else if (type === operationNames.setOptionsHomeDomain) {
         if (!validateDomain(values.value)) {
           errors.value = 'Invalid domain.';
           hasError.value = true;
@@ -154,9 +142,7 @@ class SetOptionOps extends Component {
             homeDomain: values.value,
           });
         }
-      }
-
-      else if (type === operationNames.setOptionsMasterWeight) {
+      } else if (type === operationNames.setOptionsMasterWeight) {
         if (!validateNumber(values.value)) {
           errors.value = null;
           hasError.value = true;
@@ -177,33 +163,40 @@ class SetOptionOps extends Component {
   }
 
   render() {
-    const { label, inputInfo: { type, placeholder } } = this.props;
+    const {
+      label,
+      inputInfo: { type, placeholder },
+    } = this.props;
 
     return (
-        <Form
-          onSubmit={ this.onSubmit }
-          validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit }) => (
-                <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  <Field name="value">
-                    {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">{label}</label>
-                          <Input
-                            type={ type }
-                            placeholder={ placeholder }
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                            autoFocus
-                          />
-                        </div>
-                    )}
-                  </Field>
-                  {submitError && <div className="error">{submitError}</div>}
-                </form>
-            ) }
-        />
+      <Form
+        onSubmit={this.onSubmit}
+        validate={(values) => this.validateForm(values)}
+        render={({ submitError, handleSubmit }) => (
+          <form
+            className={classNames(styles.form, 'form')}
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
+            <Field name="value">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">{label}</label>
+                  <Input
+                    type={type}
+                    placeholder={placeholder}
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                    autoFocus
+                  />
+                </div>
+              )}
+            </Field>
+            {submitError && <div className="error">{submitError}</div>}
+          </form>
+        )}
+      />
     );
   }
 }

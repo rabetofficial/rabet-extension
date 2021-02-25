@@ -253,7 +253,11 @@ class PaymentSendOps extends Component {
         onSubmit={this.onSubmit}
         validate={(values) => this.validateForm(values)}
         render={({ submitError, handleSubmit, form }) => (
-          <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit}>
+          <form
+            className={classNames(styles.form, 'form')}
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
             <Field name="destination">
               {({ input, meta }) => (
                 <div className="group">

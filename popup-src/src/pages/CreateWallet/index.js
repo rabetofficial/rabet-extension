@@ -44,7 +44,7 @@ class CreateWallet extends Component {
             onSubmit={(values) => this.onSubmit(values)}
             validate={(values) => this.validateForm(values)}
             render={({ submitError, handleSubmit, form, pristine }) => (
-              <form className="form" onSubmit={handleSubmit}>
+              <form className="form" onSubmit={handleSubmit} autoComplete="off">
                 <Field name="name">
                   {({ input, meta }) => (
                     <div>

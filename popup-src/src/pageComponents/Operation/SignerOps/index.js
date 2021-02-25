@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'Root/components/Input';
@@ -9,11 +9,11 @@ import changeOperationAction from 'Root/actions/operations/change';
 import styles from './styles.less';
 
 class SignerOps extends Component {
-  onSubmit (values) {
+  onSubmit(values) {
     console.warn(values);
   }
 
-  validateForm (values) {
+  validateForm(values) {
     const errors = {};
     const hasError = {};
 
@@ -57,49 +57,52 @@ class SignerOps extends Component {
 
   render() {
     return (
-        <Form
-          onSubmit={ this.onSubmit }
-          validate={ (values) => this.validateForm(values) }
-          render={ ({submitError, handleSubmit }) => (
-                <form className={ classNames(styles.form, 'form') } onSubmit={ handleSubmit }>
-                  <Field name="signer">
-                    {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">Signer</label>
-                          <Input
-                            type="text"
-                            placeholder="G..."
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                            autoFocus
-                          />
-                        </div>
-                    )}
-                  </Field>
-                  <Field name="weight">
-                    {({input, meta}) => (
-                        <div className="group">
-                          <label className="label-primary">Weight</label>
-                          <Input
-                            type="number"
-                            placeholder="1"
-                            size="input-medium"
-                            input={ input }
-                            meta={ meta }
-                          />
-                        </div>
-                    )}
-                  </Field>
-                  {submitError && <div className="error">{submitError}</div>}
-                </form>
-            ) }
-        />
+      <Form
+        onSubmit={this.onSubmit}
+        validate={(values) => this.validateForm(values)}
+        render={({ submitError, handleSubmit }) => (
+          <form
+            className={classNames(styles.form, 'form')}
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
+            <Field name="signer">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">Signer</label>
+                  <Input
+                    type="text"
+                    placeholder="G..."
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                    autoFocus
+                  />
+                </div>
+              )}
+            </Field>
+            <Field name="weight">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">Weight</label>
+                  <Input
+                    type="number"
+                    placeholder="1"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                  />
+                </div>
+              )}
+            </Field>
+            {submitError && <div className="error">{submitError}</div>}
+          </form>
+        )}
+      />
     );
   }
 }
 
-SignerOps.propTypes = {
-};
+SignerOps.propTypes = {};
 
 export default SignerOps;
