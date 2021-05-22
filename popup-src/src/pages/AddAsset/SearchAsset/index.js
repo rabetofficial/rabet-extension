@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Field, Form } from 'react-final-form';
 import { withRouter } from 'react-router-dom';
 
+import shorter from 'Root/helpers/shorter';
 import config from 'Root/config';
 import Input from 'Root/components/Input';
 import Button from 'Root/components/Button';
@@ -33,15 +34,11 @@ class SearchAsset extends Component {
 
     if (
       selectedList.some(
-        (x) =>
-          x.asset_code === list[index].asset_code &&
-          x.asset_issuer === list[index].asset_issuer,
+        (x) => x.asset_code === list[index].asset_code && x.asset_issuer === list[index].asset_issuer,
       )
     ) {
       const newSelectedList = selectedList.filter(
-        (x) =>
-          x.asset_code !== list[index].asset_code &&
-          x.asset_issuer !== list[index].asset_issuer,
+        (x) => x.asset_code !== list[index].asset_code && x.asset_issuer !== list[index].asset_issuer,
       );
 
       this.setState({
@@ -70,9 +67,7 @@ class SearchAsset extends Component {
 
         for (let i = 0; i < assetList.length; i++) {
           const isOld = currentBalances.some(
-            (x) =>
-              x.asset_code === assetList[i].asset_code &&
-              x.asset_issuer === assetList[i].asset_issuer,
+            (x) => x.asset_code === assetList[i].asset_code && x.asset_issuer === assetList[i].asset_issuer,
           );
 
           if (isOld) {
@@ -117,11 +112,7 @@ class SearchAsset extends Component {
             this.validateForm(values);
           }}
           render={({ handleSubmit, form }) => (
-            <form
-              className={classNames(styles.form, 'form')}
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
+            <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit} autoComplete="off">
               <Field name="token">
                 {({ input, meta }) => (
                   <Input
@@ -145,23 +136,15 @@ class SearchAsset extends Component {
                     aria-disabled={!item.active}
                     onClick={() => item.active && this.setActive(index)}
                     style={{
-                      border:
-                        item.active &&
-                        this.state.selectedList.includes(item) &&
-                        '1px solid black',
+                      border: item.active && this.state.selectedList.includes(item) && '1px solid black',
                     }}
                   >
-                    <div
-                      className={styles.logo}
-                      style={{ backgroundColor: `${item.color}` }}
-                    >
-                      <img
-                        src={`${config.ASSET_SERVER}/uploads/${item.logo}`}
-                        alt="logo"
-                      />
+                    <div className={styles.logo} style={{ backgroundColor: `${item.color}` }}>
+                      <img src={`${item.logo}`} alt="logo" />
                     </div>
                     <h4 className={styles.name}>{item.asset_code}</h4>
-                    <p className={styles.web}>{item.home_domain}</p>
+                    <p className={styles.web}>{item.domain}</p>
+                    &nbsp; <p className={styles.web}>{shorter(item.asset_issuer, 5)}</p>
                   </li>
                 ))}
               </ul>
