@@ -1,35 +1,24 @@
-/* eslint-disable */
-
 const gulp = require('gulp');
 const del = require('del');
 const lint = require('gulp-eslint');
+const process = require('process');
 
-gulp.task('clean', cb => {
-  del.sync([
-    '../interaction/**',
-    '!../interaction',
-  ], {
+const { src, dest, pipe, series } = gulp;
+
+function clean(cb) {
+  del.sync(['../interaction/**', '!../interaction'], {
     force: true,
-    }
-  );
-
+  });
   cb();
-});
+}
 
-gulp.task('copy', gulp.series('clean', (cb) => {
-  gulp.src([
-    'template/**',
-  ])
-  .pipe(gulp.dest('../interaction'));
+function copy(cb) {
+  return src(['template/**']).pipe(dest('../interaction'));
+}
 
-  cb();
-}));
+function linter() {
+  return src(['src/**/*.js', 'src/**/*.jsx']).pipe(lint()).pipe(lint.format());
+}
 
-gulp.task('lint', () =>
-  gulp.src(['src/**/*.js', 'src/**/*.jsx'])
-  .pipe(lint())
-  .pipe(lint.format())
-);
-
-gulp.task('dev', gulp.series('copy'));
-gulp.task('prod', gulp.series('lint', 'copy'));
+exports.dev = series(clean, copy);
+exports.prod = series(lint, clean, copy);

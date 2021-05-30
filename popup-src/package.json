@@ -12,7 +12,7 @@
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
-    "del": "^5.1.0",
+    "del": "^6.0.0",
     "dotenv": "^8.1.0",
     "eslint": "^7.5.0",
     "eslint-plugin-babel": "^5.3.1",
