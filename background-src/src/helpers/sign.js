@@ -1,4 +1,4 @@
-import StellarSdk, { Keypair, Transaction, Networks } from 'stellar-sdk';
+import StellarSdk, { Keypair, Transaction } from 'stellar-sdk';
 
 export default (xdr, network, account) => {
   try {

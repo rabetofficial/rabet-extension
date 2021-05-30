@@ -5,5 +5,5 @@ export const encrypt = (key, text) => {
 };
 
 export const decrypt = (key, text) => {
-  return aes256.decrypt(key, text);  
+  return aes256.decrypt(key, text);
 };

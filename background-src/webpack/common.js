@@ -7,9 +7,9 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   entry: {
-    app: resolve(__dirname, '..', 'src/app.js'),
-    script: resolve(__dirname, '..', 'src/script.js'),
-    background: resolve(__dirname, '..', 'src/background.js'),
+    client_script: resolve(__dirname, '..', 'src/client_script/index.js'),
+    content_script: resolve(__dirname, '..', 'src/content_script/index.js'),
+    background: resolve(__dirname, '..', 'src/background_script/index.js'),
   },
   output: {
     filename: '[name].js',
@@ -23,17 +23,15 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           cacheDirectory: true,
-          presets: [
-            "@babel/preset-env",
-          ],
+          presets: ['@babel/preset-env'],
           plugins: [],
-        }
+        },
       },
     ],
   },
   resolve: {
     alias: {
-      Root: resolve(__dirname, '..' ,'src'),
+      Root: resolve(__dirname, '..', 'src'),
     },
     extensions: ['.js', '.jsx'],
   },

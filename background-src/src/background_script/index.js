@@ -1,13 +1,13 @@
 import 'babel-polyfill';
 import shortid from 'shortid';
 
-import sign from './helpers/sign';
-import setTimer from './helpers/setTimer';
-import { get, set } from './helpers/storage';
-import createWindow from './helpers/createWindow';
-import hasLoggedBefore from './helpers/hasLoggedBefore';
+import sign from '../helpers/sign';
+import setTimer from '../helpers/setTimer';
+import { get, set } from '../helpers/storage';
+import hasLoggedBefore from '../helpers/hasLoggedBefore';
 
 let window;
+
 const sendResponseCollection = {};
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -49,10 +49,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                       if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                         clearInterval(p);
                       }
-                    }
+                    },
                   );
                 }, 100);
-              }
+              },
             );
 
             return;
@@ -106,7 +106,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                   isHostConnected = false;
                 } else {
                   isHostConnected = connectedWebsites.some(
-                    (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`
+                    (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
                   );
                 }
 
@@ -153,10 +153,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                             if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                               clearInterval(p);
                             }
-                          }
+                          },
                         );
                       }, 100);
-                    }
+                    },
                   );
                 }
               });
@@ -219,7 +219,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               isHostConnected = false;
             } else {
               isHostConnected = connectedWebsites.some(
-                (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`
+                (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
               );
             }
 
@@ -296,7 +296,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               isHostConnected = false;
             } else {
               isHostConnected = connectedWebsites.some(
-                (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`
+                (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
               );
             }
 
@@ -411,10 +411,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                       if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                         clearInterval(p);
                       }
-                    }
+                    },
                   );
                 }, 100);
-              }
+              },
             );
 
             return;
@@ -482,10 +482,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                           if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                             clearInterval(p);
                           }
-                        }
+                        },
                       );
                     }, 100);
-                  }
+                  },
                 );
               } else {
                 // When user has accounts and privacyMode is on
@@ -496,7 +496,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     isHostConnected = false;
                   } else {
                     isHostConnected = connectedWebsites.some(
-                      (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`
+                      (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
                     );
                   }
 
@@ -536,10 +536,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                               if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                                 clearInterval(p);
                               }
-                            }
+                            },
                           );
                         }, 100);
-                      }
+                      },
                     );
                   }
                   // When the host is not trusted

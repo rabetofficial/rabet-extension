@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const { resolve } = require('path');
+
 const common = require('./common.js');
 
 module.exports = Object.assign({}, common, {
@@ -13,4 +14,4 @@ module.exports = Object.assign({}, common, {
     }),
   ],
   devtool: 'source-map',
-})
+});
