@@ -58,5 +58,5 @@ background
 !.vscode/extensions.json
 
 interaction
-background
+background/
 popup

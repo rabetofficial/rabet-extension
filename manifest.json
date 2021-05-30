@@ -15,21 +15,16 @@
     "default_icon": "assets/128x128.png",
     "default_popup": "popup/index.html"
   },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["background/script.js"],
+      "js": ["background/content_script.js"],
       "match_about_blank": true,
       "all_frames": true
     }
   ],
-  "web_accessible_resources": [
-    "background/*.*",
-    "interaction/*.*"
-  ],
+  "web_accessible_resources": ["background/*.*", "interaction/*.*"],
   "background": {
     "scripts": ["background/background.js"],
     "persistent": false
