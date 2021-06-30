@@ -1,6 +1,4 @@
-import signEvent from './RABET_EXTENSION_SIGN';
-import loginEvent from './RABET_EXTENSION_LOGIN';
-import connectEvent from './RABET_EXTENSION_CONNECT';
+import createEventListener from './createEventListener';
 
 const s = document.createElement('script');
 
@@ -12,6 +10,21 @@ s.onload = function () {
 
 (document.head || document.documentElement).appendChild(s);
 
-document.addEventListener('RABET_EXTENSION_CONNECT', connectEvent);
-document.addEventListener('RABET_EXTENSION_LOGIN', loginEvent);
-document.addEventListener('RABET_EXTENSION_SIGN', signEvent);
+document.addEventListener(
+  'RABET_EXTENSION_CONNECT',
+  createEventListener(
+    'RABET_EXTENSION_CONNECT',
+    'RABET_EXTENSION_CONNECT_RESPONSE',
+    true,
+  ),
+);
+
+document.addEventListener(
+  'RABET_EXTENSION_LOGIN',
+  createEventListener('RABET_EXTENSION_LOGIN', 'RABET_EXTENSION_LOGIN_RESPONSE', false),
+);
+
+document.addEventListener(
+  'RABET_EXTENSION_SIGN',
+  createEventListener('RABET_EXTENSION_SIGN', 'RABET_EXTENSION_SIGN_RESPONSE', true),
+);
