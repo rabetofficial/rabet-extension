@@ -11,16 +11,18 @@ rabet.connect = () =>
         return;
       }
 
-      if (!e.detail.ok) {
+      const detail = JSON.parse(e.detail);
+
+      if (!detail.ok) {
         reject({
-          error: e.detail.message,
+          error: detail.message,
         });
 
         return;
       }
 
       resolve({
-        ...e.detail.message,
+        ...detail.message,
       });
     });
 
@@ -63,16 +65,18 @@ rabet.sign = (xdr, network) =>
         return;
       }
 
-      if (!e.detail.ok) {
+      const detail = JSON.parse(e.detail);
+
+      if (!detail.ok) {
         reject({
-          error: e.detail.message,
+          error: detail.message,
         });
 
         return;
       }
 
       resolve({
-        ...e.detail.message,
+        ...detail.message,
       });
     });
 

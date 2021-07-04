@@ -106,6 +106,14 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
 
                 // When the host is trusted
                 if (isHostConnected) {
+                  // sendResponse({
+                  //   ok: true,
+                  //   message: {
+                  //     // name: activeAcconut.name,
+                  //     publicKey: activeAcconut.publicKey,
+                  //   },
+                  // });
+
                   sendResponse({
                     ok: true,
                     message: {
@@ -145,10 +153,7 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                             },
                           },
                           function (response) {
-                            if (
-                              response &&
-                              response.type === 'RABET_GENERATED_ID_RECEIVED'
-                            ) {
+                            if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
                               clearInterval(p);
                             }
                           },
