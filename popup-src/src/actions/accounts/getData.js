@@ -3,7 +3,7 @@ import types from 'Root/actions';
 import xlmPrice from 'Root/helpers/xlmPrice';
 import horizonData from 'Root/helpers/horizon/data';
 import operations from 'Root/helpers/horizon/operations';
-import setUsdPrice from 'Root/actions/options/setUsdPrice';
+import setCurrencies from 'Root/actions/options/setCurrencies';
 import transactions from 'Root/helpers/horizon/transactions';
 import toNativePrice from 'Root/helpers/horizon/toNativePrice';
 
@@ -46,7 +46,7 @@ export default async (address) => {
     accountData.maxXLM = (accountData.subentry_count + 2) * 0.5 + 0.005;
   }
 
-  await setUsdPrice();
+  await setCurrencies();
 
   store.dispatch({
     accountData,

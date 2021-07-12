@@ -2,7 +2,6 @@ export default {
   options: {
     LOAD: 'options/LOAD',
     CHANGE: 'options/CHANGE',
-    SET_USD: 'options/SET_USD',
     CHANGE_NETWORK: 'options/CHANGE_NETWORK',
   },
   user: {
@@ -31,4 +30,7 @@ export default {
     REMOVE_OP: 'transaction/REMOVE_OP',
     CHANGE_OP: 'transaction/CHANGE_OP',
   },
-}
+  currencies: {
+    LOAD: 'currencies/LOAD',
+  },
+};

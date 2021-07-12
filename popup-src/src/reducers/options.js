@@ -4,21 +4,21 @@ import types from 'Root/actions';
   Option instance:
 
   {
-    usd: Number,
     network: String,
     explorer: String,
     privacyMode: Boolean,
     autoTimeLocker: String,
+    activeCurrency: String
   }
 
 */
 
 const initialState = {
-  usd: 0,
   privacyMode: true,
   explorer: 'steexp',
   network: 'MAINNET',
   autoTimeLocker: 60,
+  activeCurrency: 'usd',
 };
 
 export default (state = initialState, action) => {
@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.options,
-      }
+      };
     }
 
     case types.options.LOAD: {
@@ -38,13 +38,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         network: action.network,
-      }
-    }
-
-    case types.options.SET_USD: {
-      return {
-        ...state,
-        usd: action.price,
       };
     }
 
@@ -52,4 +45,4 @@ export default (state = initialState, action) => {
       return state;
     }
   }
-}
+};
