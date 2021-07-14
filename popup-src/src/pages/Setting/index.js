@@ -9,10 +9,10 @@ import * as route from 'Root/staticRes/routes';
 import PageTitle from 'Root/components/PageTitle';
 import ToggleSwitch from 'Root/components/ToggleSwitch';
 import changeOptionsAction from 'Root/actions/options/change';
+import Button from 'Root/components/Button';
+import SelectOption from 'Root/components/SelectOption';
 
 import styles from './styles.less';
-import Button from '../../components/Button';
-import SelectOption from '../../components/SelectOption';
 
 const explorerOptions = [
   { value: 'steexp', label: 'Steexp' },
@@ -28,6 +28,17 @@ const timerOptions = [
   { value: 60 * 24 * 30 * 12 * 5, label: 'Never' },
 ];
 
+const currencies = [
+  {value: 'usd', label: 'USD'},
+  {value: 'eur', label: 'EUR'},
+  {value: 'jpy', label: 'JPY'},
+  {value: 'gbp', label: 'GBP'},
+  {value: 'aud', label: 'AUD'},
+  {value: 'cad', label: 'CAD'},
+  {value: 'chf', label: 'CHF'},
+  {value: 'cny', label: 'CNY'},
+];
+
 class Setting extends Component {
   constructor(props) {
     super(props);
@@ -35,12 +46,14 @@ class Setting extends Component {
       checked: true,
       selectedExplorer: {},
       selectedTimer: {},
+      selectedCurrency: currencies[0],
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChecked = this.handleChecked.bind(this);
     this.onChangeTimer = this.onChangeTimer.bind(this);
     this.onChangeNetwork = this.onChangeNetwork.bind(this);
+    this.onChangeCurrency = this.onChangeCurrency.bind(this);
   }
 
   componentDidMount() {
@@ -98,6 +111,10 @@ class Setting extends Component {
 
   onChangeTimer(e) {
     this.setState({ selectedTimer: e });
+  }
+
+  onChangeCurrency(e) {
+    this.setState({ selectedCurrency: e });
   }
 
   handleSubmit() {
@@ -168,6 +185,33 @@ class Setting extends Component {
                   variant="select-outlined"
                   isSearchable={false}
                   defaultValue={this.state.selectedTimer}
+                />
+              </div>
+            </div>
+          </div>
+           {/*currency conversion*/}
+          <div className={classNames('pure-g', styles.div)}>
+            <div className="pure-u-2-5">
+              <h3 className={styles.title}>
+                Currency conversion
+                <Tooltip
+                    trigger="hover"
+                    tooltip="some info"
+                    placement="top"
+                >
+                  <span className="icon-question-mark" />
+                </Tooltip>
+              </h3>
+            </div>
+
+            <div className="pure-u-3-5">
+              <div className={styles.select}>
+                <SelectOption
+                    items={currencies}
+                    onChange={this.onChangeCurrency}
+                    variant="select-outlined"
+                    isSearchable
+                    defaultValue={this.state.selectedCurrency}
                 />
               </div>
             </div>
