@@ -98,6 +98,7 @@ class Login extends Component {
                       variant={inputTypes.passVisible}
                       input={input}
                       meta={meta}
+                      autoFocus
                     />
                   )}
                 </Field>
