@@ -10,6 +10,7 @@ import * as route from 'Root/staticRes/routes';
 import formatCurrency from 'Root/helpers/formatCurrency';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import getAssetsImages from 'Root/helpers/server/getAssetsImages';
+import checkedSrc from 'Root/assets/images/checked.svg';
 
 import stellar from 'Root/assets/images/stellar.png';
 import questionCircle from 'Root/assets/images/question-circle.png';
@@ -74,6 +75,7 @@ class AssetList extends Component {
                     <div className="pure-g">
                       <div className={ styles.value }>{formatCurrency(item.balance)}</div>
                       <div className={ styles.currency }>{item.asset_code}</div>
+                      <img src={checkedSrc} className={styles.checked} alt="icon"/>
                     </div>
                     <div className={styles.cost}>
                       {item.toNative ? '$' : ''}

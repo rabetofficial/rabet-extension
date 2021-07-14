@@ -12,6 +12,7 @@ import * as route from 'Root/staticRes/routes';
 import getAssetsAction from 'Root/helpers/server/getAssets';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import addMultipleAssets from 'Root/actions/operations/addMultipleAssets';
+import checkedSrc from "Root/assets/images/checked.svg";
 
 import styles from './styles.less';
 
@@ -145,6 +146,7 @@ class SearchAsset extends Component {
                     <h4 className={styles.name}>{item.asset_code}</h4>
                     <p className={styles.web}>{item.domain}</p>
                     &nbsp; <p className={styles.web}>{shorter(item.asset_issuer, 5)}</p>
+                    <img src={checkedSrc} className={styles.checked} alt="icon"/>
                   </li>
                 ))}
               </ul>
