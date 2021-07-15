@@ -83,8 +83,8 @@ class SetOptionOps extends Component {
             checked: false,
           });
         } else {
-          if (flagNumber < 1 || flagNumber > 7) {
-            errors.value = 'Enter a number between 1 and 7';
+          if (flagNumber < 1 || flagNumber > 15) {
+            errors.value = 'Enter a number between 1 and 15';
             hasError.value = true;
           } else {
             changeOperationAction(this.props.id, {
@@ -118,8 +118,8 @@ class SetOptionOps extends Component {
             checked: false,
           });
         } else {
-          if (flagNumber < 1 || flagNumber > 7) {
-            errors.value = 'Enter a number between 1 and 7';
+          if (flagNumber < 1 || flagNumber > 15) {
+            errors.value = 'Enter a number between 1 and 15';
             hasError.value = true;
           } else {
             changeOperationAction(this.props.id, {
@@ -173,11 +173,7 @@ class SetOptionOps extends Component {
         onSubmit={this.onSubmit}
         validate={(values) => this.validateForm(values)}
         render={({ submitError, handleSubmit }) => (
-          <form
-            className={classNames(styles.form, 'form')}
-            onSubmit={handleSubmit}
-            autoComplete="off"
-          >
+          <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit} autoComplete="off">
             <Field name="value">
               {({ input, meta }) => (
                 <div className="group">
