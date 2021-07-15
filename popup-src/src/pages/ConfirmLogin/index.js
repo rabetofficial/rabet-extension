@@ -48,7 +48,7 @@ class ConfirmLogin extends Component {
       hasError.confirm = true;
     } else if (values.confirm.length < 8) {
       hasError.confirm = true;
-      errors.password = 'Confirm password must be at least 8 characters.';
+      errors.confirm = 'Confirm password must be at least 8 characters.';
     }
 
     if (!hasError.password && !hasError.confirm) {
