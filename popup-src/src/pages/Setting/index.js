@@ -29,14 +29,14 @@ const timerOptions = [
 ];
 
 const currencies = [
-  {value: 'usd', label: 'USD'},
-  {value: 'eur', label: 'EUR'},
-  {value: 'jpy', label: 'JPY'},
-  {value: 'gbp', label: 'GBP'},
-  {value: 'aud', label: 'AUD'},
-  {value: 'cad', label: 'CAD'},
-  {value: 'chf', label: 'CHF'},
-  {value: 'cny', label: 'CNY'},
+  { value: 'usd', label: 'USD' },
+  { value: 'eur', label: 'EUR' },
+  { value: 'jpy', label: 'JPY' },
+  { value: 'gbp', label: 'GBP' },
+  { value: 'aud', label: 'AUD' },
+  { value: 'cad', label: 'CAD' },
+  { value: 'chf', label: 'CHF' },
+  { value: 'cny', label: 'CNY' },
 ];
 
 class Setting extends Component {
@@ -99,6 +99,12 @@ class Setting extends Component {
     this.setState({
       checked: options.privacyMode,
     });
+
+    if (options.currency) {
+      this.setState({
+        selectedCurrency: { value: options.currency, label: options.currency.toUpperCase() },
+      });
+    }
   }
 
   handleChecked(checked) {
@@ -123,6 +129,7 @@ class Setting extends Component {
         privacyMode: this.state.checked,
         explorer: this.state.selectedExplorer,
         autoTimeLocker: this.state.selectedTimer,
+        currency: this.state.selectedCurrency,
       },
       this.props.history.push,
     );
@@ -189,16 +196,12 @@ class Setting extends Component {
               </div>
             </div>
           </div>
-           {/*currency conversion*/}
+          {/*currency conversion*/}
           <div className={classNames('pure-g', styles.div)}>
             <div className="pure-u-2-5">
               <h3 className={styles.title}>
                 Currency conversion
-                <Tooltip
-                    trigger="hover"
-                    tooltip="some info"
-                    placement="top"
-                >
+                <Tooltip trigger="hover" tooltip="some info" placement="top">
                   <span className="icon-question-mark" />
                 </Tooltip>
               </h3>
@@ -207,11 +210,11 @@ class Setting extends Component {
             <div className="pure-u-3-5">
               <div className={styles.select}>
                 <SelectOption
-                    items={currencies}
-                    onChange={this.onChangeCurrency}
-                    variant="select-outlined"
-                    isSearchable
-                    defaultValue={this.state.selectedCurrency}
+                  items={currencies}
+                  onChange={this.onChangeCurrency}
+                  variant="select-outlined"
+                  isSearchable
+                  defaultValue={this.state.selectedCurrency}
                 />
               </div>
             </div>
@@ -232,10 +235,7 @@ class Setting extends Component {
             </div>
 
             <div className="pure-u-1-3">
-              <ToggleSwitch
-                checked={this.state.checked}
-                handleChange={this.handleChecked}
-              />
+              <ToggleSwitch checked={this.state.checked} handleChange={this.handleChecked} />
             </div>
           </div>
 
@@ -254,12 +254,7 @@ class Setting extends Component {
               }}
             />
 
-            <Button
-              onClick={this.handleSubmit}
-              variant="btn-primary"
-              size="btn-medium"
-              content="Save"
-            />
+            <Button onClick={this.handleSubmit} variant="btn-primary" size="btn-medium" content="Save" />
           </div>
         </div>
 

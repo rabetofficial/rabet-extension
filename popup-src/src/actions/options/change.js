@@ -8,6 +8,7 @@ export default async (options, push) => {
   const explorer = options.explorer.value;
   const privacyMode = options.privacyMode;
   const autoTimeLocker = options.autoTimeLocker.value;
+  const currency = options.currency.value;
 
   store.dispatch({
     type: types.options.CHANGE,
@@ -15,6 +16,7 @@ export default async (options, push) => {
       explorer,
       privacyMode,
       autoTimeLocker,
+      currency,
     },
   });
 
@@ -24,6 +26,6 @@ export default async (options, push) => {
     pathname: route.homePage,
     state: {
       alreadyLoaded: true,
-    }
+    },
   });
 };
