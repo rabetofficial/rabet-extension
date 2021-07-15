@@ -8,7 +8,7 @@ import types from 'Root/actions';
     explorer: String,
     privacyMode: Boolean,
     autoTimeLocker: String,
-    activeCurrency: String
+    currency: String
   }
 
 */
@@ -18,7 +18,7 @@ const initialState = {
   explorer: 'steexp',
   network: 'MAINNET',
   autoTimeLocker: 60,
-  activeCurrency: 'usd',
+  currency: 'usd',
 };
 
 export default (state = initialState, action) => {

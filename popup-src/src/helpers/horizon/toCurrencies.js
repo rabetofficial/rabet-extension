@@ -14,6 +14,7 @@ const xlmPricetoUsd = async () => {
       stellar[key] = {
         value,
         title: currencies[key],
+        currency: key,
       };
     }
 

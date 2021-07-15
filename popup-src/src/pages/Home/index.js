@@ -13,6 +13,7 @@ import LoadingOne from 'Root/pages/LoadingOne';
 import * as route from 'Root/staticRes/routes';
 import DropMenu from 'Root/components/DropMenu';
 import CopyText from 'Root/components/CopyText';
+import showBalance from 'Root/helpers/showBalance';
 import getData from 'Root/actions/accounts/getData';
 import stellar from 'Root/assets/images/stellar.png';
 import AssetList from 'Root/pageComponents/AssetList';
@@ -80,10 +81,22 @@ class Home extends Component {
   }
 
   render() {
+    const { options, currencies } = this.props;
+    const activeCurrency = currencies[options.currency];
+
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
     let transactions = activeAccount.operations || [];
     let balances = activeAccount.balances || [];
+
+    const totalBalance = balances.reduce((sum, item) => {
+      const nextValue =
+        item.asset_type === 'native'
+          ? Number.parseFloat(item.balance, 10) * activeCurrency.value
+          : (1 / Number.parseFloat(item.toNative, 10)) * activeCurrency.value * Number.parseFloat(item.balance, 10)
+      
+      return sum + nextValue;
+    }, 0);
 
     const nativeIndex = balances.findIndex((x) => x.asset_type === 'native');
 
@@ -96,19 +109,12 @@ class Home extends Component {
       {
         id: '1',
         tabTitle: 'Assets',
-        tabContent: (
-          <AssetList items={balances} maxHeight={this.state.editName ? 205 : 214} />
-        ),
+        tabContent: <AssetList items={balances} maxHeight={this.state.editName ? 205 : 214} />,
       },
       {
         id: '2',
         tabTitle: 'Transactions',
-        tabContent: (
-          <TransactionList
-            items={transactions}
-            maxHeight={this.state.editName ? 215 : 221}
-          />
-        ),
+        tabContent: <TransactionList items={transactions} maxHeight={this.state.editName ? 215 : 221} />,
       },
     ];
 
@@ -151,10 +157,9 @@ class Home extends Component {
               <p className={styles.value}>{formatCurrency(activeAccount.balance)}</p>
             </div>
             <div className="pure-u-1-2">
-              <h6 className={styles.subject}>Total (USD)</h6>
+              <h6 className={styles.subject}>Total ({activeCurrency.currency.toUpperCase()})</h6>
               <p className={styles.value}>
-                <span>$</span>
-                {formatCurrency(activeAccount.usd)}
+                {showBalance(formatCurrency(totalBalance), activeCurrency.currency)}
               </p>
             </div>
           </div>
@@ -178,9 +183,7 @@ class Home extends Component {
                       <div className={styles.field}>
                         <Field
                           name="name"
-                          initialValue={
-                            activeAccount.name || `Account ${activeAccountIndex + 1}`
-                          }
+                          initialValue={activeAccount.name || `Account ${activeAccountIndex + 1}`}
                         >
                           {({ input, meta }) => (
                             <Input
@@ -214,10 +217,7 @@ class Home extends Component {
               )}
               <label className="label-secondary">Address</label>
               <p className={styles.info}>
-                <CopyText
-                  text={activeAccount.publicKey}
-                  button={shorter(activeAccount.publicKey, 8)}
-                />
+                <CopyText text={activeAccount.publicKey} button={shorter(activeAccount.publicKey, 8)} />
               </p>
             </div>
             <div className="pure-u-1-12">
@@ -259,5 +259,7 @@ class Home extends Component {
 export default withRouter(
   connect((state) => ({
     accounts: state.accounts,
+    options: state.options,
+    currencies: state.currencies,
   }))(Home),
 );
