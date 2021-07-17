@@ -53,7 +53,7 @@ class ConfirmLogin extends Component {
 
     if (!hasError.password && !hasError.confirm) {
       if (values.password !== values.confirm) {
-        errors.password = 'Passwords do not match.';
+        errors.confirm = 'Passwords do not match.';
       }
     }
 

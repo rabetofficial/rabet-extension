@@ -82,7 +82,7 @@ class Home extends Component {
 
   render() {
     const { options, currencies } = this.props;
-    const activeCurrency = currencies[options.currency];
+    const activeCurrency = currencies[options.currency] || { value: 0, currency: 'usd' };
 
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 

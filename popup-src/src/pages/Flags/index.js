@@ -18,7 +18,7 @@ const tooltipInfo = {
   required: 'Requires the issuing account to give other accounts permission before they can hold the issuing account’s credit.',
   revocable: 'Allows the issuing account to revoke its credit held by other accounts.',
   immutable: 'If this is set then none of the authorization flags can be changed and the account can never be deleted.',
-  clawback: 'some information',
+  clawback: 'Enables clawbacks for all assets issued by this account. Note that this only applies along trustlines established after this flag has been set. Requires authorization revocable.',
 };
 
 
@@ -31,20 +31,20 @@ class Flags extends Component {
       auth_required: false,
       auth_revocable: false,
       auth_immutable: false,
-      clawback_enable: false,
+      auth_clawback_enabled: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCheckedRequired = this.handleCheckedRequired.bind(this);
     this.handleCheckedRevocable = this.handleCheckedRevocable.bind(this);
     this.handleCheckedImmutable = this.handleCheckedImmutable.bind(this);
-    this.handleClawback = this.handleClawback.bind(this);
+    this.handleClawbackEnabled = this.handleClawbackEnabled.bind(this);
   }
 
   handleCheckedRequired(checked) { this.setState({ auth_required: checked }); }
   handleCheckedRevocable(checked) { this.setState({ auth_revocable: checked }); }
   handleCheckedImmutable(checked) { this.setState({ auth_immutable: checked }); }
-  handleClawback(checked) { this.setState({ clawback_enable: checked }); }
+  handleClawbackEnabled(checked) { this.setState({ auth_clawback_enabled: checked }); }
 
   componentDidMount() {
     const { activeAccount } = currentActiveAccount();
@@ -59,11 +59,12 @@ class Flags extends Component {
       auth_required: activeAccount.flags.auth_required || false,
       auth_revocable: activeAccount.flags.auth_revocable || false,
       auth_immutable: activeAccount.flags.auth_immutable || false,
+      auth_clawback_enabled: activeAccount.flags.auth_clawback_enabled || false,
     });
   }
 
   handleSubmit() {
-    if (this.state.auth_immutable) {
+    if (this.state.auth_immutable || (this.state.auth_clawback_enabled && !this.state.auth_revocable)) {
       this.props.history.push({
         pathname: route.confirmFlagPage,
         state: {
@@ -156,8 +157,8 @@ class Flags extends Component {
               <div className="pure-u-1-3">
                 <ToggleSwitch
                     disabled={this.state.disabled}
-                    checked={ this.state.clawback_enable }
-                    handleChange={ this.handleClawback }
+                    checked={this.state.auth_clawback_enabled}
+                    handleChange={this.handleClawbackEnabled}
                 />
               </div>
 

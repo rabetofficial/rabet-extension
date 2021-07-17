@@ -18,20 +18,47 @@ class ConfirmFlag extends Component {
   }
 
   handleSubmit() {
-    setFlagsAction(this.props.location.state, this.props.history.push);
+    const flags = {
+      ...this.props.location.state,
+    };
+
+    if (flags.auth_clawback_enabled && !flags.auth_revocable) {
+      flags.auth_revocable = true;
+    }
+
+    setFlagsAction(flags, this.props.history.push);
   }
 
   render() {
+    const { auth_revocable, auth_immutable, auth_clawback_enabled } = this.props.location.state;
+
     return (
         <>
           <Header />
           <PageTitle title="Flags" />
 
           <div className="content" style={{marginTop: '24px'}}>
-            <Alert type="alert-warning" text="Are you sure you want to activate Immutable Flag?" icon="" />
-            <p className={styles.message}>
-              If this is set then none of the authorization flags can be changed and the account can never be deleted.
-            </p>
+            {auth_immutable
+              ? (
+                <>
+                  <Alert type="alert-warning" text="Are you sure you want to activate Immutable Flag?" icon="" />
+                  <p className={styles.message}>
+                    If this is set then none of the authorization flags can be changed and the account can never be deleted.
+                  </p>
+                </>
+              )
+              : ''
+            }
+
+            {auth_clawback_enabled && !auth_revocable
+              ? (
+                <>
+                  <Alert type="alert-warning" text="Clawback enabled requires authorization revocable. Are you sure you want to activate revocable?" icon="" />
+                </>
+              )
+              : ''
+            }
+
             <div className={ classNames('pure-g justify-end', styles.buttons) }>
               <Button
                   variant="btn-default"
