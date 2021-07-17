@@ -1,9 +1,7 @@
+import currencySymbols from 'Root/staticRes/currencySymbols';
+
 export default (balance, c) => {
   const currency = c.toUpperCase();
 
-  if (currency === 'USD') {
-    return `$${balance}`;
-  }
-
-  return `${balance} ${currency}`;
+  return `${currencySymbols[currency]} ${balance}`;
 }
