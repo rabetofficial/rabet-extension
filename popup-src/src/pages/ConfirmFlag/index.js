@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Alert from 'Root/components/Alert';
@@ -7,6 +7,7 @@ import Button from 'Root/components/Button';
 import Header from 'Root/components/Header';
 import PageTitle from 'Root/components/PageTitle';
 import setFlagsAction from 'Root/actions/operations/setFlags';
+import currentActiveAccount from 'Root/helpers/activeAccount';
 
 import styles from './styles.less';
 
@@ -18,19 +19,29 @@ class ConfirmFlag extends Component {
   }
 
   handleSubmit() {
+    const { activeAccount } = currentActiveAccount();
+
+    const isAuthClawbackEnabledAlreadyEnabled = activeAccount.flags.auth_clawback_enabled;
+
     const flags = {
       ...this.props.location.state,
     };
 
-    if (flags.auth_clawback_enabled && !flags.auth_revocable) {
+    if (flags.auth_clawback_enabled && !flags.auth_revocable && !isAuthClawbackEnabledAlreadyEnabled) {
       flags.auth_revocable = true;
+    } else if (flags.auth_clawback_enabled && !flags.auth_revocable && isAuthClawbackEnabledAlreadyEnabled) {
+      flags.auth_revocable = false;
+      flags.auth_clawback_enabled = false;
     }
 
     setFlagsAction(flags, this.props.history.push);
   }
 
   render() {
+    const { activeAccount } = currentActiveAccount();
     const { auth_revocable, auth_immutable, auth_clawback_enabled } = this.props.location.state;
+
+    const isAuthClawbackEnabledAlreadyEnabled = activeAccount.flags.auth_clawback_enabled;
 
     return (
         <>
@@ -50,10 +61,19 @@ class ConfirmFlag extends Component {
               : ''
             }
 
-            {auth_clawback_enabled && !auth_revocable
+            {auth_clawback_enabled && !auth_revocable && !isAuthClawbackEnabledAlreadyEnabled
               ? (
                 <>
                   <Alert type="alert-warning" text="Clawback enabled requires authorization revocable. Are you sure you want to activate revocable?" icon="" />
+                </>
+              )
+              : ''
+            }
+
+            {auth_clawback_enabled && !auth_revocable && isAuthClawbackEnabledAlreadyEnabled
+              ? (
+                <>
+                  <Alert type="alert-warning" text="Disabling authorization revocable disables clawback enabled as well. Are you sure you want to deactivate both?" icon="" />
                 </>
               )
               : ''

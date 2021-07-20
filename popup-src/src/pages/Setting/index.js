@@ -11,6 +11,7 @@ import ToggleSwitch from 'Root/components/ToggleSwitch';
 import changeOptionsAction from 'Root/actions/options/change';
 import Button from 'Root/components/Button';
 import SelectOption from 'Root/components/SelectOption';
+import * as currenciesModule from 'Root/staticRes/currencies';
 
 import styles from './styles.less';
 
@@ -28,16 +29,13 @@ const timerOptions = [
   { value: 60 * 24 * 30 * 12 * 5, label: 'Never' },
 ];
 
-const currencies = [
-  { value: 'usd', label: 'USD' },
-  { value: 'eur', label: 'EUR' },
-  { value: 'jpy', label: 'JPY' },
-  { value: 'gbp', label: 'GBP' },
-  { value: 'aud', label: 'AUD' },
-  { value: 'cad', label: 'CAD' },
-  { value: 'chf', label: 'CHF' },
-  { value: 'cny', label: 'CNY' },
-];
+let currencies = Object.values(currenciesModule);
+
+currencies = currencies.map(x => ({
+  ...x,
+  value: x.name,
+  label: x.name,
+}))
 
 class Setting extends Component {
   constructor(props) {

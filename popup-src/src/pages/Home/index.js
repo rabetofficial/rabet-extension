@@ -157,9 +157,9 @@ class Home extends Component {
               <p className={styles.value}>{formatCurrency(activeAccount.balance)}</p>
             </div>
             <div className="pure-u-1-2">
-              <h6 className={styles.subject}>Total ({activeCurrency.currency.toUpperCase()})</h6>
+              <h6 className={styles.subject}>Total ({activeCurrency.name})</h6>
               <p className={styles.value}>
-                {showBalance(formatCurrency(totalBalance), activeCurrency.currency)}
+                {showBalance(formatCurrency(totalBalance), activeCurrency.name)}
               </p>
             </div>
           </div>

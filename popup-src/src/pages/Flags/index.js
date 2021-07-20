@@ -87,7 +87,7 @@ class Flags extends Component {
 
           <div className="content">
             <h6 className={ styles.title }>
-              Currently, there are three flags, used by issuers of assets.
+              Currently, there are 4 flags, used by issuers of assets.
               in below you can see your flags status:
             </h6>
 

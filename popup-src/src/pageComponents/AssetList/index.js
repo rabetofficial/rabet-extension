@@ -95,7 +95,7 @@ class AssetList extends Component {
                     <img src={checkedSrc} className={styles.checked} alt="icon" />
                   </div>
                   <div className={styles.cost}>
-                    {showBalance(formatCurrency(value), activeCurrency.currency)}
+                    {showBalance(formatCurrency(value), activeCurrency.name)}
                   </div>
                 </div>
               </div>
