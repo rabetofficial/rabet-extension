@@ -45,3 +45,9 @@ export const CNY = {
   symbol: '¥',
   name: 'CNY',
 };
+
+export const CHF = {
+  title: 'CHF - Swiss franc',
+  symbol: '₽',
+  name: 'CHF',
+};
