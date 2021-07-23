@@ -18,7 +18,7 @@ const initialState = {
   explorer: 'steexp',
   network: 'MAINNET',
   autoTimeLocker: 60,
-  currency: 'usd',
+  currency: 'USD',
 };
 
 export default (state = initialState, action) => {
