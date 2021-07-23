@@ -144,9 +144,12 @@ class SearchAsset extends Component {
                       <img src={`${item.logo}`} alt="logo" />
                     </div>
                     <h4 className={styles.name}>{item.asset_code}</h4>
-                    <p className={styles.web}>{item.domain}</p>
+                    {/* <p className={styles.web}>{item.domain}</p> */}
                     &nbsp; <p className={styles.web}>{shorter(item.asset_issuer, 5)}</p>
-                    <img src={checkedSrc} className={styles.checked} alt="icon"/>
+                    {item.is_verified == '1'
+                      ? <img src={checkedSrc} className={styles.checked} alt="icon"/>
+                      : ''
+                    } 
                   </li>
                 ))}
               </ul>

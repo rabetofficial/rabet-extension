@@ -8,6 +8,8 @@ export default async (asset) => {
       (res) => res.json(),
     );
 
+    console.log(assets)
+
     return assets.data;
   } catch (e) {
     return [];

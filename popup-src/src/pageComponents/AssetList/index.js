@@ -27,6 +27,7 @@ class AssetList extends Component {
     };
 
     this.handleAssetImage = this.handleAssetImage.bind(this);
+    this.isAssetVerified = this.isAssetVerified.bind(this);
   }
 
   handleAssetImage(item) {
@@ -34,15 +35,27 @@ class AssetList extends Component {
       return stellar;
     }
 
-    const assetImage = this.state.assets.find(
-      (x) => x.asset_code === item.asset_code && x.asset_issuer === item.asset_issuer,
+    const assetImage = this.state.assets.find(x => 
+      x.asset_code === item.asset_code && x.asset_issuer === item.asset_issuer,
     );
 
-    if (assetImage) {
-      return `${config.ASSET_SERVER}/uploads/${assetImage.logo}`;
+    if (assetImage && assetImage.logo) {
+      return assetImage.logo;
     }
 
     return questionCircle;
+  }
+
+  isAssetVerified(item) {
+    const assetImage = this.state.assets.find(x => 
+      x.asset_code === item.asset_code && x.asset_issuer === item.asset_issuer,
+    );
+
+    if (!assetImage) {
+      return false
+    }
+
+    return assetImage.is_verified == '1';
   }
 
   componentDidMount() {
@@ -92,7 +105,10 @@ class AssetList extends Component {
                   <div className="pure-g">
                     <div className={styles.value}>{formatCurrency(item.balance)}</div>
                     <div className={styles.currency}>{item.asset_code}</div>
-                    <img src={checkedSrc} className={styles.checked} alt="icon" />
+                    {this.isAssetVerified(item)
+                      ? <img src={checkedSrc} className={styles.checked} alt="icon" />
+                      : ''
+                    }
                   </div>
                   <div className={styles.cost}>
                     {showBalance(formatCurrency(value), activeCurrency.name)}

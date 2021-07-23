@@ -7,18 +7,14 @@ export default async (assets) => {
     return [];
   }
 
+  const assetsMapped = assets.map(x => x.asset_code)
+  const assetsStr = assetsMapped.join(',');
+
   try {
-    const assetsDetails = await fetch(`${config.ASSET_SERVER}/v1/image-assets`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        assets,
-      }),
-    })
+    const assetsDetails = await fetch(`${config.ASSET_SERVER}/assets/image?assets=${assetsStr}`)
     .then(res => res.json())
+
+    console.log(assetsDetails)
 
     return assetsDetails.assets.filter(x => x !== null);
   } catch (e) {
