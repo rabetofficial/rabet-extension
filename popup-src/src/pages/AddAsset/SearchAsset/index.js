@@ -13,6 +13,7 @@ import getAssetsAction from 'Root/helpers/server/getAssets';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import addMultipleAssets from 'Root/actions/operations/addMultipleAssets';
 import checkedSrc from "Root/assets/images/checked.svg";
+import questionSrc from 'Root/assets/images/question-circle.png';
 
 import styles from './styles.less';
 
@@ -141,11 +142,11 @@ class SearchAsset extends Component {
                     }}
                   >
                     <div className={styles.logo} style={{ backgroundColor: `${item.color}` }}>
-                      <img src={`${item.logo}`} alt="logo" />
+                      {item.logo ? <img src={`${item.logo}`} alt="logo" /> : <img src={questionSrc} alt="icon"/> }
                     </div>
                     <h4 className={styles.name}>{item.asset_code}</h4>
                     {/* <p className={styles.web}>{item.domain}</p> */}
-                    &nbsp; <p className={styles.web}>{shorter(item.asset_issuer, 5)}</p>
+                    &nbsp; <p className={styles.web}>{item.domain ? item.domain : '-'}</p>
                     {item.is_verified == '1'
                       ? <img src={checkedSrc} className={styles.checked} alt="icon"/>
                       : ''
