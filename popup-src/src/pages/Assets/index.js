@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, {Component} from 'react';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
@@ -58,7 +58,10 @@ class Assets extends Component {
     const assetInfo = [
       { title: 'Assets code', value: asset.asset_code },
       { title: 'Issuer', value: asset.asset_issuer },
-      { title: 'Website', value: this.state.homeDomain },
+      {
+        title: 'Website',
+        value: this.state.homeDomain && <a href={`https://${this.state.homeDomain}`} target="_blank" rel="noreferrer">{this.state.homeDomain}</a>
+      },
     ];
 
     const deleteBtn = <><span className="icon-trash" />{''}Delete</>;
