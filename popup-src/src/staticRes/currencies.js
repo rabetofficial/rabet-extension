@@ -46,8 +46,8 @@ export const CNY = {
   name: 'CNY',
 };
 
-export const CHF = {
-  title: 'CHF - Swiss franc',
-  symbol: '₽',
-  name: 'CHF',
-};
+// export const CHF = {
+//   title: 'CHF - Swiss franc',
+//   symbol: '₽',
+//   name: 'CHF',
+// };

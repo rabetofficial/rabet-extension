@@ -1,4 +1,5 @@
 const configs = {
+  VERSION: '0.0.3',
   INTERVAL_TIME_SECONDS: 3,
   ASSET_SERVER: 'https://assets.rabet.io',
   HORIZON: {

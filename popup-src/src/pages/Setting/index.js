@@ -12,6 +12,7 @@ import changeOptionsAction from 'Root/actions/options/change';
 import Button from 'Root/components/Button';
 import SelectOption from 'Root/components/SelectOption';
 import * as currenciesModule from 'Root/staticRes/currencies';
+import config from 'Root/config';
 
 import styles from './styles.less';
 
@@ -256,7 +257,7 @@ class Setting extends Component {
           </div>
         </div>
 
-        <p className={styles.version}>Version 0.0.2</p>
+        <p className={styles.version}>Version {config.VERSION}</p>
       </div>
     );
   }
