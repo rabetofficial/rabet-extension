@@ -21,4 +21,4 @@ function linter() {
 }
 
 exports.dev = series(clean, copy);
-exports.prod = series(lint, clean, copy);
+exports.prod = series(clean, copy);
