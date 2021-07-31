@@ -17,12 +17,14 @@ const xlmPricetoUsd = async () => {
     const stellar = {};
 
     for (const [key, value] of Object.entries(priceDetail.stellar)) {
-      const k = key.toUpperCase();
+      if (key) {
+        const k = key.toUpperCase();
 
-      stellar[k] = {
-        ...currencies[k],
-        value,
-      };
+        stellar[k] = {
+          ...currencies[k],
+          value,
+        };
+      }
     }
 
     // console.log(stellar)
