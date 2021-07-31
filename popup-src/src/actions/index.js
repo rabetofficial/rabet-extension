@@ -2,6 +2,7 @@ export default {
   options: {
     LOAD: 'options/LOAD',
     CHANGE: 'options/CHANGE',
+    FIX_USD: 'options/FIX_USD',
     CHANGE_NETWORK: 'options/CHANGE_NETWORK',
   },
   user: {

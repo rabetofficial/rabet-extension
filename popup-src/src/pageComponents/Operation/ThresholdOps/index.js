@@ -9,7 +9,7 @@ import styles from './styles.less';
 
 class ThresholdOps extends Component {
   onSubmit(values) {
-    console.warn(values);
+    // console.warn(values);
   }
 
   validateForm(values) {

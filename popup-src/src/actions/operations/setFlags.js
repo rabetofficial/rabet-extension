@@ -43,7 +43,7 @@ export default async ({ auth_required, auth_revocable, auth_immutable, auth_claw
 
   let transaction;
 
-  console.log(StellarSdk.AuthImmutableFlag, StellarSdk.AuthRevocableFlag, StellarSdk.AuthClawbackEnabledFlag)
+  // console.log(StellarSdk.AuthImmutableFlag, StellarSdk.AuthRevocableFlag, StellarSdk.AuthClawbackEnabledFlag)
 
   server
     .loadAccount(sourceKeys.publicKey())

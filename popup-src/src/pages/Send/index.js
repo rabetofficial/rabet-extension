@@ -61,7 +61,7 @@ class Send extends Component {
   }
 
   onSubmit(values) {
-    console.warn(values);
+    // console.warn(values);
   }
 
   async validateForm(values) {

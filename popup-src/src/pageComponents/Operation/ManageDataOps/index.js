@@ -9,7 +9,7 @@ import styles from './styles.less';
 
 class ManageDataOps extends Component {
   onSubmit(values) {
-    console.warn(values);
+    // console.warn(values);
   }
 
   validateForm(values) {

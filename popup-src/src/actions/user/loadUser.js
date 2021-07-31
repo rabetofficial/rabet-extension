@@ -15,6 +15,10 @@ export default async () => {
       });
     }
 
+    store.dispatch({
+      type: types.options.FIX_USD,
+    });
+
     if (data) {
       store.dispatch({
         registered: true,

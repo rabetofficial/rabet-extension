@@ -8,7 +8,7 @@ export default async (asset) => {
       (res) => res.json(),
     );
 
-    console.log(assets)
+    // console.log(assets)
 
     return assets.data;
   } catch (e) {

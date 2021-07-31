@@ -15,7 +15,7 @@ import styles from './styles.less';
 
 class SetOptionOps extends Component {
   onSubmit(values) {
-    console.warn(values);
+    // console.warn(values);
   }
 
   async validateForm(values) {

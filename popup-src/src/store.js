@@ -6,6 +6,6 @@ import reducers from './reducers';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
-window.store = store;
+// window.store = store;
 
 export default store;

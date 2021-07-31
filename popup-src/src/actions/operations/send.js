@@ -330,7 +330,7 @@ export default async (push) => {
       });
     })
     .catch((err) => {
-      console.log(JSON.stringify(err, null, 2));
+      // console.log(JSON.stringify(err, null, 2));
       push({
         pathname: route.errorPage,
         state: { message: err.message },

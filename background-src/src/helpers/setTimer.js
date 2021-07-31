@@ -22,6 +22,5 @@ export default async (password) => {
       set('timer', object);
     })
   } catch (e) {
-    console.log('error saving timer');
   }
 };

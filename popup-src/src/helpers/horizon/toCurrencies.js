@@ -25,7 +25,7 @@ const xlmPricetoUsd = async () => {
       };
     }
 
-    console.log(stellar)
+    // console.log(stellar)
 
     return stellar;
   } catch (e) {

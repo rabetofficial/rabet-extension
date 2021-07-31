@@ -30,6 +30,17 @@ export default (state = initialState, action) => {
       };
     }
 
+    case types.options.FIX_USD: {
+      if (state.currency === 'usd') {
+        return {
+          ...state,
+          currency: 'USD',
+        };
+      }
+
+      return state;
+    }
+
     case types.options.LOAD: {
       return action.options;
     }

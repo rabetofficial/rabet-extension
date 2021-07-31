@@ -25,7 +25,7 @@ class AllowTrustOps extends Component {
   }
 
   onSubmit(values) {
-    console.warn(values);
+    // console.warn(values);
   }
 
   validateForm(values) {
