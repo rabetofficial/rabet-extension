@@ -1,5 +1,6 @@
 export default async () => new Promise((resolve, reject) => {
   global.chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    console.log(message);
     if (message.type === 'RABET_GENERATED_ID') {
       global.sessionStorage.setItem('page', message.page);
       global.sessionStorage.setItem('host', message.detail.host);

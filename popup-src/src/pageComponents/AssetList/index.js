@@ -72,7 +72,7 @@ class AssetList extends Component {
   render() {
     const { items, maxHeight, options, currencies } = this.props;
 
-    const activeCurrency = currencies[options.currency];
+    const activeCurrency = currencies[options.currency] || { value: 0, currency: 'USD' };
 
     return (
       <ul className={classNames(styles.list, 'hidden-scroll')} style={{ maxHeight: `${maxHeight}px` }}>
