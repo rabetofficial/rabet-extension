@@ -39,7 +39,9 @@ class Login extends Component {
             network: global.sessionStorage.getItem('network'),
           },
         },
-        (response) => {
+        (rp) => {
+          const response = JSON.parse(rp);
+
           if (response.ok) {
             sessionStorage.setItem('accountPublicKey', response.message.publicKey);
             this.props.history.push('/confirm');
@@ -64,7 +66,9 @@ class Login extends Component {
             title: global.sessionStorage.getItem('title'),
           },
         },
-        (response) => {
+        (rp) => {
+          const response = JSON.parse(rp);
+
           if (response.ok) {
             sessionStorage.setItem('accountName', response.message.name);
             sessionStorage.setItem('accountPublicKey', response.message.publicKey);
