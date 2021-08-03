@@ -15,7 +15,7 @@
     "default_icon": "assets/128x128.png",
     "default_popup": "popup/index.html"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "tabs"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

@@ -36,6 +36,10 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
               },
               function (newWindow) {
                 resolve(newWindow);
+
+                setTimeout(() => {
+                  chrome.windows.remove(newWindow.id)
+                }, 30000)
                 const generatedId = shortid.generate();
                 sendResponseCollection[generatedId] = sendResponse;
 
@@ -105,6 +109,10 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                   },
                   function (newWindow) {
                     resolve(newWindow);
+
+                    setTimeout(() => {
+                      chrome.windows.remove(newWindow.id)
+                    }, 30000)
                     const generatedId = shortid.generate();
                     sendResponseCollection[generatedId] = sendResponse;
 
@@ -162,6 +170,11 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                       },
                       function (newWindow) {
                         resolve(newWindow);
+
+                        setTimeout(() => {
+                          chrome.windows.remove(newWindow.id)
+                        }, 30000)
+
                         const generatedId = shortid.generate();
                         sendResponseCollection[generatedId] = sendResponse;
 
@@ -188,6 +201,7 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                               ) {
                                 clearInterval(p);
                               }
+                              
                             },
                           );
                         }, 100);

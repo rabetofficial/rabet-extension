@@ -6,6 +6,7 @@ rabet.connect = () =>
       new CustomEvent('RABET_EXTENSION_CONNECT', {
         detail: {
           host: window.location.host || 'test.org',
+          href: window.location.href,
           title: document.title,
         },
       }),

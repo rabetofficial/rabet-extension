@@ -15,7 +15,6 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
         .then((hasLogged) => {
           // When the user has not logged before
           if (!hasLogged) {
-            console.log(message)
             chrome.windows.create(
               {
                 type: 'popup',
@@ -27,6 +26,9 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
               },
               function (newWindow) {
                 resolve(newWindow);
+                setTimeout(() => {
+                  chrome.windows.remove(newWindow.id)
+                }, 30000)
 
                 const generatedId = shortid.generate();
                 sendResponseCollection[generatedId] = sendResponse;
@@ -136,6 +138,10 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                     },
                     function (newWindow) {
                       resolve(newWindow);
+
+                      setTimeout(() => {
+                        chrome.windows.remove(newWindow.id)
+                      }, 30000)
 
                       const generatedId = shortid.generate();
                       sendResponseCollection[generatedId] = sendResponse;
