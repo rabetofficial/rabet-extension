@@ -5,7 +5,9 @@ export default (type, responseType, isDetail) => {
         type,
         detail: isDetail ? e.detail : e,
       },
-      (response) => {
+      (res) => {      
+        const response = JSON.parse(res);
+
         document.dispatchEvent(
           new CustomEvent(responseType, {
             detail: response,

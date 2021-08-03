@@ -15,6 +15,7 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
         .then((hasLogged) => {
           // When the user has not logged before
           if (!hasLogged) {
+            console.log(message)
             chrome.windows.create(
               {
                 type: 'popup',

@@ -2,16 +2,25 @@ const rabet = {};
 
 rabet.connect = () =>
   new Promise((resolve, reject) => {
+    document.dispatchEvent(
+      new CustomEvent('RABET_EXTENSION_CONNECT', {
+        detail: {
+          host: window.location.host || 'test.org',
+          title: document.title,
+        },
+      }),
+    );
+
     document.addEventListener('RABET_EXTENSION_CONNECT_RESPONSE', function (e) {
-      if (!e.detail) {
+      const { detail } = e;
+
+      if (!detail) {
         reject({
           error: 'no-message-received',
         });
 
         return;
       }
-
-      const detail = JSON.parse(e.detail);
 
       if (!detail.ok) {
         reject({
@@ -25,21 +34,21 @@ rabet.connect = () =>
         ...detail.message,
       });
     });
-
-    setTimeout(() => {
-      document.dispatchEvent(
-        new CustomEvent('RABET_EXTENSION_CONNECT', {
-          detail: {
-            host: window.location.host || 'test.org',
-            title: document.title,
-          },
-        }),
-      );
-    }, 200);
   });
 
 rabet.sign = (xdr, network) =>
   new Promise((resolve, reject) => {
+    document.dispatchEvent(
+      new CustomEvent('RABET_EXTENSION_SIGN', {
+        detail: {
+          xdr,
+          network,
+          host: window.location.host || 'test.org',
+          title: document.title,
+        },
+      }),
+    );
+
     if (!xdr) {
       reject({
         error: 'No XDR',
@@ -57,7 +66,9 @@ rabet.sign = (xdr, network) =>
     }
 
     document.addEventListener('RABET_EXTENSION_SIGN_RESPONSE', function (e) {
-      if (!e.detail) {
+      const { detail } = e;
+
+      if (!detail) {
         reject({
           error: 'no-message-received',
         });
@@ -65,7 +76,7 @@ rabet.sign = (xdr, network) =>
         return;
       }
 
-      const detail = JSON.parse(e.detail);
+      // const detail = JSON.parse(e.detail);
 
       if (!detail.ok) {
         reject({
@@ -79,19 +90,6 @@ rabet.sign = (xdr, network) =>
         ...detail.message,
       });
     });
-
-    setTimeout(() => {
-      document.dispatchEvent(
-        new CustomEvent('RABET_EXTENSION_SIGN', {
-          detail: {
-            xdr,
-            network,
-            host: window.location.host || 'test.org',
-            title: document.title,
-          },
-        }),
-      );
-    }, 200);
   });
 
 window.rabet = rabet;

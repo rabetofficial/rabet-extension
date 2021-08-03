@@ -34,5 +34,12 @@ chrome.runtime.onMessage.addListener((message, sender, send) => {
     RABET_EXTENSION_SIGN_XDR_RESPONSE(message, sender, sendResponse, sendResponseCollection, window);
   }
 
+  chrome.windows.onRemoved.addListener((wIndex) => {
+    if (wIndex === window.id) {
+      sendResponse({ ok: false, message: 'user-rejected' });
+    }
+  })
+
   return true;
 });
+
