@@ -29,6 +29,7 @@ import AccountManager from './AccountManager';
 import SuccessfulSubmission from './SuccessfulSubmission';
 import ConfirmFlag from './ConfirmFlag';
 import XLMAsset from "./XLMAsset";
+import DeleteAccount from "./DeleteAccount";
 
 class App extends Component {
   // constructor(props) {
@@ -78,6 +79,7 @@ class App extends Component {
             <Route exact path={ route.createWalletPage } component={ CreateWallet } />
             <Route exact path={ route.restoreWalletPage } component={ RestoreWallet } />
             <Route exact path={ route.loadingOverlayPage } component={ LoadingOverlay } />
+            <Route exact path={ route.deleteAccountPage } component={ DeleteAccount } />
           </Switch>
         </div>
       </Router>

@@ -23,3 +23,4 @@ export const loadingOnePage = '/loading-one';
 export const loadingOverlayPage = '/loading-overlay';
 export const accountManagerPage = '/account-manager';
 export const loadingNetworkPage = '/loading-network';
+export const deleteAccountPage = '/delete-account';
