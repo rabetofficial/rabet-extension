@@ -126,7 +126,7 @@ class Home extends Component {
     const dropMenuItems = [
       {
         label: 'Expand view',
-        icon: <img src={expandSrc} width={16} height={16} alt="icon" />,
+        icon: <img src={expandSrc} alt="icon" />,
         onClick: '',
       },
       {
