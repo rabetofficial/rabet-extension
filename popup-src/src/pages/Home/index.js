@@ -25,6 +25,7 @@ import TransactionList from 'Root/pageComponents/TransactionList';
 import { ShowPrivateKeyPage, flagPage } from 'Root/staticRes/routes';
 import { buttonSizes, buttonTypes, inputSize } from 'Root/staticRes/enum';
 import penSrc from "Root/assets/images/pen-edit.svg"
+import removeAccountAction from '../../actions/accounts/remove';
 
 import styles from './styles.less';
 
@@ -132,6 +133,13 @@ class Home extends Component {
         icon: 'icon-flag',
         onClick: () => {
           this.props.history.push(flagPage);
+        },
+      },
+      {
+        label: 'DELETE ACC',
+        icon: 'icon-flag',
+        onClick: () => {
+          removeAccountAction(activeAccount.publicKey, this.props.history.push);
         },
       },
     ];

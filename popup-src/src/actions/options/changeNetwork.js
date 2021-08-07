@@ -8,8 +8,6 @@ import storeOptions from './store';
 import getData from '../accounts/getData';
 
 export default async (network, push) => {
-  const { activeAccount } = currentActiveAccount();
-
   push(route.loadingOnePage);
 
   store.dispatch({
@@ -17,11 +15,17 @@ export default async (network, push) => {
     network: network.value,
   });
 
-  await updateBalances();
+  const { activeAccount } = currentActiveAccount();
 
-  await getData(activeAccount.publicKey);
+  if (activeAccount) {
+    await updateBalances();
 
-  await storeOptions();
-
-  push(route.homePage);
+    await getData(activeAccount.publicKey);
+  
+    await storeOptions();
+  
+    push(route.homePage);
+  } else {
+    push(route.firstPage);
+  }
 };

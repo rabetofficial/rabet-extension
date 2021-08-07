@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
     }
 
     case types.accounts.REMOVE: {
-      return state;
+      return state.filter(x => x.publicKey !== action.publicKey);
     }
 
     case types.accounts.CHANGE_NAME: {
