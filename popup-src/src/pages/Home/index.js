@@ -124,11 +124,11 @@ class Home extends Component {
     ];
 
     const dropMenuItems = [
-      {
-        label: 'Expand view',
-        icon: <img src={expandSrc} alt="icon" />,
-        onClick: '',
-      },
+      // {
+      //   label: 'Expand view',
+      //   icon: <img src={expandSrc} alt="icon" />,
+      //   onClick: '',
+      // },
       {
         label: 'Show private key',
         icon: 'icon-key',
@@ -210,6 +210,7 @@ class Home extends Component {
                               style={{ width: '137px', marginTop: '0' }}
                               input={input}
                               meta={meta}
+                              autoFocus
                             />
                           )}
                         </Field>
