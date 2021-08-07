@@ -25,6 +25,7 @@ import TransactionList from 'Root/pageComponents/TransactionList';
 import { ShowPrivateKeyPage, flagPage } from 'Root/staticRes/routes';
 import { buttonSizes, buttonTypes, inputSize } from 'Root/staticRes/enum';
 import penSrc from "Root/assets/images/pen-edit.svg"
+import removeAccountAction from '../../actions/accounts/remove';
 import trashSrc from "Root/assets/images/trash-delete.svg";
 import worldSrc from "Root/assets/images/world.svg";
 import expandSrc from "Root/assets/images/expand.svg";
@@ -148,10 +149,11 @@ class Home extends Component {
         onClick: '',
       },
       {
-        label: 'Delete account',
-        icon: <img src={trashSrc} alt="icon" />,
-        onClick: '',
-        className: styles.delete
+        label: 'DELETE ACC',
+        icon: 'icon-flag',
+        onClick: () => {
+          removeAccountAction(activeAccount.publicKey, this.props.history.push);
+        },
       },
     ];
 
