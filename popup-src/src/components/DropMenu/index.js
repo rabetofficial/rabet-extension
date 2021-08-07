@@ -14,10 +14,12 @@ const DropMenu = ({children, width, items}) => {
         <div className={ `menu ${active ? 'expanded' : 'collapsed'} ` } style={ {width: active && `${width}px`} }>
           <ul>
             {items.map((i,index) => (
-                <li key={ index } onClick={ () => {i.onClick();toggle();} }>
-                    <span>
-                      <i className={ i.icon } />
-                    </span>
+                <li className={i.className} key={ index } onClick={ () => {i.onClick();toggle();} }>
+                    <>
+                      {typeof i.icon === "string" ?
+                       <i className={ i.icon } /> : i.icon
+                      }
+                    </>
                   <span className="label">{i.label}</span>
                 </li>
             ))}

@@ -25,6 +25,9 @@ import TransactionList from 'Root/pageComponents/TransactionList';
 import { ShowPrivateKeyPage, flagPage } from 'Root/staticRes/routes';
 import { buttonSizes, buttonTypes, inputSize } from 'Root/staticRes/enum';
 import penSrc from "Root/assets/images/pen-edit.svg"
+import trashSrc from "Root/assets/images/trash-delete.svg";
+import worldSrc from "Root/assets/images/world.svg";
+import expandSrc from "Root/assets/images/expand.svg";
 
 import styles from './styles.less';
 
@@ -121,6 +124,11 @@ class Home extends Component {
 
     const dropMenuItems = [
       {
+        label: 'Expand view',
+        icon: <img src={expandSrc} width={16} height={16} alt="icon" />,
+        onClick: '',
+      },
+      {
         label: 'Show private key',
         icon: 'icon-key',
         onClick: () => {
@@ -132,7 +140,18 @@ class Home extends Component {
         icon: 'icon-flag',
         onClick: () => {
           this.props.history.push(flagPage);
-        },
+        }
+      },
+      {
+        label: 'Connected sites',
+        icon: <img src={worldSrc} alt="icon" />,
+        onClick: '',
+      },
+      {
+        label: 'Delete account',
+        icon: <img src={trashSrc} alt="icon" />,
+        onClick: '',
+        className: styles.delete
       },
     ];
 
