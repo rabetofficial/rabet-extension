@@ -24,6 +24,7 @@ import changeNameAction from 'Root/actions/accounts/changeName';
 import TransactionList from 'Root/pageComponents/TransactionList';
 import { ShowPrivateKeyPage, flagPage } from 'Root/staticRes/routes';
 import { buttonSizes, buttonTypes, inputSize } from 'Root/staticRes/enum';
+import penSrc from "Root/assets/images/pen-edit.svg"
 
 import styles from './styles.less';
 
@@ -120,11 +121,6 @@ class Home extends Component {
 
     const dropMenuItems = [
       {
-        label: 'Edit name',
-        icon: 'icon-edit',
-        onClick: this.toggleEdit,
-      },
-      {
         label: 'Show private key',
         icon: 'icon-key',
         onClick: () => {
@@ -213,6 +209,7 @@ class Home extends Component {
                       ? activeAccount.name
                       : activeAccount.name.substr(0, 13).concat('...'))) ||
                     `Account ${activeAccountIndex + 1}`}
+                  <span className={styles.edit} onClick={this.toggleEdit}><img src={penSrc} alt="icon"/></span>
                 </p>
               )}
               <label className="label-secondary">Address</label>
