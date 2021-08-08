@@ -30,6 +30,7 @@ import SuccessfulSubmission from './SuccessfulSubmission';
 import ConfirmFlag from './ConfirmFlag';
 import XLMAsset from "./XLMAsset";
 import DeleteAccount from "./DeleteAccount";
+import ConnectedWebsite from "./ConnectedWebsite";
 
 class App extends Component {
   // constructor(props) {
@@ -80,6 +81,7 @@ class App extends Component {
             <Route exact path={ route.restoreWalletPage } component={ RestoreWallet } />
             <Route exact path={ route.loadingOverlayPage } component={ LoadingOverlay } />
             <Route exact path={ route.deleteAccountPage } component={ DeleteAccount } />
+            <Route exact path={ route.connectedWebsitePage } component={ ConnectedWebsite } />
           </Switch>
         </div>
       </Router>
