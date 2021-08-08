@@ -14,6 +14,8 @@ const removeAccount = async (publicKey, push) => {
 
     if (accounts.length) {
         changeActive(accounts[0].publicKey);
+
+        push(route.homePage);
     } else {
         push(route.firstPage);
 

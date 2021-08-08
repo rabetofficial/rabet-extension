@@ -9,6 +9,7 @@ import lockAction from 'Root/actions/accounts/lock';
 import PopupList from 'Root/pageComponents/PopupList';
 import formatCurrency from 'Root/helpers/formatCurrency';
 import changeActiveAction from 'Root/actions/accounts/changeActive';
+import numberWithCommas from 'Root/helpers/numberWithCommas';
 
 import styles from './styles.less';
 
@@ -34,7 +35,7 @@ const PopupSearch = props => {
       realPublicKey: item.publicKey,
       publicKey: shorter(item.publicKey, 8),
       name: item.name || `Account ${index + 1}`,
-      balance: formatCurrency(item.balance || 0),
+      balance: numberWithCommas(formatCurrency(item.balance || 0)),
     }));
     setAccounts(items);
     let list = items;

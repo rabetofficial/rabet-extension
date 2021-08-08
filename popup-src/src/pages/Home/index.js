@@ -22,10 +22,7 @@ import currentActiveAccount from 'Root/helpers/activeAccount';
 import changeNameAction from 'Root/actions/accounts/changeName';
 import TransactionList from 'Root/pageComponents/TransactionList';
 import { buttonSizes, buttonTypes, inputSize } from 'Root/staticRes/enum';
-import penSrc from "Root/assets/images/pen-edit.svg"
-import trashSrc from "Root/assets/images/trash-delete.svg";
-import worldSrc from "Root/assets/images/world.svg";
-import expandSrc from "Root/assets/images/expand.svg";
+import numberWithCommas from 'Root/helpers/numberWithCommas';
 import {
   ShowPrivateKeyPage,
   flagPage,
@@ -34,6 +31,11 @@ import {
   connectedWebsitePage,
   deleteAccountPage,
 } from 'Root/staticRes/routes';
+
+import penSrc from "Root/assets/images/pen-edit.svg"
+import worldSrc from "Root/assets/images/world.svg";
+import expandSrc from "Root/assets/images/expand.svg";
+import trashSrc from "Root/assets/images/trash-delete.svg";
 
 import styles from './styles.less';
 
@@ -179,12 +181,12 @@ class Home extends Component {
                 <img className={styles.xlm} src={stellar} alt="xlm" />
                 XLM
               </h6>
-              <p className={styles.value}>{formatCurrency(activeAccount.balance)}</p>
+              <p className={styles.value}>{numberWithCommas(formatCurrency(activeAccount.balance))}</p>
             </div>
             <div className="pure-u-1-2">
               <h6 className={styles.subject}>Total ({activeCurrency.name})</h6>
               <p className={styles.value}>
-                {showBalance(formatCurrency(totalBalance), activeCurrency.name)}
+                {showBalance(numberWithCommas(formatCurrency(totalBalance)), activeCurrency.name)}
               </p>
             </div>
           </div>

@@ -11,6 +11,7 @@ import showBalance from 'Root/helpers/showBalance';
 import formatCurrency from 'Root/helpers/formatCurrency';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import getAssetsImages from 'Root/helpers/server/getAssetsImages';
+import numberWithCommas from 'Root/helpers/numberWithCommas';
 
 import stellar from 'Root/assets/images/stellar.png';
 import checkedSrc from 'Root/assets/images/checked.svg';
@@ -103,7 +104,7 @@ class AssetList extends Component {
 
                 <div style={{ marginLeft: '6px' }}>
                   <div className="pure-g">
-                    <div className={styles.value}>{formatCurrency(item.balance)}</div>
+                    <div className={styles.value}>{numberWithCommas(formatCurrency(item.balance))}</div>
                     <div className={styles.currency}>{item.asset_code}</div>
                     {this.isAssetVerified(item)
                       ? <img src={checkedSrc} className={styles.checked} alt="icon" />
@@ -111,7 +112,7 @@ class AssetList extends Component {
                     }
                   </div>
                   <div className={styles.cost}>
-                    {showBalance(formatCurrency(value), activeCurrency.name)}
+                    {showBalance(numberWithCommas(formatCurrency(value)), activeCurrency.name)}
                   </div>
                 </div>
               </div>
