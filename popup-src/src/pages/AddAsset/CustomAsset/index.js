@@ -20,6 +20,7 @@ class CustomAsset extends Component {
 
   async validateForm(values) {
     const errors = {};
+
     const hasError = {
       code: false,
       issuer: false,
@@ -47,7 +48,6 @@ class CustomAsset extends Component {
 
     if (!hasError.code && !hasError.issuer) {
       const { activeAccount } = currentActiveAccount();
-
       const { balances } = activeAccount;
 
       const findAsset = balances.find(

@@ -9,6 +9,7 @@ export default {
     LOGIN: 'user/LOGIN',
     LOGOUT: 'user/LOGOUT',
     IS_REGISTERED: 'user/IS_REGISTERED',
+    ADD_CONNECTED_WEBSITES: 'user/ADD_CONNECTED_WEBSITES',
   },
   interval: {
     STOP: 'interval/STOP',

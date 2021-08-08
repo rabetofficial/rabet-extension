@@ -10,7 +10,6 @@ import shorter from 'Root/helpers/shorter';
 import Header from 'Root/components/Header';
 import Button from 'Root/components/Button';
 import LoadingOne from 'Root/pages/LoadingOne';
-import * as route from 'Root/staticRes/routes';
 import DropMenu from 'Root/components/DropMenu';
 import CopyText from 'Root/components/CopyText';
 import showBalance from 'Root/helpers/showBalance';
@@ -22,13 +21,19 @@ import intervalAction from 'Root/actions/accounts/interval';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import changeNameAction from 'Root/actions/accounts/changeName';
 import TransactionList from 'Root/pageComponents/TransactionList';
-import { ShowPrivateKeyPage, flagPage } from 'Root/staticRes/routes';
 import { buttonSizes, buttonTypes, inputSize } from 'Root/staticRes/enum';
 import penSrc from "Root/assets/images/pen-edit.svg"
-import removeAccountAction from 'Root/actions/accounts/remove';
 import trashSrc from "Root/assets/images/trash-delete.svg";
 import worldSrc from "Root/assets/images/world.svg";
 import expandSrc from "Root/assets/images/expand.svg";
+import {
+  ShowPrivateKeyPage,
+  flagPage,
+  SendPage,
+  QRCodePage,
+  connectedWebsitePage,
+  deleteAccountPage,
+} from 'Root/staticRes/routes';
 
 import styles from './styles.less';
 
@@ -146,13 +151,15 @@ class Home extends Component {
       {
         label: 'Connected sites',
         icon: <img src={worldSrc} alt="icon" />,
-        onClick: '',
+        onClick: () => {
+          this.props.history.push(connectedWebsitePage);
+        },
       },
       {
         label: 'Delete account',
         icon: <img src={trashSrc} alt="icon" />,
         onClick: () => {
-          removeAccountAction(activeAccount.publicKey, this.props.history.push);
+          this.props.history.push(deleteAccountPage);
         },
         className: styles.delete
       },
@@ -248,7 +255,7 @@ class Home extends Component {
               </DropMenu>
             </div>
             <div className={styles.buttonBox}>
-              <Link to={route.SendPage}>
+              <Link to={SendPage}>
                 <Button
                   size={buttonSizes.small}
                   variant={buttonTypes.primary}
@@ -256,7 +263,7 @@ class Home extends Component {
                   style={{ width: '112px' }}
                 />
               </Link>
-              <Link to={route.QRCodePage}>
+              <Link to={QRCodePage}>
                 <Button
                   size={buttonSizes.small}
                   variant={buttonTypes.outlined}

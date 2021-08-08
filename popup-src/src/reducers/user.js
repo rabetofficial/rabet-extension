@@ -14,6 +14,7 @@ import types from 'Root/actions';
 const initialState = {
   logged: false,
   registered: false,
+  connectedWebsites: [],
 };
 
 export default (state = initialState, action) => {
@@ -38,6 +39,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         registered: action.registered,
+      }
+    }
+
+    case types.user.ADD_CONNECTED_WEBSITES: {
+      return {
+        ...state,
+        connectedWebsites: action.connectedWebsites,
       }
     }
 
