@@ -1,24 +1,25 @@
-import React, {useState} from 'react';
+import shortid from 'shortid';
 import classNames from "classnames";
+import React, {useState} from 'react';
+import { connect } from 'react-redux';
 
 import Header from "Root/components/Header";
 import PageTitle from "Root/components/PageTitle";
+import currentActiveAccount from 'Root/helpers/activeAccount';
+import removeConnectedWebsitesAction from 'Root/actions/user/removeConnectedWebsites';
 
 import styles from "./styles.less";
 
-let websites = [
-    {name: 'Lumenswap.io', link: '/'},
-    {name: 'Stellarterm.com', link: '/'},
-    {name: 'Litemint.com', link: '/'},
-];
+const ConnectedWebsite = (props) => {
+    const { activeAccount } = currentActiveAccount();
+    const { connectedWebsites } = props.user;
+    const associatedWebsites = connectedWebsites.filter(x => x.includes(activeAccount.publicKey));
+    const websitesMapped = associatedWebsites.map(x => x.split('/')[0]);
 
-const ConnectedWebsite = () => {
-    const [data, setData] = useState(websites);
+    const removeConnectedWebsites = (web) => {
+        const cw = `${web}/${activeAccount.publicKey}`;
 
-    const remove = (index) => {
-        const filteredData = [...data];
-        const result = filteredData.filter((web, i) => i !== index);
-        setData(result);
+        removeConnectedWebsitesAction(cw);
     }
 
     return (
@@ -28,10 +29,10 @@ const ConnectedWebsite = () => {
             <div className="content">
                 <p className={styles.desc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod the tempore </p>
                 <div>
-                    {data.map((web, index) => (
-                        <div key={index} className={styles.website}>
-                            <a href={web.link} target="_blank" rel="noreferrer" className={styles.link}>{web.name}</a>
-                            <span className={classNames("icon-multiply", styles.icon)} onClick={() => remove(index)} />
+                    {websitesMapped.map((web, index) => (
+                        <div key={shortid.generate()} className={styles.website}>
+                            <a href="#" rel="noreferrer" className={styles.link}>{web}</a>
+                            <span className={classNames("icon-multiply", styles.icon)} onClick={() => { removeConnectedWebsites(web) }} />
                         </div>
                     ))}
                 </div>
@@ -40,4 +41,6 @@ const ConnectedWebsite = () => {
     );
 };
 
-export default ConnectedWebsite;
+export default connect(store => ({
+    user: store.user,
+}))(ConnectedWebsite);

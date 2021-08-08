@@ -7,9 +7,6 @@ export default async (password) => {
     const data = await get('data', password);
     const connectedWebsites = await get('connectedWebsites');
 
-    console.log(data);
-    console.log(connectedWebsites)
-
     store.dispatch({
       password,
       type: types.user.LOGIN,
@@ -30,9 +27,3 @@ export default async (password) => {
     return false;
   }
 };
-
-/*
-const cw = store.getState().user.connectedWebsites
-const acw = cw.filter(x => x.includes('GBTNAWU7ZFO4O6ERKFDWAQ7Y4K6X3GSQWNMU3UBJLWKNX6YBAEGXGCWQ'));
-acw.map(x => x.split('/')[0]);
-*/

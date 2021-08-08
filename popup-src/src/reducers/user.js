@@ -8,7 +8,6 @@ import types from 'Root/actions';
     logged: Boolean,
     password: String,
   }
-
 */
 
 const initialState = {
@@ -47,6 +46,13 @@ export default (state = initialState, action) => {
         ...state,
         connectedWebsites: action.connectedWebsites,
       }
+    }
+
+    case types.user.REMOVE_CONNECTED_WEBSITES: {
+      return {
+        ...state,
+        connectedWebsites: state.connectedWebsites.filter(x => x !== action.connectedWebsite),
+      };
     }
 
     default: {
