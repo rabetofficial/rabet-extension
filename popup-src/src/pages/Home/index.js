@@ -176,18 +176,11 @@ class Home extends Component {
         <Header />
         <div className={styles.xlmBox}>
           <div className="pure-g">
-            <div className="pure-u-1-2">
-              <h6 className={styles.subject}>
-                <img className={styles.xlm} src={stellar} alt="xlm" />
-                XLM
-              </h6>
-              <p className={styles.value}>{numberWithCommas(formatCurrency(activeAccount.balance))}</p>
-            </div>
-            <div className="pure-u-1-2">
-              <h6 className={styles.subject}>Total ({activeCurrency.name})</h6>
-              <p className={styles.value}>
-                {showBalance(numberWithCommas(formatCurrency(totalBalance)), activeCurrency.name)}
-              </p>
+            <div className="pure-u">
+              <div className={styles.value}>
+                {showBalance(formatCurrency(totalBalance), activeCurrency.name)}
+              </div>
+              <div className={styles.subject}>Total ({activeCurrency.name})</div>
             </div>
           </div>
         </div>
