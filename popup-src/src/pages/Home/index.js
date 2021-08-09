@@ -178,7 +178,7 @@ class Home extends Component {
           <div className="pure-g">
             <div className="pure-u">
               <div className={styles.value}>
-                {showBalance(formatCurrency(totalBalance), activeCurrency.name)}
+                {showBalance(numberWithCommas(formatCurrency(totalBalance)), activeCurrency.name)}
               </div>
               <div className={styles.subject}>Total ({activeCurrency.name})</div>
             </div>
