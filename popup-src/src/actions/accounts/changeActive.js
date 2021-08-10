@@ -1,6 +1,7 @@
 import store from 'Root/store';
 import types from 'Root/actions';
 
+import interval from './interval';
 import storeAccount from './store';
 
 export default async (publicKey) => {
@@ -9,5 +10,9 @@ export default async (publicKey) => {
     type: types.accounts.CHANGE_ACTIVE,
   });
 
+  interval(publicKey);
+
   await storeAccount();
+
+  return true;
 }

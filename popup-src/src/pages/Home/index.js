@@ -60,7 +60,7 @@ class Home extends Component {
         });
       });
 
-      // intervalAction(activeAccount.publicKey);
+      intervalAction(activeAccount.publicKey, true);
     } else {
       this.setState({
         loading: false,

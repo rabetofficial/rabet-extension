@@ -4,6 +4,7 @@ import store from 'Root/store';
 import types from 'Root/actions';
 
 import storeAccount from './store';
+import changeActive from './changeActive';
 
 export default async (privateKey) => {
   let source;
@@ -33,12 +34,7 @@ export default async (privateKey) => {
     account,
   });
 
-  store.dispatch({
-    type: types.accounts.CHANGE_ACTIVE,
-    publicKey: account.publicKey,
-  });
-
-  await storeAccount();
+  changeActive(account.publicKey)
 
   return account;
 };
