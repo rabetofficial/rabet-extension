@@ -38,29 +38,20 @@ class ManageDataOps extends Component {
       }
     }
 
-    if (!values.value) {
-      errors.value = null;
+    if (values.value && values.value.length > 64) {
+      errors.value = 'Enter a value with less than 64 characters.';
       hasError.value = true;
 
       changeOperationAction(this.props.id, {
         checked: false,
       });
-    } else {
-      if (values.value.length > 64) {
-        errors.value = 'Enter a value with less than 64 characters.';
-        hasError.value = true;
-
-        changeOperationAction(this.props.id, {
-          checked: false,
-        });
-      }
     }
 
     if (!hasError.value && !hasError.name) {
       changeOperationAction(this.props.id, {
         checked: true,
         name: values.name,
-        value: values.value,
+        value: values.value || null,
       });
     }
 
@@ -97,7 +88,10 @@ class ManageDataOps extends Component {
             <Field name="value">
               {({ input, meta }) => (
                 <div className="group">
-                  <label className="label-primary">Value</label>
+                  <label className="label-primary">
+                    Value
+                    <span className="label-optional"> (optional)</span>
+                  </label>
                   <Input
                     type="text"
                     placeholder="John"

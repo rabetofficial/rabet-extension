@@ -17,6 +17,7 @@ import currentNetwork from 'Root/helpers/horizon/currentNetwork';
 import pathPaymentStrictSend from 'Root/operations/pathPaymentStrictSend';
 import createPassiveSellOffer from 'Root/operations/createPassiveSellOffer';
 import pathPaymentStrictReceive from 'Root/operations/pathPaymentStrictReceive';
+import showError from '../../helpers/errorMessage';
 
 export default async (push) => {
   push(route.loadingNetworkPage);
@@ -330,10 +331,16 @@ export default async (push) => {
       });
     })
     .catch((err) => {
-      // console.log(JSON.stringify(err, null, 2));
-      push({
-        pathname: route.errorPage,
-        state: { message: err.message },
-      });
+      if (err && err.response && err.response.data) {
+        push({
+          pathname: route.errorPage,
+          state: { message: showError(err.response.data) },
+        });
+      } else {
+        push({
+          pathname: route.errorPage,
+          state: { message: 'One of the operations failed (none were applied).' },
+        });
+      }
     });
 };
