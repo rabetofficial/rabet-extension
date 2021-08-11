@@ -85,7 +85,7 @@ class AssetList extends Component {
           : (1 / Number.parseFloat(item.toNative, 10)) * activeCurrency.value * Number.parseFloat(item.balance, 10)
 
           return (
-            <li key={index} style={{ marginTop: index === 0 && '-18px' }} className={styles.listItem}>
+            <li key={shortid.generate()} style={{ marginTop: index === 0 && '-18px' }} className={styles.listItem}>
             <Link
               to={
                 item.asset_code === 'XLM'
@@ -119,6 +119,36 @@ class AssetList extends Component {
             </Link>
           </li>
           )})}
+          {!items.length
+            ? (
+              <li key={shortid.generate()} style={{ marginTop: '-18px' }} className={styles.listItem}>
+                <Link
+                  to={route.xlmAssetPage}
+                  key={shortid.generate()}
+                >
+                  <div
+                    className={styles.border}
+                  >
+                    <div className={styles.logoContainer}>
+                      <img src={stellar} alt="logo" />
+                    </div>
+    
+                    <div style={{ marginLeft: '6px' }}>
+                      <div className="pure-g">
+                        <div className={styles.value}>0</div>
+                        <div className={styles.currency}>XLM</div>
+                        <img src={checkedSrc} className={styles.checked} alt="icon" />
+                      </div>
+                      <div className={styles.cost}>
+                        INACTIVE
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            )
+            : ''
+          }
       </ul>
     );
   }
