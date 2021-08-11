@@ -3,12 +3,15 @@ import types from '../../actions';
 import changeActive from './changeActive';
 import storeAccount from './store';
 import * as route from 'Root/staticRes/routes';
+import removeAllConnectedWebsites from './removeAllConnectedWebsites';
 
 const removeAccount = async (publicKey, push) => {
     store.dispatch({
         type: types.accounts.REMOVE,
         publicKey,
     });
+
+    removeAllConnectedWebsites(publicKey)
 
     const { accounts } = store.getState();
 

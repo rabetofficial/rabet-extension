@@ -67,8 +67,6 @@ class AssetList extends Component {
       this.setState({
         assets,
       });
-
-      loadAssetImagesAction();
     });
   }
 
