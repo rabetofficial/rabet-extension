@@ -27,7 +27,7 @@ const ConnectedWebsite = (props) => {
             <Header />
             <PageTitle title="Connected website" />
             <div className="content">
-                <p className={styles.desc}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod the tempore </p>
+                <p className={styles.desc}>List of websites that are allowed to interact with this account and get its public-key</p>
                 <div>
                     {websitesMapped.map((web, index) => (
                         <div key={shortid.generate()} className={styles.website}>
