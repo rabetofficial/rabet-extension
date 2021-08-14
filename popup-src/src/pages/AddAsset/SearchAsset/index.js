@@ -34,18 +34,15 @@ class SearchAsset extends Component {
   setActive(index) {
     const { list, selectedList } = this.state;
 
-    if (
-      selectedList.some(
+    if (selectedList.some(
         (x) => x.asset_code === list[index].asset_code && x.asset_issuer === list[index].asset_issuer,
-      )
-    ) {
-      const newSelectedList = selectedList.filter(
-        (x) => x.asset_code !== list[index].asset_code && x.asset_issuer !== list[index].asset_issuer,
-      );
+      )) {
+      const newSelectedList = selectedList.filter((x) => x.asset_issuer !== list[index].asset_issuer);
 
       this.setState({
         selectedList: newSelectedList,
       });
+
     } else {
       this.setState((prevState) => ({
         selectedList: [...prevState.selectedList, list[index]],
@@ -146,7 +143,7 @@ class SearchAsset extends Component {
                     </div>
                     <h4 className={styles.name}>{item.asset_code}</h4>
                     {/* <p className={styles.web}>{item.domain}</p> */}
-                    &nbsp; <p className={styles.web}>{item.domain ? item.domain : '-'}</p>
+                    &nbsp; <p className={styles.web}>{item.domain ? item.domain : '-'} </p>
                     {item.is_verified == '1'
                       ? <img src={checkedSrc} className={styles.checked} alt="icon"/>
                       : ''
