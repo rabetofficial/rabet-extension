@@ -13,7 +13,11 @@ const assetPrice = async (asset) => {
 
     return { ...asset, toNative: assetDetail.bids[0].price };
   } catch(e) {
-    return { ...asset, toNative: 0 };
+    return {
+      ...asset,
+      toNative: 0,
+      asset_code: asset.asset_code || 'XLM',
+    };
   }
 };
 
