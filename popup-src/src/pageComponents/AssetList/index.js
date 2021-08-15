@@ -48,6 +48,10 @@ class AssetList extends Component {
   }
 
   isAssetVerified(item) {
+    if (item.asset_type === 'native') {
+      return true;
+    }
+
     const assetImage = this.state.assets.find(x => 
       x.asset_code === item.asset_code && x.asset_issuer === item.asset_issuer,
     );
