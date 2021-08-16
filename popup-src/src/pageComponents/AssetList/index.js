@@ -72,12 +72,15 @@ class AssetList extends Component {
         assets,
       });
     });
+
   }
 
   render() {
     const { items, maxHeight, options, currencies } = this.props;
 
     const activeCurrency = currencies[options.currency] || { value: 0, currency: 'USD' };
+
+    // console.warn(this.state.assets);
 
     return (
       <ul className={classNames(styles.list, 'hidden-scroll')} style={{ maxHeight: `${maxHeight}px` }}>
@@ -92,7 +95,7 @@ class AssetList extends Component {
             <li key={shortid.generate()} style={{ marginTop: index === 0 && '-18px' }} className={styles.listItem}>
             <Link
               to={
-                item.asset_code === 'XLM'
+                ((item.asset_code === 'XLM') && (item.asset_type === 'native'))
                   ? route.xlmAssetPage
                   : `${route.assetsPage}/${item.asset_code}/${item.asset_issuer}`
               }
