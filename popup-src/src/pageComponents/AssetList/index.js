@@ -80,8 +80,6 @@ class AssetList extends Component {
 
     const activeCurrency = currencies[options.currency] || { value: 0, currency: 'USD' };
 
-    // console.warn(this.state.assets);
-
     return (
       <ul className={classNames(styles.list, 'hidden-scroll')} style={{ maxHeight: `${maxHeight}px` }}>
         <Link to={route.addAssetPage} className={styles.addAsset}>
