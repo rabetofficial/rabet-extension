@@ -1,4 +1,4 @@
-import types from 'Root/actions';
+import types from '../actions';
 
 export default (state = 0, action) => {
   switch (action.type) {
@@ -16,4 +16,4 @@ export default (state = 0, action) => {
       return state;
     }
   }
-}
+};

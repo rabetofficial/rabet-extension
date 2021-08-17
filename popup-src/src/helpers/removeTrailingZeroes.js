@@ -1,3 +1,1 @@
-export default (str) => {
-  return parseFloat(str, 10).toString();
-}
+export default (str) => parseFloat(str, 10).toString();

@@ -1,4 +1,4 @@
-import types from 'Root/actions';
+import types from '../actions';
 
 /*
 

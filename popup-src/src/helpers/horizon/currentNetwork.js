@@ -1,7 +1,7 @@
 import StellarSdk from 'stellar-sdk';
 
-import store from 'Root/store';
-import config from 'Root/config';
+import store from '../../store';
+import config from '../../config';
 
 export default () => {
   const { options } = store.getState();

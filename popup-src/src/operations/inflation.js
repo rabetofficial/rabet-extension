@@ -1,7 +1,5 @@
 import StellarSdk from 'stellar-sdk';
 
-export default ({ source }) => {
-  return StellarSdk.Operation.inflation({
-    source,
-  });
-};
+export default ({ source }) => StellarSdk.Operation.inflation({
+  source,
+});

@@ -1,4 +1,4 @@
-import types from 'Root/actions';
+import types from '../actions';
 
 /*
   Transaction instance:
@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
     case types.transaction.REMOVE_OP: {
       const operations = [...state.operations];
 
-      const newOperations = operations.filter(x => x.id !== action.id);
+      const newOperations = operations.filter((x) => x.id !== action.id);
 
       return {
         ...state,
@@ -51,7 +51,7 @@ export default (state = initialState, action) => {
     case types.transaction.CHANGE_OP: {
       const operations = [...state.operations];
 
-      for (let i = 0; i < operations.length; i++) {
+      for (let i = 0; i < operations.length; i += 1) {
         if (operations[i].id === action.id) {
           operations[i] = {
             ...operations[i],
@@ -89,11 +89,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         memo: action.memo,
-      }
+      };
     }
 
     default: {
       return state;
     }
   }
-}
+};

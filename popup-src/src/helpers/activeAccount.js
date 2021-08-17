@@ -1,4 +1,4 @@
-import store from 'Root/store';
+import store from '../store';
 
 export default () => {
   const { accounts } = store.getState();
@@ -6,7 +6,7 @@ export default () => {
   let activeAccount;
   let activeAccountIndex;
 
-  for (let i = 0; i < accounts.length; ++i) {
+  for (let i = 0; i < accounts.length; i += 1) {
     if (accounts[i].active) {
       activeAccount = accounts[i];
       activeAccountIndex = i;
@@ -16,7 +16,7 @@ export default () => {
 
   if (!activeAccount) {
     activeAccountIndex = 0;
-    activeAccount = accounts[0];
+    [activeAccount] = accounts;
   }
 
   return {

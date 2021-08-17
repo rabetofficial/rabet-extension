@@ -1,4 +1,4 @@
-import { encrypt, decrypt } from 'Root/helpers/crypto';
+import { encrypt, decrypt } from './crypto';
 
 export const get = (key, password) => new Promise((resolve, reject) => {
   chrome.storage.local.get([key], (result) => {

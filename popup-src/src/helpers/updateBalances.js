@@ -1,14 +1,14 @@
 import fetch from 'node-fetch';
 
-import store from 'Root/store';
-import types from 'Root/actions';
+import store from '../store';
+import types from '../actions';
 
 import currentNetwork from './horizon/currentNetwork';
 
 const addressBalance = async (address) => {
   try {
     const addressDetail = await fetch(`${currentNetwork().url}/accounts/${address}`)
-    .then(res => res.json());
+      .then((res) => res.json());
 
     if (addressDetail.status) {
       return {
@@ -17,19 +17,19 @@ const addressBalance = async (address) => {
       };
     }
 
-    const xlm = addressDetail.balances.find(x => x.asset_type === 'native');
+    const xlm = addressDetail.balances.find((x) => x.asset_type === 'native');
 
     if (xlm) {
       return {
         address,
         balance: xlm.balance,
       };
-    } else {
-      return {
-        address,
-        balance: 0,
-      };
     }
+
+    return {
+      address,
+      balance: 0,
+    };
   } catch (e) {
     return {
       address,
@@ -49,7 +49,7 @@ export default async () => {
 
   const balances = await Promise.all(promises);
 
-  for (let i = 0; i < balances.length; i++) {
+  for (let i = 0; i < balances.length; i += 1) {
     store.dispatch({
       type: types.accounts.UPDATE_BALANCE,
       balance: balances[i],

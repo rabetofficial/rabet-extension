@@ -5,14 +5,14 @@ import currentNetwork from './currentNetwork';
 const firstOperation = async (tx) => {
   try {
     const operationDetail = await fetch(`${currentNetwork().url}/transactions/${tx}/operations`)
-      .then(res => res.json());
+      .then((res) => res.json());
 
     if (operationDetail.status) {
       return false;
     }
 
     return operationDetail._embedded.records[0];
-  } catch(e) {
+  } catch (e) {
     return false;
   }
 };

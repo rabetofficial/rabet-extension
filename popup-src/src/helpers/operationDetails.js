@@ -2,7 +2,7 @@ import formatCurrency from './formatCurrency';
 
 function manageOffer(data) {
   if (parseFloat(data.amount) === 0) {
-    return `Delete offer`;
+    return 'Delete offer';
   }
 
   if (data.offer_id === '0') {
@@ -14,14 +14,14 @@ function manageOffer(data) {
 
 function updatePassive(data) {
   if (parseFloat(data.amount) === 0) {
-    return `Delete Passive offer`;
+    return 'Delete Passive offer';
   }
 
   if (data.offer_id === '0') {
-    return `Create Passive offer`;
+    return 'Create Passive offer';
   }
 
-  return `Update Passive offer`;
+  return 'Update Passive offer';
 }
 
 export default function OperationDetails(data) {

@@ -6,4 +6,4 @@ export default (address) => {
   }
 
   return StellarSdk.StrKey.isValidEd25519SecretSeed(address);
-}
+};

@@ -11,17 +11,15 @@ export default ({
   medThreshold,
   highThreshold,
   inflationDest,
-}) => {
-  return StellarSdk.Operation.setOptions({
-    signer,
-    source,
-    setFlags,
-    clearFlags,
-    homeDomain,
-    masterWeight,
-    lowThreshold,
-    medThreshold,
-    highThreshold,
-    inflationDest,
-  });
-};
+}) => StellarSdk.Operation.setOptions({
+  signer,
+  source,
+  setFlags,
+  clearFlags,
+  homeDomain,
+  masterWeight,
+  lowThreshold,
+  medThreshold,
+  highThreshold,
+  inflationDest,
+});

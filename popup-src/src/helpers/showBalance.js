@@ -1,4 +1,4 @@
-import * as currencies from 'Root/staticRes/currencies';
+import * as currencies from '../staticRes/currencies';
 
 export default (balance, c) => {
   let currency = 'USD';
@@ -8,4 +8,4 @@ export default (balance, c) => {
   }
 
   return `${currencies[currency].symbol} ${balance}`;
-}
+};

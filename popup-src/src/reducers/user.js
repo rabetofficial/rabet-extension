@@ -1,4 +1,4 @@
-import types from 'Root/actions';
+import types from '../actions';
 
 /*
   User instance:
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
         ...state,
         logged: true,
         password: action.password,
-      }
+      };
     }
 
     case types.user.LOGOUT: {
@@ -31,27 +31,27 @@ export default (state = initialState, action) => {
         ...state,
         logged: false,
         password: null,
-      }
+      };
     }
 
     case types.user.IS_REGISTERED: {
       return {
         ...state,
         registered: action.registered,
-      }
+      };
     }
 
     case types.user.ADD_CONNECTED_WEBSITES: {
       return {
         ...state,
         connectedWebsites: action.connectedWebsites,
-      }
+      };
     }
 
     case types.user.REMOVE_CONNECTED_WEBSITES: {
       return {
         ...state,
-        connectedWebsites: state.connectedWebsites.filter(x => x !== action.connectedWebsite),
+        connectedWebsites: state.connectedWebsites.filter((x) => x !== action.connectedWebsite),
       };
     }
 
@@ -59,4 +59,4 @@ export default (state = initialState, action) => {
       return state;
     }
   }
-}
+};

@@ -1,11 +1,10 @@
-import store from 'Root/store';
-import config from 'Root/config';
+import store from '../../store';
+import config from '../../config';
 
 export default (transaction) => {
   const { options } = store.getState();
 
   if (options.network === 'MAINNET') {
-
     if (options.explorer === 'steexp') {
       return `${config.STEEXP.mainnet}/tx/${transaction}`;
     }
@@ -17,9 +16,7 @@ export default (transaction) => {
     if (options.explorer === 'lumenscan') {
       return `${config.LUMENSCAN.mainnet}/txns/${transaction}`;
     }
-
   } else {
-
     if (options.explorer === 'steexp') {
       return `${config.STEEXP.testnet}/tx/${transaction}`;
     }
@@ -31,6 +28,7 @@ export default (transaction) => {
     if (options.explorer === 'lumenscan') {
       return `${config.LUMENSCAN.testnet}/txns/${transaction}`;
     }
-
   }
+
+  return `${config.STEEXP.mainnet}/tx/${transaction}`;
 };

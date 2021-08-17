@@ -1,4 +1,4 @@
-import * as operations from 'Root/staticRes/operations';
+import * as operations from '../staticRes/operations';
 
 import removeTrailingZeroes from './removeTrailingZeroes';
 
@@ -45,7 +45,7 @@ export default (operation) => {
       info: [
         {
           title: 'Name',
-          value: operation.name
+          value: operation.name,
         },
         {
           title: 'Value',
@@ -109,7 +109,7 @@ export default (operation) => {
           value: removeTrailingZeroes(operation.limit),
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -132,7 +132,7 @@ export default (operation) => {
           value: operation.high,
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -151,7 +151,7 @@ export default (operation) => {
           value: removeTrailingZeroes(operation.weight),
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -166,7 +166,7 @@ export default (operation) => {
           value: operation.homeDomain,
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -181,7 +181,7 @@ export default (operation) => {
           value: operation.masterWeight,
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -196,7 +196,7 @@ export default (operation) => {
           value: operation.setFlags,
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -211,7 +211,7 @@ export default (operation) => {
           value: operation.clearFlags,
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -226,7 +226,7 @@ export default (operation) => {
           value: operation.destination,
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -249,7 +249,7 @@ export default (operation) => {
           value: `${removeTrailingZeroes(operation.destMin)} ${operation.destAsset.value}`,
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -272,7 +272,7 @@ export default (operation) => {
           value: `${removeTrailingZeroes(operation.destAmount)} ${operation.destAsset.value}`,
         },
       ],
-    }
+    };
 
     return mapper;
   }
@@ -295,27 +295,29 @@ export default (operation) => {
           value: removeTrailingZeroes(operation.offerId),
         },
       ],
-    }
+    };
 
     return mapper;
   }
 
-    // CREATE PASSIVE SELL OFFER
-    if (operation.type === operations.createPassiveSellOffer) {
-      const mapper = {
-        title: 'Manage Passive Offer',
-        info: [
-          {
-            title: 'Selling',
-            value: `${removeTrailingZeroes(operation.selling)} ${operation.sellingAsset.value}`,
-          },
-          {
-            title: 'Buying',
-            value: `${removeTrailingZeroes(operation.buying)} ${operation.buyingAsset.value}`,
-          },
-        ],
-      }
+  // CREATE PASSIVE SELL OFFER
+  if (operation.type === operations.createPassiveSellOffer) {
+    const mapper = {
+      title: 'Manage Passive Offer',
+      info: [
+        {
+          title: 'Selling',
+          value: `${removeTrailingZeroes(operation.selling)} ${operation.sellingAsset.value}`,
+        },
+        {
+          title: 'Buying',
+          value: `${removeTrailingZeroes(operation.buying)} ${operation.buyingAsset.value}`,
+        },
+      ],
+    };
 
-      return mapper;
-    }
+    return mapper;
+  }
+
+  return '';
 };

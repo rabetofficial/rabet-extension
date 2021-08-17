@@ -1,4 +1,4 @@
-import types from 'Root/actions';
+import types from '../actions';
 
 /*
   Accounts instance:
@@ -33,13 +33,13 @@ export default (state = initialState, action) => {
     }
 
     case types.accounts.REMOVE: {
-      return state.filter(x => x.publicKey !== action.publicKey);
+      return state.filter((x) => x.publicKey !== action.publicKey);
     }
 
     case types.accounts.CHANGE_NAME: {
       const accounts = [...state];
 
-      for (let i = 0; i < accounts.length; ++i) {
+      for (let i = 0; i < accounts.length; i += 1) {
         if (accounts[i].publicKey === action.publicKey) {
           accounts[i].name = action.name;
           accounts[i].active = true;
@@ -52,7 +52,7 @@ export default (state = initialState, action) => {
     case types.accounts.CHANGE_ACTIVE: {
       const accounts = [...state];
 
-      for (let i = 0; i < accounts.length; ++i) {
+      for (let i = 0; i < accounts.length; i += 1) {
         if (accounts[i].publicKey === action.publicKey) {
           accounts[i].active = true;
         } else {
@@ -66,7 +66,7 @@ export default (state = initialState, action) => {
     case types.accounts.CHANGE_DATA: {
       const accounts = [...state];
 
-      for (let i = 0; i < accounts.length; ++i) {
+      for (let i = 0; i < accounts.length; i += 1) {
         if (accounts[i].publicKey === action.accountData.address) {
           accounts[i].usd = action.accountData.usd;
           accounts[i].flags = action.accountData.flags;
@@ -86,7 +86,7 @@ export default (state = initialState, action) => {
     case types.accounts.UPDATE_BALANCE: {
       const accounts = [...state];
 
-      for (let i = 0; i < accounts.length; ++i) {
+      for (let i = 0; i < accounts.length; i += 1) {
         if (accounts[i].publicKey === action.balance.address) {
           accounts[i].balance = action.balance.balance;
         }
@@ -99,4 +99,4 @@ export default (state = initialState, action) => {
       return state;
     }
   }
-}
+};

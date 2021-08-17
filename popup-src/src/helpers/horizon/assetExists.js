@@ -5,7 +5,7 @@ import currentNetwork from './currentNetwork';
 export default async ({ code, issuer }) => {
   try {
     const assetDetail = await fetch(`${currentNetwork().url}/assets?asset_code=${code}&asset_issuer=${issuer}`)
-      .then(res => res.json());
+      .then((res) => res.json());
 
     if (assetDetail.status) {
       return false;
@@ -16,7 +16,7 @@ export default async ({ code, issuer }) => {
     }
 
     return true;
-  } catch(e) {
+  } catch (e) {
     return false;
   }
 };
