@@ -1,9 +1,7 @@
 import StellarSdk from 'stellar-sdk';
 
-import store from 'Root/store';
-import types from 'Root/actions';
-
-import storeAccount from './store';
+import types from '../index';
+import store from '../../store';
 import changeActive from './changeActive';
 
 export default async (name) => {

@@ -1,4 +1,4 @@
-import { get } from 'Root/helpers/storage';
+import { get } from '../../helpers/storage';
 
 export default async (password) => {
   try {

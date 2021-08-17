@@ -1,5 +1,5 @@
-import store from 'Root/store';
-import { set } from 'Root/helpers/storage';
+import store from '../../store';
+import { set } from '../../helpers/storage';
 
 export default async () => {
   try {

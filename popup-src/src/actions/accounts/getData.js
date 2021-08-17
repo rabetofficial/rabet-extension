@@ -1,16 +1,16 @@
-import store from 'Root/store';
-import types from 'Root/actions';
-import xlmPrice from 'Root/helpers/xlmPrice';
-import horizonData from 'Root/helpers/horizon/data';
-import operations from 'Root/helpers/horizon/operations';
-import setCurrencies from 'Root/actions/options/setCurrencies';
-import transactions from 'Root/helpers/horizon/transactions';
-import toNativePrice from 'Root/helpers/horizon/toNativePrice';
+import types from '../index';
+import store from '../../store';
+import xlmPrice from '../../helpers/xlmPrice';
+import horizonData from '../../helpers/horizon/data';
+import setCurrencies from '../options/setCurrencies';
+import operations from '../../helpers/horizon/operations';
+import transactions from '../../helpers/horizon/transactions';
+import toNativePrice from '../../helpers/horizon/toNativePrice';
 
 export default async (address) => {
   const data = await horizonData(address);
 
-  let accountData = {
+  const accountData = {
     usd: 0,
     address,
     balance: 0,

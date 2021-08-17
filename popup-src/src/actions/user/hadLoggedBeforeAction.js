@@ -1,5 +1,5 @@
-import { get } from 'Root/helpers/storage';
-import { decrypt } from 'Root/helpers/crypto';
+import { get } from '../../helpers/storage';
+import { decrypt } from '../../helpers/crypto';
 
 export default async () => {
   const timer = await get('timer');

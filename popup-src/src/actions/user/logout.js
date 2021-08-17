@@ -1,5 +1,5 @@
-import store from 'Root/store';
-import types from 'Root/actions';
+import store from '../../store';
+import types from '../index';
 
 export default async () => {
   store.dispatch({
@@ -9,4 +9,4 @@ export default async () => {
   store.dispatch({
     type: types.interval.STOP,
   });
-}
+};

@@ -1,7 +1,6 @@
-import store from 'Root/store';
-import types from 'Root/actions';
-
-import { get } from 'Root/helpers/storage';
+import types from '../index';
+import store from '../../store';
+import { get } from '../../helpers/storage';
 
 export default async () => {
   try {

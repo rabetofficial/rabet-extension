@@ -1,29 +1,29 @@
-import store from 'Root/store';
-import types from '../../actions';
-import changeActive from './changeActive';
+import types from '../index';
+import store from '../../store';
 import storeAccount from './store';
-import * as route from 'Root/staticRes/routes';
+import changeActive from './changeActive';
+import * as route from '../../staticRes/routes';
 import removeAllConnectedWebsites from './removeAllConnectedWebsites';
 
 const removeAccount = async (publicKey, push) => {
-    store.dispatch({
-        type: types.accounts.REMOVE,
-        publicKey,
-    });
+  store.dispatch({
+    type: types.accounts.REMOVE,
+    publicKey,
+  });
 
-    removeAllConnectedWebsites(publicKey)
+  removeAllConnectedWebsites(publicKey);
 
-    const { accounts } = store.getState();
+  const { accounts } = store.getState();
 
-    if (accounts.length) {
-        changeActive(accounts[0].publicKey);
+  if (accounts.length) {
+    changeActive(accounts[0].publicKey);
 
-        push(route.homePage);
-    } else {
-        push(route.firstPage);
+    push(route.homePage);
+  } else {
+    push(route.firstPage);
 
-        await storeAccount();
-    }
+    await storeAccount();
+  }
 };
 
 export default removeAccount;

@@ -1,10 +1,10 @@
 import React from 'react';
 
-import abbr from 'Root/helpers/abbr';
+import abbr from '../../helpers/abbr';
 
-import styles from './styles.less';
+import './styles.less';
 
-const PopupList = ({info}) => {
+const PopupList = ({ info }) => {
   return (
       <div className="popup-item">
         <div className="popup-avatar">{abbr(info.name)}</div>
@@ -21,8 +21,6 @@ const PopupList = ({info}) => {
   );
 };
 
-PopupList.propTypes = {
-
-};
+PopupList.propTypes = {};
 
 export default PopupList;

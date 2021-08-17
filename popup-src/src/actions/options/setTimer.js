@@ -1,6 +1,6 @@
-import store from 'Root/store';
-import { set } from 'Root/helpers/storage';
-import { encrypt } from 'Root/helpers/crypto';
+import store from '../../store';
+import { set } from '../../helpers/storage';
+import { encrypt } from '../../helpers/crypto';
 
 export default async () => {
   const { password } = store.getState().user;
@@ -8,7 +8,7 @@ export default async () => {
 
   const date = new Date();
 
-  date.setMinutes( date.getMinutes() + autoTimeLocker );
+  date.setMinutes(date.getMinutes() + autoTimeLocker);
 
   const object = {
     date: +date,

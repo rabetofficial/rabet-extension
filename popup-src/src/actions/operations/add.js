@@ -1,7 +1,7 @@
 import shortid from 'shortid';
 
-import store from 'Root/store';
-import types from 'Root/actions';
+import types from '../index';
+import store from '../../store';
 
 export default async (id = shortid.generate()) => {
   const operation = {

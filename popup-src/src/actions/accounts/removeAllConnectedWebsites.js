@@ -1,16 +1,16 @@
-import store from 'Root/store';
-import types from 'Root/actions';
-import { set } from 'Root/helpers/storage';
+import types from '../index';
+import store from '../../store';
+import { set } from '../../helpers/storage';
 
 export default async (publicKey) => {
-    const { connectedWebsites } = store.getState().user;
+  const { connectedWebsites } = store.getState().user;
 
-    const filtered = connectedWebsites.filter(x => !x.includes(publicKey));
+  const filtered = connectedWebsites.filter((x) => !x.includes(publicKey));
 
-    store.dispatch({
-        type: types.user.ADD_CONNECTED_WEBSITES,
-        connectedWebsites: filtered,
-      });
+  store.dispatch({
+    type: types.user.ADD_CONNECTED_WEBSITES,
+    connectedWebsites: filtered,
+  });
 
-    await set('connectedWebsites', filtered);
+  await set('connectedWebsites', filtered);
 };

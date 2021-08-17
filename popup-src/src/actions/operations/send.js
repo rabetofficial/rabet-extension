@@ -1,23 +1,23 @@
 import StellarSdk from 'stellar-sdk';
 
-import store from 'Root/store';
-import payment from 'Root/operations/payment';
-import * as route from 'Root/staticRes/routes';
-import allowTrust from 'Root/operations/allowTrust';
-import manageData from 'Root/operations/manageData';
-import codeToIssuer from 'Root/helpers/codeToIssuer';
-import changeTrust from 'Root/operations/changeTrust';
-import accountMerge from 'Root/operations/accountMerge';
-import bumpSequence from 'Root/operations/bumpSequence';
-import createAccount from 'Root/operations/createAccount';
-import manageBuyOffer from 'Root/operations/manageBuyOffer';
-import * as operationsName from 'Root/staticRes/operations';
-import currentActiveAccount from 'Root/helpers/activeAccount';
-import currentNetwork from 'Root/helpers/horizon/currentNetwork';
-import pathPaymentStrictSend from 'Root/operations/pathPaymentStrictSend';
-import createPassiveSellOffer from 'Root/operations/createPassiveSellOffer';
-import pathPaymentStrictReceive from 'Root/operations/pathPaymentStrictReceive';
+import store from '../../store';
 import showError from '../../helpers/errorMessage';
+import payment from '../../operations/payment';
+import * as route from '../../staticRes/routes';
+import allowTrust from '../../operations/allowTrust';
+import manageData from '../../operations/manageData';
+import codeToIssuer from '../../helpers/codeToIssuer';
+import changeTrust from '../../operations/changeTrust';
+import accountMerge from '../../operations/accountMerge';
+import bumpSequence from '../../operations/bumpSequence';
+import createAccount from '../../operations/createAccount';
+import manageBuyOffer from '../../operations/manageBuyOffer';
+import * as operationsName from '../../staticRes/operations';
+import currentActiveAccount from '../../helpers/activeAccount';
+import currentNetwork from '../../helpers/horizon/currentNetwork';
+import pathPaymentStrictSend from '../../operations/pathPaymentStrictSend';
+import createPassiveSellOffer from '../../operations/createPassiveSellOffer';
+import pathPaymentStrictReceive from '../../operations/pathPaymentStrictReceive';
 
 export default async (push) => {
   push(route.loadingNetworkPage);
@@ -29,7 +29,7 @@ export default async (push) => {
     return;
   }
 
-  for (let i = 0; i < operations.length; i++) {
+  for (let i = 0; i < operations.length; i += 1) {
     if (!operations[i].checked) {
       // ERROR! Fix invalid parameters and try again.
       return;
@@ -52,7 +52,7 @@ export default async (push) => {
         networkPassphrase: passphrase,
       });
 
-      for (let i = 0; i < operations.length; i++) {
+      for (let i = 0; i < operations.length; i += 1) {
         if (operations[i].type === operationsName.payment) {
           let { asset } = operations[i];
 
@@ -192,8 +192,8 @@ export default async (push) => {
               price: {
                 n: 1 * 10 ** 7,
                 d: Math.round(
-                  (Number(operations[i].buying) / Number(operations[i].selling)) *
-                    10 ** 7,
+                  (Number(operations[i].buying) / Number(operations[i].selling))
+                  * 10 ** 7,
                 ),
               },
               offerId: operations[i].offerId,
@@ -229,8 +229,8 @@ export default async (push) => {
               price: {
                 n: 1 * 10 ** 7,
                 d: Math.round(
-                  (Number(operations[i].selling) / Number(operations[i].buying)) *
-                    10 ** 7,
+                  (Number(operations[i].selling) / Number(operations[i].buying))
+                  * 10 ** 7,
                 ),
               },
             }),

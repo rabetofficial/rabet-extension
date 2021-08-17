@@ -1,8 +1,8 @@
-import store from 'Root/store';
-import types from 'Root/actions';
-import * as route from 'Root/staticRes/routes';
-import updateBalances from 'Root/helpers/updateBalances';
-import currentActiveAccount from 'Root/helpers/activeAccount';
+import types from '../index';
+import store from '../../store';
+import * as route from '../../staticRes/routes';
+import updateBalances from '../../helpers/updateBalances';
+import currentActiveAccount from '../../helpers/activeAccount';
 
 import storeOptions from './store';
 import getData from '../accounts/getData';
@@ -21,9 +21,9 @@ export default async (network, push) => {
     await updateBalances();
 
     await getData(activeAccount.publicKey);
-  
+
     await storeOptions();
-  
+
     push(route.homePage);
   } else {
     push(route.firstPage);

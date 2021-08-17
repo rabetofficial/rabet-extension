@@ -1,8 +1,7 @@
-import store from 'Root/store';
-import types from 'Root/actions';
-import config from 'Root/config';
-
+import types from '../index';
+import store from '../../store';
 import getData from './getData';
+import config from '../../config';
 
 export default (address, isNotChecked) => {
   const { interval } = store.getState();
@@ -10,13 +9,12 @@ export default (address, isNotChecked) => {
   if (interval && isNotChecked) {
     return;
   }
-  
+
   store.dispatch({
     type: types.interval.STOP,
-    interval: p,
   });
 
-  const p = setInterval(function () {
+  const p = setInterval(() => {
     getData(address);
   }, config.INTERVAL_TIME_SECONDS * 1000);
 

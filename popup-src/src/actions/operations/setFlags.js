@@ -1,16 +1,22 @@
 import StellarSdk from 'stellar-sdk';
 
-import * as route from 'Root/staticRes/routes';
-import currentActiveAccount from 'Root/helpers/activeAccount';
-import currentNetwork from 'Root/helpers/horizon/currentNetwork';
+import * as route from '../../staticRes/routes';
+import currentActiveAccount from '../../helpers/activeAccount';
+import currentNetwork from '../../helpers/horizon/currentNetwork';
 
-export default async ({ auth_required, auth_revocable, auth_immutable, auth_clawback_enabled }, push) => {
+export default async ({
+  auth_required,
+  auth_revocable,
+  auth_immutable,
+  auth_clawback_enabled,
+}, push) => {
   push(route.loadingNetworkPage);
 
   const { activeAccount } = currentActiveAccount();
   const { url, passphrase } = currentNetwork();
 
-  let setFlags, clearFlags;
+  let setFlags;
+  let clearFlags;
 
   if (auth_required) {
     setFlags |= StellarSdk.AuthRequiredFlag;
@@ -42,8 +48,6 @@ export default async ({ auth_required, auth_revocable, auth_immutable, auth_claw
   const sourceKeys = StellarSdk.Keypair.fromSecret(activeAccount.privateKey);
 
   let transaction;
-
-  // console.log(StellarSdk.AuthImmutableFlag, StellarSdk.AuthRevocableFlag, StellarSdk.AuthClawbackEnabledFlag)
 
   server
     .loadAccount(sourceKeys.publicKey())

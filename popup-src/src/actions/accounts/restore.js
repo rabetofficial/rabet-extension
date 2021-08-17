@@ -1,9 +1,7 @@
 import { Keypair } from 'stellar-sdk';
 
-import store from 'Root/store';
-import types from 'Root/actions';
-
-import storeAccount from './store';
+import types from '../index';
+import store from '../../store';
 import changeActive from './changeActive';
 
 export default async (privateKey) => {
@@ -15,7 +13,7 @@ export default async (privateKey) => {
     return null;
   }
 
-  const accounts = store.getState().accounts;
+  const { accounts } = store.getState();
 
   const account = {
     privateKey,
@@ -23,7 +21,7 @@ export default async (privateKey) => {
     publicKey: source.publicKey(),
   };
 
-  for (let i = 0; i < accounts.length; ++i) {
+  for (let i = 0; i < accounts.length; i += 1) {
     if (accounts[i].publicKey === account.publicKey) {
       return 'duplicate';
     }
@@ -34,7 +32,7 @@ export default async (privateKey) => {
     account,
   });
 
-  changeActive(account.publicKey)
+  changeActive(account.publicKey);
 
   return account;
 };

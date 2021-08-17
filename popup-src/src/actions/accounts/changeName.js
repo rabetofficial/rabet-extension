@@ -1,6 +1,6 @@
-import store from 'Root/store';
-import types from 'Root/actions';
-import currentActiveAccount from 'Root/helpers/activeAccount';
+import types from '../index';
+import store from '../../store';
+import currentActiveAccount from '../../helpers/activeAccount';
 
 import storeAccount from './store';
 

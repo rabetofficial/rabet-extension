@@ -1,6 +1,6 @@
-import store from 'Root/store';
-import types from 'Root/actions';
-import toCurrencies from 'Root/helpers/horizon/toCurrencies';
+import types from '../index';
+import store from '../../store';
+import toCurrencies from '../../helpers/horizon/toCurrencies';
 
 export default async () => {
   const currencies = await toCurrencies();

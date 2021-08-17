@@ -1,13 +1,15 @@
 import StellarSdk from 'stellar-sdk';
 
-import * as route from 'Root/staticRes/routes';
-import changeTrust from 'Root/operations/changeTrust';
-import currentActiveAccount from 'Root/helpers/activeAccount';
-import currentNetwork from 'Root/helpers/horizon/currentNetwork';
+import * as route from '../../staticRes/routes';
+import changeTrust from '../../operations/changeTrust';
+import currentActiveAccount from '../../helpers/activeAccount';
+import currentNetwork from '../../helpers/horizon/currentNetwork';
 
 export default async ({ code, issuer, limit }, push) => {
+  let limitStr;
+
   if (limit) {
-    limit = limit.toString();
+    limitStr = limit.toString();
   }
 
   push(route.loadingNetworkPage);
@@ -28,16 +30,14 @@ export default async ({ code, issuer, limit }, push) => {
         state: { message: 'ERROR. The issuer account does not exist.' },
       });
     })
-    .then(() => {
-      return server.loadAccount(sourceKeys.publicKey());
-    })
+    .then(() => server.loadAccount(sourceKeys.publicKey()))
     .then((sourceAccount) => {
       transaction = new StellarSdk.TransactionBuilder(sourceAccount, {
         fee: StellarSdk.BASE_FEE,
         networkPassphrase: passphrase,
       })
         .addOperation(changeTrust({
-          limit,
+          limit: limitStr,
           asset: new StellarSdk.Asset(code, issuer),
         }))
         .setTimeout(180)

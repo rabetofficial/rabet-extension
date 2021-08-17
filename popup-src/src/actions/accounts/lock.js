@@ -1,8 +1,7 @@
-import store from 'Root/store';
-import types from 'Root/actions';
-import { set } from 'Root/helpers/storage';
-import * as route from 'Root/staticRes/routes';
-// import logoutAction from 'Root/actions/user/logout';
+import types from '../index';
+import store from '../../store';
+import { set } from '../../helpers/storage';
+import * as route from '../../staticRes/routes';
 
 export default (push) => {
   localStorage.clear();
