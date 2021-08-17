@@ -45,7 +45,9 @@ chrome.runtime.onMessage.addListener((message, sender, send) => {
 
   chrome.windows.onRemoved.addListener((wIndex) => {
     if (wIndex === window.id && window && window.id) {
-      sendResponse({ ok: false, message: 'user-rejected' });
+      setTimeout(() => {
+        sendResponse({ ok: false, message: 'user-rejected' });
+      }, 200)
     }
   })
 

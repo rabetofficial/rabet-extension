@@ -3,6 +3,7 @@ import { get } from '../helpers/storage';
 import hasLoggedBefore from '../helpers/hasLoggedBefore';
 
 export default (message, sender, sendResponse, sendResponseCollection, window) => {
+  console.log(message)
   if (message.result === 'confirm') {
     hasLoggedBefore()
       .then((hasLogged) => {
@@ -51,6 +52,7 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
       message: 'invalid-xdr',
     });
   } else {
+    console.log('i happen for some reason')
     sendResponseCollection[message.id]({ ok: false, message: 'user-rejected' });
   }
 

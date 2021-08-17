@@ -5,13 +5,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
+import Asset from '../../components/Asset';
 import config from 'Root/config';
 import * as route from 'Root/staticRes/routes';
 import showBalance from 'Root/helpers/showBalance';
-import formatCurrency from 'Root/helpers/formatCurrency';
 import currentActiveAccount from 'Root/helpers/activeAccount';
 import getAssetsImages from 'Root/helpers/server/getAssetsImages';
-import numberWithCommas from 'Root/helpers/numberWithCommas';
 
 import stellar from 'Root/assets/images/stellar.png';
 import checkedSrc from 'Root/assets/images/checked.svg';
@@ -80,50 +79,31 @@ class AssetList extends Component {
 
     const activeCurrency = currencies[options.currency] || { value: 0, currency: 'USD' };
 
+    const inactiveNative = {
+      asset_code: "XLM",
+      asset_type: "native",
+      balance: "0",
+      buying_liabilities: "0.0000000",
+      selling_liabilities: "0.0000000",
+      toNative: "0",
+    };
+
     return (
       <ul className={classNames(styles.list, 'hidden-scroll')} style={{ maxHeight: `${maxHeight}px` }}>
         <Link to={route.addAssetPage} className={styles.addAsset}>
           + Add asset
         </Link>
-        {items.map((item, index) => {
-          const value = item.asset_type === 'native' ? Number.parseFloat(item.balance, 10) * activeCurrency.value
-          : (1 / Number.parseFloat(item.toNative, 10)) * activeCurrency.value * Number.parseFloat(item.balance, 10)
+        {items.map((item, index) => (
+          <Asset
+            key={shortid.generate()}
+            item={item}
+            index={index}
+            activeCurrency={activeCurrency}
+            itemsLength={items.length}
+            assets={this.state.assets}
+          />
+        ))}
 
-          return (
-            <li key={shortid.generate()} style={{ marginTop: index === 0 && '-18px' }} className={styles.listItem}>
-            <Link
-              to={
-                ((item.asset_code === 'XLM') && (item.asset_type === 'native'))
-                  ? route.xlmAssetPage
-                  : `${route.assetsPage}/${item.asset_code}/${item.asset_issuer}`
-              }
-              key={shortid.generate()}
-            >
-              <div
-                className={styles.border}
-                style={{ borderBottom: !(index === items.length - 1) && '1px solid #f8f8f8' }}
-              >
-                <div className={styles.logoContainer}>
-                  <img src={this.handleAssetImage(item)} alt="logo" />
-                </div>
-
-                <div style={{ marginLeft: '6px' }}>
-                  <div className="pure-g">
-                    <div className={styles.value}>{numberWithCommas(formatCurrency(item.balance))}</div>
-                    <div className={styles.currency}>{item.asset_code}</div>
-                    {this.isAssetVerified(item)
-                      ? <img src={checkedSrc} className={styles.checked} alt="icon" />
-                      : ''
-                    }
-                  </div>
-                  <div className={styles.cost}>
-                    {showBalance(numberWithCommas(formatCurrency(value)), activeCurrency.name)}
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </li>
-          )})}
           {!items.length
             ? (
               <li key={shortid.generate()} style={{ marginTop: '-18px' }} className={styles.listItem}>
