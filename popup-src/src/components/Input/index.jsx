@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { useState, useEffect, useRef } from 'react';
 
-import Tooltip from 'Root/components/Tooltip';
-import { inputTypes } from 'Root/staticRes/enum';
+import Tooltip from '../Tooltip';
+import { inputTypes } from '../../staticRes/enum';
 
 import styles from './styles.less';
 

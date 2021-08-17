@@ -1,14 +1,20 @@
+/* eslint-disable no-unneeded-ternary */
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import * as route from 'Root/staticRes/routes';
+import * as route from '../../staticRes/routes';
 
 import styles from './styles.less';
 
-const PageTitle = ({ title, status, statusTitle, alreadyLoaded, ...props }) => {
+const PageTitle = ({
+  title,
+  status,
+  statusTitle,
+  alreadyLoaded,
+  ...props
+}) => {
   const generateTitle = () => {
     if (status) {
       return (
@@ -33,6 +39,19 @@ const PageTitle = ({ title, status, statusTitle, alreadyLoaded, ...props }) => {
 
   const { accounts } = props;
 
+  const handleClose = () => {
+    if (accounts.length) {
+      return props.history.push({
+        pathname: route.homePage,
+        state: {
+          alreadyLoaded: alreadyLoaded === undefined ? true : false,
+        },
+      });
+    }
+
+    return props.history.goBack();
+  };
+
   return (
     <div className={styles.div}>
       <div>{generateTitle()}</div>
@@ -40,32 +59,11 @@ const PageTitle = ({ title, status, statusTitle, alreadyLoaded, ...props }) => {
       <div className={styles.icon}>
         <span
           className="icon-multiply"
-          onClick={() => {
-            accounts.length
-              ? props.history.push({
-                  pathname: route.homePage,
-                  state: {
-                    alreadyLoaded: alreadyLoaded === undefined ? true : false,
-                  },
-                })
-              : props.history.goBack();
-          }}
+          onClick={handleClose}
         />
       </div>
     </div>
   );
-};
-
-PageTitle.defaulProps = {
-  title: '',
-  status: '',
-  statusTitle: '',
-};
-
-PageTitle.propTypes = {
-  title: PropTypes.string,
-  status: PropTypes.string,
-  statusTitle: PropTypes.string,
 };
 
 export default withRouter(

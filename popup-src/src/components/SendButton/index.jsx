@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import Button from 'Root/components/Button';
-import * as route from 'Root/staticRes/routes';
+import Button from '../Button';
+import * as route from '../../staticRes/routes';
 
 class SendButton extends Component {
   constructor(props) {
@@ -13,11 +13,14 @@ class SendButton extends Component {
   }
 
   handleClick() {
-    this.props.history.push(route.ConfirmPage);
+    const { history } = this.props;
+
+    history.push(route.ConfirmPage);
   }
 
   render() {
-    const { operations, memo } = this.props.transaction;
+    const { transaction } = this.props;
+    const { operations, memo } = transaction;
 
     let isDisabled = false;
 
@@ -25,7 +28,7 @@ class SendButton extends Component {
       isDisabled = true;
     }
 
-    for (let i = 0; i < operations.length; i++) {
+    for (let i = 0; i < operations.length; i += 1) {
       if (!operations[i].checked) {
         isDisabled = true;
       }
@@ -47,6 +50,6 @@ class SendButton extends Component {
   }
 }
 
-export default withRouter(connect(state => ({
+export default withRouter(connect((state) => ({
   transaction: state.transaction,
 }))(SendButton));

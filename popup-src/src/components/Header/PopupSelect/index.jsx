@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
 import createClass from 'create-react-class';
 import Select, { components } from 'react-select';
+import { Link, withRouter } from 'react-router-dom';
 
-import shorter from 'Root/helpers/shorter';
-import * as route from 'Root/staticRes/routes';
-import PopupList from 'Root/pageComponents/PopupList';
-import formatCurrency from 'Root/helpers/formatCurrency';
-import changeActiveAction from 'Root/actions/accounts/changeActive';
+import shorter from '../../../helpers/shorter';
+import * as route from '../../../staticRes/routes';
+import PopupList from '../../../pageComponents/PopupList';
+import formatCurrency from '../../../helpers/formatCurrency';
+import changeActiveAction from '../../../actions/accounts/changeActive';
 
 import styles from './styles.less';
 
-const Popup = props => {
+const Popup = (props) => {
   const items = props.accounts.map((item, index) => ({
     active: item.active,
     realPublicKey: item.publicKey,
@@ -89,6 +89,6 @@ Popup.propTypes = {
 
 };
 
-export default withRouter(connect(state => ({
+export default withRouter(connect((state) => ({
   accounts: state.accounts,
 }))(Popup));
