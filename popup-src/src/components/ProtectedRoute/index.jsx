@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import * as route from '../../staticRes/routes';
 
-const ProtectedRoute = ({ user }) => {
+const ProtectedRoute = ({ user, ...props }) => {
   if (!user.logged) {
     if (user.registered) {
       return <Redirect to={route.loginPage} />;
@@ -13,7 +13,7 @@ const ProtectedRoute = ({ user }) => {
     return <Redirect to={route.confirmLoginPage} />;
   }
 
-  return <Route {...this.props} />;
+  return <Route {...props} />;
 };
 
 export default connect((state) => ({

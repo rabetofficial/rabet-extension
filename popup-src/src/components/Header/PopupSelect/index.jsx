@@ -12,8 +12,8 @@ import changeActiveAction from '../../../actions/accounts/changeActive';
 
 import styles from './styles.less';
 
-const Popup = (props) => {
-  const items = props.accounts.map((item, index) => ({
+const Popup = ({ accounts, ...props }) => {
+  const items = accounts.map((item, index) => ({
     active: item.active,
     realPublicKey: item.publicKey,
     publicKey: shorter(item.publicKey, 8),
@@ -21,67 +21,77 @@ const Popup = (props) => {
     balance: formatCurrency(item.balance || 0),
   }));
 
-  let activeAccountIndex = items.findIndex(x => x.active);
+  let activeAccountIndex = items.findIndex((x) => x.active);
 
   if (activeAccountIndex === -1) {
     activeAccountIndex = 0;
   }
 
-  const options = items.map((item) =>(
-    {name: item.name, publicKey: item.realPublicKey, label: <PopupList info={ item }/> }
-  ) );
+  const options = items.map((item) => ({
+    name: item.name,
+    publicKey: item.realPublicKey,
+    label: <PopupList info={item} />,
+  }));
 
   const Option = createClass({
     render() {
+      const { label } = this.props;
+
       return (
-          <div className="custom-option">
-            <components.Option { ...this.props }>
-              {this.props.label}
-            </components.Option>
-            <div className={ styles.group }>
-              <Link to={route.createWalletPage} className={ styles.link }><span className="icon-plus-math" />Create Wallet</Link>
-              <Link to={route.restoreWalletPage} className={ styles.link }><span className="icon-file" />Import Wallet</Link>
-            </div>
-            {/*{(this.props.innerProps.id === `react-select-2-option-${items.length - 1}`) &&*/}
-            {/*}*/}
+        <div className="custom-option">
+          <components.Option {...this.props}>
+            {label}
+          </components.Option>
+          <div className={styles.group}>
+            <Link to={route.createWalletPage} className={styles.link}>
+              <span className="icon-plus-math" />
+              Create Wallet
+            </Link>
+
+            <Link to={route.restoreWalletPage} className={styles.link}>
+              <span className="icon-file" />
+              Import Wallet
+            </Link>
           </div>
+        </div>
       );
     }
   });
 
   const onChange = async (e) => {
+    const { history } = props;
     await changeActiveAction(e.publicKey);
 
-    this.props.history.push(route.homePage);
+    history.push(route.homePage);
   };
 
   return (
-      <div className={ styles.popup }>
-        <Select
-          classNamePrefix="popup"
-          separator={ false }
-          closeMenuOnSelect={ true }
-          components={ { Option } }
-          defaultValue={ options[activeAccountIndex] }
-          options={ options }
-          hideSelectedOptions={ false }
-          isSearchable
-          backspaceRemovesValue={ false }
-          placeholder="A"
-          onChange={ (e) => onChange(e) }
-          onMenuOpen={ () =>  {props.toggleOverlay(true);} }
-          onMenuClose={ () =>  {props.toggleOverlay(false);} }
-          styles={ {
-              ...styles,
-              control: (base, state) => ({
-                ...base,
-                borderColor: state.isFocused ? 'black': 'black',
-                boxShadow: state.isFocused ? 0 : 0,
-                '&:hover': { borderColor: 'black' },
-              }),
-            } }
-        />
-      </div>
+    <div className={styles.popup}>
+      <Select
+        classNamePrefix="popup"
+        separator={false}
+        closeMenuOnSelect={true}
+        components={{ Option }}
+        defaultValue={options[activeAccountIndex]}
+        options={options}
+        hideSelectedOptions={false}
+        isSearchable
+        backspaceRemovesValue={false}
+        placeholder="A"
+        onChange={(e) => onChange(e)}
+        onMenuOpen={() => { props.toggleOverlay(true); }}
+        onMenuClose={() => { props.toggleOverlay(false); }}
+        styles={{
+          ...styles,
+          control: (base, state) => ({
+            ...base,
+            borderColor: state.isFocused ? 'black' : 'black',
+            boxShadow: state.isFocused ? 0 : 0,
+            '&:hover': { borderColor: 'black' },
+          }),
+        }}
+      />
+    </div>
   );
 };
 
