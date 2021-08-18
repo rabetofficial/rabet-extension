@@ -36,4 +36,7 @@ export default {
   currencies: {
     LOAD: 'currencies/LOAD',
   },
+  loading: {
+    LOAD_DATA: 'loading/LOAD_DATA',
+  },
 };
