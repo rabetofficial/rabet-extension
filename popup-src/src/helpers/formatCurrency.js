@@ -3,8 +3,8 @@ export default (number) => {
     return 0;
   }
 
-  if (number == 0 || number < 0) {
-    return number;
+  if (number == 0 || number < 0 || parseFloat(number) === 0) {
+    return 0;
   }
 
   const [qableAshar, ashar] = number.toString().split('.');

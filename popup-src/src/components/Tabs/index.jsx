@@ -10,8 +10,8 @@ const Tabs = ({ data, tabTitleStyle }) => {
 
   const width = (100 / data.length);
 
-  const listContent = data.map((item) => (visibleTab === item.id)
-  && <div key={item.title}>{item.tabContent}</div>);
+  const listContent = data.map((item, index) => (visibleTab === item.id)
+  && <div key={`${item.tabTitle}${index}`}>{item.tabContent}</div>);
 
   return (
     <div className={styles.tab}>
@@ -19,7 +19,7 @@ const Tabs = ({ data, tabTitleStyle }) => {
         <ul className="tabs-titles" style={tabTitleStyle}>
           {data.map((item) => (
             <li
-              key={item.title + 'a'}
+              key={`${item.tabTitle}${item.id}`}
               onClick={() => { setVisibleTab(item.id); forceUpdate(); }}
               className={visibleTab === item.id ? 'tab-title tab-title-active' : 'tab-title'}
               style={{ width: `${width}%` }}

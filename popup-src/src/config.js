@@ -1,6 +1,6 @@
 const configs = {
   VERSION: '0.0.8',
-  INTERVAL_TIME_SECONDS: 3,
+  INTERVAL_TIME_SECONDS: 10,
   ASSET_SERVER: 'https://assets.rabet.io',
   HORIZON: {
     mainnet: 'https://horizon.stellar.org',
