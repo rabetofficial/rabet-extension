@@ -276,6 +276,7 @@ class Setting extends Component {
 
         <p className={styles.version}>
           Version
+          {' '}
           {config.VERSION}
         </p>
       </div>

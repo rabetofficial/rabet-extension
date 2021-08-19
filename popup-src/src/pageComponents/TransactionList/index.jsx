@@ -60,12 +60,15 @@ const TransactionList = ({ maxHeight }) => {
 
   useEffect(() => {
     (async () => {
-      const transactions = await getTransactions(activeAccount.publicKey);
-      const operations = await getOperations(transactions);
+      if (isLoading) {
+        console.log('bam');
+        const transactions = await getTransactions(activeAccount.publicKey);
+        const operations = await getOperations(transactions);
 
-      setOperationList(operations);
-      setTransactionList(transactions);
-      setIsLoading(false);
+        setOperationList(operations);
+        setTransactionList(transactions);
+        setIsLoading(false);
+      }
     })();
   });
 
@@ -78,14 +81,13 @@ const TransactionList = ({ maxHeight }) => {
       {operationList && operationList.length > 0 ? (
         <ul className={classNames(styles.list, 'hidden-scroll')} style={{ maxHeight: `${maxHeight}px` }}>
           {operationList.map((item, index) => (
-            <Fragment key={shortid.generate()}>
-              <Item
-                item={item}
-                index={index}
-                operationList={operationList}
-                transactionList={transactionList}
-              />
-            </Fragment>
+            <Item
+              key={item.id}
+              item={item}
+              index={index}
+              operationList={operationList}
+              transactionList={transactionList}
+            />
           ))}
         </ul>
       )
