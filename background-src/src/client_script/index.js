@@ -13,7 +13,8 @@ rabet.connect = () =>
     );
 
     document.addEventListener('RABET_EXTENSION_CONNECT_RESPONSE', function (e) {
-      const { detail } = e;
+      const { detail: det } = e;
+      const detail = JSON.parse(det);
 
       if (!detail) {
         reject({
@@ -67,7 +68,8 @@ rabet.sign = (xdr, network) =>
     }
 
     document.addEventListener('RABET_EXTENSION_SIGN_RESPONSE', function (e) {
-      const { detail } = e;
+      const { detail: det } = e;
+      const detail = JSON.parse(det);
 
       if (!detail) {
         reject({
