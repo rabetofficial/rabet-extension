@@ -97,7 +97,6 @@ class Home extends Component {
 
     const { activeAccount, activeAccountIndex } = currentActiveAccount();
 
-    const transactions = activeAccount.operations || [];
     const balances = activeAccount.balances || [];
 
     const totalBalance = balances.reduce((sum, item) => {
@@ -125,7 +124,7 @@ class Home extends Component {
       {
         id: '2',
         tabTitle: 'Transactions',
-        tabContent: <TransactionList items={transactions} maxHeight={editName ? 215 : 221} />,
+        tabContent: <TransactionList maxHeight={editName ? 215 : 221} />,
       },
     ];
 

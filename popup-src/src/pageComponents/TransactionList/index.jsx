@@ -2,23 +2,27 @@ import moment from 'moment';
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 
 import createTab from '../../helpers/createTab';
 import explorer from '../../helpers/horizon/getTransaction';
+import getOperations from '../../helpers/horizon/operations';
 import operationDetails from '../../helpers/operationDetails';
 import currentActiveAccount from '../../helpers/activeAccount';
+import getTransactions from '../../helpers/horizon/transactions';
 
 import styles from './styles.less';
 
-const Item = ({ items, item, index }) => {
+const Item = ({
+  item,
+  index,
+  operationList,
+  transactionList,
+}) => {
   const [isHover, setHover] = useState(false);
   const toggleHover = () => setHover(!isHover);
 
-  const { activeAccount } = currentActiveAccount();
-  const { transactions } = activeAccount;
-
-  const operationCount = transactions.find((x) => x.id === item.transaction_hash).operation_count;
+  const { operation_count } = transactionList.find((x) => x.id === item.transaction_hash);
 
   return (
     <li
@@ -27,7 +31,7 @@ const Item = ({ items, item, index }) => {
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
     >
-      <div className={styles.border} style={{ borderBottom: !(index === (items.length - 1)) && '1px solid #f8f8f8' }}>
+      <div className={styles.border} style={{ borderBottom: !(index === (operationList.length - 1)) && '1px solid #f8f8f8' }}>
         <div className={styles.logoContainer}>
           <span className="icon-exchange-alt" />
         </div>
@@ -39,7 +43,7 @@ const Item = ({ items, item, index }) => {
           <p className={styles.value}>{moment(item.created_at).fromNow()}</p>
         </div>
         <div className={styles.div} style={{ marginLeft: 'auto', paddingRight: '33px' }}>
-          <h6 className={styles.subject}>{operationCount}</h6>
+          <h6 className={styles.subject}>{operation_count}</h6>
           <p className={styles.value}>ops</p>
         </div>
         {isHover && <div className={styles.next}><span className="icon-long-arrow-right" /></div>}
@@ -48,25 +52,51 @@ const Item = ({ items, item, index }) => {
   );
 };
 
-const TransactionList = ({ items, maxHeight }) => (
-  <>
-    {items && items.length > 0 ? (
-      <ul className={classNames(styles.list, 'hidden-scroll')} style={{ maxHeight: `${maxHeight}px` }}>
-        {items.map((item, index) => (
-          <Fragment key={shortid.generate()}>
-            <Item item={item} index={index} items={items} />
-          </Fragment>
-        ))}
-      </ul>
-    )
-      : (
-        <div className={styles.noData}>You have no transaction</div>
-      )}
-  </>
-);
+const TransactionList = ({ maxHeight }) => {
+  const { activeAccount } = currentActiveAccount();
+  const [isLoading, setIsLoading] = useState(true);
+  const [operationList, setOperationList] = useState([]);
+  const [transactionList, setTransactionList] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const transactions = await getTransactions(activeAccount.publicKey);
+      const operations = await getOperations(transactions);
+
+      setOperationList(operations);
+      setTransactionList(transactions);
+      setIsLoading(false);
+    })();
+  });
+
+  if (isLoading) {
+    return 'LOADING';
+  }
+
+  return (
+    <>
+      {operationList && operationList.length > 0 ? (
+        <ul className={classNames(styles.list, 'hidden-scroll')} style={{ maxHeight: `${maxHeight}px` }}>
+          {operationList.map((item, index) => (
+            <Fragment key={shortid.generate()}>
+              <Item
+                item={item}
+                index={index}
+                operationList={operationList}
+                transactionList={transactionList}
+              />
+            </Fragment>
+          ))}
+        </ul>
+      )
+        : (
+          <div className={styles.noData}>You have no transaction</div>
+        )}
+    </>
+  );
+};
 
 TransactionList.propTypes = {
-  items: PropTypes.array.isRequired,
   maxHeight: PropTypes.number.isRequired,
 };
 
