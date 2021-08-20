@@ -6,7 +6,7 @@ import setCurrencies from '../options/setCurrencies';
 import toNativePrice from '../../helpers/horizon/toNativePrice';
 
 export default async (address) => {
-  const data = await horizonData(address);
+  const [data] = await Promise.all([horizonData(address), setCurrencies()]);
 
   const accountData = {
     usd: 0,
@@ -40,8 +40,6 @@ export default async (address) => {
     // Adding a new field: Subentry_count
     accountData.maxXLM = (accountData.subentry_count + 2) * 0.5 + 0.005;
   }
-
-  await setCurrencies();
 
   store.dispatch({
     accountData,

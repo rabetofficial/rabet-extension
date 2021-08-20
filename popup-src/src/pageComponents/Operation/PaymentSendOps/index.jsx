@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
+import showAsset from '../../../helpers/showAsset';
 import arithmeticNumber from '../../../helpers/arithmetic';
 import SelectOption from '../../../components/SelectOption';
+import getPathData from '../../../helpers/horizon/getPathData';
 import validateAddress from '../../../helpers/validate/address';
 import currentActiveAccount from '../../../helpers/activeAccount';
 import getAccountData from '../../../helpers/horizon/isAddressFound';
@@ -20,6 +22,8 @@ class PaymentSendOps extends Component {
       list: [],
       sendAsset: {},
       destAsset: {},
+      bestPath: [],
+      destinationAmount: 0,
     };
 
     this.onChangeSendAsset = this.onChangeSendAsset.bind(this);
@@ -52,11 +56,19 @@ class PaymentSendOps extends Component {
   }
 
   onChangeSendAsset(e) {
-    this.setState({ sendAsset: e });
+    this.setState({
+      sendAsset: e,
+      bestPath: [],
+      destinationAmount: 0,
+    });
   }
 
   onChangeDestAsset(e) {
-    this.setState({ destAsset: e });
+    this.setState({
+      destAsset: e,
+      bestPath: [],
+      destinationAmount: 0,
+    });
   }
 
   async validateForm(values) {
@@ -201,14 +213,50 @@ class PaymentSendOps extends Component {
             checked: false,
           });
         } else {
-          changeOperationAction(id, {
-            checked: true,
-            destination: values.destination,
-            sendAmount: parseFloat(values.sendAmount, 10).toFixed(7),
-            sendAsset,
-            destMin: parseFloat(values.destMin, 10).toFixed(7),
-            destAsset,
+          const sourceAsset = activeAccount.balances.find((x) => x.asset_code === sendAsset.value);
+          const destinationAsset = activeAccount.balances.find((x) => x.asset_code
+          === destAsset.value);
+
+          const pathData = await getPathData({
+            source_account: activeAccount.publicKey,
+            source_asset_type: sourceAsset.asset_type,
+            source_asset_code: sourceAsset.asset_code,
+            source_asset_issuer: sourceAsset.asset_issuer,
+            source_amount: values.sendAmount,
+            destination_account: values.destination,
+            destination_asset_code: destinationAsset.asset_code,
+            destination_asset_type: destinationAsset.asset_type,
+            destination_asset_issuer: destinationAsset.asset_issuer,
           });
+
+          if (!pathData) {
+            errors.destination = 'No path found.';
+            hasError.destination = true;
+
+            changeOperationAction(id, {
+              checked: false,
+            });
+          } else {
+            const bestPath = [
+              sourceAsset,
+              ...pathData.path,
+              destinationAsset,
+            ];
+
+            this.setState({
+              bestPath,
+              destinationAmount: pathData.destination_amount,
+            });
+
+            changeOperationAction(id, {
+              checked: true,
+              destination: values.destination,
+              sendAmount: parseFloat(values.sendAmount, 10).toFixed(7),
+              sendAsset,
+              destMin: parseFloat(values.destMin, 10).toFixed(7),
+              destAsset,
+            });
+          }
         }
       }
     }
@@ -217,7 +265,13 @@ class PaymentSendOps extends Component {
   }
 
   render() {
-    const { list, sendAsset, destAsset } = this.state;
+    const {
+      list,
+      sendAsset,
+      destAsset,
+      bestPath,
+      destinationAmount,
+    } = this.state;
 
     return (
       <Form
@@ -322,6 +376,26 @@ class PaymentSendOps extends Component {
                 </div>
               )}
             </Field>
+            {bestPath.length ? (
+              <div>
+                <div>
+                  <p>Path:</p>
+                  {bestPath.map((aPath, index) => (
+                    <span key={`${aPath.asset_type}${index}`}>
+                      {showAsset(aPath)}
+                      {' '}
+                      {bestPath.length !== index + 1 ? '>' : ''}
+                    </span>
+                  ))}
+                </div>
+                <p>
+                  Destination Amount:
+                  {' '}
+                  {destinationAmount}
+                </p>
+              </div>
+            ) : ''}
+
             {submitError && <div className="error">{submitError}</div>}
           </form>
         )}
