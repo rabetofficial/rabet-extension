@@ -1,3 +1,4 @@
+import WindowManager from '../helpers/Window';
 import { get, set } from '../helpers/storage';
 
 export default (message, sender, sendResponse, sendResponseCollection, window) => {
@@ -37,5 +38,5 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
     sendResponseCollection[message.id]({ ok: false, message: 'user-rejected' });
   }
 
-  chrome.windows.remove(window.id);
+  WindowManager.remove(window.id);
 };

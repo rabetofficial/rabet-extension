@@ -8,6 +8,9 @@ rabet.connect = () =>
           host: window.location.host || 'test.org',
           href: window.location.href,
           title: document.title,
+          screenX: window.screenX,
+          screenY: window.screenY,
+          outerWidth: window.outerWidth,
         },
       }),
     );
@@ -47,6 +50,9 @@ rabet.sign = (xdr, network) =>
           network,
           host: window.location.host || 'test.org',
           title: document.title,
+          screenX: window.screenX,
+          screenY: window.screenY,
+          outerWidth: window.outerWidth,
         },
       }),
     );

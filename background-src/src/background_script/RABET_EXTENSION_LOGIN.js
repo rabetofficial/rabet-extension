@@ -1,5 +1,6 @@
 import { get } from '../helpers/storage';
 import setTimer from '../helpers/setTimer';
+import WindowManager from '../helpers/Window';
 
 export default (message, sender, sendResponse, sendResponseCollection, window) => {
   get('data', message.values.password)
@@ -8,14 +9,14 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
 
       if (!accounts) {
         sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
-        chrome.windows.remove(window.id);
+        WindowManager.remove(window.id);
 
         return;
       }
 
       if (!accounts.length) {
         sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
-        chrome.windows.remove(window.id);
+        WindowManager.remove(window.id);
 
         return;
       }
@@ -35,12 +36,11 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
           sendResponseCollection[message.id]({
             ok: true,
             message: {
-              // name: activeAcconut.name,
               publicKey: activeAcconut.publicKey,
             },
           });
 
-          chrome.windows.remove(window.id);
+          WindowManager.remove(window.id);
 
           return;
         }
@@ -66,7 +66,7 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
               },
             });
 
-            chrome.windows.remove(window.id);
+            WindowManager.remove(window.id);
           } else {
             sendResponse({
               ok: true,

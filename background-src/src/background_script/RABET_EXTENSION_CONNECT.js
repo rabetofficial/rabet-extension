@@ -1,10 +1,12 @@
-import shortid from 'shortid';
-
 import { get } from '../helpers/storage';
+import WindowManager from '../helpers/Window';
+import sendInterval from '../helpers/sendInterval';
 import hasLoggedBefore from '../helpers/hasLoggedBefore';
 
 export default (message, sender, sendResponse, sendResponseCollection) =>
   new Promise((resolve) => {
+    const { screenX, screenY, outerWidth } = message.detail;
+
     get('data').then((storageString) => {
       // When data == null
       if (!storageString) {
@@ -15,42 +17,25 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
         .then((hasLogged) => {
           // When the user has not logged before
           if (!hasLogged) {
-            chrome.windows.create(
-              {
-                type: 'popup',
-                url: chrome.runtime.getURL('interaction/index.html'),
-                top: 0,
-                left: 200000,
-                width: 380,
-                height: 640,
-              },
-              function (newWindow) {
+            WindowManager.create(screenX, screenY, outerWidth)
+              .then((newWindow) => {
                 resolve(newWindow);
-                setTimeout(() => {
-                  chrome.windows.remove(newWindow.id)
-                }, 30000)
 
-                const generatedId = shortid.generate();
+                const generatedId = Date.now().toString();
                 sendResponseCollection[generatedId] = sendResponse;
 
-                let p = setInterval(() => {
-                  chrome.tabs.sendMessage(
-                    newWindow.tabs[0].id,
-                    {
-                      type: 'RABET_GENERATED_ID',
-                      generatedId,
-                      page: '/login',
-                      detail: message.detail,
-                    },
-                    function (response) {
-                      if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
-                        clearInterval(p);
-                      }
-                    },
-                  );
-                }, 100);
-              },
-            );
+                sendInterval(
+                  newWindow.tabs[0].id,
+                  {
+                    generatedId,
+                    page: '/login',
+                    detail: message.detail,                    
+                  }
+                );
+              })
+              .catch(() => {
+                sendResponse({ ok: false, message: 'internal-error' });
+              });
 
             return;
           }
@@ -109,14 +94,6 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
 
                 // When the host is trusted
                 if (isHostConnected) {
-                  // sendResponse({
-                  //   ok: true,
-                  //   message: {
-                  //     // name: activeAcconut.name,
-                  //     publicKey: activeAcconut.publicKey,
-                  //   },
-                  // });
-
                   sendResponse({
                     ok: true,
                     message: {
@@ -125,49 +102,32 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                     },
                   });
                 }
+
                 // When the host is not trusted
                 else {
-                  chrome.windows.create(
-                    {
-                      type: 'popup',
-                      url: chrome.runtime.getURL('interaction/index.html'),
-                      top: 0,
-                      left: 200000,
-                      width: 380,
-                      height: 640,
-                    },
-                    function (newWindow) {
-                      resolve(newWindow);
+                  WindowManager.create(screenY, screenX, outerWidth)
+                  .then((newWindow) => {
+                    resolve(newWindow);
 
-                      setTimeout(() => {
-                        chrome.windows.remove(newWindow.id)
-                      }, 30000)
+                    const generatedId = Date.now().toString();
+                    sendResponseCollection[generatedId] = sendResponse;
 
-                      const generatedId = shortid.generate();
-                      sendResponseCollection[generatedId] = sendResponse;
-
-                      let p = setInterval(() => {
-                        chrome.tabs.sendMessage(
-                          newWindow.tabs[0].id,
-                          {
-                            generatedId,
-                            type: 'RABET_GENERATED_ID',
-                            page: '/contact-request',
-                            detail: message.detail,
-                            activeAcconut: {
-                              name: activeAcconut.name,
-                              publicKey: activeAcconut.publicKey,
-                            },
-                          },
-                          function (response) {
-                            if (response && response.type === 'RABET_GENERATED_ID_RECEIVED') {
-                              clearInterval(p);
-                            }
-                          },
-                        );
-                      }, 100);
-                    },
-                  );
+                    sendInterval(
+                      newWindow.tabs[0].id,
+                      {
+                        generatedId,
+                        page: '/contact-request',
+                        detail: message.detail,
+                        activeAcconut: {
+                          name: activeAcconut.name,
+                          publicKey: activeAcconut.publicKey,
+                        },
+                      }
+                    );
+                  })
+                  .catch(() => {
+                    sendResponse({ ok: false, message: 'internal-error' });
+                  });
                 }
               });
             });
