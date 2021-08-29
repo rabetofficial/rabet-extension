@@ -31,20 +31,24 @@ const NoteCard = ({
         {' '}
         {copy && <CopyText text={message} />}
       </p>
-      <Button
-        variant="btn-outlined"
-        content={btnText}
-        size="btn-small"
-        className={styles.btn}
-        delayHide={500}
-        onClick={props.handleClick}
-      />
+
+      {btnText ? (
+        <Button
+          variant="btn-outlined"
+          content={btnText}
+          size="btn-small"
+          className={styles.btn}
+          delayHide={500}
+          onClick={props.handleClick}
+        />
+      ) : ''}
     </Note>
   </div>
 );
 
 NoteCard.defaultProps = {
   copy: false,
+  btnText: false,
 };
 
 NoteCard.propTypes = {
@@ -52,7 +56,7 @@ NoteCard.propTypes = {
   icon: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   copy: PropTypes.bool,
-  btnText: PropTypes.string.isRequired,
+  btnText: PropTypes.string,
 };
 
 export default NoteCard;
