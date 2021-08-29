@@ -61,7 +61,6 @@ const TransactionList = ({ maxHeight }) => {
   useEffect(() => {
     (async () => {
       if (isLoading) {
-        console.log('bam');
         const transactions = await getTransactions(activeAccount.publicKey);
         const operations = await getOperations(transactions);
 
