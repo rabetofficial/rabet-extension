@@ -7,5 +7,5 @@ export default (balance, c) => {
     currency = c.toUpperCase();
   }
 
-  return `${currencies[currency].symbol} ${balance}`;
+  return `${currencies[currency].symbol}${balance}`;
 };

@@ -6,22 +6,35 @@ import { Link, withRouter } from 'react-router-dom';
 
 import shorter from '../../../helpers/shorter';
 import * as route from '../../../staticRes/routes';
+import showBalance from '../../../helpers/showBalance';
 import PopupList from '../../../pageComponents/PopupList';
 import formatCurrency from '../../../helpers/formatCurrency';
+import getTotalBalance from '../../../helpers/getTotalBalance';
+import currentActiveAccount from '../../../helpers/activeAccount';
+import numberWithCommas from '../../../helpers/numberWithCommas';
 import changeActiveAction from '../../../actions/accounts/changeActive';
 
 import styles from './styles.less';
 
-const Popup = ({ accounts, ...props }) => {
+const Popup = ({
+  accounts,
+  currencies,
+  options: o,
+  ...props
+}) => {
+  let { activeAccountIndex } = currentActiveAccount();
+  const activeCurrency = currencies[o.currency] || { value: 0, currency: 'USD' };
+
   const items = accounts.map((item, index) => ({
     active: item.active,
     realPublicKey: item.publicKey,
     publicKey: shorter(item.publicKey, 8),
     name: item.name || `Account ${index + 1}`,
-    balance: formatCurrency(item.balance || 0),
+    balances: showBalance(
+      numberWithCommas(formatCurrency(getTotalBalance(item.balances, activeCurrency))),
+      activeCurrency.name,
+    ),
   }));
-
-  let activeAccountIndex = items.findIndex((x) => x.active);
 
   if (activeAccountIndex === -1) {
     activeAccountIndex = 0;
@@ -101,4 +114,5 @@ Popup.propTypes = {
 
 export default withRouter(connect((state) => ({
   accounts: state.accounts,
+  currencies: state.currencies,
 }))(Popup));

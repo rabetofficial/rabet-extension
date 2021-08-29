@@ -6,15 +6,24 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import shorter from '../../../helpers/shorter';
 import * as route from '../../../staticRes/routes';
+import showBalance from '../../../helpers/showBalance';
 import lockAction from '../../../actions/accounts/lock';
 import PopupList from '../../../pageComponents/PopupList';
 import formatCurrency from '../../../helpers/formatCurrency';
 import numberWithCommas from '../../../helpers/numberWithCommas';
+import getTotalBalance from '../../../helpers/getTotalBalance';
 import changeActiveAction from '../../../actions/accounts/changeActive';
 
 import styles from './styles.less';
 
-const PopupSearch = ({ isOpen, accounts: accs, ...props }) => {
+const PopupSearch = ({
+  isOpen,
+  accounts: accs,
+  options: o,
+  currencies,
+  ...props
+}) => {
+  const activeCurrency = currencies[o.currency] || { value: 0, currency: 'USD' };
   const [searchString, setSearchString] = useState('');
   const [accounts, setAccounts] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -36,8 +45,12 @@ const PopupSearch = ({ isOpen, accounts: accs, ...props }) => {
       realPublicKey: item.publicKey,
       publicKey: shorter(item.publicKey, 8),
       name: item.name || `Account ${index + 1}`,
-      balance: numberWithCommas(formatCurrency(item.balance || 0)),
+      balances: showBalance(
+        numberWithCommas(formatCurrency(getTotalBalance(item.balances, activeCurrency))),
+        activeCurrency.name,
+      ),
     }));
+
     setAccounts(items);
     let list = items;
 
@@ -168,5 +181,7 @@ PopupSearch.propTypes = {
 };
 
 export default withRouter(connect((state) => ({
+  options: state.options,
   accounts: state.accounts,
+  currencies: state.currencies,
 }))(PopupSearch));

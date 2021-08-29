@@ -15,7 +15,7 @@ const PopupList = ({ info }) => (
         {info.publicKey}
       </div>
     </div>
-    <div className="popup-amount">{info.balance}</div>
+    <div className="popup-amount">{info.balances}</div>
   </div>
 );
 
