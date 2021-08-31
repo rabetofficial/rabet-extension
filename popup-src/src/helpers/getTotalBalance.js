@@ -1,4 +1,4 @@
-const getTotalBalance = (balances, activeCurrency) => {
+const getTotalBalance = (balances = [], activeCurrency) => {
   const totalBalance = balances.reduce((sum, item) => {
     const nextValue = item.asset_type === 'native'
       ? Number.parseFloat(item.balance, 10) * activeCurrency.value
