@@ -181,48 +181,16 @@ class Home extends Component {
             <div className="pure-u">
               <div className={styles.value}>
                 {showBalance(numberWithCommas(formatCurrency(totalBalance)), activeCurrency.name)}
+                <span
+                  className={classNames(styles.modalBtn, styles.modalActive)}
+                  onClick={this.toggleModal}
+                />
               </div>
               <div className={styles.subject}>
                 Total (
                 {activeCurrency.name}
                 )
               </div>
-              <button type="button" onClick={this.toggleModal}>Open Modal</button>
-              <div>
-                Modal is:
-                {this.state.isModalOpen ? 'Open' : 'Closed'}
-              </div>
-              {this.state.isModalOpen && (
-              <Modal
-                id="modal"
-                title="Lumenswap.io"
-                isOpen={this.state.isModalOpen}
-                onClose={this.toggleModal}
-              >
-                <div>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                </div>
-                <div className="flex-parent">
-                  <Button
-                    type="button"
-                    variant="btn-default"
-                    size="btn-medium"
-                    style={{ width: '50%' }}
-                    content="Dismiss"
-                    onClick={this.toggleModal}
-                  />
-                  <Button
-                    type="button"
-                    variant="btn-primary"
-                    size="btn-medium"
-                    style={{ width: '50%' }}
-                    content="Connect"
-                    onClick={this.toggleModal}
-                  />
-                </div>
-              </Modal>
-              )}
             </div>
           </div>
         </div>
@@ -322,6 +290,38 @@ class Home extends Component {
         <div style={{ marginTop: '12px' }}>
           <Tabs data={tabs} tabTitleStyle={{ margin: '0 16px' }} />
         </div>
+        {/* modals */}
+        {this.state.isModalOpen && (
+        <Modal
+          id="modal"
+          title="Lumenswap.io"
+          isOpen={this.state.isModalOpen}
+          onClose={this.toggleModal}
+        >
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+          </div>
+          <div className="flex-parent">
+            <Button
+              type="button"
+              variant="btn-default"
+              size="btn-medium"
+              style={{ width: '50%' }}
+              content="Dismiss"
+              onClick={this.toggleModal}
+            />
+            <Button
+              type="button"
+              variant="btn-primary"
+              size="btn-medium"
+              style={{ width: '50%' }}
+              content="Connect"
+              onClick={this.toggleModal}
+            />
+          </div>
+        </Modal>
+        )}
       </>
     );
   }

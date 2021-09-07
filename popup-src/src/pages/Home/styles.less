@@ -31,7 +31,27 @@
 
   .pure-g {
     justify-content: center;
+    position: relative;
   }
+}
+
+:local(.modalBtn) {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+:local(.modalActive) {
+ border: 1px solid @JungleGreen;
+}
+
+:local(.modalInactive) {
+  border: 1px solid @Tangerine;
 }
 
 :local(.infoBox) {
