@@ -22,6 +22,7 @@ import changeNameAction from '../../actions/accounts/changeName';
 import TransactionList from '../../pageComponents/TransactionList';
 import { buttonSizes, buttonTypes, inputSize } from '../../staticRes/enum';
 import numberWithCommas from '../../helpers/numberWithCommas';
+import Modal from '../../components/Modal';
 import {
   ShowPrivateKeyPage,
   flagPage,
@@ -43,9 +44,11 @@ class Home extends Component {
     this.state = {
       editName: false,
       loading: true,
+      isModalOpen: false,
     };
 
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   componentDidMount() {
@@ -88,6 +91,12 @@ class Home extends Component {
     }
 
     return errors;
+  }
+
+  toggleModal(e) {
+    this.setState({
+      isModalOpen: !this.state.isModalOpen,
+    });
   }
 
   render() {
@@ -178,6 +187,42 @@ class Home extends Component {
                 {activeCurrency.name}
                 )
               </div>
+              <button type="button" onClick={this.toggleModal}>Open Modal</button>
+              <div>
+                Modal is:
+                {this.state.isModalOpen ? 'Open' : 'Closed'}
+              </div>
+              {this.state.isModalOpen && (
+              <Modal
+                id="modal"
+                title="Lumenswap.io"
+                isOpen={this.state.isModalOpen}
+                onClose={this.toggleModal}
+              >
+                <div>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                </div>
+                <div className="flex-parent">
+                  <Button
+                    type="button"
+                    variant="btn-default"
+                    size="btn-medium"
+                    style={{ width: '50%' }}
+                    content="Dismiss"
+                    onClick={this.toggleModal}
+                  />
+                  <Button
+                    type="button"
+                    variant="btn-primary"
+                    size="btn-medium"
+                    style={{ width: '50%' }}
+                    content="Connect"
+                    onClick={this.toggleModal}
+                  />
+                </div>
+              </Modal>
+              )}
             </div>
           </div>
         </div>
