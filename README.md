@@ -2,7 +2,7 @@
  
 
 
-### **Introduction
+### **Introduction**
 Rabet extension allows you to interact with Stellar Apps in a secure and transparent environment. This product is available for Chrome, Firefox, Edge, and Brave.
 
 
