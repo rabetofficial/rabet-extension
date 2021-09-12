@@ -32,6 +32,7 @@ import ConfirmFlag from './ConfirmFlag';
 import XLMAsset from './XLMAsset';
 import DeleteAccount from './DeleteAccount';
 import ConnectedWebsite from './ConnectedWebsite';
+import BackupFile from './BackupFile';
 
 const App = () => (
   <Router>
@@ -50,6 +51,7 @@ const App = () => (
         <ProtectedRoute exact path={`${route.assetsPage}/:asset_code/:asset_issuer`} component={Assets} />
         <ProtectedRoute exact path={route.xlmAssetPage} component={XLMAsset} />
         <ProtectedRoute exact path={route.successSubmitPage} component={SuccessfulSubmission} />
+        <ProtectedRoute exact path={route.backupFile} component={BackupFile} />
 
         <Route exact path={route.flagPage} component={Flags} />
         <Route exact path={route.confirmFlagPage} component={ConfirmFlag} />

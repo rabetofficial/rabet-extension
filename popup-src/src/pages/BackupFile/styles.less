@@ -1,0 +1,52 @@
+@import '~Root/styles/theme';
+
+:local(.msg) {
+  font-size: 14px;
+  line-height: 1.43;
+  color: @dove-gray;
+  margin-top: 8px;
+
+  span {
+    color: black;
+    font-weight: 500;
+  }
+}
+
+:local(.box) {
+  margin-top: 6px;
+  padding: 10px 12px 4px 12px;
+  border-radius: 2px;
+  border: solid 1px @gallery;
+  line-height: 1.63;
+  font-size: 16px;
+  word-break: break-all;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    font-size: 12px;
+    width: 60px;
+    height: 28px;
+    padding: 0;
+    display: block;
+    margin-left: auto;
+
+    .icon-sheet {
+      font-size: 13px;
+      margin-right: 4px;
+    }
+  }
+}
+
+:local(.label) {
+  margin-top: 24px;
+}
+
+:local(.buttons) {
+  margin-top: 106px;
+
+  button {
+    padding: 0 18px;
+    margin-left: 14px;
+  }
+}

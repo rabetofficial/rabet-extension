@@ -167,6 +167,7 @@ class Home extends Component {
     return (
       <>
         <Header />
+        <button type="button" style={{ marginTop: '30px' }}><Link to="/backup-file">backup</Link></button>
         <div className={styles.xlmBox}>
           <div className="pure-g">
             <div className="pure-u">
