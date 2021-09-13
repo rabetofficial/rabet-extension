@@ -5,6 +5,10 @@ import Header from '../../components/Header';
 import * as route from '../../staticRes/routes';
 import PageTitle from '../../components/PageTitle';
 import NoteCard from '../../pageComponents/NoteCard';
+import CopyText from '../../components/CopyText';
+import shareIcon from '../../assets/images/share-arrow.svg';
+import createTab from '../../helpers/createTab';
+import explorer from '../../helpers/horizon/getTransaction';
 
 import styles from './styles.less';
 
@@ -18,20 +22,32 @@ const SuccessfulSubmission = ({ history }) => {
     });
   };
 
+  const { hash } = history.location.state;
+
+  const copyText = (
+    <>
+      <CopyText text={hash} button={hash} />
+      <a
+        className={styles.shareLink}
+        onClick={() => { createTab(explorer(hash)); }}
+      >
+        <img src={shareIcon} alt="icon" />
+      </a>
+    </>
+  );
+
   return (
     <>
       <Header />
 
       <PageTitle alreadyLoaded={false} />
-
       <NoteCard
         title="Transaction Sent"
-        message={history.location.state.hash || 'SUCCESS!'}
+        message={hash ? copyText : 'SUCCESS!'}
         btnText="OK"
         icon="icon-checkmark"
         iconClass={styles.icon}
         handleClick={handleClick}
-        copy
       />
     </>
   );
