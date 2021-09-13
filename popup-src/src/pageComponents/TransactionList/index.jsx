@@ -10,6 +10,7 @@ import getOperations from '../../helpers/horizon/operations';
 import operationDetails from '../../helpers/operationDetails';
 import currentActiveAccount from '../../helpers/activeAccount';
 import getTransactions from '../../helpers/horizon/transactions';
+import Loading from '../../components/Loading';
 
 import styles from './styles.less';
 
@@ -72,7 +73,7 @@ const TransactionList = ({ maxHeight }) => {
   });
 
   if (isLoading) {
-    return 'LOADING';
+    return <div className={styles.loading}><Loading size={56} /></div>;
   }
 
   return (
