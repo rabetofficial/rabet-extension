@@ -3,16 +3,10 @@ import React from 'react';
 import classNames from 'classnames';
 import PageTitle from '../../components/PageTitle';
 import Button from '../../components/Button';
+import CopyText from '../../components/CopyText';
+import Card from '../../components/Card';
 
 import styles from './styles.less';
-import CopyText from '../../components/CopyText';
-
-const copyBtn = (
-  <>
-    <span className="icon-sheet" />
-    Copy
-  </>
-);
 
 const BackupFile = () => (
   <>
@@ -24,21 +18,21 @@ const BackupFile = () => (
       </div>
       <div className={classNames('label-primary', styles.label)}>Private Key</div>
       <div className={styles.box}>
-        SRTAVASMW6S344SCW4DESZFEXTCTJPE5KTCFNLyU3ZFLNQZ4TC67SEFU
-        <Button
-          variant="btn-basic-default"
-          size="btn-small"
-          content={<CopyText text="test1" button={copyBtn} />}
-        />
+        <Card type="card-primary">
+          SRTAVASMW6S344SCW4DESZFEXTCTJPE5KTCFNLyU3ZFLNQZ4TC67SEFU
+          <div className={styles.copy}>
+            <CopyText copyButton text="SRTAVASMW6S344SCW4DESZFEXTCTJPE5KTCFNLyU3ZFLNQZ4TC67SEFU" />
+          </div>
+        </Card>
       </div>
       <div className={classNames('label-primary', styles.label)}>Address</div>
       <div className={styles.box}>
-        GCHERU56A55FBC647QTX2QNA5DD7IZURIYJNX24NCR2QUHDEMLXI2FK0
-        <Button
-          variant="btn-basic-default"
-          size="btn-small"
-          content={<CopyText text="test2" button={copyBtn} />}
-        />
+        <Card type="card-primary">
+          GCHERU56A55FBC647QTX2QNA5DD7IZURIYJNX24NCR2QUHDEMLXI2FK0
+          <div className={styles.copy}>
+            <CopyText copyButton text="GCHERU56A55FBC647QTX2QNA5DD7IZURIYJNX24NCR2QUHDEMLXI2FK0" />
+          </div>
+        </Card>
       </div>
       <div className={classNames('pure-g justify-end', styles.buttons)}>
         <Button
