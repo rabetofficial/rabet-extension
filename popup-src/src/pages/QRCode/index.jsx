@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import PageTitle from '../../components/PageTitle';
+import CopyText from '../../components/CopyText';
 
 import styles from './styles.less';
-import CopyText from '../../components/CopyText';
 
 const QRCode = (props) => {
   const { accounts } = props;
@@ -25,6 +25,8 @@ const QRCode = (props) => {
   if (!activeAccount) {
     [activeAccount] = accounts;
   }
+
+  const test = activeAccount.publicKey;
 
   return (
     <>
@@ -46,7 +48,9 @@ const QRCode = (props) => {
           <p className={styles.code}>
             {activeAccount.publicKey}
             {' '}
-            <CopyText text={activeAccount.publicKey} />
+            <div className={styles.copy}>
+              <CopyText copyButton text={test} />
+            </div>
           </p>
         </Card>
       </div>
