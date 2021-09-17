@@ -28,3 +28,11 @@ document.addEventListener(
   'RABET_EXTENSION_SIGN',
   createEventListener('RABET_EXTENSION_SIGN', 'RABET_EXTENSION_SIGN_RESPONSE', true),
 );
+
+chrome.runtime.onMessage.addListener((message) => {
+  if (message.type === 'RABET_EXTENSION_CHANGED_ACCOUNT_EVENT') {
+    document.dispatchEvent(
+      new CustomEvent('RABET_EXTENSION_CHANGED_ACCOUNT_EVENT', {}),
+    );
+  }
+})

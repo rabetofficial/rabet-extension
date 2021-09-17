@@ -101,4 +101,16 @@ rabet.sign = (xdr, network) =>
     });
   });
 
+rabet.on = (eventName, cb) => {
+  let event;
+
+  if (eventName === 'accountsChanged') {
+    event = 'RABET_EXTENSION_CHANGED_ACCOUNT_EVENT';
+  }
+
+  document.addEventListener(event, () => {
+    cb();
+  });
+}
+
 window.rabet = rabet;

@@ -56,4 +56,4 @@ chrome.tabs.onRemoved.addListener((wIndex) => {
   if (mainWindow && mainWindow.id === wIndex && window && window.id) {
     chrome.windows.remove(window.id)
   }
-})
+});
