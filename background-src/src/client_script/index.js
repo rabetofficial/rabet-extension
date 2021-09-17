@@ -105,11 +105,17 @@ rabet.on = (eventName, cb) => {
   let event;
 
   if (eventName === 'accountsChanged') {
-    event = 'RABET_EXTENSION_CHANGED_ACCOUNT_EVENT';
+    event = 'RABET_EXTENSION_CHANGE_ACCOUNT_EVENT';
+  } else if (eventName === 'networkChanged') {
+    event = 'RABET_EXTENSION_CHANGE_NETWORK_EVENT';
   }
 
-  document.addEventListener(event, () => {
-    cb();
+  document.addEventListener(event, (e) => {
+    if (e.type === 'RABET_EXTENSION_CHANGE_NETWORK_EVENT') {
+      cb(e.detail.network);
+    } else {
+      cb();
+    }
   });
 }
 

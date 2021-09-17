@@ -30,9 +30,13 @@ document.addEventListener(
 );
 
 chrome.runtime.onMessage.addListener((message) => {
-  if (message.type === 'RABET_EXTENSION_CHANGED_ACCOUNT_EVENT') {
-    document.dispatchEvent(
-      new CustomEvent('RABET_EXTENSION_CHANGED_ACCOUNT_EVENT', {}),
-    );
+  if (message.type === 'RABET_EXTENSION_CHANGE_ACCOUNT_EVENT') {
+    document.dispatchEvent(new CustomEvent('RABET_EXTENSION_CHANGE_ACCOUNT_EVENT', {}));
+  }
+
+  if (message.type === 'RABET_EXTENSION_CHANGE_NETWORK_EVENT') {
+    document.dispatchEvent(new CustomEvent('RABET_EXTENSION_CHANGE_NETWORK_EVENT', {
+      detail: message.detail,
+    }));
   }
 })

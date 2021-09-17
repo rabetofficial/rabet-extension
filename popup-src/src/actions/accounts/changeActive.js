@@ -2,10 +2,10 @@ import types from '../index';
 import store from '../../store';
 import interval from './interval';
 import storeAccount from './store';
-import changedAccountEvent from '../../events/changedAccount';
+import changeAccountEvent from '../../events/changeAccount';
 
 export default async (publicKey) => {
-  changedAccountEvent(publicKey);
+  changeAccountEvent(publicKey);
 
   store.dispatch({
     publicKey,
