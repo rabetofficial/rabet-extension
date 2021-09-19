@@ -104,7 +104,7 @@ rabet.sign = (xdr, network) =>
 rabet.on = (eventName, cb) => {
   let event;
 
-  if (eventName === 'accountsChanged') {
+  if (eventName === 'accountChanged') {
     event = 'RABET_EXTENSION_CHANGE_ACCOUNT_EVENT';
   } else if (eventName === 'networkChanged') {
     event = 'RABET_EXTENSION_CHANGE_NETWORK_EVENT';
@@ -118,5 +118,53 @@ rabet.on = (eventName, cb) => {
     }
   });
 }
+
+rabet.close = () => new Promise((resolve) => {
+  document.dispatchEvent(new CustomEvent('RABET_EXTENSION_CLOSE_WINDOW', {}));
+
+  document.addEventListener('RABET_EXTENSION_CLOSE_WINDOW_RESPONSE', function () {
+    resolve();
+  });
+});
+
+rabet.disconnect = () => new Promise((resolve, reject) => {
+  document.dispatchEvent(new CustomEvent('RABET_EXTENSION_DISCONNECT', {
+    detail: {
+      host: window.location.host || 'test.org',
+      href: window.location.href,
+    },
+  }));
+
+  document.addEventListener('RABET_EXTENSION_DISCONNECT_RESPONSE', function (e) {
+    const { detail: det } = e;
+    const detail = JSON.parse(det);
+
+    if (detail.ok) {
+      resolve();
+    } else {
+      reject({
+        error: 'unknown-error',
+      });
+    }
+  });
+});
+
+rabet.isUnlocked = () => new Promise((resolve) => {
+  document.dispatchEvent(new CustomEvent('RABET_EXTENSION_IS_UNLOCKED', {
+    detail: {
+      host: window.location.host || 'test.org',
+      href: window.location.href,
+    },
+  }));
+
+  document.addEventListener('RABET_EXTENSION_IS_UNLOCKED_RESPONSE', function (e) {
+    const { detail: det } = e;
+    const detail = JSON.parse(det);
+
+    if (detail.ok) {
+      resolve(detail.isUnlocked);
+    }
+  });
+});
 
 window.rabet = rabet;
