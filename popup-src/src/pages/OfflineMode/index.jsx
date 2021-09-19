@@ -1,8 +1,9 @@
 import React from 'react';
 
 import config from '../../config';
-import styles from '../Error/styles.less';
-import NoteCard from '../../pageComponents/NoteCard';
+import offline from '../../assets/images/offline.svg';
+
+import styles from './styles.less';
 
 const OfflineMode = () => {
   setTimeout(() => {
@@ -10,16 +11,16 @@ const OfflineMode = () => {
   }, config.OFFLINE_MODE_TIMEOUT_SECONDS * 1000);
 
   return (
-    <>
-      <div className={styles.card}>
-        <NoteCard
-          title="Error"
-          message="You are offline. Try again later."
-          icon="icon-exclamation-triangle"
-          iconClass={styles.icon}
-        />
+    <div className={styles.container}>
+      <div className={styles.sleeping}>
+        <span>z</span>
+        <span>z</span>
+        <span>z</span>
+        <img src={offline} width={58} height={119} alt="rabet offline" />
       </div>
-    </>
+      <div className={styles.title}>You are offline</div>
+      <div className={styles.msg}>Go back online to use Rabet</div>
+    </div>
   );
 };
 
