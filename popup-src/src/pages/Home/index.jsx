@@ -20,6 +20,7 @@ import intervalAction from '../../actions/accounts/interval';
 import currentActiveAccount from '../../helpers/activeAccount';
 import changeNameAction from '../../actions/accounts/changeName';
 import TransactionList from '../../pageComponents/TransactionList';
+import ModalConnectStatus from '../../pageComponents/ModalConnectStatus';
 import { buttonSizes, buttonTypes, inputSize } from '../../staticRes/enum';
 import numberWithCommas from '../../helpers/numberWithCommas';
 import Modal from '../../components/Modal';
@@ -299,8 +300,7 @@ class Home extends Component {
           onClose={this.toggleModal}
         >
           <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+            <ModalConnectStatus />
           </div>
           <div className="flex-parent">
             <Button
