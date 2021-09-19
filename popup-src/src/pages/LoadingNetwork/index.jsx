@@ -13,8 +13,4 @@ const LoadingOne = () => (
   </div>
 );
 
-LoadingOne.propTypes = {
-
-};
-
 export default LoadingOne;

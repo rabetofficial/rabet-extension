@@ -1,6 +1,6 @@
+import React from 'react';
 import shortid from 'shortid';
 import classNames from 'classnames';
-import React from 'react';
 import { connect } from 'react-redux';
 
 import Header from '../../components/Header';

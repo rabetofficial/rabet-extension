@@ -8,14 +8,11 @@ import styles from './styles.less';
 const LoadingOne = () => (
   <div style={{ marginTop: '167px' }}>
     <Logo />
+
     <div className={styles.loading}>
       <Loading size={58} />
     </div>
   </div>
 );
-
-LoadingOne.propTypes = {
-
-};
 
 export default LoadingOne;

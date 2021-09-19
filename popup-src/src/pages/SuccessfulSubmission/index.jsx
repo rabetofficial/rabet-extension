@@ -25,20 +25,16 @@ const SuccessfulSubmission = ({ history }) => {
       <PageTitle alreadyLoaded={false} />
 
       <NoteCard
-        title="Transaction Sent"
-        message={history.location.state.hash || 'SUCCESS!'}
+        copy
         btnText="OK"
         icon="icon-checkmark"
         iconClass={styles.icon}
+        title="Transaction Sent"
         handleClick={handleClick}
-        copy
+        message={history.location.state.hash || 'SUCCESS!'}
       />
     </>
   );
-};
-
-SuccessfulSubmission.propTypes = {
-
 };
 
 export default withRouter(SuccessfulSubmission);

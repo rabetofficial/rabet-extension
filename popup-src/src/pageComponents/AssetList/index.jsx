@@ -60,12 +60,12 @@ class AssetList extends Component {
         </Link>
         {items.map((item, index) => (
           <Asset
-            key={item.asset_issuer + ':' + item.asset_code}
             item={item}
             index={index}
-            activeCurrency={activeCurrency}
-            itemsLength={items.length}
             assets={assets}
+            itemsLength={items.length}
+            activeCurrency={activeCurrency}
+            key={`${item.asset_issuer}:${item.asset_code}`}
           />
         ))}
 

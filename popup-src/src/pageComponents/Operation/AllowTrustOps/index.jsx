@@ -155,6 +155,4 @@ class AllowTrustOps extends Component {
   }
 }
 
-AllowTrustOps.propTypes = {};
-
 export default AllowTrustOps;

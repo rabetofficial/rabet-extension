@@ -5,26 +5,14 @@ import { connect } from 'react-redux';
 
 import Card from '../../components/Card';
 import Header from '../../components/Header';
+import CopyText from '../../components/CopyText';
 import PageTitle from '../../components/PageTitle';
+import currentActiveAccount from '../../helpers/activeAccount';
 
 import styles from './styles.less';
-import CopyText from '../../components/CopyText';
 
-const QRCode = (props) => {
-  const { accounts } = props;
-
-  let activeAccount;
-
-  for (let i = 0; i < accounts.length; i += 1) {
-    if (accounts[i].active) {
-      activeAccount = accounts[i];
-      break;
-    }
-  }
-
-  if (!activeAccount) {
-    [activeAccount] = accounts;
-  }
+const QRCode = () => {
+  const { activeAccount } = currentActiveAccount();
 
   return (
     <>
@@ -52,10 +40,6 @@ const QRCode = (props) => {
       </div>
     </>
   );
-};
-
-QRCode.propTypes = {
-
 };
 
 export default connect((state) => ({

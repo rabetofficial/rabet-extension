@@ -8,11 +8,11 @@ import { withRouter } from 'react-router-dom';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import * as route from '../../../staticRes/routes';
+import checkedSrc from '../../../assets/images/checked.svg';
 import getAssetsAction from '../../../helpers/server/getAssets';
 import currentActiveAccount from '../../../helpers/activeAccount';
-import addMultipleAssets from '../../../actions/operations/addMultipleAssets';
-import checkedSrc from '../../../assets/images/checked.svg';
 import questionSrc from '../../../assets/images/question-circle.png';
+import addMultipleAssets from '../../../actions/operations/addMultipleAssets';
 
 import styles from './styles.less';
 

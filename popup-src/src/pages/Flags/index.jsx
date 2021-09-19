@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 import Header from '../../components/Header';
 import Button from '../../components/Button';
@@ -21,209 +21,179 @@ const tooltipInfo = {
   clawback: 'Enables clawbacks for all assets issued by this account. Note that this only applies along trustlines established after this flag has been set. Requires authorization revocable.',
 };
 
-class Flags extends Component {
-  constructor(props) {
-    super(props);
+const Flags = ({ history }) => {
+  const [disabled, setDisabled] = useState(false);
+  const [auth_required, setAuth_required] = useState(false);
+  const [auth_revocable, setAuth_revocable] = useState(false);
+  const [auth_immutable, setAuth_immutable] = useState(false);
+  const [auth_clawback_enabled, setAuth_clawback_enabled] = useState(false);
 
-    this.state = {
-      disabled: false,
-      auth_required: false,
-      auth_revocable: false,
-      auth_immutable: false,
-      auth_clawback_enabled: false,
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCheckedRequired = this.handleCheckedRequired.bind(this);
-    this.handleCheckedRevocable = this.handleCheckedRevocable.bind(this);
-    this.handleCheckedImmutable = this.handleCheckedImmutable.bind(this);
-    this.handleClawbackEnabled = this.handleClawbackEnabled.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const { activeAccount } = currentActiveAccount();
 
     if (activeAccount.flags.auth_immutable) {
-      this.setState({
-        disabled: true,
-      });
+      setDisabled(true);
     }
 
-    this.setState({
-      auth_required: activeAccount.flags.auth_required || false,
-      auth_revocable: activeAccount.flags.auth_revocable || false,
-      auth_immutable: activeAccount.flags.auth_immutable || false,
-      auth_clawback_enabled: activeAccount.flags.auth_clawback_enabled || false,
-    });
-  }
+    setAuth_required(activeAccount.flags.auth_required || false);
+    setAuth_revocable(activeAccount.flags.auth_revocable || false);
+    setAuth_immutable(activeAccount.flags.auth_immutable || false);
+    setAuth_clawback_enabled(activeAccount.flags.auth_clawback_enabled || false);
+  }, []);
 
-  handleCheckedRequired(checked) { this.setState({ auth_required: checked }); }
+  const handleCheckedRequired = (checked) => setAuth_required(checked);
+  const handleCheckedRevocable = (checked) => setAuth_revocable(checked);
+  const handleCheckedImmutable = (checked) => setAuth_immutable(checked);
+  const handleClawbackEnabled = (checked) => setAuth_clawback_enabled(checked);
 
-  handleCheckedRevocable(checked) { this.setState({ auth_revocable: checked }); }
-
-  handleCheckedImmutable(checked) { this.setState({ auth_immutable: checked }); }
-
-  handleClawbackEnabled(checked) { this.setState({ auth_clawback_enabled: checked }); }
-
-  handleSubmit() {
-    const {
-      auth_revocable,
-      auth_immutable,
-      auth_clawback_enabled,
-    } = this.state;
-
-    const { history } = this.props;
-
+  const handleSubmit = () => {
     if (auth_immutable || (auth_clawback_enabled && !auth_revocable)) {
       history.push({
         pathname: route.confirmFlagPage,
         state: {
-          ...this.state,
+          auth_required,
+          auth_revocable,
+          auth_immutable,
+          auth_clawback_enabled,
         },
       });
     } else {
-      setFlagsAction(this.state, history.push);
+      setFlagsAction(
+        {
+          auth_required,
+          auth_revocable,
+          auth_immutable,
+          auth_clawback_enabled,
+        },
+        history.push,
+      );
     }
-  }
+  };
 
-  render() {
-    const {
-      disabled,
-      auth_required,
-      auth_revocable,
-      auth_immutable,
-      auth_clawback_enabled,
-    } = this.state;
+  return (
+    <>
+      <div className={classNames(styles.page, 'hidden-scroll content-scroll')}>
+        <Header />
 
-    const { history } = this.props;
+        <PageTitle title="Flags" />
 
-    return (
-      <>
-        <div className={classNames(styles.page, 'hidden-scroll content-scroll')}>
-          <Header />
+        <div className="content">
+          <h6 className={styles.title}>
+            Currently, there are 4 flags, used by issuers of assets.
+            in below you can see your flags status:
+          </h6>
 
-          <PageTitle title="Flags" />
-
-          <div className="content">
-            <h6 className={styles.title}>
-              Currently, there are 4 flags, used by issuers of assets.
-              in below you can see your flags status:
-            </h6>
-
-            <div className={classNames('pure-g', styles.div, styles.first)}>
-              <div className="pure-u-2-3">
-                <h3 className={styles.toggleTitle}>
-                  Authorization required
-                  <Tooltip trigger="hover" tooltip={tooltipInfo.required} placement="top">
-                    <span className="icon-question-mark" />
-                  </Tooltip>
-                </h3>
-              </div>
-
-              <div className="pure-u-1-3">
-                <ToggleSwitch
-                  disabled={disabled}
-                  checked={auth_required}
-                  handleChange={this.handleCheckedRequired}
-                />
-              </div>
+          <div className={classNames('pure-g', styles.div, styles.first)}>
+            <div className="pure-u-2-3">
+              <h3 className={styles.toggleTitle}>
+                Authorization required
+                <Tooltip trigger="hover" tooltip={tooltipInfo.required} placement="top">
+                  <span className="icon-question-mark" />
+                </Tooltip>
+              </h3>
             </div>
 
-            <div className={classNames('pure-g', styles.div)}>
-              <div className="pure-u-2-3">
-                <h3 className={styles.toggleTitle}>
-                  Authorization revocable
-                  <Tooltip trigger="hover" tooltip={tooltipInfo.revocable} placement="top">
-                    <span className="icon-question-mark" />
-                  </Tooltip>
-                </h3>
-              </div>
-
-              <div className="pure-u-1-3">
-                <ToggleSwitch
-                  disabled={disabled}
-                  checked={auth_revocable}
-                  handleChange={this.handleCheckedRevocable}
-                />
-              </div>
-            </div>
-
-            <div className={classNames('pure-g', styles.div)}>
-              <div className="pure-u-2-3">
-                <h3 className={styles.toggleTitle}>
-                  Authorization immutable
-                  <Tooltip trigger="hover" tooltip={tooltipInfo.immutable} placement="top">
-                    <span className="icon-question-mark" />
-                  </Tooltip>
-                </h3>
-              </div>
-
-              <div className="pure-u-1-3">
-                <ToggleSwitch
-                  disabled={disabled}
-                  checked={auth_immutable}
-                  handleChange={this.handleCheckedImmutable}
-                />
-              </div>
-            </div>
-
-            <div className={classNames('pure-g', styles.div)}>
-              <div className="pure-u-2-3">
-                <h3 className={styles.toggleTitle}>
-                  Clawback enabled
-                  <Tooltip trigger="hover" tooltip={tooltipInfo.clawback} placement="top">
-                    <span className="icon-question-mark" />
-                  </Tooltip>
-                </h3>
-              </div>
-
-              <div className="pure-u-1-3">
-                <ToggleSwitch
-                  disabled={disabled}
-                  checked={auth_clawback_enabled}
-                  handleChange={this.handleClawbackEnabled}
-                />
-              </div>
-
-              {disabled ? (
-                <div className="error-box" style={{ marginTop: '16px' }}>
-                  You can no longer change the status of your flags
-                  because you have already activated theImmutable flag.
-                </div>
-              ) : ''}
+            <div className="pure-u-1-3">
+              <ToggleSwitch
+                disabled={disabled}
+                checked={auth_required}
+                handleChange={handleCheckedRequired}
+              />
             </div>
           </div>
+
+          <div className={classNames('pure-g', styles.div)}>
+            <div className="pure-u-2-3">
+              <h3 className={styles.toggleTitle}>
+                Authorization revocable
+                <Tooltip trigger="hover" tooltip={tooltipInfo.revocable} placement="top">
+                  <span className="icon-question-mark" />
+                </Tooltip>
+              </h3>
+            </div>
+
+            <div className="pure-u-1-3">
+              <ToggleSwitch
+                disabled={disabled}
+                checked={auth_revocable}
+                handleChange={handleCheckedRevocable}
+              />
+            </div>
+          </div>
+
+          <div className={classNames('pure-g', styles.div)}>
+            <div className="pure-u-2-3">
+              <h3 className={styles.toggleTitle}>
+                Authorization immutable
+                <Tooltip trigger="hover" tooltip={tooltipInfo.immutable} placement="top">
+                  <span className="icon-question-mark" />
+                </Tooltip>
+              </h3>
+            </div>
+
+            <div className="pure-u-1-3">
+              <ToggleSwitch
+                disabled={disabled}
+                checked={auth_immutable}
+                handleChange={handleCheckedImmutable}
+              />
+            </div>
+          </div>
+
+          <div className={classNames('pure-g', styles.div)}>
+            <div className="pure-u-2-3">
+              <h3 className={styles.toggleTitle}>
+                Clawback enabled
+                <Tooltip trigger="hover" tooltip={tooltipInfo.clawback} placement="top">
+                  <span className="icon-question-mark" />
+                </Tooltip>
+              </h3>
+            </div>
+
+            <div className="pure-u-1-3">
+              <ToggleSwitch
+                disabled={disabled}
+                checked={auth_clawback_enabled}
+                handleChange={handleClawbackEnabled}
+              />
+            </div>
+
+            {disabled ? (
+              <div className="error-box" style={{ marginTop: '16px' }}>
+                You can no longer change the status of your flags
+                because you have already activated theImmutable flag.
+              </div>
+            ) : ''}
+          </div>
         </div>
+      </div>
 
-        <div className={classNames('pure-g justify-end content', styles.buttons)}>
-          <Button
-            variant="btn-default"
-            size="btn-medium"
-            content="Cancel"
-            onClick={() => {
-              history.push({
-                pathname: route.homePage,
-                state: {
-                  alreadyLoaded: true,
-                },
-              });
-            }}
-          />
+      <div className={classNames('pure-g justify-end content', styles.buttons)}>
+        <Button
+          variant="btn-default"
+          size="btn-medium"
+          content="Cancel"
+          onClick={() => {
+            history.push({
+              pathname: route.homePage,
+              state: {
+                alreadyLoaded: true,
+              },
+            });
+          }}
+        />
 
-          <Button
-            disabled={disabled}
-            onClick={this.handleSubmit}
-            variant="btn-primary"
-            size="btn-medium"
-            content="Save"
-          />
-        </div>
-      </>
-    );
-  }
-}
-
-Flags.propTypes = {};
+        <Button
+          disabled={disabled}
+          onClick={handleSubmit}
+          variant="btn-primary"
+          size="btn-medium"
+          content="Save"
+        />
+      </div>
+    </>
+  );
+};
 
 export default withRouter(connect((state) => ({
   accounts: state.accounts,

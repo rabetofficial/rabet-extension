@@ -8,7 +8,7 @@ import { buttonSizes, buttonTypes } from '../../staticRes/enum';
 
 import styles from './styles.less';
 
-const FirstPage = (props) => (
+const FirstPage = ({ history }) => (
   <div className="pure-g content">
     <div className="pure-u-1-1">
       <Logo />
@@ -20,7 +20,9 @@ const FirstPage = (props) => (
           size={buttonSizes.large}
           content="Create Wallet"
           style={{ marginBottom: '27px' }}
-          onClick={() => { props.history.push(route.createWalletPage); }}
+          onClick={() => {
+            history.push(route.createWalletPage);
+          }}
         />
 
         <Button
@@ -29,7 +31,9 @@ const FirstPage = (props) => (
           size={buttonSizes.large}
           content="Import Wallet"
           style={{ marginBottom: '27px' }}
-          onClick={() => { props.history.push(route.restoreWalletPage); }}
+          onClick={() => {
+            history.push(route.restoreWalletPage);
+          }}
         />
       </div>
     </div>

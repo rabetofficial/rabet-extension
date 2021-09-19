@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 
 import Header from '../../components/Header';
 import Button from '../../components/Button';
@@ -16,7 +16,7 @@ const ContactRequest = () => (
       <div className={styles.step}>
         <div className="pure-g step-container">
           <div className="step step-one flex-parent" style={{ alignItems: 'center' }}>
-            <img src={icon} alt="icon"/>
+            <img src={icon} alt="icon" />
           </div>
           <div className="step step-two">AA</div>
           <div className="icon-checkmark step-checked" />

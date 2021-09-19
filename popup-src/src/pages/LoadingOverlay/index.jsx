@@ -23,8 +23,4 @@ const LoadingOverlay = () => {
   );
 };
 
-LoadingOverlay.propTypes = {
-
-};
-
 export default LoadingOverlay;

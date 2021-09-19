@@ -26,5 +26,4 @@ const XLMAsset = () => (
   </div>
 );
 
-
 export default XLMAsset;

@@ -5,12 +5,11 @@ import Header from '../../components/Header';
 import * as route from '../../staticRes/routes';
 import PageTitle from '../../components/PageTitle';
 import NoteCard from '../../pageComponents/NoteCard';
+import currentActiveAccount from '../../helpers/activeAccount';
 
 import styles from './styles.less';
 
-const PrivateKey = (props) => {
-  const { accounts, history } = props;
-
+const PrivateKey = ({ history }) => {
   const handleClick = () => {
     history.push({
       pathname: route.homePage,
@@ -20,18 +19,7 @@ const PrivateKey = (props) => {
     });
   };
 
-  let activeAccount;
-
-  for (let i = 0; i < accounts.length; i += 1) {
-    if (accounts[i].active) {
-      activeAccount = accounts[i];
-      break;
-    }
-  }
-
-  if (!activeAccount) {
-    [activeAccount] = accounts;
-  }
+  const { activeAccount } = currentActiveAccount();
 
   return (
     <div className={styles.note}>
@@ -52,10 +40,6 @@ const PrivateKey = (props) => {
   );
 };
 
-PrivateKey.propTypes = {
-
-};
-
-export default connect(state => ({
+export default connect((state) => ({
   accounts: state.accounts,
 }))(PrivateKey);
