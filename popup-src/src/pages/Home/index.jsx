@@ -295,27 +295,16 @@ class Home extends Component {
         {this.state.isModalOpen && (
         <Modal
           id="modal"
-          title="Lumenswap.io"
+          title="nicetrade.co"
           isOpen={this.state.isModalOpen}
           onClose={this.toggleModal}
         >
-          <div>
-            <ModalConnectStatus />
-          </div>
-          <div className="flex-parent">
-            <Button
-              type="button"
-              variant="btn-default"
-              size="btn-medium"
-              style={{ width: '50%' }}
-              content="Dismiss"
-              onClick={this.toggleModal}
-            />
+          <ModalConnectStatus />
+          <div className={styles.modalButton}>
             <Button
               type="button"
               variant="btn-primary"
               size="btn-medium"
-              style={{ width: '50%' }}
               content="Connect"
               onClick={this.toggleModal}
             />

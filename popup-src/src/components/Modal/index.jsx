@@ -1,94 +1,92 @@
-import React, { Component } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ReactDom from 'react-dom';
-import PropTypes from 'prop-types';
 
 import styles from './styles.less';
 
 const modalRoot = document.getElementById('root');
 
-class Modal extends Component {
-  constructor(props) {
-    super(props);
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}
 
-    this.state = {
-      fadeType: null,
-      background: React.createRef(),
-    };
+const Modal = ({
+  isOpen, onClose, modalSize, modalClass, id, title, children,
+}) => {
+  const background = useRef(null);
+  const [fadeType, setFadeUp] = useState(null);
+  const prevIsOpen = usePrevious(isOpen);
 
-    this.handleClick = this.handleClick.bind(this);
-    this.onEscKeyDown = this.onEscKeyDown.bind(this);
-    this.transitionEnd = this.transitionEnd.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener('keydown', this.onEscKeyDown, false);
-    setTimeout(() => this.setState({ fadeType: 'in' }), 0);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!this.props.isOpen && prevProps.isOpen) {
-      this.setState({ fadeType: 'out' });
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onEscKeyDown, false);
-  }
-
-  handleClick(e) {
+  const handleClick = (e) => {
     e.preventDefault();
-    this.setState({ fadeType: 'out' });
-    this.props.onClose();
-  }
+    setFadeUp('out');
+    onClose();
+  };
 
-  onEscKeyDown(e) {
-    if (e.key !== 'Escape') return;
-    this.setState({ fadeType: 'out' });
-  }
-
-  transitionEnd(e) {
-    if (e.propertyName !== 'opacity' || this.state.fadeType === 'in') return;
-
-    if (this.state.fadeType === 'out') {
-      this.props.onClose();
-    }
-  }
-
-  handleModalSize(size) {
+  const handleModalSize = (size) => {
     switch (size) {
       case 'lg':
         return '800';
       default:
         return '328';
     }
-  }
+  };
 
-  render() {
-    return ReactDom.createPortal(
-      <div
-        id={this.props.id}
-        className={classNames(`wrapper ${`size-${this.props.modalSize}`} fade-${this.state.fadeType} ${this.props.modalClass}`, styles.modal)}
-        style={{ width: `${this.handleModalSize(this.props.modalSize)}px` }}
-        role="dialog"
-        onTransitionEnd={this.transitionEnd}
-      >
-        <div className="modal-dialog">
-          <div className="modal-header">
-            <h4 className="modal-title">{this.props.title}</h4>
-            <button type="button" onClick={this.handleClick} className="close">
-              <span className="icon-multiply" />
-            </button>
-          </div>
-          <div className="modal-content">{this.props.children[0]}</div>
-          <div className="modal-footer">{this.props.children[1]}</div>
+  const onEscKeyDown = (e) => {
+    if (e.key !== 'Escape') return;
+    setFadeUp('out');
+  };
+
+  const transitionEnd = (e) => {
+    if (e.propertyName !== 'opacity' || fadeType === 'in') return;
+
+    if (fadeType === 'out') {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    if (!isOpen && prevIsOpen) {
+      setFadeUp('out');
+    }
+  });
+
+  useEffect(() => {
+    window.addEventListener('keydown', onEscKeyDown, false);
+    setTimeout(() => setFadeUp('in'), 0);
+
+    return () => {
+      window.removeEventListener('keydown', onEscKeyDown, false);
+    };
+  });
+
+  return ReactDom.createPortal(
+    <div
+      id={id}
+      className={classNames(`wrapper ${`size-${modalSize}`} fade-${fadeType} ${modalClass}`, styles.modal)}
+      style={{ width: `${handleModalSize(modalSize)}px` }}
+      role="dialog"
+      onTransitionEnd={transitionEnd}
+    >
+      <div className="modal-dialog">
+        <div className="modal-header">
+          <h4 className="modal-title">{title}</h4>
+          <button type="button" onClick={handleClick} className="close">
+            <span className="icon-multiply" />
+          </button>
         </div>
-        <div className="modal-background" onMouseDown={this.handleClick} ref={this.state.background} />
-      </div>,
-      modalRoot,
-    );
-  }
-}
+        <div className="modal-content">{children}</div>
+      </div>
+      <div className="modal-background" onMouseDown={handleClick} ref={background} />
+    </div>,
+    modalRoot,
+  );
+};
 
 Modal.defaultProps = {
   modalClass: '',

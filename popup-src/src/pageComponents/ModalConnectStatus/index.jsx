@@ -24,11 +24,11 @@ const ModalConnectStatus = () => {
   }
 
   if (result) {
-    return <div>Connected</div>;
+    return <div>This account is connected to this site. Do you want to Disconnect?</div>;
   }
 
   return (
-    <div>Not connected</div>
+    <div>This account is not connected to this site. Do you want to connect?</div>
   );
 };
 
