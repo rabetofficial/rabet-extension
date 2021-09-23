@@ -12,6 +12,7 @@ import Button from '../../components/Button';
 import LoadingOne from '../LoadingOne';
 import DropMenu from '../../components/DropMenu';
 import CopyText from '../../components/CopyText';
+import isConnected from '../../helpers/isConnected';
 import showBalance from '../../helpers/showBalance';
 import getData from '../../actions/accounts/getData';
 import AssetList from '../../pageComponents/AssetList';
@@ -43,9 +44,11 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      host: null,
       editName: false,
       loading: true,
       isModalOpen: false,
+      isConnected: undefined,
     };
 
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -70,6 +73,16 @@ class Home extends Component {
         loading: false,
       });
     }
+
+    const { activeAccount } = currentActiveAccount();
+
+    isConnected(activeAccount.publicKey)
+      .then(({ isConnectedResult, host }) => {
+        this.setState({
+          host,
+          isConnected: isConnectedResult,
+        });
+      });
   }
 
   onSubmit(values) {
@@ -94,7 +107,7 @@ class Home extends Component {
     return errors;
   }
 
-  toggleModal(e) {
+  toggleModal() {
     this.setState({
       isModalOpen: !this.state.isModalOpen,
     });
@@ -183,7 +196,10 @@ class Home extends Component {
               <div className={styles.value}>
                 {showBalance(numberWithCommas(formatCurrency(totalBalance)), activeCurrency.name)}
                 <span
-                  className={classNames(styles.modalBtn, styles.modalActive)}
+                  className={classNames(
+                    styles.modalBtn,
+                    this.state.isConnected ? styles.modalActive : styles.modalInactive,
+                  )}
                   onClick={this.toggleModal}
                 />
               </div>
@@ -295,11 +311,16 @@ class Home extends Component {
         {this.state.isModalOpen && (
         <Modal
           id="modal"
-          title="nicetrade.co"
+          title={this.state.host}
           isOpen={this.state.isModalOpen}
           onClose={this.toggleModal}
         >
-          <ModalConnectStatus />
+          <ModalConnectStatus
+            host={this.state.host}
+            toggleModal={this.toggleModal}
+            result={this.state.isConnected}
+            publicKey={activeAccount.publicKey}
+          />
           <div className={styles.modalButton}>
             <Button
               type="button"

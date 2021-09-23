@@ -10,7 +10,10 @@ const getIsConnected = (publicKey) => new Promise((resolve) => {
     const pair = `${host}/${publicKey}`;
     const isConnected = connectedWebsites.find((x) => x === pair);
 
-    resolve(isConnected);
+    resolve({
+      host,
+      isConnectedResult: isConnected,
+    });
   });
 });
 

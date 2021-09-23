@@ -1,34 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import isConnected from '../../helpers/isConnected';
-import currentActiveAccount from '../../helpers/activeAccount';
+import Button from '../../components/Button';
 
-const ModalConnectStatus = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [result, setResult] = useState(undefined);
+const ModalConnectStatus = (props) => {
+  const {
+    host,
+    result,
+    publicKey,
+    toggleModal,
+  } = props;
 
-  useEffect(() => {
-    const { activeAccount } = currentActiveAccount();
+  const handleConnect = () => {
+    console.log(`just add ${host}/${publicKey} to connected websites`);
+    toggleModal();
+  };
 
-    isConnected(activeAccount.publicKey)
-      .then((host) => {
-        setResult(host);
-        setIsLoading(false);
-      });
-  }, []);
+  const handleDisconnect = () => {
+    console.log(`just remove ${result} from connected websites`);
+    toggleModal();
+  };
 
-  if (isLoading) {
+  if (result) {
     return (
-      <p>Loading</p>
+      <div>
+        This account is connected to this site. Do you want to Disconnect?
+        <Button
+          type="button"
+          variant="btn-primary"
+          size="btn-medium"
+          content="Disconnect"
+          onClick={handleDisconnect}
+        />
+      </div>
     );
   }
 
-  if (result) {
-    return <div>This account is connected to this site. Do you want to Disconnect?</div>;
-  }
-
   return (
-    <div>This account is not connected to this site. Do you want to connect?</div>
+    <div>
+      This account is not connected to this site. Do you want to connect?
+      <Button
+        type="button"
+        variant="btn-primary"
+        size="btn-medium"
+        content="Connect"
+        onClick={handleConnect}
+      />
+    </div>
   );
 };
 
