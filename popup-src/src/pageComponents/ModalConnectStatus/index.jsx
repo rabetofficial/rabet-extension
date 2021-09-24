@@ -1,6 +1,8 @@
 import React from 'react';
 
 import Button from '../../components/Button';
+import addConnectedWebsite from '../../actions/accounts/addConnectedWebsite';
+import removeConnectedWebsite from '../../actions/accounts/removeConnectedWebsite';
 
 const ModalConnectStatus = (props) => {
   const {
@@ -11,12 +13,12 @@ const ModalConnectStatus = (props) => {
   } = props;
 
   const handleConnect = () => {
-    console.log(`just add ${host}/${publicKey} to connected websites`);
+    addConnectedWebsite(`${host}/${publicKey}`);
     toggleModal();
   };
 
   const handleDisconnect = () => {
-    console.log(`just remove ${result} from connected websites`);
+    removeConnectedWebsite(result);
     toggleModal();
   };
 
