@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
+import getTotalBalance from '../../helpers/getTotalBalance';
 import Links from './Links';
 import TabList from './TabList';
 import DropDownList from './DropDownList';
@@ -56,31 +57,20 @@ const Home = ({ options, currencies, history }) => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const { activeAccount } = currentActiveAccount();
   const activeCurrency = currencies[options.currency] || { value: 0, currency: 'USD' };
 
-  const { activeAccount } = currentActiveAccount();
-
   const balances = activeAccount.balances || [];
-
-  const totalBalance = balances.reduce((sum, item) => {
-    const nextValue = item.asset_type === 'native'
-      ? Number.parseFloat(item.balance, 10) * activeCurrency.value
-      : (1 / Number.parseFloat(item.toNative, 10))
-      * activeCurrency.value * Number.parseFloat(item.balance, 10) || 0;
-
-    return sum + nextValue;
-  }, 0);
-
-  const nativeIndex = balances.findIndex((x) => x.asset_type === 'native');
-
-  if (nativeIndex !== -1) {
-    balances[nativeIndex].asset_code = 'XLM';
-    balances[nativeIndex].toNative = balances[nativeIndex].balance;
-  }
+  const totalBalance = getTotalBalance(balances, activeCurrency);
 
   if (loading) {
     return <LoadingOne title="Waiting for network" size={95} />;
   }
+
+  const formattedTotalBalance = showBalance(
+    numberWithCommas(formatCurrency(totalBalance)),
+    activeCurrency.name,
+  );
 
   return (
     <>
@@ -89,7 +79,7 @@ const Home = ({ options, currencies, history }) => {
         <div className="pure-g">
           <div className="pure-u">
             <div className={styles.value}>
-              {showBalance(numberWithCommas(formatCurrency(totalBalance)), activeCurrency.name)}
+              {formattedTotalBalance}
               <span
                 className={classNames(
                   styles.modalBtn,

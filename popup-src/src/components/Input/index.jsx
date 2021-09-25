@@ -22,6 +22,7 @@ const Input = ({
   autoFocus,
 }) => {
   const [visibleType, setVisibleType] = useState(type);
+
   const toggleVisible = () => {
     if (visibleType === 'password') {
       setVisibleType('text');
@@ -31,6 +32,7 @@ const Input = ({
   };
 
   const isError = meta && (meta.error || meta.submitError) && meta.touched;
+
   const errorBtn = (
     <button type="button" className={styles.icon}>
       <span className="icon-exclamation-circle" />
@@ -71,6 +73,7 @@ const Input = ({
   };
 
   const inputRef = useRef(null);
+
   useEffect(() => {
     if (autoFocus && inputRef.current) {
       inputRef.current.focus();
