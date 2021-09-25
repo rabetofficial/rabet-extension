@@ -10,6 +10,7 @@ const ModalConnectStatus = (props) => {
     result,
     publicKey,
     toggleModal,
+    isOtherConnected,
   } = props;
 
   const handleConnect = () => {
@@ -37,16 +38,27 @@ const ModalConnectStatus = (props) => {
     );
   }
 
+  if (isOtherConnected) {
+    return (
+      <div>
+        You have an account connected to this site.
+        Do you want to connect with this account?
+        <Button
+          type="button"
+          variant="btn-primary"
+          size="btn-medium"
+          content="Connect"
+          onClick={handleConnect}
+        />
+      </div>
+    );
+  }
+
   return (
     <div>
-      This account is not connected to this site. Do you want to connect?
-      <Button
-        type="button"
-        variant="btn-primary"
-        size="btn-medium"
-        content="Connect"
-        onClick={handleConnect}
-      />
+      Rabet is not connected to this site.
+      To connect to the site,
+      find the connect button on their site.
     </div>
   );
 };

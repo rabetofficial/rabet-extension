@@ -3,26 +3,27 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
-import getTotalBalance from '../../helpers/getTotalBalance';
 import Links from './Links';
 import TabList from './TabList';
+import LoadingOne from '../LoadingOne';
+import EditNameForm from './EditNameForm';
 import DropDownList from './DropDownList';
+import Modal from '../../components/Modal';
 import shorter from '../../helpers/shorter';
 import Header from '../../components/Header';
-import LoadingOne from '../LoadingOne';
 import CopyText from '../../components/CopyText';
 import isConnected from '../../helpers/isConnected';
 import showBalance from '../../helpers/showBalance';
 import getData from '../../actions/accounts/getData';
 import formatCurrency from '../../helpers/formatCurrency';
+import getTotalBalance from '../../helpers/getTotalBalance';
 import intervalAction from '../../actions/accounts/interval';
+import isOtherConnected from '../../helpers/isOtherConnected';
+import numberWithCommas from '../../helpers/numberWithCommas';
 import currentActiveAccount from '../../helpers/activeAccount';
 import ModalConnectStatus from '../../pageComponents/ModalConnectStatus';
-import numberWithCommas from '../../helpers/numberWithCommas';
-import Modal from '../../components/Modal';
 
 import styles from './styles.less';
-import EditNameForm from './EditNameForm';
 
 const Home = ({ options, currencies, history }) => {
   const [host, setHost] = useState(null);
@@ -30,6 +31,7 @@ const Home = ({ options, currencies, history }) => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConnectedResult, setIsConnectedResult] = useState(undefined);
+  const [isOtherConnectedState, setIsOtherConnectedState] = useState(false);
 
   useEffect(() => {
     if (!history.location?.state?.alreadyLoaded) {
@@ -50,6 +52,11 @@ const Home = ({ options, currencies, history }) => {
       .then(({ isConnectedResult: isCon, host: h }) => {
         setHost(h);
         setIsConnectedResult(isCon);
+      });
+
+    isOtherConnected(activeAccount.publicKey)
+      .then((result) => {
+        setIsOtherConnectedState(result);
       });
   }, []);
 
@@ -134,6 +141,7 @@ const Home = ({ options, currencies, history }) => {
             toggleModal={toggleModal}
             result={isConnectedResult}
             publicKey={activeAccount.publicKey}
+            isOtherConnected={isOtherConnectedState}
           />
           <div />
         </Modal>
