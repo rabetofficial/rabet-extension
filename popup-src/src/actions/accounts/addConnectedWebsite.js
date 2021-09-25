@@ -2,7 +2,7 @@ import types from '../index';
 import store from '../../store';
 import { set } from '../../helpers/storage';
 
-export default async (pair) => {
+export default async (pair, forceUpdate) => {
   const { connectedWebsites } = store.getState().user;
 
   const newWebsites = [
@@ -16,4 +16,6 @@ export default async (pair) => {
   });
 
   await set('connectedWebsites', newWebsites);
+
+  forceUpdate();
 };

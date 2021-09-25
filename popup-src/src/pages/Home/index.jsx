@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 
 import Links from './Links';
 import TabList from './TabList';
@@ -32,6 +32,7 @@ const Home = ({ options, currencies, history }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isConnectedResult, setIsConnectedResult] = useState(undefined);
   const [isOtherConnectedState, setIsOtherConnectedState] = useState(false);
+  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
     if (!history.location?.state?.alreadyLoaded) {
@@ -58,7 +59,7 @@ const Home = ({ options, currencies, history }) => {
       .then((result) => {
         setIsOtherConnectedState(result);
       });
-  }, []);
+  }, [ignored]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -138,6 +139,7 @@ const Home = ({ options, currencies, history }) => {
         >
           <ModalConnectStatus
             host={host}
+            forceUpdate={forceUpdate}
             toggleModal={toggleModal}
             result={isConnectedResult}
             publicKey={activeAccount.publicKey}
