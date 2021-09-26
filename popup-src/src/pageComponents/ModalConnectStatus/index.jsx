@@ -4,6 +4,8 @@ import Button from '../../components/Button';
 import addConnectedWebsite from '../../actions/accounts/addConnectedWebsite';
 import removeConnectedWebsite from '../../actions/accounts/removeConnectedWebsite';
 
+import styles from './styles.less';
+
 const ModalConnectStatus = (props) => {
   const {
     host,
@@ -34,6 +36,7 @@ const ModalConnectStatus = (props) => {
           size="btn-medium"
           content="Disconnect"
           onClick={handleDisconnect}
+          className={styles.btn}
         />
       </div>
     );
@@ -50,6 +53,7 @@ const ModalConnectStatus = (props) => {
           size="btn-medium"
           content="Connect"
           onClick={handleConnect}
+          className={styles.btn}
         />
       </div>
     );
