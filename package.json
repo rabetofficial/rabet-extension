@@ -1,0 +1,27 @@
+{
+  "name": "rabet",
+  "version": "1.0.0",
+  "description": "Rabet extension, a simple way to interact with Stellar network.",
+  "main": "index.js",
+  "scripts": {
+    "dev-popup": "cd popup-src; npm run dev",
+    "prod-popup": "cd popup-src; npm run prod",
+    "dev-background": "cd background-src; npm run dev",
+    "prod-background": "cd background-src; npm run prod",
+    "dev-interaction": "cd interaction-src; npm run dev",
+    "prod-interaction": "cd interaction-src; npm run prod",
+    "prod-all": "npm run prod-popup && npm run prod-background && npm run prod-interaction",
+    "release": "npm run prod-all; mkdir ../$BUILD; cp -r `ls -A | grep -v src` ../$BUILD"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rabetofficial/rabet-extension.git"
+  },
+  "keywords": [
+    "stellar",
+    "wallet",
+    "extension"
+  ],
+  "author": "alper95polat@gmail.com",
+  "license": "ISC"
+}
