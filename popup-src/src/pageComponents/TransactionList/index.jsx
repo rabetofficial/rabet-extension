@@ -1,9 +1,9 @@
 import moment from 'moment';
-import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { Fragment, useState, useEffect } from 'react';
 
+import Loading from '../../components/Loading';
 import createTab from '../../helpers/createTab';
 import explorer from '../../helpers/horizon/getTransaction';
 import getOperations from '../../helpers/horizon/operations';
@@ -72,7 +72,11 @@ const TransactionList = ({ maxHeight }) => {
   });
 
   if (isLoading) {
-    return 'LOADING';
+    return (
+      <div className={styles.loadingContainer}>
+        <Loading size={55} />
+      </div>
+    );
   }
 
   return (
