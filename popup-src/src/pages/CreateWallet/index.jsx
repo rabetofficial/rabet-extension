@@ -36,7 +36,7 @@ const CreateWallet = ({ accounts, history }) => {
       };
     }
 
-    return history.push(route.homePage);
+    return history.push(route.backupFile);
   };
 
   const validateForm = (values) => {
