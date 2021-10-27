@@ -2,25 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
+import Card from '../../components/Card';
 import Header from '../../components/Header';
-import * as route from '../../staticRes/routes';
+import CopyText from '../../components/CopyText';
 import PageTitle from '../../components/PageTitle';
 import currentActiveAccount from '../../helpers/activeAccount';
-import Card from '../../components/Card';
-import CopyText from '../../components/CopyText';
 
 import styles from './styles.less';
 
-const PrivateKey = ({ history }) => {
-  // const handleClick = () => {
-  //   history.push({
-  //     pathname: route.homePage,
-  //     state: {
-  //       alreadyLoaded: true,
-  //     },
-  //   });
-  // };
-
+const PrivateKey = () => {
   const { activeAccount } = currentActiveAccount();
 
   return (
