@@ -72,11 +72,7 @@ const TransactionList = ({ maxHeight }) => {
   });
 
   if (isLoading) {
-    return (
-      <div className={styles.loadingContainer}>
-        <Loading size={55} />
-      </div>
-    );
+    return <div className={styles.loading}><Loading size={56} /></div>;
   }
 
   return (

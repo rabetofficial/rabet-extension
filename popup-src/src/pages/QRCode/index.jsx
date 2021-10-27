@@ -14,6 +14,8 @@ import styles from './styles.less';
 const QRCode = () => {
   const { activeAccount } = currentActiveAccount();
 
+  const test = activeAccount.publicKey;
+
   return (
     <>
       <Header />
@@ -34,7 +36,9 @@ const QRCode = () => {
           <p className={styles.code}>
             {activeAccount.publicKey}
             {' '}
-            <CopyText text={activeAccount.publicKey} />
+            <div className={styles.copy}>
+              <CopyText copyButton text={test} />
+            </div>
           </p>
         </Card>
       </div>
