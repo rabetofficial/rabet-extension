@@ -26,3 +26,4 @@ export const loadingNetworkPage = '/loading-network';
 export const deleteAccountPage = '/delete-account';
 export const connectedWebsitePage = '/connected-website';
 export const offlineModePage = '/offline-mode';
+export const backupFile = '/backup-file';
