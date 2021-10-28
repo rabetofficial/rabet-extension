@@ -134,3 +134,21 @@ button:disabled {
   border: 1px solid @Linen;
   background-color: @Chablis;
 }
+
+.hide-blur {
+  -webkit-filter: blur(4px);
+  -moz-filter: blur(4px);
+  -o-filter: blur(4px);
+  -ms-filter: blur(4px);
+  filter: blur(3px);
+  opacity: 0.7;
+}
+
+.hide-blur:hover {
+  -webkit-filter: blur(0);
+  -moz-filter: blur(0);
+  -o-filter: blur(0);
+  -ms-filter: blur(0);
+  filter: blur(0);
+  opacity: 1;
+}

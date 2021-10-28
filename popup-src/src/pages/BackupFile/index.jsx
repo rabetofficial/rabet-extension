@@ -30,7 +30,7 @@ const BackupFile = ({ history }) => {
         <div className={classNames('label-primary', styles.label)}>Private Key</div>
         <div className={styles.box}>
           <Card type="card-primary">
-            {privateKey}
+            <div className="hide-blur">{privateKey}</div>
             <div className={styles.copy}>
               <CopyText copyButton text={privateKey} />
             </div>
