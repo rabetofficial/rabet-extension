@@ -6,10 +6,14 @@
   "scripts": {
     "dev-popup": "cd popup-src; npm run dev",
     "prod-popup": "cd popup-src; npm run prod",
+    "install-popup": "cd popup-src; npm install",
     "dev-background": "cd background-src; npm run dev",
     "prod-background": "cd background-src; npm run prod",
+    "install-background": "cd background-src; npm install",
     "dev-interaction": "cd interaction-src; npm run dev",
     "prod-interaction": "cd interaction-src; npm run prod",
+    "install-interaction": "cd interaction-src; npm install",
+    "install-all": "npm run install-popup && npm run install-background && npm run install-interaction",
     "prod-all": "npm run prod-popup && npm run prod-background && npm run prod-interaction",
     "release": "npm run prod-all; mkdir ../$BUILD; cp -r `ls -A | grep -v src` ../$BUILD"
   },
