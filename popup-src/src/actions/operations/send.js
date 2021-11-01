@@ -1,12 +1,12 @@
 import StellarSdk from 'stellar-sdk';
 
 import store from '../../store';
-import showError from '../../helpers/errorMessage';
+import isNative from '../../helpers/isNative';
 import payment from '../../operations/payment';
 import * as route from '../../staticRes/routes';
+import showError from '../../helpers/errorMessage';
 import allowTrust from '../../operations/allowTrust';
 import manageData from '../../operations/manageData';
-import codeToIssuer from '../../helpers/codeToIssuer';
 import changeTrust from '../../operations/changeTrust';
 import accountMerge from '../../operations/accountMerge';
 import bumpSequence from '../../operations/bumpSequence';
@@ -54,7 +54,8 @@ export default async (push) => {
 
       for (let i = 0; i < operations.length; i += 1) {
         if (operations[i].type === operationsName.payment) {
-          let { asset } = operations[i];
+          const { asset } = operations[i];
+          let stellarAsset;
 
           if (operations[i].isAccountNew) {
             transaction = transaction.addOperation(
@@ -64,15 +65,15 @@ export default async (push) => {
               }),
             );
           } else {
-            if (asset === 'XLM') {
-              asset = StellarSdk.Asset.native();
+            if (isNative(asset)) {
+              stellarAsset = StellarSdk.Asset.native();
             } else {
-              asset = new StellarSdk.Asset(asset, codeToIssuer(asset));
+              stellarAsset = new StellarSdk.Asset(asset.asset_code, asset.asset_issuer);
             }
 
             transaction = transaction.addOperation(
               payment({
-                asset,
+                asset: stellarAsset,
                 amount: operations[i].amount,
                 destination: operations[i].destination,
               }),

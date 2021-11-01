@@ -15,7 +15,7 @@ export default (operation) => {
         },
         {
           title: 'Amount',
-          value: `${removeTrailingZeroes(operation.amount)} ${operation.asset}`,
+          value: `${removeTrailingZeroes(operation.amount)} ${operation.asset.asset_code}`,
         },
       ],
     };

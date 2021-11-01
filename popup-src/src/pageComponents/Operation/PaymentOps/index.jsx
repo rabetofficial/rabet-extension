@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
+import isNative from '../../../helpers/isNative';
 import arithmeticNumber from '../../../helpers/arithmetic';
 import SelectOption from '../../../components/SelectOption';
 import validateAddress from '../../../helpers/validate/address';
@@ -12,54 +13,38 @@ import changeOperationAction from '../../../actions/operations/change';
 
 import styles from './styles.less';
 
-class PaymentOps extends Component {
-  constructor(props) {
-    super(props);
+const PaymentOps = ({ id }) => {
+  const [list, setList] = useState([]);
+  const [selected, setSelected] = useState({});
 
-    this.state = {
-      list: [],
-      selected: {},
-    };
-
-    this.onChange = this.onChange.bind(this);
-    this.maxAmount = this.maxAmount.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const { activeAccount } = currentActiveAccount();
 
     const { balances } = activeAccount;
 
-    const list = [];
+    const newList = [];
 
     for (let i = 0; i < balances.length; i += 1) {
-      list.push({
+      newList.push({
         value: balances[i].asset_code,
         label: balances[i].asset_code,
         ...balances[i],
       });
     }
 
-    this.setState({
-      list,
-      selected: list[0],
-    });
-  }
+    setList(newList);
+    setSelected(newList[0]);
+  }, []);
 
-  handleMax(values) {
-    const { selected } = this.state;
+  // const handleMax = (values) => {
+  //   values.amount = selected.balance;
+  // };
 
-    values.amount = selected.balance;
-  }
+  const onChange = (e) => {
+    setSelected(e);
+  };
 
-  onChange(e) {
-    this.setState({ selected: e });
-  }
-
-  async validateForm(values) {
-    const { id } = this.props;
-    const { selected } = this.state;
-
+  const validateForm = async (values) => {
     const { activeAccount } = currentActiveAccount();
 
     const errors = {};
@@ -79,13 +64,13 @@ class PaymentOps extends Component {
     } else {
       let selectedTokenBalance;
 
-      if (selected.value === 'XLM') {
+      if (isNative(selected)) {
         selectedTokenBalance = activeAccount.balances.find(
           (x) => x.asset_type === 'native',
         );
       } else {
         selectedTokenBalance = activeAccount.balances.find(
-          (x) => x.asset_code === selected.value,
+          (x) => x.asset_code === selected.asset_code && x.asset_issuer === selected.asset_issuer,
         );
       }
 
@@ -95,7 +80,7 @@ class PaymentOps extends Component {
         };
       }
 
-      if (selected.value === 'XLM') {
+      if (isNative(selected)) {
         if (
           Number(selectedTokenBalance.balance || '0')
           < Number(values.amount) + activeAccount.maxXLM
@@ -144,7 +129,7 @@ class PaymentOps extends Component {
       if (accountData.status === 404) {
         isAccountNew = true;
 
-        if (selected.value !== 'XLM') {
+        if (isNative(selected)) {
           errors.destination = 'Inactive accounts cannot receive tokens.';
           hasError.destination = true;
 
@@ -162,9 +147,9 @@ class PaymentOps extends Component {
 
         let selectedToken = destinationTokens.find((x) => x.asset_type === 'native');
 
-        if (selected.value !== 'XLM') {
+        if (!isNative(selected)) {
           selectedToken = destinationTokens.find(
-            (x) => x.asset_code === selected.value,
+            (x) => x.asset_code === selected.asset_code && x.asset_issuer === selected.asset_issuer,
           );
         }
 
@@ -199,7 +184,7 @@ class PaymentOps extends Component {
         isAccountNew,
         amount: parseFloat(values.amount, 10).toFixed(7),
         destination: values.destination,
-        asset: selected.value,
+        asset: selected,
       });
     } else {
       changeOperationAction(id, {
@@ -208,120 +193,116 @@ class PaymentOps extends Component {
     }
 
     return errors;
-  }
+  };
 
-  maxAmount() {
-    const { selected } = this.state;
-    const { activeAccount } = currentActiveAccount();
-    const { balances } = activeAccount;
+  // const maxAmount = () => {
+  //   const { activeAccount } = currentActiveAccount();
+  //   const { balances } = activeAccount;
 
-    let maxBalance;
+  //   let maxBalance;
 
-    if (selected.value === 'XLM') {
-      const xlmBalance = balances.find((x) => x.asset_type === 'native');
+  //   if (isNative(selected)) {
+  //     const xlmBalance = balances.find((x) => x.asset_type === 'native');
 
-      maxBalance = parseFloat(xlmBalance.balance, 10) - xlmBalance.maxXLM;
-    } else {
-      maxBalance = balances.find((x) => x.asset_code === selected.value)
-        .balance;
-    }
+  //     maxBalance = parseFloat(xlmBalance.balance, 10) - xlmBalance.maxXLM;
+  //   } else {
+  //     maxBalance = balances.find((x) => x.asset_code === selected.value)
+  //       .balance;
+  //   }
 
-    return maxBalance;
-  }
+  //   return maxBalance;
+  // };
 
-  render() {
-    const { list, selected } = this.state;
+  return (
+    <Form
+      mutators={{
+        setMax: (args, state, utils) => {
+          const { activeAccount } = currentActiveAccount();
+          const { balances } = activeAccount;
 
-    return (
-      <Form
-        mutators={{
-          setMax: (args, state, utils) => {
-            const { activeAccount } = currentActiveAccount();
-            const { balances } = activeAccount;
+          let maxBalance;
 
-            let maxBalance;
+          if (isNative(selected)) {
+            const xlmBalance = activeAccount.balances.find(
+              (x) => x.asset_type === 'native',
+            );
 
-            if (selected.value === 'XLM') {
-              const xlmBalance = activeAccount.balances.find(
-                (x) => x.asset_type === 'native',
-              );
+            maxBalance = arithmeticNumber(
+              parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
+            );
+          } else {
+            maxBalance = balances.find(
+              (x) => x.asset_code === selected.asset_code
+              && x.asset_issuer === selected.asset_issuer,
+            ).balance;
+          }
 
-              maxBalance = arithmeticNumber(
-                parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
-              );
-            } else {
-              maxBalance = balances.find(
-                (x) => x.asset_code === selected.value,
-              ).balance;
-            }
+          utils.changeValue(state, 'amount', () => maxBalance);
+        },
+      }}
+      onSubmit={() => {}}
+      validate={(values) => validateForm(values)}
+      render={({ submitError, handleSubmit, form }) => (
+        <form
+          className={classNames(styles.form, 'form')}
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
+          <Field name="destination">
+            {({ input, meta }) => (
+              <div className="group">
+                <label className="label-primary">Destination</label>
 
-            utils.changeValue(state, 'amount', () => maxBalance);
-          },
-        }}
-        onSubmit={() => {}}
-        validate={(values) => this.validateForm(values)}
-        render={({ submitError, handleSubmit, form }) => (
-          <form
-            className={classNames(styles.form, 'form')}
-            onSubmit={handleSubmit}
-            autoComplete="off"
-          >
-            <Field name="destination">
-              {({ input, meta }) => (
-                <div className="group">
-                  <label className="label-primary">Destination</label>
+                <Input
+                  type="text"
+                  placeholder="G…"
+                  size="input-medium"
+                  input={input}
+                  meta={meta}
+                  autoFocus
+                />
+              </div>
+            )}
+          </Field>
+
+          <Field name="amount">
+            {({ input, meta }) => (
+              <div className="pure-g group">
+                <div className={styles.selectInput}>
+                  <label className="label-primary">Amount</label>
 
                   <Input
-                    type="text"
-                    placeholder="G…"
+                    type="number"
+                    placeholder="1"
                     size="input-medium"
                     input={input}
                     meta={meta}
-                    autoFocus
+                    variant="max"
+                    setMax={() => {
+                      form.mutators.setMax();
+                    }}
                   />
                 </div>
-              )}
-            </Field>
 
-            <Field name="amount">
-              {({ input, meta }) => (
-                <div className="pure-g group">
-                  <div className={styles.selectInput}>
-                    <label className="label-primary">Amount</label>
-
-                    <Input
-                      type="number"
-                      placeholder="1"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                      variant="max"
-                      setMax={() => {
-                        form.mutators.setMax();
-                      }}
-                    />
-                  </div>
-
-                  <div className={styles.select}>
-                    <SelectOption
-                      items={list}
-                      onChange={this.onChange}
-                      variant="select-outlined"
-                      defaultValue={list[0]}
-                      selected={selected}
-                    />
-                  </div>
+                <div className={styles.select}>
+                  <SelectOption
+                    items={list}
+                    onChange={onChange}
+                    variant="select-outlined"
+                    defaultValue={list[0]}
+                    selected={selected}
+                  />
                 </div>
-              )}
-            </Field>
+              </div>
+            )}
+          </Field>
 
-            {submitError && <div className="error">{submitError}</div>}
-          </form>
-        )}
-      />
-    );
-  }
-}
+          {submitError && <div className="error">{submitError}</div>}
+        </form>
+      )}
+    />
+  );
+};
 
 PaymentOps.propTypes = {};
 
