@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
@@ -13,10 +13,13 @@ import changeOperationAction from '../../../actions/operations/change';
 
 import styles from './styles.less';
 
-class SetOptionOps extends Component {
-  async validateForm(values) {
-    const { type, id } = this.props;
-
+const SetOptionOps = ({
+  id,
+  type,
+  label,
+  inputInfo,
+}) => {
+  const validateForm = async (values) => {
     const errors = {};
     const hasError = {};
 
@@ -156,42 +159,35 @@ class SetOptionOps extends Component {
     }
 
     return errors;
-  }
+  };
 
-  render() {
-    const {
-      label,
-      inputInfo: { type, placeholder },
-    } = this.props;
-
-    return (
-      <Form
-        onSubmit={() => {}}
-        validate={(values) => this.validateForm(values)}
-        render={({ submitError, handleSubmit }) => (
-          <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit} autoComplete="off">
-            <Field name="value">
-              {({ input, meta }) => (
-                <div className="group">
-                  <label className="label-primary">{label}</label>
-                  <Input
-                    type={type}
-                    placeholder={placeholder}
-                    size="input-medium"
-                    input={input}
-                    meta={meta}
-                    autoFocus
-                  />
-                </div>
-              )}
-            </Field>
-            {submitError && <div className="error">{submitError}</div>}
-          </form>
-        )}
-      />
-    );
-  }
-}
+  return (
+    <Form
+      onSubmit={() => {}}
+      validate={(values) => validateForm(values)}
+      render={({ submitError, handleSubmit }) => (
+        <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit} autoComplete="off">
+          <Field name="value">
+            {({ input, meta }) => (
+              <div className="group">
+                <label className="label-primary">{label}</label>
+                <Input
+                  type={inputInfo.type}
+                  placeholder={inputInfo.placeholder}
+                  size="input-medium"
+                  input={input}
+                  meta={meta}
+                  autoFocus
+                />
+              </div>
+            )}
+          </Field>
+          {submitError && <div className="error">{submitError}</div>}
+        </form>
+      )}
+    />
+  );
+};
 
 SetOptionOps.propTypes = {
   label: PropTypes.string.isRequired,
