@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
@@ -7,9 +7,8 @@ import changeOperationAction from '../../../actions/operations/change';
 
 import styles from './styles.less';
 
-class ManageDataOps extends Component {
-  validateForm(values) {
-    const { id } = this.props;
+const ManageDataOps = ({ id }) => {
+  const validateForm = (values) => {
     const errors = {};
 
     const hasError = {
@@ -53,59 +52,57 @@ class ManageDataOps extends Component {
     }
 
     return errors;
-  }
+  };
 
-  render() {
-    return (
-      <Form
-        onSubmit={() => {}}
-        validate={(values) => this.validateForm(values)}
-        render={({ submitError, handleSubmit }) => (
-          <form
-            className={classNames(styles.form, 'form')}
-            onSubmit={handleSubmit}
-            autoComplete="off"
-          >
-            <Field name="name">
-              {({ input, meta }) => (
-                <div className="group">
-                  <label className="label-primary">Name</label>
-                  <Input
-                    type="text"
-                    placeholder="Name"
-                    size="input-medium"
-                    input={input}
-                    meta={meta}
-                    autoFocus
-                  />
-                </div>
-              )}
-            </Field>
+  return (
+    <Form
+      onSubmit={() => {}}
+      validate={(values) => validateForm(values)}
+      render={({ submitError, handleSubmit }) => (
+        <form
+          className={classNames(styles.form, 'form')}
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
+          <Field name="name">
+            {({ input, meta }) => (
+              <div className="group">
+                <label className="label-primary">Name</label>
+                <Input
+                  type="text"
+                  placeholder="Name"
+                  size="input-medium"
+                  input={input}
+                  meta={meta}
+                  autoFocus
+                />
+              </div>
+            )}
+          </Field>
 
-            <Field name="value">
-              {({ input, meta }) => (
-                <div className="group">
-                  <label className="label-primary">
-                    Value
-                    <span className="label-optional"> (optional)</span>
-                  </label>
-                  <Input
-                    type="text"
-                    placeholder="John"
-                    size="input-medium"
-                    input={input}
-                    meta={meta}
-                  />
-                </div>
-              )}
-            </Field>
-            {submitError && <div className="error">{submitError}</div>}
-          </form>
-        )}
-      />
-    );
-  }
-}
+          <Field name="value">
+            {({ input, meta }) => (
+              <div className="group">
+                <label className="label-primary">
+                  Value
+                  <span className="label-optional"> (optional)</span>
+                </label>
+                <Input
+                  type="text"
+                  placeholder="John"
+                  size="input-medium"
+                  input={input}
+                  meta={meta}
+                />
+              </div>
+            )}
+          </Field>
+          {submitError && <div className="error">{submitError}</div>}
+        </form>
+      )}
+    />
+  );
+};
 
 ManageDataOps.propTypes = {};
 

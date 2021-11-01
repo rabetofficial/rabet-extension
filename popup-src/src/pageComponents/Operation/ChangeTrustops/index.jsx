@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
@@ -10,47 +10,36 @@ import changeOperationAction from '../../../actions/operations/change';
 
 import styles from './styles.less';
 
-class ChangeTrustOps extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: [],
-      selected: {},
-    };
+const ChangeTrustOps = ({ id }) => {
+  const [list, setList] = useState([]);
+  const [selected, setSelected] = useState({});
 
-    this.onChange = this.onChange.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const { activeAccount } = currentActiveAccount();
 
     const { balances } = activeAccount;
 
-    let list = [];
+    let newList = [];
 
     for (let i = 0; i < balances.length; i += 1) {
-      list.push({
+      newList.push({
         value: balances[i].asset_code,
         label: balances[i].asset_code,
         ...balances[i],
       });
     }
 
-    list = list.filter((x) => x.asset_type !== 'native');
+    newList = newList.filter((x) => x.asset_type !== 'native');
 
-    this.setState({
-      list,
-      selected: list[0],
-    });
-  }
+    setList(newList);
+    setSelected(newList[0]);
+  }, []);
 
-  onChange(e) {
-    this.setState({ selected: e });
-  }
+  const onChange = (e) => {
+    setSelected(e);
+  };
 
-  async validateForm(values) {
-    const { id } = this.props;
-    const { selected } = this.state;
+  const validateForm = async (values) => {
     const errors = {};
     const hasError = {
       code: false,
@@ -81,53 +70,49 @@ class ChangeTrustOps extends Component {
     }
 
     return errors;
-  }
+  };
 
-  render() {
-    const { list, selected } = this.state;
-
-    return (
-      <Form
-        onSubmit={() => {}}
-        validate={(values) => this.validateForm(values)}
-        render={({ submitError, handleSubmit }) => (
-          <form
-            className={classNames(styles.form, 'form')}
-            onSubmit={handleSubmit}
-            autoComplete="off"
-          >
-            <Field name="limit">
-              {({ input, meta }) => (
-                <div className="pure-g group">
-                  <div className={styles.selectInput}>
-                    <label className="label-primary">Limit amount</label>
-                    <Input
-                      type="number"
-                      placeholder="1000"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                    />
-                  </div>
-                  <div className={styles.select}>
-                    <SelectOption
-                      items={list}
-                      onChange={this.onChange}
-                      variant="select-outlined"
-                      defaultValue={list[0]}
-                      selected={selected}
-                    />
-                  </div>
+  return (
+    <Form
+      onSubmit={() => {}}
+      validate={(values) => validateForm(values)}
+      render={({ submitError, handleSubmit }) => (
+        <form
+          className={classNames(styles.form, 'form')}
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
+          <Field name="limit">
+            {({ input, meta }) => (
+              <div className="pure-g group">
+                <div className={styles.selectInput}>
+                  <label className="label-primary">Limit amount</label>
+                  <Input
+                    type="number"
+                    placeholder="1000"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                  />
                 </div>
-              )}
-            </Field>
-            {submitError && <div className="error">{submitError}</div>}
-          </form>
-        )}
-      />
-    );
-  }
-}
+                <div className={styles.select}>
+                  <SelectOption
+                    items={list}
+                    onChange={onChange}
+                    variant="select-outlined"
+                    defaultValue={list[0]}
+                    selected={selected}
+                  />
+                </div>
+              </div>
+            )}
+          </Field>
+          {submitError && <div className="error">{submitError}</div>}
+        </form>
+      )}
+    />
+  );
+};
 
 ChangeTrustOps.propTypes = {};
 
