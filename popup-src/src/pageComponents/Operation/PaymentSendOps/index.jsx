@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
+import isNative from '../../../helpers/isNative';
 import showAsset from '../../../helpers/showAsset';
 import arithmeticNumber from '../../../helpers/arithmetic';
 import SelectOption from '../../../components/SelectOption';
@@ -14,31 +15,22 @@ import changeOperationAction from '../../../actions/operations/change';
 
 import styles from './styles.less';
 
-class PaymentSendOps extends Component {
-  constructor(props) {
-    super(props);
+const PaymentSendOps = ({ id }) => {
+  const [list, setList] = useState([]);
+  const [sendAsset, setSendAsset] = useState({});
+  const [destAsset, setDestAsset] = useState({});
+  const [bestPath, setBestPath] = useState([]);
+  const [destinationAmount, setDestinationAmount] = useState(0);
 
-    this.state = {
-      list: [],
-      sendAsset: {},
-      destAsset: {},
-      bestPath: [],
-      destinationAmount: 0,
-    };
-
-    this.onChangeSendAsset = this.onChangeSendAsset.bind(this);
-    this.onChangeDestAsset = this.onChangeDestAsset.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const { activeAccount } = currentActiveAccount();
 
     const { balances } = activeAccount;
 
-    const list = [];
+    const newList = [];
 
     for (let i = 0; i < balances.length; i += 1) {
-      list.push({
+      newList.push({
         value: balances[i].asset_code,
         label: balances[i].asset_code,
         balance: balances[i].balance,
@@ -48,33 +40,24 @@ class PaymentSendOps extends Component {
       });
     }
 
-    this.setState({
-      list,
-      sendAsset: list[0],
-      destAsset: list[0],
-    });
-  }
+    setList(newList);
+    setSendAsset(newList[0]);
+    setDestAsset(newList[0]);
+  }, []);
 
-  onChangeSendAsset(e) {
-    this.setState({
-      sendAsset: e,
-      bestPath: [],
-      destinationAmount: 0,
-    });
-  }
+  const onChangeSendAsset = (e) => {
+    setSendAsset(e);
+    setBestPath([]);
+    setDestinationAmount(0);
+  };
 
-  onChangeDestAsset(e) {
-    this.setState({
-      destAsset: e,
-      bestPath: [],
-      destinationAmount: 0,
-    });
-  }
+  const onChangeDestAsset = (e) => {
+    setDestAsset(e);
+    setBestPath([]);
+    setDestinationAmount(0);
+  };
 
-  async validateForm(values) {
-    const { id } = this.props;
-    const { sendAsset, destAsset } = this.state;
-
+  const validateForm = async (values) => {
     let accountData;
     const { activeAccount } = currentActiveAccount();
 
@@ -125,13 +108,13 @@ class PaymentSendOps extends Component {
     } else {
       let selectedTokenBalance;
 
-      if (sendAsset.value === 'XLM') {
+      if (isNative(sendAsset)) {
         const xlmBalance = activeAccount.balances.find((x) => x.asset_type === 'native');
 
         selectedTokenBalance = xlmBalance;
       } else {
         selectedTokenBalance = activeAccount.balances.find(
-          (x) => x.asset_code === sendAsset.value,
+          (x) => x.asset_code === sendAsset.asset_code && x.asset_issuer === sendAsset.asset_issuer,
         );
       }
 
@@ -141,7 +124,7 @@ class PaymentSendOps extends Component {
         };
       }
 
-      if (sendAsset.value === 'XLM') {
+      if (isNative(sendAsset)) {
         if (
           Number(selectedTokenBalance.balance || '0')
           < Number(values.sendAmount, 10) + activeAccount.maxXLM
@@ -186,9 +169,9 @@ class PaymentSendOps extends Component {
       const destinationTokens = accountData.balances || [];
       let selectedToken = destinationTokens.find((x) => x.asset_type === 'native');
 
-      if (destAsset.value !== 'XLM') {
+      if (!isNative(destAsset)) {
         selectedToken = destinationTokens.find(
-          (x) => x.asset_code === destAsset.value,
+          (x) => x.asset_code === destAsset.asset_code && x.asset_issuer === destAsset.asset_issuer,
         );
       } else {
         selectedToken.limit = 999999999;
@@ -213,9 +196,15 @@ class PaymentSendOps extends Component {
             checked: false,
           });
         } else {
-          const sourceAsset = activeAccount.balances.find((x) => x.asset_code === sendAsset.value);
-          const destinationAsset = activeAccount.balances.find((x) => x.asset_code
-          === destAsset.value);
+          const sourceAsset = activeAccount.balances.find(
+            (x) => x.asset_code === sendAsset.asset_code
+            && x.asset_issuer === sendAsset.asset_issuer,
+          );
+
+          const destinationAsset = activeAccount.balances.find(
+            (x) => x.asset_code === destAsset.asset_code
+            && x.asset_issuer === destAsset.asset_issuer,
+          );
 
           const pathData = await getPathData({
             source_account: activeAccount.publicKey,
@@ -237,16 +226,14 @@ class PaymentSendOps extends Component {
               checked: false,
             });
           } else {
-            const bestPath = [
+            const newBestPath = [
               sourceAsset,
               ...pathData.path,
               destinationAsset,
             ];
 
-            this.setState({
-              bestPath,
-              destinationAmount: pathData.destination_amount,
-            });
+            setBestPath(newBestPath);
+            setDestinationAmount(pathData.destination_amount);
 
             changeOperationAction(id, {
               checked: true,
@@ -262,147 +249,138 @@ class PaymentSendOps extends Component {
     }
 
     return errors;
-  }
+  };
 
-  render() {
-    const {
-      list,
-      sendAsset,
-      destAsset,
-      bestPath,
-      destinationAmount,
-    } = this.state;
+  return (
+    <Form
+      mutators={{
+        sendAmountMax: (args, state, utils) => {
+          const { activeAccount } = currentActiveAccount();
+          const { balances } = activeAccount;
 
-    return (
-      <Form
-        mutators={{
-          sendAmountMax: (args, state, utils) => {
-            const { activeAccount } = currentActiveAccount();
-            const { balances } = activeAccount;
+          let maxBalance;
 
-            let maxBalance;
+          if (isNative(sendAsset)) {
+            const xlmBalance = activeAccount.balances.find(
+              (x) => x.asset_type === 'native',
+            );
 
-            if (sendAsset.value === 'XLM') {
-              const xlmBalance = activeAccount.balances.find(
-                (x) => x.asset_type === 'native',
-              );
+            maxBalance = arithmeticNumber(
+              parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
+            );
+          } else {
+            maxBalance = balances.find(
+              (x) => x.asset_code === sendAsset.asset_code
+              && x.asset_issuer === sendAsset.asset_issuer,
+            ).balance;
+          }
 
-              maxBalance = arithmeticNumber(
-                parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
-              );
-            } else {
-              maxBalance = balances.find(
-                (x) => x.asset_code === sendAsset.value,
-              ).balance;
-            }
-
-            utils.changeValue(state, 'sendAmount', () => maxBalance);
-          },
-        }}
-        onSubmit={() => {}}
-        validate={(values) => this.validateForm(values)}
-        render={({ submitError, handleSubmit, form }) => (
-          <form
-            className={classNames(styles.form, 'form')}
-            onSubmit={handleSubmit}
-            autoComplete="off"
-          >
-            <Field name="destination">
-              {({ input, meta }) => (
-                <div className="group">
-                  <label className="label-primary">Destination</label>
+          utils.changeValue(state, 'sendAmount', () => maxBalance);
+        },
+      }}
+      onSubmit={() => {}}
+      validate={(values) => validateForm(values)}
+      render={({ submitError, handleSubmit, form }) => (
+        <form
+          className={classNames(styles.form, 'form')}
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
+          <Field name="destination">
+            {({ input, meta }) => (
+              <div className="group">
+                <label className="label-primary">Destination</label>
+                <Input
+                  type="text"
+                  placeholder="G…"
+                  size="input-medium"
+                  input={input}
+                  meta={meta}
+                  autoFocus
+                />
+              </div>
+            )}
+          </Field>
+          <Field name="sendAmount">
+            {({ input, meta }) => (
+              <div className="pure-g group">
+                <div className={styles.selectInput}>
+                  <label className="label-primary">Send amount</label>
                   <Input
-                    type="text"
-                    placeholder="G…"
+                    type="number"
+                    placeholder="1"
                     size="input-medium"
                     input={input}
                     meta={meta}
-                    autoFocus
+                    variant="max"
+                    setMax={() => {
+                      form.mutators.sendAmountMax();
+                    }}
                   />
                 </div>
-              )}
-            </Field>
-            <Field name="sendAmount">
-              {({ input, meta }) => (
-                <div className="pure-g group">
-                  <div className={styles.selectInput}>
-                    <label className="label-primary">Send amount</label>
-                    <Input
-                      type="number"
-                      placeholder="1"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                      variant="max"
-                      setMax={() => {
-                        form.mutators.sendAmountMax();
-                      }}
-                    />
-                  </div>
-                  <div className={styles.select}>
-                    <SelectOption
-                      items={list}
-                      onChange={this.onChangeSendAsset}
-                      variant="select-outlined"
-                      defaultValue={list[0]}
-                      selected={sendAsset}
-                    />
-                  </div>
+                <div className={styles.select}>
+                  <SelectOption
+                    items={list}
+                    onChange={onChangeSendAsset}
+                    variant="select-outlined"
+                    defaultValue={list[0]}
+                    selected={sendAsset}
+                  />
                 </div>
-              )}
-            </Field>
-            <Field name="destMin">
-              {({ input, meta }) => (
-                <div className="pure-g group">
-                  <div className={styles.selectInput}>
-                    <label className="label-primary">Destination min</label>
-                    <Input
-                      type="number"
-                      placeholder="1"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                    />
-                  </div>
-                  <div className={styles.select}>
-                    <SelectOption
-                      items={list}
-                      onChange={this.onChangeDestAsset}
-                      variant="select-outlined"
-                      defaultValue={list[0]}
-                      selected={destAsset}
-                    />
-                  </div>
-                </div>
-              )}
-            </Field>
-            {bestPath.length ? (
-              <div>
-                <div>
-                  <p>Path:</p>
-                  {bestPath.map((aPath, index) => (
-                    <span key={`${aPath.asset_type}${index}`}>
-                      {showAsset(aPath)}
-                      {' '}
-                      {bestPath.length !== index + 1 ? '>' : ''}
-                    </span>
-                  ))}
-                </div>
-                <p>
-                  Destination Amount:
-                  {' '}
-                  {destinationAmount}
-                </p>
               </div>
-            ) : ''}
+            )}
+          </Field>
+          <Field name="destMin">
+            {({ input, meta }) => (
+              <div className="pure-g group">
+                <div className={styles.selectInput}>
+                  <label className="label-primary">Destination min</label>
+                  <Input
+                    type="number"
+                    placeholder="1"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                  />
+                </div>
+                <div className={styles.select}>
+                  <SelectOption
+                    items={list}
+                    onChange={onChangeDestAsset}
+                    variant="select-outlined"
+                    defaultValue={list[0]}
+                    selected={destAsset}
+                  />
+                </div>
+              </div>
+            )}
+          </Field>
+          {/* {bestPath.length ? (
+            <div>
+              <div>
+                <p>Path:</p>
+                {bestPath.map((aPath, index) => (
+                  <span key={`${aPath.asset_type}${index}`}>
+                    {showAsset(aPath)}
+                    {' '}
+                    {bestPath.length !== index + 1 ? '>' : ''}
+                  </span>
+                ))}
+              </div>
+              <p>
+                Destination Amount:
+                {' '}
+                {destinationAmount}
+              </p>
+            </div>
+          ) : ''} */}
 
-            {submitError && <div className="error">{submitError}</div>}
-          </form>
-        )}
-      />
-    );
-  }
-}
+          {submitError && <div className="error">{submitError}</div>}
+        </form>
+      )}
+    />
+  );
+};
 
 PaymentSendOps.propTypes = {};
 

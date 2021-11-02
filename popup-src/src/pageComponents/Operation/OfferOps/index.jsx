@@ -1,8 +1,9 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
+import isNative from '../../../helpers/isNative';
 import arithmeticNumber from '../../../helpers/arithmetic';
 import SelectOption from '../../../components/SelectOption';
 import currentActiveAccount from '../../../helpers/activeAccount';
@@ -10,29 +11,20 @@ import changeOperationAction from '../../../actions/operations/change';
 
 import styles from './styles.less';
 
-class OfferOps extends Component {
-  constructor(props) {
-    super(props);
+const OfferOps = ({ id, offer }) => {
+  const [list, setList] = useState([]);
+  const [sellingAsset, setSellingAsset] = useState({});
+  const [buyingAsset, setByingAsset] = useState({});
 
-    this.state = {
-      list: [],
-      sellingAsset: {},
-      buyingAsset: {},
-    };
-
-    this.onChangeSellingAmount = this.onChangeSellingAmount.bind(this);
-    this.onChangeBuyingAmount = this.onChangeBuyingAmount.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const { activeAccount } = currentActiveAccount();
 
     const { balances } = activeAccount;
 
-    const list = [];
+    const newList = [];
 
     for (let i = 0; i < balances.length; i += 1) {
-      list.push({
+      newList.push({
         value: balances[i].asset_code,
         label: balances[i].asset_code,
         balance: balances[i].balance,
@@ -42,25 +34,20 @@ class OfferOps extends Component {
       });
     }
 
-    this.setState({
-      list,
-      sellingAsset: list[0],
-      buyingAsset: list[0],
-    });
-  }
+    setList(newList);
+    setSellingAsset(newList[0]);
+    setByingAsset(newList[0]);
+  }, []);
 
-  onChangeSellingAmount(e) {
-    this.setState({ sellingAsset: e });
-  }
+  const onChangeSellingAmount = (e) => {
+    setSellingAsset(e);
+  };
 
-  onChangeBuyingAmount(e) {
-    this.setState({ buyingAsset: e });
-  }
+  const onChangeBuyingAmount = (e) => {
+    setByingAsset(e);
+  };
 
-  async validateForm(values) {
-    const { id } = this.props;
-    const { sellingAsset, buyingAsset } = this.state;
-
+  const validateForm = async (values) => {
     const errors = {};
     const hasError = {
       selling: false,
@@ -79,13 +66,14 @@ class OfferOps extends Component {
       if (sellingAsset.value) {
         let selectedTokenBalance;
 
-        if (sellingAsset.value === 'XLM') {
+        if (isNative(sellingAsset)) {
           selectedTokenBalance = activeAccount.balances.find(
             (x) => x.asset_type === 'native',
           );
         } else {
           selectedTokenBalance = activeAccount.balances.find(
-            (x) => x.asset_code === sellingAsset.value,
+            (x) => x.asset_code === sellingAsset.asset_code
+            && x.asset_issuer === sellingAsset.asset_issuer,
           );
         }
 
@@ -95,7 +83,7 @@ class OfferOps extends Component {
           };
         }
 
-        if (sellingAsset.value === 'XLM') {
+        if (isNative(sellingAsset)) {
           if (
             Number(selectedTokenBalance.balance || '0')
             < Number(values.selling) + activeAccount.maxXLM
@@ -131,17 +119,18 @@ class OfferOps extends Component {
       if (buyingAsset.value) {
         let selectedTokenBalance;
 
-        if (buyingAsset.value === 'XLM') {
+        if (isNative(buyingAsset)) {
           selectedTokenBalance = activeAccount.balances.find(
             (x) => x.asset_type === 'native',
           );
         } else {
           selectedTokenBalance = activeAccount.balances.find(
-            (x) => x.asset_code === buyingAsset.value,
+            (x) => x.asset_code === buyingAsset.asset_code
+            && x.asset_issuer === buyingAsset.asset_issuer,
           );
         }
 
-        if (buyingAsset.value !== 'XLM') {
+        if (!isNative(buyingAsset)) {
           if (Number(selectedTokenBalance.limit || '0') < values.buying) {
             errors.buying = 'The balance would exceed the trust of the account in the asset.';
             hasError.buying = true;
@@ -171,130 +160,125 @@ class OfferOps extends Component {
     }
 
     return errors;
-  }
+  };
 
-  render() {
-    const { offer } = this.props;
-    const { list, sellingAsset, buyingAsset } = this.state;
+  return (
+    <Form
+      mutators={{
+        sellingMax: (args, state, utils) => {
+          const { activeAccount } = currentActiveAccount();
+          const { balances } = activeAccount;
 
-    return (
-      <Form
-        mutators={{
-          sellingMax: (args, state, utils) => {
-            const { activeAccount } = currentActiveAccount();
-            const { balances } = activeAccount;
+          let maxBalance;
 
-            let maxBalance;
+          if (sellingAsset.value === 'XLM') {
+            const xlmBalance = activeAccount.balances.find(
+              (x) => x.asset_type === 'native',
+            );
 
-            if (sellingAsset.value === 'XLM') {
-              const xlmBalance = activeAccount.balances.find(
-                (x) => x.asset_type === 'native',
-              );
+            maxBalance = arithmeticNumber(
+              parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
+            );
+          } else {
+            maxBalance = balances.find(
+              (x) => x.asset_code === sellingAsset.value,
+            ).balance;
+          }
 
-              maxBalance = arithmeticNumber(
-                parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
-              );
-            } else {
-              maxBalance = balances.find(
-                (x) => x.asset_code === sellingAsset.value,
-              ).balance;
-            }
+          utils.changeValue(state, 'selling', () => maxBalance);
+        },
+      }}
+      onSubmit={() => {}}
+      validate={(values) => validateForm(values)}
+      render={({ submitError, handleSubmit, form }) => (
+        <form
+          className={classNames(styles.form, 'form')}
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
+          <Field name="selling">
+            {({ input, meta }) => (
+              <div className="pure-g group">
+                <div className={styles.selectInput}>
+                  <label className="label-primary max">Selling amount</label>
 
-            utils.changeValue(state, 'selling', () => maxBalance);
-          },
-        }}
-        onSubmit={() => {}}
-        validate={(values) => this.validateForm(values)}
-        render={({ submitError, handleSubmit, form }) => (
-          <form
-            className={classNames(styles.form, 'form')}
-            onSubmit={handleSubmit}
-            autoComplete="off"
-          >
-            <Field name="selling">
-              {({ input, meta }) => (
-                <div className="pure-g group">
-                  <div className={styles.selectInput}>
-                    <label className="label-primary max">Selling amount</label>
-
-                    <Input
-                      type="number"
-                      placeholder="1"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                      variant="max"
-                      setMax={() => {
-                        form.mutators.sellingMax();
-                      }}
-                      autoFocus
-                    />
-                  </div>
-                  <div className={styles.select}>
-                    <SelectOption
-                      items={list}
-                      defaultValue={list[0]}
-                      onChange={this.onChangeSellingAmount}
-                      variant="select-outlined"
-                      selected={sellingAsset}
-                    />
-                  </div>
+                  <Input
+                    type="number"
+                    placeholder="1"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                    variant="max"
+                    setMax={() => {
+                      form.mutators.sellingMax();
+                    }}
+                    autoFocus
+                  />
                 </div>
-              )}
-            </Field>
-            <Field name="buying">
-              {({ input, meta }) => (
-                <div className="pure-g group">
-                  <div className={styles.selectInput}>
-                    <label className="label-primary">Buying amount</label>
-                    <Input
-                      type="number"
-                      placeholder="1"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                    />
-                  </div>
-                  <div className={styles.select}>
-                    <SelectOption
-                      items={list}
-                      defaultValue={list[0]}
-                      onChange={this.onChangeBuyingAmount}
-                      variant="select-outlined"
-                      selected={buyingAsset}
-                    />
-                  </div>
+                <div className={styles.select}>
+                  <SelectOption
+                    items={list}
+                    defaultValue={list[0]}
+                    onChange={onChangeSellingAmount}
+                    variant="select-outlined"
+                    selected={sellingAsset}
+                  />
                 </div>
-              )}
-            </Field>
-            {offer ? (
-              <Field name="offerId">
-                {({ input, meta }) => (
-                  <div className="group">
-                    <label className="label-primary">
-                      Offer ID
-                      <span className="label-optional"> (optional)</span>
-                    </label>
-                    <Input
-                      type="number"
-                      placeholder="12345"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                    />
-                  </div>
-                )}
-              </Field>
-            ) : (
-              ''
+              </div>
             )}
-            {submitError && <div className="error">{submitError}</div>}
-          </form>
-        )}
-      />
-    );
-  }
-}
+          </Field>
+          <Field name="buying">
+            {({ input, meta }) => (
+              <div className="pure-g group">
+                <div className={styles.selectInput}>
+                  <label className="label-primary">Buying amount</label>
+                  <Input
+                    type="number"
+                    placeholder="1"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                  />
+                </div>
+                <div className={styles.select}>
+                  <SelectOption
+                    items={list}
+                    defaultValue={list[0]}
+                    onChange={onChangeBuyingAmount}
+                    variant="select-outlined"
+                    selected={buyingAsset}
+                  />
+                </div>
+              </div>
+            )}
+          </Field>
+          {offer ? (
+            <Field name="offerId">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">
+                    Offer ID
+                    <span className="label-optional"> (optional)</span>
+                  </label>
+                  <Input
+                    type="number"
+                    placeholder="12345"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                  />
+                </div>
+              )}
+            </Field>
+          ) : (
+            ''
+          )}
+          {submitError && <div className="error">{submitError}</div>}
+        </form>
+      )}
+    />
+  );
+};
 
 OfferOps.propTypes = {};
 
