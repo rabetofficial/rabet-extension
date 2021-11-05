@@ -129,7 +129,7 @@ const PaymentOps = ({ id }) => {
       if (accountData.status === 404) {
         isAccountNew = true;
 
-        if (isNative(selected)) {
+        if (!isNative(selected)) {
           errors.destination = 'Inactive accounts cannot receive tokens.';
           hasError.destination = true;
 
