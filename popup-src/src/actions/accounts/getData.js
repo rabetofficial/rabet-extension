@@ -30,6 +30,7 @@ export default async (address) => {
     const xlmToUsd = await xlmPrice();
 
     accountData.usd = accountData.balance * xlmToUsd;
+    accountData.balances = accountData.balances.filter((x) => !x.liquidity_pool_id);
     accountData.balances = await toNativePrice(accountData.balances);
 
     // MOVING XLM TO THE BEGINNING OF AN ARRAY
