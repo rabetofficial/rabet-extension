@@ -1,14 +1,13 @@
-import shortid from 'shortid';
 import classNames from 'classnames';
 import React, { Component } from 'react';
-import { parse } from 'xdr-parser';
+import StellarSdk, { Transaction } from 'stellar-sdk';
 
 import shorter from 'Root/helpers/shorter';
 import Card from 'Root/components/Card';
 import Button from 'Root/components/Button';
 import CopyText from 'Root/components/CopyText';
 import PageTitle from 'Root/components/PageTitle';
-import operationMapper from 'Root/helpers/operationMapper';
+import Operations from 'Root/components/Operations';
 
 import styles from './styles.less';
 
@@ -76,10 +75,11 @@ class Confirm extends Component {
     const xdr = global.sessionStorage.getItem('xdr');
     const network = global.sessionStorage.getItem('network');
 
-    let parsed;
+    let transaction;
 
     try {
-      parsed = parse(xdr);
+      const obj = StellarSdk.xdr.TransactionEnvelope.fromXDR(xdr, 'base64');
+      transaction = new Transaction(obj, StellarSdk.Networks.PUBLIC);
     } catch (e) {
       return (
         <>
@@ -98,11 +98,7 @@ class Confirm extends Component {
       );
     }
 
-    const operationsMapped = [];
-
-    for (const operation of parsed.operations) {
-      operationsMapped.push(operationMapper(operation));
-    }
+    const operations = transaction._operations;
 
     return (
       <>
@@ -114,7 +110,7 @@ class Confirm extends Component {
               <span className={styles.sourceTitle}>Source account:</span>
 
               <span className={styles.sourceValue}>
-                <CopyText text={parsed.sourceAccount} button={shorter(publicKey, 5)} />
+                <CopyText text={transaction._source} button={shorter(publicKey, 5)} />
               </span>
             </p>
 
@@ -134,33 +130,9 @@ class Confirm extends Component {
                 </p>
               */}
 
-            {operationsMapped.map((item, index) => (
-              <div className={styles.box} key={shortid.generate()}>
-                <Card type="card-secondary">
-                  <h1 className={styles.title}>
-                    #{index + 1} {item.title}
-                  </h1>
-                  {item.info &&
-                    item.info.map((info) => (
-                      <div key={shortid.generate()}>
-                        <h2 className={styles.valueTitle} style={{ margin: !item.title && '0' }}>
-                          {info.title}
-                        </h2>
-                        <p className={styles.value}>
-                          {isNaN(info.value) ? info.value : parseFloat(info.value, 10).toString()}
-                        </p>
-                        {info.error && (
-                          <p className="error">
-                            <span className="icon-exclamation-circle" /> {info.error}
-                          </p>
-                        )}
-                      </div>
-                    ))}
-                </Card>
-              </div>
-            ))}
+            <Operations operations={transaction._operations} />
 
-            <Card type="card-secondary">
+            {/* <Card type="card-secondary">
               <h1 className={styles.title}>Memo</h1>
               <p className={styles.value}>
                 {parsed.memo && (
@@ -169,7 +141,7 @@ class Confirm extends Component {
                   </span>
                 )}
               </p>
-            </Card>
+            </Card> */}
           </div>
         </div>
         <div className={classNames('pure-g justify-end', styles.buttons)}>
