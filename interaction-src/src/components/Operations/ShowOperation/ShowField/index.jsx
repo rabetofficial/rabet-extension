@@ -38,7 +38,9 @@ const ShowField = ({ keyValue }) => {
     let str = '[ ';
 
     for (const oneValue of value) {
-      str = `${str}${Object.values(oneValue)[0]} `;
+      if (Object.values(oneValue)[0]) {
+        str = `${str}${Object.values(oneValue)[0]} `;
+      }
     }
 
     str = `${str}]`;

@@ -8,7 +8,11 @@ const showObject = (obj) => {
       value = showObject(value);
     }
 
-    return `${store}${value}-`;
+    if (value) {
+      return `${store}${value}-`;
+    }
+
+    return store;
   }, '');
 
   return str.slice(0, -1);
