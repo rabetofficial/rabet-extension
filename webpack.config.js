@@ -19,7 +19,7 @@ module.exports = {
     // background_script: resolve(`${__dirname}/src/background_script/index.js`),
     // content_script: resolve(`${__dirname}/src/content_script/index.js`),
     // client_script: resolve(`${__dirname}/src/client_script/index.js`),
-    // interaction: resolve(`${__dirname}/src/interaction/index.jsx`),
+    interaction: resolve(`${__dirname}/src/interaction/index.jsx`),
   },
   output: {
     filename: '[name].js',
