@@ -1,0 +1,67 @@
+@import '../../styles/theme.less';
+
+:local(.div) {
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+
+  .pure-u-1-3 {
+    text-align: right;
+  }
+}
+
+:local(.title) {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  color: @shark;
+  white-space: nowrap;
+
+  .icon-question-mark {
+    color: @abbey;
+    margin-left: 4px;
+    cursor: pointer;
+  }
+}
+
+:local(.select) {
+  text-align: left;
+  display: flex;
+  justify-content: flex-end;
+
+  .ops__control {
+    width: 134px!important;
+  }
+
+  .ops__indicator svg {
+    color: @abbey !important;
+  }
+}
+
+
+:local(.buttons) {
+  margin-top: 40px;
+
+  button {
+    width: 100px;
+  }
+
+  button:first-child {
+    margin-right: 12px;
+  }
+}
+
+:local(.page) {
+  position: relative;
+  height: 100%;
+}
+
+:local(.version) {
+  font-size: 16px;
+  position: absolute;
+  bottom: 20px;
+  color: @dove-gray;
+  margin-bottom: 0;
+  width: 100%;
+  text-align: center;
+}

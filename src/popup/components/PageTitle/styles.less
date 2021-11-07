@@ -1,0 +1,61 @@
+@import '../../styles/theme.less';
+
+:local(.div) {
+  display: flex;
+  padding: 24px 16px 0 16px;
+  justify-content: space-between;
+  align-items: center;
+}
+:local(.title) {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+:local(.close) {
+  text-decoration: none !important;
+  float: right;
+
+  span {
+    font-size: 16px;
+    color: @Silver-chalice;
+  }
+}
+
+:local(.status) {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+
+  span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+}
+
+:local(.warn) {
+  color: @Tangerine;
+  span {
+    background: @Tangerine;
+  }
+}
+
+:local(.success) {
+  color: @LaPalma;
+  span {
+    background: @LaPalma;
+  }
+}
+
+:local(.icon) {
+  cursor: pointer;
+
+  span {
+    color: @abbey;
+  }
+}

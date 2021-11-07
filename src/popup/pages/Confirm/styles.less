@@ -1,0 +1,77 @@
+@import '../../styles/theme.less';
+
+:local(.confirm) {
+  position: relative;
+
+  .content {
+    margin-top: 28px;
+    padding-bottom: 16px;
+  }
+
+  .card-secondary {
+    padding: 20px 11px 20px 11px;
+    margin-top: 16px;
+  }
+
+  :local(.box):first-child .card-secondary {
+    padding-bottom: 34px;
+  }
+}
+
+:local(.title) {
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+  margin: 0;
+}
+
+:local(.valueTitle) {
+  font-size: 16px;
+  color: black;
+  font-weight: 500;
+  margin: 16px 0 0 0;
+}
+
+:local(.value) {
+  font-size: 16px;
+  color: @dove-gray;
+  margin: 6px 0 4px 0;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+:local(.buttons) {
+  margin-top: 16px;
+  background: white;
+  padding-right: 16px;
+  padding-left: 16px;
+
+  button {
+    width: 100px;
+  }
+
+  button:last-child {
+    margin-right: 10px;
+  }
+}
+
+:local(.source) {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  background: @Concrete;
+  border-radius: 4px;
+  padding: 12px 11px;
+  align-items: center;
+}
+
+:local(.sourceTitle) {
+  font-size: 14px;
+  color: @dove-gray;
+}
+
+:local(.sourceValue) {
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+}

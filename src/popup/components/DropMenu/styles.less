@@ -1,0 +1,65 @@
+@import '../../styles/theme.less';
+
+:local(.drop) {
+  position: relative;
+
+  .dropdown-menu {
+    .toggle {
+      width: fit-content;
+      margin-left: auto;
+    }
+
+    .menu {
+      position: absolute;
+      right: 7px;
+      top: 3px;
+      overflow: hidden;
+      box-shadow: 0 2px 14px rgba(134, 146, 164, 0.18);
+      z-index: 99999;
+      background-color: white;
+      width: 0;
+      height: 0;
+
+      ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+
+        li {
+          cursor: pointer;
+          width: 100%;
+          padding: 15px 16px;
+          transition: background 0.25s, color 0.25s;
+          display: flex;
+          align-items: center;
+          font-size: 16px;
+
+          .label {
+            margin-left: 8px;
+          }
+
+          i {
+            font-size: 17px;
+          }
+
+          .icon-flag {
+            font-size: 18px;
+          }
+        }
+
+        li:hover {
+          background-color: @Alabaster;
+          transition: 0.3s ease-in-out;
+        }
+      }
+
+      &.expanded {
+        height: auto;
+      }
+    }
+  }
+
+  .toggle:focus, .dropdown-menu:focus {
+    outline: none;
+  }
+}
