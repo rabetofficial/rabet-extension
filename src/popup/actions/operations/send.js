@@ -326,22 +326,22 @@ export default async (push) => {
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push({
-        pathname: route.successSubmitPage,
-        state: { hash: result.hash },
-      });
+      push(
+        route.successSubmitPage,
+        { hash: result.hash },
+      );
     })
     .catch((err) => {
       if (err && err.response && err.response.data) {
-        push({
-          pathname: route.errorPage,
-          state: { message: showError(err.response.data) },
-        });
+        push(
+          route.errorPage,
+          { message: showError(err.response.data) },
+        );
       } else {
-        push({
-          pathname: route.errorPage,
-          state: { message: 'One of the operations failed (none were applied).' },
-        });
+        push(
+          route.errorPage,
+          { message: 'One of the operations failed (none were applied).' },
+        );
       }
     });
 };

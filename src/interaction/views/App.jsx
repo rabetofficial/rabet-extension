@@ -12,10 +12,10 @@ import '../styles/base.less';
 export default () => (
   <div className="layout">
     <Routes>
-      <Route exact path={route.ConfirmPage} element={<Confirm />} />
-      <Route exact path={route.loginPage} element={<Login />} />
-      <Route exact path={route.loadingNetworkPage} element={<LoadingNetwork />} />
-      <Route exact path={route.contactPage} element={<ContactRequest />} />
+      <Route path={route.ConfirmPage} element={<Confirm />} />
+      <Route path={route.loginPage} element={<Login />} />
+      <Route path={route.loadingNetworkPage} element={<LoadingNetwork />} />
+      <Route path={route.contactPage} element={<ContactRequest />} />
       <Route path="/" element={<Login />} />
     </Routes>
   </div>

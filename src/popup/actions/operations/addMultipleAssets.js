@@ -19,10 +19,10 @@ export default async (assets, push) => {
   server
     .loadAccount(assets[0].asset_issuer)
     .catch(() => {
-      push({
-        pathname: route.errorPage,
-        state: { message: 'ERROR. The issuer account does not exist.' },
-      });
+      push(
+        route.errorPage,
+        { message: 'ERROR. The issuer account does not exist.' },
+      );
     })
     .then(() => server.loadAccount(sourceKeys.publicKey()))
     .then((sourceAccount) => {
@@ -46,15 +46,15 @@ export default async (assets, push) => {
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push({
-        pathname: route.successSubmitPage,
-        state: { hash: result.hash },
-      });
+      push(
+        route.successSubmitPage,
+        { hash: result.hash },
+      );
     })
     .catch((err) => {
-      push({
-        pathname: route.errorPage,
-        state: { message: err.message },
-      });
+      push(
+        route.errorPage,
+        { message: err.message },
+      );
     });
 };

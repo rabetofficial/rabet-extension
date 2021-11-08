@@ -22,10 +22,10 @@ export default async (options, push) => {
 
   await storeOptions();
 
-  push({
-    pathname: route.homePage,
-    state: {
+  push(
+    route.homePage,
+    {
       alreadyLoaded: true,
     },
-  });
+  );
 };

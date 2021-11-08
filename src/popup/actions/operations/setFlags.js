@@ -68,15 +68,15 @@ export default async ({
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push({
-        pathname: route.successSubmitPage,
-        state: { hash: result.hash },
-      });
+      push(
+        route.successSubmitPage,
+        { hash: result.hash },
+      );
     })
     .catch((err) => {
-      push({
-        pathname: route.errorPage,
-        state: { message: err.message },
-      });
+      push(
+        route.errorPage,
+        { message: err.message },
+      );
     });
 };

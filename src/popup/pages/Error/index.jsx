@@ -21,12 +21,12 @@ const Error = ({ history }) => (
         icon="icon-exclamation-triangle"
         iconClass={styles.icon}
         handleClick={() => {
-          history.push({
-            pathname: route.homePage,
-            state: {
+          history.push(
+            route.homePage,
+            {
               alreadyLoaded: true,
             },
-          });
+          );
         }}
       />
     </div>

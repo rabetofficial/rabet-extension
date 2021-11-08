@@ -65,12 +65,12 @@ const ShowPrivateKey = () => {
                   size="btn-medium"
                   content="Cancel"
                   onClick={() => {
-                    navigate({
-                      pathname: route.homePage,
-                      state: {
+                    navigate(
+                      route.homePage,
+                      {
                         alreadyLoaded: true,
                       },
-                    });
+                    );
                   }}
                 />
                 <Button

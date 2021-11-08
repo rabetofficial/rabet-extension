@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import * as route from '../../staticRes/routes';
@@ -14,17 +14,18 @@ import styles from './styles.less';
 
 const SuccessfulSubmission = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const handleClick = () => {
-    navigate({
-      pathname: route.homePage,
-      state: {
+    navigate(
+      route.homePage,
+      {
         alreadyLoaded: false,
       },
-    });
+    );
   };
 
-  const { hash } = history.location.state;
+  const { hash } = state;
 
   const copyText = (
     <>
