@@ -85,14 +85,15 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|woff|woff2|ttf|eot|svg)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 500000,
-            },
-          },
-        ],
+        type: 'asset/resource',
+        // use: [
+        //   {
+        //     loader: 'url-loader',
+        //     options: {
+        //       limit: 500000,
+        //     },
+        //   },
+        // ],
       },
     ],
   },
