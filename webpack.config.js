@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const { resolve } = require('path');
 const autoprefixer = require('autoprefixer');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -8,7 +9,11 @@ const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
-const plugins = [];
+const plugins = [
+  new webpack.ProvidePlugin({
+    Buffer: ['buffer', 'Buffer'],
+  }),
+];
 
 // const miniLoader = devMode ? 'style-loader' : {
 //   loader: MiniCssExtractPlugin.loader,
@@ -104,6 +109,7 @@ module.exports = {
       http: require.resolve('stream-http'),
       https: require.resolve('https-browserify'),
       stream: require.resolve('stream-browserify'),
+      buffer: require.resolve('buffer'),
     },
     extensions: ['.js', '.jsx'],
   },

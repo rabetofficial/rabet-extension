@@ -2,7 +2,7 @@
 
 import currentNetwork from './currentNetwork';
 
-export default async (address) => new Promise((resolve, reject) => {
+export default async (address) => new Promise((resolve) => {
   fetch(`${currentNetwork().url}/accounts/${address}`)
     .then((res) => res.json())
     .then((data) => {
@@ -12,7 +12,7 @@ export default async (address) => new Promise((resolve, reject) => {
         resolve(data);
       }
     })
-    .catch((e) => {
-      reject(e);
+    .catch(() => {
+      resolve({});
     });
 });

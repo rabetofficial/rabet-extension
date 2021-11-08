@@ -5,7 +5,6 @@ import { Navigate } from 'react-router-dom';
 import * as route from '../../staticRes/routes';
 
 const AccountManager = ({ accounts }) => {
-  console.log('aaa');
   if (!accounts.length) {
     return <Navigate to={route.firstPage} />;
   }

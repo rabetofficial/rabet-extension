@@ -37,19 +37,17 @@ const Home = ({ options, currencies }) => {
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
-    // if (!history.location?.state?.alreadyLoaded) {
-    //   const { activeAccount } = currentActiveAccount();
-
-    //   getData(activeAccount.publicKey).then(() => {
-    //     setLoading(false);
-    //   });
-
-    //   intervalAction(activeAccount.publicKey, true);
-    // } else {
-    //   setLoading(false);
-    // }
-
     const { activeAccount } = currentActiveAccount();
+    // if (!history.location?.state?.alreadyLoaded) {
+
+      getData(activeAccount.publicKey).then(() => {
+        setLoading(false);
+      });
+
+      intervalAction(activeAccount.publicKey, true);
+    // } else {
+      // setLoading(false);
+    // }
 
     isConnected(activeAccount.publicKey)
       .then(({ isConnectedResult: isCon, host: h }) => {

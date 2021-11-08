@@ -22,27 +22,27 @@ import styles from './styles.less';
 
 const Login = ({ location }) => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const { state } = location;
+  // useEffect(() => {
+  //   const { state } = location;
 
-    if (!state) {
-      hadLoggedBeforeAction().then((hasLogged) => {
-        if (hasLogged) {
-          loginUserAction(hasLogged).then((isLogged) => {
-            if (isLogged) {
-              setLoading(false);
+  //   if (!state) {
+  //     hadLoggedBeforeAction().then((hasLogged) => {
+  //       if (hasLogged) {
+  //         loginUserAction(hasLogged).then((isLogged) => {
+  //           if (isLogged) {
+  //             setLoading(false);
 
-              navigate(route.accountManagerPage);
-            }
-          });
-        } else {
-          setLoading(false);
-        }
-      });
-    }
-  }, []);
+  //             navigate(route.accountManagerPage);
+  //           }
+  //         });
+  //       } else {
+  //         setLoading(false);
+  //       }
+  //     });
+  //   }
+  // }, []);
 
   const onSubmit = async (values) => {
     const isLogged = await loginUserAction(values.password);
