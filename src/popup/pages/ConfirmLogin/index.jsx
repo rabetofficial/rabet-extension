@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
+import { useNavigate } from 'react-router-dom';
 
 import registerUserAction from '../../actions/user/register';
 import Logo from '../../components/Logo';
@@ -16,7 +17,9 @@ import {
 
 import styles from './styles.less';
 
-const ConfirmLogin = ({ history }) => {
+const ConfirmLogin = () => {
+  const navigate = useNavigate();
+
   const onSubmit = (values) => {
     const errors = {};
 
@@ -29,7 +32,7 @@ const ConfirmLogin = ({ history }) => {
     }
 
     registerUserAction(values.password).then(() => {
-      history.push(route.accountManagerPage);
+      navigate(route.accountManagerPage);
     });
 
     return {};
@@ -72,6 +75,7 @@ const ConfirmLogin = ({ history }) => {
     <div className="pure-g content">
       <div className="pure-u-1-1">
         <Logo />
+
         <Form
           onSubmit={(values) => onSubmit(values)}
           validate={(values) => validateForm(values)}

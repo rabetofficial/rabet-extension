@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
+import { useNavigate } from 'react-router-dom';
 
 import Input from '../../components/Input';
 import Header from '../../components/Header';
@@ -10,22 +11,22 @@ import PageTitle from '../../components/PageTitle';
 import restoreAccountAction from '../../actions/accounts/restore';
 import validatePrivateKey from '../../utils/validate/privateKey';
 
-const RestoreWallet = ({ accounts, history }) => {
+const RestoreWallet = ({ accounts }) => {
+  const navigate = useNavigate();
+
   const handleCancel = (form) => {
     form.reset();
 
     if (accounts.length) {
-      return history.push({
-        pathname: route.homePage,
-        state: {
+      return navigate(
+        route.homePage,
+        {
           alreadyLoaded: true,
         },
-      });
+      );
     }
 
-    return history.push({
-      pathname: route.firstPage,
-    });
+    return navigate(route.firstPage);
   };
 
   const onSubmit = async (values) => {
@@ -49,7 +50,7 @@ const RestoreWallet = ({ accounts, history }) => {
       return { key: 'Invalid seed.' };
     }
 
-    return history.push(route.homePage);
+    return navigate(route.homePage);
   };
 
   const validateForm = (values) => {

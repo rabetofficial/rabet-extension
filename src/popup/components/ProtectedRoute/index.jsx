@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import * as route from '../../staticRes/routes';
 import checkOffline from '../../utils/checkOffline';
 
-const ProtectedRoute = ({ user, ...props }) => {
+const ProtectedRoute = ({ user, children }) => {
   const isOnLine = checkOffline();
 
   if (!isOnLine) {
@@ -20,7 +20,7 @@ const ProtectedRoute = ({ user, ...props }) => {
     return <Navigate to={route.confirmLoginPage} />;
   }
 
-  return <Route {...props} />;
+  return children;
 };
 
 export default connect((state) => ({

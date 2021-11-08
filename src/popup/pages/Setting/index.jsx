@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import config from '../../../config';
 import Header from '../../components/Header';
@@ -38,26 +38,14 @@ currencies = currencies.map((x) => ({
   label: x.name,
 }));
 
-class Setting extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checked: true,
-      selectedExplorer: {},
-      selectedTimer: {},
-      selectedCurrency: currencies[0],
-    };
+const Setting = ({ options }) => {
+  const navigate = useNavigate();
+  const [checked, setChecked] = useState(true);
+  const [selectedExplorer, setSelectedExplorer] = useState({});
+  const [selectedTimer, setSelectedTimer] = useState({});
+  const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChecked = this.handleChecked.bind(this);
-    this.onChangeTimer = this.onChangeTimer.bind(this);
-    this.onChangeNetwork = this.onChangeNetwork.bind(this);
-    this.onChangeCurrency = this.onChangeCurrency.bind(this);
-  }
-
-  componentDidMount() {
-    const { options } = this.props;
-
+  useEffect(() => {
     let label;
 
     if (options.explorer === 'stellarexpert') {
@@ -68,14 +56,12 @@ class Setting extends Component {
       label = 'Steexp';
     }
 
-    const selectedExplorer = {
+    const newSelectedExplorer = {
       label,
       value: options.explorer.toLowerCase(),
     };
 
-    this.setState({
-      selectedExplorer,
-    });
+    setSelectedExplorer(newSelectedExplorer);
 
     let timerLabel;
 
@@ -91,34 +77,19 @@ class Setting extends Component {
       timerLabel = 'Never';
     }
 
-    this.setState({
-      selectedTimer: { value: options.autoTimeLocker, label: timerLabel },
-    });
-
-    this.setState({
-      checked: options.privacyMode,
-    });
+    setSelectedTimer({ value: options.autoTimeLocker, label: timerLabel });
+    setChecked(options.privacyMode);
 
     if (options.currency) {
-      this.setState({
-        selectedCurrency: { value: options.currency, label: options.currency.toUpperCase() },
-      });
+      setSelectedCurrency({ value: options.currency, label: options.currency.toUpperCase() });
     }
-  }
+  }, []);
 
-  handleChecked(checked) {
-    this.setState({ checked });
-  }
+  const handleChecked = (c) => {
+    setChecked(c);
+  };
 
-  handleSubmit() {
-    const { history } = this.props;
-    const {
-      checked,
-      selectedExplorer,
-      selectedTimer,
-      selectedCurrency,
-    } = this.state;
-
+  const handleSubmit = () => {
     changeOptionsAction(
       {
         privacyMode: checked,
@@ -126,166 +97,153 @@ class Setting extends Component {
         autoTimeLocker: selectedTimer,
         currency: selectedCurrency,
       },
-      history.push,
+      navigate,
     );
-  }
+  };
 
-  onChangeCurrency(e) {
-    this.setState({ selectedCurrency: e });
-  }
+  const onChangeCurrency = (e) => {
+    setSelectedCurrency(e);
+  };
 
-  onChangeTimer(e) {
-    this.setState({ selectedTimer: e });
-  }
+  const onChangeTimer = (e) => {
+    setSelectedTimer(e);
+  };
 
-  onChangeNetwork(e) {
-    this.setState({ selectedExplorer: e });
-  }
+  const onChangeNetwork = (e) => {
+    setSelectedExplorer(e);
+  };
 
-  render() {
-    const { history } = this.props;
+  return (
+    <div className={styles.page}>
+      <Header />
 
-    const {
-      selectedExplorer,
-      selectedTimer,
-      selectedCurrency,
-      checked,
-    } = this.state;
+      <PageTitle title="Setting" />
 
-    return (
-      <div className={styles.page}>
-        <Header />
-
-        <PageTitle title="Setting" />
-
-        <div className="content">
-          <div className={classNames('pure-g', styles.div)}>
-            <div className="pure-u-2-5">
-              <h3 className={styles.title}>
-                Explorer
-                <Tooltip
-                  trigger="hover"
-                  tooltip="You will be referred to this Explorer to see the details of your transactions."
-                  placement="top"
-                >
-                  <span className="icon-question-mark" />
-                </Tooltip>
-              </h3>
-            </div>
-
-            <div className="pure-u-3-5">
-              <div className={styles.select}>
-                <SelectOption
-                  items={explorerOptions}
-                  onChange={this.onChangeNetwork}
-                  variant="select-outlined"
-                  isSearchable={false}
-                  defaultValue={selectedExplorer}
-                />
-              </div>
-            </div>
+      <div className="content">
+        <div className={classNames('pure-g', styles.div)}>
+          <div className="pure-u-2-5">
+            <h3 className={styles.title}>
+              Explorer
+              <Tooltip
+                trigger="hover"
+                tooltip="You will be referred to this Explorer to see the details of your transactions."
+                placement="top"
+              >
+                <span className="icon-question-mark" />
+              </Tooltip>
+            </h3>
           </div>
 
-          <div className={classNames('pure-g', styles.div)}>
-            <div className="pure-u-2-5">
-              <h3 className={styles.title}>
-                Auto-lock timer
-                <Tooltip
-                  trigger="hover"
-                  tooltip="Rabet will lock automatically after a set amount of time."
-                  placement="top"
-                >
-                  <span className="icon-question-mark" />
-                </Tooltip>
-              </h3>
+          <div className="pure-u-3-5">
+            <div className={styles.select}>
+              <SelectOption
+                items={explorerOptions}
+                onChange={onChangeNetwork}
+                variant="select-outlined"
+                isSearchable={false}
+                defaultValue={selectedExplorer}
+              />
             </div>
-
-            <div className="pure-u-3-5">
-              <div className={styles.select}>
-                <SelectOption
-                  items={timerOptions}
-                  onChange={this.onChangeTimer}
-                  variant="select-outlined"
-                  isSearchable={false}
-                  defaultValue={selectedTimer}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className={classNames('pure-g', styles.div)}>
-            <div className="pure-u-2-5">
-              <h3 className={styles.title}>
-                Currency conversion
-                <Tooltip trigger="hover" tooltip="some info" placement="top">
-                  <span className="icon-question-mark" />
-                </Tooltip>
-              </h3>
-            </div>
-
-            <div className="pure-u-3-5">
-              <div className={styles.select}>
-                <SelectOption
-                  items={currencies}
-                  onChange={this.onChangeCurrency}
-                  variant="select-outlined"
-                  isSearchable
-                  defaultValue={selectedCurrency}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className={classNames('pure-g', styles.div)}>
-            <div className="pure-u-2-3">
-              <h3 className={styles.title}>
-                Privacy mode
-                <Tooltip
-                  trigger="hover"
-                  tooltip="Websites must request access to view your account information."
-                  placement="top"
-                >
-                  <span className="icon-question-mark" />
-                </Tooltip>
-              </h3>
-            </div>
-
-            <div className="pure-u-1-3">
-              <ToggleSwitch checked={checked} handleChange={this.handleChecked} />
-            </div>
-          </div>
-
-          <div className={classNames('pure-g justify-end', styles.buttons)}>
-            <Button
-              variant="btn-default"
-              size="btn-medium"
-              content="Cancel"
-              onClick={() => {
-                history.push({
-                  pathname: route.homePage,
-                  state: {
-                    alreadyLoaded: true,
-                  },
-                });
-              }}
-            />
-
-            <Button onClick={this.handleSubmit} variant="btn-primary" size="btn-medium" content="Save" />
           </div>
         </div>
 
-        <p className={styles.version}>
-          Version
-          {' '}
-          {config.VERSION}
-        </p>
-      </div>
-    );
-  }
-}
+        <div className={classNames('pure-g', styles.div)}>
+          <div className="pure-u-2-5">
+            <h3 className={styles.title}>
+              Auto-lock timer
+              <Tooltip
+                trigger="hover"
+                tooltip="Rabet will lock automatically after a set amount of time."
+                placement="top"
+              >
+                <span className="icon-question-mark" />
+              </Tooltip>
+            </h3>
+          </div>
 
-export default withRouter(
-  connect((state) => ({
-    options: state.options,
-  }))(Setting),
-);
+          <div className="pure-u-3-5">
+            <div className={styles.select}>
+              <SelectOption
+                items={timerOptions}
+                onChange={onChangeTimer}
+                variant="select-outlined"
+                isSearchable={false}
+                defaultValue={selectedTimer}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className={classNames('pure-g', styles.div)}>
+          <div className="pure-u-2-5">
+            <h3 className={styles.title}>
+              Currency conversion
+              <Tooltip trigger="hover" tooltip="some info" placement="top">
+                <span className="icon-question-mark" />
+              </Tooltip>
+            </h3>
+          </div>
+
+          <div className="pure-u-3-5">
+            <div className={styles.select}>
+              <SelectOption
+                items={currencies}
+                onChange={onChangeCurrency}
+                variant="select-outlined"
+                isSearchable
+                defaultValue={selectedCurrency}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className={classNames('pure-g', styles.div)}>
+          <div className="pure-u-2-3">
+            <h3 className={styles.title}>
+              Privacy mode
+              <Tooltip
+                trigger="hover"
+                tooltip="Websites must request access to view your account information."
+                placement="top"
+              >
+                <span className="icon-question-mark" />
+              </Tooltip>
+            </h3>
+          </div>
+
+          <div className="pure-u-1-3">
+            <ToggleSwitch checked={checked} handleChange={handleChecked} />
+          </div>
+        </div>
+
+        <div className={classNames('pure-g justify-end', styles.buttons)}>
+          <Button
+            variant="btn-default"
+            size="btn-medium"
+            content="Cancel"
+            onClick={() => {
+              navigate(
+                route.homePage,
+                {
+                  alreadyLoaded: true,
+                },
+              );
+            }}
+          />
+
+          <Button onClick={handleSubmit} variant="btn-primary" size="btn-medium" content="Save" />
+        </div>
+      </div>
+
+      <p className={styles.version}>
+        Version
+        {' '}
+        {config.VERSION}
+      </p>
+    </div>
+  );
+};
+
+export default connect((state) => ({
+  options: state.options,
+}))(Setting);

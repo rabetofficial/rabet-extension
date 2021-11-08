@@ -38,20 +38,62 @@ const App = () => (
   <Router>
     <div className="layout">
       <Routes>
-        <ProtectedRoute exact path={route.homePage} element={<Home />} />
-        <Route exact path={route.SendPage} element={<Send />} />
-        <ProtectedRoute exact path={route.errorPage} element={<Error />} />
-        <ProtectedRoute exact path={route.QRCodePage} element={<QRCode />} />
-        <ProtectedRoute exact path={route.ConfirmPage} element={<Confirm />} />
-        <ProtectedRoute exact path={route.settingPage} element={<Setting />} />
-        <ProtectedRoute exact path={route.addAssetPage} element={<AddAsset />} />
-        <ProtectedRoute exact path={route.privateKeyPage} element={<PrivateKey />} />
-        <ProtectedRoute exact path={route.ShowPrivateKeyPage} element={<ShowPrivateKey />} />
-        <ProtectedRoute exact path={route.accountManagerPage} element={<AccountManager />} />
-        <ProtectedRoute exact path={`${route.assetsPage}/:asset_code/:asset_issuer`} element={<Assets />} />
-        <ProtectedRoute exact path={route.xlmAssetPage} element={<XLMAsset />} />
-        <ProtectedRoute exact path={route.successSubmitPage} element={<SuccessfulSubmission />} />
-        <ProtectedRoute exact path={route.backupFile} element={<BackupFile />} />
+        <Route
+          path={route.homePage}
+          element={<ProtectedRoute><Home /></ProtectedRoute>}
+        />
+        <Route
+          path={route.SendPage}
+          element={<ProtectedRoute><Send /></ProtectedRoute>}
+        />
+        <Route
+          path={route.errorPage}
+          element={<ProtectedRoute><Error /></ProtectedRoute>}
+        />
+        <Route
+          path={route.QRCodePage}
+          element={<ProtectedRoute><QRCode /></ProtectedRoute>}
+        />
+        <Route
+          path={route.ConfirmPage}
+          element={<ProtectedRoute><Confirm /></ProtectedRoute>}
+        />
+        <Route
+          path={route.settingPage}
+          element={<ProtectedRoute><Setting /></ProtectedRoute>}
+        />
+        <Route
+          path={route.addAssetPage}
+          element={<ProtectedRoute><AddAsset /></ProtectedRoute>}
+        />
+        <Route
+          path={route.privateKeyPage}
+          element={<ProtectedRoute><PrivateKey /></ProtectedRoute>}
+        />
+        <Route
+          path={route.ShowPrivateKeyPage}
+          element={<ProtectedRoute><ShowPrivateKey /></ProtectedRoute>}
+        />
+        <Route
+          path={route.accountManagerPage}
+          element={<AccountManager />}
+        />
+        <Route
+          path={`${route.assetsPage}/:asset_code/:asset_issuer`}
+          element={<ProtectedRoute><Assets /></ProtectedRoute>}
+        />
+        <Route
+          path={route.xlmAssetPage}
+          element={<ProtectedRoute><XLMAsset /></ProtectedRoute>}
+        />
+        <Route
+          path={route.successSubmitPage}
+          element={<ProtectedRoute><SuccessfulSubmission /></ProtectedRoute>}
+        />
+        <Route
+          path={route.backupFile}
+          element={<ProtectedRoute><BackupFile /></ProtectedRoute>}
+        />
 
         <Route exact path={route.flagPage} element={<Flags />} />
         <Route exact path={route.confirmFlagPage} element={<ConfirmFlag />} />

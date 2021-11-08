@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
@@ -13,14 +13,14 @@ import currentActiveAccount from '../../../utils/activeAccount';
 
 import styles from './styles.less';
 
-class CustomAsset extends Component {
-  onSubmit(values) {
-    const { history } = this.props;
+const CustomAsset = () => {
+  const navigate = useNavigate();
 
-    addAssetAction(values, history.push);
-  }
+  const onSubmit = (values) => {
+    addAssetAction(values, navigate);
+  };
 
-  async validateForm(values) {
+  const validateForm = async (values) => {
     const errors = {};
 
     const hasError = {
@@ -73,110 +73,106 @@ class CustomAsset extends Component {
     }
 
     return errors;
-  }
+  };
 
-  render() {
-    const { history } = this.props;
+  return (
+    <div className={styles.content}>
+      <Form
+        onSubmit={(values) => {
+          onSubmit(values);
+        }}
+        validate={(values) => validateForm(values)}
+        render={({
+          submitError,
+          handleSubmit,
+          submitting,
+          pristine,
+          invalid,
+        }) => (
+          <form
+            className={classNames(styles.form, 'form')}
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
+            <Field name="code">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">Assets code</label>
+                  <Input
+                    type="text"
+                    placeholder="USD"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                    autoFocus
+                  />
+                </div>
+              )}
+            </Field>
 
-    return (
-      <div className={styles.content}>
-        <Form
-          onSubmit={(values) => {
-            this.onSubmit(values);
-          }}
-          validate={(values) => this.validateForm(values)}
-          render={({
-            submitError,
-            handleSubmit,
-            submitting,
-            pristine,
-            invalid,
-          }) => (
-            <form
-              className={classNames(styles.form, 'form')}
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
-              <Field name="code">
-                {({ input, meta }) => (
-                  <div className="group">
-                    <label className="label-primary">Assets code</label>
-                    <Input
-                      type="text"
-                      placeholder="USD"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                      autoFocus
-                    />
-                  </div>
-                )}
-              </Field>
+            <Field name="issuer">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">Issuer</label>
+                  <Input
+                    type="text"
+                    placeholder="G..."
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                  />
+                </div>
+              )}
+            </Field>
 
-              <Field name="issuer">
-                {({ input, meta }) => (
-                  <div className="group">
-                    <label className="label-primary">Issuer</label>
-                    <Input
-                      type="text"
-                      placeholder="G..."
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                    />
-                  </div>
-                )}
-              </Field>
+            <Field name="limit">
+              {({ input, meta }) => (
+                <div className="group">
+                  <label className="label-primary">
+                    Limit
+                    <span className="label-optional"> (optional)</span>
+                  </label>
+                  <Input
+                    type="number"
+                    placeholder="1000"
+                    size="input-medium"
+                    input={input}
+                    meta={meta}
+                  />
+                </div>
+              )}
+            </Field>
 
-              <Field name="limit">
-                {({ input, meta }) => (
-                  <div className="group">
-                    <label className="label-primary">
-                      Limit
-                      <span className="label-optional"> (optional)</span>
-                    </label>
-                    <Input
-                      type="number"
-                      placeholder="1000"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                    />
-                  </div>
-                )}
-              </Field>
+            {submitError && <div className="error">{submitError}</div>}
 
-              {submitError && <div className="error">{submitError}</div>}
+            <div className={classNames('pure-g justify-end', styles.buttons)}>
+              <Button
+                variant="btn-default"
+                size="btn-medium"
+                content="Cancel"
+                onClick={() => {
+                  navigate(
+                    route.homePage,
+                    {
+                      alreadyLoaded: true,
+                    },
+                  );
+                }}
+              />
 
-              <div className={classNames('pure-g justify-end', styles.buttons)}>
-                <Button
-                  variant="btn-default"
-                  size="btn-medium"
-                  content="Cancel"
-                  onClick={() => {
-                    history.push({
-                      pathname: route.homePage,
-                      state: {
-                        alreadyLoaded: true,
-                      },
-                    });
-                  }}
-                />
+              <Button
+                type="submit"
+                variant="btn-primary"
+                size="btn-medium"
+                content="Add"
+                disabled={invalid || pristine || submitting}
+              />
+            </div>
+          </form>
+        )}
+      />
+    </div>
+  );
+};
 
-                <Button
-                  type="submit"
-                  variant="btn-primary"
-                  size="btn-medium"
-                  content="Add"
-                  disabled={invalid || pristine || submitting}
-                />
-              </div>
-            </form>
-          )}
-        />
-      </div>
-    );
-  }
-}
-
-export default withRouter(CustomAsset);
+export default CustomAsset;

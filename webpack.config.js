@@ -1,4 +1,5 @@
 const { resolve } = require('path');
+const autoprefixer = require('autoprefixer');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -9,6 +10,13 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 const plugins = [];
 
+// const miniLoader = devMode ? 'style-loader' : {
+//   loader: MiniCssExtractPlugin.loader,
+//   options: {
+//     esModule: false,
+//   },
+// };
+
 if (!devMode) {
   plugins.push(new MiniCssExtractPlugin());
 }
@@ -16,9 +24,9 @@ if (!devMode) {
 module.exports = {
   entry: {
     popup: resolve(`${__dirname}/src/popup/index.jsx`),
-    // background_script: resolve(`${__dirname}/src/background_script/index.js`),
-    // content_script: resolve(`${__dirname}/src/content_script/index.js`),
-    // client_script: resolve(`${__dirname}/src/client_script/index.js`),
+    background_script: resolve(`${__dirname}/src/background_script/index.js`),
+    content_script: resolve(`${__dirname}/src/content_script/index.js`),
+    client_script: resolve(`${__dirname}/src/client_script/index.js`),
     interaction: resolve(`${__dirname}/src/interaction/index.jsx`),
   },
   output: {
@@ -42,18 +50,38 @@ module.exports = {
         },
       },
       {
-        test: /\.less$/i,
+        test: /\.(css|less)$/,
         use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           {
-            loader: MiniCssExtractPlugin.loader,
+            loader: 'css-loader',
             options: {
-              esModule: false,
+              modules: 'global',
             },
           },
-          // devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
-          'less-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins() {
+                  return [autoprefixer];
+                },
+              },
+            },
+          }, {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                javascriptEnabled: true,
+              },
+            },
+          },
         ],
+        // use: [
+        //   miniLoader,
+        //   'css-loader',
+        //   'less-loader',
+        // ],
       },
       {
         test: /\.(png|jpg|jpeg|gif|woff|woff2|ttf|eot|svg)$/,
@@ -78,4 +106,7 @@ module.exports = {
     },
     extensions: ['.js', '.jsx'],
   },
+  watch: true,
+  devtool: 'source-map',
+  target: 'web',
 };

@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 
 import * as currencies from '../../staticRes/currencies';
 

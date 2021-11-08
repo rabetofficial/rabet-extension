@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { Form, Field } from 'react-final-form';
+import { useNavigate } from 'react-router-dom';
 
 import Input from '../../components/Input';
 import Header from '../../components/Header';
@@ -9,22 +10,22 @@ import * as route from '../../staticRes/routes';
 import PageTitle from '../../components/PageTitle';
 import createAccountAction from '../../actions/accounts/create';
 
-const CreateWallet = ({ accounts, history }) => {
+const CreateWallet = ({ accounts }) => {
+  const navigate = useNavigate();
+
   const handleCancel = (form) => {
     form.reset();
 
     if (accounts.length) {
-      return history.push({
-        pathname: route.homePage,
-        state: {
+      return navigate(
+        route.homePage,
+        {
           alreadyLoaded: true,
         },
-      });
+      );
     }
 
-    return history.push({
-      pathname: route.firstPage,
-    });
+    return navigate(route.firstPage);
   };
 
   const onSubmit = async (values) => {
@@ -36,7 +37,7 @@ const CreateWallet = ({ accounts, history }) => {
       };
     }
 
-    return history.push(route.backupFile);
+    return navigate(route.backupFile);
   };
 
   const validateForm = (values) => {
