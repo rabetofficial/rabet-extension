@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const process = require('process');
 const { resolve } = require('path');
 const autoprefixer = require('autoprefixer');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -15,18 +16,11 @@ const plugins = [
   }),
 ];
 
-// const miniLoader = devMode ? 'style-loader' : {
-//   loader: MiniCssExtractPlugin.loader,
-//   options: {
-//     esModule: false,
-//   },
-// };
-
 if (!devMode) {
   plugins.push(new MiniCssExtractPlugin());
 }
 
-module.exports = {
+const config = {
   entry: {
     popup: resolve(`${__dirname}/src/popup/index.jsx`),
     background_script: resolve(`${__dirname}/src/background_script/index.js`),
@@ -41,7 +35,14 @@ module.exports = {
   optimization: {
     minimizer: [
       new HtmlMinimizerPlugin(),
-      new TerserPlugin(),
+      new TerserPlugin({
+        extractComments: false,
+        terserOptions: {
+          format: {
+            comments: false,
+          },
+        },
+      }),
       new CssMinimizerPlugin(),
     ],
   },
@@ -82,23 +83,10 @@ module.exports = {
             },
           },
         ],
-        // use: [
-        //   miniLoader,
-        //   'css-loader',
-        //   'less-loader',
-        // ],
       },
       {
         test: /\.(png|jpg|jpeg|gif|woff|woff2|ttf|eot|svg)$/,
         type: 'asset/resource',
-        // use: [
-        //   {
-        //     loader: 'url-loader',
-        //     options: {
-        //       limit: 500000,
-        //     },
-        //   },
-        // ],
       },
     ],
   },
@@ -113,7 +101,12 @@ module.exports = {
     },
     extensions: ['.js', '.jsx'],
   },
-  watch: true,
-  devtool: 'source-map',
+  watch: devMode,
   target: 'web',
 };
+
+if (devMode) {
+  config.devtool = 'source-map';
+}
+
+module.exports = config;

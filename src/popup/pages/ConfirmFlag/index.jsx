@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Alert from '../../components/Alert';
 import Header from '../../components/Header';
@@ -11,8 +11,10 @@ import currentActiveAccount from '../../utils/activeAccount';
 
 import styles from './styles.less';
 
-const ConfirmFlag = ({ location }) => {
+const ConfirmFlag = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+
   const { goBack } = navigate;
 
   const handleSubmit = () => {
@@ -21,7 +23,7 @@ const ConfirmFlag = ({ location }) => {
     const isAuthClawbackEnabledAlreadyEnabled = activeAccount.flags.auth_clawback_enabled;
 
     const flags = {
-      ...location.state,
+      ...state,
     };
 
     if (flags.auth_clawback_enabled
@@ -41,7 +43,7 @@ const ConfirmFlag = ({ location }) => {
   };
 
   const { activeAccount } = currentActiveAccount();
-  const { auth_revocable, auth_immutable, auth_clawback_enabled } = location.state;
+  const { auth_revocable, auth_immutable, auth_clawback_enabled } = state;
 
   const isAuthClawbackEnabledAlreadyEnabled = activeAccount.flags.auth_clawback_enabled;
 

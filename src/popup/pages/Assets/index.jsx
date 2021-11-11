@@ -2,7 +2,7 @@ import shortid from 'shortid';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import Button from '../../components/Button';
@@ -14,7 +14,8 @@ import getAssetWebsite from '../../utils/horizon/getAssetData';
 
 import styles from './styles.less';
 
-const Assets = ({ match }) => {
+const Assets = () => {
+  const { asset_code, asset_issuer } = useParams();
   const navigate = useNavigate();
   const [homeDomain, setHomeDomain] = useState('');
   const [flags, setFlags] = useState({
@@ -30,8 +31,8 @@ const Assets = ({ match }) => {
   const { activeAccount } = currentActiveAccount();
 
   const { balances } = activeAccount;
-  const asset = balances.find((x) => x.asset_code === match.params.asset_code
-    && x.asset_issuer === match.params.asset_issuer);
+  const asset = balances.find((x) => x.asset_code === asset_code
+    && x.asset_issuer === asset_issuer);
 
   getAssetWebsite(asset).then((assetData) => {
     setFlags(assetData.flags);
@@ -45,8 +46,8 @@ const Assets = ({ match }) => {
   currentData.asset = asset;
 
   const assetInfo = [
-    { title: 'Assets code', value: asset.asset_code },
-    { title: 'Issuer', value: asset.asset_issuer },
+    { title: 'Assets code', value: asset_code },
+    { title: 'Issuer', value: asset_issuer },
     {
       title: 'Website',
       value: homeDomain && (
@@ -72,7 +73,7 @@ const Assets = ({ match }) => {
     <>
       <div className={classNames(styles.page, 'hidden-scroll content-scroll')}>
         <Header />
-        <PageTitle title={`Asset | ${asset.asset_code}`} />
+        <PageTitle title={`Asset | ${asset_code}`} />
         <div className="content">
           {assetInfo.map((item, index) => (
             <div key={shortid.generate()} className={styles.assets}>
@@ -116,7 +117,9 @@ const Assets = ({ match }) => {
             navigate(
               route.homePage,
               {
-                alreadyLoaded: true,
+                state: {
+                  alreadyLoaded: true,
+                },
               },
             );
           }}
@@ -129,7 +132,7 @@ const Assets = ({ match }) => {
           content={deleteBtn}
           disabled={parseFloat(asset.balance) > 0}
           onClick={() => {
-            handleDelete({ code: asset.asset_code, issuer: asset.asset_issuer });
+            handleDelete({ code: asset_code, issuer: asset_issuer });
           }}
         />
       </div>

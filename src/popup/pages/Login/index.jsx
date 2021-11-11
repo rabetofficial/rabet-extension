@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import LoadingOne from '../LoadingOne';
 import Logo from '../../components/Logo';
@@ -20,29 +20,28 @@ import {
 
 import styles from './styles.less';
 
-const Login = ({ location }) => {
+const Login = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const { state } = useLocation();
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const { state } = location;
+  useEffect(() => {
+    if (!state) {
+      hadLoggedBeforeAction().then((hasLogged) => {
+        if (hasLogged) {
+          loginUserAction(hasLogged).then((isLogged) => {
+            if (isLogged) {
+              setLoading(false);
 
-  //   if (!state) {
-  //     hadLoggedBeforeAction().then((hasLogged) => {
-  //       if (hasLogged) {
-  //         loginUserAction(hasLogged).then((isLogged) => {
-  //           if (isLogged) {
-  //             setLoading(false);
-
-  //             navigate(route.accountManagerPage);
-  //           }
-  //         });
-  //       } else {
-  //         setLoading(false);
-  //       }
-  //     });
-  //   }
-  // }, []);
+              navigate(route.accountManagerPage);
+            }
+          });
+        } else {
+          setLoading(false);
+        }
+      });
+    }
+  }, []);
 
   const onSubmit = async (values) => {
     const isLogged = await loginUserAction(values.password);
