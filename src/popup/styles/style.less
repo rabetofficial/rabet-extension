@@ -87,6 +87,22 @@ body {
   text-align: center;
 }
 
+.tooltip-container[data-popper-placement*='bottom'] .tooltip-arrow::before {
+  border-color: transparent transparent rgba(0, 0, 0, 0.07) transparent;
+}
+
+.tooltip-container[data-popper-placement*='top'] .tooltip-arrow::before {
+  border-color: rgba(0, 0, 0, 0.07) transparent transparent transparent;
+}
+
+.tooltip-container[data-popper-placement*='right'] .tooltip-arrow::before {
+  border-color: transparent rgba(0, 0, 0, 0.07) transparent transparent;
+}
+
+.tooltip-container[data-popper-placement*='left'] .tooltip-arrow::before {
+  border-color: transparent transparent transparent rgba(0, 0, 0, 0.07);
+}
+
 .tooltip-arrow[data-placement*='top'] {
   height: 0.3rem;
   margin-bottom: -0.3rem;

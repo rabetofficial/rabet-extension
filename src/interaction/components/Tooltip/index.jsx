@@ -1,53 +1,35 @@
-import React, { memo } from 'react';
-// import TooltipTrigger from 'react-popper-tooltip';
+import React from 'react';
+import { usePopperTooltip } from 'react-popper-tooltip';
 
-// const Trigger = (children) => ({ triggerRef, getTriggerProps }) => (
-//   <span
-//     {...getTriggerProps({
-//       ref: triggerRef,
-//     })}
-//   >
-//     {children}
-//   </span>
-// );
+import styles from './styles.less';
 
-// const Tooltip = (tooltip, hideArrow, styleClass) => ({
-//   arrowRef,
-//   tooltipRef,
-//   getArrowProps,
-//   getTooltipProps,
-//   placement,
-// }) => (
-//   <div
-//     {...getTooltipProps({
-//       className: `tooltip-container ${styleClass}`,
-//       ref: tooltipRef,
-//     })}
-//   >
-//     {!hideArrow && (
-//       <div
-//         {...getArrowProps({
-//           className: 'tooltip-arrow',
-//           'data-placement': placement,
-//           ref: arrowRef,
-//         })}
-//       />
-//     )}
+const Tooltip = ({ children, tooltip, placement }) => {
+  const {
+    getArrowProps,
+    getTooltipProps,
+    setTooltipRef,
+    setTriggerRef,
+    visible,
+  } = usePopperTooltip({
+    placement,
+  });
 
-//     {tooltip}
-//   </div>
-// );
+  return (
+    <div>
+      <div className={styles.container} ref={setTriggerRef}>{children}</div>
+      {visible && (
+        <div
+          ref={setTooltipRef}
+          {...getTooltipProps(
+            { className: 'tooltip-container' },
+          )}
+        >
+          <div {...getArrowProps({ className: 'tooltip-arrow' })} />
+          {tooltip}
+        </div>
+      )}
+    </div>
+  );
+};
 
-const BasicTooltipTrigger = memo(({
-  tooltip,
-  children,
-  hideArrow,
-  ...props
-}) => (
-  // <TooltipTrigger {...props} tooltip={Tooltip(tooltip, hideArrow, props.styleClass)}>
-  //   {Trigger(children)}
-  // </TooltipTrigger>
-  <p>test</p>
-));
-
-export default BasicTooltipTrigger;
+export default Tooltip;
