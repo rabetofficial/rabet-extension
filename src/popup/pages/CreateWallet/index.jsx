@@ -20,7 +20,9 @@ const CreateWallet = ({ accounts }) => {
       return navigate(
         route.homePage,
         {
-          alreadyLoaded: true,
+          state: {
+            alreadyLoaded: true,
+          },
         },
       );
     }

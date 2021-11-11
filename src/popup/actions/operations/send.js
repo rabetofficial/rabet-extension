@@ -328,19 +328,31 @@ export default async (push) => {
     .then((result) => {
       push(
         route.successSubmitPage,
-        { hash: result.hash },
+        {
+          state: {
+            hash: result.hash,
+          },
+        },
       );
     })
     .catch((err) => {
       if (err && err.response && err.response.data) {
         push(
           route.errorPage,
-          { message: showError(err.response.data) },
+          {
+            state: {
+              message: showError(err.response.data),
+            },
+          },
         );
       } else {
         push(
           route.errorPage,
-          { message: 'One of the operations failed (none were applied).' },
+          {
+            state: {
+              message: 'One of the operations failed (none were applied).',
+            },
+          },
         );
       }
     });

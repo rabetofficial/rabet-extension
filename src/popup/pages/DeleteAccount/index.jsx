@@ -28,7 +28,9 @@ const DeleteAccount = () => {
     navigate(
       homePage,
       {
-        alreadyLoaded: true,
+        state: {
+          alreadyLoaded: true,
+        },
       },
     );
   };

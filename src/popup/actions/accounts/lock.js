@@ -19,7 +19,9 @@ export default (push) => {
   push(
     route.settingPage,
     {
-      hadLogged: false,
+      state: {
+        hadLogged: false,
+      },
     },
   );
 };

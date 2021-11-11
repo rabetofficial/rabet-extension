@@ -47,7 +47,9 @@ const PageTitle = ({
       return navigate(
         route.homePage,
         {
-          alreadyLoaded: alreadyLoaded === undefined ? true : false,
+          state: {
+            alreadyLoaded: alreadyLoaded === undefined ? true : false,
+          },
         },
       );
     }

@@ -134,7 +134,9 @@ const SearchAsset = ({ options }) => {
                   navigate(
                     route.homePage,
                     {
-                      alreadyLoaded: true,
+                      state: {
+                        alreadyLoaded: true,
+                      },
                     },
                   );
                 }}

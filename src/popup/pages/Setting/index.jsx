@@ -225,7 +225,9 @@ const Setting = ({ options }) => {
               navigate(
                 route.homePage,
                 {
-                  alreadyLoaded: true,
+                  state: {
+                    alreadyLoaded: true,
+                  },
                 },
               );
             }}

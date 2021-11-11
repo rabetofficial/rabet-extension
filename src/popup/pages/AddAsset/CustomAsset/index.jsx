@@ -154,7 +154,9 @@ const CustomAsset = () => {
                   navigate(
                     route.homePage,
                     {
-                      alreadyLoaded: true,
+                      state: {
+                        alreadyLoaded: true,
+                      },
                     },
                   );
                 }}

@@ -25,7 +25,9 @@ export default async (options, push) => {
   push(
     route.homePage,
     {
-      alreadyLoaded: true,
+      state: {
+        alreadyLoaded: true,
+      },
     },
   );
 };

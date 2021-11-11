@@ -70,13 +70,21 @@ export default async ({
     .then((result) => {
       push(
         route.successSubmitPage,
-        { hash: result.hash },
+        {
+          state: {
+            hash: result.hash,
+          },
+        },
       );
     })
     .catch((err) => {
       push(
         route.errorPage,
-        { message: err.message },
+        {
+          state: {
+            message: err.message,
+          },
+        },
       );
     });
 };

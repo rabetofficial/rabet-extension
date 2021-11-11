@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import React, { useState, useEffect, useReducer } from 'react';
 
 import Links from './Links';
@@ -26,7 +26,7 @@ import ModalConnectStatus from '../../pageComponents/ModalConnectStatus';
 import styles from './styles.less';
 
 const Home = ({ options, currencies }) => {
-  const navigate = useNavigate();
+  const { state } = useLocation();
 
   const [host, setHost] = useState(null);
   const [editName, setEditName] = useState(false);
@@ -36,18 +36,18 @@ const Home = ({ options, currencies }) => {
   const [isOtherConnectedState, setIsOtherConnectedState] = useState(false);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
-  useEffect(() => {
-    const { activeAccount } = currentActiveAccount();
-    // if (!history.location?.state?.alreadyLoaded) {
+  const { activeAccount } = currentActiveAccount();
 
+  useEffect(() => {
+    if (!state?.alreadyLoaded) {
       getData(activeAccount.publicKey).then(() => {
         setLoading(false);
       });
 
       intervalAction(activeAccount.publicKey, true);
-    // } else {
-      // setLoading(false);
-    // }
+    } else {
+      setLoading(false);
+    }
 
     isConnected(activeAccount.publicKey)
       .then(({ isConnectedResult: isCon, host: h }) => {
@@ -65,7 +65,6 @@ const Home = ({ options, currencies }) => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const { activeAccount } = currentActiveAccount();
   const activeCurrency = currencies[options.currency] || { value: 0, currency: 'USD' };
 
   const balances = activeAccount.balances || [];

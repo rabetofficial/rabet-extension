@@ -103,7 +103,9 @@ const Confirm = ({ options, transaction }) => {
             navigate(
               route.homePage,
               {
-                alreadyLoaded: true,
+                state: {
+                  alreadyLoaded: true,
+                },
               },
             );
           }}

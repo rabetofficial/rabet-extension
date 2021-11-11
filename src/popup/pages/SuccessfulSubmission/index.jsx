@@ -20,7 +20,9 @@ const SuccessfulSubmission = () => {
     navigate(
       route.homePage,
       {
-        alreadyLoaded: false,
+        state: {
+          alreadyLoaded: false,
+        },
       },
     );
   };

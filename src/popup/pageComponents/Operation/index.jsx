@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 
 import Card from '../../components/Card';
 import Button from '../../components/Button';
@@ -48,54 +48,39 @@ const items = [
   { value: operations.bumpSequence, label: 'Bump sequence' },
 ];
 
-class Operation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: {},
-    };
+const Operation = ({
+  id,
+  type,
+  operations: ops,
+  setOperations,
+}) => {
+  const [selected, setSelected] = useState({});
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
-    this.onChange = this.onChange.bind(this);
-    this.removeOperation = this.removeOperation.bind(this);
-  }
-
-  componentDidMount() {
-    const { type } = this.props;
-
+  useEffect(() => {
     const defaultItem = items.find((x) => x.value === type);
 
     if (type) {
-      this.setState({
-        selected: defaultItem,
-      });
+      setSelected(defaultItem);
     }
-  }
+  }, []);
 
-  onChange(e) {
-    const { id } = this.props;
-
-    this.forceUpdate();
+  const onChange = (e) => {
+    forceUpdate();
     changeOperationAction(id, { type: e.value });
 
-    this.setState({ selected: e });
-  }
+    setSelected(e);
+  };
 
-  removeOperation() {
-    const { id, state, setState } = this.props;
-
+  const removeOperation = () => {
     removeOperationAction(id);
 
-    const newOperations = state.operations.filter((x) => x.id !== id);
+    const newOperations = ops.filter((x) => x.id !== id);
 
-    setState({
-      operations: newOperations,
-    });
-  }
+    setOperations(newOperations);
+  };
 
-  generateOption() {
-    const { selected } = this.state;
-    const { id } = this.props;
-
+  const generateOption = () => {
     if (selected === items[0]) return <PaymentOps id={id} />;
     if (selected === items[1]) return <PaymentSendOps id={id} />;
     if (selected === items[2]) return <PaymentReceiveOps id={id} />;
@@ -114,40 +99,36 @@ class Operation extends Component {
     if (selected === items[15]) return <ManageDataOps id={id} />;
     if (selected === items[16]) return <SetOptionOps key="bump" label="Bump to" inputInfo={{ type: 'number', placeholder: '1234' }} id={id} type={operations.bumpSequence} />;
     return <PaymentOps id={id} />;
-  }
+  };
 
-  render() {
-    const { selected } = this.state;
+  return (
+    <div className={styles.main}>
+      <Card type="card-secondary">
+        <SelectOption
+          items={items}
+          defaultValue={items[0]}
+          variant="select-default"
+          onChange={onChange}
+          selected={selected}
+        />
 
-    return (
-      <div className={styles.main}>
-        <Card type="card-secondary">
-          <SelectOption
-            items={items}
-            defaultValue={items[0]}
-            variant="select-default"
-            onChange={this.onChange}
-            selected={selected}
-          />
+        <div className={styles.ops}>
+          {generateOption()}
 
-          <div className={styles.ops}>
-            {this.generateOption()}
-
-            <div className={styles.delete}>
-              <Button
-                type="button"
-                variant="btn-danger"
-                size="btn-medium"
-                content={deleteBtn}
-                onClick={this.removeOperation}
-              />
-            </div>
+          <div className={styles.delete}>
+            <Button
+              type="button"
+              variant="btn-danger"
+              size="btn-medium"
+              content={deleteBtn}
+              onClick={removeOperation}
+            />
           </div>
-        </Card>
-      </div>
-    );
-  }
-}
+        </div>
+      </Card>
+    </div>
+  );
+};
 
 Operation.propTypes = {
   id: PropTypes.string.isRequired,

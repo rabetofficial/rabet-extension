@@ -68,7 +68,9 @@ const ShowPrivateKey = () => {
                     navigate(
                       route.homePage,
                       {
-                        alreadyLoaded: true,
+                        state: {
+                          alreadyLoaded: true,
+                        },
                       },
                     );
                   }}

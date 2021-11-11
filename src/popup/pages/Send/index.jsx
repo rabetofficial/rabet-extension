@@ -11,7 +11,7 @@ import Button from '../../components/Button';
 import * as route from '../../staticRes/routes';
 import PageTitle from '../../components/PageTitle';
 import SendButton from '../../components/SendButton';
-import sendAction from '../../actions/operations/send';
+// import sendAction from '../../actions/operations/send';
 import Operation from '../../pageComponents/Operation';
 import addMemoAction from '../../actions/operations/addMemo';
 import addOperationAction from '../../actions/operations/add';
@@ -28,16 +28,7 @@ const btnContent = (
 
 const Send = () => {
   const navigate = useNavigate();
-  const [operations, setOperations] = useState();
-
-  useEffect(() => {
-    clearOperationsAction();
-    addOperation();
-  }, []);
-
-  const onSend = () => {
-    sendAction(navigate);
-  };
+  const [operations, setOperations] = useState([]);
 
   const addOperation = () => {
     const operation = {
@@ -48,6 +39,15 @@ const Send = () => {
     setOperations([...operations, operation]);
     addOperationAction(operation.id);
   };
+
+  useEffect(() => {
+    clearOperationsAction();
+    addOperation();
+  }, []);
+
+  // const onSend = () => {
+  //   sendAction(navigate);
+  // };
 
   const validateForm = async (values) => {
     if (values.memo) {
@@ -60,12 +60,12 @@ const Send = () => {
         return {
           memo: 'Memo should not be more than 28 characters.',
         };
-      } else {
-        addMemoAction({
-          checked: true,
-          text: values.memo,
-        });
       }
+
+      addMemoAction({
+        checked: true,
+        text: values.memo,
+      });
     }
 
     return {};
@@ -140,7 +140,9 @@ const Send = () => {
                 navigate(
                   route.homePage,
                   {
-                    alreadyLoaded: true,
+                    state: {
+                      alreadyLoaded: true,
+                    },
                   },
                 );
               }}

@@ -21,7 +21,9 @@ const RestoreWallet = ({ accounts }) => {
       return navigate(
         route.homePage,
         {
-          alreadyLoaded: true,
+          state: {
+            alreadyLoaded: true,
+          },
         },
       );
     }

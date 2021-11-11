@@ -53,10 +53,12 @@ const Flags = () => {
       navigate(
         route.confirmFlagPage,
         {
-          auth_required,
-          auth_revocable,
-          auth_immutable,
-          auth_clawback_enabled,
+          state: {
+            auth_required,
+            auth_revocable,
+            auth_immutable,
+            auth_clawback_enabled,
+          },
         },
       );
     } else {
@@ -179,7 +181,9 @@ const Flags = () => {
             navigate(
               route.homePage,
               {
-                alreadyLoaded: true,
+                state: {
+                  alreadyLoaded: true,
+                },
               },
             );
           }}
