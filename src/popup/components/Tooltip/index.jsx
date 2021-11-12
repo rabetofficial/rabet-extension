@@ -15,20 +15,20 @@ const Tooltip = ({ children, tooltip, placement }) => {
   });
 
   return (
-    <div>
-      <div className={styles.container} ref={setTriggerRef}>{children}</div>
+    <>
+      <span className={styles.container} ref={setTriggerRef}>{children}</span>
       {visible && (
-        <div
+        <span
           ref={setTooltipRef}
           {...getTooltipProps(
             { className: 'tooltip-container' },
           )}
         >
-          <div {...getArrowProps({ className: 'tooltip-arrow' })} />
+          <span {...getArrowProps({ className: 'tooltip-arrow' })} />
           {tooltip}
-        </div>
+        </span>
       )}
-    </div>
+    </>
   );
 };
 

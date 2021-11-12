@@ -123,7 +123,7 @@ const Setting = ({ options }) => {
         <div className={classNames('pure-g', styles.div)}>
           <div className="pure-u-2-5">
             <h3 className={styles.title}>
-              Explorer
+              <span className={styles.noWrap}>Explorer</span>
               <Tooltip
                 trigger="hover"
                 tooltip="You will be referred to this Explorer to see the details of your transactions."
@@ -150,7 +150,7 @@ const Setting = ({ options }) => {
         <div className={classNames('pure-g', styles.div)}>
           <div className="pure-u-2-5">
             <h3 className={styles.title}>
-              Auto-lock timer
+              <span className={styles.noWrap}>Auto-lock timer</span>
               <Tooltip
                 trigger="hover"
                 tooltip="Rabet will lock automatically after a set amount of time."
@@ -177,7 +177,7 @@ const Setting = ({ options }) => {
         <div className={classNames('pure-g', styles.div)}>
           <div className="pure-u-2-5">
             <h3 className={styles.title}>
-              Currency conversion
+              <span className={styles.noWrap}>Currency conversion</span>
               <Tooltip trigger="hover" tooltip="some info" placement="top">
                 <span className="icon-question-mark" />
               </Tooltip>
@@ -200,7 +200,7 @@ const Setting = ({ options }) => {
         <div className={classNames('pure-g', styles.div)}>
           <div className="pure-u-2-3">
             <h3 className={styles.title}>
-              Privacy mode
+              <span className={styles.noWrap}>Privacy mode</span>
               <Tooltip
                 trigger="hover"
                 tooltip="Websites must request access to view your account information."
