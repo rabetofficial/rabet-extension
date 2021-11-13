@@ -18,6 +18,11 @@ export default async (password) => {
       type: types.user.LOGIN,
     });
 
+    store.dispatch({
+      type: types.user.IS_REGISTERED,
+      registered: true,
+    });
+
     return true;
   } catch (e) {
     return false;

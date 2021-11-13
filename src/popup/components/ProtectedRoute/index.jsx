@@ -8,6 +8,8 @@ import checkOffline from '../../utils/checkOffline';
 const ProtectedRoute = ({ user, children }) => {
   const isOnLine = checkOffline();
 
+  console.log(user)
+
   if (!isOnLine) {
     return <Navigate to={route.offlineModePage} />;
   }
