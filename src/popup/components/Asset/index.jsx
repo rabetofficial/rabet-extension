@@ -18,7 +18,7 @@ function Asset({
   itemsLength,
   assets,
 }) {
-  const isNative = item.asset_type === 'native' && item.asset_code === 'XLM';
+  const isNative = item.asset_type === 'native';
 
   const handleAssetImage = () => {
     if (isNative) {
@@ -50,10 +50,18 @@ function Asset({
     return assetImage.is_verified === '1';
   };
 
-  const value = isNative
-    ? Number.parseFloat(item.balance, 10) * activeCurrency.value
-    : (1 / Number.parseFloat(item.toNative, 10))
-      * activeCurrency.value * Number.parseFloat(item.balance, 10);
+  let value;
+
+  if (isNative) {
+    value = Number.parseFloat(item.balance) * activeCurrency.value;
+  } else {
+    if (!item.toNative) {
+      value = 0;
+    } else {
+      value = (1 / Number.parseFloat(item.toNative, 10))
+        * activeCurrency.value * Number.parseFloat(item.balance, 10);
+    }
+  }
 
   return (
     <li style={{ marginTop: index === 0 && '-18px' }} className={styles.listItem}>

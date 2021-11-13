@@ -56,6 +56,7 @@
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.3.1",
     "coingecko-api": "^1.0.10",
+    "final-form": "^4.20.4",
     "history": "^5.1.0",
     "is-valid-domain": "^0.1.4",
     "moment": "^2.29.1",
