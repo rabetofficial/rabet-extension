@@ -36,7 +36,13 @@ export default async (address) => {
     // MOVING XLM TO THE BEGINNING OF AN ARRAY
     const xlm = accountData.balances.find((x) => x.asset_type === 'native');
     accountData.balances = accountData.balances.filter((x) => x.asset_type !== 'native');
-    accountData.balances.unshift(xlm);
+
+    if (xlm) {
+      accountData.balances.unshift({
+        asset_code: 'XLM',
+        ...xlm,
+      });
+    }
 
     // Adding a new field: Subentry_count
     accountData.maxXLM = (accountData.subentry_count + 2) * 0.5 + 0.005;
