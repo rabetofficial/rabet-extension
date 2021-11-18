@@ -2,8 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import StellarSdk, { Transaction } from 'stellar-sdk';
 
-import PageTitle from '../../components/PageTitle';
 import Button from '../../components/Button';
+import shorter from '../../../helpers/shorter';
+import PageTitle from '../../components/PageTitle';
+import Operations from '../../components/Operations';
 import sampleImageSrc from '../../../assets/images/stellar.png';
 
 import styles from './styles.less';
@@ -83,7 +85,7 @@ const Confirm = () => {
     );
   }
 
-  const { _operations: operations, _source: source } = transaction;
+  const { _operations: operations } = transaction;
 
   return (
     <div>
@@ -94,28 +96,18 @@ const Confirm = () => {
             <img src={sampleImageSrc} alt="logo" />
           </div>
           <h1 className={styles.title}>Approve Transaction</h1>
-          <a href="/" className={styles.link}>litemint.com</a>
+          <a href="" className={styles.link}>{host}</a>
           <div className={styles.account}>
             <div>Source account</div>
-            <div className={styles.accountName}>Sam Smith</div>
+            <div className={styles.accountName}>{shorter(publicKey, 5)}</div>
           </div>
         </div>
       </div>
+
       <div className={classNames('content hidden-scroll', styles.contentScroll)}>
-        {Array(2).fill(0).map((item) => (
-          <div className={styles.card}>
-            <div className={styles.cardTitle}>#1-Payment</div>
-            <div className={styles.cardSubject}>Destination</div>
-            <div className={styles.cardValue}>
-              GAIQPP3FHGMYTW3WXRQJAZVRC4ZY2BM76FUFHXFCLMGXSYFGFEBCPOPG
-            </div>
-            <div className={styles.cardSubject}>Amount</div>
-            <div className={styles.cardValue}>
-              145 XLM
-            </div>
-          </div>
-        ))}
+        <Operations operations={operations} />
       </div>
+
       <div className="content">
         <div className={classNames('pure-g justify-end', styles.buttons)}>
           <div className={classNames('pure-g justify-end', styles.buttons)}>

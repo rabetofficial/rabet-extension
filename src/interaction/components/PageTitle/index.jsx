@@ -4,14 +4,15 @@ import classNames from 'classnames';
 import styles from './styles.less';
 
 const PageTitle = ({
-  title,
+  // title,
+  statusTitle,
 }) => (
   <div className={styles.div}>
     <div>
-      <h1 className={classNames(styles.status, title !== 'mainnet' ? styles.warn : styles.success)}>
+      <h1 className={classNames(styles.status, statusTitle !== 'mainnet' ? styles.warn : styles.success)}>
         <span />
 
-        {title === 'mainnet' ? 'Main network' : 'Test network'}
+        {statusTitle === 'mainnet' ? 'Main network' : 'Test network'}
       </h1>
     </div>
   </div>
