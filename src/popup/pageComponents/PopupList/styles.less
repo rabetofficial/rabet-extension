@@ -1,7 +1,8 @@
-@import '../../styles/theme.less';
+@import '../../styles/theme';
 
 .popup-item {
   display: flex;
+  align-items: center;
   padding: 10px 16px 10px 0;
 }
 
@@ -23,11 +24,15 @@
   flex-direction: column;
 }
 
-.popup-amount {
+.popup-img {
   margin-left: auto;
-  font-size: 14px;
-  color: black;
-  font-weight: 500;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: @Concrete;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .popup-name {
@@ -36,7 +41,7 @@
   font-weight: 500;
 }
 
-.popup-address {
+.popup-amount {
   font-size: 12px;
   margin-top: 6px;
   color: @dove-gray;
