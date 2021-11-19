@@ -4,7 +4,7 @@ import { get } from '../../../helpers/storage';
 
 export default async (password) => {
   try {
-    const { options: { host } } = store.getState();
+    const { host } = store.getState();
     const data = await get('data', password);
     const connectedWebsites = await get('connectedWebsites');
 

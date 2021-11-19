@@ -3,7 +3,6 @@ export default {
     LOAD: 'options/LOAD',
     CHANGE: 'options/CHANGE',
     FIX_USD: 'options/FIX_USD',
-    ADD_HOST: 'options/ADD_HOST',
     CHANGE_NETWORK: 'options/CHANGE_NETWORK',
   },
   user: {
@@ -40,5 +39,8 @@ export default {
   },
   loading: {
     LOAD_DATA: 'loading/LOAD_DATA',
+  },
+  host: {
+    CHANGE: 'host/CHANGE',
   },
 };

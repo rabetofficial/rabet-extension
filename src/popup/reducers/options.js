@@ -9,7 +9,6 @@ import types from '../actions';
     privacyMode: Boolean,
     autoTimeLocker: String,
     currency: String,
-    host: String,
   }
 
 */
@@ -20,7 +19,6 @@ const initialState = {
   network: 'MAINNET',
   autoTimeLocker: 60,
   currency: 'USD',
-  host: '',
 };
 
 export default (state = initialState, action) => {
@@ -51,13 +49,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         network: action.network,
-      };
-    }
-
-    case types.options.ADD_HOST: {
-      return {
-        ...state,
-        host: action.host,
       };
     }
 

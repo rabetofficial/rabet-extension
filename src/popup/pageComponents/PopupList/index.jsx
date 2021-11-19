@@ -7,7 +7,7 @@ import './styles.less';
 
 const PopupList = ({ info }) => {
   const { isConnected } = info;
-  const { host } = useSelector((store) => store.options);
+  const host = useSelector((store) => store.host);
 
   let img = '';
 

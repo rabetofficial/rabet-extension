@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import user from './user';
+import host from './host';
 import options from './options';
 import loading from './loading';
 import interval from './interval';
@@ -10,6 +11,7 @@ import transaction from './transaction';
 
 export default combineReducers({
   user,
+  host,
   options,
   loading,
   interval,

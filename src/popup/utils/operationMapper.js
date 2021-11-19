@@ -1,7 +1,6 @@
 import * as operations from '../staticRes/operations';
 
 import numberWithCommas from './numberWithCommas';
-import removeTrailingZeroes from './removeTrailingZeroes';
 
 export default (operation) => {
   // PAYMENT

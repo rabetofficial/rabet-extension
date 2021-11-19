@@ -24,13 +24,12 @@ import ModalConnectStatus from '../../pageComponents/ModalConnectStatus';
 
 import styles from './styles.less';
 
-const Home = ({ options, currencies }) => {
+const Home = ({ options, currencies, host }) => {
   const { state } = useLocation();
   const { activeAccount } = currentActiveAccount();
 
   const { isConnected } = activeAccount;
 
-  const { host } = options;
   const [editName, setEditName] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -143,6 +142,7 @@ const Home = ({ options, currencies }) => {
 
 export default connect((state) => ({
   user: state.user,
+  host: state.host,
   accounts: state.accounts,
   options: state.options,
   currencies: state.currencies,

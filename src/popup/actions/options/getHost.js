@@ -10,7 +10,7 @@ const getHost = () => new Promise((resolve) => {
 
     if (isDomain(host)) {
       store.dispatch({
-        type: types.options.ADD_HOST,
+        type: types.host.CHANGE,
         host,
       });
     }
