@@ -17,12 +17,12 @@ const ModalConnectStatus = (props) => {
   } = props;
 
   const handleConnect = () => {
-    addConnectedWebsite(`${host}/${publicKey}`, forceUpdate);
+    addConnectedWebsite({ host, publicKey }, forceUpdate);
     toggleModal();
   };
 
   const handleDisconnect = () => {
-    removeConnectedWebsite(result, forceUpdate);
+    removeConnectedWebsite({ host, publicKey }, forceUpdate);
     toggleModal();
   };
 

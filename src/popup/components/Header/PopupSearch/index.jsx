@@ -50,6 +50,7 @@ const PopupSearch = ({
         numberWithCommas(formatCurrency(getTotalBalance(item.balances, activeCurrency))),
         activeCurrency.name,
       ),
+      isConnected: item.isConnected,
     }));
 
     setAccounts(items);

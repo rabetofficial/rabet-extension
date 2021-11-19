@@ -9,6 +9,8 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Component from './pages';
 import loadUser from './actions/user/loadUser';
+import getHost from './actions/options/getHost';
+
 import '../../node_modules/purecss/build/pure-min.css';
 import '../../node_modules/react-popper-tooltip/dist/styles.css';
 import './styles/style.less';
@@ -16,6 +18,7 @@ import './styles/style.less';
 require('file-loader?name=[name].[ext]!./popup.html');
 
 (async () => {
+  await getHost();
   await loadUser();
 
   render(

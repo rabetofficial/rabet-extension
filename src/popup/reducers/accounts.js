@@ -13,6 +13,7 @@ import types from '../actions';
     thresholds: Object,
     balances: Array,
     subentry_count: Number,
+    isConnected: Boolean,
   }]
 
 */
@@ -89,6 +90,18 @@ export default (state = initialState, action) => {
       for (let i = 0; i < accounts.length; i += 1) {
         if (accounts[i].publicKey === action.balance.address) {
           accounts[i].balance = action.balance.balance;
+        }
+      }
+
+      return accounts;
+    }
+
+    case types.accounts.CHANGE_IS_CONNECTED: {
+      const accounts = [...state];
+
+      for (let i = 0; i < accounts.length; i += 1) {
+        if (accounts[i].publicKey === action.publicKey) {
+          accounts[i].isConnected = action.isConnected;
         }
       }
 
