@@ -1,16 +1,16 @@
-import React from 'react';
 import classNames from 'classnames';
+import React from 'react';
 import StellarSdk, { Transaction } from 'stellar-sdk';
 
 import Button from '../../components/Button';
 import shorter from '../../../helpers/shorter';
+import CopyText from '../../components/CopyText';
 import PageTitle from '../../components/PageTitle';
 import Operations from '../../components/Operations';
-import sampleImageSrc from '../../../assets/images/stellar.png';
 
 import styles from './styles.less';
 
-const Confirm = () => {
+const OldConfirm = () => {
   const xdr = global.sessionStorage.getItem('xdr');
   const host = global.sessionStorage.getItem('host');
   const title = global.sessionStorage.getItem('title');
@@ -85,40 +85,32 @@ const Confirm = () => {
     );
   }
 
-  const { _operations: operations } = transaction;
+  const { _operations: operations, _source: source } = transaction;
 
   return (
-    <div>
-      <div className={styles.header}>
-        <div className={styles.pageTitle}><PageTitle status="network" statusTitle={network} /></div>
+    <>
+      <div className={classNames(styles.confirm, 'hidden-scroll content-scroll')}>
+        <PageTitle status="Confirm" statusTitle="network" title={network} />
+
         <div className="content">
-          <div className={styles.img}>
-            <img src={`https://logo.clearbit.com/${host}`} alt="logo" />
-          </div>
-          <h1 className={styles.title}>Approve Transaction</h1>
-          <a href="" className={styles.link}>{host}</a>
-          <div className={styles.account}>
-            <div>Source account</div>
-            <div className={styles.accountName}>{shorter(publicKey, 5)}</div>
-          </div>
+          <p className={styles.source}>
+            <span className={styles.sourceTitle}>Source account:</span>
+
+            <span className={styles.sourceValue}>
+              <CopyText text={source} button={shorter(publicKey, 5)} />
+            </span>
+          </p>
+
+          <Operations operations={operations} />
         </div>
       </div>
+      <div className={classNames('pure-g justify-end', styles.buttons)}>
+        <Button variant="btn-default" size="btn-medium" content="Reject" onClick={handleReject} />
 
-      <div className={classNames('content hidden-scroll', styles.contentScroll)}>
-        <Operations operations={operations} />
+        <Button variant="btn-primary" size="btn-medium" content="Confirm" onClick={handleConfirm} />
       </div>
-
-      <div className="content">
-        <div className={classNames('pure-g justify-end', styles.buttons)}>
-          <div className={classNames('pure-g justify-end', styles.buttons)}>
-            <Button variant="btn-default" size="btn-medium" content="Reject" onClick={handleReject} />
-
-            <Button variant="btn-primary" size="btn-medium" content="Confirm" onClick={handleConfirm} />
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
-export default Confirm;
+export default OldConfirm;

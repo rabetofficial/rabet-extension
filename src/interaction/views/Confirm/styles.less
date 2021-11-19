@@ -1,77 +1,120 @@
 @import '../../styles/theme.less';
 
-:local(.confirm) {
-  position: relative;
+:local(.header) {
+  background: black;
+  padding-bottom: 24px;
 
   .content {
-    margin-top: 28px;
-    padding-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
   }
+}
 
-  .card-secondary {
-    padding: 20px 11px 20px 11px;
-    margin-top: 16px;
-  }
+:local(.pageTitle) {
+  margin-top: -6px;
+}
 
-  :local(.box):first-child .card-secondary {
-    padding-bottom: 34px;
+:local(.img) {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 21px auto 0 auto;
+
+  img {
+    border-radius: 50%;
+    width: 40px;
+    height: auto;
   }
 }
 
 :local(.title) {
-  font-size: 18px;
-  color: black;
+  font-size: 20px;
   font-weight: 500;
-  margin: 0;
-}
-
-:local(.valueTitle) {
-  font-size: 16px;
-  color: black;
-  font-weight: 500;
-  margin: 16px 0 0 0;
-}
-
-:local(.value) {
-  font-size: 16px;
-  color: @dove-gray;
-  margin: 6px 0 4px 0;
-  word-break: break-all;
   line-height: 1.5;
+  color: white;
+  margin: 8px 0 0 0;
+}
+
+:local(.link) {
+  text-decoration: none !important;
+  font-size: 16px;
+  line-height: 1.63;
+  margin: 4px 0 0 0;
+  color: @Primary-Silver-chalice;
+  display: block;
+}
+
+:local(.link):hover {
+  color: @Primary-Silver-chalice;
+}
+
+:local(.account) {
+  margin: 18px 0 0 0;
+  border-radius: 4px;
+  padding: 10px 11px;
+  border: 1px solid @MineShaft;
+  background: @CodGray;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+:local(.accountName) {
+  font-weight: 500;
+}
+
+:local(.card) {
+  margin-top: 16px;
+  border-radius: 4px;
+  border: 1px solid @Concrete;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.05);
+  padding: 20px 11px;
+}
+
+:local(.cardTitle) {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+:local(.cardSubject) {
+  font-size: 16px;
+  font-weight: 500;
+  color: @shark;
+  margin-top: 13px;
+}
+
+:local(.cardValue) {
+  font-size: 16px;
+  line-height: 1.63;
+  color: @dove-gray;
+  word-break: break-all;
+  margin-top: 4px;
+}
+
+:local(.contentScroll) {
+  max-height: 218px;
+  overflow-y: auto;
 }
 
 :local(.buttons) {
   margin-top: 16px;
   background: white;
-  padding-right: 16px;
-  padding-left: 16px;
 
   button {
     width: 100px;
   }
 
   button:last-child {
-    margin-right: 10px;
+    margin-left: 10px;
   }
-}
-
-:local(.source) {
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  background: @Concrete;
-  border-radius: 4px;
-  padding: 12px 11px;
-  align-items: center;
-}
-
-:local(.sourceTitle) {
-  font-size: 14px;
-  color: @dove-gray;
-}
-
-:local(.sourceValue) {
-  font-size: 14px;
-  font-weight: 500;
-  color: black;
 }
