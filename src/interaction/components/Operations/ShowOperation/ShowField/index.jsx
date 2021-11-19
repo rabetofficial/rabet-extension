@@ -6,12 +6,11 @@ import styles from '../../../../views/Confirm/styles.less';
 
 const ShowfieldJSX = ({ tKey, value }) => (
   <>
-    <h2 className={styles.valueTitle}>
+    <div className={styles.cardSubject}>
       {tKey}
-      :
-    </h2>
+    </div>
 
-    <p className={styles.value}>
+    <p className={styles.cardValue}>
       {value}
     </p>
   </>

@@ -1,11 +1,10 @@
 import React from 'react';
 import shortid from 'shortid';
 
-import Card from '../../Card';
-import styles from '../../../views/Confirm/styles.less';
 import camelToTitleCase from '../../../../helpers/camelToTitle';
-
 import ShowField from './ShowField';
+
+import styles from '../../../views/Confirm/styles.less';
 
 const ShowOperation = ({ operation: op, index }) => {
   const { type, ...other } = op;
@@ -26,17 +25,18 @@ const ShowOperation = ({ operation: op, index }) => {
 
   return (
     <div className={styles.box} key={shortid.generate()}>
-      <Card type="card-secondary">
-        <h1 className={styles.title}>
+      <div className={styles.card}>
+        <div className={styles.cardTitle}>
           #
           {index + 1}
+          -
           {camelToTitleCase(type)}
-        </h1>
+        </div>
 
         {arr.map((keyValue) => (
           <ShowField keyValue={keyValue} />
         ))}
-      </Card>
+      </div>
     </div>
   );
 };
