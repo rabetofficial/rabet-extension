@@ -38,15 +38,9 @@ jspm_packages
 build/
 .DS_Store
 nohup.out
-<<<<<<< HEAD
-popup
-web-ext-artifacts
-background
-=======
 
 web-ext-artifacts
 
->>>>>>> new structure
 
 # IDEs and editors
 /.idea
@@ -62,12 +56,4 @@ web-ext-artifacts
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
-<<<<<<< HEAD
 !.vscode/extensions.json
-
-interaction
-background/
-popup
-=======
-!.vscode/extensions.json
->>>>>>> new structure
