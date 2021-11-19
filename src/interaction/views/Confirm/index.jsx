@@ -93,7 +93,7 @@ const Confirm = () => {
         <div className={styles.pageTitle}><PageTitle status="network" statusTitle={network} /></div>
         <div className="content">
           <div className={styles.img}>
-            <img src={sampleImageSrc} alt="logo" />
+            <img src={`https://logo.clearbit.com/${host}`} alt="logo" />
           </div>
           <h1 className={styles.title}>Approve Transaction</h1>
           <a href="" className={styles.link}>{host}</a>
