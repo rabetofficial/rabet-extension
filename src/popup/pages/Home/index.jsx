@@ -12,7 +12,6 @@ import Modal from '../../components/Modal';
 import shorter from '../../../helpers/shorter';
 import Header from '../../components/Header';
 import CopyText from '../../components/CopyText';
-import isConnected from '../../utils/isConnected';
 import showBalance from '../../utils/showBalance';
 import getData from '../../actions/accounts/getData';
 import formatCurrency from '../../utils/formatCurrency';
@@ -27,16 +26,16 @@ import styles from './styles.less';
 
 const Home = ({ options, currencies }) => {
   const { state } = useLocation();
+  const { activeAccount } = currentActiveAccount();
 
-  const [host, setHost] = useState(null);
+  const { isConnected } = activeAccount;
+
+  const { host } = options;
   const [editName, setEditName] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isConnectedResult, setIsConnectedResult] = useState(undefined);
   const [isOtherConnectedState, setIsOtherConnectedState] = useState(false);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
-
-  const { activeAccount } = currentActiveAccount();
 
   useEffect(() => {
     if (!state?.alreadyLoaded) {
@@ -49,16 +48,7 @@ const Home = ({ options, currencies }) => {
       setLoading(false);
     }
 
-    isConnected(activeAccount.publicKey)
-      .then(({ isConnectedResult: isCon, host: h }) => {
-        setHost(h);
-        setIsConnectedResult(isCon);
-      });
-
-    isOtherConnected(activeAccount.publicKey)
-      .then((result) => {
-        setIsOtherConnectedState(result);
-      });
+    setIsOtherConnectedState(isOtherConnected(activeAccount.publicKey, host));
   }, [ignored]);
 
   const toggleModal = () => {
@@ -90,7 +80,7 @@ const Home = ({ options, currencies }) => {
               <span
                 className={classNames(
                   styles.modalBtn,
-                  isConnectedResult ? styles.modalActive : styles.modalInactive,
+                  isConnected ? styles.modalActive : styles.modalInactive,
                 )}
                 onClick={toggleModal}
               />
@@ -140,7 +130,7 @@ const Home = ({ options, currencies }) => {
             host={host}
             forceUpdate={forceUpdate}
             toggleModal={toggleModal}
-            result={isConnectedResult}
+            result={isConnected}
             publicKey={activeAccount.publicKey}
             isOtherConnected={isOtherConnectedState}
           />

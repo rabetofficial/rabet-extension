@@ -1,5 +1,6 @@
 import * as operations from '../staticRes/operations';
 
+import numberWithCommas from './numberWithCommas';
 import removeTrailingZeroes from './removeTrailingZeroes';
 
 export default (operation) => {
@@ -15,7 +16,7 @@ export default (operation) => {
         },
         {
           title: 'Amount',
-          value: `${removeTrailingZeroes(operation.amount)} ${operation.asset.asset_code}`,
+          value: `${numberWithCommas(operation.amount)} ${operation.asset.asset_code}`,
         },
       ],
     };
@@ -30,7 +31,7 @@ export default (operation) => {
       info: [
         {
           title: 'BumpTo',
-          value: removeTrailingZeroes(operation.bumpTo),
+          value: numberWithCommas(operation.bumpTo),
         },
       ],
     };
@@ -106,7 +107,7 @@ export default (operation) => {
         },
         {
           title: 'Limit',
-          value: removeTrailingZeroes(operation.limit),
+          value: numberWithCommas(operation.limit),
         },
       ],
     };
@@ -148,7 +149,7 @@ export default (operation) => {
         },
         {
           title: 'Weight',
-          value: removeTrailingZeroes(operation.weight),
+          value: numberWithCommas(operation.weight),
         },
       ],
     };
@@ -242,11 +243,11 @@ export default (operation) => {
         },
         {
           title: 'Send Amount',
-          value: `${removeTrailingZeroes(operation.sendAmount)} ${operation.sendAsset.value}`,
+          value: `${numberWithCommas(operation.sendAmount)} ${operation.sendAsset.value}`,
         },
         {
           title: 'Destination Min',
-          value: `${removeTrailingZeroes(operation.destMin)} ${operation.destAsset.value}`,
+          value: `${numberWithCommas(operation.destMin)} ${operation.destAsset.value}`,
         },
       ],
     };
@@ -265,11 +266,11 @@ export default (operation) => {
         },
         {
           title: 'Send Max',
-          value: `${removeTrailingZeroes(operation.sendMax)} ${operation.sendAsset.value}`,
+          value: `${numberWithCommas(operation.sendMax)} ${operation.sendAsset.value}`,
         },
         {
           title: 'Destination Min',
-          value: `${removeTrailingZeroes(operation.destAmount)} ${operation.destAsset.value}`,
+          value: `${numberWithCommas(operation.destAmount)} ${operation.destAsset.value}`,
         },
       ],
     };
@@ -284,15 +285,15 @@ export default (operation) => {
       info: [
         {
           title: 'Selling',
-          value: `${removeTrailingZeroes(operation.selling)} ${operation.sellingAsset.value}`,
+          value: `${numberWithCommas(operation.selling)} ${operation.sellingAsset.value}`,
         },
         {
           title: 'Buying',
-          value: `${removeTrailingZeroes(operation.buying)} ${operation.buyingAsset.value}`,
+          value: `${numberWithCommas(operation.buying)} ${operation.buyingAsset.value}`,
         },
         {
           title: 'Offer ID',
-          value: removeTrailingZeroes(operation.offerId),
+          value: numberWithCommas(operation.offerId),
         },
       ],
     };
@@ -307,11 +308,11 @@ export default (operation) => {
       info: [
         {
           title: 'Selling',
-          value: `${removeTrailingZeroes(operation.selling)} ${operation.sellingAsset.value}`,
+          value: `${numberWithCommas(operation.selling)} ${operation.sellingAsset.value}`,
         },
         {
           title: 'Buying',
-          value: `${removeTrailingZeroes(operation.buying)} ${operation.buyingAsset.value}`,
+          value: `${numberWithCommas(operation.buying)} ${operation.buyingAsset.value}`,
         },
       ],
     };

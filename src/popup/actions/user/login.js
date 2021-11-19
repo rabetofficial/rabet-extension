@@ -4,8 +4,14 @@ import { get } from '../../../helpers/storage';
 
 export default async (password) => {
   try {
+    const { options: { host } } = store.getState();
     const data = await get('data', password);
     const connectedWebsites = await get('connectedWebsites');
+
+    const d = data.map((x) => ({
+      ...x,
+      isConnected: connectedWebsites.some((y) => y === `${host}/${x.publicKey}`),
+    }));
 
     store.dispatch({
       password,
@@ -14,7 +20,7 @@ export default async (password) => {
 
     store.dispatch({
       type: types.accounts.LOAD,
-      accounts: data,
+      accounts: d,
     });
 
     store.dispatch({

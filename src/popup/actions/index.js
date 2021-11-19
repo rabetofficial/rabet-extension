@@ -3,6 +3,7 @@ export default {
     LOAD: 'options/LOAD',
     CHANGE: 'options/CHANGE',
     FIX_USD: 'options/FIX_USD',
+    ADD_HOST: 'options/ADD_HOST',
     CHANGE_NETWORK: 'options/CHANGE_NETWORK',
   },
   user: {
@@ -22,6 +23,7 @@ export default {
     REMOVE: 'accounts/REMOVE',
     CHANGE_DATA: 'accounts/CHANGE_DATA',
     CHANGE_NAME: 'accounts/CHANGE_NAME',
+    CHANGE_IS_CONNECTED: 'accounts/IS_CONNECTED',
     CHANGE_ACTIVE: 'accounts/CHANGE_ACTIVE',
     UPDATE_BALANCE: 'accounts/UPDATE_BALANCE',
   },

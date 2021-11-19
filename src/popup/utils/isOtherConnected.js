@@ -1,24 +1,18 @@
 import store from '../store';
-import getHostOfUrl from './getHostOfUrl';
 
-const getIsConnected = (publicKey) => new Promise((resolve) => {
+const isOtherConnected = (publicKey, host) => {
   const { connectedWebsites } = store.getState().user;
+  const pair = `${host}/${publicKey}`;
 
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const tab = tabs[0];
-    const host = getHostOfUrl(tab.url);
-    const pair = `${host}/${publicKey}`;
+  const connectedToHost = connectedWebsites.filter((x) => x.includes(host));
 
-    const connectedToHost = connectedWebsites.filter((x) => x.includes(host));
+  if (!connectedToHost.length) {
+    return false;
+  }
 
-    if (!connectedToHost.length) {
-      return resolve(false);
-    }
+  const otherConnectedResult = connectedToHost.some((x) => x !== pair);
 
-    const isOtherConnected = connectedToHost.some((x) => x !== pair);
+  return otherConnectedResult;
+};
 
-    resolve(isOtherConnected);
-  });
-});
-
-export default getIsConnected;
+export default isOtherConnected;
