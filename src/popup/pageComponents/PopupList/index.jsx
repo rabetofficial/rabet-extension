@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import abbr from '../../utils/abbr';
 
-import './styles.less';
+import styles from './styles.less';
 
 const PopupList = ({ info }) => {
+  const [isImageLoaded, setIsImageLoaded] = useState(true);
   const { isConnected } = info;
   const host = useSelector((store) => store.host);
 
@@ -26,10 +27,21 @@ const PopupList = ({ info }) => {
           {info.balances}
         </div>
       </div>
+
       {isConnected
         ? (
           <div className="popup-img">
-            <img src={img} alt="Host" />
+            <img
+              src={img}
+              alt="Host"
+              className={!isImageLoaded ? 'image-error' : ''}
+              onError={() => { setIsImageLoaded(false); console.log('hahaha')}}
+            />
+
+            {!isImageLoaded
+              ? (
+                <div className={styles.hostStyle}>{host}</div>
+              ) : ''}
           </div>
         ) : ''}
     </div>

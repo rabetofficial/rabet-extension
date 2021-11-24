@@ -1,4 +1,4 @@
-@import '../../styles/theme';
+@import '../../styles/theme.less';
 
 .popup-item {
   display: flex;
@@ -47,4 +47,18 @@
   font-size: 12px;
   margin-top: 6px;
   color: @dove-gray;
+}
+
+.image-error {
+  display: none;
+}
+
+:local(.hostStyle) {
+  background-color: @Concrete;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: black;
+  padding: 4px 8px;
 }
