@@ -9,6 +9,7 @@ import Operations from '../../components/Operations';
 import sampleImageSrc from '../../../assets/images/stellar.png';
 
 import styles from './styles.less';
+import CopyText from "../../components/CopyText";
 
 const Confirm = () => {
   const xdr = global.sessionStorage.getItem('xdr');
@@ -99,7 +100,9 @@ const Confirm = () => {
           <a href="" className={styles.link}>{host}</a>
           <div className={styles.account}>
             <div>Source account</div>
-            <div className={styles.accountName}>{shorter(publicKey, 5)}</div>
+            <div className={styles.accountName}>
+              <CopyText text={publicKey} button={shorter(publicKey, 5)} />
+            </div>
           </div>
         </div>
       </div>
