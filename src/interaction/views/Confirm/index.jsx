@@ -6,10 +6,9 @@ import Button from '../../components/Button';
 import shorter from '../../../helpers/shorter';
 import PageTitle from '../../components/PageTitle';
 import Operations from '../../components/Operations';
-import sampleImageSrc from '../../../assets/images/stellar.png';
+import CopyText from '../../components/CopyText';
 
 import styles from './styles.less';
-import CopyText from "../../components/CopyText";
 
 const Confirm = () => {
   const xdr = global.sessionStorage.getItem('xdr');
@@ -17,6 +16,7 @@ const Confirm = () => {
   const title = global.sessionStorage.getItem('title');
   const network = global.sessionStorage.getItem('network');
   const publicKey = global.sessionStorage.getItem('accountPublicKey');
+  const accountName = global.sessionStorage.getItem('accountName');
 
   const handleReject = () => {
     global.chrome.runtime.sendMessage({
@@ -101,7 +101,7 @@ const Confirm = () => {
           <div className={styles.account}>
             <div>Source account</div>
             <div className={styles.accountName}>
-              <CopyText text={publicKey} button={shorter(publicKey, 5)} />
+              <CopyText text={publicKey} button={accountName} />
             </div>
           </div>
         </div>
