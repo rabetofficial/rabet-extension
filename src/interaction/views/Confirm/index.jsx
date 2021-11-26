@@ -94,14 +94,14 @@ const Confirm = () => {
         <div className={styles.pageTitle}><PageTitle status="network" statusTitle={network} /></div>
         <div className="content">
           <div className={styles.img}>
-            <img src={`https://logo.clearbit.com/${host}`} alt="logo" />
+            <img src={`https://logo.clearbit.com/${host}`} alt={host} />
           </div>
           <h1 className={styles.title}>Approve Transaction</h1>
-          <a href="" className={styles.link}>{host}</a>
+          <a href="#" className={styles.link}>{host}</a>
           <div className={styles.account}>
             <div>Source account</div>
             <div className={styles.accountName}>
-              <CopyText text={publicKey} button={accountName} />
+              <CopyText text={publicKey} button={shorter(publicKey, 6)} />
             </div>
           </div>
         </div>
