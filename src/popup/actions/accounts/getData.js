@@ -4,7 +4,6 @@ import xlmPrice from '../../utils/xlmPrice';
 import horizonData from '../../utils/horizon/data';
 import setCurrencies from '../options/setCurrencies';
 import toNativePrice from '../../utils/horizon/toNativePrice';
-import calculateSellingLiabilities from '../../utils/calculateSellingLiabilities';
 
 export default async (address) => {
   const [data] = await Promise.all([horizonData(address), setCurrencies()]);
@@ -38,8 +37,6 @@ export default async (address) => {
     const xlm = accountData.balances.find((x) => x.asset_type === 'native');
     accountData.balances = accountData.balances.filter((x) => x.asset_type !== 'native');
 
-    accountData.sellingLiabilities = calculateSellingLiabilities(accountData.balances);
-
     if (xlm) {
       accountData.balances.unshift({
         asset_code: 'XLM',
@@ -49,9 +46,6 @@ export default async (address) => {
 
     // Adding a new field: Subentry_count
     accountData.maxXLM = (accountData.subentry_count + 2) * 0.5 + 0.005;
-
-    // Adding selling liabilities of assets to the maxXLM field
-    accountData.maxXLM += accountData.sellingLiabilities;
   }
 
   store.dispatch({

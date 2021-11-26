@@ -16,7 +16,6 @@ const Confirm = () => {
   const title = global.sessionStorage.getItem('title');
   const network = global.sessionStorage.getItem('network');
   const publicKey = global.sessionStorage.getItem('accountPublicKey');
-  const accountName = global.sessionStorage.getItem('accountName');
 
   const handleReject = () => {
     global.chrome.runtime.sendMessage({
