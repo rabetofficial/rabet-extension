@@ -52,7 +52,10 @@ const ContactRequest = () => {
         <h6 className={styles.contact}>Connect Request</h6>
         <div className={styles.step}>
           <div className="pure-g step-container">
-            <div className="step step-one step-one-container flex-parent" style={{ alignItems: 'center' }}>
+            <div
+              className="step step-one flex-parent"
+              style={{ alignItems: 'center' }}
+            >
               <img src={`https://logo.clearbit.com/${host}?size=55`} style={{ height: 'auto' }} alt={host} />
             </div>
             <div className="step step-two">{shortName(name)}</div>
