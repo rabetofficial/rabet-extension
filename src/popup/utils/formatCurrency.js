@@ -1,4 +1,10 @@
-export default (number) => {
+export default (n) => {
+  let number = n;
+
+  if (typeof n === 'number') {
+    number = n.toString();
+  }
+
   if (isNaN(number)) {
     return 0;
   }
@@ -8,6 +14,8 @@ export default (number) => {
   }
 
   const [qableAshar, ashar] = number.toString().split('.');
+
+  console.log(qableAshar, ashar);
 
   const integer = qableAshar || '0';
 
