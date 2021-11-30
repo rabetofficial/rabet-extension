@@ -5,6 +5,30 @@ import horizonData from '../../utils/horizon/data';
 import setCurrencies from '../options/setCurrencies';
 import toNativePrice from '../../utils/horizon/toNativePrice';
 
+const assetFieldsToNumber = (asset) => {
+  const newAsset = {
+    ...asset,
+  };
+
+  if (asset.balance) {
+    newAsset.balance = parseFloat(asset.balance, 10);
+  }
+
+  if (asset.limit) {
+    newAsset.limit = parseFloat(asset.limit, 10);
+  }
+
+  if (asset.buying_liabilities) {
+    newAsset.buying_liabilities = parseFloat(asset.buying_liabilities, 10);
+  }
+
+  if (asset.selling_liabilities) {
+    newAsset.selling_liabilities = parseFloat(asset.selling_liabilities, 10);
+  }
+
+  return newAsset;
+};
+
 export default async (address) => {
   const [data] = await Promise.all([horizonData(address), setCurrencies()]);
 
@@ -31,6 +55,7 @@ export default async (address) => {
 
     accountData.usd = accountData.balance * xlmToUsd;
     accountData.balances = accountData.balances.filter((x) => !x.liquidity_pool_id);
+    // accountData.balances = accountData.balances.map(assetFieldsToNumber);
     accountData.balances = await toNativePrice(accountData.balances);
 
     // MOVING XLM TO THE BEGINNING OF AN ARRAY

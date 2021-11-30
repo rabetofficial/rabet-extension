@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
 import isNative from '../../../utils/isNative';
-import arithmeticNumber from '../../../utils/arithmetic';
+import nativeAsset from '../../../utils/nativeAsset';
+import getMaxBalance from '../../../utils/maxBalance';
 import SelectOption from '../../../components/SelectOption';
 import validateAddress from '../../../utils/validate/address';
 import currentActiveAccount from '../../../utils/activeAccount';
@@ -14,44 +15,30 @@ import changeOperationAction from '../../../actions/operations/change';
 import styles from './styles.less';
 
 const PaymentReceiveOps = ({ id }) => {
-  const [list, setList] = useState([]);
-  const [sendAsset, setSendAsset] = useState({});
-  const [destAsset, setDestAsset] = useState({});
+  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
 
-  useEffect(() => {
-    const { activeAccount } = currentActiveAccount();
-
-    const { balances } = activeAccount;
-
+  const [list] = useState(() => {
     const newList = [];
 
     for (let i = 0; i < balances.length; i += 1) {
       newList.push({
         value: balances[i].asset_code,
         label: balances[i].asset_code,
-        balance: balances[i].balance,
-        asset_issuer: balances[i].asset_issuer,
-        asset_code: balances[i].asset_code,
-        asset_type: balances[i].asset_type,
+        ...balances[i],
       });
     }
 
-    setList(newList);
-    setSendAsset(newList[0]);
-    setDestAsset(newList[0]);
-  }, []);
+    return newList;
+  });
 
-  const onChangeSendAsset = (e) => {
-    setSendAsset(e);
-  };
+  const [sendAsset, setSendAsset] = useState(list[0]);
+  const [destAsset, setDestAsset] = useState(list[0]);
 
-  const onChangeDestAsset = (e) => {
-    setDestAsset(e);
-  };
+  const onChangeSendAsset = (e) => setSendAsset(e);
+  const onChangeDestAsset = (e) => setDestAsset(e);
 
   const validateForm = async (values) => {
     let accountData;
-    const { activeAccount } = currentActiveAccount();
 
     const errors = {};
     const hasError = {};
@@ -101,11 +88,9 @@ const PaymentReceiveOps = ({ id }) => {
       let selectedTokenBalance;
 
       if (isNative(sendAsset)) {
-        selectedTokenBalance = activeAccount.balances.find(
-          (x) => x.asset_type === 'native',
-        );
+        selectedTokenBalance = balances.find(nativeAsset);
       } else {
-        selectedTokenBalance = activeAccount.balances.find(
+        selectedTokenBalance = balances.find(
           (x) => x.asset_code === sendAsset.asset_code && x.asset_issuer === sendAsset.asset_issuer,
         );
       }
@@ -119,7 +104,7 @@ const PaymentReceiveOps = ({ id }) => {
       if (sendAsset.value === 'XLM') {
         if (
           Number(selectedTokenBalance.balance || '0')
-          < Number(values.sendMax, 10) + activeAccount.maxXLM
+          < Number(values.sendMax, 10) + maxXLM
         ) {
           errors.sendMax = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendMax = true;
@@ -129,8 +114,11 @@ const PaymentReceiveOps = ({ id }) => {
           });
         }
       } else {
+        const { selling_liabilities } = selectedTokenBalance;
+        const numSL = Number(selling_liabilities);
+
         if (
-          Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendMax, 10)
+          Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendMax, 10) + numSL
         ) {
           errors.sendMax = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendMax = true;
@@ -160,9 +148,9 @@ const PaymentReceiveOps = ({ id }) => {
     ) {
       const destinationTokens = accountData.balances || [];
 
-      let selectedToken = destinationTokens.find((x) => x.asset_type === 'native');
+      let selectedToken = destinationTokens.find(nativeAsset);
 
-      if (destAsset.value !== 'XLM') {
+      if (!isNative(destAsset)) {
         selectedToken = destinationTokens.find(
           (x) => x.asset_code === destAsset.asset_code && x.asset_issuer === destAsset.asset_issuer,
         );
@@ -194,10 +182,8 @@ const PaymentReceiveOps = ({ id }) => {
       changeOperationAction(id, {
         checked: true,
         destination: values.destination,
-
         sendMax: parseFloat(values.sendMax, 10).toFixed(7),
         sendAsset,
-
         destAmount: parseFloat(values.destAmount, 10).toFixed(7),
         destAsset,
       });
@@ -209,28 +195,8 @@ const PaymentReceiveOps = ({ id }) => {
   return (
     <Form
       mutators={{
-        sendMaxMax: (args, state, utils) => {
-          const { activeAccount } = currentActiveAccount();
-          const { balances } = activeAccount;
-
-          let maxBalance;
-
-          if (isNative(sendAsset)) {
-            const xlmBalance = activeAccount.balances.find(
-              (x) => x.asset_type === 'native',
-            );
-
-            maxBalance = arithmeticNumber(
-              parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
-            );
-          } else {
-            maxBalance = balances.find(
-              (x) => x.asset_code === sendAsset.asset_code
-              && x.asset_issuer === sendAsset.asset_issuer,
-            ).balance;
-          }
-
-          utils.changeValue(state, 'sendMax', () => maxBalance);
+        sendMaxMax: (a, s, u) => {
+          u.changeValue(s, 'sendMax', () => getMaxBalance(sendAsset));
         },
       }}
       onSubmit={() => {}}
@@ -269,9 +235,7 @@ const PaymentReceiveOps = ({ id }) => {
                     input={input}
                     meta={meta}
                     variant="max"
-                    setMax={() => {
-                      form.mutators.sendMaxMax();
-                    }}
+                    setMax={form.mutators.sendMaxMax}
                   />
                 </div>
                 <div className={styles.select}>
@@ -317,7 +281,5 @@ const PaymentReceiveOps = ({ id }) => {
     />
   );
 };
-
-PaymentReceiveOps.propTypes = {};
 
 export default PaymentReceiveOps;

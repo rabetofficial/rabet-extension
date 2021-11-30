@@ -35,9 +35,7 @@ const ChangeTrustOps = ({ id }) => {
     setSelected(newList[0]);
   }, []);
 
-  const onChange = (e) => {
-    setSelected(e);
-  };
+  const onChange = (e) => setSelected(e);
 
   const validateForm = async (values) => {
     const errors = {};
@@ -113,7 +111,5 @@ const ChangeTrustOps = ({ id }) => {
     />
   );
 };
-
-ChangeTrustOps.propTypes = {};
 
 export default ChangeTrustOps;

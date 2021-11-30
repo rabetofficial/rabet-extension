@@ -1,12 +1,12 @@
 import classNames from 'classnames';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
 import isNative from '../../../utils/isNative';
-import arithmeticNumber from '../../../utils/arithmetic';
+import nativeAsset from '../../../utils/nativeAsset';
+import getMaxBalance from '../../../utils/maxBalance';
 import SelectOption from '../../../components/SelectOption';
-import getPathData from '../../../utils/horizon/getPathData';
 import validateAddress from '../../../utils/validate/address';
 import currentActiveAccount from '../../../utils/activeAccount';
 import getAccountData from '../../../utils/horizon/isAddressFound';
@@ -15,50 +15,30 @@ import changeOperationAction from '../../../actions/operations/change';
 import styles from './styles.less';
 
 const PaymentSendOps = ({ id }) => {
-  const [list, setList] = useState([]);
-  const [sendAsset, setSendAsset] = useState({});
-  const [destAsset, setDestAsset] = useState({});
-  const [bestPath, setBestPath] = useState([]);
-  const [destinationAmount, setDestinationAmount] = useState(0);
+  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
 
-  useEffect(() => {
-    const { activeAccount } = currentActiveAccount();
-
-    const { balances } = activeAccount;
-
+  const [list] = useState(() => {
     const newList = [];
 
     for (let i = 0; i < balances.length; i += 1) {
       newList.push({
         value: balances[i].asset_code,
         label: balances[i].asset_code,
-        balance: balances[i].balance,
-        asset_issuer: balances[i].asset_issuer,
-        asset_code: balances[i].asset_code,
-        asset_type: balances[i].asset_type,
+        ...balances[i],
       });
     }
 
-    setList(newList);
-    setSendAsset(newList[0]);
-    setDestAsset(newList[0]);
-  }, []);
+    return newList;
+  });
 
-  const onChangeSendAsset = (e) => {
-    setSendAsset(e);
-    setBestPath([]);
-    setDestinationAmount(0);
-  };
+  const [sendAsset, setSendAsset] = useState(list[0]);
+  const [destAsset, setDestAsset] = useState(list[0]);
 
-  const onChangeDestAsset = (e) => {
-    setDestAsset(e);
-    setBestPath([]);
-    setDestinationAmount(0);
-  };
+  const onChangeSendAsset = (e) => setSendAsset(e);
+  const onChangeDestAsset = (e) => setDestAsset(e);
 
   const validateForm = async (values) => {
     let accountData;
-    const { activeAccount } = currentActiveAccount();
 
     const errors = {};
     const hasError = {};
@@ -108,11 +88,11 @@ const PaymentSendOps = ({ id }) => {
       let selectedTokenBalance;
 
       if (isNative(sendAsset)) {
-        const xlmBalance = activeAccount.balances.find((x) => x.asset_type === 'native');
+        const xlmBalance = balances.find(nativeAsset);
 
         selectedTokenBalance = xlmBalance;
       } else {
-        selectedTokenBalance = activeAccount.balances.find(
+        selectedTokenBalance = balances.find(
           (x) => x.asset_code === sendAsset.asset_code && x.asset_issuer === sendAsset.asset_issuer,
         );
       }
@@ -126,7 +106,7 @@ const PaymentSendOps = ({ id }) => {
       if (isNative(sendAsset)) {
         if (
           Number(selectedTokenBalance.balance || '0')
-          < Number(values.sendAmount, 10) + activeAccount.maxXLM
+          < Number(values.sendAmount, 10) + maxXLM
         ) {
           errors.sendAmount = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendAmount = true;
@@ -195,54 +175,14 @@ const PaymentSendOps = ({ id }) => {
             checked: false,
           });
         } else {
-          const sourceAsset = activeAccount.balances.find(
-            (x) => x.asset_code === sendAsset.asset_code
-            && x.asset_issuer === sendAsset.asset_issuer,
-          );
-
-          const destinationAsset = activeAccount.balances.find(
-            (x) => x.asset_code === destAsset.asset_code
-            && x.asset_issuer === destAsset.asset_issuer,
-          );
-
-          const pathData = await getPathData({
-            source_account: activeAccount.publicKey,
-            source_asset_type: sourceAsset.asset_type,
-            source_asset_code: sourceAsset.asset_code,
-            source_asset_issuer: sourceAsset.asset_issuer,
-            source_amount: values.sendAmount,
-            destination_account: values.destination,
-            destination_asset_code: destinationAsset.asset_code,
-            destination_asset_type: destinationAsset.asset_type,
-            destination_asset_issuer: destinationAsset.asset_issuer,
+          changeOperationAction(id, {
+            checked: true,
+            destination: values.destination,
+            sendAmount: parseFloat(values.sendAmount, 10).toFixed(7),
+            sendAsset,
+            destMin: parseFloat(values.destMin, 10).toFixed(7),
+            destAsset,
           });
-
-          if (!pathData) {
-            errors.destination = 'No path found.';
-            hasError.destination = true;
-
-            changeOperationAction(id, {
-              checked: false,
-            });
-          } else {
-            const newBestPath = [
-              sourceAsset,
-              ...pathData.path,
-              destinationAsset,
-            ];
-
-            setBestPath(newBestPath);
-            setDestinationAmount(pathData.destination_amount);
-
-            changeOperationAction(id, {
-              checked: true,
-              destination: values.destination,
-              sendAmount: parseFloat(values.sendAmount, 10).toFixed(7),
-              sendAsset,
-              destMin: parseFloat(values.destMin, 10).toFixed(7),
-              destAsset,
-            });
-          }
         }
       }
     }
@@ -253,28 +193,8 @@ const PaymentSendOps = ({ id }) => {
   return (
     <Form
       mutators={{
-        sendAmountMax: (args, state, utils) => {
-          const { activeAccount } = currentActiveAccount();
-          const { balances } = activeAccount;
-
-          let maxBalance;
-
-          if (isNative(sendAsset)) {
-            const xlmBalance = activeAccount.balances.find(
-              (x) => x.asset_type === 'native',
-            );
-
-            maxBalance = arithmeticNumber(
-              parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
-            );
-          } else {
-            maxBalance = balances.find(
-              (x) => x.asset_code === sendAsset.asset_code
-              && x.asset_issuer === sendAsset.asset_issuer,
-            ).balance;
-          }
-
-          utils.changeValue(state, 'sendAmount', () => maxBalance);
+        sendAmountMax: (a, s, u) => {
+          u.changeValue(s, 'sendAmount', () => getMaxBalance(sendAsset));
         },
       }}
       onSubmit={() => {}}
@@ -312,9 +232,7 @@ const PaymentSendOps = ({ id }) => {
                     input={input}
                     meta={meta}
                     variant="max"
-                    setMax={() => {
-                      form.mutators.sendAmountMax();
-                    }}
+                    setMax={form.mutators.sendAmountMax}
                   />
                 </div>
                 <div className={styles.select}>
@@ -354,25 +272,6 @@ const PaymentSendOps = ({ id }) => {
               </div>
             )}
           </Field>
-          {/* {bestPath.length ? (
-            <div>
-              <div>
-                <p>Path:</p>
-                {bestPath.map((aPath, index) => (
-                  <span key={`${aPath.asset_type}${index}`}>
-                    {showAsset(aPath)}
-                    {' '}
-                    {bestPath.length !== index + 1 ? '>' : ''}
-                  </span>
-                ))}
-              </div>
-              <p>
-                Destination Amount:
-                {' '}
-                {destinationAmount}
-              </p>
-            </div>
-          ) : ''} */}
 
           {submitError && <div className="error">{submitError}</div>}
         </form>
@@ -380,7 +279,5 @@ const PaymentSendOps = ({ id }) => {
     />
   );
 };
-
-PaymentSendOps.propTypes = {};
 
 export default PaymentSendOps;

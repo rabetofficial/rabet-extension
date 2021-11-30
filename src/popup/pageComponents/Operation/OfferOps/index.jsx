@@ -4,7 +4,8 @@ import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
 import isNative from '../../../utils/isNative';
-import arithmeticNumber from '../../../utils/arithmetic';
+import nativeAsset from '../../../utils/nativeAsset';
+import getMaxBalance from '../../../utils/maxBalance';
 import SelectOption from '../../../components/SelectOption';
 import currentActiveAccount from '../../../utils/activeAccount';
 import changeOperationAction from '../../../actions/operations/change';
@@ -12,15 +13,13 @@ import changeOperationAction from '../../../actions/operations/change';
 import styles from './styles.less';
 
 const OfferOps = ({ id, offer }) => {
+  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+
   const [list, setList] = useState([]);
   const [sellingAsset, setSellingAsset] = useState({});
   const [buyingAsset, setByingAsset] = useState({});
 
   useEffect(() => {
-    const { activeAccount } = currentActiveAccount();
-
-    const { balances } = activeAccount;
-
     const newList = [];
 
     for (let i = 0; i < balances.length; i += 1) {
@@ -39,21 +38,14 @@ const OfferOps = ({ id, offer }) => {
     setByingAsset(newList[0]);
   }, []);
 
-  const onChangeSellingAmount = (e) => {
-    setSellingAsset(e);
-  };
-
-  const onChangeBuyingAmount = (e) => {
-    setByingAsset(e);
-  };
+  const onChangeSellingAmount = (e) => setSellingAsset(e);
+  const onChangeBuyingAmount = (e) => setByingAsset(e);
 
   const validateForm = async (values) => {
     const errors = {};
     const hasError = {
       selling: false,
     };
-
-    const { activeAccount } = currentActiveAccount();
 
     if (!values.selling) {
       errors.selling = null;
@@ -67,11 +59,9 @@ const OfferOps = ({ id, offer }) => {
         let selectedTokenBalance;
 
         if (isNative(sellingAsset)) {
-          selectedTokenBalance = activeAccount.balances.find(
-            (x) => x.asset_type === 'native',
-          );
+          selectedTokenBalance = balances.find(nativeAsset);
         } else {
-          selectedTokenBalance = activeAccount.balances.find(
+          selectedTokenBalance = balances.find(
             (x) => x.asset_code === sellingAsset.asset_code
             && x.asset_issuer === sellingAsset.asset_issuer,
           );
@@ -86,7 +76,7 @@ const OfferOps = ({ id, offer }) => {
         if (isNative(sellingAsset)) {
           if (
             Number(selectedTokenBalance.balance || '0')
-            < Number(values.selling) + activeAccount.maxXLM
+            < Number(values.selling) + maxXLM
           ) {
             errors.selling = `Insufficient ${sellingAsset.value} balance.`;
             hasError.selling = true;
@@ -96,7 +86,10 @@ const OfferOps = ({ id, offer }) => {
             });
           }
         } else {
-          if (Number(selectedTokenBalance.balance || '0') < values.selling) {
+          const { selling_liabilities } = selectedTokenBalance;
+          const numSL = Number(selling_liabilities);
+
+          if (Number(selectedTokenBalance.balance || '0') < values.selling + numSL) {
             errors.selling = `Insufficient ${sellingAsset.value} balance.`;
             hasError.selling = true;
 
@@ -120,11 +113,11 @@ const OfferOps = ({ id, offer }) => {
         let selectedTokenBalance;
 
         if (isNative(buyingAsset)) {
-          selectedTokenBalance = activeAccount.balances.find(
+          selectedTokenBalance = balances.find(
             (x) => x.asset_type === 'native',
           );
         } else {
-          selectedTokenBalance = activeAccount.balances.find(
+          selectedTokenBalance = balances.find(
             (x) => x.asset_code === buyingAsset.asset_code
             && x.asset_issuer === buyingAsset.asset_issuer,
           );
@@ -165,27 +158,8 @@ const OfferOps = ({ id, offer }) => {
   return (
     <Form
       mutators={{
-        sellingMax: (args, state, utils) => {
-          const { activeAccount } = currentActiveAccount();
-          const { balances } = activeAccount;
-
-          let maxBalance;
-
-          if (sellingAsset.value === 'XLM') {
-            const xlmBalance = activeAccount.balances.find(
-              (x) => x.asset_type === 'native',
-            );
-
-            maxBalance = arithmeticNumber(
-              parseFloat(xlmBalance.balance, 10) - activeAccount.maxXLM,
-            );
-          } else {
-            maxBalance = balances.find(
-              (x) => x.asset_code === sellingAsset.value,
-            ).balance;
-          }
-
-          utils.changeValue(state, 'selling', () => maxBalance);
+        sellingMax: (a, s, u) => {
+          u.changeValue(s, 'selling', () => getMaxBalance(sellingAsset));
         },
       }}
       onSubmit={() => {}}
@@ -209,9 +183,7 @@ const OfferOps = ({ id, offer }) => {
                     input={input}
                     meta={meta}
                     variant="max"
-                    setMax={() => {
-                      form.mutators.sellingMax();
-                    }}
+                    setMax={form.mutators.sellingMax()}
                     autoFocus
                   />
                 </div>
@@ -279,7 +251,5 @@ const OfferOps = ({ id, offer }) => {
     />
   );
 };
-
-OfferOps.propTypes = {};
 
 export default OfferOps;
