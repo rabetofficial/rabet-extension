@@ -183,7 +183,7 @@ const OfferOps = ({ id, offer }) => {
                     input={input}
                     meta={meta}
                     variant="max"
-                    setMax={form.mutators.sellingMax()}
+                    setMax={form.mutators.sellingMax}
                     autoFocus
                   />
                 </div>

@@ -35,7 +35,7 @@ const PopupList = ({ info }) => {
               src={img}
               alt="Host"
               className={!isImageLoaded ? 'image-error' : ''}
-              onError={() => { setIsImageLoaded(false); console.log('hahaha')}}
+              onError={() => { setIsImageLoaded(false); }}
             />
 
             {!isImageLoaded
