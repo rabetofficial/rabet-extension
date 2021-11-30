@@ -11,6 +11,7 @@ import CopyText from '../../components/CopyText';
 import styles from './styles.less';
 
 const Confirm = () => {
+  const name = global.sessionStorage.getItem('accountName');
   const xdr = global.sessionStorage.getItem('xdr');
   const host = global.sessionStorage.getItem('host');
   const title = global.sessionStorage.getItem('title');
@@ -87,6 +88,8 @@ const Confirm = () => {
 
   const { _operations: operations } = transaction;
 
+  console.log(name)
+
   return (
     <div>
       <div className={styles.header}>
@@ -100,7 +103,7 @@ const Confirm = () => {
           <div className={styles.account}>
             <div>Source account</div>
             <div className={styles.accountName}>
-              <CopyText text={publicKey} button={shorter(publicKey, 6)} />
+              <CopyText text={publicKey} button={name} />
             </div>
           </div>
         </div>

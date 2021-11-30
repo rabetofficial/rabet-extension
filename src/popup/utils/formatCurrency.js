@@ -15,8 +15,6 @@ export default (n) => {
 
   const [qableAshar, ashar] = number.toString().split('.');
 
-  console.log(qableAshar, ashar);
-
   const integer = qableAshar || '0';
 
   switch (qableAshar.length) {

@@ -4,8 +4,6 @@ const s = document.createElement('script');
 
 s.src = chrome.runtime.getURL('dist/client_script.js');
 
-console.log(chrome.runtime.getURL('dist/client_script.js'));
-
 s.onload = () => {
   this.remove();
 };
