@@ -88,6 +88,7 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                           network,
                         },
                         activeAcconut: {
+                          name: activeAcconut.name,
                           publicKey: activeAcconut.publicKey,
                         },
                       },
@@ -129,6 +130,7 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                               network,
                             },
                             activeAcconut: {
+                              name: activeAcconut.name,
                               publicKey: activeAcconut.publicKey,
                             },
                           },
