@@ -104,7 +104,7 @@ const Confirm = () => {
 
             {!isImageLoaded
               ? (
-                <div className={styles.hostStyle}>{host[0]}</div>
+                <div className={styles.hostStyle}>{host[0].toUpperCase()}</div>
               ) : ''}
           </div>
           <h1 className={styles.title}>Approve Transaction</h1>
