@@ -34,6 +34,7 @@
         "jsx-a11y/role-supports-aria-props": 0,
         "react/jsx-props-no-spreading": 0,
         "react/forbid-prop-types": 0,
+        "react/react-in-jsx-scope": 0,
         "no-lonely-if": 0,
         "class-methods-use-this": 0,
         "jsx-a11y/anchor-is-valid": 0,

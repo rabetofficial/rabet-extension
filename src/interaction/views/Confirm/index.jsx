@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import StellarSdk, { Transaction } from 'stellar-sdk';
 
 import Button from '../../components/Button';
-import shorter from '../../../helpers/shorter';
 import PageTitle from '../../components/PageTitle';
 import Operations from '../../components/Operations';
 import CopyText from '../../components/CopyText';
@@ -11,6 +10,8 @@ import CopyText from '../../components/CopyText';
 import styles from './styles.less';
 
 const Confirm = () => {
+  const [isImageLoaded, setIsImageLoaded] = useState(true);
+
   const name = global.sessionStorage.getItem('accountName');
   const xdr = global.sessionStorage.getItem('xdr');
   const host = global.sessionStorage.getItem('host');
@@ -88,15 +89,23 @@ const Confirm = () => {
 
   const { _operations: operations } = transaction;
 
-  console.log(name)
-
   return (
     <div>
       <div className={styles.header}>
         <div className={styles.pageTitle}><PageTitle status="network" statusTitle={network} /></div>
         <div className="content">
           <div className={styles.img}>
-            <img src={`https://logo.clearbit.com/${host}`} alt={host} />
+            <img
+              src={`https://logo.clearbit.com/${host}`}
+              alt={host}
+              className={!isImageLoaded ? 'image-error' : ''}
+              onError={() => { setIsImageLoaded(false); }}
+            />
+
+            {!isImageLoaded
+              ? (
+                <div className={styles.hostStyle}>{host[0]}</div>
+              ) : ''}
           </div>
           <h1 className={styles.title}>Approve Transaction</h1>
           <a href="#" className={styles.link}>{host}</a>

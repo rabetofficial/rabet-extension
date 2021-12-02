@@ -66,10 +66,13 @@ const PaymentOps = ({ id }) => {
         };
       }
 
+      const { selling_liabilities } = selectedTokenBalance;
+      const numSL = Number(selling_liabilities);
+
       if (isNative(selected)) {
         if (
           Number(selectedTokenBalance.balance || '0')
-          < Number(values.amount) + maxXLM
+          < Number(values.amount) + maxXLM + numSL
         ) {
           errors.amount = `Insufficient ${selected.value} balance.`;
           hasError.amount = true;
@@ -79,9 +82,6 @@ const PaymentOps = ({ id }) => {
           });
         }
       } else {
-        const { selling_liabilities } = selectedTokenBalance;
-        const numSL = Number(selling_liabilities);
-
         if (Number(selectedTokenBalance.balance || '0') < Number(values.amount) + numSL) {
           errors.amount = `Insufficient ${selected.value} balance.`;
           hasError.amount = true;

@@ -101,10 +101,13 @@ const PaymentReceiveOps = ({ id }) => {
         };
       }
 
-      if (sendAsset.value === 'XLM') {
+      const { selling_liabilities } = selectedTokenBalance;
+      const numSL = Number(selling_liabilities);
+
+      if (isNative(sendAsset)) {
         if (
           Number(selectedTokenBalance.balance || '0')
-          < Number(values.sendMax, 10) + maxXLM
+          < Number(values.sendMax, 10) + maxXLM + numSL
         ) {
           errors.sendMax = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendMax = true;
@@ -114,9 +117,6 @@ const PaymentReceiveOps = ({ id }) => {
           });
         }
       } else {
-        const { selling_liabilities } = selectedTokenBalance;
-        const numSL = Number(selling_liabilities);
-
         if (
           Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendMax, 10) + numSL
         ) {

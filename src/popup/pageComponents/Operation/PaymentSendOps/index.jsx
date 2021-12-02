@@ -103,10 +103,13 @@ const PaymentSendOps = ({ id }) => {
         };
       }
 
+      const { selling_liabilities } = selectedTokenBalance;
+      const numSL = Number(selling_liabilities);
+
       if (isNative(sendAsset)) {
         if (
           Number(selectedTokenBalance.balance || '0')
-          < Number(values.sendAmount, 10) + maxXLM
+          < Number(values.sendAmount, 10) + maxXLM + numSL
         ) {
           errors.sendAmount = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendAmount = true;
@@ -117,7 +120,7 @@ const PaymentSendOps = ({ id }) => {
         }
       } else {
         if (
-          Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendAmount, 10)
+          Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendAmount, 10) + numSL
         ) {
           errors.sendAmount = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendAmount = true;
