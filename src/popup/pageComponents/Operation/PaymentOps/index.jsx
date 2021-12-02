@@ -4,6 +4,7 @@ import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
 import isNative from '../../../utils/isNative';
+import matchAsset from '../../../utils/matchAsset';
 import nativeAsset from '../../../utils/nativeAsset';
 import getMaxBalance from '../../../utils/maxBalance';
 import SelectOption from '../../../components/SelectOption';
@@ -55,9 +56,7 @@ const PaymentOps = ({ id }) => {
       if (isNative(selected)) {
         selectedTokenBalance = balances.find(nativeAsset);
       } else {
-        selectedTokenBalance = balances.find(
-          (x) => x.asset_code === selected.asset_code && x.asset_issuer === selected.asset_issuer,
-        );
+        selectedTokenBalance = balances.find((x) => matchAsset(x, selected));
       }
 
       if (!selectedTokenBalance) {
@@ -137,9 +136,7 @@ const PaymentOps = ({ id }) => {
         let selectedToken = destinationTokens.find(nativeAsset);
 
         if (!isNative(selected)) {
-          selectedToken = destinationTokens.find(
-            (x) => x.asset_code === selected.asset_code && x.asset_issuer === selected.asset_issuer,
-          );
+          selectedToken = destinationTokens.find((x) => matchAsset(x, selected));
         }
 
         if (!selectedToken) {

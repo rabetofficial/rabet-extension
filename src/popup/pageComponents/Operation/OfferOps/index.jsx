@@ -4,6 +4,7 @@ import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
 import isNative from '../../../utils/isNative';
+import matchAsset from '../../../utils/matchAsset';
 import nativeAsset from '../../../utils/nativeAsset';
 import getMaxBalance from '../../../utils/maxBalance';
 import SelectOption from '../../../components/SelectOption';
@@ -61,10 +62,7 @@ const OfferOps = ({ id, offer }) => {
         if (isNative(sellingAsset)) {
           selectedTokenBalance = balances.find(nativeAsset);
         } else {
-          selectedTokenBalance = balances.find(
-            (x) => x.asset_code === sellingAsset.asset_code
-            && x.asset_issuer === sellingAsset.asset_issuer,
-          );
+          selectedTokenBalance = balances.find((x) => matchAsset(x, sellingAsset));
         }
 
         if (!selectedTokenBalance) {
@@ -117,10 +115,7 @@ const OfferOps = ({ id, offer }) => {
             (x) => x.asset_type === 'native',
           );
         } else {
-          selectedTokenBalance = balances.find(
-            (x) => x.asset_code === buyingAsset.asset_code
-            && x.asset_issuer === buyingAsset.asset_issuer,
-          );
+          selectedTokenBalance = balances.find((x) => matchAsset(x, buyingAsset));
         }
 
         if (!isNative(buyingAsset)) {

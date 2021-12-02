@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import * as route from '../../../staticRes/routes';
+import matchAsset from '../../../utils/matchAsset';
 import checkedSrc from '../../../../assets/images/checked.svg';
 import getAssetsAction from '../../../utils/server/getAssets';
 import currentActiveAccount from '../../../utils/activeAccount';
@@ -27,8 +28,7 @@ const SearchAsset = ({ options }) => {
   };
 
   const setActive = (index) => {
-    if (selectedList.some((x) => x.asset_code === list[index].asset_code
-    && x.asset_issuer === list[index].asset_issuer)) {
+    if (selectedList.some((x) => matchAsset(x, list[index]))) {
       const newSelectedList = selectedList.filter((x) => x.asset_issuer
       !== list[index].asset_issuer);
 
@@ -49,8 +49,7 @@ const SearchAsset = ({ options }) => {
         const newAssetList = [];
 
         for (let i = 0; i < assetList.length; i += 1) {
-          const isOld = currentBalances.some((x) => x.asset_code === assetList[i].asset_code
-          && x.asset_issuer === assetList[i].asset_issuer);
+          const isOld = currentBalances.some((x) => matchAsset(x, assetList[i]));
 
           if (isOld) {
             newAssetList.push({

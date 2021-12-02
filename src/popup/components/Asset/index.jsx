@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import matchAsset from '../../utils/matchAsset';
 import * as route from '../../staticRes/routes';
 import showBalance from '../../utils/showBalance';
 import formatCurrency from '../../utils/formatCurrency';
@@ -25,8 +26,7 @@ function Asset({
       return stellarLogo;
     }
 
-    const assetImage = assets.find((x) => x.asset_code === item.asset_code
-      && x.asset_issuer === item.asset_issuer);
+    const assetImage = assets.find((x) => matchAsset(x, item));
 
     if (assetImage && assetImage.logo) {
       return assetImage.logo;
@@ -40,8 +40,7 @@ function Asset({
       return true;
     }
 
-    const assetImage = assets.find((x) => x.asset_code === item.asset_code
-      && x.asset_issuer === item.asset_issuer);
+    const assetImage = assets.find((x) => matchAsset(x, item));
 
     if (!assetImage) {
       return false;

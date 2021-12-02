@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import * as route from '../../staticRes/routes';
+import matchAsset from '../../utils/matchAsset';
 import PageTitle from '../../components/PageTitle';
 import addAssetAction from '../../actions/operations/addAsset';
 import currentActiveAccount from '../../utils/activeAccount';
@@ -31,8 +32,7 @@ const Assets = () => {
   const { activeAccount } = currentActiveAccount();
 
   const { balances } = activeAccount;
-  const asset = balances.find((x) => x.asset_code === asset_code
-    && x.asset_issuer === asset_issuer);
+  const asset = balances.find((x) => matchAsset(x, { asset_code, asset_issuer }));
 
   getAssetWebsite(asset).then((assetData) => {
     setFlags(assetData.flags);

@@ -1,4 +1,3 @@
-const nativeAsset = (asset) => asset.asset_type === 'native'
-  && asset.asset_code === 'XLM';
+const nativeAsset = (asset) => asset.asset_type === 'native';
 
 export default nativeAsset;
