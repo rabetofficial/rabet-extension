@@ -33,6 +33,8 @@ import XLMAsset from './XLMAsset';
 import DeleteAccount from './DeleteAccount';
 import ConnectedWebsite from './ConnectedWebsite';
 import BackupFile from './BackupFile';
+import BasicOperation from './Operation/Basic';
+import AdvanceOperation from './Operation/Adavnce';
 
 const App = () => (
   <Router>
@@ -93,6 +95,14 @@ const App = () => (
         <Route
           path={route.backupFile}
           element={<ProtectedRoute><BackupFile /></ProtectedRoute>}
+        />
+        <Route
+          path={route.basicOperationPage}
+          element={<ProtectedRoute><BasicOperation /></ProtectedRoute>}
+        />
+        <Route
+          path={route.advanceOperationPage}
+          element={<ProtectedRoute><AdvanceOperation /></ProtectedRoute>}
         />
 
         <Route exact path={route.flagPage} element={<Flags />} />
