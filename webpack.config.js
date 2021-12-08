@@ -49,6 +49,11 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.tsx?/,
+        exclude: /node_modules/,
+        use: 'ts-loader',
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
@@ -99,7 +104,7 @@ const config = {
       stream: require.resolve('stream-browserify'),
       buffer: require.resolve('buffer'),
     },
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   watch: devMode,
   target: 'web',
