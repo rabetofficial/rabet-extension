@@ -8,21 +8,13 @@ interface AlertProps {
   text: string
 }
 
-const Alert = ({ type, text }: AlertProps) => {
-  let iconStyle = '';
-
-  if (type === 'alert-warning') {
-    iconStyle = 'icon-exclamation-circle';
-  }
-
-  return (
-    <div className={classNames(styles.alert, type)}>
-      <div className="flex-parent">
-        <span className={iconStyle} />
-        <div>{text}</div>
-      </div>
+const Alert = ({ type, text }: AlertProps) => (
+  <div className={classNames(styles.alert, type)}>
+    <div className="flex-parent">
+      <span className={type === 'alert-warning' ? 'icon-exclamation-circle' : ''} />
+      <div>{text}</div>
     </div>
-  );
-}
+  </div>
+);
 
 export default Alert;
