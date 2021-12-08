@@ -92,6 +92,8 @@ const BasicOperation = () => {
                 </form>
               )}
             />
+
+            <hr className={styles.hr} />
           </div>
         </Card>
       </div>
