@@ -8,6 +8,8 @@ import Header from '../../../components/Header';
 import InputSelectOption from '../../../components/InputSelectOption';
 import questionImg from '../../../../assets/images/question-circle.png';
 import angleRightIcon from '../../../../assets/images/angle-right.svg';
+import { buttonSizes, buttonTypes } from '../../../staticRes/enum';
+import Button from '../../../components/Button';
 
 import styles from './styles.less';
 
@@ -119,9 +121,24 @@ const BasicOperation = () => {
               <div className={styles.boxTitle}>Minimum received</div>
               <div className={styles.boxValue}>123.5 XLM</div>
             </div>
-
           </div>
         </Card>
+
+        <div className={styles.buttons}>
+          <Button
+            type="button"
+            variant={buttonTypes.default}
+            size={buttonSizes.medium}
+            content="Cancel"
+          />
+
+          <Button
+            type="button"
+            variant={buttonTypes.primary}
+            size={buttonSizes.medium}
+            content="Send"
+          />
+        </div>
       </div>
     </div>
   );
