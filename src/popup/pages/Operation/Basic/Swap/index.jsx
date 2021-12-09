@@ -16,17 +16,9 @@ const Swap = () => {
 
   };
 
-  const generateLabel = (currency) => (
-    <div className={styles.selectOption}>
-      <img src={questionImg} alt={currency} />
-      {' '}
-      {currency}
-    </div>
-  );
-
   const currencies = [
-    { value: 'btc', label: generateLabel('BTC') },
-    { value: 'xlm', label: generateLabel('XLM') },
+    { value: 'btc', img: questionImg },
+    { value: 'xlm', img: questionImg },
   ];
 
   const path = ['XLM', 'USDC', 'ETH'];
@@ -47,7 +39,7 @@ const Swap = () => {
                     meta={meta}
                     max
                     form={form}
-                    selectItems={currencies}
+                    currencies={currencies}
                   />
                 </div>
               )}
@@ -61,7 +53,7 @@ const Swap = () => {
                     input={input}
                     meta={meta}
                     max={false}
-                    selectItems={currencies}
+                    currencies={currencies}
                   />
                 </div>
               )}

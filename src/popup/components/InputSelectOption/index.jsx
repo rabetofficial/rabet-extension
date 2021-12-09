@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../Input';
-import SelectOption from '../SelectOption';
+import Modal from '../Modal';
+import angleDownIcon from '../../../assets/images/angle-down.svg';
 
 import styles from './styles.less';
 
 const InputSelectOption = ({
-  input, meta, form, max, selectItems,
+  input, meta, form, max, currencies,
 }) => {
-  const [selected, setSelected] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const onChange = (e) => {
-    setSelected(e);
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   return (
@@ -23,15 +24,29 @@ const InputSelectOption = ({
         input={input}
         meta={meta}
         variant={max ? 'max' : ''}
-        setMax={max && form.mutators.setMax}
+        setMax={max ? form.mutators.setMax : () => {}}
       />
-      <SelectOption
-        items={selectItems}
-        onChange={onChange}
-        variant="select-outlined"
-        defaultValue={selectItems[0]}
-        selected={selected}
-      />
+
+      <div className={styles.modal} onClick={toggleModal}>
+        <div className={styles.modalValue}>
+          <img
+            src={currencies[0].img}
+            alt={currencies[0].value}
+            className={styles.currencyImg}
+          />
+          {currencies[0].value.toUpperCase()}
+        </div>
+        <img src={angleDownIcon} alt="icon" />
+      </div>
+      {isModalOpen && (
+        <Modal
+          id="modal"
+          isOpen={isModalOpen}
+          onClose={toggleModal}
+        >
+          test
+        </Modal>
+      )}
     </div>
   );
 };
@@ -42,7 +57,7 @@ InputSelectOption.defaultProps = {
 
 InputSelectOption.propTypes = {
   max: PropTypes.bool,
-  selectItems: PropTypes.array.isRequired,
+  currencies: PropTypes.array.isRequired,
 };
 
 export default InputSelectOption;
