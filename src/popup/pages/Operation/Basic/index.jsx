@@ -23,7 +23,7 @@ const BasicOperation = () => {
   };
 
   return (
-    <div>
+    <div className={styles.page}>
       <Header />
       <div className={classNames('content', styles.content)}>
         <Card type="card-secondary">
