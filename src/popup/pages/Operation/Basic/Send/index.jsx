@@ -5,7 +5,7 @@ import InputSelectOption from '../../../../components/InputSelectOption';
 import Input from '../../../../components/Input';
 import questionImg from '../../../../../assets/images/question-circle.png';
 
-import styles from '../Swap/styles.less';
+import styles from './styles.less';
 
 const Send = () => {
   const onSubmit = async (values) => {
