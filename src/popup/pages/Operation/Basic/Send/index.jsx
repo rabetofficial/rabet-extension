@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, Form } from 'react-final-form';
 
-import InputSelectOption from '../../../../components/InputSelectOption';
+import InputSelectOption from '../../../../components/InputSelectModal';
 import Input from '../../../../components/Input';
 import questionImg from '../../../../../assets/images/question-circle.png';
 

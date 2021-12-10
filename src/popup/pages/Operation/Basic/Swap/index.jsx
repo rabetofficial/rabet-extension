@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Field, Form } from 'react-final-form';
 
-import InputSelectOption from '../../../../components/InputSelectOption';
+import InputSelectOption from '../../../../components/InputSelectModal';
 import angleRightIcon from '../../../../../assets/images/angle-right.svg';
 import questionImg from '../../../../../assets/images/question-circle.png';
 

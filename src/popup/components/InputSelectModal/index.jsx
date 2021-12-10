@@ -6,7 +6,7 @@ import angleDownIcon from '../../../assets/images/angle-down.svg';
 
 import styles from './styles.less';
 
-const InputSelectOption = ({
+const InputSelectModal = ({
   input, meta, form, max, currencies,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,6 +43,7 @@ const InputSelectOption = ({
           id="modal"
           isOpen={isModalOpen}
           onClose={toggleModal}
+          styled={false}
         >
           test
         </Modal>
@@ -51,13 +52,13 @@ const InputSelectOption = ({
   );
 };
 
-InputSelectOption.defaultProps = {
+InputSelectModal.defaultProps = {
   max: false,
 };
 
-InputSelectOption.propTypes = {
+InputSelectModal.propTypes = {
   max: PropTypes.bool,
   currencies: PropTypes.array.isRequired,
 };
 
-export default InputSelectOption;
+export default InputSelectModal;
