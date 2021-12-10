@@ -16,8 +16,12 @@ const Send = () => {
   };
 
   const currencies = [
-    { value: 'btc', img: questionImg },
-    { value: 'xlm', img: questionImg },
+    {
+      name: 'btc', img: questionImg, web: 'Stellar.org', amount: '120',
+    },
+    {
+      name: 'xlm', img: questionImg, web: 'Stellar.org', amount: '120',
+    },
   ];
 
   return (

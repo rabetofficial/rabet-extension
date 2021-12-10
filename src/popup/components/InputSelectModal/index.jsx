@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Input from '../Input';
 import Modal from '../Modal';
+import SearchAsset from './SearchAsset';
 import angleDownIcon from '../../../assets/images/angle-down.svg';
 
 import styles from './styles.less';
@@ -31,10 +32,10 @@ const InputSelectModal = ({
         <div className={styles.modalValue}>
           <img
             src={currencies[0].img}
-            alt={currencies[0].value}
+            alt={currencies[0].name}
             className={styles.currencyImg}
           />
-          {currencies[0].value.toUpperCase()}
+          {currencies[0].name.toUpperCase()}
         </div>
         <img src={angleDownIcon} alt="icon" />
       </div>
@@ -45,7 +46,7 @@ const InputSelectModal = ({
           onClose={toggleModal}
           styled={false}
         >
-          test
+          <SearchAsset currencies={currencies} />
         </Modal>
       )}
     </div>
