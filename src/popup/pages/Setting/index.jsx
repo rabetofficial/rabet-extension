@@ -38,12 +38,18 @@ currencies = currencies.map((x) => ({
   label: x.name,
 }));
 
+const modeOptions = [
+  { value: 'basic', label: 'Basic' },
+  { value: 'advance', label: 'Advance' },
+];
+
 const Setting = ({ options }) => {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
   const [selectedExplorer, setSelectedExplorer] = useState({});
   const [selectedTimer, setSelectedTimer] = useState({});
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
+  const [mode, setMode] = useState(modeOptions[0]);
 
   useEffect(() => {
     let label;
@@ -111,6 +117,10 @@ const Setting = ({ options }) => {
 
   const onChangeNetwork = (e) => {
     setSelectedExplorer(e);
+  };
+
+  const onChangeMode = (e) => {
+    setMode(e);
   };
 
   return (
@@ -192,6 +202,29 @@ const Setting = ({ options }) => {
                 variant="select-outlined"
                 isSearchable
                 defaultValue={selectedCurrency}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className={classNames('pure-g', styles.div)}>
+          <div className="pure-u-2-5">
+            <h3 className={styles.title}>
+              <span className={styles.noWrap}>Mode</span>
+              <Tooltip trigger="hover" tooltip="some info" placement="top">
+                <span className="icon-question-mark" />
+              </Tooltip>
+            </h3>
+          </div>
+
+          <div className="pure-u-3-5">
+            <div className={styles.select}>
+              <SelectOption
+                items={modeOptions}
+                onChange={onChangeMode}
+                variant="select-outlined"
+                isSearchable
+                defaultValue={mode}
               />
             </div>
           </div>
