@@ -1,0 +1,56 @@
+@import '../../../styles/theme.less';
+
+:local(.account) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: @Concrete;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  margin-top: 28px;
+  margin-bottom: 16px;
+}
+
+:local(.accountTitle) {
+  color: @dove-gray;
+}
+
+:local(.accountAddress) {
+  font-weight: 500;
+}
+
+:local(.card) {
+  padding: 16px 11px;
+}
+
+:local(.cardTitle) {
+  font-size: 18px;
+  font-weight: 500;
+  color: black;
+  margin: 0 0 16px 0;
+}
+
+:local(.label) {
+  font-size: 16px;
+  line-height: 1.63;
+  color: @dove-gray;
+}
+
+:local(.value) {
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+
+  span {
+    font-size: 18px;
+    font-weight: normal;
+  }
+}
+
+:local(.hr) {
+  border: none;
+  height: 1px;
+  background: @Concrete;
+  margin: 12px 0;
+}

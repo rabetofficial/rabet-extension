@@ -34,6 +34,8 @@ import DeleteAccount from './DeleteAccount';
 import ConnectedWebsite from './ConnectedWebsite';
 import BackupFile from './BackupFile';
 import BasicOperation from './Operation/Basic';
+import BasicSwapConfirm from './Operation/Basic/Swap/Confirm';
+import BasicSendConfirm from './Operation/Basic/Send/Confirm';
 import AdvanceOperation from './Operation/Adavnce';
 
 const App = () => (
@@ -99,6 +101,14 @@ const App = () => (
         <Route
           path={route.basicOperationPage}
           element={<ProtectedRoute><BasicOperation /></ProtectedRoute>}
+        />
+        <Route
+          path={route.basicSwapConfirmPage}
+          element={<ProtectedRoute><BasicSwapConfirm /></ProtectedRoute>}
+        />
+        <Route
+          path={route.basicSendConfirmPage}
+          element={<ProtectedRoute><BasicSendConfirm /></ProtectedRoute>}
         />
         <Route
           path={route.advanceOperationPage}
