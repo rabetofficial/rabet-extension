@@ -38,13 +38,23 @@
 }
 
 :local(.value) {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   color: black;
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
 
   span {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin: 0 2px 0 6px;
   }
 }
 
@@ -53,4 +63,16 @@
   height: 1px;
   background: @Concrete;
   margin: 12px 0;
+}
+
+:local(.buttons) {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  right: 16px;
+  bottom: 40px;
+
+  button {
+    width: 100px;
+  }
 }
