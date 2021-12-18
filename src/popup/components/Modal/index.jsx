@@ -16,7 +16,7 @@ function usePrevious(value) {
 }
 
 const Modal = ({
-  isOpen, onClose, modalSize, modalClass, id, title, children,
+  isOpen, onClose, modalSize, modalClass, id, title, children, styled,
 }) => {
   const background = useRef(null);
   const [fadeType, setFadeUp] = useState(null);
@@ -73,14 +73,21 @@ const Modal = ({
       role="dialog"
       onTransitionEnd={transitionEnd}
     >
-      <div className="modal-dialog">
+      <div
+        className="modal-dialog"
+        style={{ padding: styled ? '11px 16px 24px 16px' : '0' }}
+      >
         <div className="modal-header">
           <h4 className="modal-title">{title}</h4>
-          <button type="button" onClick={handleClick} className="close">
-            <span className="icon-multiply" />
-          </button>
+          {styled ? (
+            <button type="button" onClick={handleClick} className="close">
+              <span className="icon-multiply" />
+            </button>
+          ) : null}
         </div>
-        <div className="modal-content">{children}</div>
+        <div className="modal-content" style={{ marginTop: styled ? '21px' : '0' }}>
+          {children}
+        </div>
       </div>
       <div className="modal-background" onMouseDown={handleClick} ref={background} />
     </div>,
@@ -92,6 +99,7 @@ Modal.defaultProps = {
   modalClass: '',
   modalSize: 'md',
   title: '',
+  styled: true,
 };
 
 Modal.propTypes = {
@@ -101,6 +109,7 @@ Modal.propTypes = {
   modalClass: PropTypes.string,
   modalSize: PropTypes.string,
   title: PropTypes.string,
+  styled: PropTypes.bool,
 };
 
 export default Modal;

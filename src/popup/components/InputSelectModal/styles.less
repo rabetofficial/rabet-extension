@@ -1,0 +1,44 @@
+@import '../../styles/theme.less';
+
+@modalWidth: 107px;
+
+:local(.input) {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+
+  .input-medium {
+    box-sizing: border-box;
+    width: calc(100% - @modalWidth);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin: 0;
+  }
+}
+
+:local(.modal) {
+  box-sizing: border-box;
+  width: @modalWidth;
+  height: 48px;
+  background: transparent;
+  border-radius: 0 2px 2px 0;
+  border: 1px solid @Gallery;
+  border-left: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 10px 0 7px;
+}
+
+:local(.currencyImg) {
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+}
+
+:local(.modalValue) {
+  display: flex;
+  align-items: center;
+}

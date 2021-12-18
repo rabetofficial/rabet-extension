@@ -9,6 +9,7 @@ import types from '../actions';
     privacyMode: Boolean,
     autoTimeLocker: String,
     currency: String,
+    mode: 'BASIC' | 'ADVANCED',
   }
 
 */
@@ -19,6 +20,7 @@ const initialState = {
   network: 'MAINNET',
   autoTimeLocker: 60,
   currency: 'USD',
+  mode: 'BASIC',
 };
 
 export default (state = initialState, action) => {
@@ -49,6 +51,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         network: action.network,
+      };
+    }
+
+    case types.options.CHANGE_MODE: {
+      return {
+        ...state,
+        mode: action.mode,
       };
     }
 

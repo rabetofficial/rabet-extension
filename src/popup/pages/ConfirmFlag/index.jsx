@@ -15,8 +15,6 @@ const ConfirmFlag = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
-  const { goBack } = navigate;
-
   const handleSubmit = () => {
     const { activeAccount } = currentActiveAccount();
 
@@ -85,7 +83,7 @@ const ConfirmFlag = () => {
             size="btn-medium"
             content="Cancel"
             onClick={() => {
-              goBack();
+              navigate(-1);
             }}
           />
 

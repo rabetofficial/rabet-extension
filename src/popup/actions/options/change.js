@@ -9,6 +9,7 @@ export default async (options, push) => {
   const { privacyMode } = options;
   const autoTimeLocker = options.autoTimeLocker.value;
   const currency = options.currency.value;
+  const mode = options.mode.value;
 
   store.dispatch({
     type: types.options.CHANGE,
@@ -17,6 +18,7 @@ export default async (options, push) => {
       privacyMode,
       autoTimeLocker,
       currency,
+      mode,
     },
   });
 

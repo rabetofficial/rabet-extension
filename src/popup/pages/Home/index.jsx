@@ -92,6 +92,7 @@ const Home = ({ options, currencies, host }) => {
           </div>
         </div>
       </div>
+
       <div className={styles.infoBox}>
         <div className="pure-g">
           <EditNameForm editName={editName} setEditName={setEditName} />
