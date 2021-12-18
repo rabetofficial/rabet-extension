@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import PageTitle from '../../../../../components/PageTitle';
 import Card from '../../../../../components/Card';
+import sampleLogoSrc from '../../../../../../assets/images/question-circle.png';
+import Button from '../../../../../components/Button';
+import { buttonSizes, buttonTypes } from '../../../../../staticRes/enum';
 
 import styles from '../../confirm.less';
 
@@ -22,6 +25,7 @@ const BasicSendConfirm = (props) => (
           <div className={styles.label}>Amount</div>
           <div className={styles.value}>
             130
+            <img src={sampleLogoSrc} alt="lsp" />
             <span>LSP</span>
           </div>
           <hr className={styles.hr} />
@@ -33,6 +37,21 @@ const BasicSendConfirm = (props) => (
         </div>
       </Card>
 
+      <div className={styles.buttons}>
+        <Button
+          type="button"
+          variant={buttonTypes.default}
+          size={buttonSizes.medium}
+          content="Cancel"
+        />
+
+        <Button
+          type="button"
+          variant={buttonTypes.primary}
+          size={buttonSizes.medium}
+          content="Confirm"
+        />
+      </div>
     </div>
   </>
 );
