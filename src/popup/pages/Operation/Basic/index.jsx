@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
 import classNames from 'classnames';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import Card from '../../../components/Card';
-import SelectOption from '../../../components/SelectOption';
-import Header from '../../../components/Header';
-import { buttonSizes, buttonTypes } from '../../../staticRes/enum';
-import Button from '../../../components/Button';
 import Swap from './Swap';
 import Send from './Send';
+
+import Card from '../../../components/Card';
+import Button from '../../../components/Button';
+import Header from '../../../components/Header';
+import SelectOption from '../../../components/SelectOption';
+import { buttonSizes, buttonTypes } from '../../../staticRes/enum';
 
 import styles from './styles.less';
 
 const BasicOperation = () => {
-  const selectItems = [
+  const navigate = useNavigate();
+
+  const modes = [
     { value: 'swap', label: 'Swap' },
     { value: 'send', label: 'Send' },
   ];
-  const [selected, setSelected] = useState(selectItems[0]);
+
+  const [selected, setSelected] = useState(modes[0]);
 
   const onChange = (e) => {
     setSelected(e);
@@ -29,15 +34,17 @@ const BasicOperation = () => {
         <Card type="card-secondary">
           <div className={styles.card}>
             <SelectOption
-              items={selectItems}
-              defaultValue={selectItems[0]}
+              items={modes}
+              defaultValue={modes[0]}
               variant="select-default"
               onChange={onChange}
               selected={selected}
               isSearchable={false}
             />
 
-            {selected.value === 'swap' ? <Swap /> : <Send />}
+            {selected.value === 'swap'
+              ? <Swap />
+              : <Send />}
 
           </div>
         </Card>
@@ -48,6 +55,7 @@ const BasicOperation = () => {
             variant={buttonTypes.default}
             size={buttonSizes.medium}
             content="Cancel"
+            onClick={() => { navigate(-1); }}
           />
 
           <Button

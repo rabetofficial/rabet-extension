@@ -1,13 +1,31 @@
-import React from 'react';
+import { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 
-import InputSelectOption from '../../../../components/InputSelectModal';
 import Input from '../../../../components/Input';
+import currentActiveAccount from '../../../../utils/activeAccount';
+import InputSelectOption from '../../../../components/InputSelectModal';
 import questionImg from '../../../../../assets/images/question-circle.png';
 
 import styles from './styles.less';
 
 const Send = () => {
+  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+
+  const [list] = useState(() => {
+    const newList = [];
+
+    for (let i = 0; i < balances.length; i += 1) {
+      console.log(balances)
+      newList.push({
+        value: balances[i].asset_code,
+        label: balances[i].asset_code,
+        ...balances[i],
+      });
+    }
+
+    return newList;
+  });
+
   const onSubmit = async (values) => {
   };
 

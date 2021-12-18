@@ -39,8 +39,8 @@ currencies = currencies.map((x) => ({
 }));
 
 const modeOptions = [
-  { value: 'basic', label: 'Basic' },
-  { value: 'advance', label: 'Advance' },
+  { value: 'BASIC', label: 'Basic' },
+  { value: 'ADVANCED', label: 'Advance' },
 ];
 
 const Setting = ({ options }) => {
@@ -89,7 +89,11 @@ const Setting = ({ options }) => {
     if (options.currency) {
       setSelectedCurrency({ value: options.currency, label: options.currency.toUpperCase() });
     }
-  }, []);
+
+    if (options.mode) {
+      setMode({ value: options.mode, label: options.mode.toLowerCase() });
+    }
+  }, [options]);
 
   const handleChecked = (c) => {
     setChecked(c);
@@ -102,6 +106,7 @@ const Setting = ({ options }) => {
         explorer: selectedExplorer,
         autoTimeLocker: selectedTimer,
         currency: selectedCurrency,
+        mode,
       },
       navigate,
     );

@@ -4,6 +4,7 @@ export default {
     CHANGE: 'options/CHANGE',
     FIX_USD: 'options/FIX_USD',
     CHANGE_NETWORK: 'options/CHANGE_NETWORK',
+    CHANGE_MODE: 'options/CHANGE_MODE',
   },
   user: {
     LOGIN: 'user/LOGIN',

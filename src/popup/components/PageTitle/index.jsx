@@ -16,7 +16,6 @@ const PageTitle = ({
   ...props
 }) => {
   const navigate = useNavigate();
-  const { goBack } = navigate;
 
   const generateTitle = () => {
     if (status) {
@@ -54,7 +53,7 @@ const PageTitle = ({
       );
     }
 
-    return goBack();
+    return navigate(-1);
   };
 
   return (
