@@ -9,6 +9,7 @@ import Asset from '../../components/Asset';
 import * as route from '../../staticRes/routes';
 import currentActiveAccount from '../../utils/activeAccount';
 import getAssetsImages from '../../utils/server/getAssetsImages';
+import loadAssetImagesAction from '../../actions/assetImages/load';
 
 import styles from './styles.less';
 
@@ -26,8 +27,9 @@ const AssetList = (props) => {
     const { activeAccount } = currentActiveAccount();
     const { balances } = activeAccount;
 
-    getAssetsImages(balances).then((newAsset) => {
-      setAssets(newAsset);
+    getAssetsImages(balances).then((newAssetImages) => {
+      setAssets(newAssetImages);
+      loadAssetImagesAction(newAssetImages);
     });
   }, []);
 
