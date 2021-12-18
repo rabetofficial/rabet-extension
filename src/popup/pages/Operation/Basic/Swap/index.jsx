@@ -1,10 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Field, Form } from 'react-final-form';
 
 import InputSelectOption from '../../../../components/InputSelectModal';
-import angleRightIcon from '../../../../../assets/images/angle-right.svg';
 import questionImg from '../../../../../assets/images/question-circle.png';
+import SwapDetails from '../../../../pageComponents/SwapDetails';
 
 import styles from './styles.less';
 
@@ -63,27 +62,7 @@ const Swap = () => {
 
       <hr className={styles.hr} />
 
-      <div className={styles.box}>
-        <div className={styles.boxTitle}>Path</div>
-        <div className={styles.boxValue}>
-          <div className={styles.path}>
-            {path.map((p, index) => (
-              <div key={index}>
-                {p}
-                {index !== (path.length - 1) && <img src={angleRightIcon} alt="icon" />}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className={styles.box}>
-        <div className={styles.boxTitle}>Price impact</div>
-        <div className={classNames(styles.boxValue, styles.upStatus)}>1%</div>
-      </div>
-      <div className={styles.box}>
-        <div className={styles.boxTitle}>Minimum received</div>
-        <div className={styles.boxValue}>123.5 XLM</div>
-      </div>
+      <SwapDetails price={1} received={123.5} path={path} />
     </div>
   );
 };

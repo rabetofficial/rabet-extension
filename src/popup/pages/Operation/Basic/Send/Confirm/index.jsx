@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import PageTitle from '../../../../../components/PageTitle';
 import Card from '../../../../../components/Card';
 import sampleLogoSrc from '../../../../../../assets/images/question-circle.png';
-
-import styles from '../../confirm.less';
 import Button from '../../../../../components/Button';
 import { buttonSizes, buttonTypes } from '../../../../../staticRes/enum';
+
+import styles from '../../confirm.less';
 
 const BasicSendConfirm = (props) => (
   <>
