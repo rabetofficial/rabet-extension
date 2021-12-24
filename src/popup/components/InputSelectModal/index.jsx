@@ -6,6 +6,7 @@ import SearchAsset from './SearchAsset';
 import angleDownIcon from '../../../assets/images/angle-down.svg';
 
 import styles from './styles.less';
+import handleAssetImage from '../../utils/handleAssetImage';
 
 const InputSelectModal = ({
   input, meta, form, max, currencies,
@@ -31,11 +32,11 @@ const InputSelectModal = ({
       <div className={styles.modal} onClick={toggleModal}>
         <div className={styles.modalValue}>
           <img
-            src={currencies[0].img}
-            alt={currencies[0].name}
+            src={handleAssetImage(currencies[0])}
+            alt={currencies[0].asset_code}
             className={styles.currencyImg}
           />
-          {currencies[0].name.toUpperCase()}
+          {currencies[0].asset_code.toUpperCase()}
         </div>
         <img src={angleDownIcon} alt="icon" />
       </div>

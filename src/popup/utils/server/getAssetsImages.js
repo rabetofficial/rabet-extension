@@ -1,21 +1,25 @@
-// import fetch from 'node-fetch';
-
 import config from '../../../config';
+import nativeAsset from '../nativeAsset';
 
-export default async (assets) => {
-  if (!assets.length) {
+export default async (a) => {
+  if (!a.length) {
     return [];
   }
 
-  const assetsMapped = assets.map((x) => x.asset_code);
-  const assetsStr = assetsMapped.join(',');
+  // Exclude XLM from asset list
+  const assets = a.filter((x) => !nativeAsset(x));
+  const body = { assets };
 
-  try {
-    const assetsDetails = await fetch(`${config.ASSET_SERVER}/assets/image?assets=${assetsStr}`)
-      .then((res) => res.json());
+  const request = await fetch(`${config.ASSET_SERVER}/assets/list`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
 
-    return assetsDetails.assets.filter((x) => x !== null);
-  } catch (e) {
-    return [];
-  }
+  const assetsDetails = await request.json();
+
+  return assetsDetails.assets;
 };

@@ -16,7 +16,7 @@ const Swap = () => {
   };
 
   const currencies = Array(5).fill({
-    name: 'btc', img: questionImg, info: 'Stellar.org', amount: '120',
+    asset_code: 'btc', logo: questionImg, domain: 'Stellar.org', balance: '120',
   });
 
   const path = ['XLM', 'USDC', 'ETH'];

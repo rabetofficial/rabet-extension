@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 
 import Input from '../../../../components/Input';
+import matchAsset from '../../../../utils/matchAsset';
 import currentActiveAccount from '../../../../utils/activeAccount';
 import InputSelectOption from '../../../../components/InputSelectModal';
 import questionImg from '../../../../../assets/images/question-circle.png';
@@ -9,14 +11,18 @@ import questionImg from '../../../../../assets/images/question-circle.png';
 import styles from './styles.less';
 
 const Send = () => {
+  const assetImages = useSelector((store) => store.assetImages);
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
 
-  const [list] = useState(() => {
+  const [assets] = useState(() => {
     const newList = [];
 
     for (let i = 0; i < balances.length; i += 1) {
-      console.log(balances)
+      const assetImage = assetImages.find((x) => matchAsset(x, balances[i]));
+
       newList.push({
+        logo: assetImage?.logo,
+        domain: assetImage?.domain,
         value: balances[i].asset_code,
         label: balances[i].asset_code,
         ...balances[i],
@@ -32,15 +38,6 @@ const Send = () => {
   const validateForm = async (values) => {
 
   };
-
-  const currencies = [
-    {
-      name: 'btc', img: questionImg, web: 'Stellar.org', amount: '120',
-    },
-    {
-      name: 'xlm', img: questionImg, web: 'Stellar.org', amount: '120',
-    },
-  ];
 
   return (
     <>
@@ -58,7 +55,7 @@ const Send = () => {
                     meta={meta}
                     max
                     form={form}
-                    currencies={currencies}
+                    currencies={assets}
                   />
                 </div>
               )}

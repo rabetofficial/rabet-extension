@@ -1,9 +1,9 @@
 import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import Asset from '../../components/Asset';
 import * as route from '../../staticRes/routes';
@@ -13,24 +13,20 @@ import loadAssetImagesAction from '../../actions/assetImages/load';
 
 import styles from './styles.less';
 
-const AssetList = (props) => {
-  const [assets, setAssets] = useState([]);
-
-  const {
-    items,
+const AssetList = ({
+  items,
+  maxHeight,
+}) => {
+  const [
     options,
-    maxHeight,
+    assets,
     currencies,
-  } = props;
+  ] = useSelector((store) => [store.options, store.assetImages, store.currencies]);
 
   useEffect(() => {
-    const { activeAccount } = currentActiveAccount();
-    const { balances } = activeAccount;
+    const { activeAccount: { balances } } = currentActiveAccount();
 
-    getAssetsImages(balances).then((newAssetImages) => {
-      setAssets(newAssetImages);
-      loadAssetImagesAction(newAssetImages);
-    });
+    getAssetsImages(balances).then(loadAssetImagesAction);
   }, []);
 
   const activeCurrency = currencies[options.currency] || { value: 0, currency: 'USD' };
@@ -80,7 +76,4 @@ AssetList.propTypes = {
   maxHeight: PropTypes.number.isRequired,
 };
 
-export default connect((state) => ({
-  options: state.options,
-  currencies: state.currencies,
-}))(AssetList);
+export default AssetList;

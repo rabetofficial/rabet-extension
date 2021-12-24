@@ -1,7 +1,7 @@
 import shortid from 'shortid';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Header from '../../components/Header';
@@ -25,25 +25,19 @@ const Assets = () => {
     auth_immutable: false,
   });
 
+  const { activeAccount: { balances } } = currentActiveAccount();
+  const asset = balances.find((x) => matchAsset(x, { asset_code, asset_issuer }));
+
+  useEffect(() => {
+    getAssetWebsite(asset).then((assetData) => {
+      setFlags(assetData.flags);
+      setHomeDomain(assetData.homeDomain);
+    });
+  }, []);
+
   const handleDelete = ({ code, issuer }) => {
     addAssetAction({ code, issuer, limit: '0' }, navigate);
   };
-
-  const { activeAccount } = currentActiveAccount();
-
-  const { balances } = activeAccount;
-  const asset = balances.find((x) => matchAsset(x, { asset_code, asset_issuer }));
-
-  getAssetWebsite(asset).then((assetData) => {
-    setFlags(assetData.flags);
-    setHomeDomain(assetData.homeDomain);
-  });
-
-  const currentData = {
-    flags,
-  };
-
-  currentData.asset = asset;
 
   const assetInfo = [
     { title: 'Assets code', value: asset_code },
@@ -93,9 +87,9 @@ const Assets = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>{currentData.flags.auth_required ? 'True' : 'False'}</td>
-                  <td>{currentData.flags.auth_revocable ? 'True' : 'False'}</td>
-                  <td>{currentData.flags.auth_immutable ? 'True' : 'False'}</td>
+                  <td>{flags.auth_required ? 'True' : 'False'}</td>
+                  <td>{flags.auth_revocable ? 'True' : 'False'}</td>
+                  <td>{flags.auth_immutable ? 'True' : 'False'}</td>
                 </tr>
               </tbody>
             </table>
