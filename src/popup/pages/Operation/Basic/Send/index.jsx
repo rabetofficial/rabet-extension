@@ -6,13 +6,13 @@ import Input from '../../../../components/Input';
 import matchAsset from '../../../../utils/matchAsset';
 import currentActiveAccount from '../../../../utils/activeAccount';
 import InputSelectOption from '../../../../components/InputSelectModal';
-import questionImg from '../../../../../assets/images/question-circle.png';
 
 import styles from './styles.less';
 
 const Send = () => {
   const assetImages = useSelector((store) => store.assetImages);
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const [selectedAsset, setSelectedAsset] = useState([]);
 
   const [assets] = useState(() => {
     const newList = [];
@@ -35,8 +35,11 @@ const Send = () => {
   const onSubmit = async (values) => {
   };
 
-  const validateForm = async (values) => {
-
+  const validateForm = async (v) => {
+    const values = {
+      ...v,
+      asset: selectedAsset,
+    };
   };
 
   return (
@@ -50,14 +53,27 @@ const Send = () => {
               {({ input, meta }) => (
                 <div className={styles.group}>
                   <label className="label-primary">Amount</label>
-                  <InputSelectOption
+                  <Input
+                    type="number"
+                    placeholder="123"
+                    size="input-medium"
                     input={input}
                     meta={meta}
-                    max
-                    form={form}
-                    currencies={assets}
                   />
                 </div>
+              )}
+            </Field>
+
+            <Field name="asset">
+              {({ input, meta }) => (
+                <InputSelectOption
+                  input={input}
+                  meta={meta}
+                  max
+                  form={form}
+                  currencies={assets}
+                  onChange={setSelectedAsset}
+                />
               )}
             </Field>
 

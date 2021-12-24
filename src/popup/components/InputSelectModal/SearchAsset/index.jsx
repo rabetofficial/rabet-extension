@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import styles from './styles.less';
 import handleAssetImage from '../../../utils/handleAssetImage';
 
-const SearchAsset = ({ currencies }) => {
+const SearchAsset = ({ currencies, closeModal, onChange }) => {
   const [searchString, setSearchString] = useState('');
 
   const handleChange = (e) => {
@@ -13,6 +13,11 @@ const SearchAsset = ({ currencies }) => {
   };
 
   const filteredCurrencies = currencies.filter((x) => (new RegExp(searchString, 'i')).test(x.asset_code));
+
+  const handleClick = (asset) => {
+    onChange(asset);
+    closeModal();
+  };
 
   return (
     <div>
@@ -25,7 +30,7 @@ const SearchAsset = ({ currencies }) => {
       />
       <div className={classNames(styles.list, 'hidden-scroll')}>
         {filteredCurrencies.map((currency, index) => (
-          <div className={styles.listItem} key={index}>
+          <div className={styles.listItem} key={index} onClick={() => { handleClick(currency); }}>
             <div className={styles.asset}>
               <img src={handleAssetImage(currency)} alt={currency.asset_code} />
               <div>

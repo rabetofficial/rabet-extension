@@ -9,37 +9,35 @@ import styles from './styles.less';
 import handleAssetImage from '../../utils/handleAssetImage';
 
 const InputSelectModal = ({
-  input, meta, form, max, currencies,
+  currencies,
+  onChange,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentAsset, setCurrentAsset] = useState(currencies[0]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleAssetChange = (asset) => {
+    setCurrentAsset(asset);
+    onChange(asset);
+  };
+
   return (
     <div className={styles.input}>
-      <Input
-        type="number"
-        placeholder="1"
-        size="input-medium"
-        input={input}
-        meta={meta}
-        variant={max ? 'max' : ''}
-        setMax={max ? form.mutators.setMax : () => {}}
-      />
-
       <div className={styles.modal} onClick={toggleModal}>
         <div className={styles.modalValue}>
           <img
-            src={handleAssetImage(currencies[0])}
-            alt={currencies[0].asset_code}
+            src={handleAssetImage(currentAsset)}
+            alt={currentAsset.asset_code}
             className={styles.currencyImg}
           />
-          {currencies[0].asset_code.toUpperCase()}
+          {currentAsset.asset_code.toUpperCase()}
         </div>
         <img src={angleDownIcon} alt="icon" />
       </div>
+
       {isModalOpen && (
         <Modal
           id="modal"
@@ -47,7 +45,11 @@ const InputSelectModal = ({
           onClose={toggleModal}
           styled={false}
         >
-          <SearchAsset currencies={currencies} />
+          <SearchAsset
+            currencies={currencies}
+            closeModal={toggleModal}
+            onChange={handleAssetChange}
+          />
         </Modal>
       )}
     </div>
