@@ -8,6 +8,7 @@ import currentActiveAccount from '../../../../utils/activeAccount';
 import InputSelectOption from '../../../../components/InputSelectModal';
 
 import styles from './styles.less';
+import validateMemo from '../../../../utils/validate/memo';
 
 const Send = () => {
   const assetImages = useSelector((store) => store.assetImages);
@@ -40,6 +41,14 @@ const Send = () => {
       ...v,
       asset: selectedAsset,
     };
+
+    if (values.memo && !validateMemo(values.memo)) {
+      return {
+        memo: 'Memo should not be more than 28 characters.',
+      };
+    }
+
+    return {};
   };
 
   return (

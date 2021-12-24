@@ -11,6 +11,7 @@ import Button from '../../components/Button';
 import * as route from '../../staticRes/routes';
 import PageTitle from '../../components/PageTitle';
 import SendButton from '../../components/SendButton';
+import validateMemo from '../../utils/validate/memo';
 // import sendAction from '../../actions/operations/send';
 import Operation from '../../pageComponents/Operation';
 import addMemoAction from '../../actions/operations/addMemo';
@@ -50,23 +51,21 @@ const Send = () => {
   // };
 
   const validateForm = async (values) => {
-    if (values.memo) {
-      if (values.memo.length > 28) {
-        addMemoAction({
-          checked: false,
-          text: values.memo,
-        });
-
-        return {
-          memo: 'Memo should not be more than 28 characters.',
-        };
-      }
-
+    if (values.memo && !validateMemo(values.memo)) {
       addMemoAction({
-        checked: true,
+        checked: false,
         text: values.memo,
       });
+
+      return {
+        memo: 'Memo should not be more than 28 characters.',
+      };
     }
+
+    addMemoAction({
+      checked: true,
+      text: values.memo,
+    });
 
     return {};
   };
