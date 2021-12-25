@@ -8,7 +8,7 @@ import angleDownIcon from '../../../assets/images/angle-down.svg';
 import styles from './styles.less';
 import handleAssetImage from '../../utils/handleAssetImage';
 
-const InputSelectModal = ({
+const SelectAssetModal = ({
   currencies,
   onChange,
 }) => {
@@ -56,13 +56,13 @@ const InputSelectModal = ({
   );
 };
 
-InputSelectModal.defaultProps = {
+SelectAssetModal.defaultProps = {
   max: false,
 };
 
-InputSelectModal.propTypes = {
+SelectAssetModal.propTypes = {
   max: PropTypes.bool,
   currencies: PropTypes.array.isRequired,
 };
 
-export default InputSelectModal;
+export default SelectAssetModal;

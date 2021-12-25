@@ -5,10 +5,10 @@ import { Field, Form } from 'react-final-form';
 import Input from '../../../../components/Input';
 import matchAsset from '../../../../utils/matchAsset';
 import currentActiveAccount from '../../../../utils/activeAccount';
-import InputSelectOption from '../../../../components/InputSelectModal';
+import SelectAssetModal from '../../../../components/SelectAssetModal';
+import validateMemo from '../../../../utils/validate/memo';
 
 import styles from './styles.less';
-import validateMemo from '../../../../utils/validate/memo';
 
 const Send = () => {
   const assetImages = useSelector((store) => store.assetImages);
@@ -58,33 +58,34 @@ const Send = () => {
         validate={validateForm}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit}>
-            <Field name="amount">
-              {({ input, meta }) => (
-                <div className={styles.group}>
-                  <label className="label-primary">Amount</label>
-                  <Input
-                    type="number"
-                    placeholder="123"
-                    size="input-medium"
-                    input={input}
-                    meta={meta}
-                  />
-                </div>
-              )}
-            </Field>
-
-            <Field name="asset">
-              {({ input, meta }) => (
-                <InputSelectOption
-                  input={input}
-                  meta={meta}
-                  max
-                  form={form}
-                  currencies={assets}
-                  onChange={setSelectedAsset}
-                />
-              )}
-            </Field>
+            <div className={styles.group}>
+              <label className="label-primary">Amount</label>
+              <div className={styles.inputModal}>
+                <Field name="amount">
+                  {({ input, meta }) => (
+                    <Input
+                      type="number"
+                      placeholder="123"
+                      size="input-medium"
+                      input={input}
+                      meta={meta}
+                    />
+                  )}
+                </Field>
+                <Field name="asset">
+                  {({ input, meta }) => (
+                    <SelectAssetModal
+                      input={input}
+                      meta={meta}
+                      max
+                      form={form}
+                      currencies={assets}
+                      onChange={setSelectedAsset}
+                    />
+                  )}
+                </Field>
+              </div>
+            </div>
 
             <Field name="destination">
               {({ input, meta }) => (

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Field, Form } from 'react-final-form';
 
-import InputSelectOption from '../../../../components/InputSelectModal';
+import SelectAssetModal from '../../../../components/SelectAssetModal';
 import questionImg from '../../../../../assets/images/question-circle.png';
 import SwapDetails from '../../../../pageComponents/SwapDetails';
+import Input from '../../../../components/Input';
 
 import styles from './styles.less';
 
@@ -28,34 +29,63 @@ const Swap = () => {
         validate={validateForm}
         render={({ handleSubmit, form }) => (
           <form onSubmit={handleSubmit}>
-            <Field name="from">
-              {({ input, meta }) => (
-                <div className={styles.group}>
-                  <label className="label-primary">From</label>
-                  <InputSelectOption
-                    input={input}
-                    meta={meta}
-                    max
-                    form={form}
-                    currencies={currencies}
-                  />
-                </div>
-              )}
-            </Field>
+            <div className={styles.group}>
+              <label className="label-primary">From</label>
+              <div className={styles.inputModal}>
+                <Field name="from">
+                  {({ input, meta }) => (
+                    <Input
+                      type="number"
+                      placeholder="123"
+                      size="input-medium"
+                      input={input}
+                      meta={meta}
+                    />
+                  )}
+                </Field>
+                <Field name="asset">
+                  {({ input, meta }) => (
+                    <SelectAssetModal
+                      input={input}
+                      meta={meta}
+                      max
+                      form={form}
+                      currencies={currencies}
+                    />
+                  )}
+                </Field>
+              </div>
+            </div>
 
-            <Field name="to">
-              {({ input, meta }) => (
-                <div className={styles.group}>
-                  <label className="label-primary">To</label>
-                  <InputSelectOption
-                    input={input}
-                    meta={meta}
-                    max={false}
-                    currencies={currencies}
-                  />
-                </div>
-              )}
-            </Field>
+            <div className={styles.group}>
+              <label className="label-primary">To</label>
+              <div className={styles.inputModal}>
+                <Field name="from">
+                  {({ input, meta }) => (
+                    <Input
+                      type="number"
+                      placeholder="123"
+                      size="input-medium"
+                      input={input}
+                      meta={meta}
+                    />
+                  )}
+                </Field>
+
+                <Field name="asset">
+                  {({ input, meta }) => (
+                    <SelectAssetModal
+                      input={input}
+                      meta={meta}
+                      max={false}
+                      currencies={currencies}
+                    />
+                  )}
+                </Field>
+
+              </div>
+            </div>
+
           </form>
         )}
       />
