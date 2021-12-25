@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Image from '../Image';
 import matchAsset from '../../utils/matchAsset';
 import * as route from '../../staticRes/routes';
 import showBalance from '../../utils/showBalance';
 import formatCurrency from '../../utils/formatCurrency';
+import handleAssetImage from '../../utils/handleAssetImage';
 import numberWithCommas from '../../utils/numberWithCommas';
-import stellarLogo from '../../../assets/images/stellar.png';
 import checkedLogo from '../../../assets/images/checked.svg';
 import questionLogo from '../../../assets/images/question-circle.png';
 
@@ -20,20 +21,6 @@ function Asset({
   assets,
 }) {
   const isNative = item.asset_type === 'native';
-
-  const handleAssetImage = () => {
-    if (isNative) {
-      return stellarLogo;
-    }
-
-    const assetImage = assets.find((x) => matchAsset(x, item));
-
-    if (assetImage && assetImage.logo) {
-      return assetImage.logo;
-    }
-
-    return questionLogo;
-  };
 
   const isAssetVerified = () => {
     if (isNative) {
@@ -71,7 +58,11 @@ function Asset({
         >
 
           <div className={styles.logoContainer}>
-            <img src={handleAssetImage(item)} alt="logo" />
+            <Image
+              alt="logo"
+              src={handleAssetImage(item)}
+              fallBack={questionLogo}
+            />
           </div>
 
           <div style={{ marginLeft: '6px' }}>

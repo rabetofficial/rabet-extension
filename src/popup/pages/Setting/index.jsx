@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import config from '../../../config';
+import capital from '../../utils/capital';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import Tooltip from '../../components/Tooltip';
@@ -91,7 +92,7 @@ const Setting = ({ options }) => {
     }
 
     if (options.mode) {
-      setMode({ value: options.mode, label: options.mode.toLowerCase() });
+      setMode({ value: options.mode, label: capital(options.mode.toLowerCase()) });
     }
   }, [options]);
 

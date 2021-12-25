@@ -4,6 +4,7 @@ import xlmPrice from '../../utils/xlmPrice';
 import horizonData from '../../utils/horizon/data';
 import setCurrencies from '../options/setCurrencies';
 import toNativePrice from '../../utils/horizon/toNativePrice';
+import addAssetImagesToAssets from '../../utils/addAssetImagesToAssets';
 
 // const assetFieldsToNumber = (asset) => {
 //   const newAsset = {
@@ -85,6 +86,12 @@ export default async (address) => {
       value: x.asset_code,
       label: x.asset_code,
     }));
+
+    const { assetImages } = store.getState();
+
+    if (assetImages.length) {
+      accountData.balances = addAssetImagesToAssets(accountData.balances, assetImages);
+    }
 
     // Adding a new field: Subentry_count
     accountData.maxXLM = (accountData.subentry_count + 2) * 0.5 + 0.005;

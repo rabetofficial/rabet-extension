@@ -7,6 +7,11 @@ const loadAssetImagesAction = (newAssetImages, address) => {
     assetImages: newAssetImages,
     type: types.accounts.ADD_ASSET_IMAGES,
   });
+
+  store.dispatch({
+    type: types.assetImages.LOAD,
+    payload: newAssetImages,
+  });
 };
 
 export default loadAssetImagesAction;

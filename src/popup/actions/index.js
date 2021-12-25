@@ -45,4 +45,7 @@ export default {
   host: {
     CHANGE: 'host/CHANGE',
   },
+  assetImages: {
+    LOAD: 'assetImages/LOAD',
+  },
 };

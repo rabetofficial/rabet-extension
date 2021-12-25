@@ -12,17 +12,23 @@ import styles from './styles.less';
 const Swap = () => {
   const navigate = useNavigate();
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
-  const [selectedAsset, setSelectedAsset] = useState(balances[0]);
+  const [selectedAsset1, setSelectedAsset1] = useState(balances[0]);
+  const [selectedAsset2, setSelectedAsset2] = useState(balances[0]);
+  const [path, setPath] = useState([]);
 
   const onSubmit = async (values) => {
     console.warn(values);
   };
 
-  const validateForm = async (values) => {
+  const validateForm = async (v) => {
+    const values = {
+      ...v,
+      asset1: selectedAsset1,
+      asset2: selectedAsset2,
+    };
 
+    console.log(values);
   };
-
-  const path = ['XLM', 'USDC', 'ETH'];
 
   return (
     <div>
@@ -52,7 +58,8 @@ const Swap = () => {
                       meta={meta}
                       max
                       form={form}
-                      currencies={[]}
+                      currencies={balances}
+                      onChange={setSelectedAsset1}
                     />
                   )}
                 </Field>
@@ -80,7 +87,8 @@ const Swap = () => {
                       input={input}
                       meta={meta}
                       max={false}
-                      currencies={[]}
+                      currencies={balances}
+                      onChange={setSelectedAsset2}
                     />
                   )}
                 </Field>

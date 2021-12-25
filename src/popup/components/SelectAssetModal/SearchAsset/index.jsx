@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 
+import Image from '../../Image';
 import handleAssetImage from '../../../utils/handleAssetImage';
+import questionLogo from '../../../../assets/images/question-circle.png';
 
 import styles from './styles.less';
 
@@ -33,7 +35,11 @@ const SearchAsset = ({ currencies, closeModal, onChange }) => {
         {filteredCurrencies.map((currency, index) => (
           <div className={styles.listItem} key={index} onClick={() => { handleClick(currency); }}>
             <div className={styles.asset}>
-              <img src={handleAssetImage(currency)} alt={currency.asset_code} />
+              <Image
+                fallBack={questionLogo}
+                alt={currency.asset_code}
+                src={handleAssetImage(currency)}
+              />
               <div>
                 <div className={styles.assetName}>{currency.asset_code.toUpperCase()}</div>
                 <div className={styles.assetInfo}>{currency.domain}</div>

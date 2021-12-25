@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 import Modal from '../Modal';
+import Image from '../Image';
 import SearchAsset from './SearchAsset';
 import handleAssetImage from '../../utils/handleAssetImage';
 import angleDownIcon from '../../../assets/images/angle-down.svg';
+import questionLogo from '../../../assets/images/question-circle.png';
 
 import styles from './styles.less';
 
@@ -28,10 +30,11 @@ const SelectAssetModal = ({
     <div className={styles.input}>
       <div className={styles.modal} onClick={toggleModal}>
         <div className={styles.modalValue}>
-          <img
-            src={handleAssetImage(currentAsset)}
-            alt={currentAsset.asset_code}
+          <Image
+            fallBack={questionLogo}
             className={styles.currencyImg}
+            alt={currentAsset.asset_code}
+            src={handleAssetImage(currentAsset)}
           />
           {currentAsset.asset_code.toUpperCase()}
         </div>

@@ -1,5 +1,5 @@
 import isNative from './isNative';
-import xlmLogo from '../../assets/images/stellar-black.png';
+import xlmLogo from '../../assets/images/stellar.png';
 import questionImg from '../../assets/images/question-circle.png';
 
 const handleAssetImage = (asset) => {
