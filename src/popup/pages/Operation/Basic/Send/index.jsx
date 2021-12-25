@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
 import Input from '../../../../components/Input';
 import Button from '../../../../components/Button';
-import matchAsset from '../../../../utils/matchAsset';
 import * as route from '../../../../staticRes/routes';
 import getMaxBalance from '../../../../utils/maxBalance';
 import validateAddress from '../../../../utils/validate/address';
@@ -23,26 +21,8 @@ import isTransferable from '../../../../utils/isTransferable';
 const Send = () => {
   const navigate = useNavigate();
   const [isAccountNew, setIsAccountNew] = useState(false);
-  const assetImages = useSelector((store) => store.assetImages);
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
-
-  const [assets] = useState(() => {
-    const newList = [];
-
-    for (let i = 0; i < balances.length; i += 1) {
-      const assetImage = assetImages.find((x) => matchAsset(x, balances[i]));
-
-      newList.push({
-        logo: assetImage?.logo,
-        domain: assetImage?.domain,
-        ...balances[i],
-      });
-    }
-
-    return newList;
-  });
-
-  const [selectedAsset, setSelectedAsset] = useState(assets[0]);
+  const [selectedAsset, setSelectedAsset] = useState(balances[0]);
 
   const onSubmit = async (v) => {
     const values = {
@@ -161,7 +141,7 @@ const Send = () => {
                       meta={meta}
                       max
                       form={form}
-                      currencies={assets}
+                      currencies={balances}
                       onChange={setSelectedAsset}
                     />
                   )}

@@ -1,10 +1,11 @@
 import types from '../index';
 import store from '../../store';
 
-const loadAssetImagesAction = (newAssetImages) => {
+const loadAssetImagesAction = (newAssetImages, address) => {
   store.dispatch({
-    type: types.assetImages.LOAD,
-    payload: newAssetImages,
+    address,
+    assetImages: newAssetImages,
+    type: types.accounts.ADD_ASSET_IMAGES,
   });
 };
 

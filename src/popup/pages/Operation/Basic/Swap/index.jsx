@@ -1,14 +1,19 @@
-import React from 'react';
+import { useState } from 'react';
 import { Field, Form } from 'react-final-form';
+import { useNavigate } from 'react-router-dom';
 
-import SelectAssetModal from '../../../../components/SelectAssetModal';
-import questionImg from '../../../../../assets/images/question-circle.png';
-import SwapDetails from '../../../../pageComponents/SwapDetails';
 import Input from '../../../../components/Input';
+import SwapDetails from '../../../../pageComponents/SwapDetails';
+import currentActiveAccount from '../../../../utils/activeAccount';
+import SelectAssetModal from '../../../../components/SelectAssetModal';
 
 import styles from './styles.less';
 
 const Swap = () => {
+  const navigate = useNavigate();
+  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const [selectedAsset, setSelectedAsset] = useState(balances[0]);
+
   const onSubmit = async (values) => {
     console.warn(values);
   };
@@ -16,10 +21,6 @@ const Swap = () => {
   const validateForm = async (values) => {
 
   };
-
-  const currencies = Array(5).fill({
-    asset_code: 'btc', logo: questionImg, domain: 'Stellar.org', balance: '120',
-  });
 
   const path = ['XLM', 'USDC', 'ETH'];
 
@@ -51,7 +52,7 @@ const Swap = () => {
                       meta={meta}
                       max
                       form={form}
-                      currencies={currencies}
+                      currencies={[]}
                     />
                   )}
                 </Field>
@@ -79,7 +80,7 @@ const Swap = () => {
                       input={input}
                       meta={meta}
                       max={false}
-                      currencies={currencies}
+                      currencies={[]}
                     />
                   )}
                 </Field>

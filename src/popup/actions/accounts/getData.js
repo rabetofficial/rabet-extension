@@ -33,11 +33,21 @@ export default async (address) => {
   const [data] = await Promise.all([horizonData(address), setCurrencies()]);
 
   const accountData = {
+    maxXLM: 0,
     usd: 0,
     address,
     balance: 0,
     flags: {},
-    balances: [],
+    balances: [{
+      asset_code: 'XLM',
+      asset_type: 'native',
+      balance: '0',
+      buying_liabilities: '0.0000000',
+      selling_liabilities: '0.0000000',
+      toNative: 0,
+      value: 'XLM',
+      label: 'XLM',
+    }],
     thresholds: {},
     operations: [],
     transactions: [],
@@ -68,6 +78,13 @@ export default async (address) => {
         ...xlm,
       });
     }
+
+    // ADD label, value to each asset
+    accountData.balances = accountData.balances.map((x) => ({
+      ...x,
+      value: x.asset_code,
+      label: x.asset_code,
+    }));
 
     // Adding a new field: Subentry_count
     accountData.maxXLM = (accountData.subentry_count + 2) * 0.5 + 0.005;

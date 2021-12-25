@@ -7,6 +7,10 @@ const isInsufficientAsset = (asset, maxXLM, a) => {
   const sellingLiabilities = Number(asset.selling_liabilities);
   const subentries = isNative(asset) ? sellingLiabilities + maxXLM : sellingLiabilities;
 
+  if (balance <= 0) {
+    return false;
+  }
+
   if (balance < amount + subentries) {
     return false;
   }

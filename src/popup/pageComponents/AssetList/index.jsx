@@ -1,4 +1,3 @@
-import shortid from 'shortid';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
@@ -19,26 +18,19 @@ const AssetList = ({
 }) => {
   const [
     options,
-    assets,
     currencies,
-  ] = useSelector((store) => [store.options, store.assetImages, store.currencies]);
+  ] = useSelector((store) => [store.options, store.currencies]);
+
+  const { activeAccount } = currentActiveAccount();
+  const { balances } = activeAccount;
 
   useEffect(() => {
-    const { activeAccount: { balances } } = currentActiveAccount();
-
-    getAssetsImages(balances).then(loadAssetImagesAction);
+    getAssetsImages(balances).then((result) => {
+      loadAssetImagesAction(result, activeAccount.publicKey);
+    });
   }, []);
 
   const activeCurrency = currencies[options.currency] || { value: 0, currency: 'USD' };
-
-  const inactiveNative = {
-    asset_code: 'XLM',
-    asset_type: 'native',
-    balance: '0',
-    buying_liabilities: '0.0000000',
-    selling_liabilities: '0.0000000',
-    toNative: '0',
-  };
 
   return (
     <ul className={classNames(styles.list, 'hidden-scroll')} style={{ maxHeight: `${maxHeight}px` }}>
@@ -50,23 +42,12 @@ const AssetList = ({
         <Asset
           item={item}
           index={index}
-          assets={assets}
+          assets={balances}
           itemsLength={items.length}
           activeCurrency={activeCurrency}
           key={`${item.asset_issuer}:${item.asset_code}`}
         />
       ))}
-
-      {!items.length && (
-        <Asset
-          index={0}
-          itemsLength={1}
-          item={inactiveNative}
-          key={shortid.generate()}
-          assets={[inactiveNative]}
-          activeCurrency={activeCurrency}
-        />
-      )}
     </ul>
   );
 };

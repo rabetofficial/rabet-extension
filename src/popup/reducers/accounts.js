@@ -1,4 +1,5 @@
 import types from '../actions';
+import matchAsset from '../utils/matchAsset';
 
 /*
   Accounts instance:
@@ -90,6 +91,24 @@ export default (state = initialState, action) => {
       for (let i = 0; i < accounts.length; i += 1) {
         if (accounts[i].publicKey === action.balance.address) {
           accounts[i].balance = action.balance.balance;
+        }
+      }
+
+      return accounts;
+    }
+
+    case types.accounts.ADD_ASSET_IMAGES: {
+      const accounts = [...state];
+
+      for (let i = 0; i < accounts.length; i += 1) {
+        if (accounts[i].publicKey === action.address) {
+          for (let j = 0; j < accounts[i].balances.length; j += 1) {
+            const asset = accounts[i].balances[j];
+            const assetImage = action.assetImages.find((x) => matchAsset(x, asset));
+
+            accounts[i].balances[j].logo = assetImage?.logo;
+            accounts[i].balances[j].domain = assetImage?.domain;
+          }
         }
       }
 

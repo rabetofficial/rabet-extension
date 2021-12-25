@@ -19,22 +19,8 @@ import isTransferable from '../../../utils/isTransferable';
 
 const PaymentOps = ({ id }) => {
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const [selected, setSelected] = useState(balances[0]);
 
-  const [list] = useState(() => {
-    const newList = [];
-
-    for (let i = 0; i < balances.length; i += 1) {
-      newList.push({
-        value: balances[i].asset_code,
-        label: balances[i].asset_code,
-        ...balances[i],
-      });
-    }
-
-    return newList;
-  });
-
-  const [selected, setSelected] = useState(list[0]);
   const onChange = (e) => setSelected(e);
 
   const validateForm = async (v) => {
@@ -73,7 +59,7 @@ const PaymentOps = ({ id }) => {
       }
 
       if (!isInsufficientAsset(selectedTokenBalance, maxXLM, values.amount)) {
-        errors.amount = `Insufficient ${selected.value} balance.`;
+        errors.amount = `Insufficient ${selected.asset_code} balance.`;
         hasError.amount = true;
 
         changeOperationAction(id, {
@@ -91,7 +77,7 @@ const PaymentOps = ({ id }) => {
       });
     }
 
-    if (!hasError.amount && !hasError.destination && selected.value) {
+    if (!hasError.amount && !hasError.destination && selected.asset_code) {
       const accountData = await getAccountData(values.destination);
 
       const [transferableResult, resultCode] = isTransferable(values, accountData);
@@ -198,10 +184,10 @@ const PaymentOps = ({ id }) => {
 
                 <div className={styles.select}>
                   <SelectOption
-                    items={list}
+                    items={balances}
                     onChange={onChange}
                     variant="select-outlined"
-                    defaultValue={list[0]}
+                    defaultValue={selected}
                     selected={selected}
                   />
                 </div>

@@ -26,6 +26,7 @@ export default {
     CHANGE_IS_CONNECTED: 'accounts/IS_CONNECTED',
     CHANGE_ACTIVE: 'accounts/CHANGE_ACTIVE',
     UPDATE_BALANCE: 'accounts/UPDATE_BALANCE',
+    ADD_ASSET_IMAGES: 'accounts/ADD_ASSET_IMAGES',
   },
   transaction: {
     ADD_MEMO: 'transaction/ADD_MEMO',
@@ -43,8 +44,5 @@ export default {
   },
   host: {
     CHANGE: 'host/CHANGE',
-  },
-  assetImages: {
-    LOAD: 'assetImages/LOAD',
   },
 };

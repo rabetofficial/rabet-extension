@@ -8,7 +8,6 @@ import interval from './interval';
 import accounts from './accounts';
 import currencies from './currencies';
 import transaction from './transaction';
-import assetImages from './assetImages';
 
 export default combineReducers({
   user,
@@ -19,5 +18,4 @@ export default combineReducers({
   accounts,
   currencies,
   transaction,
-  assetImages,
 });
