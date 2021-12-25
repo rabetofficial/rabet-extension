@@ -10,6 +10,7 @@ import styles from './styles.less';
 
 const Swap = () => {
   const onSubmit = async (values) => {
+    console.warn(values);
   };
 
   const validateForm = async (values) => {
@@ -43,7 +44,7 @@ const Swap = () => {
                     />
                   )}
                 </Field>
-                <Field name="asset">
+                <Field name="asset1">
                   {({ input, meta }) => (
                     <SelectAssetModal
                       input={input}
@@ -60,7 +61,7 @@ const Swap = () => {
             <div className={styles.group}>
               <label className="label-primary">To</label>
               <div className={styles.inputModal}>
-                <Field name="from">
+                <Field name="to">
                   {({ input, meta }) => (
                     <Input
                       type="number"
@@ -72,7 +73,7 @@ const Swap = () => {
                   )}
                 </Field>
 
-                <Field name="asset">
+                <Field name="asset2">
                   {({ input, meta }) => (
                     <SelectAssetModal
                       input={input}
