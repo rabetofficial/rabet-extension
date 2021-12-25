@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import React, { useState } from 'react';
+
+import handleAssetImage from '../../../utils/handleAssetImage';
 
 import styles from './styles.less';
-import handleAssetImage from '../../../utils/handleAssetImage';
 
 const SearchAsset = ({ currencies, closeModal, onChange }) => {
   const [searchString, setSearchString] = useState('');

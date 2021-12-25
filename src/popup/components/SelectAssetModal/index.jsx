@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Input from '../Input';
+import React, { useState } from 'react';
+
 import Modal from '../Modal';
 import SearchAsset from './SearchAsset';
+import handleAssetImage from '../../utils/handleAssetImage';
 import angleDownIcon from '../../../assets/images/angle-down.svg';
 
 import styles from './styles.less';
-import handleAssetImage from '../../utils/handleAssetImage';
 
 const SelectAssetModal = ({
   currencies,
@@ -56,12 +56,7 @@ const SelectAssetModal = ({
   );
 };
 
-SelectAssetModal.defaultProps = {
-  max: false,
-};
-
 SelectAssetModal.propTypes = {
-  max: PropTypes.bool,
   currencies: PropTypes.array.isRequired,
 };
 

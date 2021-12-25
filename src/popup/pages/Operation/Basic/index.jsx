@@ -1,21 +1,16 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Swap from './Swap';
 import Send from './Send';
 
 import Card from '../../../components/Card';
-import Button from '../../../components/Button';
 import Header from '../../../components/Header';
 import SelectOption from '../../../components/SelectOption';
-import { buttonSizes, buttonTypes } from '../../../staticRes/enum';
 
 import styles from './styles.less';
 
 const BasicOperation = () => {
-  const navigate = useNavigate();
-
   const modes = [
     { value: 'swap', label: 'Swap' },
     { value: 'send', label: 'Send' },
@@ -48,23 +43,6 @@ const BasicOperation = () => {
 
           </div>
         </Card>
-
-        <div className={styles.buttons}>
-          <Button
-            type="button"
-            variant={buttonTypes.default}
-            size={buttonSizes.medium}
-            content="Cancel"
-            onClick={() => { navigate(-1); }}
-          />
-
-          <Button
-            type="button"
-            variant={buttonTypes.primary}
-            size={buttonSizes.medium}
-            content="Send"
-          />
-        </div>
       </div>
     </div>
   );

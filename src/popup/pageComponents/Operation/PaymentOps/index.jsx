@@ -14,6 +14,8 @@ import getAccountData from '../../../utils/horizon/isAddressFound';
 import changeOperationAction from '../../../actions/operations/change';
 
 import styles from './styles.less';
+import isInsufficientAsset from '../../../utils/isInsufficientAsset';
+import isTransferable from '../../../utils/isTransferable';
 
 const PaymentOps = ({ id }) => {
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
@@ -35,7 +37,12 @@ const PaymentOps = ({ id }) => {
   const [selected, setSelected] = useState(list[0]);
   const onChange = (e) => setSelected(e);
 
-  const validateForm = async (values) => {
+  const validateForm = async (v) => {
+    const values = {
+      ...v,
+      asset: selected,
+    };
+
     const errors = {};
 
     const hasError = {
@@ -65,41 +72,17 @@ const PaymentOps = ({ id }) => {
         };
       }
 
-      const { selling_liabilities } = selectedTokenBalance;
-      const numSL = Number(selling_liabilities);
+      if (!isInsufficientAsset(selectedTokenBalance, maxXLM, values.amount)) {
+        errors.amount = `Insufficient ${selected.value} balance.`;
+        hasError.amount = true;
 
-      if (isNative(selected)) {
-        if (
-          Number(selectedTokenBalance.balance || '0')
-          < Number(values.amount) + maxXLM + numSL
-        ) {
-          errors.amount = `Insufficient ${selected.value} balance.`;
-          hasError.amount = true;
-
-          changeOperationAction(id, {
-            checked: false,
-          });
-        }
-      } else {
-        if (Number(selectedTokenBalance.balance || '0') < Number(values.amount) + numSL) {
-          errors.amount = `Insufficient ${selected.value} balance.`;
-          hasError.amount = true;
-
-          changeOperationAction(id, {
-            checked: false,
-          });
-        }
+        changeOperationAction(id, {
+          checked: false,
+        });
       }
     }
 
-    if (!values.destination) {
-      errors.destination = null;
-      hasError.destination = true;
-
-      changeOperationAction(id, {
-        checked: false,
-      });
-    } else if (!validateAddress(values.destination)) {
+    if (!validateAddress(values.destination)) {
       errors.destination = 'Invalid destination.';
       hasError.destination = true;
 
@@ -111,59 +94,42 @@ const PaymentOps = ({ id }) => {
     if (!hasError.amount && !hasError.destination && selected.value) {
       const accountData = await getAccountData(values.destination);
 
-      let isAccountNew = false;
+      const [transferableResult, resultCode] = isTransferable(values, accountData);
       let checked = true;
 
-      if (accountData.status === 404) {
-        isAccountNew = true;
+      if (!transferableResult && resultCode === 0) {
+        errors.destination = 'Inactive accounts cannot receive tokens.';
+        hasError.destination = true;
 
-        if (!isNative(selected)) {
-          errors.destination = 'Inactive accounts cannot receive tokens.';
-          hasError.destination = true;
+        changeOperationAction(id, {
+          checked: false,
+        });
 
-          changeOperationAction(id, {
-            checked: false,
-          });
-
-          checked = false;
-        }
-      } else if (accountData.status === 400) {
+        checked = false;
+      } else if (!transferableResult && resultCode === 1) {
         errors.destination = 'Wrong.';
         hasError.destination = true;
-      } else {
-        const destinationTokens = accountData.balances || [];
+      } else if (!transferableResult && resultCode === 2) {
+        errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+        hasError.destination = true;
 
-        let selectedToken = destinationTokens.find(nativeAsset);
+        changeOperationAction(id, {
+          checked: false,
+        });
 
-        if (!isNative(selected)) {
-          selectedToken = destinationTokens.find((x) => matchAsset(x, selected));
-        }
+        checked = false;
+      } else if (!transferableResult && resultCode === 3) {
+        errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+        hasError.destination = true;
 
-        if (!selectedToken) {
-          errors.destination = 'The destination account does not trust the asset you are attempting to send.';
-          hasError.destination = true;
+        changeOperationAction(id, {
+          checked: false,
+        });
 
-          changeOperationAction(id, {
-            checked: false,
-          });
-
-          checked = false;
-        } else {
-          if (
-            Number(selectedToken.limit)
-            < Number(values.amount) + Number(selectedToken.balance)
-          ) {
-            errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
-            hasError.destination = true;
-
-            changeOperationAction(id, {
-              checked: false,
-            });
-
-            checked = false;
-          }
-        }
+        checked = false;
       }
+
+      const isAccountNew = resultCode === 0;
 
       changeOperationAction(id, {
         checked,

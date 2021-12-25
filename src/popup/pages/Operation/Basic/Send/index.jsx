@@ -1,19 +1,29 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Field, Form } from 'react-final-form';
+import { useNavigate } from 'react-router-dom';
 
 import Input from '../../../../components/Input';
+import Button from '../../../../components/Button';
 import matchAsset from '../../../../utils/matchAsset';
+import * as route from '../../../../staticRes/routes';
+import validateAddress from '../../../../utils/validate/address';
 import currentActiveAccount from '../../../../utils/activeAccount';
+import getAccountData from '../../../../utils/horizon/isAddressFound';
+import { buttonSizes, buttonTypes } from '../../../../staticRes/enum';
 import SelectAssetModal from '../../../../components/SelectAssetModal';
+
 import validateMemo from '../../../../utils/validate/memo';
 
 import styles from './styles.less';
+import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
+import isTransferable from '../../../../utils/isTransferable';
 
 const Send = () => {
+  const navigate = useNavigate();
+  const [isAccountNew, setIsAccountNew] = useState(false);
   const assetImages = useSelector((store) => store.assetImages);
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
-  const [selectedAsset, setSelectedAsset] = useState([]);
 
   const [assets] = useState(() => {
     const newList = [];
@@ -24,8 +34,6 @@ const Send = () => {
       newList.push({
         logo: assetImage?.logo,
         domain: assetImage?.domain,
-        value: balances[i].asset_code,
-        label: balances[i].asset_code,
         ...balances[i],
       });
     }
@@ -33,7 +41,20 @@ const Send = () => {
     return newList;
   });
 
-  const onSubmit = async (values) => {
+  const [selectedAsset, setSelectedAsset] = useState(assets[0]);
+
+  const onSubmit = async (v) => {
+    const values = {
+      ...v,
+      asset: selectedAsset,
+      isAccountNew,
+    };
+
+    navigate(route.basicSendConfirmPage, {
+      state: {
+        values,
+      },
+    });
   };
 
   const validateForm = async (v) => {
@@ -48,6 +69,54 @@ const Send = () => {
       };
     }
 
+    if (!validateAddress(values.destination)) {
+      return {
+        destination: 'Invalid destination.',
+      };
+    }
+
+    if (!values.amount) {
+      return {
+        amount: 'Invalid amount.',
+      };
+    }
+
+    if (!isInsufficientAsset(selectedAsset, maxXLM, values.amount)) {
+      return {
+        amount: `Insufficient ${selectedAsset.asset_code} balance.`,
+      };
+    }
+
+    const destinationAccount = await getAccountData(values.destination);
+
+    const [transferableResult, resultCode] = isTransferable(values, destinationAccount);
+
+    if (!transferableResult && resultCode === 0) {
+      return {
+        destination: 'Inactive accounts cannot receive tokens.',
+      };
+    }
+
+    if (!transferableResult && resultCode === 1) {
+      return {
+        destination: 'Invalid destination.',
+      };
+    }
+
+    if (!transferableResult && resultCode === 2) {
+      return {
+        destination: 'The destination account does not trust the asset you are attempting to send.',
+      };
+    }
+
+    if (!transferableResult && resultCode === 3) {
+      return {
+        destination: 'The destination account balance would exceed the trust of the destination in the asset.',
+      };
+    }
+
+    setIsAccountNew(resultCode === 0);
+
     return {};
   };
 
@@ -56,7 +125,12 @@ const Send = () => {
       <Form
         onSubmit={onSubmit}
         validate={validateForm}
-        render={({ handleSubmit, form }) => (
+        render={({
+          form,
+          invalid,
+          pristine,
+          handleSubmit,
+        }) => (
           <form onSubmit={handleSubmit}>
             <div className={styles.group}>
               <label className="label-primary">Amount</label>
@@ -120,6 +194,24 @@ const Send = () => {
                 </div>
               )}
             </Field>
+
+            <div className={styles.buttons}>
+              <Button
+                type="button"
+                variant={buttonTypes.default}
+                size={buttonSizes.medium}
+                content="Cancel"
+                onClick={() => { navigate(-1); }}
+              />
+
+              <Button
+                type="submit"
+                variant={buttonTypes.primary}
+                size={buttonSizes.medium}
+                content="Send"
+                disabled={invalid || pristine}
+              />
+            </div>
           </form>
         )}
       />
