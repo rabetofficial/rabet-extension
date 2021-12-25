@@ -7,11 +7,12 @@ import Input from '../../../../components/Input';
 import Button from '../../../../components/Button';
 import matchAsset from '../../../../utils/matchAsset';
 import * as route from '../../../../staticRes/routes';
+import getMaxBalance from '../../../../utils/maxBalance';
 import validateAddress from '../../../../utils/validate/address';
 import currentActiveAccount from '../../../../utils/activeAccount';
 import getAccountData from '../../../../utils/horizon/isAddressFound';
-import { buttonSizes, buttonTypes } from '../../../../staticRes/enum';
 import SelectAssetModal from '../../../../components/SelectAssetModal';
+import { buttonSizes, buttonTypes, inputTypes } from '../../../../staticRes/enum';
 
 import validateMemo from '../../../../utils/validate/memo';
 
@@ -123,6 +124,11 @@ const Send = () => {
   return (
     <>
       <Form
+        mutators={{
+          setMax: (a, s, u) => {
+            u.changeValue(s, 'amount', () => getMaxBalance(selectedAsset));
+          },
+        }}
         onSubmit={onSubmit}
         validate={validateForm}
         render={({
@@ -143,6 +149,8 @@ const Send = () => {
                       size="input-medium"
                       input={input}
                       meta={meta}
+                      variant={inputTypes.max}
+                      setMax={form.mutators.setMax}
                     />
                   )}
                 </Field>
