@@ -18,22 +18,8 @@ import styles from './styles.less';
 const PaymentSendOps = ({ id }) => {
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
 
-  const [list] = useState(() => {
-    const newList = [];
-
-    for (let i = 0; i < balances.length; i += 1) {
-      newList.push({
-        value: balances[i].asset_code,
-        label: balances[i].asset_code,
-        ...balances[i],
-      });
-    }
-
-    return newList;
-  });
-
-  const [sendAsset, setSendAsset] = useState(list[0]);
-  const [destAsset, setDestAsset] = useState(list[0]);
+  const [sendAsset, setSendAsset] = useState(balances[0]);
+  const [destAsset, setDestAsset] = useState(balances[0]);
 
   const onChangeSendAsset = (e) => setSendAsset(e);
   const onChangeDestAsset = (e) => setDestAsset(e);
@@ -237,10 +223,10 @@ const PaymentSendOps = ({ id }) => {
                 </div>
                 <div className={styles.select}>
                   <SelectOption
-                    items={list}
+                    items={balances}
                     onChange={onChangeSendAsset}
                     variant="select-outlined"
-                    defaultValue={list[0]}
+                    defaultValue={sendAsset}
                     selected={sendAsset}
                   />
                 </div>
@@ -262,10 +248,10 @@ const PaymentSendOps = ({ id }) => {
                 </div>
                 <div className={styles.select}>
                   <SelectOption
-                    items={list}
+                    items={balances}
                     onChange={onChangeDestAsset}
                     variant="select-outlined"
-                    defaultValue={list[0]}
+                    defaultValue={destAsset}
                     selected={destAsset}
                   />
                 </div>

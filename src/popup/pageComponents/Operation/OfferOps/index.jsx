@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
@@ -16,28 +16,8 @@ import styles from './styles.less';
 const OfferOps = ({ id, offer }) => {
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
 
-  const [list, setList] = useState([]);
-  const [sellingAsset, setSellingAsset] = useState({});
-  const [buyingAsset, setByingAsset] = useState({});
-
-  useEffect(() => {
-    const newList = [];
-
-    for (let i = 0; i < balances.length; i += 1) {
-      newList.push({
-        value: balances[i].asset_code,
-        label: balances[i].asset_code,
-        balance: balances[i].balance,
-        asset_issuer: balances[i].asset_issuer,
-        asset_code: balances[i].asset_code,
-        asset_type: balances[i].asset_type,
-      });
-    }
-
-    setList(newList);
-    setSellingAsset(newList[0]);
-    setByingAsset(newList[0]);
-  }, []);
+  const [sellingAsset, setSellingAsset] = useState(balances[0]);
+  const [buyingAsset, setByingAsset] = useState(balances[0]);
 
   const onChangeSellingAmount = (e) => setSellingAsset(e);
   const onChangeBuyingAmount = (e) => setByingAsset(e);
@@ -184,8 +164,8 @@ const OfferOps = ({ id, offer }) => {
                 </div>
                 <div className={styles.select}>
                   <SelectOption
-                    items={list}
-                    defaultValue={list[0]}
+                    items={balances}
+                    defaultValue={sellingAsset}
                     onChange={onChangeSellingAmount}
                     variant="select-outlined"
                     selected={sellingAsset}
@@ -209,8 +189,8 @@ const OfferOps = ({ id, offer }) => {
                 </div>
                 <div className={styles.select}>
                   <SelectOption
-                    items={list}
-                    defaultValue={list[0]}
+                    items={balances}
+                    defaultValue={buyingAsset}
                     onChange={onChangeBuyingAmount}
                     variant="select-outlined"
                     selected={buyingAsset}

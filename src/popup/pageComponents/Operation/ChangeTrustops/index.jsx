@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from '../../../components/Input';
@@ -9,31 +9,13 @@ import currentActiveAccount from '../../../utils/activeAccount';
 import changeOperationAction from '../../../actions/operations/change';
 
 import styles from './styles.less';
+import isNative from '../../../utils/isNative';
 
 const ChangeTrustOps = ({ id }) => {
-  const [list, setList] = useState([]);
-  const [selected, setSelected] = useState({});
+  const { activeAccount: { balances: b } } = currentActiveAccount();
+  const balances = b.filter((x) => !isNative(x));
 
-  useEffect(() => {
-    const { activeAccount } = currentActiveAccount();
-
-    const { balances } = activeAccount;
-
-    let newList = [];
-
-    for (let i = 0; i < balances.length; i += 1) {
-      newList.push({
-        value: balances[i].asset_code,
-        label: balances[i].asset_code,
-        ...balances[i],
-      });
-    }
-
-    newList = newList.filter((x) => x.asset_type !== 'native');
-
-    setList(newList);
-    setSelected(newList[0]);
-  }, []);
+  const [selected, setSelected] = useState(balances[0]);
 
   const onChange = (e) => setSelected(e);
 
@@ -95,10 +77,10 @@ const ChangeTrustOps = ({ id }) => {
                 </div>
                 <div className={styles.select}>
                   <SelectOption
-                    items={list}
+                    items={balances}
                     onChange={onChange}
                     variant="select-outlined"
-                    defaultValue={list[0]}
+                    defaultValue={selected}
                     selected={selected}
                   />
                 </div>
