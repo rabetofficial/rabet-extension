@@ -11,12 +11,11 @@ import currentActiveAccount from '../../../../utils/activeAccount';
 import getAccountData from '../../../../utils/horizon/isAddressFound';
 import SelectAssetModal from '../../../../components/SelectAssetModal';
 import { buttonSizes, buttonTypes, inputTypes } from '../../../../staticRes/enum';
-
 import validateMemo from '../../../../utils/validate/memo';
-
-import styles from './styles.less';
 import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
 import isTransferable from '../../../../utils/isTransferable';
+
+import styles from './styles.less';
 
 const Send = () => {
   const navigate = useNavigate();
