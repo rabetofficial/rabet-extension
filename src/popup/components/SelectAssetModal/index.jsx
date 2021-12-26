@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
 import Modal from '../Modal';
 import Image from '../Image';
@@ -27,7 +28,7 @@ const SelectAssetModal = ({
   };
 
   return (
-    <div className={styles.input}>
+    <div className={classNames(styles.input, 'select-modal')}>
       <div className={styles.modal} onClick={toggleModal}>
         <div className={styles.modalValue}>
           <Image

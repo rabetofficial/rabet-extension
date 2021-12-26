@@ -64,19 +64,22 @@ const Swap = () => {
             <div className={styles.group}>
               <label className="label-primary">From</label>
               <div className={styles.inputModal}>
-                <Field name="from">
-                  {({ input, meta }) => (
-                    <Input
-                      type="number"
-                      placeholder="123"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                      variant={inputTypes.max}
-                      setMax={form.mutators.setMax}
-                    />
-                  )}
-                </Field>
+                <div className={styles.inputValue}>
+                  <Field name="from">
+                    {({ input, meta }) => (
+                      <Input
+                        type="number"
+                        placeholder="123"
+                        size="input-medium"
+                        input={input}
+                        meta={meta}
+                        variant={inputTypes.max}
+                        setMax={form.mutators.setMax}
+                      />
+                    )}
+                  </Field>
+                </div>
+
                 <Field name="asset1">
                   {({ input, meta }) => (
                     <SelectAssetModal
@@ -95,17 +98,19 @@ const Swap = () => {
             <div className={styles.group}>
               <label className="label-primary">To</label>
               <div className={styles.inputModal}>
-                <Field name="to">
-                  {({ input, meta }) => (
-                    <Input
-                      type="number"
-                      placeholder="123"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                    />
-                  )}
-                </Field>
+                <div className={styles.inputValue}>
+                  <Field name="to">
+                    {({ input, meta }) => (
+                      <Input
+                        type="number"
+                        placeholder="123"
+                        size="input-medium"
+                        input={input}
+                        meta={meta}
+                      />
+                    )}
+                  </Field>
+                </div>
 
                 <Field name="asset2">
                   {({ input, meta }) => (

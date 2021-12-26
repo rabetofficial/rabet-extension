@@ -6,13 +6,22 @@
 
 :local(.inputModal) {
   display: flex;
-  align-items: center;
-  margin: 8px 0;
+  align-items: flex-start;
 
   .input-medium {
     margin: 0;
     box-sizing: border-box;
+    width: 100%;
   }
+
+  .input-medium, .select-modal {
+    margin: 8px 0;
+  }
+}
+
+:local(.inputValue) {
+  display: flex;
+  flex-direction: column;
 }
 
 :local(.selectOption) {

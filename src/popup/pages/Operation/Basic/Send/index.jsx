@@ -120,19 +120,22 @@ const Send = () => {
             <div className={styles.group}>
               <label className="label-primary">Amount</label>
               <div className={styles.inputModal}>
-                <Field name="amount">
-                  {({ input, meta }) => (
-                    <Input
-                      type="number"
-                      placeholder="123"
-                      size="input-medium"
-                      input={input}
-                      meta={meta}
-                      variant={inputTypes.max}
-                      setMax={form.mutators.setMax}
-                    />
-                  )}
-                </Field>
+                <div className={styles.inputValue}>
+                  <Field name="amount">
+                    {({ input, meta }) => (
+                      <Input
+                        type="number"
+                        placeholder="123"
+                        size="input-medium"
+                        input={input}
+                        meta={meta}
+                        variant={inputTypes.max}
+                        setMax={form.mutators.setMax}
+                      />
+                    )}
+                  </Field>
+                </div>
+
                 <Field name="asset">
                   {({ input, meta }) => (
                     <SelectAssetModal
