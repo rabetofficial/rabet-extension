@@ -1,5 +1,5 @@
-import classNames from 'classnames';
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
 import Swap from './Swap';
 import Send from './Send';
@@ -7,6 +7,7 @@ import Send from './Send';
 import Card from '../../../components/Card';
 import Header from '../../../components/Header';
 import SelectOption from '../../../components/SelectOption';
+import PageTitle from '../../../components/PageTitle';
 
 import styles from './styles.less';
 
@@ -25,6 +26,7 @@ const BasicOperation = () => {
   return (
     <div className={styles.page}>
       <Header />
+      <div className={styles.title}><PageTitle title={selected.label} /></div>
       <div className={classNames('content', styles.content)}>
         <Card type="card-secondary">
           <div className={styles.card}>
@@ -40,7 +42,6 @@ const BasicOperation = () => {
             {selected.value === 'swap'
               ? <Swap />
               : <Send />}
-
           </div>
         </Card>
       </div>
