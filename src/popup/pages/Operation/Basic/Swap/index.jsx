@@ -18,17 +18,13 @@ import matchAsset from '../../../../utils/matchAsset';
 
 const Swap = () => {
   const navigate = useNavigate();
-  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const { activeAccount: { balances } } = currentActiveAccount();
   const [balances1, setBalances1] = useState(balances);
   const [balances2, setBalances2] = useState(balances);
   const [selectedAsset1, setSelectedAsset1] = useState(balances[0]);
   const [selectedAsset2, setSelectedAsset2] = useState(balances[0]);
   const [path, setPath] = useState([]);
   const [showSwapInfo, setShowSwapInfo] = useState(false);
-
-  const onSubmit = async (values) => {
-    console.warn(values);
-  };
 
   const filterAssets = (asset) => {
     let b;
@@ -50,6 +46,10 @@ const Swap = () => {
   const handleChangeAsset2 = (newAsset) => {
     setSelectedAsset2(newAsset);
     setBalances1(filterAssets(newAsset));
+  };
+
+  const onSubmit = async (values) => {
+    console.warn(values);
   };
 
   const validateForm = async (v) => {

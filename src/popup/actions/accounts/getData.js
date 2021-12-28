@@ -32,6 +32,7 @@ import nativeAsset from '../../utils/nativeAsset';
 
 export default async (address) => {
   const [data] = await Promise.all([horizonData(address)]);
+  const { assetImages } = store.getState();
 
   setCurrencies();
 
@@ -59,7 +60,6 @@ export default async (address) => {
   };
 
   if (JSON.stringify(data) !== '{}') {
-    console.log('i happen')
     accountData.balance = data.balances.find(nativeAsset).balance;
     accountData.flags = data.flags;
     accountData.balances = data.balances;
@@ -89,8 +89,6 @@ export default async (address) => {
       value: x.asset_code,
       label: x.asset_code,
     }));
-
-    const { assetImages } = store.getState();
 
     if (assetImages.length) {
       accountData.balances = addAssetImagesToAssets(accountData.balances, assetImages);

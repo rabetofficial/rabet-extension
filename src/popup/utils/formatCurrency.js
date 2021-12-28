@@ -10,7 +10,7 @@ export default (n) => {
   }
 
   if (n > 0 && n < 1) {
-    return n;
+    return parseFloat(n, 10).toFixed(8);
   }
 
   if (number === 0 || number < 0 || parseFloat(number) === 0) {

@@ -11,7 +11,6 @@ import DropDownList from './DropDownList';
 import Modal from '../../components/Modal';
 import Header from '../../components/Header';
 import shorter from '../../../helpers/shorter';
-import Loading from '../../components/Loading';
 import CopyText from '../../components/CopyText';
 import showBalance from '../../utils/showBalance';
 import getData from '../../actions/accounts/getData';
@@ -64,7 +63,7 @@ const Home = ({ options, currencies, host }) => {
     return <LoadingOne title="Waiting for network" size={95} />;
   }
 
-  let formattedTotalBalance = <Loading size={30} />;
+  let formattedTotalBalance = '-';
 
   if (activeAccount.toNativeLoaded) {
     formattedTotalBalance = showBalance(

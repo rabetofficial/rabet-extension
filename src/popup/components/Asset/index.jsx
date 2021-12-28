@@ -9,9 +9,11 @@ import formatCurrency from '../../utils/formatCurrency';
 import handleAssetImage from '../../utils/handleAssetImage';
 import numberWithCommas from '../../utils/numberWithCommas';
 import checkedLogo from '../../../assets/images/checked.svg';
+import currentActiveAccount from '../../utils/activeAccount';
 import questionLogo from '../../../assets/images/question-circle.png';
 
 import styles from '../../pageComponents/AssetList/styles.less';
+import isNative from '../../utils/isNative';
 
 function Asset({
   item,
@@ -20,10 +22,11 @@ function Asset({
   itemsLength,
   assets,
 }) {
-  const isNative = item.asset_type === 'native';
+  const isAssetNative = isNative(item);
+  const { activeAccount } = currentActiveAccount(); 
 
   const isAssetVerified = () => {
-    if (isNative) {
+    if (isAssetNative) {
       return true;
     }
 
@@ -38,7 +41,7 @@ function Asset({
 
   let value;
 
-  if (isNative) {
+  if (isAssetNative) {
     value = Number.parseFloat(item.balance) * activeCurrency.value;
   } else {
     if (!item.toNative) {
@@ -51,7 +54,7 @@ function Asset({
 
   return (
     <li style={{ marginTop: index === 0 && '-18px' }} className={styles.listItem}>
-      <Link to={isNative ? route.xlmAssetPage : `${route.assetsPage}/${item.asset_code}/${item.asset_issuer}`}>
+      <Link to={isAssetNative ? route.xlmAssetPage : `${route.assetsPage}/${item.asset_code}/${item.asset_issuer}`}>
         <div
           className={styles.border}
           style={{ borderBottom: !(index === itemsLength - 1) && '1px solid #f8f8f8' }}
@@ -73,7 +76,10 @@ function Asset({
               {isAssetVerified(item) ? <img src={checkedLogo} className={styles.checked} alt="icon" /> : ''}
             </div>
             <div className={styles.cost}>
-              {showBalance(numberWithCommas(formatCurrency(value)), activeCurrency.name)}
+              {activeAccount.toNativeLoaded
+                ? showBalance(numberWithCommas(formatCurrency(value)), activeCurrency.name)
+                : '-'}
+              {}
             </div>
           </div>
         </div>
