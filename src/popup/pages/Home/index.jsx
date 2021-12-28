@@ -9,8 +9,9 @@ import LoadingOne from '../LoadingOne';
 import EditNameForm from './EditNameForm';
 import DropDownList from './DropDownList';
 import Modal from '../../components/Modal';
-import shorter from '../../../helpers/shorter';
 import Header from '../../components/Header';
+import shorter from '../../../helpers/shorter';
+import Loading from '../../components/Loading';
 import CopyText from '../../components/CopyText';
 import showBalance from '../../utils/showBalance';
 import getData from '../../actions/accounts/getData';
@@ -63,10 +64,14 @@ const Home = ({ options, currencies, host }) => {
     return <LoadingOne title="Waiting for network" size={95} />;
   }
 
-  const formattedTotalBalance = showBalance(
-    numberWithCommas(formatCurrency(totalBalance)),
-    activeCurrency.name,
-  );
+  let formattedTotalBalance = <Loading size={30} />;
+
+  if (activeAccount.toNativeLoaded) {
+    formattedTotalBalance = showBalance(
+      numberWithCommas(formatCurrency(totalBalance)),
+      activeCurrency.name,
+    );
+  }
 
   return (
     <>

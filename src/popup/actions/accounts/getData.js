@@ -1,10 +1,10 @@
 import types from '../index';
 import store from '../../store';
-import xlmPrice from '../../utils/xlmPrice';
 import horizonData from '../../utils/horizon/data';
 import setCurrencies from '../options/setCurrencies';
 import toNativePrice from '../../utils/horizon/toNativePrice';
 import addAssetImagesToAssets from '../../utils/addAssetImagesToAssets';
+import nativeAsset from '../../utils/nativeAsset';
 
 // const assetFieldsToNumber = (asset) => {
 //   const newAsset = {
@@ -31,7 +31,9 @@ import addAssetImagesToAssets from '../../utils/addAssetImagesToAssets';
 // };
 
 export default async (address) => {
-  const [data] = await Promise.all([horizonData(address), setCurrencies()]);
+  const [data] = await Promise.all([horizonData(address)]);
+
+  setCurrencies();
 
   const accountData = {
     maxXLM: 0,
@@ -53,25 +55,26 @@ export default async (address) => {
     operations: [],
     transactions: [],
     subentry_count: 0,
+    toNativeLoaded: true,
   };
 
   if (JSON.stringify(data) !== '{}') {
-    accountData.balance = data.balances.find((x) => x.asset_type === 'native').balance;
+    console.log('i happen')
+    accountData.balance = data.balances.find(nativeAsset).balance;
     accountData.flags = data.flags;
     accountData.balances = data.balances;
     accountData.thresholds = data.thresholds;
     accountData.subentry_count = data.subentry_count;
+    accountData.toNativeLoaded = false;
 
-    const xlmToUsd = await xlmPrice();
-
-    accountData.usd = accountData.balance * xlmToUsd;
     accountData.balances = accountData.balances.filter((x) => !x.liquidity_pool_id);
     // accountData.balances = accountData.balances.map(assetFieldsToNumber);
-    accountData.balances = await toNativePrice(accountData.balances);
+
+    toNativePrice(accountData.balances, address);
 
     // MOVING XLM TO THE BEGINNING OF AN ARRAY
-    const xlm = accountData.balances.find((x) => x.asset_type === 'native');
-    accountData.balances = accountData.balances.filter((x) => x.asset_type !== 'native');
+    const xlm = accountData.balances.find(nativeAsset);
+    accountData.balances = accountData.balances.filter((x) => !nativeAsset(x));
 
     if (xlm) {
       accountData.balances.unshift({

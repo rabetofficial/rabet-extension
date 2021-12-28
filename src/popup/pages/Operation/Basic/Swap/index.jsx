@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
+import isNative from '../../../../utils/isNative';
 import Input from '../../../../components/Input';
 import Button from '../../../../components/Button';
 import getMaxBalance from '../../../../utils/maxBalance';
@@ -12,10 +13,14 @@ import { buttonSizes, buttonTypes, inputTypes } from '../../../../staticRes/enum
 import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
 
 import styles from './styles.less';
+import nativeAsset from '../../../../utils/nativeAsset';
+import matchAsset from '../../../../utils/matchAsset';
 
 const Swap = () => {
   const navigate = useNavigate();
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const [balances1, setBalances1] = useState(balances);
+  const [balances2, setBalances2] = useState(balances);
   const [selectedAsset1, setSelectedAsset1] = useState(balances[0]);
   const [selectedAsset2, setSelectedAsset2] = useState(balances[0]);
   const [path, setPath] = useState([]);
@@ -23,6 +28,28 @@ const Swap = () => {
 
   const onSubmit = async (values) => {
     console.warn(values);
+  };
+
+  const filterAssets = (asset) => {
+    let b;
+
+    if (isNative(asset)) {
+      b = balances.filter((x) => !nativeAsset(x));
+    } else {
+      b = balances.filter((x) => !matchAsset(x, asset));
+    }
+
+    return b;
+  };
+
+  const handleChangeAsset1 = (newAsset) => {
+    setSelectedAsset1(newAsset);
+    setBalances2(filterAssets(newAsset));
+  };
+
+  const handleChangeAsset2 = (newAsset) => {
+    setSelectedAsset2(newAsset);
+    setBalances1(filterAssets(newAsset));
   };
 
   const validateForm = async (v) => {
@@ -88,8 +115,8 @@ const Swap = () => {
                       meta={meta}
                       max
                       form={form}
-                      currencies={balances}
-                      onChange={setSelectedAsset1}
+                      currencies={balances1}
+                      onChange={handleChangeAsset1}
                     />
                   )}
                 </Field>
@@ -119,8 +146,8 @@ const Swap = () => {
                       input={input}
                       meta={meta}
                       max={false}
-                      currencies={balances}
-                      onChange={setSelectedAsset2}
+                      currencies={balances2}
+                      onChange={handleChangeAsset2}
                     />
                   )}
                 </Field>

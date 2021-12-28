@@ -70,15 +70,10 @@ export default (state = initialState, action) => {
 
       for (let i = 0; i < accounts.length; i += 1) {
         if (accounts[i].publicKey === action.accountData.address) {
-          accounts[i].usd = action.accountData.usd;
-          accounts[i].flags = action.accountData.flags;
-          accounts[i].maxXLM = action.accountData.maxXLM;
-          accounts[i].balance = action.accountData.balance;
-          accounts[i].balances = action.accountData.balances;
-          accounts[i].operations = action.accountData.operations;
-          accounts[i].thresholds = action.accountData.thresholds;
-          accounts[i].transactions = action.accountData.transactions;
-          accounts[i].subentry_count = action.accountData.subentry_count;
+          accounts[i] = {
+            ...accounts[i],
+            ...action.accountData,
+          };
         }
       }
 
@@ -121,6 +116,27 @@ export default (state = initialState, action) => {
       for (let i = 0; i < accounts.length; i += 1) {
         if (accounts[i].publicKey === action.publicKey) {
           accounts[i].isConnected = action.isConnected;
+        }
+      }
+
+      return accounts;
+    }
+
+    case types.accounts.ADD_NATIVE_PRICES: {
+      const accounts = [...state];
+
+      for (let i = 0; i < accounts.length; i += 1) {
+        if (accounts[i].publicKey === action.address) {
+          accounts[i].balances = accounts[i].balances.map((x) => {
+            const findNative = action.payload.find((y) => matchAsset(y, x));
+
+            return {
+              ...x,
+              toNative: findNative?.toNative,
+            };
+          });
+
+          accounts[i].toNativeLoaded = true;
         }
       }
 

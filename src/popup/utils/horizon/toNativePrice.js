@@ -1,5 +1,7 @@
 // import fetch from 'node-fetch';
 
+import store from '../../store';
+import types from '../../actions';
 import config from '../../../config';
 
 const assetPrice = async (asset) => {
@@ -25,14 +27,18 @@ const assetPrice = async (asset) => {
   }
 };
 
-export default async (assets) => {
+export default async (assets, address) => {
   const promises = [];
 
-  for (const asset of assets) {
-    promises.push(assetPrice(asset));
+  for (let i = 0; i < assets.length; i += 1) {
+    promises.push(assetPrice(assets[i]));
   }
 
   const prices = await Promise.all(promises);
 
-  return prices;
+  store.dispatch({
+    address,
+    payload: prices,
+    type: types.accounts.ADD_NATIVE_PRICES,
+  });
 };

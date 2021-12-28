@@ -27,6 +27,7 @@ export default {
     CHANGE_ACTIVE: 'accounts/CHANGE_ACTIVE',
     UPDATE_BALANCE: 'accounts/UPDATE_BALANCE',
     ADD_ASSET_IMAGES: 'accounts/ADD_ASSET_IMAGES',
+    ADD_NATIVE_PRICES: 'accounts/ADD_NATIVE_PRICES',
   },
   transaction: {
     ADD_MEMO: 'transaction/ADD_MEMO',
