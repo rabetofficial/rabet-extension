@@ -37,7 +37,7 @@
 }
 
 :local(.hr) {
-  margin: 17px 0;
+  margin: 14px 0;
   border: none;
   height: 1px;
   background: @Concrete;
@@ -54,6 +54,23 @@
   button {
     width: 100px;
   }
+}
+
+:local(.equivalent) {
+  color: @dove-gray;
+  font-size: 14px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+
+  img {
+    margin-left: 4px;
+  }
+}
+
+:local(.scroll) {
+  overflow-y: auto;
+  min-height: 500px;
 }
 
 //:local(.box) {

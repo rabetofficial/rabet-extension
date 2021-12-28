@@ -27,7 +27,7 @@ const BasicOperation = () => {
     <div className={styles.page}>
       <Header />
       <div className={styles.title}><PageTitle title={selected.label} /></div>
-      <div className={classNames('content', styles.content)}>
+      <div className={classNames('content hidden-scroll', styles.content)}>
         <Card type="card-secondary">
           <div className={styles.card}>
             <SelectOption

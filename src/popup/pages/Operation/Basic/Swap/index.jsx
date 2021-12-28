@@ -9,6 +9,7 @@ import SwapDetails from '../../../../pageComponents/SwapDetails';
 import currentActiveAccount from '../../../../utils/activeAccount';
 import SelectAssetModal from '../../../../components/SelectAssetModal';
 import { buttonSizes, buttonTypes, inputTypes } from '../../../../staticRes/enum';
+import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
 
 import styles from './styles.less';
 
@@ -126,10 +127,17 @@ const Swap = () => {
 
               </div>
 
-              <hr className={styles.hr} />
-
               {showSwapInfo
-                ? <SwapDetails price={1} received={123.5} path={path} />
+                ? (
+                  <>
+                    <div className={styles.equivalent}>
+                      1 BTC = 12 ETH
+                      <img src={iconRotateSrc} alt="icon" />
+                    </div>
+                    <hr className={styles.hr} />
+                    <SwapDetails price={1} received={123.5} path={path} />
+                  </>
+                )
                 : ''}
             </div>
 
