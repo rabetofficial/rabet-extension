@@ -17,7 +17,7 @@ const BasicOperation = () => {
     { value: 'send', label: 'Send' },
   ];
 
-  const [selected, setSelected] = useState(modes[1]);
+  const [selected, setSelected] = useState(modes[0]);
 
   const onChange = (e) => {
     setSelected(e);

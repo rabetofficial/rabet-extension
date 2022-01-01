@@ -20,6 +20,7 @@ const Input = ({
   meta,
   setMax,
   autoFocus,
+  onChange,
 }) => {
   const [visibleType, setVisibleType] = useState(type);
 
@@ -93,6 +94,13 @@ const Input = ({
           name={name}
           {...input}
           ref={inputRef}
+          onChange={(e) => {
+            input.onChange(e);
+
+            if (onChange) {
+              onChange(e);
+            }
+          }}
         />
         {generateBtn()}
       </div>
