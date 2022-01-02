@@ -32,7 +32,10 @@ const Input = ({
     }
   };
 
-  const isError = meta && (meta.error || meta.submitError) && meta.touched;
+  // const isError = meta && (meta.error || meta.submitError) && meta.touched;
+  const isError = !meta.valid;
+
+  // console.log(meta, meta.touched, meta.error, meta.submitError)
 
   const errorBtn = (
     <button type="button" className={styles.icon}>

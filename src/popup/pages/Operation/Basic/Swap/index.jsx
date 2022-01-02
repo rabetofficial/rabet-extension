@@ -2,9 +2,10 @@ import { useRef, useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import isNative from '../../../../utils/isNative';
 import Input from '../../../../components/Input';
+import isNative from '../../../../utils/isNative';
 import Button from '../../../../components/Button';
+import * as route from '../../../../staticRes/routes';
 import matchAsset from '../../../../utils/matchAsset';
 import nativeAsset from '../../../../utils/nativeAsset';
 import getMaxBalance from '../../../../utils/maxBalance';
@@ -17,10 +18,11 @@ import calculateStrictSend from '../../../../utils/swap/calculateStrictSend';
 import { buttonSizes, buttonTypes, inputTypes } from '../../../../staticRes/enum';
 
 import styles from './styles.less';
+import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
 
 const Swap = () => {
   const navigate = useNavigate();
-  const { activeAccount: { balances } } = currentActiveAccount();
+  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
   const [balances1, setBalances1] = useState(balances);
   const [balances2, setBalances2] = useState(balances);
   const [selectedAsset1, setSelectedAsset1] = useState(balances[0]);
@@ -74,8 +76,20 @@ const Swap = () => {
     }, 150);
   };
 
-  const onSubmit = async (values) => {
-    console.warn(values);
+  const onSubmit = async (v) => {
+    const values = {
+      ...v,
+      path,
+      minimumReceived,
+      asset1: selectedAsset1,
+      asset2: selectedAsset2,
+    };
+
+    navigate(route.basicSwapConfirmPage, {
+      state: {
+        values,
+      },
+    });
   };
 
   const handleFieldFrom = async () => {
@@ -102,13 +116,19 @@ const Swap = () => {
       setShowSwapInfo(false);
 
       return {
-        from: 'Invalid amount.',
+        from: null,
       };
     }
 
     if (isAssetEqual(values.asset1, values.asset2)) {
       return {
         from: 'Assets are the same.',
+      };
+    }
+
+    if (!isInsufficientAsset(values.asset1, maxXLM, values.from)) {
+      return {
+        from: 'Insufficient amount.',
       };
     }
 
@@ -257,9 +277,8 @@ const Swap = () => {
                   </Field>
 
                 </div>
-
-                {loading ? (
-                  <p>LOADINGGGGGG</p>
+                {invalid && loading ? (
+                  <p>LOADING</p>
                 ) : null}
 
                 {showSwapInfo

@@ -14,9 +14,17 @@ const SwapDetails = ({
   asset1,
   asset2,
   form,
+  values: formValues,
 }) => {
   const [marketPrice, setMarketPrice] = useState(0);
-  const { values } = form.getState();
+
+  let values;
+
+  if (formValues) {
+    values = formValues;
+  } else {
+    values = form.getState().values;
+  }
 
   useEffect(() => {
     calculatePriceImpact(asset1, asset2)
