@@ -49,6 +49,12 @@ const Send = () => {
       };
     }
 
+    if (!values.destination) {
+      return {
+        destination: null,
+      };
+    }
+
     if (!validateAddress(values.destination)) {
       return {
         destination: 'Invalid destination.',
@@ -57,7 +63,7 @@ const Send = () => {
 
     if (!values.amount) {
       return {
-        amount: 'Invalid amount.',
+        amount: null,
       };
     }
 

@@ -1,24 +1,23 @@
 import StellarSdk from 'stellar-sdk';
 
-const calculatePath = (path) => {
+const calculatePath = (p) => {
+  const path = [...p.slice(1, p.length - 1)];
   const newPath = [];
 
-  for (let i = 1; i < path.length - 1; i += 1) {
+  for (let i = 0; i < path.length; i += 1) {
     const asset = path[i];
 
-    console.log(asset);
-
-    if (asset) {
-      if (asset.asset_type === 'native') {
-        newPath.push(StellarSdk.Asset.native());
-      } else {
-        newPath.push(new StellarSdk.Asset(
-          asset.asset_code,
-          asset.asset_issuer,
-        ));
-      }
+    if (asset.asset_type === 'native') {
+      newPath.push(StellarSdk.Asset.native());
+    } else {
+      newPath.push(new StellarSdk.Asset(
+        asset.asset_code,
+        asset.asset_issuer,
+      ));
     }
   }
+
+  console.log(newPath);
 
   return newPath;
 };
