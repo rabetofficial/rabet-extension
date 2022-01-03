@@ -307,7 +307,16 @@ const Swap = () => {
                   variant={buttonTypes.default}
                   size={buttonSizes.medium}
                   content="Cancel"
-                  onClick={() => { navigate(-1); }}
+                  onClick={() => {
+                    navigate(
+                      '/',
+                      {
+                        state: {
+                          alreadyLoaded: true,
+                        },
+                      },
+                    );
+                  }}
                 />
 
                 <Button

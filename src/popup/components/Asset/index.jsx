@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Image from '../Image';
+import BN from '../../../helpers/BN';
 import matchAsset from '../../utils/matchAsset';
 import * as route from '../../staticRes/routes';
 import showBalance from '../../utils/showBalance';
@@ -23,7 +24,7 @@ function Asset({
   assets,
 }) {
   const isAssetNative = isNative(item);
-  const { activeAccount } = currentActiveAccount(); 
+  const { activeAccount } = currentActiveAccount();
 
   const isAssetVerified = () => {
     if (isAssetNative) {

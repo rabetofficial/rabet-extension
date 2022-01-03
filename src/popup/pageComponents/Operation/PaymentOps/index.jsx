@@ -78,6 +78,18 @@ const PaymentOps = ({ id }) => {
     }
 
     if (!hasError.amount && !hasError.destination && selected.asset_code) {
+      if (selected.asset_issuer === values.destination) {
+        changeOperationAction(id, {
+          checked: true,
+          isAccountNew: false,
+          amount: parseFloat(values.amount, 10).toFixed(7),
+          destination: values.destination,
+          asset: selected,
+        });
+
+        return;
+      }
+
       const accountData = await getAccountData(values.destination);
 
       const [transferableResult, resultCode] = isTransferable(values, accountData);

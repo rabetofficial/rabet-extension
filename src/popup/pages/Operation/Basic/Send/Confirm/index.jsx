@@ -1,12 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import shorter from '../../../../../utils/shorter';
 import Card from '../../../../../components/Card';
+import shorter from '../../../../../utils/shorter';
 import CopyText from '../../../../../components/CopyText';
-import basicSendAction from '../../../../../actions/operations/basicSend';
-
 import ConfirmLayout from '../../../../../components/ConfirmLayout';
 import handleAssetImage from '../../../../../utils/handleAssetImage';
+import numberWithCommas from '../../../../../utils/numberWithCommas';
+import basicSendAction from '../../../../../actions/operations/basicSend';
 import styles from '../../../../../components/ConfirmLayout/styles.less';
 
 const BasicSendConfirm = () => {
@@ -26,7 +26,7 @@ const BasicSendConfirm = () => {
           <h2 className={styles.cardTitle}>Confirm Send</h2>
           <div className={styles.label}>Amount</div>
           <div className={styles.value}>
-            {values.amount}
+            {numberWithCommas(values.amount)}
             <img src={handleAssetImage(values.asset)} alt={values.asset.asset_code} />
             <span>{values.asset.asset_code}</span>
           </div>

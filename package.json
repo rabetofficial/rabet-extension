@@ -71,6 +71,7 @@
     "history": "^5.1.0",
     "is-valid-domain": "^0.1.4",
     "moment": "^2.29.1",
+    "numeral": "^2.0.6",
     "prop-types": "^15.7.2",
     "purecss": "^2.0.6",
     "qrcode.react": "^1.0.1",

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import BN from '../../../helpers/BN';
+import formatCurrency from '../../utils/formatCurrency';
 import angleRightIcon from '../../../assets/images/angle-right.svg';
 import calculatePriceImpact from '../../utils/swap/calculatePriceImpact';
 
@@ -40,14 +41,18 @@ const SwapDetails = ({
     .minus(new BN(received.minimumReceived).div(new BN(marketPrice).times(values.from)))
     .times(100);
 
-  let finalPriceImpact = priceImpact;
+  let finalPriceImpact = priceImpact.toFixed(2);
 
   if (priceImpact.isNaN() || !priceImpact.isFinite()) {
-    finalPriceImpact = new BN('0');
+    finalPriceImpact = new BN(0);
   }
 
-  if (finalPriceImpact.isLessThan(0)) {
+  if (priceImpact.isLessThan(0)) {
     finalPriceImpact = new BN(0);
+  }
+
+  if (priceImpact.isLessThan(0.1)) {
+    finalPriceImpact = '0.01>';
   }
 
   return (
@@ -75,7 +80,7 @@ const SwapDetails = ({
       <div className={styles.box}>
         <div className={styles.boxTitle}>Minimum received</div>
         <div className={styles.boxValue}>
-          {received.minimumReceived}
+          {formatCurrency(received.minimumReceived)}
           {' '}
           {received.asset.asset_code}
         </div>

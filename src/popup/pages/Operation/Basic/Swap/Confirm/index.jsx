@@ -4,6 +4,7 @@ import Card from '../../../../../components/Card';
 import ConfirmLayout from '../../../../../components/ConfirmLayout';
 import SwapDetails from '../../../../../pageComponents/SwapDetails';
 import handleAssetImage from '../../../../../utils/handleAssetImage';
+import numberWithCommas from '../../../../../utils/numberWithCommas';
 import arrowIconSrc from '../../../../../../assets/images/arrow-down.svg';
 import basicSwapAction from '../../../../../actions/operations/basicSwap';
 
@@ -26,7 +27,7 @@ const BasicSwapConfirm = () => {
           <h2 className={styles.cardTitle}>Confirm Swap</h2>
           <div className={styles.label}>From</div>
           <div className={styles.value}>
-            {values.from}
+            {numberWithCommas(values.from)}
             <img src={handleAssetImage(values.asset1)} alt={values.asset1.asset_code} />
             <span>{values.asset1.asset_code}</span>
           </div>
@@ -35,7 +36,7 @@ const BasicSwapConfirm = () => {
 
           <div className={styles.label}>To</div>
           <div className={styles.value}>
-            {values.to}
+            {numberWithCommas(values.to)}
             <img src={handleAssetImage(values.asset2)} alt={values.asset2.asset_code} />
             <span>{values.asset2.asset_code}</span>
           </div>

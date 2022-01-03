@@ -73,6 +73,10 @@ const Send = () => {
       };
     }
 
+    if (selectedAsset.asset_issuer === values.destination) {
+      return {};
+    }
+
     const destinationAccount = await getAccountData(values.destination);
 
     const [transferableResult, resultCode] = isTransferable(values, destinationAccount);
