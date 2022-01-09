@@ -5,6 +5,7 @@ import setCurrencies from '../options/setCurrencies';
 import toNativePrice from '../../utils/horizon/toNativePrice';
 import addAssetImagesToAssets from '../../utils/addAssetImagesToAssets';
 import nativeAsset from '../../utils/nativeAsset';
+import matchAsset from '../../utils/matchAsset';
 
 // const assetFieldsToNumber = (asset) => {
 //   const newAsset = {
@@ -32,7 +33,8 @@ import nativeAsset from '../../utils/nativeAsset';
 
 export default async (address) => {
   const [data] = await Promise.all([horizonData(address)]);
-  const { assetImages } = store.getState();
+  const { assetImages, accounts } = store.getState();
+  const activeAccount = accounts.find((x) => x.publicKey === address);
 
   setCurrencies();
 
@@ -62,15 +64,28 @@ export default async (address) => {
   if (JSON.stringify(data) !== '{}') {
     accountData.balance = data.balances.find(nativeAsset).balance;
     accountData.flags = data.flags;
-    accountData.balances = data.balances;
     accountData.thresholds = data.thresholds;
     accountData.subentry_count = data.subentry_count;
-    accountData.toNativeLoaded = false;
+
+    accountData.balances = data.balances.map((asset) => {
+      const currentAsset = activeAccount.balances.find((x) => matchAsset(x, asset));
+
+      if (!currentAsset) {
+        return asset;
+      }
+
+      if (asset.balance === currentAsset.balance && currentAsset.toNative) {
+        return {
+          ...asset,
+          toNative: currentAsset.toNative,
+        };
+      }
+
+      return asset;
+    });
 
     accountData.balances = accountData.balances.filter((x) => !x.liquidity_pool_id);
     // accountData.balances = accountData.balances.map(assetFieldsToNumber);
-
-    toNativePrice(accountData.balances, address);
 
     // MOVING XLM TO THE BEGINNING OF AN ARRAY
     const xlm = accountData.balances.find(nativeAsset);
@@ -96,6 +111,8 @@ export default async (address) => {
 
     // Adding a new field: Subentry_count
     accountData.maxXLM = (accountData.subentry_count + 2) * 0.5 + 0.005;
+
+    toNativePrice(accountData.balances, address);
   }
 
   store.dispatch({
