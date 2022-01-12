@@ -13,6 +13,7 @@ import getHost from './actions/options/getHost';
 
 import '../../node_modules/purecss/build/pure-min.css';
 import '../../node_modules/react-popper-tooltip/dist/styles.css';
+import './styles/main.css';
 import './styles/style.less';
 
 require('file-loader?name=[name].[ext]!./popup.html');
