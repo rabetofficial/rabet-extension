@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
-import LoadingOne from '../../pages/LoadingOne';
+import LoadingOne from '../LoadingOne';
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -18,6 +18,10 @@ import {
   inputTypes,
 } from '../../staticRes/enum';
 
+type FormValues = {
+    password: string
+}
+
 const Login = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -25,9 +29,9 @@ const Login = () => {
 
   useEffect(() => {
     if (!state) {
-      hadLoggedBeforeAction().then((hasLogged) => {
+      hadLoggedBeforeAction().then((hasLogged: boolean) => {
         if (hasLogged) {
-          loginUserAction(hasLogged).then((isLogged) => {
+          loginUserAction(hasLogged).then((isLogged: boolean) => {
             if (isLogged) {
               setLoading(false);
 
@@ -41,7 +45,7 @@ const Login = () => {
     }
   }, []);
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: FormValues) => {
     const isLogged = await loginUserAction(values.password);
 
     if (!isLogged) {
@@ -53,12 +57,6 @@ const Login = () => {
     return navigate(route.accountManagerPage);
   };
 
-  const validateForm = () => {
-    const errors = {};
-
-    return errors;
-  };
-
   if (loading) {
     return <LoadingOne />;
   }
@@ -68,8 +66,7 @@ const Login = () => {
       <Logo />
 
       <Form
-        onSubmit={(values) => onSubmit(values)}
-        validate={(values) => validateForm(values)}
+        onSubmit={(values:FormValues) => onSubmit(values)}
         render={({
           submitError,
           handleSubmit,
