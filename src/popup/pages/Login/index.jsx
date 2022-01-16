@@ -1,7 +1,7 @@
-import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 
 import LoadingOne from '../LoadingOne';
 import Logo from '../../components/Logo';
@@ -17,8 +17,6 @@ import {
   inputSize,
   inputTypes,
 } from '../../staticRes/enum';
-
-import styles from './styles.less';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -66,54 +64,54 @@ const Login = () => {
   }
 
   return (
-    <div className="pure-g content">
-      <div className="pure-u-1-1">
-        <Logo />
+    <Container className="content">
+      <Logo />
 
-        <Form
-          onSubmit={(values) => onSubmit(values)}
-          validate={(values) => validateForm(values)}
-          render={({
-            submitError,
-            handleSubmit,
-            submitting,
-            pristine,
-          }) => (
-            <form
-              className={classNames(styles.form, 'form')}
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
-              <Field name="password">
-                {({ input, meta }) => (
-                  <Input
-                    type="password"
-                    placeholder="Password"
-                    size={inputSize.large}
-                    variant={inputTypes.passVisible}
-                    input={input}
-                    meta={meta}
-                    autoFocus
-                  />
-                )}
-              </Field>
+      <Form
+        onSubmit={(values) => onSubmit(values)}
+        validate={(values) => validateForm(values)}
+        render={({
+          submitError,
+          handleSubmit,
+          submitting,
+          pristine,
+        }) => (
+          <form className="form" onSubmit={handleSubmit} autoComplete="off">
+            <Field name="password">
+              {({ input, meta }) => (
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  size={inputSize.large}
+                  variant={inputTypes.passVisible}
+                  input={input}
+                  meta={meta}
+                  autoFocus
+                />
+              )}
+            </Field>
 
-              {submitError && <div className="error">{submitError}</div>}
+            {submitError && <div className="error">{submitError}</div>}
 
-              <Button
-                type="submit"
-                variant={buttonTypes.primary}
-                size={buttonSizes.large}
-                content="Unlock"
-                style={{ marginTop: '32px' }}
-                disabled={pristine || submitting}
-              />
-            </form>
-          )}
-        />
-      </div>
-    </div>
+            <Button
+              type="submit"
+              variant={buttonTypes.primary}
+              size={buttonSizes.large}
+              content="Unlock"
+              style={{ marginTop: '32px' }}
+              disabled={pristine || submitting}
+            />
+          </form>
+        )}
+      />
+    </Container>
   );
 };
 
 export default Login;
+
+const Container = styled.div`
+  .form {
+    margin-top: 78px;
+  }
+`;
