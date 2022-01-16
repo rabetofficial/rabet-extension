@@ -5,7 +5,12 @@ import loading from '../../../assets/images/loading.svg';
 
 import styles from './styles.less';
 
-const Loading = ({ title, size }) => (
+type AppProps = {
+    title: string
+    size: number
+}
+
+const Loading = ({ title, size }: AppProps) => (
   <>
     <img
       src={loading}
