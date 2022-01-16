@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import LoadingOne from '../LoadingOne';
 import Logo from '../../components/Logo';
-import Input from '../../components/Input';
+import Input from '../../components/common/Input';
 import Button from '../../components/Button';
 import * as route from '../../staticRes/routes';
 import setTimer from '../../actions/options/setTimer';
