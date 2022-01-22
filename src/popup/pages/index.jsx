@@ -40,97 +40,101 @@ import AdvanceOperation from './Operation/Adavnce';
 
 const App = () => (
   <Router>
-    <div className="layout">
-      <Routes>
-        <Route
-          path={route.homePage}
-          element={<ProtectedRoute><Home /></ProtectedRoute>}
-        />
-        <Route
-          path={route.SendPage}
-          element={<ProtectedRoute><Send /></ProtectedRoute>}
-        />
-        <Route
-          path={route.errorPage}
-          element={<ProtectedRoute><Error /></ProtectedRoute>}
-        />
-        <Route
-          path={route.QRCodePage}
-          element={<ProtectedRoute><QRCode /></ProtectedRoute>}
-        />
-        <Route
-          path={route.ConfirmPage}
-          element={<ProtectedRoute><Confirm /></ProtectedRoute>}
-        />
-        <Route
-          path={route.settingPage}
-          element={<ProtectedRoute><Setting /></ProtectedRoute>}
-        />
-        <Route
-          path={route.addAssetPage}
-          element={<ProtectedRoute><AddAsset /></ProtectedRoute>}
-        />
-        <Route
-          path={route.privateKeyPage}
-          element={<ProtectedRoute><PrivateKey /></ProtectedRoute>}
-        />
-        <Route
-          path={route.ShowPrivateKeyPage}
-          element={<ProtectedRoute><ShowPrivateKey /></ProtectedRoute>}
-        />
-        <Route
-          path={route.accountManagerPage}
-          element={<AccountManager />}
-        />
-        <Route
-          path={`${route.assetsPage}/:asset_code/:asset_issuer`}
-          element={<ProtectedRoute><Assets /></ProtectedRoute>}
-        />
-        <Route
-          path={route.xlmAssetPage}
-          element={<ProtectedRoute><XLMAsset /></ProtectedRoute>}
-        />
-        <Route
-          path={route.successSubmitPage}
-          element={<ProtectedRoute><SuccessfulSubmission /></ProtectedRoute>}
-        />
-        <Route
-          path={route.backupFile}
-          element={<ProtectedRoute><BackupFile /></ProtectedRoute>}
-        />
-        <Route
-          path={route.basicOperationPage}
-          element={<ProtectedRoute><BasicOperation /></ProtectedRoute>}
-        />
-        <Route
-          path={route.basicSwapConfirmPage}
-          element={<ProtectedRoute><BasicSwapConfirm /></ProtectedRoute>}
-        />
-        <Route
-          path={route.basicSendConfirmPage}
-          element={<ProtectedRoute><BasicSendConfirm /></ProtectedRoute>}
-        />
-        <Route
-          path={route.advanceOperationPage}
-          element={<ProtectedRoute><AdvanceOperation /></ProtectedRoute>}
-        />
+    <div className="flex flex-wrap justify-center">
+      <div className="w-full md:w-1/2 lg:w-1/4 xl:w-1/4 2xl:w-1/5">
+        <div className="layout">
+          <Routes>
+            <Route
+              path={route.homePage}
+              element={<ProtectedRoute><Home /></ProtectedRoute>}
+            />
+            <Route
+              path={route.SendPage}
+              element={<ProtectedRoute><Send /></ProtectedRoute>}
+            />
+            <Route
+              path={route.errorPage}
+              element={<ProtectedRoute><Error /></ProtectedRoute>}
+            />
+            <Route
+              path={route.QRCodePage}
+              element={<ProtectedRoute><QRCode /></ProtectedRoute>}
+            />
+            <Route
+              path={route.ConfirmPage}
+              element={<ProtectedRoute><Confirm /></ProtectedRoute>}
+            />
+            <Route
+              path={route.settingPage}
+              element={<ProtectedRoute><Setting /></ProtectedRoute>}
+            />
+            <Route
+              path={route.addAssetPage}
+              element={<ProtectedRoute><AddAsset /></ProtectedRoute>}
+            />
+            <Route
+              path={route.privateKeyPage}
+              element={<ProtectedRoute><PrivateKey /></ProtectedRoute>}
+            />
+            <Route
+              path={route.ShowPrivateKeyPage}
+              element={<ProtectedRoute><ShowPrivateKey /></ProtectedRoute>}
+            />
+            <Route
+              path={route.accountManagerPage}
+              element={<AccountManager />}
+            />
+            <Route
+              path={`${route.assetsPage}/:asset_code/:asset_issuer`}
+              element={<ProtectedRoute><Assets /></ProtectedRoute>}
+            />
+            <Route
+              path={route.xlmAssetPage}
+              element={<ProtectedRoute><XLMAsset /></ProtectedRoute>}
+            />
+            <Route
+              path={route.successSubmitPage}
+              element={<ProtectedRoute><SuccessfulSubmission /></ProtectedRoute>}
+            />
+            <Route
+              path={route.backupFile}
+              element={<ProtectedRoute><BackupFile /></ProtectedRoute>}
+            />
+            <Route
+              path={route.basicOperationPage}
+              element={<ProtectedRoute><BasicOperation /></ProtectedRoute>}
+            />
+            <Route
+              path={route.basicSwapConfirmPage}
+              element={<ProtectedRoute><BasicSwapConfirm /></ProtectedRoute>}
+            />
+            <Route
+              path={route.basicSendConfirmPage}
+              element={<ProtectedRoute><BasicSendConfirm /></ProtectedRoute>}
+            />
+            <Route
+              path={route.advanceOperationPage}
+              element={<ProtectedRoute><AdvanceOperation /></ProtectedRoute>}
+            />
 
-        <Route exact path={route.flagPage} element={<Flags />} />
-        <Route exact path={route.confirmFlagPage} element={<ConfirmFlag />} />
-        <Route exact path={route.loginPage} element={<Login />} />
-        <Route exact path={route.firstPage} element={<FirstPage />} />
-        <Route exact path={route.fetchDataPage} element={<FetchData />} />
-        <Route exact path={route.loadingOnePage} element={<LoadingOne />} />
-        <Route exact path={route.loadingNetworkPage} element={<LoadingNetwork />} />
-        <Route exact path={route.contactPage} element={<ContactRequest />} />
-        <Route exact path={route.offlineModePage} element={<OfflineMode />} />
-        <Route exact path={route.confirmLoginPage} element={<ConfirmLogin />} />
-        <Route exact path={route.createWalletPage} element={<CreateWallet />} />
-        <Route exact path={route.restoreWalletPage} element={<RestoreWallet />} />
-        <Route exact path={route.loadingOverlayPage} element={<LoadingOverlay />} />
-        <Route exact path={route.deleteAccountPage} element={<DeleteAccount />} />
-        <Route exact path={route.connectedWebsitePage} element={<ConnectedWebsite />} />
-      </Routes>
+            <Route exact path={route.flagPage} element={<Flags />} />
+            <Route exact path={route.confirmFlagPage} element={<ConfirmFlag />} />
+            <Route exact path={route.loginPage} element={<Login />} />
+            <Route exact path={route.firstPage} element={<FirstPage />} />
+            <Route exact path={route.fetchDataPage} element={<FetchData />} />
+            <Route exact path={route.loadingOnePage} element={<LoadingOne />} />
+            <Route exact path={route.loadingNetworkPage} element={<LoadingNetwork />} />
+            <Route exact path={route.contactPage} element={<ContactRequest />} />
+            <Route exact path={route.offlineModePage} element={<OfflineMode />} />
+            <Route exact path={route.confirmLoginPage} element={<ConfirmLogin />} />
+            <Route exact path={route.createWalletPage} element={<CreateWallet />} />
+            <Route exact path={route.restoreWalletPage} element={<RestoreWallet />} />
+            <Route exact path={route.loadingOverlayPage} element={<LoadingOverlay />} />
+            <Route exact path={route.deleteAccountPage} element={<DeleteAccount />} />
+            <Route exact path={route.connectedWebsitePage} element={<ConnectedWebsite />} />
+          </Routes>
+        </div>
+      </div>
     </div>
   </Router>
 );
