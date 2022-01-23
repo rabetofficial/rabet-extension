@@ -5,21 +5,16 @@ import { useNavigate } from 'react-router-dom';
 
 import registerUserAction from '../../actions/user/register';
 import Logo from '../../components/Logo';
-import Input from '../../components/Input';
+import Input from '../../components/common/Input';
 import Button from '../../components/Button';
 import * as route from '../../staticRes/routes';
-import {
-	buttonSizes,
-	buttonTypes,
-	inputSize,
-	inputTypes,
-} from '../../staticRes/enum';
+import { buttonSizes, buttonTypes, inputSize, inputTypes } from '../../staticRes/enum';
 
 import styles from './styles.less';
 
 type FormValues = {
-	password?: string;
-	confirm?: string;
+	password?: string | null;
+	confirm?: string | null;
 };
 
 const ConfirmLogin = () => {
@@ -77,24 +72,20 @@ const ConfirmLogin = () => {
 	};
 
 	return (
-		<div className='pure-g content'>
-			<div className='pure-u-1-1'>
+		<div className="pure-g content">
+			<div className="pure-u-1-1">
 				<Logo />
 
 				<Form
 					onSubmit={(values) => onSubmit(values)}
 					validate={(values) => validateForm(values)}
 					render={({ submitError, handleSubmit, invalid }) => (
-						<form
-							className={classNames(styles.form, 'form')}
-							onSubmit={handleSubmit}
-							autoComplete='off'
-						>
-							<Field name='password'>
+						<form className={classNames(styles.form, 'form')} onSubmit={handleSubmit} autoComplete="off">
+							<Field name="password">
 								{({ input, meta }) => (
 									<Input
-										type='password'
-										placeholder='Password'
+										type="password"
+										placeholder="Password"
 										size={inputSize.large}
 										variant={inputTypes.passVisible}
 										input={input}
@@ -102,11 +93,11 @@ const ConfirmLogin = () => {
 									/>
 								)}
 							</Field>
-							<Field name='confirm'>
+							<Field name="confirm">
 								{({ input, meta }) => (
 									<Input
-										type='password'
-										placeholder='Confirm Password'
+										type="password"
+										placeholder="Confirm Password"
 										size={inputSize.large}
 										variant={inputTypes.passVisible}
 										input={input}
@@ -114,12 +105,12 @@ const ConfirmLogin = () => {
 									/>
 								)}
 							</Field>
-							{submitError && <div className='error'>{submitError}</div>}
+							{submitError && <div className="error">{submitError}</div>}
 							<Button
-								type='submit'
+								type="submit"
 								variant={buttonTypes.primary}
 								size={buttonSizes.large}
-								content='Continue'
+								content="Continue"
 								style={{ marginTop: '32px' }}
 								disabled={invalid}
 							/>
