@@ -7,10 +7,12 @@ import InputBtn from './InputBtn';
 
 import styles from './styles.less';
 
+import { InputVariantType, InputSizeType } from '../../../staticRes/enum';
+
 type AppProps = {
   type: string
-  size: 'small' | 'medium' | 'large'
-  variant?: 'max' | 'password'
+  size: InputSizeType
+  variant: InputVariantType
   defaultValue?: string | number
   disabled?: boolean
   placeholder?: string
@@ -26,7 +28,6 @@ type AppProps = {
 
 const defaultProps = {
   defaultValue: '',
-  variant: '',
   disabled: false,
   placeholder: '',
   name: '',

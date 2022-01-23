@@ -5,6 +5,10 @@ import Tooltip from '../../Tooltip';
 
 import styles from './styles.less';
 
+import {
+  InputVariantType,
+} from '../../../staticRes/enum';
+
 const errorBtn = (
   <button type="button" className={styles.icon}>
     <span className="icon-exclamation-circle" />
@@ -12,7 +16,7 @@ const errorBtn = (
 );
 
 type AppProps = {
-  variant?: 'max' | 'password'
+  variant?: InputVariantType
   isError: boolean
   visibleType: string
   toggleVisible: () => void
@@ -23,7 +27,7 @@ const InputBtn = ({
   variant, isError, visibleType, toggleVisible, setMax,
 }: AppProps) => {
   const generateBtn = () => {
-    if (variant === 'password') {
+    if (variant === InputVariantType.Password) {
       return (
         <button type="button" className={styles.icon} onClick={toggleVisible}>
           <span
@@ -33,7 +37,7 @@ const InputBtn = ({
       );
     }
 
-    if (variant === 'max') {
+    if (variant === InputVariantType.Max) {
       return (
         <button type="button" className={styles.max}>
           <Tooltip trigger="hover" tooltip="Send entire" placement="top">
