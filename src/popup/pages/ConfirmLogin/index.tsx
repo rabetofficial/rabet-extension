@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import registerUserAction from '../../actions/user/register';
 import Logo from '../../components/Logo';
 import Input from '../../components/common/Input';
-import Button from '../../components/Button';
+import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
 import {
   ButtonSizeType,

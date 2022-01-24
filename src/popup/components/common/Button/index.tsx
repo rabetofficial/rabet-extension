@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, { CSSProperties } from 'react';
 import './styles.less';
 
-import { ButtonSizeType, ButtonVarientTypes } from '../../staticRes/enum';
+import { ButtonSizeType, ButtonVarientTypes } from '../../../staticRes/enum';
 
 type ButtonTypes = {
   disabled?: boolean;
