@@ -1,14 +1,14 @@
 import React from 'react';
 
 import FontStyle from './fonts';
-import BaseStyle from './base';
-import OtherStyle from './styles';
+import GlobalStyle from './global';
+import GeneralStyle from './general';
 
 const Styles = ({ theme }) => (
   <div>
     <FontStyle theme={theme} />
-    <BaseStyle theme={theme} />
-    <OtherStyle theme={theme} />
+    <GlobalStyle theme={theme} />
+    <GeneralStyle theme={theme} />
   </div>
 );
 
