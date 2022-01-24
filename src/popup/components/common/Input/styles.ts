@@ -23,21 +23,8 @@ export const Icon = styled.button`
   padding-right: 16px;
   background: transparent;
   border: 1px solid transparent;
-
-  .icon-visible-eye,
-  .icon-invisible {
-    font-size: 16px;
-    color: ${({ theme }) => theme.colors.primary.main};
-    margin-right: 0;
-  }
-
-  .icon-invisible {
-    margin-top: -1px;
-  }
-
-  .icon-exclamation-circle {
-    font-size: 16px;
-    color: ${({ theme }) => theme.colors.error.main};
+  
+  svg {
     margin-right: 0;
   }
 `;

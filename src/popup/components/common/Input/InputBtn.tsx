@@ -2,14 +2,12 @@ import React from 'react';
 
 import Tooltip from '../../Tooltip';
 import { InputVariant } from '../../../models';
+import InvisibleEye from '../../../svgs/InvisibleEye';
+import VisibleEye from '../../../svgs/VisibleEye';
+import AngleDoubleUp from '../../../svgs/AngleDoubleUp';
+import ExclamationCircle from '../../../svgs/ExclamationCircle';
 
 import * as S from './styles';
-
-const errorBtn = (
-  <S.Icon type="button">
-    <span className="icon-exclamation-circle" />
-  </S.Icon>
-);
 
 type AppProps = {
   variant?: InputVariant
@@ -26,9 +24,7 @@ const InputBtn = ({
     if (variant === 'password') {
       return (
         <S.Icon type="button" onClick={toggleVisible}>
-          <span
-            className={visibleType !== 'text' ? 'icon-invisible' : 'icon-visible-eye'}
-          />
+          {visibleType !== 'text' ? <InvisibleEye /> : <VisibleEye />}
         </S.Icon>
       );
     }
@@ -37,17 +33,20 @@ const InputBtn = ({
       return (
         <S.Max type="button">
           <Tooltip trigger="hover" tooltip="Send entire" placement="top">
-            <S.MaxIcon
-              className="icon-double-arrow-up"
-              onClick={setMax}
-            />
+            <S.MaxIcon onClick={setMax}>
+              <AngleDoubleUp />
+            </S.MaxIcon>
           </Tooltip>
         </S.Max>
       );
     }
 
     if (isError) {
-      return errorBtn;
+      return (
+        <S.Icon type="button">
+          <ExclamationCircle />
+        </S.Icon>
+      );
     }
 
     return null;

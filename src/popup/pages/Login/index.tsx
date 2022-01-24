@@ -11,11 +11,7 @@ import * as route from '../../staticRes/routes';
 import setTimer from '../../actions/options/setTimer';
 import loginUserAction from '../../actions/user/login';
 import hadLoggedBeforeAction from '../../actions/user/hadLoggedBeforeAction';
-import {
-  buttonSizes,
-  buttonTypes,
-  inputTypes,
-} from '../../staticRes/enum';
+import { buttonSizes, buttonTypes } from '../../staticRes/enum';
 
 type FormValues = {
     password: string
@@ -79,7 +75,7 @@ const Login = () => {
                   type="password"
                   placeholder="Password"
                   size="large"
-                  variant={inputTypes.passVisible}
+                  variant="password"
                   input={input}
                   meta={meta}
                   autoFocus
