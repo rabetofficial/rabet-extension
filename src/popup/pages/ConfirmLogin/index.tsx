@@ -11,8 +11,6 @@ import * as route from '../../staticRes/routes';
 import {
   ButtonSizeType,
   ButtonVarientTypes,
-  InputVariantType,
-  InputSizeType,
 } from '../../staticRes/enum';
 
 import styles from './styles.less';
@@ -95,8 +93,8 @@ const ConfirmLogin = () => {
                   <Input
                     type="password"
                     placeholder="Password"
-                    size={InputSizeType.Large}
-                    variant={InputVariantType.PassVisible}
+                    size="large"
+                    variant="password"
                     input={input}
                     meta={meta}
                   />
@@ -107,8 +105,8 @@ const ConfirmLogin = () => {
                   <Input
                     type="password"
                     placeholder="Confirm Password"
-                    size={InputSizeType.Large}
-                    variant={InputVariantType.PassVisible}
+                    size="large"
+                    variant="max"
                     input={input}
                     meta={meta}
                   />
