@@ -14,7 +14,6 @@ import hadLoggedBeforeAction from '../../actions/user/hadLoggedBeforeAction';
 import {
   buttonSizes,
   buttonTypes,
-  inputSize,
   inputTypes,
 } from '../../staticRes/enum';
 
@@ -79,7 +78,7 @@ const Login = () => {
                 <Input
                   type="password"
                   placeholder="Password"
-                  size={inputSize.large}
+                  size="large"
                   variant={inputTypes.passVisible}
                   input={input}
                   meta={meta}

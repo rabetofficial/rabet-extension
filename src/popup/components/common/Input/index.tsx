@@ -1,11 +1,10 @@
 import React, {
   useState, useEffect, useRef, CSSProperties, ChangeEvent,
 } from 'react';
-import classNames from 'classnames';
 
 import InputBtn from './InputBtn';
 
-import styles from './styles.less';
+import * as S from './styles';
 
 type AppProps = {
   type: string
@@ -64,7 +63,7 @@ const Input = (props: AppProps) => {
 
   return (
     <>
-      <div className={classNames(styles.group, size)} style={style}>
+      <S.Group className={`input-${size}`} style={style}>
         <input
           autoComplete="off"
           type={visibleType}
@@ -85,8 +84,13 @@ const Input = (props: AppProps) => {
           toggleVisible={toggleVisible}
           visibleType={visibleType}
         />
-      </div>
-      {isError && <p className={styles.error}>{meta.error || meta.submitError}</p>}
+      </S.Group>
+      {isError
+      && (
+      <S.ErrorMsg>
+        {meta.error || meta.submitError}
+      </S.ErrorMsg>
+      )}
     </>
   );
 };

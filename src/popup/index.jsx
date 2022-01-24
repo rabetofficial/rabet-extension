@@ -5,6 +5,7 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 
 import store from './store';
 import Component from './pages';
@@ -15,6 +16,8 @@ import '../../node_modules/purecss/build/pure-min.css';
 import '../../node_modules/react-popper-tooltip/dist/styles.css';
 import './styles/main.css';
 import './styles/style.less';
+import theme from './styles/theme';
+import GlobalStyle from './styles/styles';
 
 require('file-loader?name=[name].[ext]!./popup.html');
 
@@ -24,7 +27,10 @@ require('file-loader?name=[name].[ext]!./popup.html');
 
   render(
     <Provider store={store}>
-      <Component />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle theme={theme} />
+        <Component />
+      </ThemeProvider>
     </Provider>,
     global.document.getElementById('root'),
   );

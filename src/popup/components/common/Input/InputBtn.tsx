@@ -1,14 +1,13 @@
 import React from 'react';
-import classNames from 'classnames';
 
 import Tooltip from '../../Tooltip';
 
-import styles from './styles.less';
+import * as S from './styles';
 
 const errorBtn = (
-  <button type="button" className={styles.icon}>
+  <S.Icon type="button">
     <span className="icon-exclamation-circle" />
-  </button>
+  </S.Icon>
 );
 
 type AppProps = {
@@ -25,24 +24,24 @@ const InputBtn = ({
   const generateBtn = () => {
     if (variant === 'password') {
       return (
-        <button type="button" className={styles.icon} onClick={toggleVisible}>
+        <S.Icon type="button" onClick={toggleVisible}>
           <span
             className={visibleType !== 'text' ? 'icon-invisible' : 'icon-visible-eye'}
           />
-        </button>
+        </S.Icon>
       );
     }
 
     if (variant === 'max') {
       return (
-        <button type="button" className={styles.max}>
+        <S.Max type="button">
           <Tooltip trigger="hover" tooltip="Send entire" placement="top">
-            <span
-              className={classNames('icon-double-arrow-up', styles.maxIcon)}
+            <S.MaxIcon
+              className="icon-double-arrow-up"
               onClick={setMax}
             />
           </Tooltip>
-        </button>
+        </S.Max>
       );
     }
 
