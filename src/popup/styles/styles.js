@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+const OtherStyle = createGlobalStyle`
   .form {
     display: flex;
     flex-direction: column;
@@ -77,4 +77,4 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default GlobalStyle;
+export default OtherStyle;

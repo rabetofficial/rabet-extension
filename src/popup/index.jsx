@@ -15,9 +15,8 @@ import getHost from './actions/options/getHost';
 import '../../node_modules/purecss/build/pure-min.css';
 import '../../node_modules/react-popper-tooltip/dist/styles.css';
 import './styles/main.css';
-import './styles/style.less';
 import theme from './styles/theme';
-import GlobalStyle from './styles/styles';
+import Styles from './styles';
 
 require('file-loader?name=[name].[ext]!./popup.html');
 
@@ -28,7 +27,7 @@ require('file-loader?name=[name].[ext]!./popup.html');
   render(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <GlobalStyle theme={theme} />
+        <Styles theme={theme} />
         <Component />
       </ThemeProvider>
     </Provider>,
