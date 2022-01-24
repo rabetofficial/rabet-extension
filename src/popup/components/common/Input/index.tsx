@@ -6,12 +6,12 @@ import InputBtn from './InputBtn';
 
 import * as S from './styles';
 
-import { InputVariantType, InputSizeType } from '../../../staticRes/enum';
+import { InputVariant, InputSize } from '../../../models';
 
 type AppProps = {
   type: string
-  size: InputSizeType
-  variant: InputVariantType
+  size: InputSize
+  variant: InputVariant
   defaultValue?: string | number
   disabled?: boolean
   placeholder?: string

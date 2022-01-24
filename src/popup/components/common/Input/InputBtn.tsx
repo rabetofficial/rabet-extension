@@ -1,12 +1,9 @@
 import React from 'react';
 
 import Tooltip from '../../Tooltip';
+import { InputVariant } from '../../../models';
 
 import * as S from './styles';
-
-import {
-  InputVariantType,
-} from '../../../staticRes/enum';
 
 const errorBtn = (
   <S.Icon type="button">
@@ -15,7 +12,7 @@ const errorBtn = (
 );
 
 type AppProps = {
-  variant?: InputVariantType
+  variant?: InputVariant
   isError: boolean
   visibleType: string
   toggleVisible: () => void
@@ -26,7 +23,7 @@ const InputBtn = ({
   variant, isError, visibleType, toggleVisible, setMax,
 }: AppProps) => {
   const generateBtn = () => {
-    if (variant === InputVariantType.Password) {
+    if (variant === 'password') {
       return (
         <S.Icon type="button" onClick={toggleVisible}>
           <span
@@ -36,7 +33,7 @@ const InputBtn = ({
       );
     }
 
-    if (variant === InputVariantType.Max) {
+    if (variant === 'max') {
       return (
         <S.Max type="button">
           <Tooltip trigger="hover" tooltip="Send entire" placement="top">
