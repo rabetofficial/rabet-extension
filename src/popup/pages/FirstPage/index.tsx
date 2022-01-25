@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
-import { ButtonVarientTypes, ButtonSizeType } from '../../staticRes/enum';
 
 import styles from './styles.less';
 
@@ -19,8 +18,8 @@ const FirstPage = () => {
         <div className={styles.container}>
           <Button
             type="button"
-            variant={ButtonVarientTypes.Primary}
-            size={ButtonSizeType.Large}
+            variant="primary"
+            size="large"
             content="Create Wallet"
             style={{ marginBottom: '27px' }}
             onClick={() => {
@@ -30,8 +29,8 @@ const FirstPage = () => {
 
           <Button
             type="button"
-            variant={ButtonVarientTypes.Outlined}
-            size={ButtonSizeType.Large}
+            variant="outlined"
+            size="large"
             content="Import Wallet"
             style={{ marginBottom: '27px' }}
             onClick={() => {

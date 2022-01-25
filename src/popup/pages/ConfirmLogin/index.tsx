@@ -8,12 +8,6 @@ import Logo from '../../components/Logo';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
-import {
-  ButtonSizeType,
-  ButtonVarientTypes,
-  InputVariantType,
-  InputSizeType,
-} from '../../staticRes/enum';
 
 import styles from './styles.less';
 
@@ -95,8 +89,8 @@ const ConfirmLogin = () => {
                   <Input
                     type="password"
                     placeholder="Password"
-                    size={InputSizeType.Large}
-                    variant={InputVariantType.PassVisible}
+                    size="large"
+                    variant="password"
                     input={input}
                     meta={meta}
                   />
@@ -107,8 +101,8 @@ const ConfirmLogin = () => {
                   <Input
                     type="password"
                     placeholder="Confirm Password"
-                    size={InputSizeType.Large}
-                    variant={InputVariantType.PassVisible}
+                    size="large"
+                    variant="password"
                     input={input}
                     meta={meta}
                   />
@@ -119,8 +113,8 @@ const ConfirmLogin = () => {
               )}
               <Button
                 type="submit"
-                variant={ButtonVarientTypes.Primary}
-                size={ButtonSizeType.Large}
+                variant="secondary"
+                size="large"
                 content="Continue"
                 style={{ marginTop: '32px' }}
                 disabled={invalid}

@@ -22,30 +22,3 @@ export const inputSize = {
   medium: 'input-medium',
   large: 'input-large',
 };
-
-export enum InputVariantType {
-  PassVisible = 'pass-visible',
-  Max = 'max',
-  Normal = 'normal',
-  Password = 'password'
-};
-
-export enum InputSizeType {
-  Small = 'input-small',
-  Medium = 'input-medium',
-  Large = 'input-large',
-};
-
-export enum ButtonSizeType {
-  Small = 'btn-small',
-  Medium = 'btn-medium',
-  Large = 'btn-large',
-};
-
-export enum ButtonVarientTypes {
-  Primary = 'btn-primary',
-  Secondary = 'btn-secondary',
-  Danger = 'btn-danger',
-  Default = 'btn-default',
-  Outlined = 'btn-outlined',
-};
