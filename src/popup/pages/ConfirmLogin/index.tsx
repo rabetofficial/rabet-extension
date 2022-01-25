@@ -71,10 +71,9 @@ const ConfirmLogin = () => {
   };
 
   return (
-    <div className="pure-g content">
-      <div className="pure-u-1-1">
+    <div className="grid grid-cols-6 h-screen">
+      <div className="grid col-start-2 col-span-4 justify-center bg-red-100">
         <Logo />
-
         <Form
           onSubmit={(values) => onSubmit(values)}
           validate={(values) => validateForm(values)}
@@ -84,41 +83,49 @@ const ConfirmLogin = () => {
               onSubmit={handleSubmit}
               autoComplete="off"
             >
-              <Field name="password">
-                {({ input, meta }) => (
-                  <Input
-                    type="password"
-                    placeholder="Password"
-                    size="large"
-                    variant="password"
-                    input={input}
-                    meta={meta}
-                  />
-                )}
-              </Field>
-              <Field name="confirm">
-                {({ input, meta }) => (
-                  <Input
-                    type="password"
-                    placeholder="Confirm Password"
-                    size="large"
-                    variant="password"
-                    input={input}
-                    meta={meta}
-                  />
-                )}
-              </Field>
+              <div className="grid col-start-2 col-span-4 justify-center">
+                <Field name="password">
+                  {({ input, meta }) => (
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      size="large"
+                      variant="password"
+                      input={input}
+                      meta={meta}
+                    />
+                  )}
+                </Field>
+              </div>
+
+              <div className="grid grid-cols-1 ">
+                <Field name="confirm">
+                  {({ input, meta }) => (
+                    <Input
+                      type="password"
+                      placeholder="Confirm Password"
+                      size="large"
+                      variant="password"
+                      input={input}
+                      meta={meta}
+                    />
+                  )}
+                </Field>
+              </div>
+
               {submitError && (
                 <div className="error">{submitError}</div>
               )}
-              <Button
-                type="submit"
-                variant="secondary"
-                size="large"
-                content="Continue"
-                style={{ marginTop: '32px' }}
-                disabled={invalid}
-              />
+              <div className="grid grid-cols-1 ">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="large"
+                  content="Continue"
+                  style={{ marginTop: '32px' }}
+                  disabled={invalid}
+                />
+              </div>
             </form>
           )}
         />
