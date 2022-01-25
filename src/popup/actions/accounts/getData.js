@@ -1,11 +1,12 @@
-import types from '../index';
-import store from '../../store';
-import horizonData from '../../utils/horizon/data';
-import setCurrencies from '../options/setCurrencies';
-import toNativePrice from '../../utils/horizon/toNativePrice';
-import addAssetImagesToAssets from '../../utils/addAssetImagesToAssets';
-import nativeAsset from '../../utils/nativeAsset';
-import matchAsset from '../../utils/matchAsset';
+import types from "../index";
+import store from "../../store";
+import horizonData from "../../utils/horizon/data";
+import setCurrencies from "../options/setCurrencies";
+import toNativePrice from "../../utils/horizon/toNativePrice";
+import addAssetImagesToAssets from "../../utils/addAssetImagesToAssets";
+import nativeAsset from "../../utils/nativeAsset";
+import matchAsset from "../../utils/matchAsset";
+import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 // const assetFieldsToNumber = (asset) => {
 //   const newAsset = {
@@ -44,16 +45,18 @@ export default async (address) => {
     address,
     balance: 0,
     flags: {},
-    balances: [{
-      asset_code: 'XLM',
-      asset_type: 'native',
-      balance: '0',
-      buying_liabilities: '0.0000000',
-      selling_liabilities: '0.0000000',
-      toNative: 0,
-      value: 'XLM',
-      label: 'XLM',
-    }],
+    balances: [
+      {
+        asset_code: "XLM",
+        asset_type: "native",
+        balance: "0",
+        buying_liabilities: "0.0000000",
+        selling_liabilities: "0.0000000",
+        toNative: 0,
+        value: "XLM",
+        label: "XLM",
+      },
+    ],
     thresholds: {},
     operations: [],
     transactions: [],
@@ -61,14 +64,18 @@ export default async (address) => {
     toNativeLoaded: true,
   };
 
-  if (JSON.stringify(data) !== '{}') {
+  if (JSON.stringify(data) !== "{}") {
     accountData.balance = data.balances.find(nativeAsset).balance;
     accountData.flags = data.flags;
     accountData.thresholds = data.thresholds;
     accountData.subentry_count = data.subentry_count;
 
+    activeAccount.balances = activeAccount.balances || [];
+
     accountData.balances = data.balances.map((asset) => {
-      const currentAsset = activeAccount.balances.find((x) => matchAsset(x, asset));
+      const currentAsset = activeAccount.balances.find((x) =>
+        matchAsset(x, asset)
+      );
 
       if (!currentAsset) {
         return asset;
@@ -84,7 +91,9 @@ export default async (address) => {
       return asset;
     });
 
-    accountData.balances = accountData.balances.filter((x) => !x.liquidity_pool_id);
+    accountData.balances = accountData.balances.filter(
+      (x) => !x.liquidity_pool_id
+    );
     // accountData.balances = accountData.balances.map(assetFieldsToNumber);
 
     // MOVING XLM TO THE BEGINNING OF AN ARRAY
@@ -93,7 +102,7 @@ export default async (address) => {
 
     if (xlm) {
       accountData.balances.unshift({
-        asset_code: 'XLM',
+        asset_code: "XLM",
         ...xlm,
       });
     }
@@ -106,7 +115,10 @@ export default async (address) => {
     }));
 
     if (assetImages.length) {
-      accountData.balances = addAssetImagesToAssets(accountData.balances, assetImages);
+      accountData.balances = addAssetImagesToAssets(
+        accountData.balances,
+        assetImages
+      );
     }
 
     // Adding a new field: Subentry_count
