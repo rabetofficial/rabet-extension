@@ -7,12 +7,13 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
-    background: aliceblue;
+    background: ${({ theme }) => theme.colors.primary.lighter};
     line-height: normal;
   }
 
   body {
     margin: 0;
+    padding: 0 54px;
   }
 
   .layout {
@@ -21,8 +22,6 @@ const GlobalStyle = createGlobalStyle`
     min-height: 600px;
     overflow: hidden;
     padding: 0;
-    margin-right: auto;
-    margin-left: auto;
     background: white;
     position: relative;
   }
@@ -117,6 +116,12 @@ const GlobalStyle = createGlobalStyle`
     -ms-filter: blur(0);
     filter: blur(0);
     opacity: 1;
+  }
+
+  @media (max-width: ${({ theme }) => theme.screens.sm.max}) {
+    body {
+      padding: 0;
+    }
   }
 `;
 
