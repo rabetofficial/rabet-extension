@@ -18,6 +18,7 @@ type AppProps = {
   name?: string
   icon?: string
   style?: CSSProperties
+  className?: string
   input: any
   meta: any
   autoFocus?: boolean
@@ -32,6 +33,7 @@ const defaultProps = {
   name: '',
   icon: '',
   style: {},
+  className: '',
   autoFocus: false,
   setMax: () => {},
   onChange: () => {},
@@ -39,8 +41,8 @@ const defaultProps = {
 
 const Input = (props: AppProps) => {
   const {
-    type, defaultValue, variant, size, disabled, placeholder, name, style, input,
-    meta, setMax, autoFocus, onChange,
+    type, defaultValue, variant, size, disabled, placeholder, name,
+    style, className, input, meta, setMax, autoFocus, onChange,
   } = props;
   const isError = !meta.valid;
   const inputRef = useRef<any>(null);
@@ -64,7 +66,7 @@ const Input = (props: AppProps) => {
 
   return (
     <>
-      <S.Group className={size} style={style}>
+      <S.Group className={`${className} ${size}`} style={style}>
         <input
           autoComplete="off"
           type={visibleType}
