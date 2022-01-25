@@ -12,8 +12,8 @@ import questionLogo from '../../../assets/images/question-circle.png';
 import styles from './styles.less';
 
 const SelectAssetModal = ({
-  currencies,
   onChange,
+  currencies,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentAsset, setCurrentAsset] = useState(currencies[0]);
@@ -31,13 +31,20 @@ const SelectAssetModal = ({
     <div className={classNames(styles.input, 'select-modal')}>
       <div className={styles.modal} onClick={toggleModal}>
         <div className={styles.modalValue}>
-          <Image
-            fallBack={questionLogo}
-            className={styles.currencyImg}
-            alt={currentAsset.asset_code}
-            src={handleAssetImage(currentAsset)}
-          />
-          {currentAsset.asset_code.toUpperCase()}
+          {currentAsset ? (
+            <>
+              <Image
+                fallBack={questionLogo}
+                className={styles.currencyImg}
+                alt={currentAsset.asset_code}
+                src={handleAssetImage(currentAsset)}
+              />
+
+              {currentAsset.asset_code.toUpperCase()}
+            </>
+          ) : (
+            <p>NONE</p>
+          )}
         </div>
         <img src={angleDownIcon} alt="icon" />
       </div>
