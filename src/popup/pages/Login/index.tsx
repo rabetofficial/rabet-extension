@@ -6,12 +6,11 @@ import styled from 'styled-components';
 import LoadingOne from '../LoadingOne';
 import Logo from '../../components/Logo';
 import Input from '../../components/common/Input';
-import Button from '../../components/Button';
+import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
 import setTimer from '../../actions/options/setTimer';
 import loginUserAction from '../../actions/user/login';
 import hadLoggedBeforeAction from '../../actions/user/hadLoggedBeforeAction';
-import { buttonSizes, buttonTypes } from '../../staticRes/enum';
 
 type FormValues = {
     password: string
@@ -87,8 +86,8 @@ const Login = () => {
 
             <Button
               type="submit"
-              variant={buttonTypes.primary}
-              size={buttonSizes.large}
+              variant="primary"
+              size="large"
               content="Unlock"
               style={{ marginTop: '32px' }}
               disabled={pristine || submitting}
