@@ -64,7 +64,7 @@ const Input = (props: AppProps) => {
 
   return (
     <>
-      <S.Group className={`input-${size}`} style={style}>
+      <S.Group className={size} style={style}>
         <input
           autoComplete="off"
           type={visibleType}

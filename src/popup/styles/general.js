@@ -5,50 +5,6 @@ const GeneralStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
   }
-  
-  .input {
-    width: 100%;
-    border: none;
-    color: black;
-    padding-left: 16px;
-    
-    &:focus {
-      border: none;
-      outline: none;
-    }
-    
-    &::placeholder {
-      color: ${({ theme }) => theme.colors.primary.main};
-    }
-    
-    &-large {
-      height: 56px;
-      border-radius: 4px;
-
-      input {
-        font-size: 16px;
-      }
-    }
-    
-    &-medium {
-      height: 48px;
-      border-radius: 2px;
-
-      input {
-        font-size: 16px;
-      }
-    }
-    
-    &-small {
-      height: 36px;
-      border-radius: 2px;
-
-      input {
-        font-size: 16px;
-        padding-left: 12px;
-      }
-    }
-  }
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
