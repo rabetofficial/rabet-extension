@@ -46,9 +46,7 @@ const BasicSwapConfirm = () => {
           <SwapDetails
             values={values}
             path={values.path}
-            asset1={values.asset1}
-            asset2={values.asset2}
-            received={{ asset: values.asset2, minimumReceived: values.minimumReceived }}
+            minimumReceived={values.minimumReceived}
           />
         </div>
       </Card>

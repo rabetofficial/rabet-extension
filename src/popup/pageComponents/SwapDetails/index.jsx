@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useWatch } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 
 import BN from '../../../helpers/BN';
 import formatCurrency from '../../utils/formatCurrency';
@@ -11,34 +12,27 @@ import styles from './styles.less';
 
 const SwapDetails = ({
   path,
-  received,
-  asset1,
-  asset2,
-  form,
-  values: formValues,
+  values,
+  control,
+  minimumReceived,
 }) => {
   const [marketPrice, setMarketPrice] = useState(0);
 
-  let values;
+  let formValues = values;
 
-  if (formValues) {
-    values = formValues;
-  } else {
-    values = form.getState().values;
+  if (control) {
+    formValues = useWatch({ control });
   }
 
   useEffect(() => {
-    calculatePriceImpact(asset1, asset2)
+    calculatePriceImpact(formValues.asset1, formValues.asset2)
       .then((result) => {
         setMarketPrice(result);
       });
-  }, [
-    asset1.asset_code + asset1.asset_issuer,
-    asset2.asset_code + asset2.asset_issuer,
-  ]);
+  }, [formValues]);
 
   const priceImpact = new BN(1)
-    .minus(new BN(received.minimumReceived).div(new BN(marketPrice).times(values.from)))
+    .minus(new BN(minimumReceived).div(new BN(marketPrice).times(formValues.from)))
     .times(100);
 
   let finalPriceImpact = priceImpact.toFixed(2);
@@ -62,7 +56,7 @@ const SwapDetails = ({
         <div className={styles.boxValue}>
           <div className={styles.path}>
             {path.map((p, index) => (
-              <div key={index}>
+              <div key={p.asset_code}>
                 {p.asset_type === 'native' ? 'XLM' : p.asset_code}
                 {index !== (path.length - 1) && <img src={angleRightIcon} alt="icon" />}
               </div>
@@ -80,9 +74,9 @@ const SwapDetails = ({
       <div className={styles.box}>
         <div className={styles.boxTitle}>Minimum received</div>
         <div className={styles.boxValue}>
-          {formatCurrency(received.minimumReceived)}
+          {formatCurrency(minimumReceived)}
           {' '}
-          {received.asset.asset_code}
+          {formValues.asset2.asset_code}
         </div>
       </div>
     </>
@@ -91,7 +85,7 @@ const SwapDetails = ({
 
 SwapDetails.propTypes = {
   path: PropTypes.array.isRequired,
-  received: PropTypes.object.isRequired,
+  minimumReceived: PropTypes.string.isRequired,
 };
 
 export default SwapDetails;

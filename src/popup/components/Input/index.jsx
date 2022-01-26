@@ -23,6 +23,7 @@ const Input = ({
   onChange,
   hookError,
   errorMsg,
+  inputOnChange,
 }) => {
   const [visibleType, setVisibleType] = useState(type);
 
@@ -106,6 +107,10 @@ const Input = ({
 
             if (onChange) {
               onChange(e);
+            }
+
+            if (inputOnChange) {
+              inputOnChange(e);
             }
           }}
         />

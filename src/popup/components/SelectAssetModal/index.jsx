@@ -16,9 +16,10 @@ const SelectAssetModal = ({
   currencies,
   setValue,
   valueName,
+  defaultNull,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentAsset, setCurrentAsset] = useState(currencies[0]);
+  const [currentAsset, setCurrentAsset] = useState(defaultNull ? null : currencies[0]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
