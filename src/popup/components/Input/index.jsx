@@ -21,6 +21,8 @@ const Input = ({
   setMax,
   autoFocus,
   onChange,
+  hookError,
+  errorMsg,
 }) => {
   const [visibleType, setVisibleType] = useState(type);
 
@@ -33,7 +35,7 @@ const Input = ({
   };
 
   // const isError = meta && (meta.error || meta.submitError) && meta.touched;
-  const isError = !meta.valid;
+  const isError = hookError || (meta && !meta.valid);
 
   // console.log(meta, meta.touched, meta.error, meta.submitError)
 
@@ -98,7 +100,9 @@ const Input = ({
           {...input}
           ref={inputRef}
           onChange={(e) => {
-            input.onChange(e);
+            if (input) {
+              input.onChange(e);
+            }
 
             if (onChange) {
               onChange(e);
@@ -107,7 +111,11 @@ const Input = ({
         />
         {generateBtn()}
       </div>
-      {isError && <p className={styles.error}>{meta.error || meta.submitError}</p>}
+      {isError && (
+      <p className={styles.error}>
+        {meta ? (meta.error || meta.submitError) : errorMsg }
+      </p>
+      )}
     </>
   );
 };

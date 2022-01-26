@@ -14,6 +14,8 @@ import styles from './styles.less';
 const SelectAssetModal = ({
   onChange,
   currencies,
+  setValue,
+  valueName,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentAsset, setCurrentAsset] = useState(currencies[0]);
@@ -25,6 +27,7 @@ const SelectAssetModal = ({
   const handleAssetChange = (asset) => {
     setCurrentAsset(asset);
     onChange(asset);
+    setValue(valueName, asset);
   };
 
   return (
