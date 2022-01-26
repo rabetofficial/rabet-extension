@@ -147,6 +147,17 @@ const Swap = () => {
       return;
     }
 
+    if (!isInsufficientAsset(asset, maxXLM, formValues.from)) {
+      setShowSwapInfo(false);
+
+      setError('from', {
+        type: 'error',
+        message: 'Insufficient amount.',
+      });
+
+      return;
+    }
+
     clearErrors(['to']);
 
     if (timeoutRef.current) {
