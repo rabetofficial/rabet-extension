@@ -72,8 +72,8 @@ const ConfirmLogin = () => {
 
   return (
     <div className="flex h-screen justify-center">
-      <div className="basis-1/3 mt-14 ">
-        <div className="">
+      <div className="lg:basis-1/3 mt-14  md:basis-9/12 sm:basis-4/5 basis-11/12 ">
+        <div>
           <Logo />
           <Form
             onSubmit={(values) => onSubmit(values)}
@@ -120,7 +120,7 @@ const ConfirmLogin = () => {
                   variant="primary"
                   size="large"
                   content="Continue"
-                  style={{ marginTop: '22px' }}
+                  style={{ marginTop: '24px' }}
                   disabled={invalid}
                 />
               </form>
