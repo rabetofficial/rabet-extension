@@ -30,6 +30,10 @@ const Swap = () => {
   const [loading, setLoading] = useState(false);
   const [showSwapInfo, setShowSwapInfo] = useState(false);
   const [minimumReceived, setMinimumReceived] = useState(0);
+  const [isRotateActive, setIsRotateActive] = useState(false);
+
+  const [asset1, setAsset1] = useState(null);
+  const [asset2, setAsset2] = useState(null);
 
   const timeoutRef = useRef();
 
@@ -50,6 +54,8 @@ const Swap = () => {
   });
 
   const calculate = async () => {
+    setIsRotateActive(false);
+
     const formValues = getValues();
 
     if (!formValues.asset2) {
@@ -140,12 +146,8 @@ const Swap = () => {
     }
 
     if (isAssetEqual(asset, formValues.asset2)) {
-      setError('to', {
-        type: 'error',
-        message: 'Assets are the same.',
-      });
-
-      return;
+      setValue('asset2', formValues.asset1);
+      setAsset2(formValues.asset1);
     }
 
     if (!isInsufficientAsset(asset, maxXLM, formValues.from)) {
@@ -174,12 +176,8 @@ const Swap = () => {
     const formValues = getValues();
 
     if (isAssetEqual(formValues.asset1, asset)) {
-      setError('to', {
-        type: 'error',
-        message: 'Assets are the same.',
-      });
-
-      return;
+      setValue('asset1', formValues.asset2);
+      setAsset1(formValues.asset2);
     }
 
     clearErrors(['to']);
@@ -206,6 +204,10 @@ const Swap = () => {
     const formValues = getValues();
 
     if (new BN(formValues.from).isNaN()) {
+      setShowSwapInfo(false);
+
+      setValue('to', '');
+
       return;
     }
 
@@ -278,6 +280,7 @@ const Swap = () => {
             render={() => (
               <SelectAssetModal
                 max
+                asset={asset1}
                 valueName="asset1"
                 setValue={setValue}
                 currencies={balances}
@@ -317,6 +320,7 @@ const Swap = () => {
               <SelectAssetModal
                 max={false}
                 defaultNull
+                asset={asset2}
                 valueName="asset2"
                 setValue={setValue}
                 currencies={balances}
@@ -331,12 +335,12 @@ const Swap = () => {
         {(showSwapInfo && !loading) ? (
           <>
             <div className={styles.equivalent}>
-              <ShowFractional control={control} />
+              <ShowFractional control={control} isRotateActive={isRotateActive} />
 
               <img
                 alt="icon"
                 src={iconRotateSrc}
-                onClick={calculate}
+                onClick={() => { setIsRotateActive(!isRotateActive); }}
                 className={styles.refreshIcon}
               />
             </div>

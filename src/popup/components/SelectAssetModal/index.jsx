@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 
 import Modal from '../Modal';
@@ -12,6 +12,7 @@ import questionLogo from '../../../assets/images/question-circle.png';
 import styles from './styles.less';
 
 const SelectAssetModal = ({
+  asset,
   onChange,
   currencies,
   setValue,
@@ -20,6 +21,12 @@ const SelectAssetModal = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentAsset, setCurrentAsset] = useState(defaultNull ? null : currencies[0]);
+
+  useEffect(() => {
+    if (asset) {
+      setCurrentAsset(asset);
+    }
+  }, [asset]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { useState } from 'react';
 
 import Image from '../../Image';
+import BN from '../../../../helpers/BN';
 import handleAssetImage from '../../../utils/handleAssetImage';
 import questionLogo from '../../../../assets/images/question-circle.png';
 
@@ -45,9 +46,13 @@ const SearchAsset = ({ currencies, closeModal, onChange }) => {
                 <div className={styles.assetInfo}>{currency.domain}</div>
               </div>
             </div>
-            <div className={styles.assetPrice}>{currency.balance}</div>
+            <div className={styles.assetPrice}>{new BN(currency.balance).toString()}</div>
           </div>
         ))}
+
+        {!filteredCurrencies.length ? (
+          <div className={styles.assetNotFound}>Asset not found</div>
+        ) : ''}
       </div>
     </div>
   );

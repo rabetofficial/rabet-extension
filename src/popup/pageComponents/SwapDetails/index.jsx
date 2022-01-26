@@ -46,7 +46,7 @@ const SwapDetails = ({
   }
 
   if (priceImpact.isLessThan(0.1)) {
-    finalPriceImpact = '0.01>';
+    finalPriceImpact = '<0.01';
   }
 
   return (
