@@ -98,6 +98,7 @@ const Swap = () => {
 
   const setFromMax = () => {
     clearErrors('from');
+
     const formValues = getValues();
 
     const maxValue = getMaxBalance(formValues.asset1);
@@ -170,6 +171,15 @@ const Swap = () => {
     }
 
     clearErrors(['to']);
+
+    if (!isInsufficientAsset(formValues.asset1, maxXLM, formValues.from)) {
+      setError('from', {
+        type: 'error',
+        message: 'Insufficient amount.',
+      });
+
+      return;
+    }
 
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);

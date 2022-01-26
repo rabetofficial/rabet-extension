@@ -18,6 +18,8 @@ const ShowFractional = ({ control }) => {
       =
       {' '}
       {denominator.toString()}
+      {' '}
+      {formValues.asset2.asset_code}
     </span>
   );
 };
