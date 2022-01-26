@@ -13,8 +13,8 @@ import styles from './styles.less';
 
 const BasicOperation = () => {
   const modes = [
-    { value: 'swap', label: 'Swap' },
     { value: 'send', label: 'Send' },
+    { value: 'swap', label: 'Swap' },
   ];
 
   const [selected, setSelected] = useState(modes[0]);
