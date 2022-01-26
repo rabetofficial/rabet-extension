@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
-    // background: ${({ theme }) => theme.colors.primary.lighter};
+    background: ${({ theme }) => theme.colors.primary.lighter};
     line-height: normal;
   }
 

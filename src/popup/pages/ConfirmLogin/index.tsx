@@ -71,9 +71,9 @@ const ConfirmLogin = () => {
   };
 
   return (
-    <div className="h-screen">
-      <div className="grid grid-cols-3">
-        <div className="col-start-2 col-end-3 mt-14">
+    <div className="flex h-screen justify-center">
+      <div className="basis-1/3 mt-14 ">
+        <div className="">
           <Logo />
           <Form
             onSubmit={(values) => onSubmit(values)}
