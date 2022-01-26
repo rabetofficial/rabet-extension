@@ -22,6 +22,7 @@ import styles from './styles.less';
 import isAssetEqual from '../../../../utils/swap/isAssetEqual';
 
 const Swap = () => {
+  const [symbolsArr] = useState(['e', 'E', '+', '-', '.']);
   const navigate = useNavigate();
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
 
@@ -244,6 +245,7 @@ const Swap = () => {
                   inputOnChange={handleFromChange}
                   setMax={setFromMax}
                   errorMsg={errors.from && errors.from.message}
+                  onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                 />
               )}
             />
