@@ -1,28 +1,28 @@
-import classNames from "classnames";
-import { connect } from "react-redux";
-import { useLocation } from "react-router-dom";
-import React, { useState, useEffect, useReducer } from "react";
+import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useReducer } from 'react';
 
-import Links from "./Links";
-import TabList from "./TabList";
-import LoadingOne from "../LoadingOne";
-import EditNameForm from "./EditNameForm";
-import DropDownList from "./DropDownList";
-import Modal from "../../components/Modal";
-import Header from "../../components/Header";
-import shorter from "../../../helpers/shorter";
-import CopyText from "../../components/CopyText";
-import showBalance from "../../utils/showBalance";
-import getData from "../../actions/accounts/getData";
-import formatCurrency from "../../utils/formatCurrency";
-import getTotalBalance from "../../utils/getTotalBalance";
-import intervalAction from "../../actions/accounts/interval";
-import isOtherConnected from "../../utils/isOtherConnected";
-import numberWithCommas from "../../utils/numberWithCommas";
-import currentActiveAccount from "../../utils/activeAccount";
-import ModalConnectStatus from "../../pageComponents/ModalConnectStatus";
+import Links from './Links';
+import TabList from './TabList';
+import LoadingOne from '../LoadingOne';
+import EditNameForm from './EditNameForm';
+import DropDownList from './DropDownList';
+import Modal from '../../components/Modal';
+import Header from '../../components/Header';
+import shorter from '../../../helpers/shorter';
+import CopyText from '../../components/CopyText';
+import showBalance from '../../utils/showBalance';
+import getData from '../../actions/accounts/getData';
+import formatCurrency from '../../utils/formatCurrency';
+import getTotalBalance from '../../utils/getTotalBalance';
+import intervalAction from '../../actions/accounts/interval';
+import isOtherConnected from '../../utils/isOtherConnected';
+import numberWithCommas from '../../utils/numberWithCommas';
+import currentActiveAccount from '../../utils/activeAccount';
+import ModalConnectStatus from '../../pageComponents/ModalConnectStatus';
 
-import styles from "./styles.less";
+import styles from './styles.less';
 
 const Home = ({ options, currencies, host }) => {
   const { state } = useLocation();
@@ -56,7 +56,7 @@ const Home = ({ options, currencies, host }) => {
 
   const activeCurrency = currencies[options.currency] || {
     value: 0,
-    currency: "USD",
+    currency: 'USD',
   };
 
   const balances = activeAccount.balances || [];
@@ -66,7 +66,7 @@ const Home = ({ options, currencies, host }) => {
     return <LoadingOne title="Waiting for network" size={95} />;
   }
 
-  let formattedTotalBalance = "-";
+  let formattedTotalBalance = '-';
 
   if (activeAccount.toNativeLoaded) {
     formattedTotalBalance = showBalance(
@@ -91,7 +91,11 @@ const Home = ({ options, currencies, host }) => {
                 onClick={toggleModal}
               />
             </div>
-            <div className={styles.subject}>Total ({activeCurrency.name})</div>
+            <div className={styles.subject}>
+              Total (
+              {activeCurrency.name}
+              )
+            </div>
           </div>
         </div>
       </div>
@@ -118,7 +122,7 @@ const Home = ({ options, currencies, host }) => {
         </div>
       </div>
 
-      <div style={{ marginTop: "12px" }}>
+      <div style={{ marginTop: '12px' }}>
         <TabList balances={balances} editName={editName} />
       </div>
 

@@ -19,7 +19,7 @@ const Links = () => {
         <Button
           size={buttonSizes.small}
           variant={buttonTypes.primary}
-          content="Operation"
+          content={isAdvanced ? 'Operation' : 'Send'}
           style={{ width: '112px' }}
         />
       </Link>
