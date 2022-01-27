@@ -1,24 +1,14 @@
 @import '../../styles/theme.less';
 
-:local(.container) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-top: 120px;
-  text-align: center;
-
-  img {
-    display: block;
-    margin: 0 auto;
-  }
-}
-
 :local(.title) {
   font-size: 20px;
   font-weight: bold;
   line-height: 1.5;
   color: black;
   margin-top: 19px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 :local(.msg) {
@@ -26,6 +16,9 @@
   line-height: 1.63;
   margin-top: 6px;
   color: @dove-gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 :local(.sleeping) {
