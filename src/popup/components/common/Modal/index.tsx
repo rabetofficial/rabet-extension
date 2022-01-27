@@ -1,12 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState, useRef, useEffect, TransitionEvent, KeyboardEvent, ChangeEvent, MouseEvent, ElementType,
+} from 'react';
 import classNames from 'classnames';
 import ReactDom from 'react-dom';
 
 import styles from './styles.less';
 
-const modalRoot = document.getElementById('root');
+const modalRoot = document.getElementById('root') as HTMLElement;
 
-function usePrevious(value) {
+function usePrevious(value: any) {
   const ref = useRef();
   useEffect(() => {
     ref.current = value;
@@ -39,14 +41,14 @@ const Modal = ({
   const [fadeType, setFadeUp] = useState<string | null>(null);
   const prevIsOpen = usePrevious(isOpen);
 
-  const handleClick = (e) => {
+  const handleClick = (e: MouseEvent) => {
     e.preventDefault();
     setFadeUp('out');
     onClose();
   };
 
-  const handleModalSize = (size) => {
-    switch (size) {
+  const handleModalSize = (modalSize: string | undefined) => {
+    switch (modalSize) {
       case 'lg':
         return '800';
       default:
@@ -54,12 +56,12 @@ const Modal = ({
     }
   };
 
-  const onEscKeyDown = (e) => {
+  const onEscKeyDown = (e: KeyboardEvent) => {
     if (e.key !== 'Escape') return;
     setFadeUp('out');
   };
 
-  const transitionEnd = (e) => {
+  const transitionEnd = (e: TransitionEvent<HTMLDivElement>) => {
     if (e.propertyName !== 'opacity' || fadeType === 'in') return;
 
     if (fadeType === 'out') {
@@ -81,6 +83,10 @@ const Modal = ({
       window.removeEventListener('keydown', onEscKeyDown, false);
     };
   });
+
+  if (!isOpen) {
+    return null;
+  }
 
   return ReactDom.createPortal(
     <div
