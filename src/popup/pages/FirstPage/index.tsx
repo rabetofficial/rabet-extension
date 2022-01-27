@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 
 import Logo from '../../components/Logo';
 import Button from '../../components/common/Button';
@@ -11,8 +12,8 @@ const FirstPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="pure-g content">
-      <div className="pure-u-1-1">
+    <div className="flex h-screen justify-center">
+      <div className={classNames('2xl:basis-1/3 mt-14 xl:basis-1/3 lg:basis-9/12  md:basis-9/12 sm:basis-4/5 basis-11/12', 'container')}>
         <Logo />
 
         <div className={styles.container}>
@@ -21,7 +22,7 @@ const FirstPage = () => {
             variant="primary"
             size="large"
             content="Create Wallet"
-            style={{ marginBottom: '27px' }}
+            style={{ marginBottom: '28px' }}
             onClick={() => {
               navigate(route.createWalletPage);
             }}
@@ -32,7 +33,6 @@ const FirstPage = () => {
             variant="outlined"
             size="large"
             content="Import Wallet"
-            style={{ marginBottom: '27px' }}
             onClick={() => {
               navigate(route.restoreWalletPage);
             }}
