@@ -108,6 +108,7 @@ const ConfirmLogin = () => {
                       input={input}
                       style={{ height: '44px' }}
                       meta={meta}
+                      className={styles.mtInput}
                     />
                   )}
                 </Field>
@@ -120,7 +121,7 @@ const ConfirmLogin = () => {
                   variant="primary"
                   size="large"
                   content="Continue"
-                  style={{ marginTop: '24px' }}
+                  style={{ marginTop: '20px' }}
                   disabled={invalid}
                 />
               </form>
