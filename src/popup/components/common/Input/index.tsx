@@ -24,6 +24,7 @@ type AppProps = {
   autoFocus?: boolean
   setMax?: () => void
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
+  [x:string]: any;
 }
 
 const defaultProps = {
@@ -42,7 +43,7 @@ const defaultProps = {
 const Input = (props: AppProps) => {
   const {
     type, defaultValue, variant, size, disabled, placeholder, name,
-    style, className, input, meta, setMax, autoFocus, onChange,
+    style, className, input, meta, setMax, autoFocus, onChange, ...inputProps
   } = props;
   const isError = !meta.valid;
   const inputRef = useRef<any>(null);
@@ -76,6 +77,7 @@ const Input = (props: AppProps) => {
           placeholder={placeholder}
           name={name}
           {...input}
+          {...inputProps}
           ref={inputRef}
           onChange={onChangeInput}
         />
