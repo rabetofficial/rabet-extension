@@ -23,7 +23,7 @@ export default async (values, push) => {
     sendAsset: StellarSdk.Asset.native(),
     destAsset: StellarSdk.Asset.native(),
     path: calculatePath(values.path),
-    destMin: values.to,
+    destMin: values.minimumReceived,
     sendAmount: values.from.toString(),
     destination: activeAccount.publicKey,
   };

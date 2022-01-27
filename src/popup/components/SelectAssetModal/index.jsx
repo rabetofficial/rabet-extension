@@ -32,10 +32,13 @@ const SelectAssetModal = ({
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleAssetChange = (asset) => {
-    setCurrentAsset(asset);
-    onChange(asset);
-    setValue(valueName, asset);
+  const handleAssetChange = (newAsset) => {
+    setCurrentAsset(newAsset);
+    onChange(newAsset);
+
+    if (setValue) {
+      setValue(valueName, newAsset);
+    }
   };
 
   return (

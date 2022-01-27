@@ -10,6 +10,7 @@ import validateAddress from '../../../../utils/validate/address';
 import currentActiveAccount from '../../../../utils/activeAccount';
 import getAccountData from '../../../../utils/horizon/isAddressFound';
 import SelectAssetModal from '../../../../components/SelectAssetModal';
+import controlNumberInput from '../../../../utils/controlNumberInput';
 import { buttonSizes, buttonTypes, inputTypes } from '../../../../staticRes/enum';
 import validateMemo from '../../../../utils/validate/memo';
 import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
@@ -141,6 +142,7 @@ const Send = () => {
                         meta={meta}
                         variant={inputTypes.max}
                         setMax={form.mutators.setMax}
+                        onKeyPress={controlNumberInput}
                       />
                     )}
                   </Field>

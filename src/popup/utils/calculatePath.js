@@ -17,8 +17,6 @@ const calculatePath = (p) => {
     }
   }
 
-  console.log(newPath);
-
   return newPath;
 };
 

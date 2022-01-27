@@ -12,6 +12,7 @@ import * as route from '../../../../staticRes/routes';
 import getMaxBalance from '../../../../utils/maxBalance';
 import SwapDetails from '../../../../pageComponents/SwapDetails';
 import currentActiveAccount from '../../../../utils/activeAccount';
+import controlNumberInput from '../../../../utils/controlNumberInput';
 import SelectAssetModal from '../../../../components/SelectAssetModal';
 import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
 import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
@@ -97,7 +98,9 @@ const Swap = () => {
       formValues.asset2,
     ];
 
-    setMinimumReceived(calculatedResult.destination_amount);
+    const minReceived = new BN(calculatedResult.destination_amount).div(100).times(99.9);
+
+    setMinimumReceived(parseFloat(minReceived.toString()));
     setPath(calculatePath);
     setShowSwapInfo(true);
   };
@@ -244,12 +247,6 @@ const Swap = () => {
         values,
       },
     });
-  };
-
-  const controlNumberInput = (e) => {
-    const charCode = (typeof e.which === 'undefined') ? e.keyCode : e.which;
-    const charStr = String.fromCharCode(charCode);
-    if (!charStr.match(/^[0-9]*\.?[0-9]*$/)) e.preventDefault();
   };
 
   return (
