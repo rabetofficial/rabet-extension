@@ -71,19 +71,19 @@ const ConfirmLogin = () => {
   };
 
   return (
-    <div className="grid grid-cols-6 h-screen">
-      <div className="grid col-start-2 col-span-4 justify-center bg-red-100">
-        <Logo />
-        <Form
-          onSubmit={(values) => onSubmit(values)}
-          validate={(values) => validateForm(values)}
-          render={({ submitError, handleSubmit, invalid }) => (
-            <form
-              className={classNames(styles.form, 'form')}
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
-              <div className="grid col-start-2 col-span-4 justify-center">
+    <div className="flex h-screen justify-center">
+      <div className="lg:basis-1/3 mt-14  md:basis-9/12 sm:basis-4/5 basis-11/12 ">
+        <div>
+          <Logo />
+          <Form
+            onSubmit={(values) => onSubmit(values)}
+            validate={(values) => validateForm(values)}
+            render={({ submitError, handleSubmit, invalid }) => (
+              <form
+                className={classNames(styles.form, 'form')}
+                onSubmit={handleSubmit}
+                autoComplete="off"
+              >
                 <Field name="password">
                   {({ input, meta }) => (
                     <Input
@@ -92,13 +92,12 @@ const ConfirmLogin = () => {
                       size="large"
                       variant="password"
                       input={input}
+                      style={{ height: '44px' }}
                       meta={meta}
                     />
                   )}
                 </Field>
-              </div>
 
-              <div className="grid grid-cols-1 ">
                 <Field name="confirm">
                   {({ input, meta }) => (
                     <Input
@@ -107,28 +106,27 @@ const ConfirmLogin = () => {
                       size="large"
                       variant="password"
                       input={input}
+                      style={{ height: '44px' }}
                       meta={meta}
                     />
                   )}
                 </Field>
-              </div>
 
-              {submitError && (
-                <div className="error">{submitError}</div>
-              )}
-              <div className="grid grid-cols-1 ">
+                {submitError && (
+                  <div className="error">{submitError}</div>
+                )}
                 <Button
                   type="submit"
                   variant="primary"
                   size="large"
                   content="Continue"
-                  style={{ marginTop: '32px' }}
+                  style={{ marginTop: '24px' }}
                   disabled={invalid}
                 />
-              </div>
-            </form>
-          )}
-        />
+              </form>
+            )}
+          />
+        </div>
       </div>
     </div>
   );

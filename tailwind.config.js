@@ -20,6 +20,14 @@ module.exports = {
         lg: '0 2px 12px 0 rgba(0, 0, 0, 0.05)',
       },
     },
+    screens: {
+      '1x': '475px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
     fontSize: {
       xs: '12px',
       sm: '14px',
