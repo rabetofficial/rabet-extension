@@ -24,7 +24,7 @@ const Input = ({
   hookError,
   errorMsg,
   inputOnChange,
-  onKeyDown,
+  onKeyPress,
 }) => {
   const [visibleType, setVisibleType] = useState(type);
 
@@ -101,7 +101,7 @@ const Input = ({
           name={name}
           {...input}
           ref={inputRef}
-          onKeyDown={onKeyDown}
+          onKeyPress={onKeyPress}
           onChange={(e) => {
             if (input) {
               input.onChange(e);

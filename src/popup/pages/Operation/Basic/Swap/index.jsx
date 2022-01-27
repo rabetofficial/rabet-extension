@@ -17,12 +17,11 @@ import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
 import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
 import calculateStrictSend from '../../../../utils/swap/calculateStrictSend';
 import { buttonSizes, buttonTypes, inputTypes } from '../../../../staticRes/enum';
-
-import styles from './styles.less';
 import isAssetEqual from '../../../../utils/swap/isAssetEqual';
 
+import styles from './styles.less';
+
 const Swap = () => {
-  const [symbolsArr] = useState(['e', 'E', '+', '-']);
   const navigate = useNavigate();
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
 
@@ -247,6 +246,12 @@ const Swap = () => {
     });
   };
 
+  const controlNumberInput = (e) => {
+    const charCode = (typeof e.which === 'undefined') ? e.keyCode : e.which;
+    const charStr = String.fromCharCode(charCode);
+    if (!charStr.match(/^[0-9]*\.?[0-9]*$/)) e.preventDefault();
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.group}>
@@ -268,7 +273,7 @@ const Swap = () => {
                   inputOnChange={handleFromChange}
                   setMax={setFromMax}
                   errorMsg={errors.from && errors.from.message}
-                  onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                  onKeyPress={controlNumberInput}
                 />
               )}
             />
