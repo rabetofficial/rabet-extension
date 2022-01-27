@@ -22,7 +22,7 @@ import styles from './styles.less';
 import isAssetEqual from '../../../../utils/swap/isAssetEqual';
 
 const Swap = () => {
-  const [symbolsArr] = useState(['e', 'E', '+', '-', '.']);
+  const [symbolsArr] = useState(['e', 'E', '+', '-']);
   const navigate = useNavigate();
   const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
 
