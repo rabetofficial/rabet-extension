@@ -17,14 +17,11 @@ const CreateWallet = ({ accounts }) => {
     form.reset();
 
     if (accounts.length) {
-      return navigate(
-        route.homePage,
-        {
-          state: {
-            alreadyLoaded: true,
-          },
+      return navigate(route.homePage, {
+        state: {
+          alreadyLoaded: true,
         },
-      );
+      });
     }
 
     return navigate(route.firstPage);
@@ -60,17 +57,18 @@ const CreateWallet = ({ accounts }) => {
         <Form
           onSubmit={(values) => onSubmit(values)}
           validate={(values) => validateForm(values)}
-          render={({
-            submitError,
-            handleSubmit,
-            form,
-            pristine,
-          }) => (
-            <form className="form" onSubmit={handleSubmit} autoComplete="off">
+          render={({ submitError, handleSubmit, form, pristine }) => (
+            <form
+              className="form"
+              onSubmit={handleSubmit}
+              autoComplete="off"
+            >
               <Field name="name">
                 {({ input, meta }) => (
                   <div>
-                    <label className="label-primary">Wallet name</label>
+                    <label className="label-primary">
+                      Wallet name
+                    </label>
                     <Input
                       type="text"
                       size="input-medium"
@@ -82,8 +80,13 @@ const CreateWallet = ({ accounts }) => {
                   </div>
                 )}
               </Field>
-              {submitError && <div className="error">{submitError}</div>}
-              <div className="pure-g justify-end" style={{ marginTop: '28px' }}>
+              {submitError && (
+                <div className="error">{submitError}</div>
+              )}
+              <div
+                className="pure-g justify-end"
+                style={{ marginTop: '28px' }}
+              >
                 <Button
                   variant="btn-default"
                   size="btn-small"

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 // eslint-disable-next-line import/prefer-default-export
-export const Group = styled.button`
+export const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;

@@ -5,7 +5,7 @@ import styles from './styles.less';
 
 type Layout1Props = {
   children: JSX.Element | JSX.Element[]
-  alignCenter: boolean
+  alignCenter?: boolean
 }
 
 const Layout1 = ({ children, alignCenter }: Layout1Props) => (
@@ -15,5 +15,9 @@ const Layout1 = ({ children, alignCenter }: Layout1Props) => (
     </div>
   </div>
 );
+
+Layout1.defaultProps = {
+  alignCenter: false,
+};
 
 export default Layout1;

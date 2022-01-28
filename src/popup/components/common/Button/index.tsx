@@ -1,6 +1,6 @@
-import classNames from 'classnames';
 import React, { CSSProperties } from 'react';
-import './styles.less';
+
+import * as S from './styles';
 
 import { ButtonVariant, ButtonSize } from '../../../models';
 
@@ -14,6 +14,7 @@ type ButtonTypes = {
   onClick?: () => void;
   className?: string | any;
 };
+
 const Button = (props: ButtonTypes) => {
   const {
     type,
@@ -25,16 +26,17 @@ const Button = (props: ButtonTypes) => {
     className,
     content,
   } = props;
+
   return (
-    <button
+    <S.Button
+      className={`${className} ${variant} ${size} button`}
+      style={style}
       type={type}
       disabled={disabled}
-      className={classNames(className, `btn-${variant}`, `btn-${size}`)}
       onClick={onClick}
-      style={style}
     >
       {content}
-    </button>
+    </S.Button>
   );
 };
 
