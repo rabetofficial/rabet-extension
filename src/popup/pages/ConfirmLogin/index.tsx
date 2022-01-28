@@ -12,6 +12,8 @@ import * as route from '../../staticRes/routes';
 import styles from './styles.less';
 import Layout1 from '../../components/Layout1';
 
+import AngleDoubleUp from '../../svgs/AngleDoubleUp';
+
 type FormValues = {
   password?: string | null;
   confirm?: string | null;
@@ -122,6 +124,7 @@ const ConfirmLogin = () => {
                 variant="primary"
                 size="large"
                 content="Continue"
+                startIcon={<AngleDoubleUp />}
                 style={{ marginTop: '20px' }}
                 disabled={invalid}
               />

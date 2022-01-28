@@ -7,7 +7,7 @@ export const Button = styled.button`
   justify-content: center;
   cursor: pointer !important;
 
-  span[class^="icon"] {
+  span[class^='icon'] {
     margin-right: 10px;
   }
 
@@ -37,81 +37,81 @@ export const Button = styled.button`
     padding-left: 20px;
     border-radius: 2px;
   }
-  
-  &.danger{
+
+  &.danger {
     color: @Flush-mahogany;
     background-color: @Alabaster;
     border: 2px solid @Alabaster;
 
-    &:hover{
+    &:hover {
       box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.12);
     }
 
-    &:disabled{
+    &:disabled {
       background-color: @Alabaster;
       border: 2px solid @Alabaster;
       color: @Secondary-Silver-chalice;
     }
   }
 
-  &.basic-default{
+  &.basic-default {
     background: @Concrete;
     border: 2px solid @Concrete;
     color: @dove-gray;
 
-    &:hover{
+    &:hover {
       color: @dove-gray;
     }
   }
 
-  &.default{
+  &.default {
     background: transparent;
     border: 2px solid transparent;
     color: @dove-gray;
-    
-    &:hover{
+
+    &:hover {
       color: black;
     }
   }
 
-  &.outlined{
+  &.outlined {
     background: transparent;
     outline: 1px solid black !important;
     color: black;
 
-    &:hover{
+    &:hover {
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.17);
     }
   }
 
-  &.primary{
+  &.primary {
     background: black !important;
     border: 2px solid black;
     color: white;
 
-    &:hover{
+    &:hover {
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
     }
 
-    &:disabled{
+    &:disabled {
       background: @Silver-chalice;
       border: 2px solid @Silver-chalice;
       color: white;
     }
   }
 
-  &.secondary{
+  &.secondary {
     background: white;
     border: 2px solid black;
     color: black;
 
-    &:disabled{
+    &:disabled {
       background: @Silver-chalice;
       border: 2px solid @Silver-chalice;
       color: white;
     }
   }
-  
+
   .button {
     width: 100%;
     border: none;
@@ -121,13 +121,16 @@ export const Button = styled.button`
       outline: none;
     }
 
-    &:disabled{
+    &:disabled {
       cursor: default !important;
 
-      &:hover{
+      &:hover {
         box-shadow: none !important;
-
       }
     }
   }
+`;
+
+export const Icon = styled.div`
+  margin: 0 10px;
 `;
