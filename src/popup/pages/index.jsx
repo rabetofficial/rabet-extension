@@ -4,6 +4,7 @@ import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from '../components/ProtectedRoute';
 
 import Home from './Home';
+import Intro from './Intro';
 import Login from './Login';
 import Error from './Error';
 import Send from './Send';
@@ -115,6 +116,7 @@ const App = () => (
           element={<ProtectedRoute><AdvanceOperation /></ProtectedRoute>}
         />
 
+        <Route exact path={route.introduction} element={<Intro />} />
         <Route exact path={route.flagPage} element={<Flags />} />
         <Route exact path={route.confirmFlagPage} element={<ConfirmFlag />} />
         <Route exact path={route.loginPage} element={<Login />} />
