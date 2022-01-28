@@ -36,6 +36,8 @@ module.exports = {
       xl: '20px',
       '2xl': '24px',
       '3xl': '32px',
+      '4xl': '34px',
+      '5xl': '40px',
     },
   },
   plugins: [],

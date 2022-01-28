@@ -6,10 +6,11 @@ import styles from './styles.less';
 type Layout1Props = {
   children: JSX.Element | JSX.Element[]
   alignCenter?: boolean
+  className?: string
 }
 
-const Layout1 = ({ children, alignCenter }: Layout1Props) => (
-  <div className={`flex h-screen justify-center ${alignCenter ? 'place-items-center' : ' '}`}>
+const Layout1 = ({ children, alignCenter, className }: Layout1Props) => (
+  <div className={classNames(`flex h-screen justify-center ${alignCenter ? 'place-items-center' : ' '}`, className)}>
     <div className={classNames('2xl:basis-1/3 mt-14 xl:basis-1/3 lg:basis-2/5 md:basis-2/4 sm:basis-3/5 basis-11/12', styles.container)}>
       {children}
     </div>
@@ -18,6 +19,7 @@ const Layout1 = ({ children, alignCenter }: Layout1Props) => (
 
 Layout1.defaultProps = {
   alignCenter: false,
+  className: '',
 };
 
 export default Layout1;
