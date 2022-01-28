@@ -72,7 +72,7 @@ const ConfirmLogin = () => {
 
   return (
     <div className="flex h-screen justify-center">
-      <div className={classNames('2xl:basis-1/3 mt-14 xl:basis-1/3 lg:basis-9/12  md:basis-9/12 sm:basis-4/5 basis-11/12', 'container')}>
+      <div className={classNames('2xl:basis-1/3 mt-14 xl:basis-1/3 lg:basis-2/5  md:basis-2/4 sm:basis-3/5 basis-9/12', 'container')}>
         <div>
           <Logo />
           <Form
