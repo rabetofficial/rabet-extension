@@ -1,5 +1,11 @@
 @import '../../styles/theme.less';
 
+:local(.container){
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+}
 :local(.title) {
   font-size: 20px;
   font-weight: bold;
@@ -26,7 +32,26 @@
   width: 58px;
   display: block;
   margin: 0 auto;
+
+  & span {
+    color: black;
+    position: absolute;
+    top: 4px;
+    right: -12px;
+    font-size: 38px;
+    opacity: 0;
+    .animation(sleep 3s infinite linear)
+  }
+  
+  & span:nth-child(2n) {
+    .animation-delay(1s)
+  }
+  
+  & span:nth-child(3n) {
+    .animation-delay(2s)
+  }  
 }
+
 
 .animation(@value) {
   -moz-animation: @value;
@@ -38,24 +63,6 @@
   -moz-animation-delay: @value;
   -webkit-animation-delay: @value;
   animation-delay: @value;
-}
-
-:local(.sleeping) span {
-  color: black;
-  position: absolute;
-  top: 4px;
-  right: -12px;
-  font-size: 38px;
-  opacity: 0;
-  .animation(sleep 3s infinite linear)
-}
-
-:local(.sleeping) span:nth-child(2n) {
-  .animation-delay(1s)
-}
-
-:local(.sleeping) span:nth-child(3n) {
-  .animation-delay(2s)
 }
 
 .transform (@value) {

@@ -10,6 +10,7 @@ import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
 
 import styles from './styles.less';
+import Layout1 from '../../components/Layout1';
 
 type FormValues = {
   password?: string | null;
@@ -71,65 +72,63 @@ const ConfirmLogin = () => {
   };
 
   return (
-    <div className="flex h-screen justify-center">
-      <div className={classNames('2xl:basis-1/3 mt-14 xl:basis-1/3 lg:basis-2/5  md:basis-2/4 sm:basis-3/5 basis-11/12', 'container')}>
-        <div>
-          <Logo />
-          <Form
-            onSubmit={(values) => onSubmit(values)}
-            validate={(values) => validateForm(values)}
-            render={({ submitError, handleSubmit, invalid }) => (
-              <form
-                className={classNames(styles.form, 'form')}
-                onSubmit={handleSubmit}
-                autoComplete="off"
-              >
-                <Field name="password">
-                  {({ input, meta }) => (
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      size="large"
-                      variant="password"
-                      input={input}
-                      style={{ height: '44px' }}
-                      meta={meta}
-                    />
-                  )}
-                </Field>
-
-                <Field name="confirm">
-                  {({ input, meta }) => (
-                    <Input
-                      type="password"
-                      placeholder="Confirm Password"
-                      size="large"
-                      variant="password"
-                      input={input}
-                      style={{ height: '44px' }}
-                      meta={meta}
-                      className={styles.mtInput}
-                    />
-                  )}
-                </Field>
-
-                {submitError && (
-                  <div className="error">{submitError}</div>
+    <Layout1>
+      <div>
+        <Logo />
+        <Form
+          onSubmit={(values) => onSubmit(values)}
+          validate={(values) => validateForm(values)}
+          render={({ submitError, handleSubmit, invalid }) => (
+            <form
+              className={classNames(styles.form, 'form')}
+              onSubmit={handleSubmit}
+              autoComplete="off"
+            >
+              <Field name="password">
+                {({ input, meta }) => (
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    size="large"
+                    variant="password"
+                    input={input}
+                    style={{ height: '44px' }}
+                    meta={meta}
+                  />
                 )}
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="large"
-                  content="Continue"
-                  style={{ marginTop: '20px' }}
-                  disabled={invalid}
-                />
-              </form>
-            )}
-          />
-        </div>
+              </Field>
+
+              <Field name="confirm">
+                {({ input, meta }) => (
+                  <Input
+                    type="password"
+                    placeholder="Confirm Password"
+                    size="large"
+                    variant="password"
+                    input={input}
+                    style={{ height: '44px' }}
+                    meta={meta}
+                    className={styles.mtInput}
+                  />
+                )}
+              </Field>
+
+              {submitError && (
+                <div className="error">{submitError}</div>
+              )}
+              <Button
+                type="submit"
+                variant="primary"
+                size="large"
+                content="Continue"
+                style={{ marginTop: '20px' }}
+                disabled={invalid}
+              />
+            </form>
+          )}
+        />
       </div>
-    </div>
+    </Layout1>
   );
 };
 
