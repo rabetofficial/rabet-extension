@@ -6,8 +6,6 @@ import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
 import Layout1 from '../../components/Layout1';
 
-import styles from './styles.less';
-
 const FirstPage = () => {
   const navigate = useNavigate();
 
@@ -15,14 +13,13 @@ const FirstPage = () => {
     <Layout1 isDashboard={false}>
       <Logo />
 
-      <div className={styles.container}>
+      <div className="mt-[70px]">
         <Button
-          className={styles.mbButton}
           type="button"
           variant="primary"
           size="medium"
           content="Create Wallet"
-          style={{ marginBottom: '28px' }}
+          style={{ marginBottom: '30px' }}
           onClick={() => {
             navigate(route.createWalletPage);
           }}
