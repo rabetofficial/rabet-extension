@@ -12,7 +12,7 @@ const FirstPage = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout1>
+    <Layout1 isDashboard={false}>
       <Logo />
 
       <div className={styles.container}>

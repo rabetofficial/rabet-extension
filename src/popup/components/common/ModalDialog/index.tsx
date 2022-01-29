@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 
 const ModalDialog = () => {
   const [isOpen, setOpen] = useState(false);
