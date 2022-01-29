@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Modal from '../../components/common/Modal';
+import ModalDialog from '../../components/common/ModalDialog';
 
 const UITest = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,8 +10,8 @@ const UITest = () => {
 
   return (
     <div>
-      <button type="button" onClick={() => setIsModalOpen(true)}>button</button>
-      <Modal
+      {/* <button type="button" onClick={() => setIsModalOpen(true)}>button</button> */}
+      <ModalDialog
         id="modal"
         title="test"
         isOpen={isModalOpen}
@@ -19,7 +19,7 @@ const UITest = () => {
         size="lg"
       >
         test
-      </Modal>
+      </ModalDialog>
     </div>
   );
 };

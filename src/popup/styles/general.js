@@ -88,6 +88,23 @@ const GeneralStyle = createGlobalStyle`
   button:disabled {
     cursor: not-allowed;
   }
+
+
+  .ReactModal__Overlay {
+    opacity: 0;
+    transform: translatey(-100px);
+    transition: all 300ms ease-in-out;
+  }
+
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+
+  .ReactModal__Overlay--before-close {
+    opacity: 0;
+    transform: translatey(-100px);
+  }
 `;
 
 export default GeneralStyle;
