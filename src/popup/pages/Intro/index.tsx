@@ -25,7 +25,7 @@ const Intro = () => {
           className={styles.mbButton}
           type="button"
           variant="primary"
-          size="large"
+          size="medium"
           content="Get Start"
           style={{ marginBottom: '28px' }}
           onClick={() => {

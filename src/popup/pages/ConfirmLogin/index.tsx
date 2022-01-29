@@ -89,10 +89,9 @@ const ConfirmLogin = () => {
                   <Input
                     type="password"
                     placeholder="Password"
-                    size="large"
+                    size="medium"
                     variant="password"
                     input={input}
-                    style={{ height: '44px' }}
                     meta={meta}
                   />
                 )}
@@ -103,10 +102,9 @@ const ConfirmLogin = () => {
                   <Input
                     type="password"
                     placeholder="Confirm Password"
-                    size="large"
+                    size="medium"
                     variant="password"
                     input={input}
-                    style={{ height: '44px' }}
                     meta={meta}
                     className={styles.mtInput}
                   />
@@ -119,7 +117,7 @@ const ConfirmLogin = () => {
               <Button
                 type="submit"
                 variant="primary"
-                size="large"
+                size="medium"
                 content="Continue"
                 style={{ marginTop: '20px' }}
                 disabled={invalid}

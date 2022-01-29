@@ -20,7 +20,7 @@ const FirstPage = () => {
           className={styles.mbButton}
           type="button"
           variant="primary"
-          size="large"
+          size="medium"
           content="Create Wallet"
           style={{ marginBottom: '28px' }}
           onClick={() => {
@@ -31,7 +31,7 @@ const FirstPage = () => {
         <Button
           type="button"
           variant="outlined"
-          size="large"
+          size="medium"
           content="Import Wallet"
           onClick={() => {
             navigate(route.restoreWalletPage);
