@@ -12,7 +12,7 @@ const Intro = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout1>
+    <Layout1 isDashboard={false}>
       <img src={intro1} alt="img" className={styles.img} />
 
       <div className={styles.container}>
@@ -25,7 +25,7 @@ const Intro = () => {
           className={styles.mbButton}
           type="button"
           variant="primary"
-          size="large"
+          size="medium"
           content="Get Start"
           style={{ marginBottom: '28px' }}
           onClick={() => {

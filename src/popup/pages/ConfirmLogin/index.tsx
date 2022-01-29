@@ -59,8 +59,7 @@ const ConfirmLogin = () => {
       hasError.confirm = true;
     } else if (values.confirm.length < 8) {
       hasError.confirm = true;
-      errors.confirm =
-        'Confirm password must be at least 8 characters.';
+      errors.confirm = 'Confirm password must be at least 8 characters.';
     }
 
     if (!hasError.password && !hasError.confirm) {
@@ -73,7 +72,7 @@ const ConfirmLogin = () => {
   };
 
   return (
-    <Layout1>
+    <Layout1 isDashboard={false}>
       <div>
         <Logo />
         <Form
@@ -90,10 +89,9 @@ const ConfirmLogin = () => {
                   <Input
                     type="password"
                     placeholder="Password"
-                    size="large"
+                    size="medium"
                     variant="password"
                     input={input}
-                    style={{ height: '44px' }}
                     meta={meta}
                   />
                 )}
@@ -104,10 +102,9 @@ const ConfirmLogin = () => {
                   <Input
                     type="password"
                     placeholder="Confirm Password"
-                    size="large"
+                    size="medium"
                     variant="password"
                     input={input}
-                    style={{ height: '44px' }}
                     meta={meta}
                     className={styles.mtInput}
                   />
@@ -120,7 +117,7 @@ const ConfirmLogin = () => {
               <Button
                 type="submit"
                 variant="primary"
-                size="large"
+                size="medium"
                 content="Continue"
                 style={{ marginTop: '20px' }}
                 disabled={invalid}
