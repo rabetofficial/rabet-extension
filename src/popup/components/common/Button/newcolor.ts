@@ -95,8 +95,8 @@ export const Button = styled.button`
     }
 
     &:disabled {
-      background: ${({ theme }) => theme.colors.primary.main};
-      border: 2px solid ${({ theme }) => theme.colors.primary.main};
+      background: ${({ theme }) => theme.colors.primary.lighter};
+      border: 2px solid ${({ theme }) => theme.colors.primary.lighter};
       color: ${({ theme }) => theme.colors.primary.lightest};
     }
   }
@@ -107,8 +107,8 @@ export const Button = styled.button`
     color: ${({ theme }) => theme.colors.primary.darkest} ;
 
     &:disabled {
-      background: ${({ theme }) => theme.colors.primary.main};
-      border: 2px solid ${({ theme }) => theme.colors.primary.main};
+      background: ${({ theme }) => theme.colors.primary.lighter};
+      border: 2px solid ${({ theme }) => theme.colors.primary.lighter};
       color: ${({ theme }) => theme.colors.primary.lightest};
     }
   }
