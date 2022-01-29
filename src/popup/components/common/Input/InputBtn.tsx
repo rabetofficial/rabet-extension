@@ -24,7 +24,9 @@ const InputBtn = ({
     if (variant === 'password') {
       return (
         <S.Icon type="button" onClick={toggleVisible}>
-          {visibleType !== 'text' ? <InvisibleEye /> : <VisibleEye />}
+          {visibleType !== 'text'
+            ? <div style={{ marginRight: '-2px' }}><InvisibleEye /></div>
+            : <VisibleEye />}
         </S.Icon>
       );
     }
