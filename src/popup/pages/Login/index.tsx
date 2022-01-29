@@ -11,6 +11,7 @@ import * as route from '../../staticRes/routes';
 import setTimer from '../../actions/options/setTimer';
 import loginUserAction from '../../actions/user/login';
 import hadLoggedBeforeAction from '../../actions/user/hadLoggedBeforeAction';
+import Layout1 from '../../components/Layout1';
 
 type FormValues = {
     password: string
@@ -56,46 +57,48 @@ const Login = () => {
   }
 
   return (
-    <Container className="content">
-      <Logo />
+    <Layout1>
+      <Container>
+        <Logo />
 
-      <Form
-        onSubmit={(values:FormValues) => onSubmit(values)}
-        render={({
-          submitError,
-          handleSubmit,
-          submitting,
-          pristine,
-        }) => (
-          <form className="form" onSubmit={handleSubmit} autoComplete="off">
-            <Field name="password">
-              {({ input, meta }) => (
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  size="large"
-                  variant="password"
-                  input={input}
-                  meta={meta}
-                  autoFocus
-                />
-              )}
-            </Field>
+        <Form
+          onSubmit={(values:FormValues) => onSubmit(values)}
+          render={({
+            submitError,
+            handleSubmit,
+            submitting,
+            pristine,
+          }) => (
+            <form className="form" onSubmit={handleSubmit} autoComplete="off">
+              <Field name="password">
+                {({ input, meta }) => (
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    size="large"
+                    variant="password"
+                    input={input}
+                    meta={meta}
+                    autoFocus
+                  />
+                )}
+              </Field>
 
-            {submitError && <div className="error">{submitError}</div>}
+              {submitError && <div className="error">{submitError}</div>}
 
-            <Button
-              type="submit"
-              variant="primary"
-              size="large"
-              content="Unlock"
-              style={{ marginTop: '32px' }}
-              disabled={pristine || submitting}
-            />
-          </form>
-        )}
-      />
-    </Container>
+              <Button
+                type="submit"
+                variant="primary"
+                size="large"
+                content="Unlock"
+                style={{ marginTop: '32px' }}
+                disabled={pristine || submitting}
+              />
+            </form>
+          )}
+        />
+      </Container>
+    </Layout1>
   );
 };
 

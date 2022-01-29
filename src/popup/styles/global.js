@@ -7,13 +7,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   html, body {
-    background: ${({ theme }) => theme.colors.primary.lighter};
     line-height: normal;
   }
 
   body {
     margin: 0;
-    padding: 0 54px;
   }
 
   .layout {
@@ -116,12 +114,6 @@ const GlobalStyle = createGlobalStyle`
     -ms-filter: blur(0);
     filter: blur(0);
     opacity: 1;
-  }
-
-  @media (max-width: ${({ theme }) => theme.screens.sm.max}) {
-    body {
-      padding: 0;
-    }
   }
 `;
 
