@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
-// eslint-disable-next-line import/prefer-default-export
 export const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer !important;
+  cursor: pointer;
 
   span[class^='icon'] {
     margin-right: 10px;
@@ -16,8 +15,8 @@ export const Button = styled.button`
     height: 56px;
     font-size: 16px;
     font-weight: 500;
-    border: none !important;
-    border-radius: 2px !important;
+    border: none;
+    border-radius: 2px;
   }
 
   &.medium {
@@ -42,17 +41,17 @@ export const Button = styled.button`
 
   &.danger {
     color: ${({ theme }) => theme.colors.error.main};
-    background-color: @Alabaster;
-    border: 2px solid @Alabaster;
+    background-color: #f8f8f8;
+    border: 2px solid #f8f8f8;
 
     &:hover {
       box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.12);
     }
 
     &:disabled {
-      background-color: @Alabaster;
-      border: 2px solid @Alabaster;
-      color: @Secondary-Silver-chalice;
+      background-color: #f8f8f8;
+      border: 2px solid #f8f8f8;
+      color: #a3a3a3;
     }
   }
 
@@ -78,7 +77,7 @@ export const Button = styled.button`
 
   &.outlined {
     background: transparent;
-    outline: 1px solid ${({ theme }) => theme.colors.primary.darkest} !important;
+    outline: 1px solid ${({ theme }) => theme.colors.primary.darkest};
     color: ${({ theme }) => theme.colors.primary.darkest};
 
     &:hover {
@@ -87,7 +86,7 @@ export const Button = styled.button`
   }
 
   &.primary {
-    background: ${({ theme }) => theme.colors.primary.darkest} !important;
+    background: ${({ theme }) => theme.colors.primary.darkest};
     border: 2px solid ${({ theme }) => theme.colors.primary.darkest};
     color: ${({ theme }) => theme.colors.primary.lightest};
 
@@ -96,8 +95,8 @@ export const Button = styled.button`
     }
 
     &:disabled {
-      background: @Silver-chalice;
-      border: 2px solid @Silver-chalice;
+      background: #b1b1b1;
+      border: 2px solid #b1b1b1;
       color: ${({ theme }) => theme.colors.primary.lightest};
     }
   }
@@ -105,11 +104,11 @@ export const Button = styled.button`
   &.secondary {
     background: ${({ theme }) => theme.colors.primary.lightest};
     border: 2px solid ${({ theme }) => theme.colors.primary.darkest};
-    color: ${({ theme }) => theme.colors.primary.darkest};
+    color: ${({ theme }) => theme.colors.primary.darkest} ;
 
     &:disabled {
-      background: @Silver-chalice;
-      border: 2px solid @Silver-chalice;
+      background: #b1b1b1;
+      border: 2px solid #b1b1b1;
       color: ${({ theme }) => theme.colors.primary.lightest};
     }
   }
@@ -124,10 +123,10 @@ export const Button = styled.button`
     }
 
     &:disabled {
-      cursor: default !important;
+      cursor: default;
 
       &:hover {
-        box-shadow: none !important;
+        box-shadow: none;
       }
     }
   }
