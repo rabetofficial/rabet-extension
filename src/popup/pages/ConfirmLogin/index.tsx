@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +8,6 @@ import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
 
-import styles from './styles.less';
 import Layout1 from '../../components/Layout1';
 
 type FormValues = {
@@ -80,7 +78,7 @@ const ConfirmLogin = () => {
           validate={(values) => validateForm(values)}
           render={({ submitError, handleSubmit, invalid }) => (
             <form
-              className={classNames(styles.form, 'form')}
+              className="mt-[51px]"
               onSubmit={handleSubmit}
               autoComplete="off"
             >
@@ -106,7 +104,7 @@ const ConfirmLogin = () => {
                     variant="password"
                     input={input}
                     meta={meta}
-                    className={styles.mtInput}
+                    style={{ marginTop: '14px' }}
                   />
                 )}
               </Field>
