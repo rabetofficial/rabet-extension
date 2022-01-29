@@ -89,9 +89,9 @@ const Login = () => {
               <Button
                 type="submit"
                 variant="primary"
-                size="large"
+                size="medium"
                 content="Unlock"
-                style={{ marginTop: '32px' }}
+                className="mt-8"
                 disabled={pristine || submitting}
               />
             </form>

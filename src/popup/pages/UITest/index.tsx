@@ -3,22 +3,21 @@ import React, { useState } from 'react';
 import ModalDialog from '../../components/common/ModalDialog';
 
 const UITest = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
 
   return (
     <div>
-      {/* <button type="button" onClick={() => setIsModalOpen(true)}>button</button> */}
+      <button type="button" onClick={handleOpen}>open</button>
       <ModalDialog
-        id="modal"
-        title="test"
-        isOpen={isModalOpen}
-        onClose={toggleModal}
-        size="lg"
+        title="Title"
+        isOpen={open}
+        onClose={handleClose}
+        size="small"
       >
         test
+        <button type="button" onClick={handleClose}>close</button>
       </ModalDialog>
     </div>
   );

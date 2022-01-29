@@ -89,21 +89,33 @@ const GeneralStyle = createGlobalStyle`
     cursor: not-allowed;
   }
 
-
-  .ReactModal__Overlay {
+  .ReactModal__Content {
     opacity: 0;
     transform: translatey(-100px);
     transition: all 300ms ease-in-out;
+    
+    &--after-open {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+    
+    &--before-close {
+      opacity: 0;
+      transform: translatey(-100px);
+    }
   }
 
-  .ReactModal__Overlay--after-open {
-    opacity: 1;
-    transform: translateX(0px);
-  }
-
-  .ReactModal__Overlay--before-close {
+  .ReactModal__Overlay {
     opacity: 0;
-    transform: translatey(-100px);
+    transition: all 300ms ease-in-out;
+
+    &--after-open {
+      opacity: 1;
+    }
+
+    &--before-close {
+      opacity: 0;
+    }
   }
 `;
 
