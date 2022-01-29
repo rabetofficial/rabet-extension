@@ -10,6 +10,12 @@ const GlobalStyle = createGlobalStyle`
     line-height: normal;
   }
 
+  body.dashboard {
+    background: ${({ theme }) => theme.colors.primary.lighter};
+    padding-right: 54px;
+    padding-left: 54px;
+  }
+
   body {
     margin: 0;
   }
@@ -114,6 +120,12 @@ const GlobalStyle = createGlobalStyle`
     -ms-filter: blur(0);
     filter: blur(0);
     opacity: 1;
+  }
+
+  @media (max-width: ${({ theme }) => theme.screens.sm.max}) {
+    body.dashboard {
+      padding: 0;
+    }
   }
 `;
 

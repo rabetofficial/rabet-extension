@@ -57,7 +57,7 @@ const Login = () => {
   }
 
   return (
-    <Layout1>
+    <Layout1 isDashboard={false}>
       <Container>
         <Logo />
 
