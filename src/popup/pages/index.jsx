@@ -38,6 +38,7 @@ import BasicOperation from './Operation/Basic';
 import BasicSwapConfirm from './Operation/Basic/Swap/Confirm';
 import BasicSendConfirm from './Operation/Basic/Send/Confirm';
 import AdvanceOperation from './Operation/Adavnce';
+import UITest from './UITest';
 
 const App = () => (
   <Router>
@@ -132,6 +133,7 @@ const App = () => (
         <Route exact path={route.loadingOverlayPage} element={<LoadingOverlay />} />
         <Route exact path={route.deleteAccountPage} element={<DeleteAccount />} />
         <Route exact path={route.connectedWebsitePage} element={<ConnectedWebsite />} />
+        <Route exact path="ui" element={<UITest />} />
       </Routes>
     </div>
   </Router>

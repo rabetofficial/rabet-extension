@@ -1,5 +1,5 @@
 import React, {
-  useState, useRef, useEffect, TransitionEvent, KeyboardEvent, ChangeEvent, MouseEvent, ElementType,
+  useState, useRef, useEffect, TransitionEvent, KeyboardEvent, MouseEvent,
 } from 'react';
 import classNames from 'classnames';
 import ReactDom from 'react-dom';
@@ -76,11 +76,15 @@ const Modal = ({
   });
 
   useEffect(() => {
-    window.addEventListener('keydown', onEscKeyDown, false);
+    window.addEventListener('keydown', (event: any) => {
+      onEscKeyDown(event);
+    }, false);
     setTimeout(() => setFadeUp('in'), 0);
 
     return () => {
-      window.removeEventListener('keydown', onEscKeyDown, false);
+      window.removeEventListener('keydown', (event: any) => {
+        onEscKeyDown(event);
+      }, false);
     };
   });
 
