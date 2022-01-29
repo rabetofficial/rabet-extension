@@ -29,7 +29,7 @@ export const Group = styled.div`
   }
 
   &.small {
-    height: 36px;
+    height: 40px;
     border-radius: 2px;
     input {
       font-size: 16px;

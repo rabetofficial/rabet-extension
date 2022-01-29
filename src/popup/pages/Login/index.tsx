@@ -75,7 +75,7 @@ const Login = () => {
                   <Input
                     type="password"
                     placeholder="Password"
-                    size="large"
+                    size="medium"
                     variant="password"
                     input={input}
                     meta={meta}

@@ -3,10 +3,9 @@ import React, {
 } from 'react';
 
 import InputBtn from './InputBtn';
+import { InputVariant, InputSize } from '../../../models';
 
 import * as S from './styles';
-
-import { InputVariant, InputSize } from '../../../models';
 
 type AppProps = {
   type: string
@@ -26,19 +25,6 @@ type AppProps = {
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void
   [x:string]: any;
 }
-
-const defaultProps = {
-  defaultValue: '',
-  disabled: false,
-  placeholder: '',
-  name: '',
-  icon: '',
-  style: {},
-  className: '',
-  autoFocus: false,
-  setMax: () => {},
-  onChange: () => {},
-};
 
 const Input = (props: AppProps) => {
   const {
@@ -100,6 +86,17 @@ const Input = (props: AppProps) => {
   );
 };
 
-Input.defaultProps = defaultProps;
+Input.defaultProps = {
+  defaultValue: '',
+  disabled: false,
+  placeholder: '',
+  name: '',
+  icon: '',
+  style: {},
+  className: '',
+  autoFocus: false,
+  setMax: () => {},
+  onChange: () => {},
+};
 
 export default Input;
