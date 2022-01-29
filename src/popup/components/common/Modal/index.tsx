@@ -50,9 +50,9 @@ const Modal = ({
   const handleModalSize = (modalSize: string | undefined) => {
     switch (modalSize) {
       case 'lg':
-        return '800';
+        return '428';
       default:
-        return '328';
+        return '306';
     }
   };
 
