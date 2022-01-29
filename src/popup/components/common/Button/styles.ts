@@ -21,6 +21,7 @@ export const Button = styled.button`
   }
 
   &.medium {
+    width: 100%;
     height: 48px;
     font-size: 16px;
     font-weight: 500;
@@ -30,6 +31,7 @@ export const Button = styled.button`
   }
 
   &.small {
+    width: 100%;
     height: 40px;
     font-size: 16px;
     font-weight: 500;
@@ -39,7 +41,7 @@ export const Button = styled.button`
   }
 
   &.danger {
-    color: @Flush-mahogany;
+    color: ${({ theme }) => theme.colors.error.main};
     background-color: @Alabaster;
     border: 2px solid @Alabaster;
 
@@ -55,29 +57,29 @@ export const Button = styled.button`
   }
 
   &.basic-default {
-    background: @Concrete;
-    border: 2px solid @Concrete;
-    color: @dove-gray;
+    background: ${({ theme }) => theme.colors.primary.lighter};
+    border: 2px solid ${({ theme }) => theme.colors.primary.lighter};
+    color: ${({ theme }) => theme.colors.primary.dark};
 
     &:hover {
-      color: @dove-gray;
+      color: ${({ theme }) => theme.colors.primary.dark};
     }
   }
 
   &.default {
     background: transparent;
     border: 2px solid transparent;
-    color: @dove-gray;
+    color: ${({ theme }) => theme.colors.primary.dark};
 
     &:hover {
-      color: black;
+      color: ${({ theme }) => theme.colors.primary.darkest};
     }
   }
 
   &.outlined {
     background: transparent;
-    outline: 1px solid black !important;
-    color: black;
+    outline: 1px solid ${({ theme }) => theme.colors.primary.darkest} !important;
+    color: ${({ theme }) => theme.colors.primary.darkest};
 
     &:hover {
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.17);
@@ -85,9 +87,9 @@ export const Button = styled.button`
   }
 
   &.primary {
-    background: black !important;
-    border: 2px solid black;
-    color: white;
+    background: ${({ theme }) => theme.colors.primary.darkest} !important;
+    border: 2px solid ${({ theme }) => theme.colors.primary.darkest};
+    color: ${({ theme }) => theme.colors.primary.lightest};
 
     &:hover {
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
@@ -96,19 +98,19 @@ export const Button = styled.button`
     &:disabled {
       background: @Silver-chalice;
       border: 2px solid @Silver-chalice;
-      color: white;
+      color: ${({ theme }) => theme.colors.primary.lightest};
     }
   }
 
   &.secondary {
-    background: white;
-    border: 2px solid black;
-    color: black;
+    background: ${({ theme }) => theme.colors.primary.lightest};
+    border: 2px solid ${({ theme }) => theme.colors.primary.darkest};
+    color: ${({ theme }) => theme.colors.primary.darkest};
 
     &:disabled {
       background: @Silver-chalice;
       border: 2px solid @Silver-chalice;
-      color: white;
+      color: ${({ theme }) => theme.colors.primary.lightest};
     }
   }
 
