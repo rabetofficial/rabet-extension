@@ -10,7 +10,7 @@ import * as S from './styles';
 type AppProps = {
   type: string
   size: InputSize
-  variant: InputVariant
+  variant?: InputVariant
   defaultValue?: string | number
   disabled?: boolean
   placeholder?: string
@@ -88,6 +88,7 @@ const Input = (props: AppProps) => {
 
 Input.defaultProps = {
   defaultValue: '',
+  variant: '',
   disabled: false,
   placeholder: '',
   name: '',

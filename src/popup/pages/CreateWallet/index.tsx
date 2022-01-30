@@ -1,19 +1,26 @@
-import { connect } from 'react-redux';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import Input from '../../components/Input';
+import Input from '../../components/common/Input';
 import Header from '../../components/Header';
-import Button from '../../components/Button';
+import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
 import PageTitle from '../../components/PageTitle';
 import createAccountAction from '../../actions/accounts/create';
+import ButtonContainer from "../../components/common/ButtonContainer";
+
+type FormValues = {
+  name: string
+}
 
 const CreateWallet = ({ accounts }) => {
+
+  console.warn(accounts);
   const navigate = useNavigate();
 
-  const handleCancel = (form) => {
+  const handleCancel = (form: any) => {
     form.reset();
 
     if (accounts.length) {
@@ -27,7 +34,7 @@ const CreateWallet = ({ accounts }) => {
     return navigate(route.firstPage);
   };
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: FormValues) => {
     const isDone = await createAccountAction(values.name);
 
     if (!isDone) {
@@ -39,7 +46,8 @@ const CreateWallet = ({ accounts }) => {
     return navigate(route.backupFile);
   };
 
-  const validateForm = (values) => {
+  const validateForm = (values: FormValues) => {
+    console.warn(values);
     const errors = {};
 
     if (!values.name) {
@@ -55,8 +63,8 @@ const CreateWallet = ({ accounts }) => {
       <PageTitle title="Create New Wallet" />
       <div className="content" style={{ marginTop: '28px' }}>
         <Form
-          onSubmit={(values) => onSubmit(values)}
-          validate={(values) => validateForm(values)}
+          onSubmit={(values: FormValues) => onSubmit(values)}
+          validate={(values: FormValues) => validateForm(values)}
           render={({ submitError, handleSubmit, form, pristine }) => (
             <form
               className="form"
@@ -71,7 +79,7 @@ const CreateWallet = ({ accounts }) => {
                     </label>
                     <Input
                       type="text"
-                      size="input-medium"
+                      size="medium"
                       placeholder="John"
                       input={input}
                       meta={meta}
@@ -83,28 +91,24 @@ const CreateWallet = ({ accounts }) => {
               {submitError && (
                 <div className="error">{submitError}</div>
               )}
-              <div
-                className="pure-g justify-end"
-                style={{ marginTop: '28px' }}
-              >
-                <Button
-                  variant="btn-default"
-                  size="btn-small"
-                  content="Cancel"
-                  style={{ marginRight: '12px' }}
-                  onClick={() => {
-                    handleCancel(form);
-                  }}
-                />
+                <ButtonContainer btnSize={100} gap={12} mt={28} justify="end">
+                  <Button
+                    variant="default"
+                    size="small"
+                    content="Cancel"
+                    onClick={() => {
+                      handleCancel(form);
+                    }}
+                  />
 
-                <Button
-                  type="submit"
-                  variant="btn-primary"
-                  size="btn-small"
-                  content="Create"
-                  disabled={pristine}
-                />
-              </div>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="small"
+                    content="Create"
+                    disabled={pristine}
+                  />
+                </ButtonContainer>
             </form>
           )}
         />

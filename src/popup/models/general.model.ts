@@ -7,3 +7,5 @@ export type InputVariant = 'password' | 'max'
 export type InputSize = 'small' | 'medium' | 'large'
 
 export type ModalSize = 'small' | 'medium' | 'large'
+
+export type JustifyContent = 'start' | 'end' | 'center'
