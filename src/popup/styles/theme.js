@@ -34,6 +34,11 @@ const theme = {
     },
   },
   screens: { ...screens },
+  rounded: {
+    main: '2px',
+    md: '4px',
+    lg: '8px',
+  },
 };
 
 export default theme;

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Group = styled.div`
   display: flex;
   border: 1px solid ${({ theme }) => theme.colors.primary.light};
-  border-radius: 4px;
   overflow: hidden;
   margin-top: 8px;
   margin-bottom: 8px;
@@ -14,7 +13,7 @@ export const Group = styled.div`
 
   &.large {
     height: 56px;
-    border-radius: 4px;
+    border-radius: ${({ theme }) => theme.rounded.md};
     input {
       font-size: 16px;
     }
@@ -22,7 +21,7 @@ export const Group = styled.div`
 
   &.medium {
     height: 48px;
-    border-radius: 2px;
+    border-radius: ${({ theme }) => theme.rounded.main};
     input {
       font-size: 16px;
     }
@@ -30,7 +29,7 @@ export const Group = styled.div`
 
   &.small {
     height: 40px;
-    border-radius: 2px;
+    border-radius: ${({ theme }) => theme.rounded.main};
     input {
       font-size: 16px;
       padding-left: 12px;
