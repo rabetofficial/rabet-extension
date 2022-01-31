@@ -12,7 +12,7 @@ import createAccountAction from '../../actions/accounts/create';
 import ButtonContainer from "../../components/common/ButtonContainer";
 
 type FormValues = {
-  name: string
+  name: string | null
 }
 
 const CreateWallet = ({ accounts }) => {
@@ -47,8 +47,7 @@ const CreateWallet = ({ accounts }) => {
   };
 
   const validateForm = (values: FormValues) => {
-    console.warn(values);
-    const errors = {};
+    const errors = {} as FormValues;
 
     if (!values.name) {
       errors.name = null;
