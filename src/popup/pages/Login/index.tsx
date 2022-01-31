@@ -11,7 +11,7 @@ import RouteName from '../../staticRes/routes';
 import setTimer from '../../actions/options/setTimer';
 import loginUserAction from '../../actions/user/login';
 import hadLoggedBeforeAction from '../../actions/user/hadLoggedBeforeAction';
-import Layout1 from '../../components/Layout1';
+import Layout from '../../components/Layout';
 
 type FormValues = {
   password: string;
@@ -63,7 +63,7 @@ const Login = () => {
   }
 
   return (
-    <Layout1 isDashboard={false}>
+    <Layout isDashboard={false}>
       <Container>
         <Logo />
 
@@ -110,7 +110,7 @@ const Login = () => {
           )}
         />
       </Container>
-    </Layout1>
+    </Layout>
   );
 };
 

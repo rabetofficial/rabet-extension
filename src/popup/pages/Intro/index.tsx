@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import intro1 from '../../../assets/images/intro1.png';
 import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
-import Layout1 from '../../components/Layout1';
+import Layout from '../../components/Layout';
 import * as S from './styles';
 
 const Intro = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout1 isDashboard={false}>
+    <Layout isDashboard={false}>
       <S.Img>
         <img src={intro1} alt="img" />
       </S.Img>
@@ -39,7 +39,7 @@ const Intro = () => {
           }}
         />
       </S.MbButton>
-    </Layout1>
+    </Layout>
   );
 };
 

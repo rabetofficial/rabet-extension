@@ -3,7 +3,7 @@ import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
 import Logo from 'popup/components/Logo';
-import Layout1 from 'popup/components/Layout1';
+import Layout from 'popup/components/Layout';
 import RouteName from 'popup/staticRes/routes';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
@@ -70,7 +70,7 @@ const ConfirmLogin = () => {
   };
 
   return (
-    <Layout1 isDashboard={false}>
+    <Layout isDashboard={false}>
       <div>
         <Logo />
         <Form
@@ -124,7 +124,7 @@ const ConfirmLogin = () => {
           )}
         />
       </div>
-    </Layout1>
+    </Layout>
   );
 };
 

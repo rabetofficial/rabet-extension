@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import config from '../../../config';
 import offline from '../../../assets/images/offline.svg';
-import Layout1 from '../../components/Layout1';
+import Layout from '../../components/Layout';
 
 import * as S from './styles';
 
@@ -14,18 +14,23 @@ const OfflineMode = () => {
   }, []);
 
   return (
-    <Layout1 alignCenter isDashboard={false}>
+    <Layout alignCenter isDashboard={false}>
       <S.Container>
         <S.Sleeping>
           <S.Z>z</S.Z>
           <S.Z1>z</S.Z1>
           <S.Z2>z</S.Z2>
-          <img src={offline} width={58} height={119} alt="rabet offline" />
+          <img
+            src={offline}
+            width={58}
+            height={119}
+            alt="rabet offline"
+          />
         </S.Sleeping>
         <S.Title>You are offline</S.Title>
         <S.Msg>Go back online to use Rabet</S.Msg>
       </S.Container>
-    </Layout1>
+    </Layout>
   );
 };
 
