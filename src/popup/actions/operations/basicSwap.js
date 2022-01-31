@@ -23,7 +23,7 @@ export default async (values, push) => {
     sendAsset: StellarSdk.Asset.native(),
     destAsset: StellarSdk.Asset.native(),
     path: calculatePath(values.path),
-    destMin: values.minimumReceived,
+    destMin: values.minimumReceived.toFixed(6),
     sendAmount: values.from.toString(),
     destination: activeAccount.publicKey,
   };
@@ -36,7 +36,7 @@ export default async (values, push) => {
   }
 
   if (!isNative(values.asset2)) {
-    params.sendAsset = new StellarSdk.Asset(
+    params.destAsset = new StellarSdk.Asset(
       values.asset2.asset_code,
       values.asset2.asset_issuer,
     );
@@ -58,35 +58,26 @@ export default async (values, push) => {
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push(
-        route.successSubmitPage,
-        {
-          state: {
-            hash: result.hash,
-          },
+      push(route.successSubmitPage, {
+        state: {
+          hash: result.hash,
         },
-      );
+      });
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       if (err && err.response && err.response.data) {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: showError(err.response.data),
-            },
+        push(route.errorPage, {
+          state: {
+            message: showError(err.response.data),
           },
-        );
+        });
       } else {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: 'Operation failed.',
-            },
+        push(route.errorPage, {
+          state: {
+            message: 'Operation failed.',
           },
-        );
+        });
       }
     });
 };

@@ -17,14 +17,20 @@ import SelectAssetModal from '../../../../components/SelectAssetModal';
 import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
 import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
 import calculateStrictSend from '../../../../utils/swap/calculateStrictSend';
-import { buttonSizes, buttonTypes, inputTypes } from '../../../../staticRes/enum';
+import {
+  buttonSizes,
+  buttonTypes,
+  inputTypes,
+} from '../../../../staticRes/enum';
 import isAssetEqual from '../../../../utils/swap/isAssetEqual';
 
 import styles from './styles.less';
 
 const Swap = () => {
   const navigate = useNavigate();
-  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const {
+    activeAccount: { balances, maxXLM },
+  } = currentActiveAccount();
 
   const [path, setPath] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -68,7 +74,10 @@ const Swap = () => {
 
     clearErrors(['from']);
 
-    if (new BN(formValues.from).isLessThanOrEqualTo('0') || new BN(formValues.from).isNaN()) {
+    if (
+      new BN(formValues.from).isLessThanOrEqualTo('0') ||
+      new BN(formValues.from).isNaN()
+    ) {
       setError('from', {
         type: 'error',
         message: 'Amount must be bigger than 0.',
@@ -81,7 +90,10 @@ const Swap = () => {
     const calculatedResult = await calculateStrictSend(formValues);
     setLoading(false);
 
-    if (calculatedResult.destination_amount === '0' && !calculatedResult.path.length) {
+    if (
+      calculatedResult.destination_amount === '0' &&
+      !calculatedResult.path.length
+    ) {
       setError('from', {
         type: 'error',
         message: 'Could not find an order.',
@@ -98,7 +110,9 @@ const Swap = () => {
       formValues.asset2,
     ];
 
-    const minReceived = new BN(calculatedResult.destination_amount).div(100).times(99.9);
+    const minReceived = new BN(calculatedResult.destination_amount)
+      .div(100)
+      .times(99.8);
 
     setMinimumReceived(parseFloat(minReceived.toString()));
     setPath(calculatePath);
@@ -213,7 +227,10 @@ const Swap = () => {
       return;
     }
 
-    if (new BN(formValues.from).isLessThanOrEqualTo('0') || new BN(formValues.from).isNaN()) {
+    if (
+      new BN(formValues.from).isLessThanOrEqualTo('0') ||
+      new BN(formValues.from).isNaN()
+    ) {
       setError('from', {
         type: 'error',
         message: 'Amount must be bigger than 0.',
@@ -332,17 +349,26 @@ const Swap = () => {
           />
         </div>
 
-        {loading ? <div className={styles.loading}><Loading size={56} /></div> : null}
+        {loading ? (
+          <div className={styles.loading}>
+            <Loading size={56} />
+          </div>
+        ) : null}
 
-        {(showSwapInfo && !loading) ? (
+        {showSwapInfo && !loading ? (
           <>
             <div className={styles.equivalent}>
-              <ShowFractional control={control} isRotateActive={isRotateActive} />
+              <ShowFractional
+                control={control}
+                isRotateActive={isRotateActive}
+              />
 
               <img
                 alt="icon"
                 src={iconRotateSrc}
-                onClick={() => { setIsRotateActive(!isRotateActive); }}
+                onClick={() => {
+                  setIsRotateActive(!isRotateActive);
+                }}
                 className={styles.refreshIcon}
               />
             </div>
@@ -356,7 +382,6 @@ const Swap = () => {
         ) : (
           ''
         )}
-
       </div>
 
       <div className={styles.buttons}>
