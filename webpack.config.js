@@ -23,8 +23,12 @@ if (!devMode) {
 const config = {
   entry: {
     popup: resolve(`${__dirname}/src/popup/index.jsx`),
-    background_script: resolve(`${__dirname}/src/background_script/index.js`),
-    content_script: resolve(`${__dirname}/src/content_script/index.js`),
+    background_script: resolve(
+      `${__dirname}/src/background_script/index.js`,
+    ),
+    content_script: resolve(
+      `${__dirname}/src/content_script/index.js`,
+    ),
     client_script: resolve(`${__dirname}/src/client_script/index.js`),
     interaction: resolve(`${__dirname}/src/interaction/index.jsx`),
   },
@@ -79,7 +83,8 @@ const config = {
                 },
               },
             },
-          }, {
+          },
+          {
             loader: 'less-loader',
             options: {
               lessOptions: {
@@ -105,6 +110,10 @@ const config = {
       buffer: require.resolve('buffer'),
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      src: resolve(__dirname, 'src'),
+      popup: resolve(__dirname, 'src', 'popup'),
+    },
   },
   watch: devMode,
   target: 'web',

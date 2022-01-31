@@ -4,7 +4,7 @@
     "browser": true,
     "es6": true
   },
-  "extends": ["plugin:react/recommended", "airbnb"],
+  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
   "globals": {
     "JSX": true,
     "Atomics": "readonly",
@@ -18,8 +18,9 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+    "prettier/prettier": 2,
     "react/prop-types": 0,
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/click-events-have-key-events": 0,
@@ -37,6 +38,10 @@
     "no-use-before-define": 0,
     "react/button-has-type": 0,
     "linebreak-style": 0,
+    "no-unused-vars": 0,
+    "no-shadow": 0,
+    "@typescript-eslint/no-unused-vars": 2,
+    "@typescript-eslint/no-shadow": 2,
     "react/jsx-filename-extension": [
       2,
       { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
@@ -55,6 +60,7 @@
   "settings": {
     "import/resolver": {
       "node": {
+        "paths": [".", "src"],
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }

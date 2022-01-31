@@ -6,11 +6,13 @@ export default async (password) => {
   try {
     const { host } = store.getState();
     const data = await get('data', password);
-    const connectedWebsites = await get('connectedWebsites') || [];
+    const connectedWebsites = (await get('connectedWebsites')) || [];
 
     const d = data.map((x) => ({
       ...x,
-      isConnected: connectedWebsites.some((y) => y === `${host}/${x.publicKey}`),
+      isConnected: connectedWebsites.some(
+        (y) => y === `${host}/${x.publicKey}`,
+      ),
     }));
 
     store.dispatch({

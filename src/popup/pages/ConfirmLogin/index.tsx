@@ -2,17 +2,16 @@ import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import registerUserAction from '../../actions/user/register';
-import Logo from '../../components/Logo';
-import Input from '../../components/common/Input';
-import Button from '../../components/common/Button';
-import * as route from '../../staticRes/routes';
-
-import Layout1 from '../../components/Layout1';
+import Logo from 'popup/components/Logo';
+import Layout1 from 'popup/components/Layout1';
+import RouteName from 'popup/staticRes/routes';
+import Input from 'popup/components/common/Input';
+import Button from 'popup/components/common/Button';
+import registerUserAction from 'popup/actions/user/register';
 
 type FormValues = {
-  password?: string | null;
-  confirm?: string | null;
+  password?: string;
+  confirm?: string;
 };
 
 const ConfirmLogin = () => {
@@ -30,7 +29,7 @@ const ConfirmLogin = () => {
     }
 
     registerUserAction(values.password).then(() => {
-      navigate(route.accountManagerPage);
+      navigate(RouteName.AccountManager);
     });
 
     return {};
@@ -45,7 +44,7 @@ const ConfirmLogin = () => {
     };
 
     if (!values.password) {
-      errors.password = null;
+      errors.password = '';
       hasError.password = true;
     } else if (values.password.length < 8) {
       hasError.password = true;
@@ -53,11 +52,12 @@ const ConfirmLogin = () => {
     }
 
     if (!values.confirm) {
-      errors.confirm = null;
+      errors.confirm = '';
       hasError.confirm = true;
     } else if (values.confirm.length < 8) {
       hasError.confirm = true;
-      errors.confirm = 'Confirm password must be at least 8 characters.';
+      errors.confirm =
+        'Confirm password must be at least 8 characters.';
     }
 
     if (!hasError.password && !hasError.confirm) {

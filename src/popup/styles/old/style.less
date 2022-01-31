@@ -1,11 +1,15 @@
-@import "base.less";
-@import "src/popup/styles/theme.less";
+@import 'base.less';
+@import 'src/popup/styles/theme.less';
 
-html, body, div[class^="pure"], div[class^="pure-u"] {
+html,
+body,
+div[class^='pure'],
+div[class^='pure-u'] {
   font-family: 'Roboto', sans-serif !important;
 }
 
-html, body {
+html,
+body {
   background: aliceblue;
   line-height: normal;
 }
@@ -93,20 +97,28 @@ body {
   min-width: 110px !important;
 }
 
-.tooltip-container[data-popper-placement*='bottom'] .tooltip-arrow::before {
-  border-color: transparent transparent rgba(0, 0, 0, 0.07) transparent;
+.tooltip-container[data-popper-placement*='bottom']
+  .tooltip-arrow::before {
+  border-color: transparent transparent rgba(0, 0, 0, 0.07)
+    transparent;
 }
 
-.tooltip-container[data-popper-placement*='top'] .tooltip-arrow::before {
-  border-color: rgba(0, 0, 0, 0.07) transparent transparent transparent;
+.tooltip-container[data-popper-placement*='top']
+  .tooltip-arrow::before {
+  border-color: rgba(0, 0, 0, 0.07) transparent transparent
+    transparent;
 }
 
-.tooltip-container[data-popper-placement*='right'] .tooltip-arrow::before {
-  border-color: transparent rgba(0, 0, 0, 0.07) transparent transparent;
+.tooltip-container[data-popper-placement*='right']
+  .tooltip-arrow::before {
+  border-color: transparent rgba(0, 0, 0, 0.07) transparent
+    transparent;
 }
 
-.tooltip-container[data-popper-placement*='left'] .tooltip-arrow::before {
-  border-color: transparent transparent transparent rgba(0, 0, 0, 0.07);
+.tooltip-container[data-popper-placement*='left']
+  .tooltip-arrow::before {
+  border-color: transparent transparent transparent
+    rgba(0, 0, 0, 0.07);
 }
 
 .tooltip-arrow[data-placement*='top'] {
@@ -124,7 +136,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 

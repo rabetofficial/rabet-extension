@@ -7,15 +7,21 @@ import LoadingOne from '../LoadingOne';
 import Logo from '../../components/Logo';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
-import * as route from '../../staticRes/routes';
+import RouteName from '../../staticRes/routes';
 import setTimer from '../../actions/options/setTimer';
 import loginUserAction from '../../actions/user/login';
 import hadLoggedBeforeAction from '../../actions/user/hadLoggedBeforeAction';
 import Layout1 from '../../components/Layout1';
 
 type FormValues = {
-    password: string
-}
+  password: string;
+};
+
+const Container = styled.div`
+  .form {
+    margin-top: 78px;
+  }
+`;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,7 +36,7 @@ const Login = () => {
             if (isLogged) {
               setLoading(false);
 
-              navigate(route.accountManagerPage);
+              navigate(RouteName.AccountManager);
             }
           });
         } else {
@@ -49,7 +55,7 @@ const Login = () => {
 
     await setTimer();
 
-    return navigate(route.accountManagerPage);
+    return navigate(RouteName.AccountManager);
   };
 
   if (loading) {
@@ -62,14 +68,18 @@ const Login = () => {
         <Logo />
 
         <Form
-          onSubmit={(values:FormValues) => onSubmit(values)}
+          onSubmit={(values: FormValues) => onSubmit(values)}
           render={({
             submitError,
             handleSubmit,
             submitting,
             pristine,
           }) => (
-            <form className="form" onSubmit={handleSubmit} autoComplete="off">
+            <form
+              className="form"
+              onSubmit={handleSubmit}
+              autoComplete="off"
+            >
               <Field name="password">
                 {({ input, meta }) => (
                   <Input
@@ -84,7 +94,9 @@ const Login = () => {
                 )}
               </Field>
 
-              {submitError && <div className="error">{submitError}</div>}
+              {submitError && (
+                <div className="error">{submitError}</div>
+              )}
 
               <Button
                 type="submit"
@@ -103,9 +115,3 @@ const Login = () => {
 };
 
 export default Login;
-
-const Container = styled.div`
-  .form {
-    margin-top: 78px;
-  }
-`;
