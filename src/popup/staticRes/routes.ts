@@ -1,3 +1,48 @@
+enum RouteName {
+  Home = '/',
+  Login = '/login',
+  Register = '/confirm-login',
+  First = '/first',
+  Introduction = '/intro',
+  OfflineMode = '/offline-mode',
+  CreateWallet = '/create-wallet',
+  RestoreWallet = '/restore-wallet',
+
+  Error = '/error',
+  Sucess = '/sucess',
+  PrivateKey = '/private-key',
+  ShowPrivateKey = '/show-private-key',
+
+  Send = '/send',
+  Confirm = '/confirm',
+  BasicOperation = '/basic-operation',
+  AdvancedOperation = '/advance-operation',
+  BasicSendConfirm = '/basic-operation/send/confirm',
+  BasicSwapConfirm = '/basic-operation/swap/confirm',
+
+  Flags = '/flag',
+  Asset = '/asset',
+  DeleteAccount = '/delete-account',
+  ConnectedWebsites = '/connected-website',
+  XLMAsset = '/xlm-asset',
+  Setting = '/setting',
+  AddAsset = '/add-asset',
+  QRCode = '/qr-code',
+  ConfirmFlag = '/confirm-flag',
+
+  FetchData = '/fetch-data',
+  BackupFile = '/backup-file',
+  ContactRequest = '/contact-request',
+
+  LoadingOne = '/loading-one',
+  LoadingOverlay = '/loading-overlay',
+  LoadingNetwork = '/loading-network',
+
+  AccountManager = '/account-manager',
+}
+
+export default RouteName;
+
 export const homePage = '/';
 export const loginPage = '/login';
 export const confirmLoginPage = '/confirm-login';
