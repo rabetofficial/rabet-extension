@@ -4,7 +4,7 @@ import config from '../../../config';
 import offline from '../../../assets/images/offline.svg';
 import Layout1 from '../../components/Layout1';
 
-import styles from './styles.less';
+import * as S from './styles';
 
 const OfflineMode = () => {
   useEffect(() => {
@@ -14,17 +14,15 @@ const OfflineMode = () => {
   }, []);
 
   return (
-    <Layout1 alignCenter>
-      <div className={styles.sleeping}>
-        <span>z</span>
-        <span>z</span>
-        <span>z</span>
+    <Layout1 alignCenter isDashboard={false}>
+      <S.Sleeping>
+        <S.Z>z</S.Z>
+        <S.Z1>z</S.Z1>
+        <S.Z2>z</S.Z2>
         <img src={offline} width={58} height={119} alt="rabet offline" />
-      </div>
-      <div className={styles.textContainer}>
-        <div className={styles.title}>You are offline</div>
-        <div className={styles.msg}>Go back online to use Rabet</div>
-      </div>
+      </S.Sleeping>
+      <S.Title>You are offline</S.Title>
+      <S.Msg>Go back online to use Rabet</S.Msg>
     </Layout1>
   );
 };
