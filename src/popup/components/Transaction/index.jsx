@@ -18,7 +18,7 @@ const Transaction = ({
 
   const { operation_count } = transactionList.find((x) => x.id === item.transaction_hash);
 
-  const { logo, description } = useOperationDetails(item, operation_count);
+  const [logo, logoWidth, description] = useOperationDetails(item, operation_count);
 
   return (
     // eslint-disable-next-line react/jsx-filename-extension
@@ -27,11 +27,11 @@ const Transaction = ({
       className={styles.listItem}
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
+      style={{ borderBottom: !(index === (operationList.length - 1)) && '1px solid #f8f8f8' }}
     >
-      <div className={styles.border} style={{ borderBottom: !(index === (operationList.length - 1)) && '1px solid #f8f8f8' }}>
+      <div className={styles.box}>
         <div className={styles.logoContainer}>
-          {/* <span className="icon-exchange-alt" /> */}
-          <img src={logo} alt="OP" />
+          <img src={logo} width={logoWidth} alt="OP" />
         </div>
         <div className={styles.div}>
           <h6 className={styles.subject}>

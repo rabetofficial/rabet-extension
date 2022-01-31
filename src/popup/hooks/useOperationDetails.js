@@ -12,6 +12,7 @@ const useOperationDetails = (operation, operation_count) => {
   if (operation_count > 1) {
     return [
       MultiLogo,
+      15,
       'Multi operations',
     ];
   }
@@ -19,23 +20,24 @@ const useOperationDetails = (operation, operation_count) => {
   if (operation.type === 'path_payment_strict_send') {
     return [
       SwapLogo,
+      15,
       `Swap ${operation.amount} ${operation.asset_code || 'XLM'} -> ${operation.source_amount} {operation.source_asset_code}`,
     ];
   }
 
   if (operation.type === 'create_account') {
-    return [SendLogo, `Send ${operation.starting_balance} XLM`];
+    return [SendLogo, 12, `Send ${operation.starting_balance} XLM`];
   }
 
   if (operation.type === 'payment' && operation.from === activeAccount.publicKey) {
-    return [SendLogo, `Send ${operation.amount} ${operation.asset_code || 'XLM'}`];
+    return [SendLogo, 12, `Send ${operation.amount} ${operation.asset_code || 'XLM'}`];
   }
 
   if (operation.type === 'payment' && operation.from !== activeAccount.publicKey) {
-    return [ReceiveLogo, `Receive ${operation.amount} ${operation.asset_code || 'XLM'}`];
+    return [ReceiveLogo, 12, `Receive ${operation.amount} ${operation.asset_code || 'XLM'}`];
   }
 
-  return [OtherLogo, operation.type.split('_').join(' ')];
+  return [OtherLogo, 7, operation.type.split('_').join(' ')];
 };
 
 export default useOperationDetails;
