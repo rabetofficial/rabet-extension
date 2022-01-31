@@ -2,10 +2,12 @@ import React from 'react';
 
 import logo from '../../../assets/images/text-logo.svg';
 
-import styles from './styles.less';
+import Container from './styles';
 
 const Logo = () => (
-  <img src={logo} alt="logo" className={styles.logo} />
+  <Container>
+    <img src={logo} alt="logo" />
+  </Container>
 );
 
 export default Logo;
