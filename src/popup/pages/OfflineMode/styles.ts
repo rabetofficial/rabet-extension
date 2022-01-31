@@ -1,5 +1,11 @@
 import styled, { keyframes } from 'styled-components';
 
+export const Container = styled.div`
+  @media (max-width: 360px) {
+    margin-top: -188px;
+  }
+`;
+
 export const sleepAnimation = keyframes`
   0% {
     transform: translate(0, 0) scale(0.3);
@@ -55,18 +61,26 @@ export const Title = styled.div`
   font-weight: bold;
   line-height: 1.5;
   color: black;
-  margin-top: 19px;
+  margin-top: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 360px) {
+    margin-top: 19px;
+  }
 `;
 
 export const Msg = styled.div`
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.63;
-  margin-top: 6px;
+  margin-top: 8px;
   color: ${({ theme }) => theme.colors.primary.dark};
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 360px) {
+    font-size: 16px;
+  }
 `;
