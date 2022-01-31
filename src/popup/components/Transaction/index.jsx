@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React, { useState } from 'react';
 
+import useActiveAcconut from '../../hooks/useActiveAccount';
 import useOperationDetails from '../../hooks/useOperationDetails';
 import createTab from '../../utils/createTab';
 import explorer from '../../utils/horizon/getTransaction';
@@ -10,6 +11,7 @@ import styles from './styles.less';
 const Transaction = ({ item, index, operationList, transactionList }) => {
   const [isHover, setHover] = useState(false);
   const toggleHover = () => setHover(!isHover);
+  const activeAccount = useActiveAcconut();
 
   const { operation_count } = transactionList.find(
     (x) => x.id === item.transaction_hash,
@@ -18,6 +20,7 @@ const Transaction = ({ item, index, operationList, transactionList }) => {
   const [logo, logoWidth, description] = useOperationDetails(
     item,
     operation_count,
+    activeAccount,
   );
 
   return (

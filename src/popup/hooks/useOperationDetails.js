@@ -4,13 +4,10 @@ import MultiLogo from '../../assets/images/tx/multi.png';
 import OtherLogo from '../../assets/images/tx/other.png';
 import ReceiveLogo from '../../assets/images/tx/receive.png';
 
+import capital from '../utils/capital';
 import formatCurrency from '../utils/formatCurrency';
 
-import useActiveAcconut from './useActiveAccount';
-
-const useOperationDetails = (operation, operation_count) => {
-  const activeAccount = useActiveAcconut();
-
+const useOperationDetails = (operation, operation_count, activeAccount) => {
   if (operation_count > 1) {
     return [MultiLogo, 15, 'Multi operations'];
   }
@@ -61,7 +58,9 @@ const useOperationDetails = (operation, operation_count) => {
     ];
   }
 
-  return [OtherLogo, 7, operation.type.split('_').join(' ')];
+  const operationName = operation.type.split('_').map(capital).join(' ');
+
+  return [OtherLogo, 7, operationName];
 };
 
 export default useOperationDetails;
