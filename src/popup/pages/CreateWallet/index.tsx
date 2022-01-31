@@ -3,21 +3,19 @@ import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import Input from '../../components/common/Input';
-import Header from '../../components/Header';
-import Button from '../../components/common/Button';
-import * as route from '../../staticRes/routes';
-import PageTitle from '../../components/PageTitle';
-import createAccountAction from '../../actions/accounts/create';
-import ButtonContainer from "../../components/common/ButtonContainer";
+import Header from 'popup/components/Header';
+import Input from 'popup/components/common/Input';
+import Button from 'popup/components/common/Button';
+import * as route from 'popup/staticRes/routes';
+import PageTitle from 'popup/components/PageTitle';
+import createAccountAction from 'popup/actions/accounts/create';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 type FormValues = {
-  name: string | null
-}
+  name: string | null;
+};
 
 const CreateWallet = ({ accounts }) => {
-
-  console.warn(accounts);
   const navigate = useNavigate();
 
   const handleCancel = (form: any) => {
@@ -90,24 +88,29 @@ const CreateWallet = ({ accounts }) => {
               {submitError && (
                 <div className="error">{submitError}</div>
               )}
-                <ButtonContainer btnSize={100} gap={12} mt={28} justify="end">
-                  <Button
-                    variant="default"
-                    size="small"
-                    content="Cancel"
-                    onClick={() => {
-                      handleCancel(form);
-                    }}
-                  />
+              <ButtonContainer
+                btnSize={100}
+                gap={12}
+                mt={28}
+                justify="end"
+              >
+                <Button
+                  variant="default"
+                  size="small"
+                  content="Cancel"
+                  onClick={() => {
+                    handleCancel(form);
+                  }}
+                />
 
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="small"
-                    content="Create"
-                    disabled={pristine}
-                  />
-                </ButtonContainer>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="small"
+                  content="Create"
+                  disabled={pristine}
+                />
+              </ButtonContainer>
             </form>
           )}
         />

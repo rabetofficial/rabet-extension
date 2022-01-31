@@ -7,7 +7,8 @@ export const Group = styled.div`
   margin-top: 8px;
   margin-bottom: 8px;
 
-  &:focus, &:focus-within {
+  &:focus,
+  &:focus-within {
     border: 1px solid black;
   }
 

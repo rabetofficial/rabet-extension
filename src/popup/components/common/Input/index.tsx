@@ -1,35 +1,52 @@
 import React, {
-  useState, useEffect, useRef, CSSProperties, ChangeEvent,
+  useState,
+  useEffect,
+  useRef,
+  CSSProperties,
+  ChangeEvent,
 } from 'react';
 
-import InputBtn from './InputBtn';
-import { InputVariant, InputSize } from '../../../models';
+import InputBtn from 'popup/components/common/Input/InputBtn';
+import { InputVariant, InputSize } from 'popup/models';
 
 import * as S from './styles';
 
 type AppProps = {
-  type: string
-  size: InputSize
-  variant?: InputVariant
-  defaultValue?: string | number
-  disabled?: boolean
-  placeholder?: string
-  name?: string
-  icon?: string
-  style?: CSSProperties
-  className?: string
-  input: any
-  meta: any
-  autoFocus?: boolean
-  setMax?: () => void
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void
-  [x:string]: any;
-}
+  type: string;
+  size: InputSize;
+  variant?: InputVariant;
+  defaultValue?: string | number;
+  disabled?: boolean;
+  placeholder?: string;
+  name?: string;
+  icon?: string;
+  style?: CSSProperties;
+  className?: string;
+  input: any;
+  meta: any;
+  autoFocus?: boolean;
+  setMax?: () => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  [x: string]: any;
+};
 
 const Input = (props: AppProps) => {
   const {
-    type, defaultValue, variant, size, disabled, placeholder, name,
-    style, className, input, meta, setMax, autoFocus, onChange, ...inputProps
+    type,
+    defaultValue,
+    variant,
+    size,
+    disabled,
+    placeholder,
+    name,
+    style,
+    className,
+    input,
+    meta,
+    setMax,
+    autoFocus,
+    onChange,
+    ...inputProps
   } = props;
   const isError = !meta.valid;
   const inputRef = useRef<any>(null);
@@ -41,7 +58,8 @@ const Input = (props: AppProps) => {
     }
   }, []);
 
-  const toggleVisible = () => setVisibleType(visibleType === 'password' ? 'text' : type);
+  const toggleVisible = () =>
+    setVisibleType(visibleType === 'password' ? 'text' : type);
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     input.onChange(e);
@@ -76,11 +94,8 @@ const Input = (props: AppProps) => {
           visibleType={visibleType}
         />
       </S.Group>
-      {isError
-      && (
-      <S.ErrorMsg>
-        {meta.error || meta.submitError}
-      </S.ErrorMsg>
+      {isError && (
+        <S.ErrorMsg>{meta.error || meta.submitError}</S.ErrorMsg>
       )}
     </>
   );
