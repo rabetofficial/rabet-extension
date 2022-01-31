@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import Logo from '../../components/Logo';
 import Button from '../../components/common/Button';
 import * as route from '../../staticRes/routes';
-import Layout1 from '../../components/Layout1';
+import Layout from '../../components/Layout';
 
 const FirstPage = () => {
   const navigate = useNavigate();
 
   return (
-    <Layout1 isDashboard={false}>
+    <Layout isDashboard={false}>
       <Logo />
 
       <div className="mt-[70px]">
@@ -35,7 +35,7 @@ const FirstPage = () => {
           }}
         />
       </div>
-    </Layout1>
+    </Layout>
   );
 };
 

@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import classNames from 'classnames';
 
-type Layout1Props = {
+type LayoutProps = {
   children: JSX.Element | JSX.Element[];
   alignCenter?: boolean;
   className?: string;
   isDashboard?: boolean;
 };
 
-const Layout1 = ({
+const Layout = ({
   children,
   alignCenter,
   className,
   isDashboard,
-}: Layout1Props) => {
+}: LayoutProps) => {
   useEffect(() => {
     if (isDashboard) {
       document.body.className = 'dashboard';
@@ -44,10 +44,10 @@ const Layout1 = ({
   );
 };
 
-Layout1.defaultProps = {
+Layout.defaultProps = {
   alignCenter: false,
   className: '',
   isDashboard: true,
 };
 
-export default Layout1;
+export default Layout;
