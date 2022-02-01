@@ -3,12 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 import intro1 from '../../../assets/images/intro1.png';
 import Button from '../../components/common/Button';
-import * as route from '../../staticRes/routes';
+import RouteName from '../../staticRes/routes';
 import Layout from '../../components/Layout';
 import * as S from './styles';
 
 const Intro = () => {
   const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate(RouteName.IntroSlides);
+  };
 
   return (
     <Layout isDashboard={false}>
@@ -34,9 +38,7 @@ const Intro = () => {
           size="medium"
           content="Get Started"
           style={{ marginBottom: '28px' }}
-          onClick={() => {
-            navigate(route.createWalletPage);
-          }}
+          onClick={handleGetStarted}
         />
       </S.MbButton>
     </Layout>

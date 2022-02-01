@@ -35,7 +35,7 @@ const Layout = ({
             className,
           )}
         >
-          <div className="2xl:basis-1/3 2xl:mt-[55px] xl:basis-1/3 lg:basis-2/5 md:basis-2/4 sm:basis-3/5 basis-11/12">
+          <div className="2xl:basis-[470px] 2xl:mt-[55px] xl:basis-[470px] lg:basis-[470px] md:basis-[470px] sm:basis-3/5 basis-11/12">
             {children}
           </div>
         </div>

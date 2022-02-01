@@ -4,6 +4,7 @@ enum RouteName {
   Register = '/confirm-login',
   First = '/first',
   Introduction = '/intro',
+  IntroSlides = '/intro/slides',
   OfflineMode = '/offline-mode',
   CreateWallet = '/create-wallet',
   RestoreWallet = '/restore-wallet',

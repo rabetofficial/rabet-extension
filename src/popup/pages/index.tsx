@@ -9,6 +9,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 
 import Home from './Home';
 import Intro from './Intro';
+import IntroSlides from './Slides';
 import Login from './Login';
 import Error from './Error';
 import Send from './Send';
@@ -188,12 +189,17 @@ const App = () => (
             </ProtectedRoute>
           }
         />
-
         <Route
           exact
           path={RouteName.Introduction}
           element={<Intro />}
         />
+        <Route
+          exact
+          path={RouteName.IntroSlides}
+          element={<IntroSlides />}
+        />
+        zz
         <Route exact path={RouteName.Flags} element={<Flags />} />
         <Route
           exact
