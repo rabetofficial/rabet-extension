@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tooltip from 'popup/components/Tooltip';
+import Tooltip from 'popup/components/common/Tooltip';
 import { InputVariant } from 'popup/models';
 import InvisibleEye from 'popup/svgs/InvisibleEye';
 import VisibleEye from 'popup/svgs/VisibleEye';
@@ -42,11 +42,7 @@ const InputBtn = ({
     if (variant === 'max') {
       return (
         <S.Max type="button">
-          <Tooltip
-            trigger="hover"
-            tooltip="Send entire"
-            placement="top"
-          >
+          <Tooltip tooltip="Send entire" placement="top">
             <S.MaxIcon onClick={setMax}>
               <AngleDoubleUp />
             </S.MaxIcon>
