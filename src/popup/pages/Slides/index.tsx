@@ -10,8 +10,8 @@ import Slide3 from './Slide3';
 import Slide4 from './Slide4';
 
 const properties = {
-  duration: 5000,
-  transitionDuration: 500,
+  // duration: 5000,
+  // transitionDuration: 500,
   infinite: true,
   indicators: true,
   arrows: true,
@@ -25,7 +25,7 @@ const properties = {
 
 const Slides = () => (
   <Layout alignCenter isDashboard={false}>
-    <div className="w-[400px]">
+    <div className="w-[790px]">
       <Slide {...properties}>
         <Slide1 />
         <Slide2 />
