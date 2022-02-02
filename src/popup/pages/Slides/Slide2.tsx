@@ -1,16 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import Layout from 'popup/components/Layout';
 import intro3 from '../../../assets/images/intro3.png';
 import * as S from './styles';
 
 const SecondSlide = () => (
-  <Layout isDashboard={false}>
-    <S.Img>
+  <>
+    <S.ImgSlideTwo>
       <img src={intro3} alt="img" />
-    </S.Img>
+    </S.ImgSlideTwo>
     <div className="text-center">
-      <p className="text-3xl font-bold mt-[50px] mb-[20px]">
+      <p className="text-3xl font-bold mt-[51px] mb-[20px]">
         Secure by default{' '}
       </p>
       <p className="text-xl w-[660px]">
@@ -19,7 +18,7 @@ const SecondSlide = () => (
         data.
       </p>
     </div>
-  </Layout>
+  </>
 );
 
 export default SecondSlide;

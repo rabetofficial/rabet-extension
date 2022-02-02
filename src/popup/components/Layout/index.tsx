@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import classNames from 'classnames';
+import SlidesLayout from './SlidesLayout';
 
 type LayoutProps = {
   children: JSX.Element | JSX.Element[];
@@ -51,3 +52,4 @@ Layout.defaultProps = {
 };
 
 export default Layout;
+export { SlidesLayout };

@@ -1,14 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import Layout from 'popup/components/Layout';
 import intro2 from '../../../assets/images/intro2.png';
 import * as S from './styles';
 
 const FirstSlide = () => (
-  <Layout isDashboard={false}>
-    <S.Img>
+  <>
+    <S.ImgSlideOne>
       <img src={intro2} alt="img" />
-    </S.Img>
+    </S.ImgSlideOne>
     <div className="text-center">
       <p className="text-3xl font-bold mt-[50px] mb-[20px]">
         Useful by design
@@ -19,7 +18,7 @@ const FirstSlide = () => (
         environment.
       </p>
     </div>
-  </Layout>
+  </>
 );
 
 export default FirstSlide;
