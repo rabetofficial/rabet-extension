@@ -86,7 +86,7 @@ const Login = () => {
                     type="password"
                     placeholder="Password"
                     size="medium"
-                    variant="max"
+                    variant="password"
                     input={input}
                     meta={meta}
                     autoFocus
