@@ -44,12 +44,18 @@ export const ImgSlideForth = styled.div`
     height: 280px;
   }
 `;
-
-export const Indicators = styled.div`
+interface IndicatorsProps {
+  disabled: boolean;
+  theme: any;
+}
+export const Indicators = styled.div<IndicatorsProps>`
   width: 40px;
-  height: 1.5px;
+  height: 2px;
   margin: -50px 4px 0px 4px;
-  background-color: ${({ theme }) => theme.colors.primary.darkest};
+  background-color: ${({ theme, disabled }) =>
+    disabled
+      ? theme.colors.primary.light
+      : theme.colors.primary.darkest};
 `;
 
 export const Circle = styled.div`

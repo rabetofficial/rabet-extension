@@ -12,46 +12,48 @@ import Slide4 from './Slide4';
 
 import * as S from './styles';
 
-// const [nextIndex, setNextIndex] = useState();
-// const [lastIndex, setLastIndex] = useState();
+const Slides = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
 
-const properties = {
-  autoplay: false,
-  canSwipe: false,
-  duration: 5000,
-  transitionDuration: 500,
-  infinite: true,
-  arrows: true,
-  prevArrow: (
-    <S.Circle>
-      <SlideLeft />
-    </S.Circle>
-  ),
-  nextArrow: (
-    <S.Circle>
-      <SlideRight />
-    </S.Circle>
-  ),
-  indicators: (i: number) => <S.Indicators />,
-  onChange: (
-    oldIndex: number | string,
-    newIndex: number | string,
-  ) => {
-    console.log(`slide transition from ${oldIndex} to ${newIndex}`);
-  },
+  const properties = {
+    autoplay: false,
+    canSwipe: false,
+    duration: 5000,
+    transitionDuration: 500,
+    infinite: false,
+    arrows: true,
+    prevArrow: (
+      <S.Circle>
+        <SlideLeft disabled={slideIndex === 0} />
+      </S.Circle>
+    ),
+    nextArrow: (
+      <S.Circle>
+        <SlideRight disabled={slideIndex === 3} />
+      </S.Circle>
+    ),
+    onChange: (oldIndex: number, newIndex: number) => {
+      setSlideIndex(newIndex);
+    },
+    indicators: (i: number) =>
+      slideIndex === 3 ? (
+        <div />
+      ) : (
+        <S.Indicators disabled={i > slideIndex} />
+      ),
+  };
+  return (
+    <SlidesLayout>
+      <div className="w-[790px]">
+        <Slide {...properties}>
+          <Slide1 />
+          <Slide2 />
+          <Slide3 />
+          <Slide4 />
+        </Slide>
+      </div>
+    </SlidesLayout>
+  );
 };
-
-const Slides = () => (
-  <SlidesLayout>
-    <div className="w-[790px]">
-      <Slide {...properties}>
-        <Slide1 />
-        <Slide2 />
-        <Slide3 />
-        <Slide4 />
-      </Slide>
-    </div>
-  </SlidesLayout>
-);
 
 export default Slides;
