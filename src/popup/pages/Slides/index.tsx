@@ -18,8 +18,8 @@ const Slides = () => {
   const properties = {
     autoplay: false,
     canSwipe: false,
-    duration: 5000,
-    transitionDuration: 500,
+    duration: 3000,
+    transitionDuration: 400,
     infinite: false,
     arrows: true,
     prevArrow: (
