@@ -1,26 +1,21 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import Error from '../common/Error';
 import Header from '../../components/Header';
 import * as route from '../../staticRes/routes';
 import PageTitle from '../../components/PageTitle';
-import NoteCard from '../../pageComponents/NoteCard';
 
-import styles from './styles.less';
-
-const Error = () => {
+const ErrorPage = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
   const handleClick = () => {
-    navigate(
-      route.homePage,
-      {
-        state: {
-          alreadyLoaded: true,
-        },
+    navigate(route.homePage, {
+      state: {
+        alreadyLoaded: true,
       },
-    );
+    });
   };
 
   return (
@@ -29,22 +24,9 @@ const Error = () => {
 
       <PageTitle />
 
-      <div>
-        <NoteCard
-          title="Error"
-          message={state.message || 'ERROR!'}
-          btnText="Got it"
-          icon="icon-exclamation-triangle"
-          iconClass={styles.icon}
-          handleClick={handleClick}
-        />
-      </div>
+      <Error handleClick={handleClick} error={state.message} />
     </>
   );
 };
 
-Error.propTypes = {
-
-};
-
-export default Error;
+export default ErrorPage;
