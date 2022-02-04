@@ -1,10 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import Error from 'popup/pages/common/Error';
-import ModalDialog from 'popup/components/common/ModalDialog';
 import Button from 'popup/components/common/Button';
 import intro5 from '../../../assets/images/intro5.png';
 import * as S from './styles';
@@ -12,13 +10,10 @@ import * as S from './styles';
 import RouteName from '../../staticRes/routes';
 
 const ForthSlide = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    setModalOpen(true);
-    // navigate(RouteName.IntroSlides);
+    navigate(RouteName.IntroSlides);
   };
 
   return (
@@ -39,23 +34,11 @@ const ForthSlide = () => {
         <Button
           type="button"
           variant="primary"
-          size="medium"
-          content="Get Started"
+          size="large"
+          content="Lounch the App"
           onClick={handleGetStarted}
         />
       </div>
-
-      <ModalDialog
-        size="medium"
-        title="Error!"
-        isOpen={modalOpen}
-        isStyled
-        onClose={() => {
-          console.log('hi');
-        }}
-      >
-        <Error handleClick={() => {}} error="Error" />
-      </ModalDialog>
     </>
   );
 };

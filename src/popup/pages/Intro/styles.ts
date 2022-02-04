@@ -1,21 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin-top: 44px;
-  white-space: none;
+  margin-top: 25px;
+  white-space: nowrap;
 `;
 
 export const Img = styled.div`
-  margin-top: 35px;
-  width: 377px;
-  height: 351px;
+  width: 361px;
+  height: 417px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: -13px auto 0 auto;
 
-  @media (max-width: 360px) {
-    width: 300px;
-    height: 280px;
+  @media (max-width: 370px) {
+    width: 350px;
+    height: 417px;
   }
 `;
 

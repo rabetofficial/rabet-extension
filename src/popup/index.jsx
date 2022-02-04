@@ -12,6 +12,7 @@ import Component from './pages';
 import loadUser from './actions/user/loadUser';
 import getHost from './actions/options/getHost';
 
+import 'react-slideshow-image/dist/styles.css';
 import '../../node_modules/purecss/build/pure-min.css';
 import '../../node_modules/react-popper-tooltip/dist/styles.css';
 import './styles/main.css';

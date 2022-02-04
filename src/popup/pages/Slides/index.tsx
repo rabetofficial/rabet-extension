@@ -3,7 +3,6 @@ import { SlidesLayout } from 'popup/components/Layout';
 import { SlideLeft, SlideRight } from 'popup/svgs/SlideArrows';
 
 import { Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css';
 
 import Slide1 from './Slide1';
 import Slide2 from './Slide2';

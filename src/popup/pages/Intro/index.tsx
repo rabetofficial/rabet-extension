@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import intro1 from '../../../assets/images/intro1.png';
+import Logo from 'popup/svgs/Intro';
 import Button from '../../components/common/Button';
 import RouteName from '../../staticRes/routes';
 import Layout from '../../components/Layout';
@@ -17,16 +17,16 @@ const Intro = () => {
   return (
     <Layout isDashboard={false}>
       <S.Img>
-        <img src={intro1} alt="img" />
+        <Logo />
       </S.Img>
 
       <S.Container>
         <div className="text-center">
-          <p className="lg:text-xl md:text-xl text-lg text-primary-dark ">
-            For example some text would be here
+          <p className="lg:text-xl md:text-xl sm:text-xl text-[18px] text-primary-dark ">
+            Welcome to the new financial world
           </p>
-          <p className="lg:text-5xl md:text-4xl text-3xl text-primary-darkest font-bold mt-4 mb-12 ">
-            Make Rabet your own
+          <p className="lg:text-[37.2px] md:text-4xl sm:text-3xl text-[26px] lg:whitespace-nowrap text-primary-darkest font-bold mt-4 mb-12 ">
+            Start interacting with Stellar
           </p>
         </div>
       </S.Container>
