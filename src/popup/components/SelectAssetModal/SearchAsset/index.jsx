@@ -46,7 +46,7 @@ const SearchAsset = ({ currencies, closeModal, onChange }) => {
                 <div className={styles.assetInfo}>{currency.domain}</div>
               </div>
             </div>
-            <div className={styles.assetPrice}>{new BN(currency.balance).toString()}</div>
+            <div className={styles.assetPrice}>{new BN(currency.balance ?? 0).toString()}</div>
           </div>
         ))}
 

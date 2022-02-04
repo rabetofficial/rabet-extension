@@ -1,6 +1,7 @@
 import StellarSdk from 'stellar-sdk';
 
 import store from '../../store';
+import config from '../../../config';
 import isNative from '../../utils/isNative';
 import payment from '../../operations/payment';
 import * as route from '../../staticRes/routes';
@@ -48,7 +49,7 @@ export default async (push) => {
     .loadAccount(sourceKeys.publicKey())
     .then((sourceAccount) => {
       transaction = new StellarSdk.TransactionBuilder(sourceAccount, {
-        fee: '50000',
+        fee: config.BASE_FEE,
         networkPassphrase: passphrase,
       });
 

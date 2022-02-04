@@ -1,9 +1,12 @@
 import StellarSdk from 'stellar-sdk';
 
+import config from '../../../config';
 import isNative from '../../utils/isNative';
+import matchAsset from '../../utils/matchAsset';
 import * as route from '../../staticRes/routes';
 import showError from '../../utils/errorMessage';
 import calculatePath from '../../utils/calculatePath';
+import changeTrust from '../../operations/changeTrust';
 import currentActiveAccount from '../../utils/activeAccount';
 import currentNetwork from '../../utils/horizon/currentNetwork';
 import pathPaymentStrictSend from '../../operations/pathPaymentStrictSend';
@@ -12,6 +15,7 @@ export default async (values, push) => {
   push(route.loadingNetworkPage);
 
   const { activeAccount } = currentActiveAccount();
+  const { balances } = activeAccount;
   const { url, passphrase } = currentNetwork();
 
   const server = new StellarSdk.Server(url);
@@ -42,17 +46,27 @@ export default async (values, push) => {
     );
   }
 
+  const foundToken = balances.find((token) => matchAsset(token, values.asset2));
+
   server
     .loadAccount(sourceKeys.publicKey())
     .then((sourceAccount) => {
       transaction = new StellarSdk.TransactionBuilder(sourceAccount, {
-        fee: StellarSdk.BASE_FEE,
+        fee: config.BASE_FEE,
         networkPassphrase: passphrase,
-      })
-        .addOperation(pathPaymentStrictSend(params))
-        .setTimeout(180)
-        .build();
+      });
 
+      if (!foundToken) {
+        transaction = transaction.addOperation(changeTrust({
+          limit: '999999',
+          asset: params.destAsset,
+        }));
+      }
+
+      transaction = transaction
+        .addOperation(pathPaymentStrictSend(params));
+
+      transaction = transaction.setTimeout(180).build();
       transaction.sign(sourceKeys);
 
       return server.submitTransaction(transaction);
@@ -65,7 +79,6 @@ export default async (values, push) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       if (err && err.response && err.response.data) {
         push(route.errorPage, {
           state: {

@@ -10,6 +10,8 @@ import Button from '../../../../components/Button';
 import Loading from '../../../../components/Loading';
 import * as route from '../../../../staticRes/routes';
 import getMaxBalance from '../../../../utils/maxBalance';
+import defaultTokens from '../../../../staticRes/tokens';
+import combineTokens from '../../../../utils/swap/combineTokens';
 import SwapDetails from '../../../../pageComponents/SwapDetails';
 import currentActiveAccount from '../../../../utils/activeAccount';
 import controlNumberInput from '../../../../utils/controlNumberInput';
@@ -31,6 +33,7 @@ const Swap = () => {
   const {
     activeAccount: { balances, maxXLM },
   } = currentActiveAccount();
+  const asset2Tokens = combineTokens(balances, defaultTokens);
 
   const [path, setPath] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -39,7 +42,7 @@ const Swap = () => {
   const [isRotateActive, setIsRotateActive] = useState(false);
 
   const [asset1, setAsset1] = useState(null);
-  const [asset2, setAsset2] = useState(null);
+  const [asset2, setAsset2] = useState(asset2Tokens[0]);
 
   const timeoutRef = useRef();
 
@@ -55,7 +58,7 @@ const Swap = () => {
     mode: 'onChange',
     defaultValues: {
       asset1: balances[0],
-      asset2: null,
+      asset2: asset2Tokens[0],
     },
   });
 
@@ -338,11 +341,11 @@ const Swap = () => {
             render={() => (
               <SelectAssetModal
                 max={false}
-                defaultNull
+                // defaultNull
                 asset={asset2}
                 valueName="asset2"
                 setValue={setValue}
-                currencies={balances}
+                currencies={asset2Tokens}
                 onChange={handleAsset2}
               />
             )}
