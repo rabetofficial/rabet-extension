@@ -31,7 +31,7 @@ const Slides = () => {
         <SlideRight disabled={slideIndex === 3} />
       </S.Circle>
     ),
-    onChange: (oldIndex: number, newIndex: number) => {
+    onChange: (_: number, newIndex: number) => {
       setSlideIndex(newIndex);
     },
     indicators: (i: number) =>
