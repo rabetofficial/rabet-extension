@@ -45,13 +45,27 @@ const config = {
       }),
       new CssMinimizerPlugin(),
     ],
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   module: {
     rules: [
       {
         test: /\.tsx?/,
         exclude: /node_modules/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+        // use: 'ts-loader',
+        // options: {
+        //   ignoreDiagnostics: [2339, 7006, 7016],
+        // },
       },
       {
         test: /\.(js|jsx)$/,
@@ -79,7 +93,8 @@ const config = {
                 },
               },
             },
-          }, {
+          },
+          {
             loader: 'less-loader',
             options: {
               lessOptions: {

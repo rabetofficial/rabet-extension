@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "copy:build": "mkdir ../$BUILD; cp -r dist logo manifest.json ../$BUILD",
-    "copy:source": "mkdir ../$BUILD; cp -r logo src .babelrc manifest.json package.json package-lock.json postcss.config.js webpack.config.js ../$BUILD"
+    "copy:source": "mkdir ../$BUILD; cp -r logo src .babelrc manifest.json package.json package-lock.json postcss.config.js webpack.config.js tsconfig.json externals.d.ts .eslintrc.json ../$BUILD"
   },
   "repository": {
     "type": "git",
