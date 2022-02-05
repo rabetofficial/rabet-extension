@@ -6,6 +6,7 @@ import ReceiveLogo from '../../assets/images/tx/receive.png';
 
 import capital from '../utils/capital';
 import formatCurrency from '../utils/formatCurrency';
+import numberWithCommas from '../utils/numberWithCommas';
 
 const useOperationDetails = (operation, operation_count, activeAccount) => {
   if (operation_count > 1) {
@@ -16,10 +17,8 @@ const useOperationDetails = (operation, operation_count, activeAccount) => {
     return [
       SwapLogo,
       15,
-      `Swap ${formatCurrency(operation.amount)} ${
+      `Swap ${numberWithCommas(formatCurrency(operation.source_amount))} ${operation.source_asset_code || 'XLM'} -> ${numberWithCommas(formatCurrency(operation.amount))} ${
         operation.asset_code || 'XLM'
-      } -> ${formatCurrency(operation.source_amount)} ${
-        operation.source_asset_code
       }`,
     ];
   }
@@ -28,7 +27,7 @@ const useOperationDetails = (operation, operation_count, activeAccount) => {
     return [
       SendLogo,
       12,
-      `Send ${formatCurrency(operation.starting_balance)} XLM`,
+      `Send ${numberWithCommas(formatCurrency(operation.starting_balance))} XLM`,
     ];
   }
 
@@ -39,7 +38,7 @@ const useOperationDetails = (operation, operation_count, activeAccount) => {
     return [
       SendLogo,
       12,
-      `Send ${formatCurrency(operation.amount)} ${
+      `Send ${numberWithCommas(formatCurrency(operation.amount))} ${
         operation.asset_code || 'XLM'
       }`,
     ];
@@ -52,7 +51,7 @@ const useOperationDetails = (operation, operation_count, activeAccount) => {
     return [
       ReceiveLogo,
       12,
-      `Receive ${formatCurrency(operation.amount)} ${
+      `Receive ${numberWithCommas(formatCurrency(operation.amount))} ${
         operation.asset_code || 'XLM'
       }`,
     ];
