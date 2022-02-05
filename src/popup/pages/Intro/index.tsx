@@ -22,10 +22,10 @@ const Intro = () => {
 
       <S.Container>
         <div className="text-center">
-          <p className="lg:text-xl md:text-xl sm:text-xl text-[18px] text-primary-dark ">
+          <p className="xlg:text-xl lg:text-xl md:text-xl sm:text-[22px] text-[18px] text-primary-dark ">
             Welcome to the new financial world
           </p>
-          <p className="lg:text-[37.2px] md:text-4xl sm:text-3xl text-[26px] lg:whitespace-nowrap text-primary-darkest font-bold mt-4 mb-12 ">
+          <p className="xlg:text-[40px] lg:text-4xl md:text-4xl sm:text-[30px] text-[26px] lg:whitespace-nowrap text-primary-darkest font-bold mt-4 mb-12 ">
             Start interacting with Stellar
           </p>
         </div>

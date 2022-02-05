@@ -18,7 +18,9 @@ export const Img = styled.div`
 `;
 
 export const MbButton = styled.div`
+  padding: 0 17px;
   @media (max-width: 360px) {
     margin-bottom: 32px !important;
+    padding: 0;
   }
 `;
