@@ -18,7 +18,9 @@ import isInsufficientAsset from '../../../utils/isInsufficientAsset';
 import isTransferable from '../../../utils/isTransferable';
 
 const PaymentOps = ({ id }) => {
-  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const {
+    activeAccount: { balances, maxXLM },
+  } = currentActiveAccount();
   const [selected, setSelected] = useState(balances[0]);
 
   const onChange = (e) => setSelected(e);
@@ -68,13 +70,18 @@ const PaymentOps = ({ id }) => {
       }
     }
 
-    if (!validateAddress(values.destination)) {
-      errors.destination = 'Invalid destination.';
+    if (!values.destination) {
+      errors.destination = '';
       hasError.destination = true;
+    } else {
+      if (!validateAddress(values.destination)) {
+        errors.destination = 'Invalid destination.';
+        hasError.destination = true;
 
-      changeOperationAction(id, {
-        checked: false,
-      });
+        changeOperationAction(id, {
+          checked: false,
+        });
+      }
     }
 
     if (!hasError.amount && !hasError.destination && selected.asset_code) {
@@ -92,7 +99,10 @@ const PaymentOps = ({ id }) => {
 
       const accountData = await getAccountData(values.destination);
 
-      const [transferableResult, resultCode] = isTransferable(values, accountData);
+      const [transferableResult, resultCode] = isTransferable(
+        values,
+        accountData,
+      );
       let checked = true;
 
       if (!transferableResult && resultCode === 0) {
@@ -108,7 +118,8 @@ const PaymentOps = ({ id }) => {
         errors.destination = 'Wrong.';
         hasError.destination = true;
       } else if (!transferableResult && resultCode === 2) {
-        errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+        errors.destination =
+          'The destination account does not trust the asset you are attempting to send.';
         hasError.destination = true;
 
         changeOperationAction(id, {
@@ -117,7 +128,8 @@ const PaymentOps = ({ id }) => {
 
         checked = false;
       } else if (!transferableResult && resultCode === 3) {
-        errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+        errors.destination =
+          'The destination account balance would exceed the trust of the destination in the asset.';
         hasError.destination = true;
 
         changeOperationAction(id, {
