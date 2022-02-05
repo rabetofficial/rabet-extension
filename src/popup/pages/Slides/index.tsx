@@ -17,19 +17,18 @@ const Slides = () => {
   const properties = {
     autoplay: false,
     canSwipe: false,
-    duration: 3000,
-    transitionDuration: 400,
+    transitionDuration: 800,
     infinite: false,
     arrows: true,
     prevArrow: (
-      <S.Circle>
+      <S.LeftCircle thirdSlide={slideIndex === 3}>
         <SlideLeft disabled={slideIndex === 0} />
-      </S.Circle>
+      </S.LeftCircle>
     ),
     nextArrow: (
-      <S.Circle>
+      <S.RightCircle thirdSlide={slideIndex === 3}>
         <SlideRight disabled={slideIndex === 3} />
-      </S.Circle>
+      </S.RightCircle>
     ),
     onChange: (_: number, newIndex: number) => {
       setSlideIndex(newIndex);
@@ -38,19 +37,19 @@ const Slides = () => {
       slideIndex === 3 ? (
         <div />
       ) : (
-        <S.Indicators disabled={i > slideIndex} />
+        <S.Indicators index={i} disabled={i > slideIndex} />
       ),
   };
   return (
     <SlidesLayout>
-      <div className="w-[790px]">
+      <S.SlidesContainer>
         <Slide {...properties}>
           <Slide1 />
           <Slide2 />
           <Slide3 />
           <Slide4 />
         </Slide>
-      </div>
+      </S.SlidesContainer>
     </SlidesLayout>
   );
 };

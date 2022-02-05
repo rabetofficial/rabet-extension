@@ -21,15 +21,15 @@ const ForthSlide = () => {
       <S.ImgSlideForth>
         <img src={intro5} alt="img" />
       </S.ImgSlideForth>
-      <div className="text-center">
-        <p className="text-3xl font-bold mt-[56px] mb-[20px]">
-          Rabet is Your Identity{' '}
-        </p>
-        <p className="text-xl w-[660px]">
+      <S.TextContainer>
+        <S.HeadText className="mt-[56px]">
+          Rabet is Your Identity
+        </S.HeadText>
+        <S.MainText className="px-[10px]">
           In the Stellar world, Rabet is your passport, letting you
           interact with any SApp you wish.
-        </p>
-      </div>
+        </S.MainText>
+      </S.TextContainer>
       <div className="flex justify-center mt-[40px] mr-auto ml-auto 2xl:basis-[328px] sm:basis-[90%] w-[320px]">
         <Button
           type="button"

@@ -8,16 +8,16 @@ const ThirdSlide = () => (
     <S.ImgSlideThird>
       <img src={intro4} alt="img" />
     </S.ImgSlideThird>
-    <div className="text-center">
-      <p className="text-3xl font-bold mt-[47px] mb-[20px]">
-        Made for interaction{' '}
-      </p>
-      <p className="text-xl w-[660px]">
+    <S.TextContainer>
+      <S.HeadText className="mt-[47px]">
+        Made for interaction
+      </S.HeadText>
+      <S.MainText className="px-[20px]">
         Anything you have yet gained was derived from the interaction.
         The structure of Rabet is designed such that one can interact
         with the next generation financial network, i.e., Stellar.
-      </p>
-    </div>
+      </S.MainText>
+    </S.TextContainer>
   </>
 );
 

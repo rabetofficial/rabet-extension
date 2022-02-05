@@ -49,7 +49,8 @@ export const Button = styled.button`
     }
 
     &:disabled {
-      background-color: ${({ theme }) => theme.colors.primary.lighter};
+      background-color: ${({ theme }) =>
+        theme.colors.primary.lighter};
       border: 2px solid ${({ theme }) => theme.colors.primary.lighter};
       color: ${({ theme }) => theme.colors.primary.main};
     }
@@ -104,7 +105,7 @@ export const Button = styled.button`
   &.secondary {
     background: ${({ theme }) => theme.colors.primary.lightest};
     border: 2px solid ${({ theme }) => theme.colors.primary.darkest};
-    color: ${({ theme }) => theme.colors.primary.darkest} ;
+    color: ${({ theme }) => theme.colors.primary.darkest};
 
     &:disabled {
       background: ${({ theme }) => theme.colors.primary.main};
