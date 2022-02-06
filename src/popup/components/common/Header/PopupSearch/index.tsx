@@ -13,6 +13,7 @@ import formatCurrency from 'popup/utils/formatCurrency';
 import numberWithCommas from 'popup/utils/numberWithCommas';
 import getTotalBalance from 'popup/utils/getTotalBalance';
 import changeActiveAction from 'popup/actions/accounts/changeActive';
+import Popover from 'popup/components/common/Popover';
 
 import styles from './styles.less';
 
@@ -32,6 +33,7 @@ const PopupSearch = ({
   const [accounts, setAccounts] = useState([]);
   const [toggle, setToggle] = useState(false);
   const node = useRef();
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleChange = (e) => {
     setSearchString(e.target.value);
@@ -88,22 +90,22 @@ const PopupSearch = ({
   };
 
   const handleClick = (e) => {
-    if (node.current.contains(e.target)) {
-      // inside click
-      return;
-    }
-    setToggle(false);
-    props.toggleOverlay(false);
+    // if (node.current.contains(e.target)) {
+    //   // inside click
+    //   return;
+    // }
+    // setToggle(false);
+    props.toggleOverlay(true);
   };
 
-  useEffect(() => {
-    // add when mounted
-    document.addEventListener('mousedown', handleClick);
-    // return function to be called when unmounted
-    return () => {
-      document.removeEventListener('mousedown', handleClick);
-    };
-  }, []);
+  // useEffect(() => {
+  //   // add when mounted
+  //   document.addEventListener('mousedown', handleClick);
+  //   // return function to be called when unmounted
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClick);
+  //   };
+  // }, []);
 
   useEffect(() => {
     setSearchString('');
@@ -138,19 +140,18 @@ const PopupSearch = ({
   ];
 
   return (
-    <div ref={node}>
+    <div>
       <button
         type="button"
         className={styles.toggle}
-        onClick={() => {
-          toggleMenu();
-        }}
+        ref={buttonRef}
+        onClick={handleClick}
       >
         {accs[activeAccountIndex] && accs[activeAccountIndex].name
           ? accs[activeAccountIndex].name.substr(0, 1).toUpperCase()
           : 'A'}
       </button>
-      {toggle && (
+      <Popover placement="bottom" ref={buttonRef}>
         <div className={styles.card}>
           <input
             type="text"
@@ -199,7 +200,7 @@ const PopupSearch = ({
             ))}
           </div>
         </div>
-      )}
+      </Popover>
     </div>
   );
 };

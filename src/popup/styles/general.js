@@ -117,6 +117,10 @@ const GeneralStyle = createGlobalStyle`
       opacity: 0;
     }
   }
+  
+  .tippy-svg-arrow{
+    fill: white;
+  }
 `;
 
 export default GeneralStyle;

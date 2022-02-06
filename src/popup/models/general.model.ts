@@ -15,6 +15,8 @@ export type ModalSize = 'small' | 'medium' | 'large';
 
 export type JustifyContent = 'start' | 'end' | 'center';
 
+export type Placement = 'top' | 'bottom' | 'right' | 'left';
+
 export type TooltipPlacement =
   | 'auto'
   | 'auto-start'
