@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import ModalDialog from '../../components/common/ModalDialog';
+import ExpandLayout from '../../components/common/Layouts/ExpandLayout';
 
 const UITest = () => {
   const [open, setOpen] = useState(false);
@@ -8,8 +9,10 @@ const UITest = () => {
   const handleOpen = () => setOpen(true);
 
   return (
-    <div>
-      <button type="button" onClick={handleOpen}>open</button>
+    <ExpandLayout>
+      <button type="button" onClick={handleOpen}>
+        open
+      </button>
       <ModalDialog
         title="Title"
         isOpen={open}
@@ -17,9 +20,11 @@ const UITest = () => {
         size="small"
       >
         test
-        <button type="button" onClick={handleClose}>close</button>
+        <button type="button" onClick={handleClose}>
+          close
+        </button>
       </ModalDialog>
-    </div>
+    </ExpandLayout>
   );
 };
 
