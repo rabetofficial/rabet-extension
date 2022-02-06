@@ -6,13 +6,13 @@ import * as S from './styles';
 
 type ButtonTypes = {
   disabled?: boolean;
-  content: JSX.Element | string;
+  content: React.ReactNode;
   variant: ButtonVariant;
   type?: string | any;
   size?: ButtonSize;
   style?: CSSProperties;
-  startIcon?: JSX.Element | string;
-  endIcon?: JSX.Element | string;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
   onClick?: () => void;
   className?: string | any;
 };

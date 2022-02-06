@@ -134,5 +134,7 @@ export const Button = styled.button`
 `;
 
 export const Icon = styled.div`
+  display: flex;
+  align-items: center;
   margin: 0 10px;
 `;
