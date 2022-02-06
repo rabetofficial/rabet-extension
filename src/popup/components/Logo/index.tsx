@@ -1,6 +1,6 @@
 import React from 'react';
 
-import logo from '../../../assets/images/text-logo.svg';
+import logo from 'src/assets/images/text-logo.svg';
 
 import Container from './styles';
 
