@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import ModalDialog from '../../components/common/ModalDialog';
 import ExpandLayout from '../../components/common/Layouts/ExpandLayout';
+import Header from '../../components/common/Header';
 
 const UITest = () => {
   const [open, setOpen] = useState(false);
@@ -10,6 +11,7 @@ const UITest = () => {
 
   return (
     <ExpandLayout>
+      <Header />
       <button type="button" onClick={handleOpen}>
         open
       </button>
