@@ -3,20 +3,14 @@ import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import Logo from 'popup/components/Logo';
-
-import Layout from 'popup/components/Layout';
 import Input from 'popup/components/common/Input';
+import Header from 'popup/components/Header';
 import Button from 'popup/components/common/Button';
-
 import * as route from 'popup/staticRes/routes';
+import PageTitle from 'popup/components/PageTitle';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import validatePrivateKey from 'popup/utils/validate/privateKey';
-
-import TabList from './TabList';
-
-import * as S from './styles';
-import ArrowBack from 'popup/svgs/ArrowBack';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 type FormValues = {
   key: string | null;
@@ -78,12 +72,10 @@ const RestoreWallet = ({ accounts }) => {
   };
 
   return (
-    <Layout isDashboard={false}>
-      <div>
-        <Logo />
-        <S.TabContainer>
-          <TabList />
-        </S.TabContainer>
+    <>
+      <Header />
+      <PageTitle title="Import Wallet" />
+      <div className="content" style={{ marginTop: '28px' }}>
         <Form
           onSubmit={(values: FormValues) => onSubmit(values)}
           validate={(values: FormValues) => validateForm(values)}
@@ -95,48 +87,51 @@ const RestoreWallet = ({ accounts }) => {
             >
               <Field name="key">
                 {({ input, meta }) => (
-                  <S.InputContainer>
+                  <>
                     <label className="label-primary">
                       Private key
                     </label>
                     <Input
                       type="text"
                       size="medium"
-                      placeholder="Private key"
+                      placeholder="S..."
                       input={input}
                       meta={meta}
                       autoFocus
                     />
-                  </S.InputContainer>
+                  </>
                 )}
               </Field>
               {submitError && (
                 <div className="error">{submitError}</div>
               )}
-              <S.ButtonContainer>
+              <ButtonContainer
+                btnSize={100}
+                gap={12}
+                mt={28}
+                justify="end"
+              >
                 <Button
-                  type="submit"
-                  variant="primary"
-                  size="medium"
-                  content="Import"
-                  disabled={pristine}
-                />
-                <Button
-                  style={{ marginTop: '12px' }}
                   variant="default"
-                  size="medium"
-                  content="Back"
+                  size="small"
+                  content="Cancel"
                   onClick={() => {
                     handleCancel(form);
                   }}
-                  startIcon={<ArrowBack />}
                 />
-              </S.ButtonContainer>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="small"
+                  content="Import"
+                  disabled={pristine}
+                />
+              </ButtonContainer>
             </form>
           )}
         />
       </div>
-    </Layout>
+    </>
   );
 };
 

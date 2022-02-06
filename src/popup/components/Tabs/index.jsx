@@ -7,10 +7,14 @@ const Tabs = ({ data, tabTitleStyle }) => {
   const useForceUpdate = () => useState()[1];
   const forceUpdate = useForceUpdate();
 
-  const width = (100 / data.length);
+  const width = 100 / data.length;
 
-  const listContent = data.map((item, index) => (visibleTab === item.id)
-  && <div key={`${item.tabTitle}${index}`}>{item.tabContent}</div>);
+  const listContent = data.map(
+    (item, index) =>
+      visibleTab === item.id && (
+        <div key={`${item.tabTitle}${index}`}>{item.tabContent}</div>
+      ),
+  );
 
   return (
     <div className={styles.tab}>
@@ -19,24 +23,27 @@ const Tabs = ({ data, tabTitleStyle }) => {
           {data.map((item) => (
             <li
               key={`${item.tabTitle}${item.id}`}
-              onClick={() => { setVisibleTab(item.id); forceUpdate(); }}
-              className={visibleTab === item.id ? 'tab-title tab-title-active' : 'tab-title'}
+              onClick={() => {
+                setVisibleTab(item.id);
+                forceUpdate();
+              }}
+              className={
+                visibleTab === item.id
+                  ? 'tab-title tab-title-active'
+                  : 'tab-title'
+              }
               style={{ width: `${width}%` }}
             >
               {item.tabTitle}
             </li>
           ))}
         </ul>
-        <div className="tab-content">
-          {listContent}
-        </div>
+        <div className="tab-content">{listContent}</div>
       </div>
     </div>
   );
 };
 
-Tabs.propTypes = {
-
-};
+Tabs.propTypes = {};
 
 export default Tabs;
