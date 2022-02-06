@@ -3,23 +3,19 @@ import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import * as route from 'popup/staticRes/routes';
-import createAccountAction from 'popup/actions/accounts/create';
-
-import Logo from 'popup/components/Logo';
-import Layout from 'popup/components/Layout';
+import Header from 'popup/components/Header';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-
-import ArrowBack from 'popup/svgs/ArrowBack';
-
-import * as S from './styles';
+import * as route from 'popup/staticRes/routes';
+import PageTitle from 'popup/components/PageTitle';
+import createAccountAction from 'popup/actions/accounts/create';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 type FormValues = {
   name: string | null;
 };
 
-const CreateWallet = ({ accounts }: any) => {
+const CreateWallet = ({ accounts }) => {
   const navigate = useNavigate();
 
   const handleCancel = (form: any) => {
@@ -59,9 +55,10 @@ const CreateWallet = ({ accounts }: any) => {
   };
 
   return (
-    <Layout isDashboard={false}>
-      <div>
-        <Logo />
+    <>
+      <Header />
+      <PageTitle title="Create New Wallet" />
+      <div className="content" style={{ marginTop: '28px' }}>
         <Form
           onSubmit={(values: FormValues) => onSubmit(values)}
           validate={(values: FormValues) => validateForm(values)}
@@ -73,7 +70,7 @@ const CreateWallet = ({ accounts }: any) => {
             >
               <Field name="name">
                 {({ input, meta }) => (
-                  <S.InputContainer>
+                  <div>
                     <label className="label-primary">
                       Wallet name
                     </label>
@@ -85,37 +82,40 @@ const CreateWallet = ({ accounts }: any) => {
                       meta={meta}
                       autoFocus
                     />
-                  </S.InputContainer>
+                  </div>
                 )}
               </Field>
               {submitError && (
                 <div className="error">{submitError}</div>
               )}
-              <S.ButtonContainer>
+              <ButtonContainer
+                btnSize={100}
+                gap={12}
+                mt={28}
+                justify="end"
+              >
                 <Button
-                  type="submit"
-                  variant="primary"
-                  size="medium"
-                  content="Create"
-                  disabled={pristine}
-                />
-
-                <Button
-                  style={{ marginTop: '12px' }}
                   variant="default"
-                  size="medium"
-                  content="Back"
+                  size="small"
+                  content="Cancel"
                   onClick={() => {
                     handleCancel(form);
                   }}
-                  startIcon={<ArrowBack />}
                 />
-              </S.ButtonContainer>
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="small"
+                  content="Create"
+                  disabled={pristine}
+                />
+              </ButtonContainer>
             </form>
           )}
         />
       </div>
-    </Layout>
+    </>
   );
 };
 
