@@ -26,7 +26,7 @@ const Intro = () => {
           <p className="2xl:text-xl lg:text-xl md:text-xl sm:text-[22px] text-[18px] text-primary-dark ">
             Welcome to the new financial world
           </p>
-          <p className="2xl:text-[40px] lg:text-4xl md:text-4xl sm:text-[30px] text-[26px] lg:whitespace-nowrap text-primary-darkest font-bold mt-4 mb-12 ">
+          <p className="2xl:text-[40px] lg:text-4xl md:text-4xl sm:text-[30px] text-[26px] lg:whitespace-nowrap font-bold mt-4 mb-12 ">
             Start interacting with Stellar
           </p>
         </div>
