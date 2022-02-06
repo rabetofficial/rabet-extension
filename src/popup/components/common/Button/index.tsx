@@ -1,8 +1,8 @@
 import React, { CSSProperties } from 'react';
 
-import * as S from './styles';
+import { ButtonVariant, ButtonSize } from 'popup/models';
 
-import { ButtonVariant, ButtonSize } from '../../../models';
+import * as S from './styles';
 
 type ButtonTypes = {
   disabled?: boolean;
