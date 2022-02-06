@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Logo from '../../components/Logo';
-import Button from '../../components/common/Button';
-import * as route from '../../staticRes/routes';
-import Layout from '../../components/Layout';
+import Logo from 'popup/components/Logo';
+import Button from 'popup/components/common/Button';
+import * as route from 'popup/staticRes/routes';
+import Layout from 'popup/components/Layout';
 
 const FirstPage = () => {
   const navigate = useNavigate();
