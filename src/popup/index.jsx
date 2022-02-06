@@ -15,8 +15,6 @@ import '../../node_modules/purecss/build/pure-min.css';
 import '../../node_modules/react-popper-tooltip/dist/styles.css';
 import './styles/style.less';
 
-require('file-loader?name=[name].[ext]!./popup.html');
-
 (async () => {
   await getHost();
   await loadUser();

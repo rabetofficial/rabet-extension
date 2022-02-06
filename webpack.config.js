@@ -6,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const devMode = process.env.NODE_ENV !== 'production';
@@ -13,6 +14,16 @@ const devMode = process.env.NODE_ENV !== 'production';
 const plugins = [
   new webpack.ProvidePlugin({
     Buffer: ['buffer', 'Buffer'],
+  }),
+  new HtmlWebpackPlugin({
+    chunks: ['popup'],
+    template: `${resolve(__dirname, 'src', 'popup')}/popup.html`,
+    filename: `${resolve(`${__dirname}/dist`)}/popup.html`,
+  }),
+  new HtmlWebpackPlugin({
+    chunks: ['interaction'],
+    template: `${resolve(__dirname, 'src', 'interaction')}/interaction.html`,
+    filename: `${resolve(`${__dirname}/dist`)}/interaction.html`,
   }),
 ];
 
@@ -47,6 +58,11 @@ const config = {
     ],
     splitChunks: {
       chunks: 'all',
+      // chunks(chunk) {
+      //   console.log(chunk.name, chunk.runtime);
+      //   // exclude `my-excluded-chunk`
+      //   return 'all';
+      // },
     },
   },
   module: {
