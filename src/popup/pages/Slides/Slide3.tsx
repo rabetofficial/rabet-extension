@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import intro4 from '../../../assets/images/intro4.png';
+
+import intro4 from 'src/assets/images/intro4.png';
 import * as S from './styles';
 
 const ThirdSlide = () => (

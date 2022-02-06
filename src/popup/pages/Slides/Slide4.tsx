@@ -4,10 +4,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from 'popup/components/common/Button';
-import intro5 from '../../../assets/images/intro5.png';
-import * as S from './styles';
+import intro5 from 'src/assets/images/intro5.png';
 
-import RouteName from '../../staticRes/routes';
+import RouteName from 'popup/staticRes/routes';
+
+import * as S from './styles';
 
 const ForthSlide = () => {
   const navigate = useNavigate();

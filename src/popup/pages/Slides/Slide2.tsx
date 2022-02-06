@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
-import intro3 from '../../../assets/images/intro3.png';
+
+import intro3 from 'src/assets/images/intro3.png';
 import * as S from './styles';
 
 const SecondSlide = () => (

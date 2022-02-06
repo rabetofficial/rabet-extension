@@ -1,7 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
-import { SlidesLayout } from 'popup/components/Layout';
 import React from 'react';
-import intro2 from '../../../assets/images/intro2.png';
+
+import { SlidesLayout } from 'popup/components/Layout';
+import intro2 from 'src/assets/images/intro2.png';
+
 import * as S from './styles';
 
 const FirstSlide = () => (
