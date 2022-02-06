@@ -2,9 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Logo from 'popup/svgs/Intro';
-import Button from '../../components/common/Button';
-import RouteName from '../../staticRes/routes';
-import Layout from '../../components/Layout';
+import Button from 'popup/components/common/Button';
+import RouteName from 'popup/staticRes/routes';
+import Layout from 'popup/components/Layout';
+
 import * as S from './styles';
 
 const Intro = () => {

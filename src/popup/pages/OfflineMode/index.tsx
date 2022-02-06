@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
+import Layout from 'popup/components/Layout';
+import offline from 'src/assets/images/offline.svg';
 import config from '../../../config';
-import offline from '../../../assets/images/offline.svg';
-import Layout from '../../components/Layout';
 
 import * as S from './styles';
 
