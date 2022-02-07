@@ -1,13 +1,12 @@
 import React from 'react';
 import shortid from 'shortid';
-import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
 import changeActiveAction from 'popup/actions/accounts/changeActive';
 import * as route from 'popup/staticRes/routes';
 import PopupList from 'popup/pageComponents/PopupList';
 
-import styles from './styles.less';
+import * as S from './styles';
 
 const Accounts = ({ accounts }) => {
   const navigate = useNavigate();
@@ -19,9 +18,9 @@ const Accounts = ({ accounts }) => {
     // toggleMenu();
   };
   return (
-    <div>
+    <>
       {accounts && accounts.length > 0 ? (
-        <ul className={classNames(styles.list, 'hidden-scroll')}>
+        <S.List className="hidden-scroll">
           {accounts.map((account, index) => (
             <li
               key={shortid.generate()}
@@ -30,18 +29,18 @@ const Accounts = ({ accounts }) => {
               }}
             >
               <PopupList info={account} />
-              <div
+              <S.Border
                 className={
-                  accounts.length - 1 !== index ? styles.border : ''
+                  accounts.length - 1 !== index ? 'block' : 'hidden'
                 }
               />
             </li>
           ))}
-        </ul>
+        </S.List>
       ) : (
-        <span className={styles.notFound}>No accounts found</span>
+        <S.NotFound>No accounts found</S.NotFound>
       )}
-    </div>
+    </>
   );
 };
 

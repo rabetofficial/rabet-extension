@@ -11,7 +11,6 @@ import Accounts from './Accounts';
 import Menus from './Menus';
 
 import * as S from './styles';
-import styles from './styles.less';
 
 const SearchAccounts = ({
   isOpen,
@@ -87,12 +86,11 @@ const SearchAccounts = ({
 
       <Popover placement="bottom" ref={buttonRef}>
         <S.Card>
-          <input
+          <S.InputSearch
             type="text"
             value={searchString}
             onChange={(e) => handleChange(e)}
             placeholder="&#xe915;  Search Accounts"
-            className={styles.search}
           />
 
           <Accounts accounts={accounts} />

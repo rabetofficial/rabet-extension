@@ -26,6 +26,9 @@ const theme = {
       darker: '#444444',
       darkest: '#000000',
     },
+    other: {
+      lightGray: '#f8f8f8',
+    },
     success: {
       main: '#26c362',
     },

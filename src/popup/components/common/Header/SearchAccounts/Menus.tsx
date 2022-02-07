@@ -1,9 +1,10 @@
 import React from 'react';
 import shortid from 'shortid';
-import {Link, useNavigate} from 'react-router-dom';
-import styles from './styles.less';
+import {useNavigate} from 'react-router-dom';
 import * as route from 'popup/staticRes/routes';
 import lockAction from 'popup/actions/accounts/lock';
+
+import * as S from './styles';
 
 const Menus = () => {
   const navigate = useNavigate();
@@ -41,12 +42,11 @@ const Menus = () => {
 
   return (
     <div>
-      <div className={styles.group}>
+      <S.Group>
         {buttons.map((item) => (
-          <Link
+          <S.GroupLink
             key={shortid.generate()}
             to={item.link}
-            className={styles.link}
             onClick={item.onClick}
           >
             <span
@@ -54,9 +54,9 @@ const Menus = () => {
               style={{ fontSize: `${item.iconSize}px` }}
             />
             {item.label}
-          </Link>
+          </S.GroupLink>
         ))}
-      </div>
+      </S.Group>
     </div>
   );
 };
