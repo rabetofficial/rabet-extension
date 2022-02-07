@@ -33,7 +33,10 @@ export default async (values, push) => {
     if (isAssetNative) {
       asset = StellarSdk.Asset.native();
     } else {
-      asset = new StellarSdk.Asset(values.asset.asset_code, values.asset.asset_issuer);
+      asset = new StellarSdk.Asset(
+        values.asset.asset_code,
+        values.asset.asset_issuer,
+      );
     }
 
     op = payment({
@@ -49,44 +52,38 @@ export default async (values, push) => {
       transaction = new StellarSdk.TransactionBuilder(sourceAccount, {
         fee: StellarSdk.BASE_FEE,
         networkPassphrase: passphrase,
-      })
-        .addOperation(op)
-        .setTimeout(180)
-        .build();
+      }).addOperation(op);
+
+      if (values.memo) {
+        transaction = transaction.addMemo(StellarSdk.Memo.text(values.memo));
+      }
+
+      transaction = transaction.setTimeout(180).build();
 
       transaction.sign(sourceKeys);
 
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push(
-        route.successSubmitPage,
-        {
-          state: {
-            hash: result.hash,
-          },
+      push(route.successSubmitPage, {
+        state: {
+          hash: result.hash,
         },
-      );
+      });
     })
     .catch((err) => {
       if (err && err.response && err.response.data) {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: showError(err.response.data),
-            },
+        push(route.errorPage, {
+          state: {
+            message: showError(err.response.data),
           },
-        );
+        });
       } else {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: 'Operation failed.',
-            },
+        push(route.errorPage, {
+          state: {
+            message: 'Operation failed.',
           },
-        );
+        });
       }
     });
 };
