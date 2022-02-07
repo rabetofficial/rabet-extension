@@ -199,7 +199,6 @@ const App = () => (
           path={RouteName.IntroSlides}
           element={<IntroSlides />}
         />
-        zz
         <Route exact path={RouteName.Flags} element={<Flags />} />
         <Route
           exact
@@ -263,7 +262,7 @@ const App = () => (
           path={RouteName.ConnectedWebsite}
           element={<ConnectedWebsite />}
         />
-        <Route exact path="ui" element={<UITest />} />
+          <Route exact path="ui" element={ <ProtectedRoute><UITest /></ProtectedRoute>} />
       </Routes>
     </div>
   </Router>

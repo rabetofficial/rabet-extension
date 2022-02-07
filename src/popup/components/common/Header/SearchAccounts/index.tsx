@@ -1,0 +1,111 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+
+import shorter from 'popup/utils/shorter';
+import showBalance from 'popup/utils/showBalance';
+import formatCurrency from 'popup/utils/formatCurrency';
+import numberWithCommas from 'popup/utils/numberWithCommas';
+import getTotalBalance from 'popup/utils/getTotalBalance';
+import Popover from 'popup/components/common/Popover';
+import Accounts from './Accounts';
+import Menus from './Menus';
+
+import * as S from './styles';
+import styles from './styles.less';
+
+const SearchAccounts = ({
+  isOpen,
+  accounts: accs,
+  options: o,
+  currencies,
+  ...props
+}) => {
+  const activeCurrency = currencies[o.currency] || {
+    value: 0,
+    currency: 'USD',
+  };
+  const [searchString, setSearchString] = useState('');
+  const [accounts, setAccounts] = useState([]);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  const handleChange = (e) => {
+    setSearchString(e.target.value);
+  };
+
+  let activeAccountIndex = accounts.findIndex((x) => x.active);
+
+  if (activeAccountIndex === -1) {
+    activeAccountIndex = 0;
+  }
+
+  useEffect(() => {
+    const items = accs.map((item, index) => ({
+      active: item.active,
+      realPublicKey: item.publicKey,
+      publicKey: shorter(item.publicKey, 8),
+      name: item.name || `Account ${index + 1}`,
+      balances: showBalance(
+        numberWithCommas(
+          formatCurrency(
+            getTotalBalance(item.balances, activeCurrency),
+          ),
+        ),
+        activeCurrency.name,
+      ),
+      isConnected: item.isConnected,
+    }));
+
+    setAccounts(items);
+    let list = items;
+
+    if (searchString && searchString.length > 0) {
+      const data = searchString.trim().toLowerCase();
+      list = list.filter((l) => l.name.toLowerCase().match(data));
+      setAccounts(list);
+    }
+  }, [searchString, accs]);
+
+  useEffect(() => {
+    setSearchString('');
+  }, [isOpen]);
+
+  const handleOverlay = () => {
+    props.toggleOverlay(!isOpen);
+  };
+
+  return (
+    <>
+      <S.ToggleButton
+        type="button"
+        ref={buttonRef}
+        onClick={handleOverlay}
+      >
+        {accs[activeAccountIndex] && accs[activeAccountIndex].name
+          ? accs[activeAccountIndex].name.substr(0, 1).toUpperCase()
+          : 'A'}
+      </S.ToggleButton>
+
+      <Popover placement="bottom" ref={buttonRef}>
+        <S.Card>
+          <input
+            type="text"
+            value={searchString}
+            onChange={(e) => handleChange(e)}
+            placeholder="&#xe915;  Search Accounts"
+            className={styles.search}
+          />
+
+          <Accounts accounts={accounts} />
+
+          <Menus />
+        </S.Card>
+      </Popover>
+    </>
+  );
+};
+
+export default connect((state) => ({
+  options: state.options,
+  accounts: state.accounts,
+  currencies: state.currencies,
+}))(SearchAccounts);

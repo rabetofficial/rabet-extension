@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import * as route from 'popup/staticRes/routes';
 import RabetLogo from 'popup/svgs/RabetLogo';
-import PopupSearch from './PopupSearch';
+import SearchAccounts from './SearchAccounts';
 import Network from './Network';
 
 import * as S from './styles';
@@ -29,7 +29,7 @@ const Header = () => {
             <RabetLogo />
           </Link>
           <Network />
-          <PopupSearch
+          <SearchAccounts
             toggleOverlay={toggleOverlay}
             isOpen={overlay}
           />
