@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import classNames from 'classnames';
 import Select from 'react-select';
 
 import changeNetworkAction from 'popup/actions/options/changeNetwork';
 import { useNavigate } from 'react-router-dom';
 
-import styles from '../styles.less';
+import Container from './styles';
 
 type AppProps = {
   options: any;
@@ -34,36 +33,29 @@ const Network = ({ options }: AppProps) => {
 
     setSelected(e);
   };
+
   return (
-    <div>
-      <div
-        className={classNames(
-          styles.select,
-          selected === items[0] ? styles.main : styles.test,
-        )}
-      >
-        <Select
-          classNamePrefix="net"
-          separator={false}
-          closeMenuOnSelect
-          defaultValue={items[index]}
-          options={items}
-          hideSelectedOptions={false}
-          isSearchable={false}
-          backspaceRemovesValue={false}
-          onChange={(e) => onChangeNetwork(e)}
-          styles={{
-            ...styles,
-            control: (base, state) => ({
-              ...base,
-              borderColor: state.isFocused ? 'black' : 'black',
-              boxShadow: state.isFocused ? 0 : 0,
-              '&:hover': { borderColor: 'black' },
-            }),
-          }}
-        />
-      </div>
-    </div>
+    <Container isMain={selected === items[0]}>
+      <Select
+        classNamePrefix="net"
+        separator={false}
+        closeMenuOnSelect
+        defaultValue={items[index]}
+        options={items}
+        hideSelectedOptions={false}
+        isSearchable={false}
+        backspaceRemovesValue={false}
+        onChange={(e) => onChangeNetwork(e)}
+        styles={{
+          control: (base, state) => ({
+            ...base,
+            borderColor: state.isFocused ? 'black' : 'black',
+            boxShadow: state.isFocused ? 0 : 0,
+            '&:hover': { borderColor: 'black' },
+          }),
+        }}
+      />
+    </Container>
   );
 };
 

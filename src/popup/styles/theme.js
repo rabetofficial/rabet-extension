@@ -32,6 +32,9 @@ const theme = {
     error: {
       main: '#ce3d3d',
     },
+    warn: {
+      main: '#f48b00',
+    },
   },
   screens: { ...screens },
   rounded: {
