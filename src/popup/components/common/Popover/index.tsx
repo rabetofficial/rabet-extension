@@ -3,7 +3,7 @@ import Tippy from '@tippyjs/react';
 import { roundArrow } from 'tippy.js';
 
 import { Placement } from 'popup/models';
-import PopoverContainer from './PopoverContainer';
+import Container from './Container';
 
 type AppProps = {
   children: React.ReactNode;
@@ -15,9 +15,7 @@ const Popover = forwardRef(
   ({ children, placement, className }: AppProps, ref: any) => (
     <Tippy
       content={
-        <PopoverContainer className={className}>
-          {children}
-        </PopoverContainer>
+        <Container className={className}>{children}</Container>
       }
       placement={placement}
       reference={ref}
