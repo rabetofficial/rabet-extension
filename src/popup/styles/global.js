@@ -89,16 +89,22 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .overlay {
-    opacity: 0;
-    position: fixed;
-    z-index: 1;
+    position: inherit;
+    z-index: 0;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.12);
+    opacity: 0;
     transition: all 300ms ease-in-out;
+  }
+  
+  .overlay.show-overlay {
+    position: fixed;
+    z-index: 100;
+    opacity: 1;
   }
 
   a {

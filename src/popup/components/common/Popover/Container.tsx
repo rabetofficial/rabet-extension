@@ -11,6 +11,7 @@ const Container = styled.div`
   border-radius: ${({ theme }) => theme.rounded.main};
   box-shadow: rgba(134, 146, 164, 0.08);
   border: none;
+  overflow: hidden;
 `;
 
 export default function PopoverContainer({
