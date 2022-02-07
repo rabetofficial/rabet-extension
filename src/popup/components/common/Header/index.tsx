@@ -18,7 +18,7 @@ const Header = () => {
     <>
       <div
         className="overlay"
-        style={{ display: overlay ? 'block' : 'none' }}
+        style={{ opacity: overlay ? '1' : '0' }}
         onClick={() => {
           toggleOverlay(false);
         }}

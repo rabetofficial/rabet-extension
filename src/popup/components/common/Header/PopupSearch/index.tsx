@@ -89,23 +89,7 @@ const PopupSearch = ({
     toggleMenu();
   };
 
-  const handleClick = (e) => {
-    // if (node.current.contains(e.target)) {
-    //   // inside click
-    //   return;
-    // }
-    // setToggle(false);
-    props.toggleOverlay(true);
-  };
-
-  // useEffect(() => {
-  //   // add when mounted
-  //   document.addEventListener('mousedown', handleClick);
-  //   // return function to be called when unmounted
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClick);
-  //   };
-  // }, []);
+  const handleClick = () => {props.toggleOverlay(!isOpen)};
 
   useEffect(() => {
     setSearchString('');
