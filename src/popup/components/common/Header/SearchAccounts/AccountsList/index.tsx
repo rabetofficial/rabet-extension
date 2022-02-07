@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 import changeActiveAction from 'popup/actions/accounts/changeActive';
 import * as route from 'popup/staticRes/routes';
-import PopupList from 'popup/pageComponents/PopupList';
+import Account from './Account';
 
 import * as S from './styles';
 
-const Accounts = ({ accounts }) => {
+const AccountList = ({ accounts }) => {
   const navigate = useNavigate();
   const changeAccount = (account) => {
     changeActiveAction(account.realPublicKey);
@@ -28,7 +28,7 @@ const Accounts = ({ accounts }) => {
                 changeAccount(account);
               }}
             >
-              <PopupList info={account} />
+              <Account info={account} />
               <S.Border
                 className={
                   accounts.length - 1 !== index ? 'block' : 'hidden'
@@ -44,4 +44,4 @@ const Accounts = ({ accounts }) => {
   );
 };
 
-export default Accounts;
+export default AccountList;

@@ -7,7 +7,7 @@ import formatCurrency from 'popup/utils/formatCurrency';
 import numberWithCommas from 'popup/utils/numberWithCommas';
 import getTotalBalance from 'popup/utils/getTotalBalance';
 import Popover from 'popup/components/common/Popover';
-import Accounts from './Accounts';
+import AccountList from './AccountsList';
 import Menus from './Menus';
 
 import * as S from './styles';
@@ -93,7 +93,7 @@ const SearchAccounts = ({
             placeholder="&#xe915;  Search Accounts"
           />
 
-          <Accounts accounts={accounts} />
+          <AccountList accounts={accounts} />
 
           <Menus />
         </S.Card>
