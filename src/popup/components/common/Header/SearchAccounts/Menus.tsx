@@ -3,6 +3,10 @@ import shortid from 'shortid';
 import { useNavigate } from 'react-router-dom';
 import * as route from 'popup/staticRes/routes';
 import lockAction from 'popup/actions/accounts/lock';
+import Plus from 'popup/svgs/Plus';
+import File from 'popup/svgs/File';
+import Setting from 'popup/svgs/Setting';
+import Lock from 'popup/svgs/Lock';
 
 import * as S from './styles';
 
@@ -15,26 +19,22 @@ const Menus = () => {
   const buttons = [
     {
       link: route.createWalletPage,
-      icon: 'icon-plus-math',
-      iconSize: '14',
+      icon: <Plus />,
       label: 'Create Wallet',
     },
     {
       link: route.restoreWalletPage,
-      icon: 'icon-file',
-      iconSize: '14',
+      icon: <File />,
       label: 'Import Wallet',
     },
     {
       link: route.settingPage,
-      icon: 'icon-settings-2',
-      iconSize: '15',
+      icon: <Setting />,
       label: 'Setting',
     },
     {
       link: '#',
-      icon: 'icon-lock-2',
-      iconSize: '15',
+      icon: <Lock />,
       label: 'Lock',
       onClick: handleLock,
     },
@@ -49,10 +49,7 @@ const Menus = () => {
             to={item.link}
             onClick={item.onClick}
           >
-            <span
-              className={item.icon}
-              style={{ fontSize: `${item.iconSize}px` }}
-            />
+            {item.icon}
             {item.label}
           </S.GroupLink>
         ))}

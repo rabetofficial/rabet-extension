@@ -53,10 +53,10 @@ export const GroupLink = styled(Link)`
   background-color: ${({ theme }) => theme.colors.other.lightGray};
   text-decoration: none !important;
   padding: 15px 17px;
-  display: block;
+  display: flex;
+  align-items: center;
 
-  span {
+  svg {
     margin-right: 13px;
-    font-family: 'Roboto', sans-serif;
   }
 `;
