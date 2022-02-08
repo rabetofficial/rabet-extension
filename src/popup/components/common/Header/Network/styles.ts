@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 type ContainerType = {
   isMain: boolean;
+  drop: 'dark' | 'light';
 };
 
 const Container = styled.div.attrs((props: ContainerType) => props)`
@@ -9,10 +10,12 @@ const Container = styled.div.attrs((props: ContainerType) => props)`
     width: 160px;
     height: 40px;
     cursor: pointer;
-    background: #eaeaea;
-    border-color: #eaeaea;
     font-size: 16px;
-    border-radius: 2px;
+    border-radius: ${({ theme }) => theme.rounded.main};
+    background-color: ${({ drop }) =>
+      drop === 'dark' ? ' #eaeaea' : 'white'};
+    border-color: ${({ drop }) =>
+      drop === 'dark' ? ' #eaeaea' : 'white'};
 
     &:before {
       content: '•';

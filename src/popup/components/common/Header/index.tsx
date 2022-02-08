@@ -28,7 +28,7 @@ const Header = () => {
           <Link to={route.homePage}>
             <RabetLogo />
           </Link>
-          <Network />
+          <Network theme="dark" />
           <SearchAccounts
             toggleOverlay={toggleOverlay}
             isOpen={overlay}

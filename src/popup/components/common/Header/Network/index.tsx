@@ -10,9 +10,10 @@ import Container from './styles';
 
 type AppProps = {
   options: any;
+  theme: 'dark' | 'light';
 };
 
-const Network = ({ options }: AppProps) => {
+const Network = ({ options, theme }: AppProps) => {
   const navigate = useNavigate();
   const items = [
     { value: 'MAINNET', label: 'Main Network' },
@@ -38,7 +39,7 @@ const Network = ({ options }: AppProps) => {
   };
 
   return (
-    <Container isMain={selected === items[0]}>
+    <Container isMain={selected === items[0]} drop={theme}>
       <DropDown
         width={160}
         items={items}
