@@ -18,7 +18,6 @@ export const Card = styled.div`
 `;
 
 export const InputSearch = styled.input`
-  font-family: Roboto, 'icomoon';
   width: 100%;
   border: none;
   padding: 0 16.5px;
@@ -37,7 +36,16 @@ export const InputSearch = styled.input`
 
   &::placeholder {
     font-size: 14px;
-    color: ${({ theme }) => theme.colors.primary.light};
+    color: ${({ theme }) => theme.colors.primary.main};
+    padding-left: 24px;
+  }
+`;
+
+export const SearchIcon = styled.div`
+  svg {
+    position: absolute;
+    top: 11px;
+    left: 16.5px;
   }
 `;
 

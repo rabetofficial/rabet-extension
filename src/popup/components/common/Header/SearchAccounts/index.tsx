@@ -7,6 +7,7 @@ import formatCurrency from 'popup/utils/formatCurrency';
 import numberWithCommas from 'popup/utils/numberWithCommas';
 import getTotalBalance from 'popup/utils/getTotalBalance';
 import Popover from 'popup/components/common/Popover';
+import Search from 'popup/svgs/Search';
 import AccountList from './AccountsList';
 import Menus from './Menus';
 
@@ -97,12 +98,19 @@ const SearchAccounts = ({
         onHide={handleOverlayOff}
       >
         <S.Card>
-          <S.InputSearch
-            type="text"
-            value={searchString}
-            onChange={(e) => handleChange(e)}
-            placeholder="&#xe915;  Search Accounts"
-          />
+          <div className="relative">
+            <S.InputSearch
+              type="text"
+              value={searchString}
+              onChange={(e) => handleChange(e)}
+              placeholder="Search Accounts"
+            />
+            {!searchString && (
+              <S.SearchIcon>
+                <Search />
+              </S.SearchIcon>
+            )}
+          </div>
 
           <AccountList accounts={accounts} />
 
