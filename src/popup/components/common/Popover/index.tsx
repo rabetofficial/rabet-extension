@@ -9,10 +9,14 @@ type AppProps = {
   children: React.ReactNode;
   placement?: Placement;
   className?: string;
+  onHide?: () => void;
 };
 
 const Popover = forwardRef(
-  ({ children, placement, className }: AppProps, ref: any) => (
+  (
+    { children, placement, className, onHide }: AppProps,
+    ref: any,
+  ) => (
     <Tippy
       content={
         <Container className={className}>{children}</Container>
@@ -24,6 +28,7 @@ const Popover = forwardRef(
       arrow={roundArrow}
       className="arrow-light"
       interactive
+      onHide={onHide}
     />
   ),
 );
@@ -31,6 +36,7 @@ const Popover = forwardRef(
 Popover.defaultProps = {
   placement: 'top',
   className: '',
+  onHide: () => {},
 };
 
 export default Popover;

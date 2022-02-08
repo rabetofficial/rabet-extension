@@ -76,23 +76,26 @@ const SearchAccounts = ({
     setSearchString('');
   }, [isOpen]);
 
-  const handleOverlay = () => {
-    props.toggleOverlay(!isOpen);
-  };
+  const handleOverlayOn = () => props.toggleOverlay(true);
+  const handleOverlayOff = () => props.toggleOverlay(false);
 
   return (
     <>
       <S.ToggleButton
         type="button"
         ref={buttonRef}
-        onClick={handleOverlay}
+        onClick={handleOverlayOn}
       >
         {accs[activeAccountIndex] && accs[activeAccountIndex].name
           ? accs[activeAccountIndex].name.substr(0, 1).toUpperCase()
           : 'A'}
       </S.ToggleButton>
 
-      <Popover placement="bottom" ref={buttonRef}>
+      <Popover
+        placement="bottom"
+        ref={buttonRef}
+        onHide={handleOverlayOff}
+      >
         <S.Card>
           <S.InputSearch
             type="text"
