@@ -1,6 +1,6 @@
 import React from 'react';
 import shortid from 'shortid';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as route from 'popup/staticRes/routes';
 import lockAction from 'popup/actions/accounts/lock';
 

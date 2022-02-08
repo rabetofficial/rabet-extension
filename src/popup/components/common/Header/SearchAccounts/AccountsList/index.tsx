@@ -8,7 +8,11 @@ import Account from './Account';
 
 import * as S from './styles';
 
-const AccountList = ({ accounts }) => {
+type AppProps = {
+  accounts: any;
+};
+
+const AccountList = ({ accounts }: AppProps) => {
   const navigate = useNavigate();
   const changeAccount = (account) => {
     changeActiveAction(account.realPublicKey);

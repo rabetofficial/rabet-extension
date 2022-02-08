@@ -12,13 +12,21 @@ import Menus from './Menus';
 
 import * as S from './styles';
 
+type AppProps = {
+  isOpen: boolean;
+  accounts: any;
+  options: any;
+  currencies: any;
+  [x: string]: any;
+};
+
 const SearchAccounts = ({
   isOpen,
   accounts: accs,
   options: o,
   currencies,
   ...props
-}) => {
+}: AppProps) => {
   const activeCurrency = currencies[o.currency] || {
     value: 0,
     currency: 'USD',

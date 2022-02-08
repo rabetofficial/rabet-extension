@@ -5,7 +5,11 @@ import abbr from 'popup/utils/abbr';
 
 import * as S from './styles';
 
-const Account = ({ info }) => {
+type AppProps = {
+  info: any;
+};
+
+const Account = ({ info }: AppProps) => {
   const [isImageLoaded, setIsImageLoaded] = useState(true);
   const { isConnected } = info;
   const host = useSelector((store) => store.host);

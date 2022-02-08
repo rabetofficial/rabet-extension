@@ -28,7 +28,7 @@ const Network = ({ options }: AppProps) => {
 
   const [selected, setSelected] = useState(items[index]);
 
-  const onChangeNetwork = (e) => {
+  const onChangeNetwork = (e: any) => {
     changeNetworkAction(e, navigate);
 
     setSelected(e);
@@ -47,6 +47,7 @@ const Network = ({ options }: AppProps) => {
         backspaceRemovesValue={false}
         onChange={(e) => onChangeNetwork(e)}
         styles={{
+          // @ts-ignore
           control: (base, state) => ({
             ...base,
             borderColor: state.isFocused ? 'black' : 'black',
