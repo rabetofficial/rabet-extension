@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 
 import Popover from 'popup/components/common/Popover';
-import Header from '../../components/common/Header';
 import ExpandLayout from '../../components/common/Layouts/ExpandLayout';
 import ModalDialog from '../../components/common/ModalDialog';
 
@@ -13,7 +12,6 @@ const UITest = () => {
 
   return (
     <ExpandLayout>
-      <Header />
       <button ref={buttonRef}>Popover</button>
       <Popover placement="bottom" ref={buttonRef}>
         And here's some amazing content. It's very engaging. Right?

@@ -6,6 +6,7 @@ import FullRabetLogo from 'popup/svgs/FullRabetLogo';
 import Network from 'popup/components/common/Header/Network';
 import SearchAccounts from 'popup/components/common/Header/SearchAccounts';
 import * as route from 'popup/staticRes/routes';
+import EditWalletName from 'popup/components/EditWalletName';
 
 import * as S from './styles';
 
@@ -15,6 +16,7 @@ type AppProps = {
 
 const ExpandLayout = ({ children }: AppProps) => {
   const [overlay, toggleOverLay] = useState<boolean>(false);
+  const [editName, setEditName] = useState(false);
 
   const toggleOverlay = (open: boolean) => {
     toggleOverLay(open);
@@ -44,7 +46,13 @@ const ExpandLayout = ({ children }: AppProps) => {
           <S.Card>{children}</S.Card>
         </div>
         <div className="basis-[351px]">
-          <S.Card>02</S.Card>
+          <S.Card className="pt-[22px] pb-[18px]">
+            <EditWalletName
+              editName={editName}
+              setEditName={setEditName}
+            />
+          </S.Card>
+          <S.Card className="mt-[38px]">03</S.Card>
         </div>
       </div>
     </S.Container>
