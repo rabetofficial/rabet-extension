@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import Select from 'react-select';
+import { useNavigate } from 'react-router-dom';
 
 import changeNetworkAction from 'popup/actions/options/changeNetwork';
-import { useNavigate } from 'react-router-dom';
+import DropDown from 'popup/components/common/DropDown';
+import { ElementOption } from 'popup/models';
 
 import Container from './styles';
 
@@ -26,9 +27,11 @@ const Network = ({ options }: AppProps) => {
     index = 1;
   }
 
-  const [selected, setSelected] = useState(items[index]);
+  const [selected, setSelected] = useState<ElementOption>(
+    items[index],
+  );
 
-  const onChangeNetwork = (e: any) => {
+  const onChangeNetwork = (e: ElementOption) => {
     changeNetworkAction(e, navigate);
 
     setSelected(e);
@@ -36,25 +39,11 @@ const Network = ({ options }: AppProps) => {
 
   return (
     <Container isMain={selected === items[0]}>
-      <Select
-        classNamePrefix="net"
-        separator={false}
-        closeMenuOnSelect
-        defaultValue={items[index]}
-        options={items}
-        hideSelectedOptions={false}
-        isSearchable={false}
-        backspaceRemovesValue={false}
-        onChange={(e) => onChangeNetwork(e)}
-        styles={{
-          // @ts-ignore
-          control: (base, state) => ({
-            ...base,
-            borderColor: state.isFocused ? 'black' : 'black',
-            boxShadow: state.isFocused ? 0 : 0,
-            '&:hover': { borderColor: 'black' },
-          }),
-        }}
+      <DropDown
+        width={160}
+        items={items}
+        selected={selected}
+        onChange={onChangeNetwork}
       />
     </Container>
   );

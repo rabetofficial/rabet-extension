@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
@@ -33,3 +35,8 @@ export type TooltipPlacement =
   | 'left'
   | 'left-start'
   | 'left-end';
+
+export type ElementOption = {
+  value: string;
+  label: string | React.ReactNode;
+};

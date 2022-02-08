@@ -33,6 +33,7 @@ const UITest = () => {
           close
         </button>
       </ModalDialog>
+      <hr />
     </ExpandLayout>
   );
 };
