@@ -19,6 +19,7 @@ import SelectAssetModal from '../../../../components/SelectAssetModal';
 import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
 import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
 import calculateStrictSend from '../../../../utils/swap/calculateStrictSend';
+import swapImg from '../../../../../assets/images/swap.svg';
 import {
   buttonSizes,
   buttonTypes,
@@ -78,8 +79,8 @@ const Swap = () => {
     clearErrors(['from']);
 
     if (
-      new BN(formValues.from).isLessThanOrEqualTo('0') ||
-      new BN(formValues.from).isNaN()
+      new BN(formValues.from).isLessThanOrEqualTo('0')
+      || new BN(formValues.from).isNaN()
     ) {
       setError('from', {
         type: 'error',
@@ -94,8 +95,8 @@ const Swap = () => {
     setLoading(false);
 
     if (
-      calculatedResult.destination_amount === '0' &&
-      !calculatedResult.path.length
+      calculatedResult.destination_amount === '0'
+      && !calculatedResult.path.length
     ) {
       setError('from', {
         type: 'error',
@@ -231,8 +232,8 @@ const Swap = () => {
     }
 
     if (
-      new BN(formValues.from).isLessThanOrEqualTo('0') ||
-      new BN(formValues.from).isNaN()
+      new BN(formValues.from).isLessThanOrEqualTo('0')
+      || new BN(formValues.from).isNaN()
     ) {
       setError('from', {
         type: 'error',
@@ -313,7 +314,9 @@ const Swap = () => {
         </div>
       </div>
 
-      <div className={styles.group}>
+      <img src={swapImg} className={styles['swap-icon']} alt="icon" />
+
+      <div style={{ marginTop: '-18px' }}>
         <label className="label-primary">To</label>
         <div className={styles.inputModal}>
           <div className={styles.inputValue}>
