@@ -8,6 +8,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const ManifestPlugin = require('./manifestPlugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -25,6 +26,7 @@ const plugins = [
     template: `${resolve(__dirname, 'src', 'interaction')}/interaction.html`,
     filename: `${resolve(`${__dirname}/dist`)}/interaction.html`,
   }),
+  new ManifestPlugin(),
 ];
 
 if (!devMode) {
@@ -58,11 +60,6 @@ const config = {
     ],
     splitChunks: {
       chunks: 'all',
-      // chunks(chunk) {
-      //   console.log(chunk.name, chunk.runtime);
-      //   // exclude `my-excluded-chunk`
-      //   return 'all';
-      // },
     },
   },
   module: {
@@ -136,6 +133,11 @@ const config = {
       buffer: require.resolve('buffer'),
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      background_script_bundle: devMode
+        ? 'dist/vendors-node_modules_aes256_index_js-node_modules_babel-polyfill_lib_index_js-node_modules_st-aa6ffa.js'
+        : 'dist/686.js',
+    },
   },
   watch: devMode,
   target: 'web',

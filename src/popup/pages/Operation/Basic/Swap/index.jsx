@@ -76,10 +76,11 @@ const Swap = () => {
     }
 
     clearErrors(['from']);
+    console.log('clear');
 
     if (
-      new BN(formValues.from).isLessThanOrEqualTo('0') ||
-      new BN(formValues.from).isNaN()
+      new BN(formValues.from).isLessThanOrEqualTo('0')
+      || new BN(formValues.from).isNaN()
     ) {
       setError('from', {
         type: 'error',
@@ -89,13 +90,23 @@ const Swap = () => {
       return;
     }
 
+    if (!isInsufficientAsset(formValues.asset1, maxXLM, formValues.from)) {
+      console.log('set');
+      setError('from', {
+        type: 'error',
+        message: 'Insufficient amount.',
+      });
+
+      // return;
+    }
+
     setLoading(true);
     const calculatedResult = await calculateStrictSend(formValues);
     setLoading(false);
 
     if (
-      calculatedResult.destination_amount === '0' &&
-      !calculatedResult.path.length
+      calculatedResult.destination_amount === '0'
+      && !calculatedResult.path.length
     ) {
       setError('from', {
         type: 'error',
@@ -231,21 +242,12 @@ const Swap = () => {
     }
 
     if (
-      new BN(formValues.from).isLessThanOrEqualTo('0') ||
-      new BN(formValues.from).isNaN()
+      new BN(formValues.from).isLessThanOrEqualTo('0')
+      || new BN(formValues.from).isNaN()
     ) {
       setError('from', {
         type: 'error',
         message: 'Amount must be bigger than 0.',
-      });
-
-      return;
-    }
-
-    if (!isInsufficientAsset(formValues.asset1, maxXLM, formValues.from)) {
-      setError('from', {
-        type: 'error',
-        message: 'Insufficient amount.',
       });
 
       return;

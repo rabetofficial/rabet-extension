@@ -34,7 +34,7 @@ const SwapButton = ({ control }) => {
       type="submit"
       variant={buttonTypes.primary}
       size={buttonSizes.medium}
-      content="Send"
+      content="Swap"
       disabled={disabled}
     />
   );

@@ -26,7 +26,7 @@
   ],
   "web_accessible_resources": ["dist/*.*"],
   "background": {
-    "scripts": ["dist/background_script.js","dist/686.js"],
+    "scripts": "@@background_script@@",
     "persistent": false
   }
 }
