@@ -19,6 +19,7 @@ import SelectAssetModal from '../../../../components/SelectAssetModal';
 import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
 import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
 import calculateStrictSend from '../../../../utils/swap/calculateStrictSend';
+import swapImg from '../../../../../assets/images/swap.svg';
 import {
   buttonSizes,
   buttonTypes,
@@ -315,7 +316,9 @@ const Swap = () => {
         </div>
       </div>
 
-      <div className={styles.group}>
+      <img src={swapImg} className={styles['swap-icon']} alt="icon" />
+
+      <div style={{ marginTop: '-18px' }}>
         <label className="label-primary">To</label>
         <div className={styles.inputModal}>
           <div className={styles.inputValue}>
