@@ -1,16 +1,20 @@
 import React from 'react';
 
 import Tabs from 'popup/components/Tabs';
+import ImportBackupFile from 'popup/pageComponents/ImportBackupFile';
+import PrivateKey from 'popup/pageComponents/PrivateKey';
 
 const TabList = () => {
   const tabs = [
     {
       id: '1',
       tabTitle: 'Private key',
+      tabContent: <PrivateKey />,
     },
     {
       id: '2',
       tabTitle: 'Backup file',
+      tabContent: <ImportBackupFile />,
     },
   ];
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Card from 'popup/components/Card';
 import Button from 'popup/components/common/Button';
-import * as route from 'popup/staticRes/routes';
+import RouteName from 'popup/staticRes/routes';
 import CopyText from 'popup/components/CopyText';
 import PageTitle from 'popup/components/PageTitle';
 import currentActiveAccount from 'popup/utils/activeAccount';
@@ -17,7 +17,7 @@ const BackupFile = () => {
   const { publicKey, privateKey } = activeAccount;
 
   const handleClick = () => {
-    navigate(route.homePage);
+    navigate(RouteName.Home);
   };
 
   return (

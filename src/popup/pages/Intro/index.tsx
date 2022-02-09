@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Logo from 'popup/svgs/Intro';
+import Logo from 'popup/svgs/IntroLogo';
 import Button from 'popup/components/common/Button';
 import RouteName from 'popup/staticRes/routes';
 import Layout from 'popup/components/Layout';

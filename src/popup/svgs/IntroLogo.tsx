@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Intro() {
+function Icon() {
   return (
     <svg
       width="361"
@@ -5588,4 +5588,4 @@ function Intro() {
   );
 }
 
-export default Intro;
+export default Icon;
