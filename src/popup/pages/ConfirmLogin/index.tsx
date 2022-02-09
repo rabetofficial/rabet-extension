@@ -8,6 +8,7 @@ import RouteName from 'popup/staticRes/routes';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
 import registerUserAction from 'popup/actions/user/register';
+import Error from 'popup/components/common/Error';
 
 type FormValues = {
   password?: string;
@@ -109,9 +110,7 @@ const ConfirmLogin = () => {
                 )}
               </Field>
 
-              {submitError && (
-                <div className="error">{submitError}</div>
-              )}
+              {submitError && <Error>{submitError}</Error>}
               <Button
                 type="submit"
                 variant="primary"

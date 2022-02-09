@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,14 +10,17 @@ import Layout from 'popup/components/Layout';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
 import ArrowBack from 'popup/svgs/ArrowBack';
+import Error from 'popup/components/common/Error';
 
 import * as S from './styles';
 
 type FormValues = {
-  name?: string;
+  name: string;
 };
 
-const CreateWallet = ({ accounts }: any) => {
+const CreateWallet = () => {
+  const accounts = useSelector((store) => store.accounts);
+
   const navigate = useNavigate();
 
   const handleCancel = (form: any) => {
@@ -47,7 +50,7 @@ const CreateWallet = ({ accounts }: any) => {
   };
 
   const validateForm = (values: FormValues) => {
-    const errors: FormValues = {};
+    const errors: Partial<FormValues> = {};
 
     if (!values.name) {
       errors.name = '';
@@ -86,9 +89,7 @@ const CreateWallet = ({ accounts }: any) => {
                   </S.InputContainer>
                 )}
               </Field>
-              {submitError && (
-                <div className="error">{submitError}</div>
-              )}
+              {submitError && <Error>{submitError}</Error>}
               <S.ButtonContainer>
                 <Button
                   type="submit"
@@ -117,6 +118,4 @@ const CreateWallet = ({ accounts }: any) => {
   );
 };
 
-export default connect((state) => ({
-  accounts: state.accounts,
-}))(CreateWallet);
+export default CreateWallet;

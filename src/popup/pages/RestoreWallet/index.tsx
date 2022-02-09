@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,16 +11,19 @@ import RouteName from 'popup/staticRes/routes';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import validatePrivateKey from 'popup/utils/validate/privateKey';
 import ArrowBack from 'popup/svgs/ArrowBack';
+import Error from 'popup/components/common/Error';
 
 import TabList from './TabList';
 
 import * as S from './styles';
 
 type FormValues = {
-  key: string | null;
+  key: string;
 };
 
-const RestoreWallet = ({ accounts }) => {
+const RestoreWallet = () => {
+  const accounts = useSelector((store) => store.accounts);
+
   const navigate = useNavigate();
 
   const handleCancel = (form: any) => {
@@ -69,7 +72,7 @@ const RestoreWallet = ({ accounts }) => {
     const errors = {} as FormValues;
 
     if (!values.key) {
-      errors.key = null;
+      errors.key = '';
     }
 
     return errors;
@@ -108,9 +111,7 @@ const RestoreWallet = ({ accounts }) => {
                   </S.InputContainer>
                 )}
               </Field>
-              {submitError && (
-                <div className="error">{submitError}</div>
-              )}
+              {submitError && <Error>{submitError}</Error>}
               <S.ButtonContainer>
                 <Button
                   type="submit"
@@ -138,6 +139,4 @@ const RestoreWallet = ({ accounts }) => {
   );
 };
 
-export default connect((state) => ({
-  accounts: state.accounts,
-}))(RestoreWallet);
+export default RestoreWallet;
