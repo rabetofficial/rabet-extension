@@ -4,7 +4,7 @@ import types from '../index';
 import store from '../../store';
 import changeActive from './changeActive';
 
-export default async (name) => {
+export default async (name: string) => {
   try {
     const pair = StellarSdk.Keypair.random();
 

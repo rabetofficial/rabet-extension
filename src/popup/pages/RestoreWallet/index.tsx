@@ -4,19 +4,17 @@ import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
 import Logo from 'popup/components/Logo';
-
 import Layout from 'popup/components/Layout';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-
-import * as route from 'popup/staticRes/routes';
+import RouteName from 'popup/staticRes/routes';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import validatePrivateKey from 'popup/utils/validate/privateKey';
+import ArrowBack from 'popup/svgs/ArrowBack';
 
 import TabList from './TabList';
 
 import * as S from './styles';
-import ArrowBack from 'popup/svgs/ArrowBack';
 
 type FormValues = {
   key: string | null;
@@ -29,14 +27,14 @@ const RestoreWallet = ({ accounts }) => {
     form.reset();
 
     if (accounts.length) {
-      return navigate(route.homePage, {
+      return navigate(RouteName.Home, {
         state: {
           alreadyLoaded: true,
         },
       });
     }
 
-    return navigate(route.firstPage);
+    return navigate(RouteName.First);
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -64,7 +62,7 @@ const RestoreWallet = ({ accounts }) => {
       return { key: 'Invalid seed.' };
     }
 
-    return navigate(route.homePage);
+    return navigate(RouteName.Home);
   };
 
   const validateForm = (values: FormValues) => {

@@ -3,20 +3,18 @@ import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import * as route from 'popup/staticRes/routes';
+import RouteName from 'popup/staticRes/routes';
 import createAccountAction from 'popup/actions/accounts/create';
-
 import Logo from 'popup/components/Logo';
 import Layout from 'popup/components/Layout';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-
 import ArrowBack from 'popup/svgs/ArrowBack';
 
 import * as S from './styles';
 
 type FormValues = {
-  name: string | null;
+  name?: string;
 };
 
 const CreateWallet = ({ accounts }: any) => {
@@ -26,14 +24,14 @@ const CreateWallet = ({ accounts }: any) => {
     form.reset();
 
     if (accounts.length) {
-      return navigate(route.homePage, {
+      return navigate(RouteName.Home, {
         state: {
           alreadyLoaded: true,
         },
       });
     }
 
-    return navigate(route.firstPage);
+    return navigate(RouteName.First);
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -45,14 +43,14 @@ const CreateWallet = ({ accounts }: any) => {
       };
     }
 
-    return navigate(route.backupFile);
+    return navigate(RouteName.BackupFile);
   };
 
   const validateForm = (values: FormValues) => {
-    const errors = {} as FormValues;
+    const errors: FormValues = {};
 
     if (!values.name) {
-      errors.name = null;
+      errors.name = '';
     }
 
     return errors;

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Logo from 'popup/components/Logo';
 import Button from 'popup/components/common/Button';
-import * as route from 'popup/staticRes/routes';
+import RouteName from 'popup/staticRes/routes';
 import Layout from 'popup/components/Layout';
 
 const FirstPage = () => {
@@ -21,7 +21,7 @@ const FirstPage = () => {
           content="Create Wallet"
           style={{ marginBottom: '30px' }}
           onClick={() => {
-            navigate(route.createWalletPage);
+            navigate(RouteName.CreateWallet);
           }}
         />
 
@@ -31,7 +31,7 @@ const FirstPage = () => {
           size="medium"
           content="Import Wallet"
           onClick={() => {
-            navigate(route.restoreWalletPage);
+            navigate(RouteName.RestoreWallet);
           }}
         />
       </div>
