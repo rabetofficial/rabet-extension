@@ -116,7 +116,7 @@ const ConfirmLogin = () => {
                 variant="primary"
                 size="medium"
                 content="Continue"
-                style={{ marginTop: '20px' }}
+                style={{ marginTop: '32px' }}
                 disabled={invalid}
               />
             </form>
