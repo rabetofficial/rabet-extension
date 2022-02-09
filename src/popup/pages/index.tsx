@@ -9,7 +9,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 
 import Home from './Home';
 import Intro from './Intro';
-import IntroSlides from './Slides';
+import IntroSlides from './IntroSlides';
 import Login from './Login';
 import Error from './Error';
 import Send from './Send';
@@ -262,7 +262,15 @@ const App = () => (
           path={RouteName.ConnectedWebsite}
           element={<ConnectedWebsite />}
         />
-          <Route exact path="ui" element={ <ProtectedRoute><UITest /></ProtectedRoute>} />
+        <Route
+          exact
+          path="ui"
+          element={
+            <ProtectedRoute>
+              <UITest />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   </Router>

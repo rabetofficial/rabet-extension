@@ -143,7 +143,7 @@ export const RightCircle = styled(Circle)<CircleProps>`
 `;
 
 export const SlidesContainer = styled.div`
-  @media (max-width: 1536px) and (min-width: 1280px) {
+  @media (min-width: 1280px) {
     width: 790px;
   }
   @media (max-width: 1280px) and (min-width: 1024px) {
