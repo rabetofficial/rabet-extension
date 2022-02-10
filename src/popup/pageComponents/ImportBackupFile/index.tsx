@@ -10,9 +10,9 @@ import RouteName from 'popup/staticRes/routes';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import validatePrivateKey from 'popup/utils/validate/privateKey';
 import Error from 'popup/components/common/Error';
+import ArrowBack from 'popup/svgs/ArrowBack';
 
 import * as S from './styles';
-import ArrowBack from 'popup/svgs/ArrowBack';
 
 type FormValues = {
   key: string;
