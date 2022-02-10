@@ -39,9 +39,11 @@ const Button = (props: ButtonTypes) => {
       disabled={disabled}
       onClick={onClick}
     >
-      {startIcon && <S.Icon>{startIcon}</S.Icon>}
+      {startIcon && (
+        <S.BurgerImageStyle>{startIcon}</S.BurgerImageStyle>
+      )}
       {content}
-      {endIcon && <S.Icon>{endIcon}</S.Icon>}
+      {endIcon && <S.BurgerImageStyle>{endIcon}</S.BurgerImageStyle>}
     </S.Button>
   );
 };

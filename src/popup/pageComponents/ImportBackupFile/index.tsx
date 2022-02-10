@@ -6,13 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'popup/components/common/Button';
 import Download from 'popup/svgs/Download';
 import Input from 'popup/components/common/Input';
-
 import RouteName from 'popup/staticRes/routes';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import validatePrivateKey from 'popup/utils/validate/privateKey';
+import Error from 'popup/components/common/Error';
 
 import * as S from './styles';
-import Error from 'popup/components/common/Error';
 
 type FormValues = {
   key: string;
