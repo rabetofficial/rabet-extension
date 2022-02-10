@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
 import Tippy from '@tippyjs/react';
 import { roundArrow } from 'tippy.js';
+import styled from 'styled-components';
 
 import { Placement } from 'popup/models';
-import Container from './Container';
 
 type AppProps = {
   children: React.ReactNode;
@@ -11,6 +11,14 @@ type AppProps = {
   className?: string;
   onHide?: () => void;
 };
+
+const Container = styled.div`
+  background-color: white;
+  border-radius: ${({ theme }) => theme.rounded.main};
+  box-shadow: rgba(134, 146, 164, 0.08);
+  border: none;
+  overflow: hidden;
+`;
 
 const Popover = forwardRef(
   (

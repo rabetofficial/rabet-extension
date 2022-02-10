@@ -9,6 +9,11 @@ import * as route from 'popup/staticRes/routes';
 import EditWalletName from 'popup/components/EditWalletName';
 
 import * as S from './styles';
+import Tooltips from '../../Tooltips';
+import CopyText from '../../CopyText';
+
+const sampleAddress =
+  'GCTRXBGMSI64VVXX5O5EUFTGWOTICIHC7PUO24VMD4VOTVCSO6ODKAPQ';
 
 type AppProps = {
   children: React.ReactNode;
@@ -51,6 +56,24 @@ const ExpandLayout = ({ children }: AppProps) => {
               isEditable={isEditable}
               setEditable={setEditable}
             />
+            <div className="text-3xl font-medium mt-[15px]">
+              $991.62
+            </div>
+            <div className="flex justify-between items-center mt-[18px]">
+              <div className="text-base font-medium">
+                Your Address
+              </div>
+              <S.QrTrigger>QR-code</S.QrTrigger>
+            </div>
+            <S.AddressBox>
+              <CopyText
+                text={sampleAddress}
+                custom={<S.Address>{sampleAddress}</S.Address>}
+              />
+            </S.AddressBox>
+            <Tooltips placement="top" text="some info">
+              <span>me</span>
+            </Tooltips>
           </S.Card>
           <S.Card className="mt-[38px]">03</S.Card>
         </div>
