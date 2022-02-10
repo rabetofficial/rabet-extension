@@ -16,7 +16,7 @@ type AppProps = {
 
 const ExpandLayout = ({ children }: AppProps) => {
   const [overlay, toggleOverLay] = useState<boolean>(false);
-  const [editName, setEditName] = useState(false);
+  const [isEditable, setEditable] = useState(false);
 
   const toggleOverlay = (open: boolean) => {
     toggleOverLay(open);
@@ -48,8 +48,8 @@ const ExpandLayout = ({ children }: AppProps) => {
         <div className="basis-[351px]">
           <S.Card className="pt-[22px] pb-[18px]">
             <EditWalletName
-              editName={editName}
-              setEditName={setEditName}
+              isEditable={isEditable}
+              setEditable={setEditable}
             />
           </S.Card>
           <S.Card className="mt-[38px]">03</S.Card>

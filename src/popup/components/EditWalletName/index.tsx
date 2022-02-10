@@ -5,18 +5,28 @@ import Input from 'popup/components/common/Input';
 import currentActiveAccount from 'popup/utils/activeAccount';
 import changeNameAction from 'popup/actions/accounts/changeName';
 import PenEdit from 'popup/svgs/PenEdit';
+import CheckMark from 'popup/svgs/CheckMark';
 
 import * as S from './styles';
 
-const EditWalletName = ({ editName, setEditName }) => {
-  const onSubmit = (values) => {
+type AppProps = {
+  isEditable: boolean;
+  setEditable: (value: boolean) => void;
+};
+
+type FormValues = {
+  name: string | null;
+};
+
+const EditWalletName = ({ isEditable, setEditable }: AppProps) => {
+  const onSubmit = (values: FormValues) => {
     changeNameAction(values.name);
 
-    setEditName(!editName);
+    setEditable(!isEditable);
   };
 
-  const validateForm = (values) => {
-    const errors = {};
+  const validateForm = (values: FormValues) => {
+    const errors = {} as FormValues;
 
     if (!values.name) {
       errors.name = null;
@@ -30,10 +40,10 @@ const EditWalletName = ({ editName, setEditName }) => {
 
   return (
     <>
-      {editName ? (
+      {isEditable ? (
         <Form
-          onSubmit={(values) => onSubmit(values)}
-          validate={(values) => validateForm(values)}
+          onSubmit={(values: FormValues) => onSubmit(values)}
+          validate={(values: FormValues) => validateForm(values)}
           render={({ submitError, handleSubmit }) => (
             <form
               className="flex"
@@ -47,11 +57,11 @@ const EditWalletName = ({ editName, setEditName }) => {
                   `Account ${activeAccountIndex + 1}`
                 }
               >
-                {({ input, meta }) => (
+                {({ input, meta }: any) => (
                   <Input
                     type="text"
                     size="small"
-                    style={{ width: '137px', marginTop: '0' }}
+                    className="w-full !m-0"
                     input={input}
                     meta={meta}
                     autoFocus
@@ -62,11 +72,13 @@ const EditWalletName = ({ editName, setEditName }) => {
                 <div className="error">{submitError}</div>
               )}
 
-              <S.SubmitButton
-                type="submit"
-                variant="primary"
-                content={<span className="icon-checkmark" />}
-              />
+              <div>
+                <S.SubmitButton
+                  type="submit"
+                  variant="primary"
+                  content={<CheckMark />}
+                />
+              </div>
             </form>
           )}
         />
@@ -81,7 +93,7 @@ const EditWalletName = ({ editName, setEditName }) => {
           </div>
           <S.EditIcon
             onClick={() => {
-              setEditName(!editName);
+              setEditable(!isEditable);
             }}
           >
             <PenEdit />

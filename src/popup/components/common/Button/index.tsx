@@ -39,9 +39,9 @@ const Button = (props: ButtonTypes) => {
       disabled={disabled}
       onClick={onClick}
     >
-      <S.Icon>{startIcon}</S.Icon>
+      {startIcon && <S.Icon>{startIcon}</S.Icon>}
       {content}
-      <S.Icon>{endIcon}</S.Icon>
+      {endIcon && <S.Icon>{endIcon}</S.Icon>}
     </S.Button>
   );
 };

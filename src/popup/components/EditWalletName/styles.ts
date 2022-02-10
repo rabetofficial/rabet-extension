@@ -17,14 +17,13 @@ export const InputField = styled(Field)`
 `;
 
 export const SubmitButton = styled(Button)`
-  height: 36px;
-  width: 36px;
+  width: 40px;
+  height: 40px;
   margin-left: 14px;
   border-radius: 2px;
 
-  .icon-checkmark {
-    font-size: 15px;
-    margin-right: 0;
+  svg {
+    width: 18px;
   }
 `;
 
