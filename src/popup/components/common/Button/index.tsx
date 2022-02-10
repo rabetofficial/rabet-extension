@@ -40,10 +40,16 @@ const Button = (props: ButtonTypes) => {
       onClick={onClick}
     >
       {startIcon && (
-        <S.BurgerImageStyle>{startIcon}</S.BurgerImageStyle>
+        <S.BurgerImageStyle style={{ marginRight: '6px' }}>
+          {startIcon}
+        </S.BurgerImageStyle>
       )}
       {content}
-      {endIcon && <S.BurgerImageStyle>{endIcon}</S.BurgerImageStyle>}
+      {endIcon && (
+        <S.BurgerImageStyle style={{ marginLeft: '6px' }}>
+          {endIcon}
+        </S.BurgerImageStyle>
+      )}
     </S.Button>
   );
 };
