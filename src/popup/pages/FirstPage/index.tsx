@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 import Logo from 'popup/components/Logo';
 import Button from 'popup/components/common/Button';
@@ -12,8 +13,7 @@ const FirstPage = () => {
   return (
     <Layout isDashboard={false}>
       <Logo />
-
-      <div className="mt-[70px]">
+      <ButtonContainer>
         <Button
           type="button"
           variant="primary"
@@ -34,9 +34,16 @@ const FirstPage = () => {
             navigate(RouteName.RestoreWallet);
           }}
         />
-      </div>
+      </ButtonContainer>
     </Layout>
   );
 };
-
+const ButtonContainer = styled.div`
+  margin-top: 69px;
+  @media (max-width: 360px) {
+    margin-top: 80px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+`;
 export default FirstPage;

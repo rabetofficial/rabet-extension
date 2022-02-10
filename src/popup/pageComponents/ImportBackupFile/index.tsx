@@ -12,6 +12,7 @@ import validatePrivateKey from 'popup/utils/validate/privateKey';
 import Error from 'popup/components/common/Error';
 
 import * as S from './styles';
+import ArrowBack from 'popup/svgs/ArrowBack';
 
 type FormValues = {
   key: string;
@@ -127,12 +128,14 @@ const ImportBackupFile = () => {
                   disabled={pristine}
                 />
                 <Button
+                  style={{ marginTop: '12px' }}
                   variant="default"
                   size="medium"
-                  content="Cancel"
+                  content="Back"
                   onClick={() => {
                     handleCancel(form);
                   }}
+                  startIcon={<ArrowBack />}
                 />
               </S.ButtonContainer>
             </form>
