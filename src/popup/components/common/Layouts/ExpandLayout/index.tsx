@@ -9,6 +9,7 @@ import * as route from 'popup/staticRes/routes';
 import EditWalletName from 'popup/components/EditWalletName';
 
 import * as S from './styles';
+import Tooltips from '../../Tooltips';
 
 const sampleAddress =
   'GCTRXBGMSI64VVXX5O5EUFTGWOTICIHC7PUO24VMD4VOTVCSO6ODKAPQ';
@@ -66,6 +67,9 @@ const ExpandLayout = ({ children }: AppProps) => {
             <S.AddressBox>
               <S.Address>{sampleAddress}</S.Address>
             </S.AddressBox>
+            <Tooltips placement="top" text="some info">
+              <span>me</span>
+            </Tooltips>
           </S.Card>
           <S.Card className="mt-[38px]">03</S.Card>
         </div>
