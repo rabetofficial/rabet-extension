@@ -1,4 +1,9 @@
-import React, { ReactElement, JSXElementConstructor } from 'react';
+import React, {
+  ReactElement,
+  JSXElementConstructor,
+  useState,
+  useEffect,
+} from 'react';
 import Tippy from '@tippyjs/react';
 import { roundArrow } from 'tippy.js';
 import { Placement } from 'popup/models';
@@ -10,6 +15,8 @@ type AppProps = {
     | undefined;
   text: string;
   placement?: Placement;
+  controlled?: boolean;
+  isVisible?: boolean;
 };
 
 const Container = styled.div`
@@ -25,21 +32,54 @@ const Container = styled.div`
   text-align: center;
 `;
 
-const Tooltips = ({ text, placement, children }: AppProps) => (
-  <Tippy
-    content={<Container>{text}</Container>}
-    placement={placement}
-    animation="shift-away"
-    arrow={roundArrow}
-    className="arrow-light"
-    interactive
-  >
-    {children}
-  </Tippy>
-);
+const Tooltips = ({
+  text,
+  placement,
+  isVisible,
+  children,
+  controlled,
+}: AppProps) => {
+  const [visible, setVisible] = useState(isVisible);
+  const show = () => setVisible(true);
+  const hide = () => setVisible(false);
+
+  useEffect(() => {
+    setVisible(isVisible);
+  }, [isVisible]);
+  return (
+    <div>
+      {controlled ? (
+        <Tippy
+          content={<Container>{text}</Container>}
+          placement={placement}
+          animation="shift-away"
+          arrow={roundArrow}
+          interactive
+          visible={visible}
+        >
+          <span onMouseEnter={show} onMouseLeave={hide}>
+            {children}
+          </span>
+        </Tippy>
+      ) : (
+        <Tippy
+          content={<Container>{text}</Container>}
+          placement={placement}
+          animation="shift-away"
+          arrow={roundArrow}
+          interactive
+        >
+          {children}
+        </Tippy>
+      )}
+    </div>
+  );
+};
 
 Tooltips.defaultProps = {
   placement: 'top',
+  isVisible: false,
+  controlled: false,
 };
 
 export default Tooltips;

@@ -10,6 +10,7 @@ import EditWalletName from 'popup/components/EditWalletName';
 
 import * as S from './styles';
 import Tooltips from '../../Tooltips';
+import CopyText from '../../CopyText';
 
 const sampleAddress =
   'GCTRXBGMSI64VVXX5O5EUFTGWOTICIHC7PUO24VMD4VOTVCSO6ODKAPQ';
@@ -65,7 +66,10 @@ const ExpandLayout = ({ children }: AppProps) => {
               <S.QrTrigger>QR-code</S.QrTrigger>
             </div>
             <S.AddressBox>
-              <S.Address>{sampleAddress}</S.Address>
+              <CopyText
+                text={sampleAddress}
+                custom={<S.Address>{sampleAddress}</S.Address>}
+              />
             </S.AddressBox>
             <Tooltips placement="top" text="some info">
               <span>me</span>
