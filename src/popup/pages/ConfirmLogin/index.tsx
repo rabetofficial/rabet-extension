@@ -7,19 +7,19 @@ import Layout from 'popup/components/Layout';
 import RouteName from 'popup/staticRes/routes';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-import registerUserAction from 'popup/actions/user/register';
 import Error from 'popup/components/common/Error';
+import registerUserAction from 'popup/actions/user/register';
 
 type FormValues = {
-  password?: string;
-  confirm?: string;
+  password: string;
+  confirm: string;
 };
 
 const ConfirmLogin = () => {
   const navigate = useNavigate();
 
   const onSubmit = (values: FormValues) => {
-    const errors: FormValues = {};
+    const errors: Partial<FormValues> = {};
 
     if (values.password !== values.confirm) {
       errors.password = 'Passwords do not match.';
@@ -37,7 +37,7 @@ const ConfirmLogin = () => {
   };
 
   const validateForm = (values: FormValues) => {
-    const errors: FormValues = {};
+    const errors: Partial<FormValues> = {};
 
     const hasError = {
       password: false,
@@ -74,9 +74,10 @@ const ConfirmLogin = () => {
     <Layout isDashboard={false}>
       <div>
         <Logo />
+
         <Form
-          onSubmit={(values) => onSubmit(values)}
-          validate={(values) => validateForm(values)}
+          onSubmit={onSubmit}
+          validate={validateForm}
           render={({ submitError, handleSubmit, invalid }) => (
             <form
               className="mt-[51px]"

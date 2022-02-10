@@ -4,12 +4,15 @@ import * as route from '../../staticRes/routes';
 import currentActiveAccount from '../../utils/activeAccount';
 import currentNetwork from '../../utils/horizon/currentNetwork';
 
-export default async ({
-  auth_required,
-  auth_revocable,
-  auth_immutable,
-  auth_clawback_enabled,
-}, push) => {
+export default async (
+  {
+    auth_required,
+    auth_revocable,
+    auth_immutable,
+    auth_clawback_enabled,
+  },
+  push,
+) => {
   push(route.loadingNetworkPage);
 
   const { activeAccount } = currentActiveAccount();
@@ -45,7 +48,9 @@ export default async ({
   }
 
   const server = new StellarSdk.Server(url);
-  const sourceKeys = StellarSdk.Keypair.fromSecret(activeAccount.privateKey);
+  const sourceKeys = StellarSdk.Keypair.fromSecret(
+    activeAccount.privateKey,
+  );
 
   let transaction;
 
@@ -56,10 +61,12 @@ export default async ({
         fee: StellarSdk.BASE_FEE,
         networkPassphrase: passphrase,
       })
-        .addOperation(StellarSdk.Operation.setOptions({
-          setFlags,
-          clearFlags,
-        }))
+        .addOperation(
+          StellarSdk.Operation.setOptions({
+            setFlags,
+            clearFlags,
+          }),
+        )
         .setTimeout(180)
         .build();
 
@@ -68,23 +75,17 @@ export default async ({
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push(
-        route.successSubmitPage,
-        {
-          state: {
-            hash: result.hash,
-          },
+      push(route.successSubmitPage, {
+        state: {
+          hash: result.hash,
         },
-      );
+      });
     })
     .catch((err) => {
-      push(
-        route.errorPage,
-        {
-          state: {
-            message: err.message,
-          },
+      push(route.errorPage, {
+        state: {
+          message: err.message,
         },
-      );
+      });
     });
 };
