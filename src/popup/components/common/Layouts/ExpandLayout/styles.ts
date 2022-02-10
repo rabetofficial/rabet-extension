@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Copy from 'popup/svgs/Copy';
+import svgToMarkupString from '../../../../../helpers/svgToMarkupString';
 
 export const Container = styled.div`
   padding: 23px 54px 65px 54px;
@@ -12,4 +14,33 @@ export const Card = styled.div`
   border-radius: ${({ theme }) => theme.rounded.main};
   padding-right: 20px;
   padding-left: 20px;
+`;
+
+export const QrTrigger = styled.div`
+  font-size: 12px;
+  color: ${({ theme }) => theme.colors.primary.dark};
+  cursor: pointer;
+`;
+
+export const AddressBox = styled.div`
+  border: solid 1px ${({ theme }) => theme.colors.primary.light};
+  border-radius: ${({ theme }) => theme.rounded.main};
+  padding: 12px 14px;
+  margin-top: 6px;
+`;
+
+export const Address = styled.div`
+  font-size: 14px;
+  line-height: 1.43;
+  word-break: break-all;
+  cursor: pointer;
+
+  &:after {
+    padding-left: 2px;
+    position: absolute;
+    content: ${({ color }) =>
+      `url(${svgToMarkupString(Copy, {
+        color,
+      })})`};
+  }
 `;
