@@ -4,7 +4,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from 'popup/components/common/Button';
-import intro5 from 'src/assets/images/intro5.png';
+import { SlideFour } from 'popup/svgs/slides';
 
 import RouteName from 'popup/staticRes/routes';
 
@@ -20,7 +20,7 @@ const ForthSlide = () => {
   return (
     <>
       <S.ImgSlideForth>
-        <img src={intro5} alt="img" />
+        <SlideFour />{' '}
       </S.ImgSlideForth>
       <S.TextContainer>
         <S.HeadText className="mt-[56px]">
