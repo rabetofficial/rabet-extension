@@ -45,6 +45,8 @@ import BasicSendConfirm from './Operation/Basic/Send/Confirm';
 import AdvanceOperation from './Operation/Adavnce';
 import UITest from './UITest';
 
+import DetectSize from 'popup/components/DetectSize';
+
 const App = () => (
   <Router>
     <div className="layout">
@@ -53,7 +55,9 @@ const App = () => (
           path={RouteName.Home}
           element={
             <ProtectedRoute>
-              <Home />
+              <DetectSize desktop={<Setting />}>
+                <Home />
+              </DetectSize>
             </ProtectedRoute>
           }
         />

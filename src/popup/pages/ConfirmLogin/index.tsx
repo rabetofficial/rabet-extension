@@ -7,8 +7,8 @@ import Logo from 'popup/components/Logo';
 import Layout from 'popup/components/Layout';
 import RouteName from 'popup/staticRes/routes';
 import Input from 'popup/components/common/Input';
-import Button from 'popup/components/common/Button';
 import Error from 'popup/components/common/Error';
+import Button from 'popup/components/common/Button';
 import registerUserAction from 'popup/actions/user/register';
 
 type FormValues = {
