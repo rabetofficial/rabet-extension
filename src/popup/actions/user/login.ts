@@ -5,7 +5,7 @@ import { login, addConnectedWebsites } from 'popup/reducers/user';
 
 export default async (password: string): Promise<boolean> => {
   try {
-    const { host } = store.getState();
+    const { host, accounts } = store.getState();
     const data = await get('data', password);
     const connectedWebsites: string[] =
       (await get('connectedWebsites')) || [];
@@ -13,7 +13,7 @@ export default async (password: string): Promise<boolean> => {
     const d = data.map((x) => ({
       ...x,
       isConnected: connectedWebsites.some(
-        (y) => y === `${host}/${x.publicKey}`,
+        (y) => y === `${host.value}/${x.publicKey}`,
       ),
     }));
 

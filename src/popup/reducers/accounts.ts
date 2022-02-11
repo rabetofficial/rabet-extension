@@ -64,9 +64,8 @@ const accountsSlice = createSlice({
     add: (state, action: PayloadAction<IAccount>) => {
       state.push(action.payload);
     },
-    load: (state, action: PayloadAction<IAccount[]>) => {
-      state = action.payload;
-    },
+    load: (state, action: PayloadAction<IAccount[]>) =>
+      action.payload,
     remove: (state, action: PayloadAction<string>) => {
       state = state.filter((x) => x.publicKey !== action.payload);
     },
