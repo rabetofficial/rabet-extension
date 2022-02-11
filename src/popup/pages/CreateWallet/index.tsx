@@ -1,16 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import RouteName from 'popup/staticRes/routes';
-import createAccountAction from 'popup/actions/accounts/create';
 import Logo from 'popup/components/Logo';
 import Layout from 'popup/components/Layout';
-import Input from 'popup/components/common/Input';
-import Button from 'popup/components/common/Button';
 import ArrowBack from 'popup/svgs/ArrowBack';
+import RouteName from 'popup/staticRes/routes';
+import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
+import Button from 'popup/components/common/Button';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import createAccountAction from 'popup/actions/accounts/create';
 
 import * as S from './styles';
 
@@ -19,9 +19,8 @@ type FormValues = {
 };
 
 const CreateWallet = () => {
-  const accounts = useSelector((store) => store.accounts);
-
   const navigate = useNavigate();
+  const accounts = useTypedSelector((store) => store.accounts);
 
   const handleCancel = (form: any) => {
     form.reset();
@@ -89,7 +88,9 @@ const CreateWallet = () => {
                   </S.InputContainer>
                 )}
               </Field>
+
               {submitError && <Error>{submitError}</Error>}
+
               <S.ButtonContainer>
                 <Button
                   type="submit"
