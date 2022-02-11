@@ -1,15 +1,13 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Card from 'popup/components/Card';
 import Button from 'popup/components/common/Button';
 import RouteName from 'popup/staticRes/routes';
+import ModalDialog from 'popup/components/common/ModalDialog';
 import CopyText from 'popup/components/CopyText';
-import PageTitle from 'popup/components/PageTitle';
 import currentActiveAccount from 'popup/utils/activeAccount';
 
-import styles from './styles.less';
+import * as S from './styles';
 
 const BackupFile = () => {
   const navigate = useNavigate();
@@ -19,49 +17,57 @@ const BackupFile = () => {
   const handleClick = () => {
     navigate(RouteName.Home);
   };
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
 
   return (
     <>
-      <PageTitle title="Backup" />
-      <div className="content">
-        <div className={styles.msg}>
-          <span>Make a backup of your private key! </span>
-          secure it like the millions of dollars it may one day be
-          worth.
-        </div>
-        <div className={classNames('label-primary', styles.label)}>
-          Private Key
-        </div>
-        <div className={styles.box}>
-          <Card type="card-primary">
+      <button type="button" onClick={handleOpen}>
+        open
+      </button>
+      <ModalDialog
+        title="Backup file"
+        size="medium"
+        isOpen={open}
+        onClose={handleClose}
+      >
+        <div className="content">
+          <S.Msg>
+            <span>Make a backup of your private key! </span>secure it
+            like the millions of dollars it may one day be worth.
+          </S.Msg>
+          <S.Label>Private Key</S.Label>
+          <S.Box>
             <div className="hide-blur">{privateKey}</div>
-            <div className={styles.copy}>
+            <S.Copy>
               <CopyText copyButton text={privateKey} />
-            </div>
-          </Card>
-        </div>
-        <div className={classNames('label-primary', styles.label)}>
-          Address
-        </div>
-        <div className={styles.box}>
-          <Card type="card-primary">
+            </S.Copy>
+          </S.Box>
+          <S.Label>Address</S.Label>
+          <S.Box>
             {publicKey}
-            <div className={styles.copy}>
+            <S.Copy>
               <CopyText copyButton text={publicKey} />
-            </div>
-          </Card>
+            </S.Copy>
+          </S.Box>
+          <S.ButtonContainer>
+            <Button
+              variant="default"
+              size="medium"
+              content="Cancel"
+              onClick={handleClose}
+            />
+            <Button
+              variant="primary"
+              size="medium"
+              content="Continue"
+              onClick={handleClick}
+              style={{ marginRight: '17px' }}
+            />
+          </S.ButtonContainer>
         </div>
-        <div
-          className={classNames('pure-g justify-end', styles.buttons)}
-        >
-          <Button
-            variant="primary"
-            size="medium"
-            content="Continue"
-            onClick={handleClick}
-          />
-        </div>
-      </div>
+      </ModalDialog>
     </>
   );
 };
