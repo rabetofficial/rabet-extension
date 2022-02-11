@@ -1,4 +1,6 @@
 import StellarSdk from 'stellar-sdk';
+
+import store from 'popup/store';
 import { add, IAccount } from 'popup/reducers/accounts';
 
 import changeActive from './changeActive';
@@ -14,7 +16,7 @@ export default async (name: string): Promise<boolean> => {
       balance: 0,
     };
 
-    add(account);
+    store.dispatch(add(account));
 
     changeActive(account.publicKey);
 

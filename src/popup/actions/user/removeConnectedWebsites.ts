@@ -3,7 +3,7 @@ import { set } from 'helpers/storage';
 import { removeConnectedWebsite } from 'popup/reducers/user';
 
 export default async (connectedWebsite: string) => {
-  removeConnectedWebsite(connectedWebsite);
+  store.dispatch(removeConnectedWebsite(connectedWebsite));
 
   const { connectedWebsites } = store.getState().user;
 

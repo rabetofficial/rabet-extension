@@ -20,6 +20,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action: PayloadAction<string>) => {
+      console.log('login happeneed');
       state.password = action.payload;
       state.logged = true;
     },

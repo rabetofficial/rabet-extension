@@ -1,3 +1,4 @@
+import store from 'popup/store';
 import RouteName from 'popup/staticRes/routes';
 import updateBalances from 'popup/utils/updateBalances';
 import changeNetworkEvent from 'popup/events/changeNetwork';
@@ -10,7 +11,7 @@ import getData from '../accounts/getData';
 export default async (network, push) => {
   push(RouteName.LoadingOne);
 
-  changeNetwork(network.value);
+  store.dispatch(changeNetwork(network.value));
   changeNetworkEvent(network.value);
 
   const { activeAccount } = currentActiveAccount();

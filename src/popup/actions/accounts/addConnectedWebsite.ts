@@ -12,11 +12,13 @@ export default async (
 
   const newWebsites = [...connectedWebsites, pair];
 
-  addConnectedWebsites(newWebsites);
-  changeIsConnected({
-    publicKey,
-    isConnected: true,
-  });
+  store.dispatch(addConnectedWebsites(newWebsites));
+  store.dispatch(
+    changeIsConnected({
+      publicKey,
+      isConnected: true,
+    }),
+  );
 
   await set('connectedWebsites', newWebsites);
   forceUpdate();

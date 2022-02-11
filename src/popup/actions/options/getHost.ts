@@ -1,3 +1,4 @@
+import store from 'popup/store';
 import { change } from '../../reducers/host';
 import isDomain from '../../utils/validate/domain';
 import getHostOfUrl from '../../utils/getHostOfUrl';
@@ -11,7 +12,7 @@ const getHost = () =>
         const host = getHostOfUrl(tab.url);
 
         if (isDomain(host)) {
-          change(host);
+          store.dispatch(change(host));
         }
 
         resolve(true);

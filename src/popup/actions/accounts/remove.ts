@@ -7,7 +7,7 @@ import changeActive from './changeActive';
 import removeAllConnectedWebsites from './removeAllConnectedWebsites';
 
 const removeAccount = async (publicKey: string, navigate) => {
-  remove(publicKey);
+  store.dispatch(remove(publicKey));
   removeAllConnectedWebsites(publicKey);
 
   const { accounts } = store.getState();

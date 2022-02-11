@@ -12,11 +12,13 @@ export default async (
   const pair = `${host}/${publicKey}`;
   const filtered = connectedWebsites.filter((x) => x !== pair);
 
-  addConnectedWebsites(filtered);
-  changeIsConnected({
-    publicKey,
-    isConnected: false,
-  });
+  store.dispatch(addConnectedWebsites(filtered));
+  store.dispatch(
+    changeIsConnected({
+      publicKey,
+      isConnected: false,
+    }),
+  );
 
   await set('connectedWebsites', filtered);
 
