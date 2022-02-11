@@ -262,15 +262,7 @@ const App = () => (
           path={RouteName.ConnectedWebsite}
           element={<ConnectedWebsite />}
         />
-        <Route
-          exact
-          path="ui"
-          element={
-            <ProtectedRoute>
-              <UITest />
-            </ProtectedRoute>
-          }
-        />
+        <Route exact path="ui" element={<UITest />} />
       </Routes>
     </div>
   </Router>

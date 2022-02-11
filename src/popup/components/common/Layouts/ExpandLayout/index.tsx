@@ -6,7 +6,7 @@ import FullRabetLogo from 'popup/svgs/FullRabetLogo';
 import Network from 'popup/components/common/Header/Network';
 import SearchAccounts from 'popup/components/common/Header/SearchAccounts';
 import * as route from 'popup/staticRes/routes';
-import EditWalletName from 'popup/components/EditWalletName';
+// import EditWalletName from 'popup/components/EditWalletName';
 import CopyText from 'popup/components/common/CopyText';
 
 import * as S from './styles';
@@ -51,10 +51,12 @@ const ExpandLayout = ({ children }: AppProps) => {
         </div>
         <div className="basis-[351px]">
           <S.Card className="pt-[22px] pb-[18px]">
-            <EditWalletName
-              isEditable={isEditable}
-              setEditable={setEditable}
-            />
+            {/* <EditWalletName */}
+            {/*  isEditable={isEditable} */}
+            {/*  setEditable={setEditable} */}
+            {/*  height={34} */}
+            {/*  fontSize={14} */}
+            {/* /> */}
             <div className="text-3xl font-medium mt-[15px]">
               $991.62
             </div>

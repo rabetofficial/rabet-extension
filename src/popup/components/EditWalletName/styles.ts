@@ -1,37 +1,33 @@
 import styled from 'styled-components';
 import Button from 'popup/components/common/Button';
-import { Field } from 'react-final-form';
 
-export const InputField = styled(Field)`
+export const Form = styled.form.attrs(
+  (props: { fontSize: number }) => props,
+)`
   display: flex;
-  flex-direction: column;
-
-  button {
-    padding-right: 8px;
-    background: white;
-
-    span {
-      margin-right: 0;
-    }
+  .input {
+    font-size: ${(props) => props.fontSize}px!important;
   }
 `;
 
-export const SubmitButton = styled(Button)`
-  width: 40px;
-  height: 40px;
+export const SubmitButton = styled(Button).attrs(
+  (props: any) => props,
+)`
   margin-left: 14px;
   border-radius: 2px;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
 
   svg {
     width: 18px;
   }
 `;
 
-export const Info = styled.p`
+export const Info = styled.p.attrs((props: any) => props)`
   display: flex;
   align-items: center;
-  font-size: 16px;
   color: black;
+  font-size: ${(props) => props.fontSize}px;
 `;
 
 export const EditIcon = styled.div`

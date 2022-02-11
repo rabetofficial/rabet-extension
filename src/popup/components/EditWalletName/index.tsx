@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from 'react-final-form';
+import { Form, Field } from 'react-final-form';
 
 import Input from 'popup/components/common/Input';
 import currentActiveAccount from 'popup/utils/activeAccount';
@@ -12,13 +12,20 @@ import * as S from './styles';
 type AppProps = {
   isEditable: boolean;
   setEditable: (value: boolean) => void;
+  height: number;
+  fontSize: number;
 };
 
 type FormValues = {
   name: string;
 };
 
-const EditWalletName = ({ isEditable, setEditable }: AppProps) => {
+const EditWalletName = ({
+  isEditable,
+  setEditable,
+  height,
+  fontSize,
+}: AppProps) => {
   const onSubmit = (values: FormValues) => {
     changeNameAction(values.name);
 
@@ -45,12 +52,12 @@ const EditWalletName = ({ isEditable, setEditable }: AppProps) => {
           onSubmit={(values: FormValues) => onSubmit(values)}
           validate={(values: FormValues) => validateForm(values)}
           render={({ submitError, handleSubmit }) => (
-            <form
-              className="flex"
+            <S.Form
               onSubmit={handleSubmit}
               autoComplete="off"
+              fontSize={fontSize}
             >
-              <S.InputField
+              <Field
                 name="name"
                 initialValue={
                   activeAccount.name ||
@@ -65,9 +72,10 @@ const EditWalletName = ({ isEditable, setEditable }: AppProps) => {
                     input={input}
                     meta={meta}
                     autoFocus
+                    style={{ height: `${height}px` }}
                   />
                 )}
-              </S.InputField>
+              </Field>
               {submitError && (
                 <div className="error">{submitError}</div>
               )}
@@ -77,13 +85,14 @@ const EditWalletName = ({ isEditable, setEditable }: AppProps) => {
                   type="submit"
                   variant="primary"
                   content={<CheckMark />}
+                  size={height}
                 />
               </div>
-            </form>
+            </S.Form>
           )}
         />
       ) : (
-        <S.Info>
+        <S.Info fontSize={fontSize}>
           <div>
             {(activeAccount.name &&
               (activeAccount.name.length < 13
