@@ -8,8 +8,10 @@ import SearchAccounts from 'popup/components/common/Header/SearchAccounts';
 import * as route from 'popup/staticRes/routes';
 // import EditWalletName from 'popup/components/EditWalletName';
 import CopyText from 'popup/components/common/CopyText';
+import PlusBold from 'popup/svgs/PlusBold';
 
 import * as S from './styles';
+import AssetList from "./AssetList";
 
 const sampleAddress =
   'GCTRXBGMSI64VVXX5O5EUFTGWOTICIHC7PUO24VMD4VOTVCSO6ODKAPQ';
@@ -73,7 +75,16 @@ const ExpandLayout = ({ children }: AppProps) => {
               />
             </S.AddressBox>
           </S.Card>
-          <S.Card className="mt-[38px]">03</S.Card>
+          <S.Card className="mt-[38px] pt-[20px]">
+            <div className="flex justify-between items-center">
+              <div className="text-lg font-medium">Assets</div>
+              <S.AssetTrigger>
+                <PlusBold />
+                <div className="ml-1">Add assets</div>
+              </S.AssetTrigger>
+            </div>
+            <AssetList />
+          </S.Card>
         </div>
       </div>
     </S.Container>

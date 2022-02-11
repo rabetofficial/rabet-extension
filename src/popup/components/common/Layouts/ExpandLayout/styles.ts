@@ -45,3 +45,11 @@ export const Address = styled.div`
       })})`};
   }
 `;
+
+export const AssetTrigger = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: ${({ theme }) => theme.colors.primary.dark};
+  cursor: pointer;
+`;
