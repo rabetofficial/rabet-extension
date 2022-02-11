@@ -14,12 +14,12 @@ const ExpandLayout = ({ children }: AppProps) => (
   <S.Container>
     <HeaderBlock />
 
-    <div className="flex flex-row space-x-[38px] mt-[23px]">
-      <div className="grow">
+    <div className="flex flex-row flex-wrap md:space-x-[38px] sm:space-x-0 space-x-0 mt-[23px]">
+      <div className="grow md:mb-0 sm:mb-[38px] mb-[38px]">
         <S.Card className="h-full">{children}</S.Card>
       </div>
 
-      <div className="basis-[351px] space-y-[38px]">
+      <div className="lg:basis-[351px] md:basis-2/5 sm:basis-full basis-full space-y-[38px]">
         <AddressBlock />
 
         <AssetBlock />

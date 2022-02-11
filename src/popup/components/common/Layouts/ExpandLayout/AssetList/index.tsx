@@ -2,7 +2,7 @@ import React from 'react';
 
 import Asset from './Asset';
 
-import {Border} from './styles';
+import { Border } from './styles';
 
 const AssetList = () => (
   <div>
