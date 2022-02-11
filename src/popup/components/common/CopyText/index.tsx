@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import Tooltips from 'popup/components/common/Tooltips';
+import Copy from 'popup/svgs/Copy';
 
-import * as S from './styles';
+import StyledButton from './styles';
 
 type AppProps = {
   text: string;
@@ -27,14 +28,14 @@ const CopyText = ({ text, custom, fullIcon }: AppProps) => {
 
     if (fullIcon) {
       return (
-        <S.Button>
-          <span className="icon-sheet" />
+        <StyledButton type="button">
+          <Copy />
           Copy
-        </S.Button>
+        </StyledButton>
       );
     }
 
-    return <span className="icon-sheet" />;
+    return <Copy />;
   };
 
   const onMouseEnter = () => setVisible(true);

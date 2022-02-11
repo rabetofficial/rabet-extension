@@ -15,7 +15,7 @@ type AppProps = {
 };
 
 type FormValues = {
-  name: string | null;
+  name: string;
 };
 
 const EditWalletName = ({ isEditable, setEditable }: AppProps) => {
@@ -29,7 +29,7 @@ const EditWalletName = ({ isEditable, setEditable }: AppProps) => {
     const errors = {} as FormValues;
 
     if (!values.name) {
-      errors.name = null;
+      errors.name = '';
     }
 
     return errors;
