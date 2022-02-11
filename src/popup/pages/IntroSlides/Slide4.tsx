@@ -36,7 +36,7 @@ const ForthSlide = () => {
           type="button"
           variant="primary"
           size="large"
-          content="Lounch the App"
+          content="Launch the App"
           onClick={handleGetStarted}
         />
       </div>
