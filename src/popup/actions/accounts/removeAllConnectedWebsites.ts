@@ -9,6 +9,6 @@ export default async (publicKey: string) => {
     (x) => !x.includes(publicKey),
   );
 
-  addConnectedWebsites(filtered);
+  store.dispatch(addConnectedWebsites(filtered));
   await set('connectedWebsites', filtered);
 };

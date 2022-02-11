@@ -11,11 +11,11 @@ export default (publicKey: string, isNotChecked: boolean) => {
     return;
   }
 
-  stop();
+  store.dispatch(stop());
 
   const p = setInterval(() => {
     getData(publicKey);
   }, config.INTERVAL_TIME_SECONDS * 1000);
 
-  start(p);
+  store.dispatch(start(p));
 };

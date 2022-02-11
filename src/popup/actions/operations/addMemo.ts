@@ -1,5 +1,6 @@
+import store from 'popup/store';
 import { addMemo } from 'popup/reducers/transaction';
 
 export default (memo) => {
-  addMemo(memo);
+  store.dispatch(addMemo(memo));
 };

@@ -17,9 +17,9 @@ export default async (password: string): Promise<boolean> => {
       ),
     }));
 
-    login(password);
-    load(d);
-    addConnectedWebsites(connectedWebsites || []);
+    store.dispatch(login(password));
+    store.dispatch(load(d));
+    store.dispatch(addConnectedWebsites(connectedWebsites || []));
 
     return true;
   } catch (e) {

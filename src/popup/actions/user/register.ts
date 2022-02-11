@@ -1,3 +1,4 @@
+import store from 'popup/store';
 import { set } from 'helpers/storage';
 import { login, isRegistered } from 'popup/reducers/user';
 import { IAccount, load } from 'popup/reducers/accounts';
@@ -8,9 +9,9 @@ export default async (password: string): Promise<boolean> => {
   try {
     await set('data', accounts, password);
 
-    load(accounts);
-    login(password);
-    isRegistered(true);
+    store.dispatch(load(accounts));
+    store.dispatch(login(password));
+    store.dispatch(isRegistered(true));
 
     return true;
   } catch (e) {

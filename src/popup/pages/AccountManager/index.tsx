@@ -7,8 +7,6 @@ import useTypedSelector from 'popup/hooks/useTypedSelector';
 const AccountManager = () => {
   const accounts = useTypedSelector((store) => store.accounts);
 
-  console.log(accounts);
-
   if (!accounts.length) {
     return <Navigate to={RouteName.First} />;
   }

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import Button from 'popup/components/common/Button';
 import Download from 'popup/svgs/Download';
-import Input from 'popup/components/common/Input';
-import RouteName from 'popup/staticRes/routes';
-import restoreAccountAction from 'popup/actions/accounts/restore';
-import validatePrivateKey from 'popup/utils/validate/privateKey';
-import Error from 'popup/components/common/Error';
 import ArrowBack from 'popup/svgs/ArrowBack';
+import RouteName from 'popup/staticRes/routes';
+import Error from 'popup/components/common/Error';
+import Input from 'popup/components/common/Input';
+import Button from 'popup/components/common/Button';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import validatePrivateKey from 'popup/utils/validate/privateKey';
+import restoreAccountAction from 'popup/actions/accounts/restore';
 
 import * as S from './styles';
 
@@ -19,15 +19,13 @@ type FormValues = {
 };
 
 const ImportBackupFile = () => {
+  const navigate = useNavigate();
   const [showRest, setShowRest] = useState(false);
+  const accounts = useTypedSelector((store) => store.accounts);
 
   const handleClick = () => {
     setShowRest(!showRest);
   };
-
-  const accounts = useSelector((store) => store.accounts);
-
-  const navigate = useNavigate();
 
   const handleCancel = (form: any) => {
     form.reset();
@@ -80,6 +78,7 @@ const ImportBackupFile = () => {
 
     return errors;
   };
+
   return (
     <div>
       <S.ButtonContainer>
@@ -93,6 +92,7 @@ const ImportBackupFile = () => {
           style={{ borderRadius: '4px', marginTop: '32px' }}
         />
       </S.ButtonContainer>
+
       {showRest && (
         <Form
           onSubmit={(values: FormValues) => onSubmit(values)}

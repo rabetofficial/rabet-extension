@@ -5,11 +5,9 @@ import RouteName from 'popup/staticRes/routes';
 import checkOffline from 'popup/utils/checkOffline';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const isOnLine = checkOffline();
   const user = useTypedSelector((store) => store.user);
-
-  console.log(user);
 
   if (!isOnLine) {
     return <Navigate to={RouteName.OfflineMode} />;

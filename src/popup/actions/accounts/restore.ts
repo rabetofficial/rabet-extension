@@ -29,7 +29,7 @@ export default async (privateKey: string) => {
     }
   }
 
-  add(account);
+  store.dispatch(add(account));
   changeActive(account.publicKey);
 
   return account;

@@ -1,3 +1,4 @@
+import store from 'popup/store';
 import { changeActive } from 'popup/reducers/accounts';
 import changeAccountEvent from 'popup/events/changeAccount';
 
@@ -7,9 +8,11 @@ import storeAccount from './store';
 export default async (publicKey: string): Promise<boolean> => {
   changeAccountEvent(publicKey);
 
-  changeActive({
-    publicKey,
-  });
+  store.dispatch(
+    changeActive({
+      publicKey,
+    }),
+  );
 
   interval(publicKey, false);
 

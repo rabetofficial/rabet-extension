@@ -1,4 +1,5 @@
 import store from 'popup/store';
+import { updateBalance } from 'popup/reducers/accounts';
 import currentNetwork from './horizon/currentNetwork';
 
 const addressBalance = async (address: string) => {
@@ -42,16 +43,16 @@ export default async () => {
 
   const promises = [];
 
-  for (const account of accounts) {
-    promises.push(addressBalance(account.publicKey));
+  for (let i = 0; i < accounts.length; i += 1) {
+    promises.push(addressBalance(accounts[i].publicKey));
   }
 
   const balances = await Promise.all(promises);
 
   for (let i = 0; i < balances.length; i += 1) {
-    store.dispatch({
-      type: types.accounts.UPDATE_BALANCE,
-      balance: balances[i],
+    updateBalance({
+      publicKey: balances[i].publicKey,
+      balance: balances[i].balance,
     });
   }
 
