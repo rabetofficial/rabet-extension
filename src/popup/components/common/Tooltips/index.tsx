@@ -47,7 +47,7 @@ const Tooltips = ({
     setVisible(isVisible);
   }, [isVisible]);
   return (
-    <div>
+    <>
       {controlled ? (
         <Tippy
           content={<Container>{text}</Container>}
@@ -72,7 +72,7 @@ const Tooltips = ({
           {children}
         </Tippy>
       )}
-    </div>
+    </>
   );
 };
 

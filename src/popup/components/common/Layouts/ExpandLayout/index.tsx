@@ -7,10 +7,9 @@ import Network from 'popup/components/common/Header/Network';
 import SearchAccounts from 'popup/components/common/Header/SearchAccounts';
 import * as route from 'popup/staticRes/routes';
 import EditWalletName from 'popup/components/EditWalletName';
+import CopyText from 'popup/components/common/CopyText';
 
 import * as S from './styles';
-import Tooltips from '../../Tooltips';
-import CopyText from '../../CopyText';
 
 const sampleAddress =
   'GCTRXBGMSI64VVXX5O5EUFTGWOTICIHC7PUO24VMD4VOTVCSO6ODKAPQ';
@@ -71,9 +70,6 @@ const ExpandLayout = ({ children }: AppProps) => {
                 custom={<S.Address>{sampleAddress}</S.Address>}
               />
             </S.AddressBox>
-            <Tooltips placement="top" text="some info">
-              <span>me</span>
-            </Tooltips>
           </S.Card>
           <S.Card className="mt-[38px]">03</S.Card>
         </div>

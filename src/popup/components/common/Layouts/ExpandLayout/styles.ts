@@ -36,6 +36,7 @@ export const Address = styled.div`
   cursor: pointer;
 
   &:after {
+    transform: scale(0.9);
     padding-left: 2px;
     position: absolute;
     content: ${({ color }) =>
