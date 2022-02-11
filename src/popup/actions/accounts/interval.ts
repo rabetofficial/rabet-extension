@@ -11,6 +11,7 @@ export default (publicKey: string, isNotChecked: boolean) => {
     return;
   }
 
+  clearInterval(interval.value);
   store.dispatch(stop());
 
   const p = setInterval(() => {

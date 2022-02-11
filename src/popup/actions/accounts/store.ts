@@ -7,7 +7,6 @@ export default async (): Promise<boolean> => {
     const { password } = user;
 
     await set('data', accounts, password);
-
     return true;
   } catch (e) {
     return false;

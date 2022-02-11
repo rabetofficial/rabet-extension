@@ -64,9 +64,8 @@ const accountsSlice = createSlice({
     add: (state, action: PayloadAction<IAccount>) => {
       state.push(action.payload);
     },
-    load: (state, action: PayloadAction<IAccount[]>) => {
-      state = action.payload;
-    },
+    load: (state, action: PayloadAction<IAccount[]>) =>
+      action.payload,
     remove: (state, action: PayloadAction<string>) => {
       state = state.filter((x) => x.publicKey !== action.payload);
     },
@@ -81,12 +80,9 @@ const accountsSlice = createSlice({
         }
       }
     },
-    changeActive: (
-      state,
-      action: PayloadAction<{ publicKey: string }>,
-    ) => {
+    changeActive: (state, action: PayloadAction<string>) => {
       for (let i = 0; i < state.length; i += 1) {
-        if (state[i].publicKey === action.payload.publicKey) {
+        if (state[i].publicKey === action.payload) {
           state[i].active = true;
         } else {
           state[i].active = false;
