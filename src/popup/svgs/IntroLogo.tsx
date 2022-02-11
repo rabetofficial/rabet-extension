@@ -16,8 +16,8 @@ function Icon() {
           y2="1614.018%"
           id="pswm9i9qua"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.039%"
@@ -26,8 +26,8 @@ function Icon() {
           y2="1422.618%"
           id="pzslhpwoeb"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -36,8 +36,8 @@ function Icon() {
           y2="1301.002%"
           id="x2m8xsjykc"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.928%"
@@ -46,8 +46,8 @@ function Icon() {
           y2="1098.487%"
           id="ihiorrbw5d"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.565%"
@@ -56,8 +56,8 @@ function Icon() {
           y2="929.245%"
           id="46qo8fhdue"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.043%"
@@ -66,8 +66,8 @@ function Icon() {
           y2="777.968%"
           id="w199g39thf"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.585%"
@@ -76,8 +76,8 @@ function Icon() {
           y2="601.747%"
           id="018r7rqx0g"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.485%"
@@ -86,8 +86,8 @@ function Icon() {
           y2="444.693%"
           id="q57l9jgl9h"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.103%"
@@ -96,8 +96,8 @@ function Icon() {
           y2="278.864%"
           id="9tc8vu4emi"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.039%"
@@ -106,8 +106,8 @@ function Icon() {
           y2="110.31%"
           id="cgzmmnvm5j"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.573%"
@@ -116,8 +116,8 @@ function Icon() {
           y2="1536.058%"
           id="147q7bxh8k"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -126,8 +126,8 @@ function Icon() {
           y2="1374.811%"
           id="mwmk6f6t0l"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.349%"
@@ -136,8 +136,8 @@ function Icon() {
           y2="1227.758%"
           id="bmshjw8rem"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.64%"
@@ -146,8 +146,8 @@ function Icon() {
           y2="1045.832%"
           id="uabvzwbmmn"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.212%"
@@ -156,8 +156,8 @@ function Icon() {
           y2="882.147%"
           id="utvyff924o"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.573%"
@@ -166,8 +166,8 @@ function Icon() {
           y2="717.047%"
           id="8vv7srfdbp"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.698%"
@@ -176,8 +176,8 @@ function Icon() {
           y2="562.441%"
           id="nmqbzx5tzq"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.11%"
@@ -186,8 +186,8 @@ function Icon() {
           y2="397.195%"
           id="stmseql0xr"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.754%"
@@ -196,8 +196,8 @@ function Icon() {
           y2="226.28%"
           id="104iom4dcs"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.349%"
@@ -206,8 +206,8 @@ function Icon() {
           y2="62.988%"
           id="hsccjs515t"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.872%"
@@ -216,8 +216,8 @@ function Icon() {
           y2="1537.485%"
           id="iy73zjegsu"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.326%"
@@ -226,8 +226,8 @@ function Icon() {
           y2="1375.596%"
           id="dfeg4rqtiv"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -236,8 +236,8 @@ function Icon() {
           y2="1251.233%"
           id="0pf2xeozrw"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -246,8 +246,8 @@ function Icon() {
           y2="1068.745%"
           id="znlm0839qx"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.803%"
@@ -256,8 +256,8 @@ function Icon() {
           y2="880.964%"
           id="hxof88tpcy"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.872%"
@@ -266,8 +266,8 @@ function Icon() {
           y2="717.694%"
           id="rpdhsyjstz"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.569%"
@@ -276,8 +276,8 @@ function Icon() {
           y2="554.811%"
           id="n7jr648m1A"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.054%"
@@ -286,8 +286,8 @@ function Icon() {
           y2="388.62%"
           id="4q4jj284mB"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.57%"
@@ -296,8 +296,8 @@ function Icon() {
           y2="226.56%"
           id="dbs7hf0taC"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.005%"
@@ -306,8 +306,8 @@ function Icon() {
           y2="63.085%"
           id="xjggadgd4D"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.927%"
@@ -316,8 +316,8 @@ function Icon() {
           y2="1537.515%"
           id="gs92t3b03E"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.788%"
@@ -326,8 +326,8 @@ function Icon() {
           y2="1372.752%"
           id="9dvx9q2duF"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -336,8 +336,8 @@ function Icon() {
           y2="1207.357%"
           id="vywxoxqqcG"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.957%"
@@ -346,8 +346,8 @@ function Icon() {
           y2="1061.667%"
           id="vwvo7alqoH"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.926%"
@@ -356,8 +356,8 @@ function Icon() {
           y2="881.858%"
           id="ggrechiu9I"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.95%"
@@ -366,8 +366,8 @@ function Icon() {
           y2="717.75%"
           id="6ix44tlouJ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.79%"
@@ -376,8 +376,8 @@ function Icon() {
           y2="553.98%"
           id="yb95jk523K"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -386,8 +386,8 @@ function Icon() {
           y2="389.031%"
           id="kpa4uty9cL"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.755%"
@@ -396,8 +396,8 @@ function Icon() {
           y2="228.281%"
           id="frrb4kf3hM"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.926%"
@@ -406,8 +406,8 @@ function Icon() {
           y2="61.822%"
           id="9pvskarqiN"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.984%"
@@ -416,8 +416,8 @@ function Icon() {
           y2="1537.626%"
           id="o8qs18fwkO"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.514%"
@@ -426,8 +426,8 @@ function Icon() {
           y2="1371.736%"
           id="re932f36oP"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -436,8 +436,8 @@ function Icon() {
           y2="1210.427%"
           id="tpu7d1phfQ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.008%"
@@ -446,8 +446,8 @@ function Icon() {
           y2="1061.894%"
           id="30bry5glbR"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.985%"
@@ -456,8 +456,8 @@ function Icon() {
           y2="882.125%"
           id="5vbzp5jyfS"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.154%"
@@ -466,8 +466,8 @@ function Icon() {
           y2="719.126%"
           id="akvw8u86rT"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.528%"
@@ -476,8 +476,8 @@ function Icon() {
           y2="552.85%"
           id="wrn1tm85yU"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -486,8 +486,8 @@ function Icon() {
           y2="388.83%"
           id="jm2r4h38aV"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.815%"
@@ -496,8 +496,8 @@ function Icon() {
           y2="228.184%"
           id="1si5rvsvgW"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.984%"
@@ -506,8 +506,8 @@ function Icon() {
           y2="61.823%"
           id="ae9e88qgnX"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.224%"
@@ -516,8 +516,8 @@ function Icon() {
           y2="1536.202%"
           id="jcckflk1lY"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -526,8 +526,8 @@ function Icon() {
           y2="1421.032%"
           id="z8h0lwquuZ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.927%"
@@ -536,8 +536,8 @@ function Icon() {
           y2="1209.607%"
           id="s7agtqbxbaa"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -546,8 +546,8 @@ function Icon() {
           y2="1081.433%"
           id="p5444qyx5ab"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.678%"
@@ -556,8 +556,8 @@ function Icon() {
           y2="881.538%"
           id="g5hnsd92jac"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -566,8 +566,8 @@ function Icon() {
           y2="718.382%"
           id="m4ot7s3osad"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.208%"
@@ -576,8 +576,8 @@ function Icon() {
           y2="554.351%"
           id="y7vyb2n1sae"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.897%"
@@ -586,8 +586,8 @@ function Icon() {
           y2="397.646%"
           id="3w4kip7dhaf"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.957%"
@@ -596,8 +596,8 @@ function Icon() {
           y2="229.551%"
           id="eljd3ss97ag"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.055%"
@@ -606,8 +606,8 @@ function Icon() {
           y2="62.814%"
           id="rbj607iw9ah"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.874%"
@@ -616,8 +616,8 @@ function Icon() {
           y2="1532.031%"
           id="0vvrj4jmmai"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.89%"
@@ -626,8 +626,8 @@ function Icon() {
           y2="1402.964%"
           id="1jf566gfjaj"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.982%"
@@ -636,8 +636,8 @@ function Icon() {
           y2="1230.088%"
           id="lypgifnn3ak"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.343%"
@@ -646,8 +646,8 @@ function Icon() {
           y2="1049.916%"
           id="aveppdee8al"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.561%"
@@ -656,8 +656,8 @@ function Icon() {
           y2="880.601%"
           id="vy9n0nt8iam"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -666,8 +666,8 @@ function Icon() {
           y2="716.597%"
           id="rxk14rdv0an"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.606%"
@@ -676,8 +676,8 @@ function Icon() {
           y2="562.686%"
           id="uaj51u1i3ao"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.872%"
@@ -686,8 +686,8 @@ function Icon() {
           y2="389.748%"
           id="s9uu76at0ap"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.922%"
@@ -696,8 +696,8 @@ function Icon() {
           y2="226.39%"
           id="0u1axch5iaq"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.675%"
@@ -706,8 +706,8 @@ function Icon() {
           y2="62.025%"
           id="pl2z9mkruar"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.909%"
@@ -716,8 +716,8 @@ function Icon() {
           y2="1537.555%"
           id="juakju20jas"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -726,8 +726,8 @@ function Icon() {
           y2="1420.015%"
           id="5h9us8am5at"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.697%"
@@ -736,8 +736,8 @@ function Icon() {
           y2="1229.906%"
           id="r6ozo2cebau"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -746,8 +746,8 @@ function Icon() {
           y2="1066.464%"
           id="zteos7y18av"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.956%"
@@ -756,8 +756,8 @@ function Icon() {
           y2="895.274%"
           id="4axswkokfaw"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.397%"
@@ -766,8 +766,8 @@ function Icon() {
           y2="719.668%"
           id="kg7itqk39ax"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.677%"
@@ -776,8 +776,8 @@ function Icon() {
           y2="553.948%"
           id="jro29o37bay"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.001%"
@@ -786,8 +786,8 @@ function Icon() {
           y2="389.048%"
           id="miytd125faz"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.928%"
@@ -796,8 +796,8 @@ function Icon() {
           y2="226.195%"
           id="ckr7apxxraA"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -806,8 +806,8 @@ function Icon() {
           y2="62.738%"
           id="h2rpq5swcaB"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -816,8 +816,8 @@ function Icon() {
           y2="1590.909%"
           id="f38txozlbaC"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.985%"
@@ -826,8 +826,8 @@ function Icon() {
           y2="1397.898%"
           id="037yitkbgaD"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.872%"
@@ -836,8 +836,8 @@ function Icon() {
           y2="1209.865%"
           id="oxyljnj1daE"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.197%"
@@ -846,8 +846,8 @@ function Icon() {
           y2="1044.038%"
           id="ijd051dziaF"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.985%"
@@ -856,8 +856,8 @@ function Icon() {
           y2="896.085%"
           id="f9d4p1jngaG"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -866,8 +866,8 @@ function Icon() {
           y2="741.68%"
           id="dhog9oue5aH"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.103%"
@@ -876,8 +876,8 @@ function Icon() {
           y2="563.588%"
           id="l7h5q3gjbaI"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.061%"
@@ -886,8 +886,8 @@ function Icon() {
           y2="395.627%"
           id="fxdfuyrf8aJ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.945%"
@@ -896,8 +896,8 @@ function Icon() {
           y2="230.418%"
           id="qb33syk1gaK"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.355%"
@@ -906,8 +906,8 @@ function Icon() {
           y2="62.033%"
           id="nvqsnnaayaL"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -916,8 +916,8 @@ function Icon() {
           y2="1534.413%"
           id="aik67yn0oaM"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.674%"
@@ -926,8 +926,8 @@ function Icon() {
           y2="1372.078%"
           id="9a5zl3ttkaN"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.343%"
@@ -936,8 +936,8 @@ function Icon() {
           y2="1210.811%"
           id="ez0ysd7y2aO"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.177%"
@@ -946,8 +946,8 @@ function Icon() {
           y2="1081.433%"
           id="l03p5xci1aP"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.922%"
@@ -956,8 +956,8 @@ function Icon() {
           y2="883.078%"
           id="7tdo99yzlaQ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.754%"
@@ -966,8 +966,8 @@ function Icon() {
           y2="729.092%"
           id="e0qrqz1sfaR"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.836%"
@@ -976,8 +976,8 @@ function Icon() {
           y2="565.779%"
           id="ouo2qotgdaS"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.177%"
@@ -986,8 +986,8 @@ function Icon() {
           y2="402.003%"
           id="sc262kwl2aT"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.351%"
@@ -996,8 +996,8 @@ function Icon() {
           y2="226.602%"
           id="i6zstggk0aU"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.674%"
@@ -1006,8 +1006,8 @@ function Icon() {
           y2="61.981%"
           id="eapytgq2daV"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.275%"
@@ -1016,8 +1016,8 @@ function Icon() {
           y2="1571.711%"
           id="27khw50ohaW"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.928%"
@@ -1026,8 +1026,8 @@ function Icon() {
           y2="1396.948%"
           id="zwaeoxc7uaX"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.983%"
@@ -1036,8 +1036,8 @@ function Icon() {
           y2="1210.55%"
           id="mpg2jqn59aY"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.471%"
@@ -1046,8 +1046,8 @@ function Icon() {
           y2="1082.19%"
           id="vvp3ror5laZ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.98%"
@@ -1056,8 +1056,8 @@ function Icon() {
           y2="882.726%"
           id="f72ewfhe0ba"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.984%"
@@ -1066,8 +1066,8 @@ function Icon() {
           y2="729.118%"
           id="1awyvu2t3bb"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.056%"
@@ -1076,8 +1076,8 @@ function Icon() {
           y2="552.737%"
           id="ydiyuap3zbc"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.096%"
@@ -1086,8 +1086,8 @@ function Icon() {
           y2="390.202%"
           id="7q5mjqe7mbd"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.275%"
@@ -1096,8 +1096,8 @@ function Icon() {
           y2="230.494%"
           id="iio1ql34kbe"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.833%"
@@ -1106,8 +1106,8 @@ function Icon() {
           y2="63.168%"
           id="zllr0hvcwbf"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.945%"
@@ -1116,8 +1116,8 @@ function Icon() {
           y2="1567.248%"
           id="9nthv296sbg"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.411%"
@@ -1126,8 +1126,8 @@ function Icon() {
           y2="1373.812%"
           id="8lj15f2yhbh"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.946%"
@@ -1136,8 +1136,8 @@ function Icon() {
           y2="1226.974%"
           id="jtq2nuyjobi"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.928%"
@@ -1146,8 +1146,8 @@ function Icon() {
           y2="1062.16%"
           id="e5jvsku5nbj"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.357%"
@@ -1156,8 +1156,8 @@ function Icon() {
           y2="893.304%"
           id="2k7re14x9bk"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.038%"
@@ -1166,8 +1166,8 @@ function Icon() {
           y2="718.576%"
           id="wqqipslfqbl"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -1176,8 +1176,8 @@ function Icon() {
           y2="572.188%"
           id="e7r2kfbgybm"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.805%"
@@ -1186,8 +1186,8 @@ function Icon() {
           y2="390.3%"
           id="eyva9eh5ebn"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.356%"
@@ -1196,8 +1196,8 @@ function Icon() {
           y2="228.189%"
           id="stx8ihsl7bo"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.479%"
@@ -1206,8 +1206,8 @@ function Icon() {
           y2="61.735%"
           id="hngvur04ebp"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.757%"
@@ -1216,8 +1216,8 @@ function Icon() {
           y2="1565.029%"
           id="gxsxivi80bq"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.982%"
@@ -1226,8 +1226,8 @@ function Icon() {
           y2="1374.606%"
           id="3mbxxjhvqbr"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -1236,8 +1236,8 @@ function Icon() {
           y2="1251.387%"
           id="o5vd2n0utbs"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.287%"
@@ -1246,8 +1246,8 @@ function Icon() {
           y2="1047.599%"
           id="4arlk8a0dbt"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.225%"
@@ -1256,8 +1256,8 @@ function Icon() {
           y2="880.955%"
           id="v7j4dnf0sbu"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.757%"
@@ -1266,8 +1266,8 @@ function Icon() {
           y2="729.021%"
           id="kdi0fywzabv"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.643%"
@@ -1276,8 +1276,8 @@ function Icon() {
           y2="553.345%"
           id="lobmdz1gubw"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.004%"
@@ -1286,8 +1286,8 @@ function Icon() {
           y2="393.855%"
           id="ntfxoc87pbx"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -1296,8 +1296,8 @@ function Icon() {
           y2="229.924%"
           id="4t5qxbyt8by"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.983%"
@@ -1306,8 +1306,8 @@ function Icon() {
           y2="62.186%"
           id="z8l7me10tbz"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.793%"
@@ -1316,8 +1316,8 @@ function Icon() {
           y2="1567.324%"
           id="lcqky5nwgbA"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.009%"
@@ -1326,8 +1326,8 @@ function Icon() {
           y2="1394.197%"
           id="1jrr79q28bB"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.873%"
@@ -1336,8 +1336,8 @@ function Icon() {
           y2="1209.584%"
           id="sh2x22vmmbC"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.835%"
@@ -1346,8 +1346,8 @@ function Icon() {
           y2="1068.745%"
           id="5080ew3iibD"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.871%"
@@ -1356,8 +1356,8 @@ function Icon() {
           y2="896.71%"
           id="8vbjj08l1bE"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.808%"
@@ -1366,8 +1366,8 @@ function Icon() {
           y2="718.153%"
           id="4t923g58tbF"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -1376,8 +1376,8 @@ function Icon() {
           y2="571.88%"
           id="pm927qt1vbG"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.236%"
@@ -1386,8 +1386,8 @@ function Icon() {
           y2="391.384%"
           id="yruu5gwnfbH"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.851%"
@@ -1396,8 +1396,8 @@ function Icon() {
           y2="225.893%"
           id="476zh69f0bI"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.946%"
@@ -1406,8 +1406,8 @@ function Icon() {
           y2="61.725%"
           id="zfm9mdcwzbJ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.872%"
@@ -1416,8 +1416,8 @@ function Icon() {
           y2="1585.576%"
           id="5bl4ln11cbK"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.038%"
@@ -1426,8 +1426,8 @@ function Icon() {
           y2="1422.976%"
           id="trzorr8mtbL"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.177%"
@@ -1436,8 +1436,8 @@ function Icon() {
           y2="1297.925%"
           id="u8j9kgxp0bM"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.781%"
@@ -1446,8 +1446,8 @@ function Icon() {
           y2="1117.795%"
           id="x12w3josgbN"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.789%"
@@ -1456,8 +1456,8 @@ function Icon() {
           y2="928.841%"
           id="g2yxcxu4lbO"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.13%"
@@ -1466,8 +1466,8 @@ function Icon() {
           y2="762.837%"
           id="su5tksamvbP"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.675%"
@@ -1476,8 +1476,8 @@ function Icon() {
           y2="601.313%"
           id="y5psklj7rbQ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.006%"
@@ -1486,8 +1486,8 @@ function Icon() {
           y2="437.067%"
           id="ezy5xbeh2bR"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.677%"
@@ -1496,8 +1496,8 @@ function Icon() {
           y2="273.933%"
           id="no2d4jhpmbS"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.945%"
@@ -1506,8 +1506,8 @@ function Icon() {
           y2="111.88%"
           id="7k6414nnwbT"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.756%"
@@ -1516,8 +1516,8 @@ function Icon() {
           y2="1692.517%"
           id="a8rtm1ojubU"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.085%"
@@ -1526,8 +1526,8 @@ function Icon() {
           y2="1501.084%"
           id="64grq8k7cbV"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -1536,8 +1536,8 @@ function Icon() {
           y2="1382.049%"
           id="9qeb6b17gbW"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.289%"
@@ -1546,8 +1546,8 @@ function Icon() {
           y2="1177.249%"
           id="f4ao97yg1bX"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.802%"
@@ -1556,8 +1556,8 @@ function Icon() {
           y2="1007.13%"
           id="yh2g9xr66bY"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.757%"
@@ -1566,8 +1566,8 @@ function Icon() {
           y2="858.269%"
           id="wx0dgd1g5bZ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.814%"
@@ -1576,8 +1576,8 @@ function Icon() {
           y2="680.185%"
           id="y3if2nwkjca"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.005%"
@@ -1586,8 +1586,8 @@ function Icon() {
           y2="524.003%"
           id="kw2n1bz2ucb"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -1596,8 +1596,8 @@ function Icon() {
           y2="358.365%"
           id="ti36mlvxgcc"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.04%"
@@ -1606,8 +1606,8 @@ function Icon() {
           y2="188.246%"
           id="54edf13o3cd"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.793%"
@@ -1616,8 +1616,8 @@ function Icon() {
           y2="1695.982%"
           id="3h7qey8r5ce"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.009%"
@@ -1626,8 +1626,8 @@ function Icon() {
           y2="1522.707%"
           id="vtteg2ur0cf"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.931%"
@@ -1636,8 +1636,8 @@ function Icon() {
           y2="1335.857%"
           id="xttr510trcg"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.835%"
@@ -1646,8 +1646,8 @@ function Icon() {
           y2="1200.61%"
           id="hyy7r1bf1ch"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.7%"
@@ -1656,8 +1656,8 @@ function Icon() {
           y2="1025.407%"
           id="2jy24fnlqci"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.039%"
@@ -1666,8 +1666,8 @@ function Icon() {
           y2="844.827%"
           id="89fu8syyycj"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -1676,8 +1676,8 @@ function Icon() {
           y2="702.696%"
           id="d9msnuyokck"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.915%"
@@ -1686,8 +1686,8 @@ function Icon() {
           y2="514.854%"
           id="onub55h3tcl"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.851%"
@@ -1696,8 +1696,8 @@ function Icon() {
           y2="352.365%"
           id="67gnm4clmcm"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.945%"
@@ -1706,8 +1706,8 @@ function Icon() {
           y2="187.675%"
           id="qurqejgugcn"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -1716,8 +1716,8 @@ function Icon() {
           y2="1719.154%"
           id="71m4fvs7sco"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.114%"
@@ -1726,8 +1726,8 @@ function Icon() {
           y2="1498.167%"
           id="3rkd9zvxtcp"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.42%"
@@ -1736,8 +1736,8 @@ function Icon() {
           y2="1337.144%"
           id="3o31b779hcq"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.573%"
@@ -1746,8 +1746,8 @@ function Icon() {
           y2="1170.842%"
           id="uydxpc96rcr"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -1756,8 +1756,8 @@ function Icon() {
           y2="1042.373%"
           id="n11db3b5mcs"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.154%"
@@ -1766,8 +1766,8 @@ function Icon() {
           y2="844.271%"
           id="dm012lx0hct"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.695%"
@@ -1776,8 +1776,8 @@ function Icon() {
           y2="690.686%"
           id="3ntcuixwgcu"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -1786,8 +1786,8 @@ function Icon() {
           y2="528.43%"
           id="c1b4tfenjcv"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.003%"
@@ -1796,8 +1796,8 @@ function Icon() {
           y2="357.743%"
           id="4dhq9vaq9cw"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -1806,8 +1806,8 @@ function Icon() {
           y2="191.711%"
           id="853awsagkcx"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.287%"
@@ -1816,8 +1816,8 @@ function Icon() {
           y2="1669.562%"
           id="fvjlicup3cy"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -1826,8 +1826,8 @@ function Icon() {
           y2="1551.926%"
           id="cy2gvr91lcz"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.981%"
@@ -1836,8 +1836,8 @@ function Icon() {
           y2="1336.898%"
           id="c5x67uerdcA"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.756%"
@@ -1846,8 +1846,8 @@ function Icon() {
           y2="1191.642%"
           id="kzaqrkkk1cB"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.57%"
@@ -1856,8 +1856,8 @@ function Icon() {
           y2="845.57%"
           id="xzhmg5bt2cC"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.063%"
@@ -1866,8 +1866,8 @@ function Icon() {
           y2="678.784%"
           id="es26qll33cD"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.572%"
@@ -1876,8 +1876,8 @@ function Icon() {
           y2="517.325%"
           id="zbeqbz7kycE"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.055%"
@@ -1886,8 +1886,8 @@ function Icon() {
           y2="359.468%"
           id="wtxmrh1gqcF"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -1896,8 +1896,8 @@ function Icon() {
           y2="192.027%"
           id="titoba2fbcG"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.794%"
@@ -1906,8 +1906,8 @@ function Icon() {
           y2="1662.982%"
           id="2kw3tdoz4cH"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.512%"
@@ -1916,8 +1916,8 @@ function Icon() {
           y2="1508.808%"
           id="xixu1xzq1cI"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.67%"
@@ -1926,8 +1926,8 @@ function Icon() {
           y2="1365.475%"
           id="ext6g7e1ucJ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.697%"
@@ -1936,8 +1936,8 @@ function Icon() {
           y2="1191.585%"
           id="5duevi4w9cK"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.976%"
@@ -1946,8 +1946,8 @@ function Icon() {
           y2="1009.522%"
           id="z8pi908fxcL"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -1956,8 +1956,8 @@ function Icon() {
           y2="872.496%"
           id="crmvytsqqcM"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.678%"
@@ -1966,8 +1966,8 @@ function Icon() {
           y2="680.066%"
           id="9130cxlnwcN"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -1976,8 +1976,8 @@ function Icon() {
           y2="515.087%"
           id="d8uqonc2ucO"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.67%"
@@ -1986,8 +1986,8 @@ function Icon() {
           y2="358.953%"
           id="sv38154mkcP"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.9%"
@@ -1996,8 +1996,8 @@ function Icon() {
           y2="191.275%"
           id="1zezppwcjcQ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.696%"
@@ -2006,8 +2006,8 @@ function Icon() {
           y2="1614.632%"
           id="83bnfjud5cR"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.98%"
@@ -2016,8 +2016,8 @@ function Icon() {
           y2="1424.525%"
           id="spz26oledcS"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2026,8 +2026,8 @@ function Icon() {
           y2="1301.848%"
           id="zol2pys1wcT"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.451%"
@@ -2036,8 +2036,8 @@ function Icon() {
           y2="1096.069%"
           id="5uucm3yiicU"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.172%"
@@ -2046,8 +2046,8 @@ function Icon() {
           y2="933.079%"
           id="mgi6o9l3gcV"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.696%"
@@ -2056,8 +2056,8 @@ function Icon() {
           y2="779.786%"
           id="7i16tfi6tcW"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.697%"
@@ -2066,8 +2066,8 @@ function Icon() {
           y2="600.164%"
           id="frs0wpuopcX"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.949%"
@@ -2076,8 +2076,8 @@ function Icon() {
           y2="446.691%"
           id="lhd40s1dmcY"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.415%"
@@ -2086,8 +2086,8 @@ function Icon() {
           y2="281.231%"
           id="luu110ciqcZ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.98%"
@@ -2096,8 +2096,8 @@ function Icon() {
           y2="112.109%"
           id="pyfxg3sn7da"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.897%"
@@ -2106,8 +2106,8 @@ function Icon() {
           y2="1693.49%"
           id="f3ylzaqendb"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.947%"
@@ -2116,8 +2116,8 @@ function Icon() {
           y2="1522.796%"
           id="ajqwt251idc"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.22%"
@@ -2126,8 +2126,8 @@ function Icon() {
           y2="1333.131%"
           id="v3wnsqc8cdd"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.055%"
@@ -2136,8 +2136,8 @@ function Icon() {
           y2="1197.871%"
           id="qp5yspmqnde"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.983%"
@@ -2146,8 +2146,8 @@ function Icon() {
           y2="1025.395%"
           id="onmetpp7sdf"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.923%"
@@ -2156,8 +2156,8 @@ function Icon() {
           y2="845.128%"
           id="1ijcc5nrpdg"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -2166,8 +2166,8 @@ function Icon() {
           y2="702.773%"
           id="nxz0kynnsdh"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.92%"
@@ -2176,8 +2176,8 @@ function Icon() {
           y2="517.536%"
           id="kj59adtptdi"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.02%"
@@ -2186,8 +2186,8 @@ function Icon() {
           y2="352.078%"
           id="lua2azp9jdj"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.769%"
@@ -2196,8 +2196,8 @@ function Icon() {
           y2="187.778%"
           id="mybqli9brdk"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -2206,8 +2206,8 @@ function Icon() {
           y2="1721.957%"
           id="g273tq1rpdl"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.57%"
@@ -2216,8 +2216,8 @@ function Icon() {
           y2="1492.437%"
           id="zv493llcbdm"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.824%"
@@ -2226,8 +2226,8 @@ function Icon() {
           y2="1333.443%"
           id="230mcvuzedn"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.574%"
@@ -2236,8 +2236,8 @@ function Icon() {
           y2="1173.566%"
           id="vrywl2pogdo"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.982%"
@@ -2246,8 +2246,8 @@ function Icon() {
           y2="844.732%"
           id="zaxkdgb7sdp"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.757%"
@@ -2256,8 +2256,8 @@ function Icon() {
           y2="691.159%"
           id="ldmch8igodq"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.67%"
@@ -2266,8 +2266,8 @@ function Icon() {
           y2="527.224%"
           id="6tbn9ezjddr"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.774%"
@@ -2276,8 +2276,8 @@ function Icon() {
           y2="357.651%"
           id="ewrdy7ol8ds"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.67%"
@@ -2286,8 +2286,8 @@ function Icon() {
           y2="191.863%"
           id="pl56g69gddt"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.805%"
@@ -2296,8 +2296,8 @@ function Icon() {
           y2="1671.253%"
           id="zvc5ervytdu"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2306,8 +2306,8 @@ function Icon() {
           y2="1551.926%"
           id="o5fen64c3dv"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.808%"
@@ -2316,8 +2316,8 @@ function Icon() {
           y2="1337.228%"
           id="7y5nkgp69dw"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.64%"
@@ -2326,8 +2326,8 @@ function Icon() {
           y2="1192.427%"
           id="60lyrqkb4dx"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2336,8 +2336,8 @@ function Icon() {
           y2="1042.373%"
           id="pk473aicudy"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.62%"
@@ -2346,8 +2346,8 @@ function Icon() {
           y2="843.722%"
           id="6v2nox1whdz"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.946%"
@@ -2356,8 +2356,8 @@ function Icon() {
           y2="677.938%"
           id="5scnacmf3dA"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.62%"
@@ -2366,8 +2366,8 @@ function Icon() {
           y2="515.768%"
           id="yvsvm95wsdB"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.945%"
@@ -2376,8 +2376,8 @@ function Icon() {
           y2="359.163%"
           id="yma25hoe8dC"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.103%"
@@ -2386,8 +2386,8 @@ function Icon() {
           y2="191.446%"
           id="4b5nt6ne9dD"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.746%"
@@ -2396,8 +2396,8 @@ function Icon() {
           y2="1662.396%"
           id="pjvvw943ldE"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.114%"
@@ -2406,8 +2406,8 @@ function Icon() {
           y2="1504.174%"
           id="wde65ded4dF"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2416,8 +2416,8 @@ function Icon() {
           y2="1365.551%"
           id="acibxe8c4dG"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.985%"
@@ -2426,8 +2426,8 @@ function Icon() {
           y2="1192.511%"
           id="ya5f9jt9fdH"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.865%"
@@ -2436,8 +2436,8 @@ function Icon() {
           y2="1004.402%"
           id="6sv9fstnzdI"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -2446,8 +2446,8 @@ function Icon() {
           y2="872.573%"
           id="l8wcxusccdJ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.518%"
@@ -2456,8 +2456,8 @@ function Icon() {
           y2="679.387%"
           id="cek8co4tidK"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.77%"
@@ -2466,8 +2466,8 @@ function Icon() {
           y2="516.198%"
           id="216dpsc7idL"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2476,8 +2476,8 @@ function Icon() {
           y2="359.62%"
           id="xp5489ia4dM"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.004%"
@@ -2486,8 +2486,8 @@ function Icon() {
           y2="190.971%"
           id="nopeojnvadN"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.966%"
@@ -2496,8 +2496,8 @@ function Icon() {
           y2="1663.751%"
           id="7xhw7vqakdO"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2506,8 +2506,8 @@ function Icon() {
           y2="1552.003%"
           id="nnluv1ioxdP"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.043%"
@@ -2516,8 +2516,8 @@ function Icon() {
           y2="1359.731%"
           id="vye1g4i7zdQ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.039%"
@@ -2526,8 +2526,8 @@ function Icon() {
           y2="1173.12%"
           id="g1ik7rcz2dR"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.355%"
@@ -2536,8 +2536,8 @@ function Icon() {
           y2="844.886%"
           id="z0ne0bgiwdS"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.273%"
@@ -2546,8 +2546,8 @@ function Icon() {
           y2="680.115%"
           id="qjvih1yvkdT"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.946%"
@@ -2556,8 +2556,8 @@ function Icon() {
           y2="514.827%"
           id="7ir6npfcjdU"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.672%"
@@ -2566,8 +2566,8 @@ function Icon() {
           y2="359.544%"
           id="ul0ygqmqwdV"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.486%"
@@ -2576,8 +2576,8 @@ function Icon() {
           y2="191.269%"
           id="wwki4g6stdW"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.293%"
@@ -2586,8 +2586,8 @@ function Icon() {
           y2="1671.847%"
           id="4zh5d07jbdX"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.752%"
@@ -2596,8 +2596,8 @@ function Icon() {
           y2="1336.987%"
           id="o0ltp0ctddY"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.702%"
@@ -2606,8 +2606,8 @@ function Icon() {
           y2="1191.585%"
           id="34raqw3u7dZ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2616,8 +2616,8 @@ function Icon() {
           y2="1028.073%"
           id="ip1uv24u1ea"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -2626,8 +2626,8 @@ function Icon() {
           y2="871.231%"
           id="ojcp2hnsieb"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.293%"
@@ -2636,8 +2636,8 @@ function Icon() {
           y2="681.938%"
           id="cf2jsacr0ec"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.686%"
@@ -2646,8 +2646,8 @@ function Icon() {
           y2="516.315%"
           id="bm79mjjq5ed"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.001%"
@@ -2656,8 +2656,8 @@ function Icon() {
           y2="351.482%"
           id="zd46c6usyee"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.009%"
@@ -2666,8 +2666,8 @@ function Icon() {
           y2="191%"
           id="88y2rqbmvef"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.055%"
@@ -2676,8 +2676,8 @@ function Icon() {
           y2="1700.76%"
           id="4t785f1cbeg"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.984%"
@@ -2686,8 +2686,8 @@ function Icon() {
           y2="1525.414%"
           id="ei5wk80eteh"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.98%"
@@ -2696,8 +2696,8 @@ function Icon() {
           y2="1337.842%"
           id="i8v0i8wwbei"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -2706,8 +2706,8 @@ function Icon() {
           y2="1212.173%"
           id="wt0h4s482ej"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="48.714%"
@@ -2716,8 +2716,8 @@ function Icon() {
           y2="1009.664%"
           id="bn45ofdbyek"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.054%"
@@ -2726,8 +2726,8 @@ function Icon() {
           y2="842.584%"
           id="xyhl05zv2el"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.055%"
@@ -2736,8 +2736,8 @@ function Icon() {
           y2="693.025%"
           id="5a5xo9qwdem"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.872%"
@@ -2746,8 +2746,8 @@ function Icon() {
           y2="516.224%"
           id="tm4tlpw1hen"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.004%"
@@ -2756,8 +2756,8 @@ function Icon() {
           y2="357.651%"
           id="ukg56y2dneo"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2766,8 +2766,8 @@ function Icon() {
           y2="191.17%"
           id="3qe8nvoo6ep"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.926%"
@@ -2776,8 +2776,8 @@ function Icon() {
           y2="1664.192%"
           id="6eh2vkwbceq"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2786,8 +2786,8 @@ function Icon() {
           y2="1533.156%"
           id="9slfos3twer"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.983%"
@@ -2796,8 +2796,8 @@ function Icon() {
           y2="1359.53%"
           id="opzco1x01es"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.978%"
@@ -2806,8 +2806,8 @@ function Icon() {
           y2="1172.583%"
           id="3ho9ago9xet"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -2816,8 +2816,8 @@ function Icon() {
           y2="1042.065%"
           id="ec4jmf41deu"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.981%"
@@ -2826,8 +2826,8 @@ function Icon() {
           y2="847.76%"
           id="1zeh130a9ev"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.674%"
@@ -2836,8 +2836,8 @@ function Icon() {
           y2="679.642%"
           id="7g3yz8htyew"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.929%"
@@ -2846,8 +2846,8 @@ function Icon() {
           y2="516.305%"
           id="asiadvs0hex"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.435%"
@@ -2856,8 +2856,8 @@ function Icon() {
           y2="357.473%"
           id="ko6udye0fey"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -2866,8 +2866,8 @@ function Icon() {
           y2="193.143%"
           id="ln7s99o6lez"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.339%"
@@ -2876,8 +2876,8 @@ function Icon() {
           y2="1667.09%"
           id="iyyk0elu8eA"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.054%"
@@ -2886,8 +2886,8 @@ function Icon() {
           y2="1496.772%"
           id="b9g8iraw4eB"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.005%"
@@ -2896,8 +2896,8 @@ function Icon() {
           y2="1352.152%"
           id="rykl5awixeC"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -2906,8 +2906,8 @@ function Icon() {
           y2="1197.49%"
           id="4vx7owfqneD"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.757%"
@@ -2916,8 +2916,8 @@ function Icon() {
           y2="1024.643%"
           id="nxov0o6k6eE"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.292%"
@@ -2926,8 +2926,8 @@ function Icon() {
           y2="849.115%"
           id="cgug1x3j4eF"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.57%"
@@ -2936,8 +2936,8 @@ function Icon() {
           y2="681.625%"
           id="9cu5i3e8leG"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.054%"
@@ -2946,8 +2946,8 @@ function Icon() {
           y2="515.117%"
           id="shy40pdaeeH"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.067%"
@@ -2956,8 +2956,8 @@ function Icon() {
           y2="358.562%"
           id="311obi7koeI"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.527%"
@@ -2966,8 +2966,8 @@ function Icon() {
           y2="188.111%"
           id="bg9mqfpoveJ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.978%"
@@ -2976,8 +2976,8 @@ function Icon() {
           y2="1665.05%"
           id="qfzdj8sxaeK"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.789%"
@@ -2986,8 +2986,8 @@ function Icon() {
           y2="1498.752%"
           id="6u9jquzmzeL"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.043%"
@@ -2996,8 +2996,8 @@ function Icon() {
           y2="1329.112%"
           id="9qz0zgj5zeM"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.978%"
@@ -3006,8 +3006,8 @@ function Icon() {
           y2="1172.731%"
           id="09my6ermdeN"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -3016,8 +3016,8 @@ function Icon() {
           y2="1042.373%"
           id="p2jfgl9aaeO"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.79%"
@@ -3026,8 +3026,8 @@ function Icon() {
           y2="844.227%"
           id="0480wv7nieP"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.788%"
@@ -3036,8 +3036,8 @@ function Icon() {
           y2="679.716%"
           id="21x7sv4bqeQ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.928%"
@@ -3046,8 +3046,8 @@ function Icon() {
           y2="514.392%"
           id="iovauzjnoeR"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.957%"
@@ -3056,8 +3056,8 @@ function Icon() {
           y2="358.582%"
           id="cwj4s6btceS"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -3066,8 +3066,8 @@ function Icon() {
           y2="187.772%"
           id="i7noo1esbeT"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.867%"
@@ -3076,8 +3076,8 @@ function Icon() {
           y2="1671.85%"
           id="a8uc9g87aeU"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.568%"
@@ -3086,8 +3086,8 @@ function Icon() {
           y2="1499.832%"
           id="gt0ab13kpeV"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.715%"
@@ -3096,8 +3096,8 @@ function Icon() {
           y2="1334.792%"
           id="s24ibmuk1eW"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.89%"
@@ -3106,8 +3106,8 @@ function Icon() {
           y2="1197.871%"
           id="j9cqqmm4ueX"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.702%"
@@ -3116,8 +3116,8 @@ function Icon() {
           y2="1024.911%"
           id="1an189nlieY"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.04%"
@@ -3126,8 +3126,8 @@ function Icon() {
           y2="843.86%"
           id="ur0kmlwhaeZ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -3136,8 +3136,8 @@ function Icon() {
           y2="702.696%"
           id="xlt4nrtgffa"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.295%"
@@ -3146,8 +3146,8 @@ function Icon() {
           y2="518.656%"
           id="6h5z8ux6bfb"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.574%"
@@ -3156,8 +3156,8 @@ function Icon() {
           y2="352.342%"
           id="8qdmc21x8fc"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.677%"
@@ -3166,8 +3166,8 @@ function Icon() {
           y2="1664.065%"
           id="zp29lk029fd"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.351%"
@@ -3176,8 +3176,8 @@ function Icon() {
           y2="1507.239%"
           id="xx4l72oq4fe"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -3186,8 +3186,8 @@ function Icon() {
           y2="1382.049%"
           id="vrrv2lfl9ff"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.693%"
@@ -3196,8 +3196,8 @@ function Icon() {
           y2="1172.889%"
           id="jvrjdktibfg"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.36%"
@@ -3206,8 +3206,8 @@ function Icon() {
           y2="1024.694%"
           id="f8z697x45fh"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.928%"
@@ -3216,8 +3216,8 @@ function Icon() {
           y2="844.21%"
           id="wpew2e080fi"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.948%"
@@ -3226,8 +3226,8 @@ function Icon() {
           y2="690.388%"
           id="ghiqydw6jfj"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -3236,8 +3236,8 @@ function Icon() {
           y2="533.231%"
           id="r2i84xa5afk"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -3246,8 +3246,8 @@ function Icon() {
           y2="353.389%"
           id="py079tmw3fl"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.269%"
@@ -3256,8 +3256,8 @@ function Icon() {
           y2="188.688%"
           id="ob9ak0kwrfm"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -3266,8 +3266,8 @@ function Icon() {
           y2="1694.697%"
           id="8fq502o4zfn"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.68%"
@@ -3276,8 +3276,8 @@ function Icon() {
           y2="1500.053%"
           id="potc1ykpqfo"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.401%"
@@ -3286,8 +3286,8 @@ function Icon() {
           y2="1341.952%"
           id="1wuz5m1uqfp"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.98%"
@@ -3296,8 +3296,8 @@ function Icon() {
           y2="1172.851%"
           id="cp6unwug7fq"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.982%"
@@ -3306,8 +3306,8 @@ function Icon() {
           y2="1008.774%"
           id="3hxfc26gjfr"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -3316,8 +3316,8 @@ function Icon() {
           y2="862.51%"
           id="anrk6261ufs"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.916%"
@@ -3326,8 +3326,8 @@ function Icon() {
           y2="678.203%"
           id="d1ehcmqarft"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50%"
@@ -3336,8 +3336,8 @@ function Icon() {
           y2="524.962%"
           id="g4k43jyqgfu"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.926%"
@@ -3346,8 +3346,8 @@ function Icon() {
           y2="352.567%"
           id="jm9m3lkd4fv"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -3356,8 +3356,8 @@ function Icon() {
           y2="193.077%"
           id="77vs1avlxfw"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.618%"
@@ -3366,8 +3366,8 @@ function Icon() {
           y2="1663.38%"
           id="fwk02tox5fx"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.004%"
@@ -3376,8 +3376,8 @@ function Icon() {
           y2="1497.714%"
           id="bkptxuu7dfy"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.585%"
@@ -3386,8 +3386,8 @@ function Icon() {
           y2="1359.547%"
           id="usdmxz9m9fz"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.725%"
@@ -3396,8 +3396,8 @@ function Icon() {
           y2="1196.96%"
           id="opdq2bbzdfA"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.933%"
@@ -3406,8 +3406,8 @@ function Icon() {
           y2="1023.513%"
           id="mfkjtz866fB"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.766%"
@@ -3416,8 +3416,8 @@ function Icon() {
           y2="843.328%"
           id="sg5ou4598fC"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.814%"
@@ -3426,8 +3426,8 @@ function Icon() {
           y2="678.394%"
           id="v0yde3v4nfD"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.725%"
@@ -3436,8 +3436,8 @@ function Icon() {
           y2="526.252%"
           id="7o7m66ciqfE"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.585%"
@@ -3446,8 +3446,8 @@ function Icon() {
           y2="356.978%"
           id="xdokc7eolfF"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.98%"
@@ -3456,8 +3456,8 @@ function Icon() {
           y2="188.743%"
           id="fkhehpmzcfG"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.004%"
@@ -3466,8 +3466,8 @@ function Icon() {
           y2="1684.305%"
           id="unolj34h1fH"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.815%"
@@ -3476,8 +3476,8 @@ function Icon() {
           y2="1500.039%"
           id="35rfezd8gfI"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -3486,8 +3486,8 @@ function Icon() {
           y2="1382.049%"
           id="5wtuofeoofJ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.98%"
@@ -3496,8 +3496,8 @@ function Icon() {
           y2="1172.802%"
           id="uag1pw3k2fK"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.289%"
@@ -3506,8 +3506,8 @@ function Icon() {
           y2="1012.842%"
           id="n0wq43ozwfL"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.802%"
@@ -3516,8 +3516,8 @@ function Icon() {
           y2="843.301%"
           id="pynhkfmcgfM"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -3526,8 +3526,8 @@ function Icon() {
           y2="702.619%"
           id="tk3h6drdufN"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.87%"
@@ -3536,8 +3536,8 @@ function Icon() {
           y2="523.705%"
           id="8e3z9lucqfO"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -3546,8 +3546,8 @@ function Icon() {
           y2="351.392%"
           id="wmbryib6pfP"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.941%"
@@ -3556,8 +3556,8 @@ function Icon() {
           y2="193.066%"
           id="zpne3htjdfQ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.406%"
@@ -3566,8 +3566,8 @@ function Icon() {
           y2="1667.053%"
           id="t8l860se7fR"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -3576,8 +3576,8 @@ function Icon() {
           y2="1552.003%"
           id="5dnjhh0p9fS"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.045%"
@@ -3586,8 +3586,8 @@ function Icon() {
           y2="1337.947%"
           id="hr92bx8krfT"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.059%"
@@ -3596,8 +3596,8 @@ function Icon() {
           y2="1211.316%"
           id="6hk93i6aqfU"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.789%"
@@ -3606,8 +3606,8 @@ function Icon() {
           y2="1006.976%"
           id="bukbboe6ofV"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.002%"
@@ -3616,8 +3616,8 @@ function Icon() {
           y2="841.449%"
           id="to1jiq99cfW"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.402%"
@@ -3626,8 +3626,8 @@ function Icon() {
           y2="680.704%"
           id="sju0oad7bfX"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.307%"
@@ -3636,8 +3636,8 @@ function Icon() {
           y2="526.252%"
           id="0fzjsga80fY"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="49.959%"
@@ -3646,8 +3646,8 @@ function Icon() {
           y2="357.606%"
           id="6olkve4vkfZ"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
         <linearGradient
           x1="50.495%"
@@ -3656,11 +3656,11 @@ function Icon() {
           y2="191.939%"
           id="oda71ug25ga"
         >
-          <stop stop-opacity="0" offset="0%" />
-          <stop stop-color="#FFF" offset="100%" />
+          <stop stopOpacity="0" offset="0%" />
+          <stop stopColor="#FFF" offset="100%" />
         </linearGradient>
       </defs>
-      <g fill-rule="nonzero" fill="none">
+      <g fillRule="nonzero" fill="none">
         <ellipse
           fill="#000"
           cx="175.149"

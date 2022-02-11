@@ -36,15 +36,29 @@ const CopyText = ({ text, button, copyButton }) => {
 
   return (
     <span
-      onMouseEnter={() => { setVisible(true); }}
-      onMouseLeave={() => { setVisible(false); setText('Copy to clipboard'); }}
-      onClick={() => { toggle(); }}
-      className={classNames(styles.container, copyButton && styles.block)}
+      onMouseEnter={() => {
+        setVisible(true);
+      }}
+      onMouseLeave={() => {
+        setVisible(false);
+        setText('Copy to clipboard');
+      }}
+      onClick={() => {
+        toggle();
+      }}
+      className={classNames(
+        styles.container,
+        copyButton && styles.block,
+      )}
     >
-      <Tooltip trigger={['click', 'hover']} tooltipShown={visible} tooltip={tooltipText} placement="top" styleClass="tooltip-copy">
-        <CopyToClipboard text={text}>
-          {setCopyBtn()}
-        </CopyToClipboard>
+      <Tooltip
+        trigger={['click', 'hover']}
+        tooltipShown={visible}
+        tooltip={tooltipText}
+        placement="top"
+        styleClass="tooltip-copy"
+      >
+        <CopyToClipboard text={text}>{setCopyBtn()}</CopyToClipboard>
       </Tooltip>
     </span>
   );
