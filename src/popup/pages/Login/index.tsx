@@ -1,17 +1,17 @@
+import styled from 'styled-components';
 import { Form, Field } from 'react-final-form';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 
-import LoadingOne from 'popup/pages/LoadingOne';
 import Logo from 'popup/components/Logo';
+import Layout from 'popup/components/Layout';
+import RouteName from 'popup/staticRes/routes';
+import LoadingOne from 'popup/pages/LoadingOne';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-import RouteName from 'popup/staticRes/routes';
 import setTimer from 'popup/actions/options/setTimer';
 import loginUserAction from 'popup/actions/user/login';
 import hadLoggedBeforeAction from 'popup/actions/user/hadLoggedBeforeAction';
-import Layout from 'popup/components/Layout';
 
 type FormValues = {
   password: string;
@@ -30,9 +30,9 @@ const Login = () => {
 
   useEffect(() => {
     if (!state) {
-      hadLoggedBeforeAction().then((hasLogged: boolean) => {
+      hadLoggedBeforeAction().then((hasLogged) => {
         if (hasLogged) {
-          loginUserAction(hasLogged).then((isLogged: boolean) => {
+          loginUserAction(hasLogged).then((isLogged) => {
             if (isLogged) {
               setLoading(false);
 
@@ -68,7 +68,7 @@ const Login = () => {
         <Logo />
 
         <Form
-          onSubmit={(values: FormValues) => onSubmit(values)}
+          onSubmit={onSubmit}
           render={({
             submitError,
             handleSubmit,

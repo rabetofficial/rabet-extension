@@ -1,27 +1,16 @@
-import types from '../index';
-import store from '../../store';
-import { set } from '../../../helpers/storage';
+import { set } from 'helpers/storage';
+import { login, isRegistered } from 'popup/reducers/user';
+import { IAccount, load } from 'popup/reducers/accounts';
 
-export default async (password?: string | null): Promise<boolean> => {
-  const accounts = [];
+export default async (password: string): Promise<boolean> => {
+  const accounts: IAccount[] = [];
 
   try {
     await set('data', accounts, password);
 
-    store.dispatch({
-      accounts,
-      type: types.accounts.LOAD,
-    });
-
-    store.dispatch({
-      password,
-      type: types.user.LOGIN,
-    });
-
-    store.dispatch({
-      type: types.user.IS_REGISTERED,
-      registered: true,
-    });
+    load(accounts);
+    login(password);
+    isRegistered(true);
 
     return true;
   } catch (e) {

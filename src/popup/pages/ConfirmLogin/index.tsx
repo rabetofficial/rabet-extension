@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,19 +8,19 @@ import Layout from 'popup/components/Layout';
 import RouteName from 'popup/staticRes/routes';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-import registerUserAction from 'popup/actions/user/register';
 import Error from 'popup/components/common/Error';
+import registerUserAction from 'popup/actions/user/register';
 
 type FormValues = {
-  password?: string;
-  confirm?: string;
+  password: string;
+  confirm: string;
 };
 
 const ConfirmLogin = () => {
   const navigate = useNavigate();
 
   const onSubmit = (values: FormValues) => {
-    const errors: FormValues = {};
+    const errors: Partial<FormValues> = {};
 
     if (values.password !== values.confirm) {
       errors.password = 'Passwords do not match.';
@@ -37,7 +38,7 @@ const ConfirmLogin = () => {
   };
 
   const validateForm = (values: FormValues) => {
-    const errors: FormValues = {};
+    const errors: Partial<FormValues> = {};
 
     const hasError = {
       password: false,
@@ -74,51 +75,53 @@ const ConfirmLogin = () => {
     <Layout isDashboard={false}>
       <div>
         <Logo />
+
         <Form
-          onSubmit={(values) => onSubmit(values)}
-          validate={(values) => validateForm(values)}
+          onSubmit={onSubmit}
+          validate={validateForm}
           render={({ submitError, handleSubmit, invalid }) => (
-            <form
-              className="mt-[51px]"
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
-              <Field name="password">
-                {({ input, meta }) => (
-                  <Input
-                    type="password"
-                    placeholder="Password"
-                    size="medium"
-                    variant="password"
-                    input={input}
-                    meta={meta}
-                  />
-                )}
-              </Field>
+            <form onSubmit={handleSubmit} autoComplete="off">
+              <InputContainer>
+                <Field name="password">
+                  {({ input, meta }) => (
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      size="medium"
+                      variant="password"
+                      input={input}
+                      meta={meta}
+                    />
+                  )}
+                </Field>
 
-              <Field name="confirm">
-                {({ input, meta }) => (
-                  <Input
-                    type="password"
-                    placeholder="Confirm Password"
-                    size="medium"
-                    variant="password"
-                    input={input}
-                    meta={meta}
-                    style={{ marginTop: '14px' }}
-                  />
-                )}
-              </Field>
+                <Field name="confirm">
+                  {({ input, meta }) => (
+                    <ConfirmInput>
+                      <Input
+                        type="password"
+                        placeholder="Confirm Password"
+                        size="medium"
+                        variant="password"
+                        input={input}
+                        meta={meta}
+                        style={{ marginTop: '20px' }}
+                      />
+                    </ConfirmInput>
+                  )}
+                </Field>
 
-              {submitError && <Error>{submitError}</Error>}
-              <Button
-                type="submit"
-                variant="primary"
-                size="medium"
-                content="Continue"
-                style={{ marginTop: '32px' }}
-                disabled={invalid}
-              />
+                {submitError && <Error>{submitError}</Error>}
+              </InputContainer>
+              <ButtonContainer>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="medium"
+                  content="Continue"
+                  disabled={invalid}
+                />
+              </ButtonContainer>
             </form>
           )}
         />
@@ -126,5 +129,23 @@ const ConfirmLogin = () => {
     </Layout>
   );
 };
+const InputContainer = styled.div`
+  margin-top: 70px;
+  @media (max-width: 360px) {
+    margin-top: 50px;
+  }
+`;
+const ConfirmInput = styled.div`
+  margin-top: 20px;
+  @media (max-width: 360px) {
+    margin-top: 24px;
+  }
+`;
+const ButtonContainer = styled.div`
+  margin-top: 32px;
+  @media (max-width: 360px) {
+    margin-top: 40px;
+  }
+`;
 
 export default ConfirmLogin;

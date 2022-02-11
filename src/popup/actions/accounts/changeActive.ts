@@ -1,18 +1,17 @@
-import types from '../index';
-import store from '../../store';
+import { changeActive } from 'popup/reducers/accounts';
+import changeAccountEvent from 'popup/events/changeAccount';
+
 import interval from './interval';
 import storeAccount from './store';
-import changeAccountEvent from '../../events/changeAccount';
 
-export default async (publicKey) => {
+export default async (publicKey: string): Promise<boolean> => {
   changeAccountEvent(publicKey);
 
-  store.dispatch({
+  changeActive({
     publicKey,
-    type: types.accounts.CHANGE_ACTIVE,
   });
 
-  interval(publicKey);
+  interval(publicKey, false);
 
   await storeAccount();
 

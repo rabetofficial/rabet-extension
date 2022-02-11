@@ -1,13 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 
-import intro4 from 'src/assets/images/intro4.png';
+import { SlideThree } from 'popup/svgs/slides';
+
 import * as S from './styles';
 
 const ThirdSlide = () => (
   <>
     <S.ImgSlideThird>
-      <img src={intro4} alt="img" />
+      <SlideThree />
     </S.ImgSlideThird>
     <S.TextContainer>
       <S.HeadText className="mt-[47px]">

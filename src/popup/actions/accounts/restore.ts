@@ -1,10 +1,11 @@
 import { Keypair } from 'stellar-sdk';
 
-import types from '../index';
-import store from '../../store';
+import store from 'popup/store';
+import { add, IAccount } from 'popup/reducers/accounts';
+
 import changeActive from './changeActive';
 
-export default async (privateKey) => {
+export default async (privateKey: string) => {
   let source;
 
   try {
@@ -15,10 +16,11 @@ export default async (privateKey) => {
 
   const { accounts } = store.getState();
 
-  const account = {
+  const account: IAccount = {
     privateKey,
     name: 'My account',
     publicKey: source.publicKey(),
+    balance: 0,
   };
 
   for (let i = 0; i < accounts.length; i += 1) {
@@ -27,11 +29,7 @@ export default async (privateKey) => {
     }
   }
 
-  store.dispatch({
-    type: types.accounts.ADD,
-    account,
-  });
-
+  add(account);
   changeActive(account.publicKey);
 
   return account;

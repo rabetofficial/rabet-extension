@@ -113,6 +113,7 @@ const config = {
     alias: {
       src: resolve(__dirname, 'src'),
       popup: resolve(__dirname, 'src', 'popup'),
+      helpers: resolve(__dirname, 'src', 'helpers'),
     },
   },
   watch: devMode,

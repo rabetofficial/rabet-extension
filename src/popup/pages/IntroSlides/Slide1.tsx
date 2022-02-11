@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { SlidesLayout } from 'popup/components/Layout';
-import intro2 from 'src/assets/images/intro2.png';
+import { SlideOne } from 'popup/svgs/slides';
 
 import * as S from './styles';
 
@@ -10,7 +10,7 @@ const FirstSlide = () => (
   <>
     <SlidesLayout>
       <S.ImgSlideOne>
-        <img src={intro2} alt="img" />
+        <SlideOne />
       </S.ImgSlideOne>
       <S.TextContainer>
         <S.HeadText className="mt-[50px]">
