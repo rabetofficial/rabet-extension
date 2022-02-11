@@ -8,6 +8,7 @@ import {
 import ProtectedRoute from '../components/ProtectedRoute';
 
 import Home from './Home';
+import DHome from './DHome';
 import Intro from './Intro';
 import IntroSlides from './IntroSlides';
 import Login from './Login';
@@ -55,7 +56,7 @@ const App = () => (
           path={RouteName.Home}
           element={
             <ProtectedRoute>
-              <DetectSize desktop={<Setting />}>
+              <DetectSize desktop={<DHome />}>
                 <Home />
               </DetectSize>
             </ProtectedRoute>
