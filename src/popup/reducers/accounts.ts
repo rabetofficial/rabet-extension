@@ -81,12 +81,9 @@ const accountsSlice = createSlice({
         }
       }
     },
-    changeActive: (
-      state,
-      action: PayloadAction<{ publicKey: string }>,
-    ) => {
+    changeActive: (state, action: PayloadAction<string>) => {
       for (let i = 0; i < state.length; i += 1) {
-        if (state[i].publicKey === action.payload.publicKey) {
+        if (state[i].publicKey === action.payload) {
           state[i].active = true;
         } else {
           state[i].active = false;

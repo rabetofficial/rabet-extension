@@ -8,11 +8,7 @@ import storeAccount from './store';
 export default async (publicKey: string): Promise<boolean> => {
   changeAccountEvent(publicKey);
 
-  store.dispatch(
-    changeActive({
-      publicKey,
-    }),
-  );
+  store.dispatch(changeActive(publicKey));
 
   interval(publicKey, false);
 

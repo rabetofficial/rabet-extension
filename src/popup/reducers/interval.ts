@@ -3,14 +3,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const intervalSlice = createSlice({
   name: 'interval',
-  initialState: 0,
+  initialState: {
+    value: 0,
+  },
   reducers: {
     start: (state, action: PayloadAction<number>) => {
-      state = action.payload;
+      state.value = action.payload;
     },
     stop: (state) => {
-      clearInterval(state);
-      state = 0;
+      state.value = 0;
     },
   },
 });

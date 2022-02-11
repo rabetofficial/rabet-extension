@@ -3,10 +3,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const hostSlice = createSlice({
   name: 'host',
-  initialState: '',
+  initialState: {
+    value: '',
+  },
   reducers: {
     change: (state, action: PayloadAction<string>) => {
-      state = action.payload;
+      state.value = action.payload;
     },
   },
 });

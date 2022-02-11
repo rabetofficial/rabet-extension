@@ -9,8 +9,6 @@ import Error from 'popup/components/common/Error';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
-import validatePrivateKey from 'popup/utils/validate/privateKey';
-import restoreAccountAction from 'popup/actions/accounts/restore';
 
 import * as S from './styles';
 
@@ -42,31 +40,8 @@ const ImportBackupFile = () => {
   };
 
   const onSubmit = async (values: FormValues) => {
-    if (!validatePrivateKey(values.key)) {
-      return { key: 'Invalid private key.' };
-    }
-
-    const isDuplicated = accounts.some(
-      (x) => x.privateKey === values.key,
-    );
-
-    if (isDuplicated) {
-      return { key: 'Account is duplicated.' };
-    }
-
-    const account = await restoreAccountAction(values.key);
-
-    if (account === 'duplicate') {
-      return {
-        key: "The account you're trying to import is a duplicate.",
-      };
-    }
-
-    if (!account) {
-      return { key: 'Invalid seed.' };
-    }
-
-    return navigate(RouteName.Home);
+    console.log('i will deal with this later');
+    console.log(values);
   };
 
   const validateForm = (values: FormValues) => {
@@ -74,6 +49,8 @@ const ImportBackupFile = () => {
 
     if (!values.key) {
       errors.key = '';
+    } else if (values.key.length < 30) {
+      errors.key = 'Invalid key';
     }
 
     return errors;
@@ -95,8 +72,8 @@ const ImportBackupFile = () => {
 
       {showRest && (
         <Form
-          onSubmit={(values: FormValues) => onSubmit(values)}
-          validate={(values: FormValues) => validateForm(values)}
+          onSubmit={onSubmit}
+          validate={validateForm}
           render={({ submitError, handleSubmit, form, pristine }) => (
             <form
               className="form"
