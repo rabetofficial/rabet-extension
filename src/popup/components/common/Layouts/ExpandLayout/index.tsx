@@ -9,9 +9,9 @@ import * as route from 'popup/staticRes/routes';
 // import EditWalletName from 'popup/components/EditWalletName';
 import CopyText from 'popup/components/common/CopyText';
 import PlusBold from 'popup/svgs/PlusBold';
+import AssetList from './AssetList';
 
 import * as S from './styles';
-import AssetList from "./AssetList";
 
 const sampleAddress =
   'GCTRXBGMSI64VVXX5O5EUFTGWOTICIHC7PUO24VMD4VOTVCSO6ODKAPQ';
