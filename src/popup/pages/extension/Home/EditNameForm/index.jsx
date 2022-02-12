@@ -2,12 +2,12 @@ import React from 'react';
 import classNames from 'classnames';
 import { Form, Field } from 'react-final-form';
 
-import Input from '../../../components/Input';
-import Button from '../../../components/Button';
-import penSrc from '../../../../assets/images/pen-edit.svg';
-import { buttonTypes, inputSize } from '../../../staticRes/enum';
-import currentActiveAccount from '../../../utils/activeAccount';
-import changeNameAction from '../../../actions/accounts/changeName';
+import Input from '../../../../components/Input';
+import Button from '../../../../components/Button';
+import penSrc from '../../../../../assets/images/pen-edit.svg';
+import { buttonTypes, inputSize } from '../../../../staticRes/enum';
+import currentActiveAccount from '../../../../utils/activeAccount';
+import changeNameAction from '../../../../actions/accounts/changeName';
 
 import styles from '../styles.less';
 

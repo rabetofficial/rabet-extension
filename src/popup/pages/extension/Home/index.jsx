@@ -5,22 +5,22 @@ import React, { useState, useEffect, useReducer } from 'react';
 
 import Links from './Links';
 import TabList from './TabList';
-import LoadingOne from '../LoadingOne';
+import LoadingOne from '../../LoadingOne';
 import EditNameForm from './EditNameForm';
 import DropDownList from './DropDownList';
-import Modal from '../../components/Modal';
-import Header from '../../components/Header';
-import shorter from '../../../helpers/shorter';
-import CopyText from '../../components/CopyText';
-import showBalance from '../../utils/showBalance';
-import getData from '../../actions/accounts/getData';
-import formatCurrency from '../../utils/formatCurrency';
-import getTotalBalance from '../../utils/getTotalBalance';
-import intervalAction from '../../actions/accounts/interval';
-import isOtherConnected from '../../utils/isOtherConnected';
-import numberWithCommas from '../../utils/numberWithCommas';
-import currentActiveAccount from '../../utils/activeAccount';
-import ModalConnectStatus from '../../pageComponents/ModalConnectStatus';
+import Modal from '../../../components/Modal';
+import Header from '../../../components/Header';
+import shorter from '../../../../helpers/shorter';
+import CopyText from '../../../components/CopyText';
+import showBalance from '../../../utils/showBalance';
+import getData from '../../../actions/accounts/getData';
+import formatCurrency from '../../../utils/formatCurrency';
+import getTotalBalance from '../../../utils/getTotalBalance';
+import intervalAction from '../../../actions/accounts/interval';
+import isOtherConnected from '../../../utils/isOtherConnected';
+import numberWithCommas from '../../../utils/numberWithCommas';
+import currentActiveAccount from '../../../utils/activeAccount';
+import ModalConnectStatus from '../../../pageComponents/ModalConnectStatus';
 
 import styles from './styles.less';
 

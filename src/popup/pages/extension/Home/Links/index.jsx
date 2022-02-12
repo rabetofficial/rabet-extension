@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import Button from '../../../components/Button';
-import { advanceOperationPage, basicOperationPage, QRCodePage } from '../../../staticRes/routes';
-import { buttonSizes, buttonTypes } from '../../../staticRes/enum';
+import Button from '../../../../components/Button';
+import { advanceOperationPage, basicOperationPage, QRCodePage } from '../../../../staticRes/routes';
+import { buttonSizes, buttonTypes } from '../../../../staticRes/enum';
 
 import styles from './styles.less';
 

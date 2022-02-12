@@ -6,10 +6,10 @@ import {
   deleteAccountPage,
   ShowPrivateKeyPage,
   connectedWebsitePage,
-} from '../../../staticRes/routes';
-import DropMenu from '../../../components/DropMenu';
-import worldSrc from '../../../../assets/images/world.svg';
-import trashSrc from '../../../../assets/images/trash-delete.svg';
+} from '../../../../staticRes/routes';
+import DropMenu from '../../../../components/DropMenu';
+import worldSrc from '../../../../../assets/images/world.svg';
+import trashSrc from '../../../../../assets/images/trash-delete.svg';
 
 import styles from './styles.less';
 

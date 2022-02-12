@@ -2,7 +2,7 @@ import React from 'react';
 
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 
-const DHome = () => {
+const EHome = () => {
   console.log('I AM YOUR NEW HOME');
 
   return (
@@ -12,4 +12,4 @@ const DHome = () => {
   );
 };
 
-export default DHome;
+export default EHome;
