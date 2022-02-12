@@ -16,6 +16,11 @@ export const Card = styled.div`
   padding-left: 20px;
 `;
 
+export const CardSimple = styled.div`
+  background-color: white;
+  border-radius: ${({ theme }) => theme.rounded.main};
+`;
+
 export const QrTrigger = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.colors.primary.dark};

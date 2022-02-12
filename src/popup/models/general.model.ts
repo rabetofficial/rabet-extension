@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 export type ButtonVariant =
   | 'primary'
@@ -19,24 +19,13 @@ export type JustifyContent = 'start' | 'end' | 'center';
 
 export type Placement = 'top' | 'bottom' | 'right' | 'left';
 
-export type TooltipPlacement =
-  | 'auto'
-  | 'auto-start'
-  | 'auto-end'
-  | 'top'
-  | 'top-start'
-  | 'top-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'right'
-  | 'right-start'
-  | 'right-end'
-  | 'left'
-  | 'left-start'
-  | 'left-end';
-
 export type ElementOption = {
   value: string;
   label: string | React.ReactNode;
+};
+
+export type Tab = {
+  id: number | string;
+  title: string;
+  content: ReactNode;
 };

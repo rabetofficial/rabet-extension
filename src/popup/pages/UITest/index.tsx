@@ -1,37 +1,26 @@
 import React, { useState, useRef } from 'react';
 
-import Popover from 'popup/components/common/Popover';
+import Tabs from 'popup/components/common/Tabs';
 import ExpandLayout from '../../components/common/Layouts/ExpandLayout';
-import ModalDialog from '../../components/common/ModalDialog';
+import { Tab } from '../../models';
 
 const UITest = () => {
-  const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const tabs: Tab[] = [
+    {
+      id: '1',
+      title: 'Assets',
+      content: '1',
+    },
+    {
+      id: '2',
+      title: 'Transactions',
+      content: '2',
+    },
+  ];
 
   return (
     <ExpandLayout>
-      <button ref={buttonRef}>Popover</button>
-      <Popover placement="bottom" ref={buttonRef}>
-        And here's some amazing content. It's very engaging. Right?
-      </Popover>
-      <hr />
-      <button type="button" onClick={handleOpen}>
-        open
-      </button>
-      <ModalDialog
-        title="Title"
-        isOpen={open}
-        onClose={handleClose}
-        size="small"
-      >
-        test
-        <button type="button" onClick={handleClose}>
-          close
-        </button>
-      </ModalDialog>
-      <hr />
+      <Tabs data={tabs} contentClass="px-[20px]" />
     </ExpandLayout>
   );
 };

@@ -16,7 +16,9 @@ const ExpandLayout = ({ children }: AppProps) => (
 
     <div className="flex flex-row flex-wrap md:space-x-[38px] sm:space-x-0 space-x-0 mt-[23px]">
       <div className="grow md:mb-0 sm:mb-[38px] mb-[38px]">
-        <S.Card className="h-full">{children}</S.Card>
+        <S.CardSimple className="h-full pt-1">
+          {children}
+        </S.CardSimple>
       </div>
 
       <div className="lg:basis-[351px] md:basis-2/5 sm:basis-full basis-full space-y-[38px]">
