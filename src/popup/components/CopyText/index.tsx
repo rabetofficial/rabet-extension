@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import classNames from 'classnames';
@@ -7,7 +6,15 @@ import Tooltip from '../Tooltip';
 
 import styles from './styles.less';
 
-const CopyText = ({ text, button, copyButton }) => {
+type CopyTextTypes = {
+  text: string;
+  button?: boolean | any;
+  copyButton?: boolean;
+};
+
+const CopyText = (props: CopyTextTypes) => {
+  const { text, button, copyButton } = props;
+
   const [visible, setVisible] = useState(false);
 
   const [tooltipText, setText] = useState('Copy to clipboard');
@@ -67,11 +74,6 @@ const CopyText = ({ text, button, copyButton }) => {
 CopyText.defaultProps = {
   button: '',
   copyButton: false,
-};
-
-CopyText.propTypes = {
-  button: PropTypes.string,
-  copyButton: PropTypes.bool,
 };
 
 export default CopyText;

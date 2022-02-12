@@ -5,8 +5,10 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   padding: 32px;
+  height: 100vh;
   @media (max-width: 360px) {
-    padding: 16px;
+    padding: 0 16px;
+    align-items: flex-start;
   }
 `;
 
@@ -14,7 +16,7 @@ export const Msg = styled.div`
   font-size: 14px;
   line-height: 1.43;
   color: ${({ theme }) => theme.colors.primary.dark};
-  margin-top: 8px;
+  margin-top: 11px;
   span {
     color: ${({ theme }) => theme.colors.primary.darkest};
     font-weight: 500;
@@ -50,4 +52,7 @@ export const ButtonContainer = styled.div`
   width: 100px;
   display: flex;
   margin: 40px 100px 6px auto;
+  @media (max-width: 360px) {
+    margin-top: 112px;
+  }
 `;

@@ -5,6 +5,7 @@ import Button from 'popup/components/common/Button';
 import RouteName from 'popup/staticRes/routes';
 import CopyText from 'popup/components/CopyText';
 import currentActiveAccount from 'popup/utils/activeAccount';
+import PageTitle from 'popup/components/PageTitle';
 
 import * as S from './styles';
 
@@ -22,6 +23,7 @@ const BackupFile = () => {
   return (
     <S.Container>
       <div>
+        <PageTitle title="Backup" />
         <S.Msg>
           <span>Make a backup of your private key! </span>secure it
           like the millions of dollars it may one day be worth.
