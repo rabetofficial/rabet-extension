@@ -5,6 +5,7 @@ import {
   Routes,
 } from 'react-router-dom';
 
+import DetectSize from 'popup/components/DetectSize';
 import ProtectedRoute from '../components/ProtectedRoute';
 
 import Home from './Home';
@@ -45,8 +46,6 @@ import BasicSwapConfirm from './Operation/Basic/Swap/Confirm';
 import BasicSendConfirm from './Operation/Basic/Send/Confirm';
 import AdvanceOperation from './Operation/Adavnce';
 import UITest from './UITest';
-
-import DetectSize from 'popup/components/DetectSize';
 
 const App = () => (
   <Router>
@@ -267,7 +266,15 @@ const App = () => (
           path={RouteName.ConnectedWebsite}
           element={<ConnectedWebsite />}
         />
-        <Route exact path="ui" element={<UITest />} />
+        <Route
+          exact
+          path="ui"
+          element={
+            <ProtectedRoute>
+              <UITest />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   </Router>

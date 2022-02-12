@@ -23,7 +23,7 @@ export const SubmitButton = styled(Button).attrs(
   }
 `;
 
-export const Info = styled.p.attrs((props: any) => props)`
+export const Info = styled.div.attrs((props: any) => props)`
   display: flex;
   align-items: center;
   color: black;
