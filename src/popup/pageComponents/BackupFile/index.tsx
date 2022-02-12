@@ -20,8 +20,8 @@ const BackupFile = () => {
     navigate(RouteName.First);
   };
   return (
-    <>
-      <div className="content">
+    <S.Container>
+      <div>
         <S.Msg>
           <span>Make a backup of your private key! </span>secure it
           like the millions of dollars it may one day be worth.
@@ -56,7 +56,7 @@ const BackupFile = () => {
           />
         </S.ButtonContainer>
       </div>
-    </>
+    </S.Container>
   );
 };
 

@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  @media (max-width: 360px) {
+    padding: 16px;
+  }
+`;
+
 export const Msg = styled.div`
   font-size: 14px;
   line-height: 1.43;
