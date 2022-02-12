@@ -10,7 +10,7 @@ const BackupFile = () => {
 
   return (
     <>
-      {/* <button type="button" onClick={handleOpenModal}>
+      <button type="button" onClick={handleOpenModal}>
         open
       </button>
       <ModalDialog
@@ -18,9 +18,9 @@ const BackupFile = () => {
         size="medium"
         isOpen={open}
         onClose={handleCloseModal}
-      > */}
-      <BackupFileComponent />
-      {/* </ModalDialog> */}
+      >
+        <BackupFileComponent />
+      </ModalDialog>
     </>
   );
 };
