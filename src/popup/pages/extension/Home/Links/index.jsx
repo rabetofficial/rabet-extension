@@ -2,9 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import Button from '../../../../components/Button';
-import { advanceOperationPage, basicOperationPage, QRCodePage } from '../../../../staticRes/routes';
-import { buttonSizes, buttonTypes } from '../../../../staticRes/enum';
+import Button from 'popup/components/common/Button';
+import {
+  advanceOperationPage,
+  basicOperationPage,
+  QRCodePage,
+} from 'popup/staticRes/routes';
 
 import styles from './styles.less';
 
@@ -15,18 +18,20 @@ const Links = () => {
 
   return (
     <div className={styles.buttonBox}>
-      <Link to={isAdvanced ? advanceOperationPage : basicOperationPage}>
+      <Link
+        to={isAdvanced ? advanceOperationPage : basicOperationPage}
+      >
         <Button
-          size={buttonSizes.small}
-          variant={buttonTypes.primary}
+          size="small"
+          variant="primary"
           content="Operation"
           style={{ width: '112px' }}
         />
       </Link>
       <Link to={QRCodePage}>
         <Button
-          size={buttonSizes.small}
-          variant={buttonTypes.outlined}
+          size="small"
+          variant="outlined"
           content="Receive"
           style={{ width: '112px' }}
         />
