@@ -3,24 +3,24 @@ import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import React, { useState, useEffect, useReducer } from 'react';
 
+import Modal from 'popup/components/Modal';
+import Header from 'popup/components/Header';
+import shorter from 'popup/../helpers/shorter';
+import CopyText from 'popup/components/CopyText';
+import showBalance from 'popup/utils/showBalance';
+import getData from 'popup/actions/accounts/getData';
+import formatCurrency from 'popup/utils/formatCurrency';
+import getTotalBalance from 'popup/utils/getTotalBalance';
+import intervalAction from 'popup/actions/accounts/interval';
+import isOtherConnected from 'popup/utils/isOtherConnected';
+import numberWithCommas from 'popup/utils/numberWithCommas';
+import currentActiveAccount from 'popup/utils/activeAccount';
+import ModalConnectStatus from 'popup/pageComponents/ModalConnectStatus';
 import Links from './Links';
 import TabList from './TabList';
 import LoadingOne from '../../LoadingOne';
 import EditNameForm from './EditNameForm';
 import DropDownList from './DropDownList';
-import Modal from '../../../components/Modal';
-import Header from '../../../components/Header';
-import shorter from '../../../../helpers/shorter';
-import CopyText from '../../../components/CopyText';
-import showBalance from '../../../utils/showBalance';
-import getData from '../../../actions/accounts/getData';
-import formatCurrency from '../../../utils/formatCurrency';
-import getTotalBalance from '../../../utils/getTotalBalance';
-import intervalAction from '../../../actions/accounts/interval';
-import isOtherConnected from '../../../utils/isOtherConnected';
-import numberWithCommas from '../../../utils/numberWithCommas';
-import currentActiveAccount from '../../../utils/activeAccount';
-import ModalConnectStatus from '../../../pageComponents/ModalConnectStatus';
 
 import styles from './styles.less';
 
@@ -33,7 +33,8 @@ const Home = ({ options, currencies, host }) => {
   const [editName, setEditName] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isOtherConnectedState, setIsOtherConnectedState] = useState(false);
+  const [isOtherConnectedState, setIsOtherConnectedState] =
+    useState(false);
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
@@ -47,14 +48,19 @@ const Home = ({ options, currencies, host }) => {
       setLoading(false);
     }
 
-    setIsOtherConnectedState(isOtherConnected(activeAccount.publicKey, host));
+    setIsOtherConnectedState(
+      isOtherConnected(activeAccount.publicKey, host),
+    );
   }, [ignored]);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const activeCurrency = currencies[options.currency] || { value: 0, currency: 'USD' };
+  const activeCurrency = currencies[options.currency] || {
+    value: 0,
+    currency: 'USD',
+  };
 
   const balances = activeAccount.balances || [];
   const totalBalance = getTotalBalance(balances, activeCurrency);
@@ -83,15 +89,15 @@ const Home = ({ options, currencies, host }) => {
               <span
                 className={classNames(
                   styles.modalBtn,
-                  isConnected ? styles.modalActive : styles.modalInactive,
+                  isConnected
+                    ? styles.modalActive
+                    : styles.modalInactive,
                 )}
                 onClick={toggleModal}
               />
             </div>
             <div className={styles.subject}>
-              Total (
-              {activeCurrency.name}
-              )
+              Total ({activeCurrency.name})
             </div>
           </div>
         </div>
@@ -99,7 +105,10 @@ const Home = ({ options, currencies, host }) => {
 
       <div className={styles.infoBox}>
         <div className="pure-g">
-          <EditNameForm editName={editName} setEditName={setEditName} />
+          <EditNameForm
+            editName={editName}
+            setEditName={setEditName}
+          />
 
           <div className="pure-u-11-12">
             <label className="label-secondary">Address</label>
