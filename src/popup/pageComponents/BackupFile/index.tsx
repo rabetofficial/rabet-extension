@@ -1,29 +1,24 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Button from 'popup/components/common/Button';
-import RouteName from 'popup/staticRes/routes';
 import CopyText from 'popup/components/CopyText';
 import currentActiveAccount from 'popup/utils/activeAccount';
-import PageTitle from 'popup/components/PageTitle';
 
 import * as S from './styles';
 
-const BackupFile = () => {
-  const navigate = useNavigate();
+type BackupTypes = {
+  onClose: () => void;
+  onClick: () => void;
+  children: React.ReactNode;
+};
+const BackupFile = (props: BackupTypes) => {
+  const { onClose, onClick, children } = props;
   const { activeAccount } = currentActiveAccount();
   const { publicKey, privateKey } = activeAccount;
-
-  const handleClick = () => {
-    navigate(RouteName.Home);
-  };
-  const handleClose = () => {
-    navigate(RouteName.First);
-  };
   return (
     <S.Container>
       <div>
-        <PageTitle title="Backup" />
+        {children}
         <S.Msg>
           <span>Make a backup of your private key! </span>secure it
           like the millions of dollars it may one day be worth.
@@ -47,13 +42,13 @@ const BackupFile = () => {
             variant="default"
             size="medium"
             content="Cancel"
-            onClick={handleClose}
+            onClick={onClose}
           />
           <Button
             variant="primary"
             size="medium"
             content="Continue"
-            onClick={handleClick}
+            onClick={onClick}
             style={{ marginRight: '17px' }}
           />
         </S.ButtonContainer>
