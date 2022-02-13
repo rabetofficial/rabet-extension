@@ -1,11 +1,11 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 
+import Input from 'popup/components/common/Input';
+import Error from 'popup/components/common/Error';
+import Button from 'popup/components/common/Button';
 import Header from 'popup/components/common/Header';
 import PageTitle from 'popup/components/PageTitle';
-import Input from 'popup/components/common/Input';
-import Button from 'popup/components/common/Button';
-import Error from 'popup/components/common/Error';
 
 import * as S from './styles';
 

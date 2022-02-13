@@ -2,16 +2,11 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   margin-top: 28px;
+  padding: 0 16px;
 `;
 
 export const ButtonContainer = styled.div`
-  margin-top: 28px;
-
-  button {
-    width: 100px;
-  }
-
-  button:first-child {
-    margin-right: 12px;
-  }
+  width: 100px;
+  display: flex;
+  margin: 28px 100px 6px auto;
 `;
