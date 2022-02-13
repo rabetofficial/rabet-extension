@@ -3,18 +3,22 @@ import shortid from 'shortid';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
-import Header from '../../components/Header';
-import PageTitle from '../../components/PageTitle';
-import currentActiveAccount from '../../utils/activeAccount';
-import removeConnectedWebsitesAction from '../../actions/user/removeConnectedWebsites';
+import Header from 'popup/components/common/Header';
+import PageTitle from 'popup/components/PageTitle';
+import currentActiveAccount from 'popup/utils/activeAccount';
+import removeConnectedWebsitesAction from 'popup/actions/user/removeConnectedWebsites';
 
 import styles from './styles.less';
 
 const ConnectedWebsite = ({ user }) => {
   const { activeAccount } = currentActiveAccount();
   const { connectedWebsites } = user;
-  const associatedWebsites = connectedWebsites.filter((x) => x.includes(activeAccount.publicKey));
-  const websitesMapped = associatedWebsites.map((x) => x.split('/')[0]);
+  const associatedWebsites = connectedWebsites.filter((x) =>
+    x.includes(activeAccount.publicKey),
+  );
+  const websitesMapped = associatedWebsites.map(
+    (x) => x.split('/')[0],
+  );
 
   const removeConnectedWebsites = (web) => {
     const cw = `${web}/${activeAccount.publicKey}`;
@@ -28,7 +32,8 @@ const ConnectedWebsite = ({ user }) => {
       <PageTitle title="Connected website" />
       <div className="content">
         <p className={styles.desc}>
-          List of websites that are allowed to interact with this account and get its public-key
+          List of websites that are allowed to interact with this
+          account and get its public-key
         </p>
         <div>
           {websitesMapped.map((web) => (
@@ -36,7 +41,12 @@ const ConnectedWebsite = ({ user }) => {
               <a href="#" rel="noreferrer" className={styles.link}>
                 {web}
               </a>
-              <span className={classNames('icon-multiply', styles.icon)} onClick={() => { removeConnectedWebsites(web) }} />
+              <span
+                className={classNames('icon-multiply', styles.icon)}
+                onClick={() => {
+                  removeConnectedWebsites(web);
+                }}
+              />
             </div>
           ))}
         </div>
