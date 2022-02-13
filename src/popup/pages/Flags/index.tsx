@@ -3,22 +3,26 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
-import Header from '../../components/Header';
-import Button from '../../components/Button';
-import Tooltip from '../../components/Tooltip';
-import * as route from '../../staticRes/routes';
-import PageTitle from '../../components/PageTitle';
-import ToggleSwitch from '../../components/ToggleSwitch';
-import currentActiveAccount from '../../utils/activeAccount';
-import setFlagsAction from '../../actions/operations/setFlags';
+import Header from 'popup/components/common/Header';
+import Button from 'popup/components/common/Button';
+import Tooltip from 'popup/components/Tooltip';
+import RouteName from 'popup/staticRes/routes';
+import PageTitle from 'popup/components/PageTitle';
+import ToggleSwitch from 'popup/components/ToggleSwitch';
+import currentActiveAccount from 'popup/utils/activeAccount';
+import setFlagsAction from 'popup/actions/operations/setFlags';
 
 import styles from './styles.less';
 
 const tooltipInfo = {
-  required: 'Requires the issuing account to give other accounts permission before they can hold the issuing account’s credit.',
-  revocable: 'Allows the issuing account to revoke its credit held by other accounts.',
-  immutable: 'If this is set then none of the authorization flags can be changed and the account can never be deleted.',
-  clawback: 'Enables clawbacks for all assets issued by this account. Note that this only applies along trustlines established after this flag has been set. Requires authorization revocable.',
+  required:
+    'Requires the issuing account to give other accounts permission before they can hold the issuing account’s credit.',
+  revocable:
+    'Allows the issuing account to revoke its credit held by other accounts.',
+  immutable:
+    'If this is set then none of the authorization flags can be changed and the account can never be deleted.',
+  clawback:
+    'Enables clawbacks for all assets issued by this account. Note that this only applies along trustlines established after this flag has been set. Requires authorization revocable.',
 };
 
 const Flags = () => {
@@ -28,7 +32,9 @@ const Flags = () => {
   const [auth_required, setAuth_required] = useState(false);
   const [auth_revocable, setAuth_revocable] = useState(false);
   const [auth_immutable, setAuth_immutable] = useState(false);
-  const [auth_clawback_enabled, setAuth_clawback_enabled] = useState(false);
+
+  const [auth_clawback_enabled, setAuth_clawback_enabled] =
+    useState(false);
 
   useEffect(() => {
     const { activeAccount } = currentActiveAccount();
@@ -40,27 +46,33 @@ const Flags = () => {
     setAuth_required(activeAccount.flags.auth_required || false);
     setAuth_revocable(activeAccount.flags.auth_revocable || false);
     setAuth_immutable(activeAccount.flags.auth_immutable || false);
-    setAuth_clawback_enabled(activeAccount.flags.auth_clawback_enabled || false);
+    setAuth_clawback_enabled(
+      activeAccount.flags.auth_clawback_enabled || false,
+    );
   }, []);
 
-  const handleCheckedRequired = (checked) => setAuth_required(checked);
-  const handleCheckedRevocable = (checked) => setAuth_revocable(checked);
-  const handleCheckedImmutable = (checked) => setAuth_immutable(checked);
-  const handleClawbackEnabled = (checked) => setAuth_clawback_enabled(checked);
+  const handleCheckedRequired = (checked) =>
+    setAuth_required(checked);
+  const handleCheckedRevocable = (checked) =>
+    setAuth_revocable(checked);
+  const handleCheckedImmutable = (checked) =>
+    setAuth_immutable(checked);
+  const handleClawbackEnabled = (checked) =>
+    setAuth_clawback_enabled(checked);
 
   const handleSubmit = () => {
-    if (auth_immutable || (auth_clawback_enabled && !auth_revocable)) {
-      navigate(
-        route.confirmFlagPage,
-        {
-          state: {
-            auth_required,
-            auth_revocable,
-            auth_immutable,
-            auth_clawback_enabled,
-          },
+    if (
+      auth_immutable ||
+      (auth_clawback_enabled && !auth_revocable)
+    ) {
+      navigate(RouteName.ConfirmFlag, {
+        state: {
+          auth_required,
+          auth_revocable,
+          auth_immutable,
+          auth_clawback_enabled,
         },
-      );
+      });
     } else {
       setFlagsAction(
         {
@@ -74,9 +86,22 @@ const Flags = () => {
     }
   };
 
+  const onCancel = () => {
+    navigate(RouteName.Home, {
+      state: {
+        alreadyLoaded: true,
+      },
+    });
+  };
+
   return (
     <>
-      <div className={classNames(styles.page, 'hidden-scroll content-scroll')}>
+      <div
+        className={classNames(
+          styles.page,
+          'hidden-scroll content-scroll',
+        )}
+      >
         <Header />
 
         <PageTitle title="Flags" />
@@ -87,11 +112,17 @@ const Flags = () => {
             in below you can see your flags status:
           </h6>
 
-          <div className={classNames('pure-g', styles.div, styles.first)}>
+          <div
+            className={classNames('pure-g', styles.div, styles.first)}
+          >
             <div className="pure-u-2-3">
               <h3 className={styles.toggleTitle}>
                 Authorization required
-                <Tooltip trigger="hover" tooltip={tooltipInfo.required} placement="top">
+                <Tooltip
+                  trigger="hover"
+                  tooltip={tooltipInfo.required}
+                  placement="top"
+                >
                   <span className="icon-question-mark" />
                 </Tooltip>
               </h3>
@@ -110,7 +141,11 @@ const Flags = () => {
             <div className="pure-u-2-3">
               <h3 className={styles.toggleTitle}>
                 Authorization revocable
-                <Tooltip trigger="hover" tooltip={tooltipInfo.revocable} placement="top">
+                <Tooltip
+                  trigger="hover"
+                  tooltip={tooltipInfo.revocable}
+                  placement="top"
+                >
                   <span className="icon-question-mark" />
                 </Tooltip>
               </h3>
@@ -129,7 +164,11 @@ const Flags = () => {
             <div className="pure-u-2-3">
               <h3 className={styles.toggleTitle}>
                 Authorization immutable
-                <Tooltip trigger="hover" tooltip={tooltipInfo.immutable} placement="top">
+                <Tooltip
+                  trigger="hover"
+                  tooltip={tooltipInfo.immutable}
+                  placement="top"
+                >
                   <span className="icon-question-mark" />
                 </Tooltip>
               </h3>
@@ -148,7 +187,11 @@ const Flags = () => {
             <div className="pure-u-2-3">
               <h3 className={styles.toggleTitle}>
                 Clawback enabled
-                <Tooltip trigger="hover" tooltip={tooltipInfo.clawback} placement="top">
+                <Tooltip
+                  trigger="hover"
+                  tooltip={tooltipInfo.clawback}
+                  placement="top"
+                >
                   <span className="icon-question-mark" />
                 </Tooltip>
               </h3>
@@ -163,37 +206,38 @@ const Flags = () => {
             </div>
 
             {disabled ? (
-              <div className="error-box" style={{ marginTop: '16px' }}>
+              <div
+                className="error-box"
+                style={{ marginTop: '16px' }}
+              >
                 You can no longer change the status of your flags
                 because you have already activated theImmutable flag.
               </div>
-            ) : ''}
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>
 
-      <div className={classNames('pure-g justify-end content', styles.buttons)}>
+      <div
+        className={classNames(
+          'pure-g justify-end content',
+          styles.buttons,
+        )}
+      >
         <Button
-          variant="btn-default"
-          size="btn-medium"
+          variant="default"
+          size="medium"
           content="Cancel"
-          onClick={() => {
-            navigate(
-              route.homePage,
-              {
-                state: {
-                  alreadyLoaded: true,
-                },
-              },
-            );
-          }}
+          onClick={onCancel}
         />
 
         <Button
           disabled={disabled}
           onClick={handleSubmit}
-          variant="btn-primary"
-          size="btn-medium"
+          variant="primary"
+          size="medium"
           content="Save"
         />
       </div>
