@@ -15,6 +15,7 @@ const BackupFile = (props: BackupTypes) => {
   const { onClose, onClick, children } = props;
   const { activeAccount } = currentActiveAccount();
   const { publicKey, privateKey } = activeAccount;
+
   return (
     <S.Container>
       <div>
