@@ -3,19 +3,24 @@ import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 
-import Input from '../../components/Input';
-import Header from '../../components/Header';
-import Button from '../../components/Button';
-import * as route from '../../staticRes/routes';
-import PageTitle from '../../components/PageTitle';
-import showPrivateKeyAction from '../../actions/accounts/showPrivateKey';
+import Input from 'popup/components/common/Input';
+import Header from 'popup/components/Header';
+import Button from 'popup/components/common/Button';
+import * as route from 'popup/staticRes/routes';
+import PageTitle from 'popup/components/PageTitle';
+import Error from 'popup/components/common/Error';
+import showPrivateKeyAction from 'popup/actions/accounts/showPrivateKey';
 
 import styles from './styles.less';
+
+type FormValues = {
+  key: string;
+};
 
 const ShowPrivateKey = () => {
   const navigate = useNavigate();
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: FormValues) => {
     const isLogged = await showPrivateKeyAction(values.key);
 
     if (!isLogged) {
@@ -31,7 +36,7 @@ const ShowPrivateKey = () => {
       <PageTitle title="Show private key" />
       <div className="content" style={{ marginTop: '28px' }}>
         <Form
-          onSubmit={(values) => onSubmit(values)}
+          onSubmit={(values: FormValues) => onSubmit(values)}
           validate={() => {}}
           render={({
             pristine,
@@ -39,15 +44,19 @@ const ShowPrivateKey = () => {
             submitError,
             handleSubmit,
           }) => (
-            <form className="form" onSubmit={handleSubmit} autoComplete="off">
+            <form
+              className="form"
+              onSubmit={handleSubmit}
+              autoComplete="off"
+            >
               <Field name="key">
                 {({ input, meta }) => (
                   <div>
                     <label className="label-primary">Password</label>
                     <Input
                       type="password"
-                      size="input-medium"
-                      variant="pass-visible"
+                      size="medium"
+                      variant="password"
                       placeholder="Enter your password"
                       input={input}
                       meta={meta}
@@ -57,28 +66,30 @@ const ShowPrivateKey = () => {
                 )}
               </Field>
 
-              {submitError && <div className="error">{submitError}</div>}
+              {submitError && <Error>{submitError}</Error>}
 
-              <div className={classNames('pure-g justify-end', styles.buttons)}>
+              <div
+                className={classNames(
+                  'pure-g justify-end',
+                  styles.buttons,
+                )}
+              >
                 <Button
-                  variant="btn-default"
-                  size="btn-medium"
+                  variant="default"
+                  size="medium"
                   content="Cancel"
                   onClick={() => {
-                    navigate(
-                      route.homePage,
-                      {
-                        state: {
-                          alreadyLoaded: true,
-                        },
+                    navigate(route.homePage, {
+                      state: {
+                        alreadyLoaded: true,
                       },
-                    );
+                    });
                   }}
                 />
                 <Button
                   type="submit"
-                  variant="btn-primary"
-                  size="btn-medium"
+                  variant="primary"
+                  size="medium"
                   content="Show"
                   disabled={pristine || submitting}
                 />
