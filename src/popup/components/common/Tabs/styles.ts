@@ -18,11 +18,32 @@ export const TabTitle = styled.li`
   text-align: center;
   font-size: 16px;
   transition: all ease-in 0.15s;
-  border-bottom: 1px solid transparent;
+  position: relative;
 
   &.active {
     color: black;
-    border-bottom: 1.5px solid black;
+    position: relative;
+  }
+
+  &::before,
+  &.active::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    border-radius: 3px;
+    margin-bottom: -1.5px;
+  }
+
+  &::before {
+    transition: all ease-in 0.15s;
+    background: transparent;
+  }
+
+  &.active::before {
+    background: black;
   }
 `;
 
