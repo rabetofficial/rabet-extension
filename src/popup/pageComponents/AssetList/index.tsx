@@ -1,19 +1,19 @@
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 
-import Asset from '../../components/Asset';
-import * as route from '../../staticRes/routes';
-import getAssetsImages from '../../utils/server/getAssetsImages';
-import loadAssetImagesAction from '../../actions/assetImages/load';
+import Asset from 'popup/components/Asset';
+import * as route from 'popup/staticRes/routes';
+import getAssetsImages from 'popup/utils/server/getAssetsImages';
+import loadAssetImagesAction from 'popup/actions/assetImages/load';
 
-import styles from './styles.less';
+import * as S from './styles';
 
-const AssetList = ({ items, maxHeight }) => {
+type AssetsListTypes = { items: any[]; maxHeight: number };
+const AssetList = (props: AssetsListTypes) => {
+  const { items, maxHeight } = props;
   const [options, currencies] = useTypedSelector((store) => [
     store.options,
     store.currencies,
@@ -23,7 +23,7 @@ const AssetList = ({ items, maxHeight }) => {
   const { balances } = activeAccount;
 
   useEffect(() => {
-    getAssetsImages(balances || []).then((result) => {
+    getAssetsImages(balances || []).then((result): any => {
       loadAssetImagesAction(result, activeAccount.publicKey);
     });
   }, []);
@@ -34,13 +34,10 @@ const AssetList = ({ items, maxHeight }) => {
   };
 
   return (
-    <ul
-      className={classNames(styles.list, 'hidden-scroll')}
-      style={{ maxHeight: `${maxHeight}px` }}
-    >
-      <Link to={route.addAssetPage} className={styles.addAsset}>
-        + Add asset
-      </Link>
+    <S.List style={{ maxHeight: `${maxHeight}px` }}>
+      <S.AddAsset>
+        <Link to={route.addAssetPage}>+ Add asset</Link>
+      </S.AddAsset>
 
       {items.map((item, index) => (
         <Asset
@@ -52,13 +49,8 @@ const AssetList = ({ items, maxHeight }) => {
           key={`${item.asset_issuer}:${item.asset_code}`}
         />
       ))}
-    </ul>
+    </S.List>
   );
-};
-
-AssetList.propTypes = {
-  items: PropTypes.array.isRequired,
-  maxHeight: PropTypes.number.isRequired,
 };
 
 export default AssetList;
