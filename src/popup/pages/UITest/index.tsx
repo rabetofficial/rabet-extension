@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 
-import Tabs from 'popup/components/common/Tabs';
 import ExpandLayout from '../../components/common/Layouts/ExpandLayout';
 import { Tab } from '../../models';
 
@@ -18,11 +17,7 @@ const UITest = () => {
     },
   ];
 
-  return (
-    <ExpandLayout>
-      <Tabs data={tabs} contentClass="px-[20px]" />
-    </ExpandLayout>
-  );
+  return <ExpandLayout tabItems={tabs} />;
 };
 
 export default UITest;
