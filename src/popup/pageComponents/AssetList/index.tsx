@@ -23,7 +23,7 @@ const AssetList = (props: AssetsListTypes) => {
   const { balances } = activeAccount;
 
   useEffect(() => {
-    getAssetsImages(balances || []).then((result): any => {
+    getAssetsImages(balances || []).then((result: any) => {
       loadAssetImagesAction(result, activeAccount.publicKey);
     });
   }, []);
