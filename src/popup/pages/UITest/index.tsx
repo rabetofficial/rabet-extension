@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 
 import ExpandLayout from '../../components/common/Layouts/ExpandLayout';
 import { Tab } from '../../models';
+import QRCode from '../../Blocks/QRCode';
 
 const UITest = () => {
   const tabs: Tab[] = [
@@ -17,7 +18,13 @@ const UITest = () => {
     },
   ];
 
-  return <ExpandLayout tabItems={tabs} />;
+  return (
+    <ExpandLayout>
+      <div className="p-4">
+        <QRCode />
+      </div>
+    </ExpandLayout>
+  );
 };
 
 export default UITest;
