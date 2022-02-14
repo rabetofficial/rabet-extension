@@ -20,9 +20,7 @@ const UITest = () => {
 
   return (
     <ExpandLayout>
-      <div className="p-4">
-        <QRCode />
-      </div>
+      <div className="p-4">test</div>
     </ExpandLayout>
   );
 };

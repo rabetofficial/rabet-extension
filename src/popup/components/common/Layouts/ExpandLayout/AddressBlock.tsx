@@ -3,12 +3,17 @@ import React, { useState } from 'react';
 import EditWalletName from 'popup/components/EditWalletName';
 import CopyText from 'popup/components/common/CopyText';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
+import ModalDialog from 'popup/components/common/ModalDialog';
+import QRCode from 'popup/Blocks/QRCode';
 
 import * as S from './styles';
 
 const AddressBlock = () => {
   const [isEditable, setEditable] = useState(false);
   const { publicKey, balance } = useActiveAccount();
+  const [modal, setModal] = useState(false);
+  const onOpenModal = () => setModal(true);
+  const onCloseModal = () => setModal(false);
 
   return (
     <S.Card className="pt-[22px] pb-[18px]">
@@ -21,7 +26,16 @@ const AddressBlock = () => {
       <div className="text-3xl font-medium mt-[15px]">${balance}</div>
       <div className="flex justify-between items-center mt-[18px]">
         <div className="text-base font-medium">Your Address</div>
-        <S.QrTrigger>QR-code</S.QrTrigger>
+        <S.QrTrigger onClick={onOpenModal}>QR-code</S.QrTrigger>
+        <ModalDialog
+          title="Receive"
+          size="medium"
+          padding="large"
+          onClose={onCloseModal}
+          isOpen={modal}
+        >
+          <QRCode />
+        </ModalDialog>
       </div>
       <S.AddressBox>
         <CopyText

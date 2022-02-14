@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 
 import Multiply from 'popup/svgs/Multiply';
 import { ModalSize } from 'popup/models';
+import useWindowDimensions from 'popup/hooks/useWindowDimensions';
 
 import * as S from './styles';
 
@@ -13,7 +14,7 @@ type AppProps = {
   onClose: () => void;
   size?: ModalSize;
   isStyled?: boolean;
-  className?: string;
+  padding?: 'medium' | 'large';
   children: React.ReactNode;
 };
 
@@ -23,9 +24,10 @@ const ModalDialog = ({
   onClose,
   size,
   isStyled,
-  className,
+  padding,
   children,
 }: AppProps) => {
+  const { windowWidth } = useWindowDimensions();
   const renderModalSize = () => {
     if (size === 'small') {
       return 306;
@@ -45,50 +47,50 @@ const ModalDialog = ({
     content: {
       borderRadius: '2px',
       padding: '0',
-      width: `${renderModalSize()}px`,
+      width:
+        windowWidth - 80 <= renderModalSize()
+          ? 'auto'
+          : `${renderModalSize()}px`,
       height: 'fit-content',
       border: '1px solid rgba(33 35 38, 0.05)',
       margin: 'auto',
+      inset: windowWidth < 768 ? '20px' : '40px',
     },
   };
 
   return (
-    <div className={className}>
-      <CSSTransition in={isOpen} timeout={400} classNames="dialog">
-        <Modal
-          appElement={document.getElementById('root') as HTMLElement}
-          closeTimeoutMS={300}
-          isOpen={isOpen}
-          style={modalStyles}
-          shouldCloseOnOverlayClick
-          onRequestClose={onClose}
-        >
-          {isStyled ? (
-            <S.Container>
-              <div className="flex justify-between items-center">
-                <S.Title className="text-lg font-bold">
-                  {title}
-                </S.Title>
-                <button type="button" onClick={onClose}>
-                  <Multiply />
-                </button>
-              </div>
-              <S.Content>{children}</S.Content>
-            </S.Container>
-          ) : (
-            children
-          )}
-        </Modal>
-      </CSSTransition>
-    </div>
+    <CSSTransition in={isOpen} timeout={500} classNames="dialog">
+      <Modal
+        appElement={document.getElementById('root') as HTMLElement}
+        closeTimeoutMS={300}
+        isOpen={isOpen}
+        style={modalStyles}
+        shouldCloseOnOverlayClick
+        onRequestClose={onClose}
+      >
+        {isStyled ? (
+          <S.Container className={padding}>
+            <div className="flex justify-between items-center">
+              <S.Title className="text-lg font-bold">{title}</S.Title>
+              <button type="button" onClick={onClose}>
+                <Multiply />
+              </button>
+            </div>
+            <S.Content>{children}</S.Content>
+          </S.Container>
+        ) : (
+          children
+        )}
+      </Modal>
+    </CSSTransition>
   );
 };
 
 ModalDialog.defaultProps = {
   title: '',
   size: 'sm',
-  className: '',
   isStyled: true,
+  padding: '',
 };
 
 export default ModalDialog;
