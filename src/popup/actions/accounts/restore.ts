@@ -1,7 +1,7 @@
 import { Keypair } from 'stellar-sdk';
 
 import store from 'popup/store';
-import { add, IAccount } from 'popup/reducers/accounts';
+import { add, IAccount } from 'popup/reducers/accounts2';
 
 import changeActive from './changeActive';
 
@@ -18,9 +18,10 @@ export default async (privateKey: string) => {
 
   const account: IAccount = {
     privateKey,
+    active: false,
+    isConnected: false,
     name: 'My account',
     publicKey: source.publicKey(),
-    balance: 0,
   };
 
   for (let i = 0; i < accounts.length; i += 1) {

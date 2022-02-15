@@ -1,8 +1,8 @@
 import store from 'popup/store';
-import { changeActive } from 'popup/reducers/accounts';
+import { changeActive } from 'popup/reducers/accounts2';
 import changeAccountEvent from 'popup/events/changeAccount';
 
-import interval from './interval';
+// import interval from './interval';
 import storeAccount from './store';
 
 export default async (publicKey: string): Promise<boolean> => {
@@ -10,7 +10,7 @@ export default async (publicKey: string): Promise<boolean> => {
 
   store.dispatch(changeActive(publicKey));
 
-  interval(publicKey, false);
+  // interval(publicKey, false);
 
   await storeAccount();
 

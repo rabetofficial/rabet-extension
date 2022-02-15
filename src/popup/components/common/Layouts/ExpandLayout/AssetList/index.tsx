@@ -1,19 +1,26 @@
 import React from 'react';
 
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 import Asset from './Asset';
 
 import { Border } from './styles';
 
-const AssetList = () => (
-  <div>
-    {Array(4)
-      .fill(0)
-      .map((item, index) => (
+const AssetList = () => {
+  const { balances } = useActiveAccount();
+
+  if (!balances) {
+    return <p>no assets</p>;
+  }
+
+  return (
+    <div>
+      {balances.map((balance, index) => (
         <Border key={index}>
-          <Asset />
+          <Asset balance={balance} />
         </Border>
       ))}
-  </div>
-);
+    </div>
+  );
+};
 
 export default AssetList;

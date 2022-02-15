@@ -1,19 +1,20 @@
-import StellarSdk from 'stellar-sdk';
+import { Keypair } from 'stellar-sdk';
 
 import store from 'popup/store';
-import { add, IAccount } from 'popup/reducers/accounts';
+import { add, IAccount } from 'popup/reducers/accounts2';
 
 import changeActive from './changeActive';
 
 export default async (name: string): Promise<boolean> => {
   try {
-    const pair = StellarSdk.Keypair.random();
+    const pair = Keypair.random();
 
     const account: IAccount = {
       name,
-      publicKey: pair.publicKey(),
+      active: false,
+      isConnected: false,
       privateKey: pair.secret(),
-      balance: 0,
+      publicKey: pair.publicKey(),
     };
 
     store.dispatch(add(account));

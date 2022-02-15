@@ -4,7 +4,7 @@ import user from './user';
 import host from './host';
 import options from './options';
 import interval from './interval';
-import accounts from './accounts';
+import accounts from './accounts2';
 import currencies from './currencies';
 import transaction from './transaction';
 import assetImages from './assetImages';

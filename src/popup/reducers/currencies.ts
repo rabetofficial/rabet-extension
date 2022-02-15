@@ -1,20 +1,32 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Currency {
-  currency: string;
-  value: number;
-}
+export type CurrencyField = {
+  title: string;
+  symbol: string;
+  name: string;
+  price?: number;
+};
 
-const initialState: Currency[] = [];
+export type Currencies = {
+  USD?: CurrencyField;
+  EUR?: CurrencyField;
+  JPY?: CurrencyField;
+  GBP?: CurrencyField;
+  AUD?: CurrencyField;
+  CAD?: CurrencyField;
+  RUB?: CurrencyField;
+  CNY?: CurrencyField;
+};
+
+const initialState: Currencies = {};
 
 const currenciesSlice = createSlice({
   name: 'currencies',
   initialState,
   reducers: {
-    load: (state, action: PayloadAction<Currency[]>) => {
-      state = action.payload;
-    },
+    load: (state, action: PayloadAction<Currencies>) =>
+      action.payload,
   },
 });
 

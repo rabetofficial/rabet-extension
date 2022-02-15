@@ -29,8 +29,9 @@ const SearchAsset = ({ options }) => {
 
   const setActive = (index) => {
     if (selectedList.some((x) => matchAsset(x, list[index]))) {
-      const newSelectedList = selectedList.filter((x) => x.asset_issuer
-      !== list[index].asset_issuer);
+      const newSelectedList = selectedList.filter(
+        (x) => x.asset_issuer !== list[index].asset_issuer,
+      );
 
       setSelectedList(newSelectedList);
     } else {
@@ -49,7 +50,9 @@ const SearchAsset = ({ options }) => {
         const newAssetList = [];
 
         for (let i = 0; i < assetList.length; i += 1) {
-          const isOld = currentBalances.some((x) => matchAsset(x, assetList[i]));
+          const isOld = currentBalances.some((x) =>
+            matchAsset(x, assetList[i]),
+          );
 
           if (isOld) {
             newAssetList.push({
@@ -83,7 +86,11 @@ const SearchAsset = ({ options }) => {
           validateForm(values);
         }}
         render={({ handleSubmit }) => (
-          <form className={classNames(styles.form, 'form')} onSubmit={handleSubmit} autoComplete="off">
+          <form
+            className={classNames(styles.form, 'form')}
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
             <Field name="token">
               {({ input, meta }) => (
                 <Input
@@ -99,7 +106,13 @@ const SearchAsset = ({ options }) => {
               )}
             </Field>
             <h6 className={styles.result}>Search result</h6>
-            <ul className={classNames(styles.list, 'hidden-scroll', styles.scroll)}>
+            <ul
+              className={classNames(
+                styles.list,
+                'hidden-scroll',
+                styles.scroll,
+              )}
+            >
               {list.map((item, index) => (
                 <li
                   key={shortid.generate()}
@@ -107,37 +120,55 @@ const SearchAsset = ({ options }) => {
                   aria-disabled={!item.active}
                   onClick={() => item.active && setActive(index)}
                   style={{
-                    border: item.active && selectedList.includes(item) && '1px solid black',
+                    border:
+                      item.active &&
+                      selectedList.includes(item) &&
+                      '1px solid black',
                   }}
                 >
-                  <div className={styles.logo} style={{ backgroundColor: `${item.color}` }}>
-                    {item.logo ? <img src={`${item.logo}`} alt="logo" /> : <img src={questionSrc} alt="icon" /> }
+                  <div
+                    className={styles.logo}
+                    style={{ backgroundColor: `${item.color}` }}
+                  >
+                    {item.logo ? (
+                      <img src={`${item.logo}`} alt="logo" />
+                    ) : (
+                      <img src={questionSrc} alt="icon" />
+                    )}
                   </div>
                   <h4 className={styles.name}>{item.asset_code}</h4>
                   &nbsp;
                   <p className={styles.web}>
                     {item.domain ? item.domain : '-'}
                   </p>
-                  {item.is_verified == '1'
-                    ? <img src={checkedSrc} className={styles.checked} alt="icon" />
-                    : ''}
+                  {item.is_verified == '1' ? (
+                    <img
+                      src={checkedSrc}
+                      className={styles.checked}
+                      alt="icon"
+                    />
+                  ) : (
+                    ''
+                  )}
                 </li>
               ))}
             </ul>
-            <div className={classNames('pure-g justify-end', styles.buttons)}>
+            <div
+              className={classNames(
+                'pure-g justify-end',
+                styles.buttons,
+              )}
+            >
               <Button
                 variant="btn-default"
                 size="btn-medium"
                 content="Cancel"
                 onClick={() => {
-                  navigate(
-                    route.homePage,
-                    {
-                      state: {
-                        alreadyLoaded: true,
-                      },
+                  navigate(route.homePage, {
+                    state: {
+                      alreadyLoaded: true,
                     },
-                  );
+                  });
                 }}
               />
 

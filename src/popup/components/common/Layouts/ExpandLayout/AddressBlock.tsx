@@ -9,11 +9,11 @@ import QRCode from 'popup/Blocks/QRCode';
 import * as S from './styles';
 
 const AddressBlock = () => {
-  const [isEditable, setEditable] = useState(false);
-  const { publicKey, balance } = useActiveAccount();
+  const { publicKey } = useActiveAccount();
   const [modal, setModal] = useState(false);
   const onOpenModal = () => setModal(true);
   const onCloseModal = () => setModal(false);
+  const [isEditable, setEditable] = useState(false);
 
   return (
     <S.Card className="pt-[22px] pb-[18px]">
@@ -23,7 +23,7 @@ const AddressBlock = () => {
         height={34}
         fontSize={14}
       />
-      <div className="text-3xl font-medium mt-[15px]">${balance}</div>
+      <div className="text-3xl font-medium mt-[15px]">$0</div>
       <div className="flex justify-between items-center mt-[18px]">
         <div className="text-base font-medium">Your Address</div>
         <S.QrTrigger onClick={onOpenModal}>QR-code</S.QrTrigger>

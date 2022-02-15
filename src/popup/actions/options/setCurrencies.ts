@@ -1,5 +1,5 @@
 import store from 'popup/store';
-import toCurrencies from '../../utils/horizon/toCurrencies';
+import toCurrencies from '../../utils/horizon/getCurrencies';
 import { load } from '../../reducers/currencies';
 
 export default async (): Promise<void> => {

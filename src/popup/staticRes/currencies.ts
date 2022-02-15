@@ -1,8 +1,4 @@
-type CurrencyField = {
-  title: string;
-  symbol: string;
-  name: string;
-};
+import { CurrencyField } from 'popup/reducers/currencies';
 
 export const USD: CurrencyField = {
   title: 'USD - United States Dollar',

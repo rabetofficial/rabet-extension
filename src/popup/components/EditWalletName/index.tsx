@@ -1,11 +1,11 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 
-import Input from 'popup/components/common/Input';
-import currentActiveAccount from 'popup/utils/activeAccount';
-import changeNameAction from 'popup/actions/accounts/changeName';
 import PenEdit from 'popup/svgs/PenEdit';
 import CheckMark from 'popup/svgs/CheckMark';
+import Input from 'popup/components/common/Input';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import changeNameAction from 'popup/actions/accounts/changeName';
 
 import * as S from './styles';
 
@@ -26,8 +26,10 @@ const EditWalletName = ({
   height,
   fontSize,
 }: AppProps) => {
+  const { name, publicKey } = useActiveAccount();
+
   const onSubmit = (values: FormValues) => {
-    changeNameAction(values.name);
+    changeNameAction(values.name, publicKey);
 
     setEditable(!isEditable);
   };
@@ -42,9 +44,6 @@ const EditWalletName = ({
     return errors;
   };
 
-  const { activeAccount, activeAccountIndex } =
-    currentActiveAccount();
-
   return (
     <>
       {isEditable ? (
@@ -57,13 +56,7 @@ const EditWalletName = ({
               autoComplete="off"
               fontSize={fontSize}
             >
-              <Field
-                name="name"
-                initialValue={
-                  activeAccount.name ||
-                  `Account ${activeAccountIndex + 1}`
-                }
-              >
+              <Field name="name" initialValue={name}>
                 {({ input, meta }: any) => (
                   <Input
                     type="text"
@@ -94,11 +87,10 @@ const EditWalletName = ({
       ) : (
         <S.Info fontSize={fontSize}>
           <div>
-            {(activeAccount.name &&
-              (activeAccount.name.length < 13
-                ? activeAccount.name
-                : activeAccount.name.substr(0, 13).concat('...'))) ||
-              `Account ${activeAccountIndex + 1}`}
+            {name &&
+              (name.length < 13
+                ? name
+                : name.substr(0, 13).concat('...'))}
           </div>
           <S.EditIcon
             onClick={() => {

@@ -5,7 +5,7 @@ import {
 } from 'popup/reducers/accounts';
 
 import store from '../../store';
-import horizonData from '../../utils/horizon/data';
+import horizonData from '../../utils/horizon/getAccount';
 import setCurrencies from '../options/setCurrencies';
 import toNativePrice from '../../utils/horizon/toNativePrice';
 import addAssetImagesToAssets from '../../utils/addAssetImagesToAssets';
