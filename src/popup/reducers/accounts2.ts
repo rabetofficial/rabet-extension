@@ -8,13 +8,13 @@ export interface IAccount {
   publicKey: string;
   privateKey: string;
   isConnected: boolean;
-  balances?: Horizon.BalanceLine[];
+  assets?: Horizon.BalanceLine[];
   flags?: Horizon.Flags;
 }
 
 type AddBalanceAction = {
   publicKey: string;
-  balances: Horizon.BalanceLine[];
+  assets: Horizon.BalanceLine[];
 };
 
 type AddFlagsAction = {
@@ -50,7 +50,7 @@ const accountsSlice = createSlice({
     addBalances: (state, action: PayloadAction<AddBalanceAction>) => {
       for (let i = 0; i < state.length; i += 1) {
         if (state[i].publicKey === action.payload.publicKey) {
-          state[i].balances = action.payload.balances;
+          state[i].assets = action.payload.assets;
         }
       }
     },
