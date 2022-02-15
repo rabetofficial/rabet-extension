@@ -1,26 +1,36 @@
 import React, { useState, useRef } from 'react';
+import Modal from 'react-modal';
 
 import ExpandLayout from '../../components/common/Layouts/ExpandLayout';
 import { Tab } from '../../models';
 import QRCode from '../../Blocks/QRCode';
+import ModalDialog from '../../components/common/ModalDialog';
 
 const UITest = () => {
-  const tabs: Tab[] = [
-    {
-      id: '1',
-      title: 'Assets',
-      content: '1',
-    },
-    {
-      id: '2',
-      title: 'Transactions',
-      content: '2',
-    },
-  ];
+  const [modal, setModal] = useState(false);
+  const onOpenModal = () => setModal(true);
+  const onCloseModal = () => setModal(false);
 
   return (
     <ExpandLayout>
-      <div className="p-4">test</div>
+      {/* <div className="p-4" onClick={onOpenModal}> */}
+      {/*  test */}
+      {/* </div> */}
+      {/* <ModalDialog */}
+      {/*  title="Receive" */}
+      {/*  size="medium" */}
+      {/*  padding="large" */}
+      {/*  onClose={onCloseModal} */}
+      {/*  isOpen={modal} */}
+      {/* > */}
+      {/*  test */}
+      {/* </ModalDialog> */}
+      <button onClick={onOpenModal}>Open Modal</button>
+      <Modal isOpen={modal} onRequestClose={onCloseModal}>
+        <button onClick={onCloseModal}>close</button>
+        <div>I am a modal</div>
+      </Modal>
+      <p>i'm here</p>
     </ExpandLayout>
   );
 };

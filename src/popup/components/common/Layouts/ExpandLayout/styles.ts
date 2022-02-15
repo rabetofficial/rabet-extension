@@ -21,10 +21,9 @@ export const CardSimple = styled.div`
   border-radius: ${({ theme }) => theme.rounded.main};
 `;
 
-export const QrTrigger = styled.div`
+export const QrTrigger = styled.button`
   font-size: 12px;
   color: ${({ theme }) => theme.colors.primary.dark};
-  cursor: pointer;
 `;
 
 export const AddressBox = styled.div`

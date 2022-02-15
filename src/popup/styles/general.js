@@ -91,7 +91,7 @@ const GeneralStyle = createGlobalStyle`
 
   .ReactModal__Content {
     opacity: 0;
-    transform: translatey(-100px);
+    transform: translatey(-50px);
     transition: all 300ms ease-in-out;
     
     &--after-open {
@@ -101,7 +101,7 @@ const GeneralStyle = createGlobalStyle`
     
     &--before-close {
       opacity: 0;
-      transform: translatey(-100px);
+      transform: translatey(-50px);
     }
   }
 

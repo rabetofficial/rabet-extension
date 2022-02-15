@@ -15,6 +15,7 @@ type AppProps = {
   size?: ModalSize;
   isStyled?: boolean;
   padding?: 'medium' | 'large';
+  minHeight?: number;
   children: React.ReactNode;
 };
 
@@ -25,6 +26,7 @@ const ModalDialog = ({
   size,
   isStyled,
   padding,
+  minHeight,
   children,
 }: AppProps) => {
   const { windowWidth } = useWindowDimensions();
@@ -55,34 +57,40 @@ const ModalDialog = ({
       border: '1px solid rgba(33 35 38, 0.05)',
       margin: 'auto',
       inset: windowWidth < 768 ? '20px' : '40px',
+      minHeight: `${minHeight}px`,
     },
   };
 
+  Modal.setAppElement('#root');
+
   return (
-    <CSSTransition in={isOpen} timeout={500} classNames="dialog">
-      <Modal
-        appElement={document.getElementById('root') as HTMLElement}
-        closeTimeoutMS={300}
-        isOpen={isOpen}
-        style={modalStyles}
-        shouldCloseOnOverlayClick
-        onRequestClose={onClose}
-      >
-        {isStyled ? (
-          <S.Container className={padding}>
-            <div className="flex justify-between items-center">
-              <S.Title className="text-lg font-bold">{title}</S.Title>
-              <button type="button" onClick={onClose}>
-                <Multiply />
-              </button>
-            </div>
-            <S.Content>{children}</S.Content>
-          </S.Container>
-        ) : (
-          children
-        )}
-      </Modal>
-    </CSSTransition>
+    <>
+      {isOpen && (
+        <Modal
+          closeTimeoutMS={300}
+          isOpen={isOpen}
+          style={modalStyles}
+          shouldCloseOnOverlayClick
+          onRequestClose={onClose}
+        >
+          {isStyled ? (
+            <S.Container className={padding}>
+              <div className="flex justify-between items-center">
+                <S.Title className="text-lg font-bold">
+                  {title}
+                </S.Title>
+                <button type="button" onClick={onClose}>
+                  <Multiply />
+                </button>
+              </div>
+              <S.Content>{children}</S.Content>
+            </S.Container>
+          ) : (
+            children
+          )}
+        </Modal>
+      )}
+    </>
   );
 };
 
@@ -91,6 +99,7 @@ ModalDialog.defaultProps = {
   size: 'sm',
   isStyled: true,
   padding: '',
+  minHeight: 100,
 };
 
 export default ModalDialog;
