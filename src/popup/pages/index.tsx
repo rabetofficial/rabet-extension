@@ -16,7 +16,7 @@ import Login from './Login';
 import Error from './Error';
 import Send from './Send';
 import Flags from './Flags';
-import QRCode from './QRCode';
+import QRCode from './extension/Receive';
 import Assets from './Assets';
 import Confirm from './Confirm';
 import Setting from './Setting';
@@ -81,7 +81,9 @@ const App = () => (
           path={RouteName.QRCode}
           element={
             <ProtectedRoute>
-              <QRCode />
+              <DetectSize desktop={<div>Not found</div>}>
+                <QRCode />
+              </DetectSize>
             </ProtectedRoute>
           }
         />
