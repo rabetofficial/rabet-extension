@@ -14,7 +14,7 @@ const SearchAsset = (props: SearchAssetTypes) => {
   const { onSubmit, onCancel } = props;
 
   return (
-    <div>
+    <S.Container>
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit }) => (
@@ -55,7 +55,7 @@ const SearchAsset = (props: SearchAssetTypes) => {
           </form>
         )}
       />
-    </div>
+    </S.Container>
   );
 };
 

@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 
-import Tabs from 'popup/components/common/Tabs';
-import PageTitle from 'popup/components/PageTitle';
+import Tabs from 'popup/components/Tabs';
 import ModalDialog from 'popup/components/common/ModalDialog';
-import { Tab } from 'popup/models';
 import CustomAsset from './CustomAsset';
 import SearchAsset from './SearchAsset';
 
-const AddAsset = () => {
+type AddAssetType = { children: React.ReactNode };
+
+const AddAsset = (props: AddAssetType) => {
+  const { children } = props;
+
   const handleSubmit = () => {
     console.log('hey');
   };
@@ -17,11 +19,11 @@ const AddAsset = () => {
   const [modal, setModal] = useState(false);
   const onOpenModal = () => setModal(true);
   const onCloseModal = () => setModal(false);
-  const tabs: Tab[] = [
+  const tabs = [
     {
       id: '1',
-      title: 'Search Asset',
-      content: (
+      tabTitle: 'Search',
+      tabContent: (
         <SearchAsset
           key="searchAsset"
           onCancel={handleCancel}
@@ -31,8 +33,8 @@ const AddAsset = () => {
     },
     {
       id: '2',
-      title: 'Custom Asset',
-      content: (
+      tabTitle: 'Custom Asset',
+      tabContent: (
         <CustomAsset
           key="customAsset"
           onCancel={handleCancel}
@@ -44,6 +46,7 @@ const AddAsset = () => {
 
   return (
     <div>
+      {children}
       <div>
         <button onClick={onOpenModal}>opennnn</button>
       </div>
@@ -54,7 +57,7 @@ const AddAsset = () => {
         onClose={onCloseModal}
         isOpen={modal}
       >
-        <Tabs data={tabs} isEqualWidth />
+        <Tabs data={tabs} tabTitleStyle={{ fontWeight: 'bold' }} />
       </ModalDialog>
     </div>
   );
