@@ -19,7 +19,8 @@ export const SubmitButton = styled(Button).attrs(
   height: ${(props) => props.size}px;
 
   svg {
-    width: 18px;
+    width: ${(props) => props.iconWidth}px;
+    height: auto;
   }
 `;
 

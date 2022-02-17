@@ -13,6 +13,7 @@ type AppProps = {
   isEditable: boolean;
   setEditable: (value: boolean) => void;
   height: number;
+  checkIconWidth: number;
   fontSize: number;
 };
 
@@ -23,6 +24,7 @@ type FormValues = {
 const EditWalletName = ({
   isEditable,
   setEditable,
+  checkIconWidth,
   height,
   fontSize,
 }: AppProps) => {
@@ -79,6 +81,7 @@ const EditWalletName = ({
                   variant="primary"
                   content={<CheckMark />}
                   size={height}
+                  iconWidth={checkIconWidth}
                 />
               </div>
             </S.Form>

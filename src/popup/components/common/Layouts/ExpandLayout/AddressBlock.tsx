@@ -21,6 +21,7 @@ const AddressBlock = () => {
         isEditable={isEditable}
         setEditable={setEditable}
         height={34}
+        checkIconWidth={18}
         fontSize={14}
       />
       <div className="text-3xl font-medium mt-[15px]">$0</div>
