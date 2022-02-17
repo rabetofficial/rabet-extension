@@ -13,17 +13,10 @@ const AddressBlock = () => {
   const [modal, setModal] = useState(false);
   const onOpenModal = () => setModal(true);
   const onCloseModal = () => setModal(false);
-  const [isEditable, setEditable] = useState(false);
 
   return (
     <S.Card className="pt-[22px] pb-[18px]">
-      <EditWalletName
-        isEditable={isEditable}
-        setEditable={setEditable}
-        height={34}
-        checkIconWidth={18}
-        fontSize={14}
-      />
+      <EditWalletName height={34} checkIconWidth={18} fontSize={14} />
       <div className="text-3xl font-medium mt-[15px]">$0</div>
       <div className="flex justify-between items-center mt-[18px]">
         <div className="text-base font-medium">Your Address</div>

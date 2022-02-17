@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import PenEdit from 'popup/svgs/PenEdit';
@@ -10,8 +10,6 @@ import changeNameAction from 'popup/actions/accounts/changeName';
 import * as S from './styles';
 
 type AppProps = {
-  isEditable: boolean;
-  setEditable: (value: boolean) => void;
   height: number;
   checkIconWidth: number;
   fontSize: number;
@@ -22,13 +20,12 @@ type FormValues = {
 };
 
 const EditWalletName = ({
-  isEditable,
-  setEditable,
   checkIconWidth,
   height,
   fontSize,
 }: AppProps) => {
   const { name, publicKey } = useActiveAccount();
+  const [isEditable, setEditable] = useState(false);
 
   const onSubmit = (values: FormValues) => {
     changeNameAction(values.name, publicKey);
@@ -88,7 +85,7 @@ const EditWalletName = ({
           )}
         />
       ) : (
-        <S.Info fontSize={fontSize}>
+        <S.Info fontSize={fontSize} style={{ height: `${height}px` }}>
           <div>
             {name &&
               (name.length < 13
