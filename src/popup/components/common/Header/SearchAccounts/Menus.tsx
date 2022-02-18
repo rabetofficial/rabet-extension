@@ -1,7 +1,7 @@
 import React from 'react';
 import shortid from 'shortid';
 import { useNavigate } from 'react-router-dom';
-import * as route from 'popup/staticRes/routes';
+import RouteName from 'popup/staticRes/routes';
 import lockAction from 'popup/actions/accounts/lock';
 import Plus from 'popup/svgs/Plus';
 import File from 'popup/svgs/File';
@@ -18,17 +18,17 @@ const Menus = () => {
 
   const buttons = [
     {
-      link: route.createWalletPage,
+      link: RouteName.CreateWallet,
       icon: <Plus />,
       label: 'Create Wallet',
     },
     {
-      link: route.restoreWalletPage,
+      link: RouteName.RestoreWallet,
       icon: <File />,
       label: 'Import Wallet',
     },
     {
-      link: route.settingPage,
+      link: RouteName.Setting,
       icon: <Setting />,
       label: 'Setting',
     },
