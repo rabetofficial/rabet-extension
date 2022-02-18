@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 
 import PlusBold from 'popup/svgs/PlusBold';
-import AssetList from './AssetList';
 import AddAsset from 'popup/pageComponents/NewAddAsset/AddAsset';
+import ModalDialog from 'popup/components/common/ModalDialog';
+import AssetList from './AssetList';
 
 import * as S from './styles';
 
@@ -11,22 +12,24 @@ const AssetBlock = () => {
   const [modal, setModal] = useState(false);
   const onOpenModal = () => setModal(true);
   const onCloseModal = () => setModal(false);
-  const handleClick = () => {
-    modal === true ? (
-      <AddAsset OpenModal={onOpenModal} CloseModal={onCloseModal} />
-    ) : (
-      ''
-    );
-  };
 
   return (
     <S.Card className="pt-[20px]">
       <div className="flex justify-between items-center">
         <div className="text-lg font-medium">Assets</div>
-        <S.AssetTrigger onClick={handleClick}>
+        <S.AssetTrigger onClick={onOpenModal}>
           <PlusBold />
           <div className="ml-1">Add assets</div>
         </S.AssetTrigger>
+        <ModalDialog
+          title="Add asset"
+          size="medium"
+          padding="large"
+          onClose={onCloseModal}
+          isOpen={modal}
+        >
+          <AddAsset />
+        </ModalDialog>
       </div>
       <AssetList />
     </S.Card>

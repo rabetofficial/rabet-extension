@@ -1,24 +1,27 @@
 import React from 'react';
 
+import RouteName from 'popup/staticRes/routes';
+import { useNavigate } from 'react-router-dom';
 import Tabs from 'popup/components/Tabs';
-import ModalDialog from 'popup/components/common/ModalDialog';
 import CustomAsset from './CustomAsset';
 import SearchAsset from './SearchAsset';
 
-type AddAssetType = {
-  children?: React.ReactNode;
-  CloseModal: () => void;
-  OpenModal: any;
-};
+type AddAssetType = { children?: React.ReactNode };
 
 const AddAsset = (props: AddAssetType) => {
-  const { children, CloseModal, OpenModal } = props;
+  const { children } = props;
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
-    console.log('hey');
+    console.log('pls handle this your own');
   };
+
   const handleCancel = () => {
-    console.log('hey');
+    navigate(RouteName.Home, {
+      state: {
+        alreadyLoaded: true,
+      },
+    });
   };
 
   const tabs = [
@@ -50,19 +53,10 @@ const AddAsset = (props: AddAssetType) => {
     <div>
       {children}
 
-      <ModalDialog
-        title="Add asset"
-        size="medium"
-        padding="large"
-        onClose={CloseModal}
-        isOpen={OpenModal}
-      >
-        <Tabs data={tabs} tabTitleStyle={{ fontWeight: 'bold' }} />
-      </ModalDialog>
+      <Tabs data={tabs} tabTitleStyle={{ fontWeight: 'bold' }} />
     </div>
   );
 };
-
 AddAsset.defaultProps = {
   children: '',
 };
