@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Tabs from 'popup/components/Tabs';
 import ModalDialog from 'popup/components/common/ModalDialog';
 import CustomAsset from './CustomAsset';
 import SearchAsset from './SearchAsset';
 
-type AddAssetType = { children: React.ReactNode };
+type AddAssetType = {
+  children?: React.ReactNode;
+  CloseModal: () => void;
+  OpenModal: any;
+};
 
 const AddAsset = (props: AddAssetType) => {
-  const { children } = props;
+  const { children, CloseModal, OpenModal } = props;
 
   const handleSubmit = () => {
     console.log('hey');
@@ -16,9 +20,7 @@ const AddAsset = (props: AddAssetType) => {
   const handleCancel = () => {
     console.log('hey');
   };
-  const [modal, setModal] = useState(false);
-  const onOpenModal = () => setModal(true);
-  const onCloseModal = () => setModal(false);
+
   const tabs = [
     {
       id: '1',
@@ -47,15 +49,13 @@ const AddAsset = (props: AddAssetType) => {
   return (
     <div>
       {children}
-      <div>
-        <button onClick={onOpenModal}>opennnn</button>
-      </div>
+
       <ModalDialog
         title="Add asset"
         size="medium"
         padding="large"
-        onClose={onCloseModal}
-        isOpen={modal}
+        onClose={CloseModal}
+        isOpen={OpenModal}
       >
         <Tabs data={tabs} tabTitleStyle={{ fontWeight: 'bold' }} />
       </ModalDialog>
@@ -63,4 +63,7 @@ const AddAsset = (props: AddAssetType) => {
   );
 };
 
+AddAsset.defaultProps = {
+  children: '',
+};
 export default AddAsset;

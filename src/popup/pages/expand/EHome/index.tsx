@@ -6,7 +6,6 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 import Transactions from 'popup/components/Transactions';
 import { Tab } from 'popup/models';
-import AddAsset from 'popup/pageComponents/NewAddAsset/AddAsset';
 import WalletInfo from 'popup/pages/expand/EHome/WalletInfo';
 
 const EHome = () => {
@@ -18,7 +17,7 @@ const EHome = () => {
   }, []);
 
   const tabs: Tab[] = [
-    { id: 1, title: 'Operation', content: <AddAsset /> },
+    { id: 1, title: 'Operation', content: '1' },
     { id: 2, title: 'Transactions', content: <Transactions /> },
     { id: 3, title: 'Wallet info', content: <WalletInfo /> },
     { id: 4, title: 'Settings', content: '1' },
