@@ -1,10 +1,10 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import * as Icons from 'popup/svgs/TransactionActions';
 
 import * as S from './styles';
-import { Link } from 'react-router-dom';
 
 type TransferTypes = {
   type: 'send' | 'recieve';
