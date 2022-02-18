@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type OptionMode = 'BASIC' | 'ADVANCED';
 
-interface IOption {
+export interface IOption {
   network: string;
   explorer: string;
   currency: string;
