@@ -2,8 +2,11 @@ import React from 'react';
 import { Horizon } from 'stellar-sdk';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 
+import formatCurrency from 'popup/utils/formatCurrency';
 import handleAssetAlt from 'popup/utils/handleAssetAlt';
+import handleAssetPrice from 'popup/utils/handleAssetPrice';
 import handleAssetImage from 'popup/utils/handleAssetImage';
+import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
 
 import * as S from './styles';
 
@@ -12,7 +15,14 @@ type AssetTyp = {
 };
 
 const Asset = ({ asset }: AssetTyp) => {
-  const assetImages = useTypedSelector((store) => store.assetImages);
+  const [assetImages, currencies, options, bids] = useTypedSelector(
+    (store) => [
+      store.assetImages,
+      store.currencies,
+      store.options,
+      store.bids,
+    ],
+  );
 
   let asset_code: string;
 
@@ -42,10 +52,11 @@ const Asset = ({ asset }: AssetTyp) => {
         </div>
         <div className="flex flex-col">
           <div className="text-base font-medium">
-            {asset.balance} {asset_code}
+            {formatCurrency(asset.balance)} {asset_code}
           </div>
           <div className="text-sm text-primary-dark mt-[2px]">
-            $5.256
+            {handleAssetSymbol(currencies, options)}
+            {handleAssetPrice(asset, currencies, options, bids)}
           </div>
         </div>
       </div>
