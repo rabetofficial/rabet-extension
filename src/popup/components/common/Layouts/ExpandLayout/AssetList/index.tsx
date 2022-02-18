@@ -7,17 +7,17 @@ import Asset from './Asset';
 import { Border } from './styles';
 
 const AssetList = () => {
-  const { balances } = useActiveAccount();
+  const { assets } = useActiveAccount();
 
-  if (!balances) {
+  if (!assets) {
     return <NoDate msg="No Assets" />;
   }
 
   return (
     <div>
-      {balances.map((balance, index) => (
+      {assets.map((asset, index) => (
         <Border key={index}>
-          <Asset balance={balance} />
+          <Asset asset={asset} />
         </Border>
       ))}
     </div>

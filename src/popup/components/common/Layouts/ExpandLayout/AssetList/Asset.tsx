@@ -1,23 +1,26 @@
-import { addBalances } from 'popup/reducers/accounts2';
 import React from 'react';
 import { Horizon } from 'stellar-sdk';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
-import sample from '../../../../../../assets/images/stellar-black.png';
+import handleAssetAlt from 'popup/utils/handleAssetAlt';
+import handleAssetImage from 'popup/utils/handleAssetImage';
 
 import * as S from './styles';
 
 type AssetTyp = {
-  balance: Horizon.BalanceLine;
+  asset: Horizon.BalanceLine;
 };
 
-const Asset = ({ balance }: AssetTyp) => {
+const Asset = ({ asset }: AssetTyp) => {
+  const assetImages = useTypedSelector((store) => store.assetImages);
+
   let asset_code: string;
 
   if (
-    balance.asset_type === 'credit_alphanum4' ||
-    balance.asset_type === 'credit_alphanum12'
+    asset.asset_type === 'credit_alphanum4' ||
+    asset.asset_type === 'credit_alphanum12'
   ) {
-    asset_code = balance.asset_code;
+    asset_code = asset.asset_code;
   } else {
     asset_code = 'XLM';
   }
@@ -25,18 +28,21 @@ const Asset = ({ balance }: AssetTyp) => {
   return (
     <div className="flex items-center py-[18px]">
       <S.Circle>
-        <S.Image src={sample} alt="asset" />
+        <S.Image
+          src={handleAssetImage(asset, assetImages)}
+          alt={handleAssetAlt(asset)}
+        />
       </S.Circle>
       <div className="flex justify-between items-center w-full">
         <div className="flex flex-col">
           <div className="text-base font-medium">{asset_code}</div>
           <div className="text-sm text-primary-dark mt-[2px]">
-            XLM
+            {asset_code}
           </div>
         </div>
         <div className="flex flex-col">
           <div className="text-base font-medium">
-            {balance.balance} {asset_code}
+            {asset.balance} {asset_code}
           </div>
           <div className="text-sm text-primary-dark mt-[2px]">
             $5.256
