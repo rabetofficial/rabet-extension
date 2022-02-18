@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
+import bids from './bids';
 import user from './user';
 import host from './host';
 import options from './options';
@@ -10,6 +11,7 @@ import transaction from './transaction';
 import assetImages from './assetImages';
 
 const rootReducer = combineReducers({
+  bids,
   user,
   host,
   options,

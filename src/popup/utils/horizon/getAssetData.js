@@ -1,11 +1,12 @@
 // import fetch from 'node-fetch';
 
-import currentNetwork from './currentNetwork';
+import currentNetwork from '../currentNetwork';
 
 export default async (asset) => {
   try {
-    const accountDetail = await fetch(`${currentNetwork().url}/accounts/${asset.asset_issuer}`)
-      .then((res) => res.json());
+    const accountDetail = await fetch(
+      `${currentNetwork().url}/accounts/${asset.asset_issuer}`,
+    ).then((res) => res.json());
 
     if (accountDetail.status) {
       return {};

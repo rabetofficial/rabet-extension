@@ -2,7 +2,7 @@ import StellarSdk from 'stellar-sdk';
 
 import isNative from '../isNative';
 import BN from '../../../helpers/BN';
-import currentNetwork from '../horizon/currentNetwork';
+import currentNetwork from '../currentNetwork';
 
 const calculatePriceImpact = async (asset1, asset2) => {
   try {
@@ -10,11 +10,17 @@ const calculatePriceImpact = async (asset1, asset2) => {
     let asset2StellarAsset = StellarSdk.Asset.native();
 
     if (!isNative(asset1)) {
-      asset1StellarAsset = new StellarSdk.Asset(asset1.asset_code, asset1.asset_issuer);
+      asset1StellarAsset = new StellarSdk.Asset(
+        asset1.asset_code,
+        asset1.asset_issuer,
+      );
     }
 
     if (!isNative(asset2)) {
-      asset2StellarAsset = new StellarSdk.Asset(asset2.asset_code, asset2.asset_issuer);
+      asset2StellarAsset = new StellarSdk.Asset(
+        asset2.asset_code,
+        asset2.asset_issuer,
+      );
     }
 
     const { url } = currentNetwork();
@@ -34,7 +40,10 @@ const calculatePriceImpact = async (asset1, asset2) => {
     }
 
     if (!isNative(asset1) && isNative(asset2)) {
-      const result = await server.orderbook(asset1StellarAsset, asset2StellarAsset).limit(1).call();
+      const result = await server
+        .orderbook(asset1StellarAsset, asset2StellarAsset)
+        .limit(1)
+        .call();
       if (result.asks.length > 0) {
         return new BN(result.bids[0].price);
       }

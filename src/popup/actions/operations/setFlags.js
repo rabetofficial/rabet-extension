@@ -2,7 +2,7 @@ import StellarSdk from 'stellar-sdk';
 
 import * as route from '../../staticRes/routes';
 import currentActiveAccount from '../../utils/activeAccount';
-import currentNetwork from '../../utils/horizon/currentNetwork';
+import currentNetwork from '../../utils/currentNetwork';
 
 export default async (
   {

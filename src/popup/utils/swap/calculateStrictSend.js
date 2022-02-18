@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import isNative from '../isNative';
-import currentNetwork from '../horizon/currentNetwork';
+import currentNetwork from '../currentNetwork';
 
 const calculateStrictSend = async (values) => {
   const { url: HORIZON_URL } = currentNetwork();
@@ -25,7 +25,10 @@ const calculateStrictSend = async (values) => {
   }
 
   try {
-    const result = await axios.get(`${HORIZON_URL}/paths/strict-send`, { params });
+    const result = await axios.get(
+      `${HORIZON_URL}/paths/strict-send`,
+      { params },
+    );
     const record = result.data._embedded.records[0];
 
     if (!record) {

@@ -3,7 +3,7 @@ import StellarSdk from 'stellar-sdk';
 import RouteName from 'popup/staticRes/routes';
 import changeTrust from 'popup/operations/changeTrust';
 import currentActiveAccount from 'popup/utils/activeAccount';
-import currentNetwork from 'popup/utils/horizon/currentNetwork';
+import currentNetwork from 'popup/utils/currentNetwork';
 
 export default async (assets, push) => {
   push(RouteName.LoadingNetwork);

@@ -5,7 +5,7 @@ import * as route from '../../staticRes/routes';
 import showError from '../../utils/errorMessage';
 import calculatePath from '../../utils/calculatePath';
 import currentActiveAccount from '../../utils/activeAccount';
-import currentNetwork from '../../utils/horizon/currentNetwork';
+import currentNetwork from '../../utils/currentNetwork';
 import pathPaymentStrictSend from '../../operations/pathPaymentStrictSend';
 
 export default async (values, push) => {
@@ -15,7 +15,9 @@ export default async (values, push) => {
   const { url, passphrase } = currentNetwork();
 
   const server = new StellarSdk.Server(url);
-  const sourceKeys = StellarSdk.Keypair.fromSecret(activeAccount.privateKey);
+  const sourceKeys = StellarSdk.Keypair.fromSecret(
+    activeAccount.privateKey,
+  );
 
   let transaction;
 
@@ -58,35 +60,26 @@ export default async (values, push) => {
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push(
-        route.successSubmitPage,
-        {
-          state: {
-            hash: result.hash,
-          },
+      push(route.successSubmitPage, {
+        state: {
+          hash: result.hash,
         },
-      );
+      });
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       if (err && err.response && err.response.data) {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: showError(err.response.data),
-            },
+        push(route.errorPage, {
+          state: {
+            message: showError(err.response.data),
           },
-        );
+        });
       } else {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: 'Operation failed.',
-            },
+        push(route.errorPage, {
+          state: {
+            message: 'Operation failed.',
           },
-        );
+        });
       }
     });
 };

@@ -1,5 +1,5 @@
 import store from 'popup/store';
-import getAccount from 'popup/utils/horizon/getAccount';
+import getAccount from 'popup/api/getAccount';
 import {
   IAccount,
   addBalances,

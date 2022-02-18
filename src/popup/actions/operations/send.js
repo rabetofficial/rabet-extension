@@ -14,7 +14,7 @@ import createAccount from '../../operations/createAccount';
 import manageBuyOffer from '../../operations/manageBuyOffer';
 import * as operationsName from '../../staticRes/operations';
 import currentActiveAccount from '../../utils/activeAccount';
-import currentNetwork from '../../utils/horizon/currentNetwork';
+import currentNetwork from '../../utils/currentNetwork';
 import pathPaymentStrictSend from '../../operations/pathPaymentStrictSend';
 import createPassiveSellOffer from '../../operations/createPassiveSellOffer';
 import pathPaymentStrictReceive from '../../operations/pathPaymentStrictReceive';
@@ -40,7 +40,9 @@ export default async (push) => {
   const { url, passphrase } = currentNetwork();
 
   const server = new StellarSdk.Server(url);
-  const sourceKeys = StellarSdk.Keypair.fromSecret(activeAccount.privateKey);
+  const sourceKeys = StellarSdk.Keypair.fromSecret(
+    activeAccount.privateKey,
+  );
 
   let transaction;
 
@@ -68,7 +70,10 @@ export default async (push) => {
             if (isNative(asset)) {
               stellarAsset = StellarSdk.Asset.native();
             } else {
-              stellarAsset = new StellarSdk.Asset(asset.asset_code, asset.asset_issuer);
+              stellarAsset = new StellarSdk.Asset(
+                asset.asset_code,
+                asset.asset_issuer,
+              );
             }
 
             transaction = transaction.addOperation(
@@ -79,7 +84,9 @@ export default async (push) => {
               }),
             );
           }
-        } else if (operations[i].type === operationsName.bumpSequence) {
+        } else if (
+          operations[i].type === operationsName.bumpSequence
+        ) {
           transaction = transaction.addOperation(
             bumpSequence({
               bumpTo: operations[i].bumpTo,
@@ -92,7 +99,9 @@ export default async (push) => {
               value: operations[i].value,
             }),
           );
-        } else if (operations[i].type === operationsName.accountMerge) {
+        } else if (
+          operations[i].type === operationsName.accountMerge
+        ) {
           transaction = transaction.addOperation(
             accountMerge({
               destination: operations[i].destination,
@@ -106,7 +115,9 @@ export default async (push) => {
               authorize: operations[i].authorize,
             }),
           );
-        } else if (operations[i].type === operationsName.changeTrust) {
+        } else if (
+          operations[i].type === operationsName.changeTrust
+        ) {
           transaction = transaction.addOperation(
             changeTrust({
               limit: operations[i].limit,
@@ -116,7 +127,9 @@ export default async (push) => {
               ),
             }),
           );
-        } else if (operations[i].type === operationsName.setOptionsSigner) {
+        } else if (
+          operations[i].type === operationsName.setOptionsSigner
+        ) {
           transaction = transaction.addOperation(
             StellarSdk.Operation.setOptions({
               signer: {
@@ -125,19 +138,26 @@ export default async (push) => {
               },
             }),
           );
-        } else if (operations[i].type === operationsName.setOptionsSetFlags) {
+        } else if (
+          operations[i].type === operationsName.setOptionsSetFlags
+        ) {
           transaction = transaction.addOperation(
             StellarSdk.Operation.setOptions({
               setFlags: operations[i].setFlags,
             }),
           );
-        } else if (operations[i].type === operationsName.setOptionsInflationDest) {
+        } else if (
+          operations[i].type ===
+          operationsName.setOptionsInflationDest
+        ) {
           transaction = transaction.addOperation(
             StellarSdk.Operation.setOptions({
               inflationDest: operations[i].destination,
             }),
           );
-        } else if (operations[i].type === operationsName.setOptionsThreshold) {
+        } else if (
+          operations[i].type === operationsName.setOptionsThreshold
+        ) {
           transaction = transaction.addOperation(
             StellarSdk.Operation.setOptions({
               lowThreshold: operations[i].low,
@@ -145,25 +165,33 @@ export default async (push) => {
               highThreshold: operations[i].high,
             }),
           );
-        } else if (operations[i].type === operationsName.setOptionsClearFlags) {
+        } else if (
+          operations[i].type === operationsName.setOptionsClearFlags
+        ) {
           transaction = transaction.addOperation(
             StellarSdk.Operation.setOptions({
               clearFlags: operations[i].clearFlags,
             }),
           );
-        } else if (operations[i].type === operationsName.setOptionsHomeDomain) {
+        } else if (
+          operations[i].type === operationsName.setOptionsHomeDomain
+        ) {
           transaction = transaction.addOperation(
             StellarSdk.Operation.setOptions({
               homeDomain: operations[i].homeDomain,
             }),
           );
-        } else if (operations[i].type === operationsName.setOptionsMasterWeight) {
+        } else if (
+          operations[i].type === operationsName.setOptionsMasterWeight
+        ) {
           transaction = transaction.addOperation(
             StellarSdk.Operation.setOptions({
               masterWeight: operations[i].masterWeight,
             }),
           );
-        } else if (operations[i].type === operationsName.manageBuyOffer) {
+        } else if (
+          operations[i].type === operationsName.manageBuyOffer
+        ) {
           let sellingAsset;
           let buyingAsset;
 
@@ -193,14 +221,17 @@ export default async (push) => {
               price: {
                 n: 1 * 10 ** 7,
                 d: Math.round(
-                  (Number(operations[i].buying) / Number(operations[i].selling))
-                  * 10 ** 7,
+                  (Number(operations[i].buying) /
+                    Number(operations[i].selling)) *
+                    10 ** 7,
                 ),
               },
               offerId: operations[i].offerId,
             }),
           );
-        } else if (operations[i].type === operationsName.createPassiveSellOffer) {
+        } else if (
+          operations[i].type === operationsName.createPassiveSellOffer
+        ) {
           let sellingAsset;
           let buyingAsset;
 
@@ -230,13 +261,16 @@ export default async (push) => {
               price: {
                 n: 1 * 10 ** 7,
                 d: Math.round(
-                  (Number(operations[i].selling) / Number(operations[i].buying))
-                  * 10 ** 7,
+                  (Number(operations[i].selling) /
+                    Number(operations[i].buying)) *
+                    10 ** 7,
                 ),
               },
             }),
           );
-        } else if (operations[i].type === operationsName.pathPaymentStrictSend) {
+        } else if (
+          operations[i].type === operationsName.pathPaymentStrictSend
+        ) {
           let sendAsset;
           let destAsset;
           let isOneXLM = false;
@@ -273,8 +307,13 @@ export default async (push) => {
             params.path = [new StellarSdk.Asset.native()];
           }
 
-          transaction = transaction.addOperation(pathPaymentStrictSend(params));
-        } else if (operations[i].type === operationsName.pathPaymentStrictReceive) {
+          transaction = transaction.addOperation(
+            pathPaymentStrictSend(params),
+          );
+        } else if (
+          operations[i].type ===
+          operationsName.pathPaymentStrictReceive
+        ) {
           let sendAsset;
           let destAsset;
           let isOneXLM = false;
@@ -311,12 +350,16 @@ export default async (push) => {
             params.path = [new StellarSdk.Asset.native()];
           }
 
-          transaction = transaction.addOperation(pathPaymentStrictReceive(params));
+          transaction = transaction.addOperation(
+            pathPaymentStrictReceive(params),
+          );
         }
       }
 
       if (memo.checked && memo.text) {
-        transaction = transaction.addMemo(StellarSdk.Memo.text(memo.text));
+        transaction = transaction.addMemo(
+          StellarSdk.Memo.text(memo.text),
+        );
       }
 
       transaction = transaction.setTimeout(180).build();
@@ -326,34 +369,26 @@ export default async (push) => {
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push(
-        route.successSubmitPage,
-        {
-          state: {
-            hash: result.hash,
-          },
+      push(route.successSubmitPage, {
+        state: {
+          hash: result.hash,
         },
-      );
+      });
     })
     .catch((err) => {
       if (err && err.response && err.response.data) {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: showError(err.response.data),
-            },
+        push(route.errorPage, {
+          state: {
+            message: showError(err.response.data),
           },
-        );
+        });
       } else {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: 'One of the operations failed (none were applied).',
-            },
+        push(route.errorPage, {
+          state: {
+            message:
+              'One of the operations failed (none were applied).',
           },
-        );
+        });
       }
     });
 };

@@ -1,6 +1,6 @@
 import store from 'popup/store';
-import toCurrencies from '../../utils/horizon/getCurrencies';
-import { load } from '../../reducers/currencies';
+import { load } from 'popup/reducers/currencies';
+import toCurrencies from 'popup/api/getCurrencies';
 
 export default async (): Promise<void> => {
   const currencies = await toCurrencies();

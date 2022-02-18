@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from 'popup/components/common/Header';
-import QRCode from 'popup/Blocks/QRCode';
+import QRCode from 'popup/pageComponents/QRCode';
 import ExtTitle from 'popup/components/common/Title/Ext';
 
 const Receive = () => (

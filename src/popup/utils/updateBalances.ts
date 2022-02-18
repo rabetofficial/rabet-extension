@@ -1,6 +1,6 @@
 import store from 'popup/store';
 import { updateBalance } from 'popup/reducers/accounts';
-import currentNetwork from './horizon/currentNetwork';
+import currentNetwork from './currentNetwork';
 
 const addressBalance = async (address: string) => {
   try {

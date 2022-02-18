@@ -6,6 +6,7 @@ export interface AssetImage {
   asset_issuer: string;
   logo: string;
   domain: string;
+  is_verified?: string;
 }
 
 const initialState: AssetImage[] = [];
@@ -14,9 +15,8 @@ const assetImagesSlice = createSlice({
   name: 'assetImages',
   initialState,
   reducers: {
-    load: (state, action: PayloadAction<AssetImage[]>) => {
-      state = action.payload;
-    },
+    load: (state, action: PayloadAction<AssetImage[]>) =>
+      action.payload,
   },
 });
 

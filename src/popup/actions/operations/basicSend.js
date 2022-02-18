@@ -6,7 +6,7 @@ import payment from '../../operations/payment';
 import showError from '../../utils/errorMessage';
 import createAccount from '../../operations/createAccount';
 import currentActiveAccount from '../../utils/activeAccount';
-import currentNetwork from '../../utils/horizon/currentNetwork';
+import currentNetwork from '../../utils/currentNetwork';
 
 export default async (values, push) => {
   push(route.loadingNetworkPage);
@@ -15,7 +15,9 @@ export default async (values, push) => {
   const { url, passphrase } = currentNetwork();
 
   const server = new StellarSdk.Server(url);
-  const sourceKeys = StellarSdk.Keypair.fromSecret(activeAccount.privateKey);
+  const sourceKeys = StellarSdk.Keypair.fromSecret(
+    activeAccount.privateKey,
+  );
 
   let transaction;
 
@@ -33,7 +35,10 @@ export default async (values, push) => {
     if (isAssetNative) {
       asset = StellarSdk.Asset.native();
     } else {
-      asset = new StellarSdk.Asset(values.asset.asset_code, values.asset.asset_issuer);
+      asset = new StellarSdk.Asset(
+        values.asset.asset_code,
+        values.asset.asset_issuer,
+      );
     }
 
     op = payment({
@@ -59,34 +64,25 @@ export default async (values, push) => {
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push(
-        route.successSubmitPage,
-        {
-          state: {
-            hash: result.hash,
-          },
+      push(route.successSubmitPage, {
+        state: {
+          hash: result.hash,
         },
-      );
+      });
     })
     .catch((err) => {
       if (err && err.response && err.response.data) {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: showError(err.response.data),
-            },
+        push(route.errorPage, {
+          state: {
+            message: showError(err.response.data),
           },
-        );
+        });
       } else {
-        push(
-          route.errorPage,
-          {
-            state: {
-              message: 'Operation failed.',
-            },
+        push(route.errorPage, {
+          state: {
+            message: 'Operation failed.',
           },
-        );
+        });
       }
     });
 };

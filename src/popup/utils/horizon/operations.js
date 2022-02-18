@@ -1,11 +1,12 @@
 // import fetch from 'node-fetch';
 
-import currentNetwork from './currentNetwork';
+import currentNetwork from '../currentNetwork';
 
 const firstOperation = async (tx) => {
   try {
-    const operationDetail = await fetch(`${currentNetwork().url}/transactions/${tx}/operations`)
-      .then((res) => res.json());
+    const operationDetail = await fetch(
+      `${currentNetwork().url}/transactions/${tx}/operations`,
+    ).then((res) => res.json());
 
     if (operationDetail.status) {
       return false;

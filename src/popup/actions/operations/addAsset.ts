@@ -3,7 +3,7 @@ import StellarSdk from 'stellar-sdk';
 import RouteName from '../../staticRes/routes';
 import changeTrust from '../../operations/changeTrust';
 import currentActiveAccount from '../../utils/activeAccount';
-import currentNetwork from '../../utils/horizon/currentNetwork';
+import currentNetwork from '../../utils/currentNetwork';
 
 export default async ({ code, issuer, limit }, push) => {
   let limitStr;

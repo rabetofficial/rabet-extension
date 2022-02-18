@@ -4,7 +4,7 @@ import EditWalletName from 'popup/components/EditWalletName';
 import CopyText from 'popup/components/common/CopyText';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import ModalDialog from 'popup/components/common/ModalDialog';
-import QRCode from 'popup/Blocks/QRCode';
+import QRCode from 'popup/pageComponents/QRCode';
 
 import * as S from './styles';
 

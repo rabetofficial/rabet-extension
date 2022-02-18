@@ -1,6 +1,6 @@
-import { AccountResponse, Server, Asset } from 'stellar-sdk';
+import { AccountResponse, Server } from 'stellar-sdk';
 
-import currentNetwork from './currentNetwork';
+import currentNetwork from 'popup/utils/currentNetwork';
 
 export type getAccountResult = Promise<AccountResponse | null>;
 
