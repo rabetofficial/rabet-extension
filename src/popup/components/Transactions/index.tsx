@@ -3,12 +3,6 @@ import { OperationsTx, TransferTx, SwapTx } from './Operations';
 
 const Transactions = () => (
   <div>
-    <OperationsTx
-      type="single"
-      operation_name="Manage date"
-      date="1 min ago"
-    />
-    <OperationsTx type="multi" date="1 min ago" />
     <TransferTx
       type="send"
       amount={12}
@@ -21,12 +15,17 @@ const Transactions = () => (
       asset_code="XLM"
       date="1 min ago"
     />
-
     <SwapTx
       amount1={12}
       amount2={12}
       asset_code1="XLM"
       asset_code2="XLM"
+      date="1 min ago"
+    />
+    <OperationsTx type="multi" date="1 min ago" />
+    <OperationsTx
+      type="single"
+      operation_name="Manage date"
       date="1 min ago"
     />
   </div>

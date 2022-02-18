@@ -4,10 +4,12 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 14px 19px 0px 22px;
-  padding-bottom: 14px;
+  padding: 14px 10px 14px 2px;
   border-bottom: 1px solid
     ${({ theme }) => theme.colors.primary.lighter};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.lighter};
+  }
 `;
 export const MainPart = styled.div`
   display: flex;
@@ -29,7 +31,6 @@ export const ImgContainer = styled.div`
 export const DateContainer = styled.div`
   color: ${({ theme }) => theme.colors.primary.dark};
   font-size: 12px;
-  margin-right: 57px;
 `;
 export const TextContainer = styled.div`
   font-size: 14px;

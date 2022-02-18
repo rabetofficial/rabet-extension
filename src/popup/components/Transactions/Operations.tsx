@@ -4,6 +4,7 @@ import React from 'react';
 import * as Icons from 'popup/svgs/TransactionActions';
 
 import * as S from './styles';
+import { Link } from 'react-router-dom';
 
 type TransferTypes = {
   type: 'send' | 'recieve';
@@ -39,11 +40,15 @@ export const TransferTx = (props: TransferTypes) => {
           {type === 'send' ? <Icons.Send /> : <Icons.Recieve />}
         </S.ImgContainer>
         <S.TextContainer>
-          {type === 'send' ? 'Send' : 'Recieve'}
-          {amount} {asset_code}
+          <Link to="./">
+            {type === 'send' ? 'Send ' : 'Recieve '} {amount}{' '}
+            {asset_code}
+          </Link>
         </S.TextContainer>
       </S.MainPart>
-      <S.DateContainer>{date}</S.DateContainer>
+      <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
+        {date}
+      </S.DateContainer>
     </S.Container>
   );
 };
@@ -56,15 +61,19 @@ export const SwapTx = (props: SwapTypes) => {
         <S.ImgContainer>
           <Icons.Swap />
         </S.ImgContainer>
-        <S.TextContainer>
-          Swap {amount1} {asset_code1}
-          <span className="mx-1">
-            <Icons.SwapBack />
-          </span>
-          {amount2} {asset_code2}
-        </S.TextContainer>
+        <Link to="./">
+          <S.TextContainer>
+            Swap {amount1} {asset_code1}
+            <span className="mx-1">
+              <Icons.SwapBack />
+            </span>
+            {amount2} {asset_code2}
+          </S.TextContainer>
+        </Link>
       </S.MainPart>
-      <S.DateContainer>{date}</S.DateContainer>
+      <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
+        {date}
+      </S.DateContainer>
     </S.Container>
   );
 };
@@ -85,10 +94,14 @@ export const OperationsTx = (props: OperationTypes) => {
             <Icons.MultiDots />
           )}
         </S.ImgContainer>
-        <S.TextContainer>{name}</S.TextContainer>
+        <S.TextContainer>
+          <Link to="./">{name}</Link>
+        </S.TextContainer>
       </S.MainPart>
 
-      <S.DateContainer>{date}</S.DateContainer>
+      <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
+        {date}
+      </S.DateContainer>
     </S.Container>
   );
 };
