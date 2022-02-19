@@ -2,9 +2,7 @@ import React, { useState, useRef } from 'react';
 import Modal from 'react-modal';
 
 import ExpandLayout from '../../components/common/Layouts/ExpandLayout';
-import { Tab } from '../../models';
-import QRCode from '../../Blocks/QRCode';
-import ModalDialog from '../../components/common/ModalDialog';
+import ScrollBar from '../../components/common/ScrollBar';
 
 const UITest = () => {
   const [modal, setModal] = useState(false);
@@ -31,6 +29,35 @@ const UITest = () => {
         <div>I am a modal</div>
       </Modal>
       <p>i'm here</p>
+      <ScrollBar isHidden maxWidth={40}>
+        <div
+          style={{
+            width: '50px',
+            background: 'blue',
+            margin: '5px',
+          }}
+        >
+          test
+        </div>
+        <div
+          style={{
+            width: '50px',
+            background: 'blue',
+            margin: '5px',
+          }}
+        >
+          test
+        </div>
+        <div
+          style={{
+            width: '50px',
+            background: 'blue',
+            margin: '5px',
+          }}
+        >
+          test
+        </div>
+      </ScrollBar>
     </ExpandLayout>
   );
 };
