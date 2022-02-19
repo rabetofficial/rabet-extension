@@ -34,34 +34,34 @@ type OperationTypes = SingleOperationTypes | MultiOperationTypes;
 export const TransferTx = (props: TransferTypes) => {
   const { type, asset_code, amount, date } = props;
   return (
-    <S.Container>
-      <S.MainPart>
-        <S.ImgContainer>
-          {type === 'send' ? <Icons.Send /> : <Icons.Recieve />}
-        </S.ImgContainer>
-        <S.TextContainer>
-          <Link to="./">
-            {type === 'send' ? 'Send ' : 'Recieve '} {amount}{' '}
+    <Link to="./">
+      <S.Container>
+        <S.MainPart>
+          <S.ImgContainer>
+            {type === 'send' ? <Icons.Send /> : <Icons.Recieve />}
+          </S.ImgContainer>
+          <S.TextContainer>
+            {type === 'send' ? 'Send ' : 'Recieve '} {amount}
             {asset_code}
-          </Link>
-        </S.TextContainer>
-      </S.MainPart>
-      <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
-        {date}
-      </S.DateContainer>
-    </S.Container>
+          </S.TextContainer>
+        </S.MainPart>
+        <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
+          {date}
+        </S.DateContainer>
+      </S.Container>
+    </Link>
   );
 };
 
 export const SwapTx = (props: SwapTypes) => {
   const { asset_code1, asset_code2, amount1, amount2, date } = props;
   return (
-    <S.Container>
-      <S.MainPart>
-        <S.ImgContainer>
-          <Icons.Swap />
-        </S.ImgContainer>
-        <Link to="./">
+    <Link to="./">
+      <S.Container>
+        <S.MainPart>
+          <S.ImgContainer>
+            <Icons.Swap />
+          </S.ImgContainer>
           <S.TextContainer>
             Swap {amount1} {asset_code1}
             <span className="mx-1">
@@ -69,12 +69,12 @@ export const SwapTx = (props: SwapTypes) => {
             </span>
             {amount2} {asset_code2}
           </S.TextContainer>
-        </Link>
-      </S.MainPart>
-      <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
-        {date}
-      </S.DateContainer>
-    </S.Container>
+        </S.MainPart>
+        <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
+          {date}
+        </S.DateContainer>
+      </S.Container>
+    </Link>
   );
 };
 
@@ -85,23 +85,23 @@ export const OperationsTx = (props: OperationTypes) => {
     name = props.operation_name;
   }
   return (
-    <S.Container>
-      <S.MainPart>
-        <S.ImgContainer>
-          {type === 'single' ? (
-            <Icons.SingleDot />
-          ) : (
-            <Icons.MultiDots />
-          )}
-        </S.ImgContainer>
-        <S.TextContainer>
-          <Link to="./">{name}</Link>
-        </S.TextContainer>
-      </S.MainPart>
+    <Link to="./">
+      <S.Container>
+        <S.MainPart>
+          <S.ImgContainer>
+            {type === 'single' ? (
+              <Icons.SingleDot />
+            ) : (
+              <Icons.MultiDots />
+            )}
+          </S.ImgContainer>
+          <S.TextContainer>{name}</S.TextContainer>
+        </S.MainPart>
 
-      <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
-        {date}
-      </S.DateContainer>
-    </S.Container>
+        <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
+          {date}
+        </S.DateContainer>
+      </S.Container>
+    </Link>
   );
 };
