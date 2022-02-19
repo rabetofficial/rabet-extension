@@ -10,11 +10,11 @@ import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
 
 import * as S from './styles';
 
-type AssetTyp = {
+type AssetType = {
   asset: Horizon.BalanceLine;
 };
 
-const Asset = ({ asset }: AssetTyp) => {
+const Asset = ({ asset }: AssetType) => {
   const [assetImages, currencies, options, bids] = useTypedSelector(
     (store) => [
       store.assetImages,

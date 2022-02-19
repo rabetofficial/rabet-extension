@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Tabs from 'popup/components/Tabs';
 import addAssetAction from 'popup/actions/operations/addAsset';
@@ -12,18 +12,24 @@ type AddAssetType = {
 };
 
 const AddAsset = ({ children, setModal }: AddAssetType) => {
+  const [messageResult, setMessageResult] = useState('');
+
   const handleSubmit = async (values: FormValues) => {
     setModal(false);
 
     // SHOW LOADING NETWORK MODAL
 
-    const [result, message] = await addAssetAction(
+    const [isSuccessful, message] = await addAssetAction(
       values.code,
       values.issuer,
       values.limit,
     );
 
-    if (result) {
+    setMessageResult(message);
+
+    // STOP SHOWING LOADING NETWORK MODAL
+
+    if (isSuccessful) {
       // SHOW SUCCESS MODAL
       // WITH MESSAGE
     } else {
