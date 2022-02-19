@@ -22,7 +22,11 @@ const handleAssetImage = (
       assetImage.asset_issuer === asset.asset_issuer,
   );
 
-  if (assetImageFound) {
+  if (!assetImageFound) {
+    return questionLogo;
+  }
+
+  if (assetImageFound.logo) {
     return assetImageFound.logo;
   }
 
