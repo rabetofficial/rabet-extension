@@ -6,6 +6,7 @@ export const Circle = styled.div`
   justify-content: center;
   width: 44px;
   height: 44px;
+  min-width: 44px;
   border-radius: 50%;
   background-color: #f8f8f8;
   margin-right: 12px;

@@ -50,7 +50,7 @@ const Asset = ({ asset }: AssetTyp) => {
             {asset_code}
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col text-right">
           <div className="text-base font-medium">
             {formatCurrency(asset.balance)} {asset_code}
           </div>
