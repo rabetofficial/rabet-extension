@@ -1,7 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 
-import styles from './styles.less';
+import * as S from './styles';
 
 type NoteProps = {
   children: JSX.Element;
@@ -11,22 +10,20 @@ type NoteProps = {
 
 const Note = ({ children, variant, text }: NoteProps) => {
   if (!text) {
-    return <div className={styles.note}>{children}</div>;
+    return <S.Note>{children}</S.Note>;
   }
 
   return (
-    <div className={classNames(styles.box, styles[`${variant}`])}>
+    <S.Box className={`${variant}`}>
       {variant === 'warn' ? (
-        <span
-          className={classNames(
-            'icon-exclamation-circle',
-            styles.icon,
-          )}
-        />
+        <S.Icon className="icon-exclamation-circle" />
       ) : null}
       <span>{text}</span>
-    </div>
+    </S.Box>
   );
 };
-
+Note.defaultProps = {
+  variant: '',
+  text: '',
+};
 export default Note;

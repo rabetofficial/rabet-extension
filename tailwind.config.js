@@ -14,6 +14,7 @@ module.exports = {
         'primary-darkest': '#000000',
         success: '#26c362',
         error: '#ce3d3d',
+        notice: '#ffeac5',
       },
       boxShadow: {
         base: '0 4px 10px 0 rgba(33, 35, 38, 0.05)',
