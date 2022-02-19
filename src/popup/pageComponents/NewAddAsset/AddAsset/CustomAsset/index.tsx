@@ -1,23 +1,78 @@
 import React from 'react';
+import { StrKey } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
+import assetExists from 'popup/api/assetExists';
 import Input from 'popup/components/common/Input';
-import Button from 'popup/components/common/Button';
 import Error from 'popup/components/common/Error';
+import Button from 'popup/components/common/Button';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 
 import * as S from './styles';
 
+export type FormValues = {
+  code: string;
+  issuer: string;
+  limit?: string;
+};
+
 type CustomAssetTypes = {
-  onSubmit: () => void;
+  onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
   onCancel: () => void;
 };
-const CustomAsset = (props: CustomAssetTypes) => {
-  const { onSubmit, onCancel } = props;
+
+const CustomAsset = ({ onSubmit, onCancel }: CustomAssetTypes) => {
+  const account = useActiveAccount();
+  const assets = account.assets || [];
+
+  const validateForm = async (values: FormValues) => {
+    const errors: Partial<FormValues> = {};
+    let hasError = false;
+
+    if (!values.code) {
+      errors.code = '';
+      hasError = true;
+    }
+
+    if (!values.issuer) {
+      errors.issuer = '';
+      hasError = true;
+    } else if (!StrKey.isValidEd25519PublicKey(values.issuer)) {
+      errors.issuer = 'Invalid issuer.';
+      hasError = true;
+    }
+
+    if (!hasError) {
+      const foundAsset = assets?.find(
+        (x) =>
+          (x.asset_type === 'credit_alphanum12' ||
+            x.asset_type === 'credit_alphanum4') &&
+          x.asset_code === values.code &&
+          x.asset_issuer === values.issuer,
+      );
+
+      if (foundAsset) {
+        errors.code = 'Asset is already added.';
+      }
+
+      const assetExistsResult = await assetExists(
+        values.code,
+        values.issuer,
+      );
+
+      if (!assetExistsResult) {
+        errors.code = 'Asset not found.';
+      }
+    }
+
+    return errors;
+  };
 
   return (
     <S.Container>
       <Form
         onSubmit={onSubmit}
+        validate={validateForm}
         render={({
           submitError,
           handleSubmit,

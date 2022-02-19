@@ -28,7 +28,7 @@ const AssetBlock = () => {
           onClose={onCloseModal}
           isOpen={modal}
         >
-          <AddAsset />
+          <AddAsset setModal={setModal} />
         </ModalDialog>
       </div>
       <AssetList />

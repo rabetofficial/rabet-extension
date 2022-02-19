@@ -19,12 +19,12 @@ const AssetList = (props: AssetsListTypes) => {
     store.currencies,
   ]);
 
-  const activeAccount = useActiveAccount();
-  const { balances } = activeAccount;
+  const account = useActiveAccount();
+  const { balances } = account;
 
   useEffect(() => {
     getAssetsImages(balances || []).then((result: any) => {
-      loadAssetImagesAction(result, activeAccount.publicKey);
+      loadAssetImagesAction(result, account.publicKey);
     });
   }, []);
 

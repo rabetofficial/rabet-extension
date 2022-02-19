@@ -1,69 +1,49 @@
-import StellarSdk from 'stellar-sdk';
+import {
+  Asset,
+  Server,
+  Keypair,
+  TransactionBuilder,
+  Operation,
+} from 'stellar-sdk';
 
-import RouteName from '../../staticRes/routes';
-import changeTrust from '../../operations/changeTrust';
-import currentActiveAccount from '../../utils/activeAccount';
-import currentNetwork from '../../utils/currentNetwork';
+import currentNetwork from 'popup/utils/currentNetwork';
+import getActiveAccount from 'popup/utils/activeAccount';
+import config from '../../../config';
 
-export default async ({ code, issuer, limit }, push) => {
-  let limitStr;
-
-  if (limit) {
-    limitStr = limit.toString();
-  }
-
-  push(RouteName.LoadingNetwork);
-
-  const { activeAccount } = currentActiveAccount();
+export default async (
+  code: string,
+  issuer: string,
+  limit?: string,
+) => {
+  const { activeAccount: account } = getActiveAccount();
   const { url, passphrase } = currentNetwork();
 
-  const server = new StellarSdk.Server(url);
-  const sourceKeys = StellarSdk.Keypair.fromSecret(
-    activeAccount.privateKey,
-  );
+  const server = new Server(url);
+  const sourceKeys = Keypair.fromSecret(account.privateKey);
 
-  let transaction;
+  try {
+    const sourceAccount = await server.loadAccount(
+      sourceKeys.publicKey(),
+    );
 
-  server
-    .loadAccount(issuer)
-    .catch(() => {
-      push(RouteName.Error, {
-        state: {
-          message: 'ERROR. The issuer account does not exist.',
-        },
-      });
+    const transaction = new TransactionBuilder(sourceAccount, {
+      fee: config.BASE_FEE,
+      networkPassphrase: passphrase,
     })
-    .then(() => server.loadAccount(sourceKeys.publicKey()))
-    .then((sourceAccount) => {
-      transaction = new StellarSdk.TransactionBuilder(sourceAccount, {
-        fee: StellarSdk.BASE_FEE,
-        networkPassphrase: passphrase,
-      })
-        .addOperation(
-          changeTrust({
-            limit: limitStr,
-            asset: new StellarSdk.Asset(code, issuer),
-          }),
-        )
-        .setTimeout(180)
-        .build();
+      .addOperation(
+        Operation.changeTrust({
+          limit,
+          asset: new Asset(code, issuer),
+        }),
+      )
+      .setTimeout(180)
+      .build();
 
-      transaction.sign(sourceKeys);
+    transaction.sign(sourceKeys);
+    const result = await server.submitTransaction(transaction);
 
-      return server.submitTransaction(transaction);
-    })
-    .then((result) => {
-      push(RouteName.Sucess, {
-        state: {
-          hash: result.hash,
-        },
-      });
-    })
-    .catch((err) => {
-      push(RouteName.Error, {
-        state: {
-          message: err.message,
-        },
-      });
-    });
+    return [true, result.hash];
+  } catch (err) {
+    return [false, err.message];
+  }
 };

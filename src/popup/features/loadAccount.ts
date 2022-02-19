@@ -2,7 +2,7 @@ import store from 'popup/store';
 import getAccount from 'popup/api/getAccount';
 import {
   IAccount,
-  addBalances,
+  addAssets,
   addFlags,
 } from 'popup/reducers/accounts2';
 
@@ -30,7 +30,7 @@ const loadAccount = async (account: IAccount) => {
   }
 
   store.dispatch(
-    addBalances({
+    addAssets({
       publicKey: account.publicKey,
       assets,
     }),

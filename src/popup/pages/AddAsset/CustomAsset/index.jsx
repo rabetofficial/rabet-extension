@@ -6,7 +6,7 @@ import { Form, Field } from 'react-final-form';
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import * as route from '../../../staticRes/routes';
-import assetExists from '../../../utils/horizon/assetExists';
+import assetExists from '../../../api/assetExists';
 import validateAddress from '../../../utils/validate/address';
 import addAssetAction from '../../../actions/operations/addAsset';
 import currentActiveAccount from '../../../utils/activeAccount';
@@ -53,7 +53,9 @@ const CustomAsset = () => {
       const { balances } = activeAccount;
 
       const findAsset = balances.find(
-        (x) => x.asset_code === values.code && x.asset_issuer === values.issuer,
+        (x) =>
+          x.asset_code === values.code &&
+          x.asset_issuer === values.issuer,
       );
 
       if (findAsset) {
@@ -130,7 +132,10 @@ const CustomAsset = () => {
                 <div className="group">
                   <label className="label-primary">
                     Limit
-                    <span className="label-optional"> (optional)</span>
+                    <span className="label-optional">
+                      {' '}
+                      (optional)
+                    </span>
                   </label>
                   <Input
                     type="number"
@@ -143,22 +148,26 @@ const CustomAsset = () => {
               )}
             </Field>
 
-            {submitError && <div className="error">{submitError}</div>}
+            {submitError && (
+              <div className="error">{submitError}</div>
+            )}
 
-            <div className={classNames('pure-g justify-end', styles.buttons)}>
+            <div
+              className={classNames(
+                'pure-g justify-end',
+                styles.buttons,
+              )}
+            >
               <Button
                 variant="btn-default"
                 size="btn-medium"
                 content="Cancel"
                 onClick={() => {
-                  navigate(
-                    route.homePage,
-                    {
-                      state: {
-                        alreadyLoaded: true,
-                      },
+                  navigate(route.homePage, {
+                    state: {
+                      alreadyLoaded: true,
                     },
-                  );
+                  });
                 }}
               />
 

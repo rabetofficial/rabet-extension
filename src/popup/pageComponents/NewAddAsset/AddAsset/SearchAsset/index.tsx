@@ -6,17 +6,27 @@ import Button from 'popup/components/common/Button';
 
 import * as S from './styles';
 
+export type FormValues = {
+  token: string;
+};
+
 type SearchAssetTypes = {
   onSubmit: () => void;
   onCancel: () => void;
 };
-const SearchAsset = (props: SearchAssetTypes) => {
-  const { onSubmit, onCancel } = props;
+
+const SearchAsset = ({ onSubmit, onCancel }: SearchAssetTypes) => {
+  const validateForm = (values: FormValues) => {
+    console.log(values);
+
+    return {};
+  };
 
   return (
     <S.Container>
       <Form
         onSubmit={onSubmit}
+        validate={validateForm}
         render={({ handleSubmit }) => (
           <form
             className="form"
