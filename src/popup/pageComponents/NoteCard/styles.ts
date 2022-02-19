@@ -1,6 +1,14 @@
-@import '../../styles/theme.less';
+import styled from 'styled-components';
 
-:local(.iconContainer) {
+export const Title = styled.h1`
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+`;
+
+export const IconContainer = styled.span`
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -8,19 +16,11 @@
   align-items: center;
   justify-content: center;
   margin-right: 14px;
-}
+`;
 
-:local(.title) {
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 0;
-  display: flex;
-  align-items: center;
-}
-
-:local(.msg) {
+export const Msg = styled.p`
   font-size: 16px;
-  color: @dove-gray;
+  color: ${({ theme }) => theme.colors.primary.dark};
   line-height: 1.5;
   word-break: break-word;
   margin-top: 18px;
@@ -30,9 +30,9 @@
     font-size: 16px;
     cursor: pointer;
   }
-}
+`;
 
-:local(.btn) {
+export const Btn = styled.div`
   font-weight: bold;
   width: 96px;
-}
+`;

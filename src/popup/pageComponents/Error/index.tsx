@@ -17,7 +17,7 @@ const Error = ({ handleClick, error }: ErrorProps) => (
       btnText="Got it"
       icon="icon-exclamation-triangle"
       iconClass={styles.icon}
-      handleClick={handleClick}
+      onClick={handleClick}
     />
   </div>
 );
