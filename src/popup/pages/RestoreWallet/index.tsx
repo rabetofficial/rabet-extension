@@ -2,17 +2,13 @@ import React from 'react';
 
 import Logo from 'popup/components/Logo';
 import Layout from 'popup/components/Layout';
-
-import TabList from './TabList';
-
-import * as S from './styles';
+import RestoreWalletComponent from 'popup/pageComponents/RestoreWallet';
 
 const RestoreWallet = () => (
   <Layout isDashboard={false}>
-    <Logo />
-    <S.TabContainer>
-      <TabList />
-    </S.TabContainer>
+    <RestoreWalletComponent>
+      <Logo />
+    </RestoreWalletComponent>
   </Layout>
 );
 

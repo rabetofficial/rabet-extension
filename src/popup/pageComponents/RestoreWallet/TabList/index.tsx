@@ -9,7 +9,12 @@ const TabList = () => {
     {
       id: '1',
       tabTitle: 'Private key',
-      tabContent: <PrivateKey />,
+      tabContent: (
+        <PrivateKey
+          onCancel={() => console.log('hi')}
+          onSubmit={() => console.log('hi')}
+        />
+      ),
     },
     {
       id: '2',

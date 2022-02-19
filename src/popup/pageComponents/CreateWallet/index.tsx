@@ -8,18 +8,25 @@ import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
 import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
-import validatePrivateKey from 'popup/utils/validate/privateKey';
-import restoreAccountAction from 'popup/actions/accounts/restore';
+import createAccountAction from 'popup/actions/accounts/create';
 
 import * as S from './styles';
 
 type FormValues = {
-  key: string;
+  name: string;
 };
 
-type PrivateKeyType = { onCancel: () => void; onSubmit: () => void };
+type CreateWalletType = {
+  children?: React.ReactNode;
+  onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
+  onCancel: () => void;
+};
 
-const PrivateKey = ({ onCancel, onSubmit }: PrivateKeyType) => {
+const CreateWallet = ({
+  children,
+  onCancel,
+  onSubmit,
+}: CreateWalletType) => {
   const navigate = useNavigate();
   const accounts = useTypedSelector((store) => store.accounts);
 
@@ -38,38 +45,22 @@ const PrivateKey = ({ onCancel, onSubmit }: PrivateKeyType) => {
   // };
 
   // const onSubmit = async (values: FormValues) => {
-  //   if (!validatePrivateKey(values.key)) {
-  //     return { key: 'Invalid private key.' };
-  //   }
+  //   const isDone = await createAccountAction(values.name);
 
-  //   const isDuplicated = accounts.some(
-  //     (x) => x.privateKey === values.key,
-  //   );
-
-  //   if (isDuplicated) {
-  //     return { key: 'Account is duplicated.' };
-  //   }
-
-  //   const account = await restoreAccountAction(values.key);
-
-  //   if (account === 'duplicate') {
+  //   if (!isDone) {
   //     return {
-  //       key: "The account you're trying to import is a duplicate.",
+  //       name: 'Error.',
   //     };
   //   }
 
-  //   if (!account) {
-  //     return { key: 'Invalid seed.' };
-  //   }
-
-  //   return navigate(RouteName.Home);
+  //   return navigate(RouteName.BackupFile);
   // };
 
   const validateForm = (values: FormValues) => {
-    const errors = {} as FormValues;
+    const errors: Partial<FormValues> = {};
 
-    if (!values.key) {
-      errors.key = '';
+    if (!values.name) {
+      errors.name = '';
     }
 
     return errors;
@@ -77,23 +68,24 @@ const PrivateKey = ({ onCancel, onSubmit }: PrivateKeyType) => {
 
   return (
     <div>
+      {children}
       <Form
         onSubmit={onSubmit}
-        validate={validateForm}
+        validate={(values: FormValues) => validateForm(values)}
         render={({ submitError, handleSubmit, form, pristine }) => (
           <form
             className="form"
             onSubmit={handleSubmit}
             autoComplete="off"
           >
-            <Field name="key">
+            <Field name="name">
               {({ input, meta }) => (
                 <S.InputContainer>
-                  <label className="label-primary">Private key</label>
+                  <label className="label-primary">Wallet name</label>
                   <Input
                     type="text"
                     size="medium"
-                    placeholder="Private key"
+                    placeholder="John"
                     input={input}
                     meta={meta}
                     autoFocus
@@ -109,9 +101,10 @@ const PrivateKey = ({ onCancel, onSubmit }: PrivateKeyType) => {
                 type="submit"
                 variant="primary"
                 size="medium"
-                content="Import"
+                content="Create"
                 disabled={pristine}
               />
+
               <Button
                 style={{ marginTop: '12px' }}
                 variant="default"
@@ -128,4 +121,8 @@ const PrivateKey = ({ onCancel, onSubmit }: PrivateKeyType) => {
   );
 };
 
-export default PrivateKey;
+CreateWallet.defaultProps = {
+  children: '',
+};
+
+export default CreateWallet;

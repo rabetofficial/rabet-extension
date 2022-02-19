@@ -1,31 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import shortid from 'shortid';
 import { useNavigate } from 'react-router-dom';
-import RouteName from 'popup/staticRes/routes';
+import RouteName, { restoreWalletPage } from 'popup/staticRes/routes';
 import lockAction from 'popup/actions/accounts/lock';
 import Plus from 'popup/svgs/Plus';
 import File from 'popup/svgs/File';
 import Setting from 'popup/svgs/Setting';
 import Lock from 'popup/svgs/Lock';
+import ModalDialog from 'popup/components/common/ModalDialog';
+import CreateWallet from 'popup/pageComponents/CreateWallet';
 
 import * as S from './styles';
 
 const Menus = () => {
   const navigate = useNavigate();
+
   const handleLock = () => {
     lockAction(navigate);
+  };
+  const handleCreateModal = () => {
+    const [modal, setModal] = useState(false);
+    const onOpenModal = () => setModal(true);
+    const onCloseModal = () => setModal(false);
+    return (
+      <ModalDialog
+        title="Add asset"
+        size="medium"
+        padding="large"
+        onClose={onCloseModal}
+        isOpen={modal}
+      >
+        <CreateWallet
+          onSubmit={() => console.log('deal with this')}
+          onCancel={() => console.log('deal with this')}
+        />
+      </ModalDialog>
+    );
+  };
+  const handleImportModal = () => {
+    const [modal, setModal] = useState(false);
+    const onOpenModal = () => setModal(true);
+    const onCloseModal = () => setModal(false);
+    return (
+      <ModalDialog
+        title="Add asset"
+        size="medium"
+        padding="large"
+        onClose={onCloseModal}
+        isOpen={modal}
+      >
+        <CreateWallet
+          onSubmit={() => console.log('deal with this')}
+          onCancel={() => console.log('deal with this')}
+        />
+      </ModalDialog>
+    );
   };
 
   const buttons = [
     {
-      link: RouteName.CreateWallet,
+      link: '#',
       icon: <Plus />,
       label: 'Create Wallet',
+      onClick: handleCreateModal,
     },
     {
-      link: RouteName.RestoreWallet,
+      link: '#',
       icon: <File />,
       label: 'Import Wallet',
+      onClick: handleImportModal,
     },
     {
       link: RouteName.Setting,
