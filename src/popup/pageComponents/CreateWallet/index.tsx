@@ -1,18 +1,14 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
-import { useNavigate } from 'react-router-dom';
 
 import ArrowBack from 'popup/svgs/ArrowBack';
-import RouteName from 'popup/staticRes/routes';
 import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
 import Button from 'popup/components/common/Button';
-import useTypedSelector from 'popup/hooks/useTypedSelector';
-import createAccountAction from 'popup/actions/accounts/create';
 
 import * as S from './styles';
 
-type FormValues = {
+export type FormValues = {
   name: string;
 };
 
@@ -27,35 +23,6 @@ const CreateWallet = ({
   onCancel,
   onSubmit,
 }: CreateWalletType) => {
-  const navigate = useNavigate();
-  const accounts = useTypedSelector((store) => store.accounts);
-
-  // const handleCancel = (form: any) => {
-  //   form.reset();
-
-  //   if (accounts.length) {
-  //     return navigate(RouteName.Home, {
-  //       state: {
-  //         alreadyLoaded: true,
-  //       },
-  //     });
-  //   }
-
-  //   return navigate(RouteName.First);
-  // };
-
-  // const onSubmit = async (values: FormValues) => {
-  //   const isDone = await createAccountAction(values.name);
-
-  //   if (!isDone) {
-  //     return {
-  //       name: 'Error.',
-  //     };
-  //   }
-
-  //   return navigate(RouteName.BackupFile);
-  // };
-
   const validateForm = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
 
@@ -72,7 +39,7 @@ const CreateWallet = ({
       <Form
         onSubmit={onSubmit}
         validate={(values: FormValues) => validateForm(values)}
-        render={({ submitError, handleSubmit, form, pristine }) => (
+        render={({ submitError, handleSubmit, pristine }) => (
           <form
             className="form"
             onSubmit={handleSubmit}

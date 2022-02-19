@@ -11,6 +11,8 @@ import { Border } from './styles';
 const AssetList = () => {
   const { assets } = useActiveAccount();
 
+  console.log(assets);
+
   if (!assets) {
     return <NoDate msg="No Assets" />;
   }

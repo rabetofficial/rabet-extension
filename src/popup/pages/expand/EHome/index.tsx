@@ -20,7 +20,7 @@ const EHome = () => {
       loadBids();
       loadAssetImages();
     });
-  }, []);
+  }, [activeAccount.publicKey]);
 
   const tabs: Tab[] = [
     { id: 1, title: 'Operation', content: '1' },
