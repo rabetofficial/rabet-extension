@@ -13,11 +13,11 @@ import loadUser from './actions/user/loadUser';
 import getHost from './actions/options/getHost';
 
 import 'react-slideshow-image/dist/styles.css';
-import '../../node_modules/purecss/build/pure-min.css';
-import '../../node_modules/react-popper-tooltip/dist/styles.css';
-import '../../node_modules/tippy.js/dist/svg-arrow.css';
-import '../../node_modules/tippy.js/animations/scale.css';
-import '../../node_modules/tippy.js/animations/shift-away.css';
+import 'purecss/build/pure-min.css';
+import 'react-popper-tooltip/dist/styles.css';
+import 'tippy.js/dist/svg-arrow.css';
+import 'tippy.js/animations/scale.css';
+import 'tippy.js/animations/shift-away.css';
 import './styles/main.css';
 import './styles/font.css';
 import theme from './styles/theme';
