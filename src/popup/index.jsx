@@ -19,8 +19,9 @@ import '../../node_modules/tippy.js/dist/svg-arrow.css';
 import '../../node_modules/tippy.js/animations/scale.css';
 import '../../node_modules/tippy.js/animations/shift-away.css';
 import './styles/main.css';
+import './styles/font.css';
 import theme from './styles/theme';
-import Styles from './styles';
+import Global from './styles/global';
 
 require('file-loader?name=[name].[ext]!./popup.html');
 
@@ -31,7 +32,7 @@ require('file-loader?name=[name].[ext]!./popup.html');
   render(
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Styles theme={theme} />
+        <Global theme={theme} />
         <Component />
       </ThemeProvider>
     </Provider>,
