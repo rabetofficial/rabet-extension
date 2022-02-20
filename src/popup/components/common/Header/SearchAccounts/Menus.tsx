@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import shortid from 'shortid';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RouteName from 'popup/staticRes/routes';
 import lockAction from 'popup/actions/accounts/lock';
@@ -20,7 +19,19 @@ import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 import * as S from './styles';
 
-const Menus = () => {
+type AppProps = {
+  usage: 'extension' | 'expand' | undefined;
+};
+
+type Menu = {
+  id: number;
+  link: string;
+  icon: React.ReactNode;
+  label: string;
+  onClick?: () => void;
+};
+
+const Menus = ({ usage }: AppProps) => {
   const navigate = useNavigate();
   const accounts = useTypedSelector((store) => store.accounts);
 
@@ -31,6 +42,8 @@ const Menus = () => {
   const [modal2, setModal2] = useState(false);
   const onOpenModal2 = () => setModal2(true);
   const onCloseModal2 = () => setModal2(false);
+
+  const [menuItems, setMenuItems] = useState<Menu[]>([]);
 
   const handleLock = () => {
     lockAction(navigate);
@@ -91,31 +104,45 @@ const Menus = () => {
     return {};
   };
 
-  const buttons = [
+  const menus: Menu[] = [
     {
+      id: 1,
       link: '#',
       icon: <Plus />,
       label: 'Create Wallet',
       onClick: onOpenModal1,
     },
     {
+      id: 2,
       link: '#',
       icon: <File />,
       label: 'Import Wallet',
       onClick: onOpenModal2,
     },
-    {
-      link: RouteName.Setting,
-      icon: <Setting />,
-      label: 'Setting',
-    },
-    {
-      link: '#',
-      icon: <Lock />,
-      label: 'Lock',
-      onClick: handleLock,
-    },
   ];
+
+  const settingMenu: Menu = {
+    id: 3,
+    link: RouteName.Setting,
+    icon: <Setting />,
+    label: 'Setting',
+  };
+
+  const lockMenu: Menu = {
+    id: 4,
+    link: '#',
+    icon: <Lock />,
+    label: 'Lock',
+    onClick: handleLock,
+  };
+
+  useEffect(() => {
+    if (usage === 'expand') {
+      setMenuItems([...menus, lockMenu]);
+    } else {
+      setMenuItems([...menus, settingMenu, lockMenu]);
+    }
+  }, [usage]);
 
   return (
     <>
@@ -145,9 +172,9 @@ const Menus = () => {
       </ModalDialog>
       <div>
         <S.Group>
-          {buttons.map((item) => (
+          {menuItems.map((item: Menu) => (
             <S.GroupLink
-              key={shortid.generate()}
+              key={item.id}
               to={item.link}
               onClick={item.onClick}
             >

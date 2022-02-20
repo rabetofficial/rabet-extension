@@ -29,6 +29,7 @@ const HeaderBlock = () => {
           <SearchAccounts
             toggleOverlay={toggleOverlay}
             isOpen={overlay}
+            usage="expand"
           />
         </div>
       </div>

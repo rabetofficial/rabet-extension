@@ -18,6 +18,7 @@ type AppProps = {
   accounts: any;
   options: any;
   currencies: any;
+  usage: 'extension' | 'expand' | undefined;
   [x: string]: any;
 };
 
@@ -26,6 +27,7 @@ const SearchAccounts = ({
   accounts: accs,
   options: o,
   currencies,
+  usage,
   ...props
 }: AppProps) => {
   const activeCurrency = currencies[o.currency] || {
@@ -114,7 +116,7 @@ const SearchAccounts = ({
 
           <AccountList accounts={accounts} />
 
-          <Menus />
+          <Menus usage={usage} />
         </S.Card>
       </Popover>
     </>
