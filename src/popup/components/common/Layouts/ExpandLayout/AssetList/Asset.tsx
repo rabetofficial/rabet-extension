@@ -1,12 +1,13 @@
 import React from 'react';
 import { Horizon } from 'stellar-sdk';
-import useTypedSelector from 'popup/hooks/useTypedSelector';
 
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 import formatCurrency from 'popup/utils/formatCurrency';
 import handleAssetAlt from 'popup/utils/handleAssetAlt';
 import handleAssetPrice from 'popup/utils/handleAssetPrice';
 import handleAssetImage from 'popup/utils/handleAssetImage';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
+import questionIcon from '../../../../../../assets/images/question-circle.png';
 
 import * as S from './styles';
 
@@ -35,12 +36,20 @@ const Asset = ({ asset }: AssetType) => {
     asset_code = 'XLM';
   }
 
+  const imageOnErrorHandler = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>,
+  ) => {
+    const target = event.target as HTMLImageElement;
+    target.src = `${questionIcon}`;
+  };
+
   return (
     <div className="flex items-center py-[18px]">
       <S.Circle>
         <S.Image
           src={handleAssetImage(asset, assetImages)}
           alt={handleAssetAlt(asset)}
+          onError={imageOnErrorHandler}
         />
       </S.Circle>
       <div className="flex justify-between items-center w-full">
