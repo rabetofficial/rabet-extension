@@ -11,14 +11,14 @@ export const Container = styled.div`
 
 export const Card = styled.div`
   background-color: white;
-  border-radius: ${({ theme }) => theme.rounded.main};
   padding-right: 20px;
   padding-left: 20px;
+  box-shadow: 0 2px 10px 0 rgba(134, 146, 164, 0.05);
 `;
 
 export const CardSimple = styled.div`
   background-color: white;
-  border-radius: ${({ theme }) => theme.rounded.main};
+  box-shadow: 0 2px 10px 0 rgba(134, 146, 164, 0.05);
 `;
 
 export const QrTrigger = styled.button`

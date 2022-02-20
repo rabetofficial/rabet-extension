@@ -15,7 +15,7 @@ const AddressBlock = () => {
   const onCloseModal = () => setModal(false);
 
   return (
-    <S.Card className="pt-[22px] pb-[18px]">
+    <S.Card className="rounded pt-[22px] pb-[18px]">
       <EditWalletName height={34} checkIconWidth={18} fontSize={14} />
       <div className="text-3xl font-medium mt-[15px]">$0</div>
       <div className="flex justify-between items-center mt-[18px]">
