@@ -45,7 +45,7 @@ export const SearchIcon = styled.div`
   svg {
     position: absolute;
     top: 11px;
-    left: 16.5px;
+    left: 18px;
   }
 `;
 
