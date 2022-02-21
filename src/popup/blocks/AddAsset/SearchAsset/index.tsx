@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,13 +14,18 @@ import addMultipleAssets from 'popup/actions/operations/addMultipleAssets';
 import isEmpty from '../../../../helpers/isEmpty';
 import AssetList from './AssetList';
 
-import * as S from './styles';
+import ResultTitle from './styles';
 
 type FormValues = {
   token: string;
 };
 
-const SearchAsset = ({ options }) => {
+type AppProps = {
+  onCancel: () => void;
+};
+
+const SearchAsset = ({ onCancel }: AppProps) => {
+  const options = useSelector((store) => store.options);
   const navigate = useNavigate();
   const [list, setList] = useState([]);
   const [value, setValue] = useState('');
@@ -30,7 +35,7 @@ const SearchAsset = ({ options }) => {
     addMultipleAssets(selectedList, navigate);
   };
 
-  const setActive = (index) => {
+  const setActive = (index: number) => {
     if (selectedList.some((x) => matchAsset(x, list[index]))) {
       const newSelectedList = selectedList.filter(
         (x) => x.asset_issuer !== list[index].asset_issuer,
@@ -79,12 +84,19 @@ const SearchAsset = ({ options }) => {
     }
   };
 
+  const onCancelSearch = () => {
+    navigate(route.homePage, {
+      state: {
+        alreadyLoaded: true,
+      },
+    });
+    onCancel();
+  };
+
   return (
     <Form
       onSubmit={onSubmit}
-      validate={(values: FormValues) => {
-        validateForm(values);
-      }}
+      validate={(values: FormValues) => validateForm(values)}
       render={({ handleSubmit }) => (
         <form
           className="form"
@@ -107,8 +119,8 @@ const SearchAsset = ({ options }) => {
           </Field>
 
           {!isEmpty(list) ? (
-            <div>
-              <S.ResultTitle>Search result</S.ResultTitle>
+            <>
+              <ResultTitle>Search result</ResultTitle>
               <AssetList
                 list={list}
                 setActive={setActive}
@@ -120,13 +132,7 @@ const SearchAsset = ({ options }) => {
                   variant="default"
                   size="medium"
                   content="Cancel"
-                  onClick={() => {
-                    navigate(route.homePage, {
-                      state: {
-                        alreadyLoaded: true,
-                      },
-                    });
-                  }}
+                  onClick={onCancelSearch}
                 />
 
                 <Button
@@ -137,7 +143,7 @@ const SearchAsset = ({ options }) => {
                   disabled={!selectedList.length}
                 />
               </ButtonContainer>
-            </div>
+            </>
           ) : null}
         </form>
       )}
@@ -145,6 +151,4 @@ const SearchAsset = ({ options }) => {
   );
 };
 
-export default connect((state) => ({
-  options: state.options,
-}))(SearchAsset);
+export default SearchAsset;

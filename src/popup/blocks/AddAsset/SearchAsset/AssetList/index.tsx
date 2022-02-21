@@ -1,10 +1,16 @@
 import React from 'react';
 import ScrollBar from 'popup/components/common/ScrollBar';
-import Asset from './asset';
+import Asset from './Asset';
 
 import { List } from './styles';
 
-const AssetList = ({ list, setActive, selectedList }) => (
+type AppProps = {
+  list: any[];
+  setActive: (index: number) => void;
+  selectedList: any[];
+};
+
+const AssetList = ({ list, setActive, selectedList }: AppProps) => (
   <ScrollBar isHidden maxHeight={186}>
     <List>
       {list.map((item, index) => (

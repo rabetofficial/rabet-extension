@@ -8,6 +8,7 @@ import handleAssetPrice from 'popup/utils/handleAssetPrice';
 import handleAssetImage from 'popup/utils/handleAssetImage';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
 import questionIcon from '../../../../../../assets/images/question-circle.png';
+import ImageOnErrorHandler from '../../../../../../helpers/ImageOnErrorHandler';
 
 import * as S from './styles';
 
@@ -36,20 +37,13 @@ const Asset = ({ asset }: AssetType) => {
     asset_code = 'XLM';
   }
 
-  const imageOnErrorHandler = (
-    event: React.SyntheticEvent<HTMLImageElement, Event>,
-  ) => {
-    const target = event.target as HTMLImageElement;
-    target.src = `${questionIcon}`;
-  };
-
   return (
     <div className="flex items-center py-[18px]">
       <S.Circle>
         <S.Image
           src={handleAssetImage(asset, assetImages)}
           alt={handleAssetAlt(asset)}
-          onError={imageOnErrorHandler}
+          onError={(e) => ImageOnErrorHandler(e, questionIcon)}
         />
       </S.Circle>
       <div className="flex justify-between items-center w-full">

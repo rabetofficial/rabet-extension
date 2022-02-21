@@ -1,10 +1,23 @@
 import React from 'react';
 import CheckMarkFill from 'popup/svgs/CheckMarkFill';
 import questionSrc from '../../../../../assets/images/question-circle.png';
+import ImageOnErrorHandler from '../../../../../helpers/ImageOnErrorHandler';
 
 import * as S from './styles';
 
-const Asset = ({ item, index, setActive, selectedList }) => (
+type AppProps = {
+  item: any;
+  index: number;
+  setActive: (index: number) => void;
+  selectedList: any[];
+};
+
+const Asset = ({
+  item,
+  index,
+  setActive,
+  selectedList,
+}: AppProps) => (
   <S.ListItem
     aria-disabled={!item.active}
     onClick={() => item.active && setActive(index)}
@@ -17,7 +30,11 @@ const Asset = ({ item, index, setActive, selectedList }) => (
   >
     <S.Logo style={{ backgroundColor: `${item.color}` }}>
       {item.logo ? (
-        <img src={`${item.logo}`} alt="logo" />
+        <img
+          src={`${item.logo}`}
+          alt="logo"
+          onError={(e) => ImageOnErrorHandler(e, questionSrc)}
+        />
       ) : (
         <img src={questionSrc} alt="icon" />
       )}
