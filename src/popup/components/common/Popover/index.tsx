@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import Tippy from '@tippyjs/react';
 import { roundArrow } from 'tippy.js';
 import styled from 'styled-components';
@@ -10,6 +10,9 @@ type AppProps = {
   placement?: Placement;
   className?: string;
   onHide?: () => void;
+  visible: boolean;
+  hideFunc: () => void;
+  triggerElement: React.ReactNode;
 };
 
 const Container = styled.div`
@@ -20,25 +23,29 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const Popover = forwardRef(
-  (
-    { children, placement, className, onHide }: AppProps,
-    ref: any,
-  ) => (
-    <Tippy
-      content={
-        <Container className={className}>{children}</Container>
-      }
-      placement={placement}
-      reference={ref}
-      trigger="click"
-      animation="shift-away"
-      arrow={roundArrow}
-      className="arrow-light"
-      interactive
-      onHide={onHide}
-    />
-  ),
+const Popover = ({
+  children,
+  placement,
+  className,
+  onHide,
+  visible,
+  hideFunc,
+  triggerElement,
+}: AppProps) => (
+  <Tippy
+    content={<Container className={className}>{children}</Container>}
+    placement={placement}
+    trigger="click"
+    animation="shift-away"
+    arrow={roundArrow}
+    className="arrow-light"
+    interactive
+    onHide={onHide}
+    visible={visible}
+    onClickOutside={hideFunc}
+  >
+    <div>{triggerElement}</div>
+  </Tippy>
 );
 
 Popover.defaultProps = {

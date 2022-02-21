@@ -21,6 +21,7 @@ import * as S from './styles';
 
 type AppProps = {
   usage: 'extension' | 'expand' | undefined;
+  onHidePopover: () => void;
 };
 
 type Menu = {
@@ -31,7 +32,7 @@ type Menu = {
   onClick?: () => void;
 };
 
-const Menus = ({ usage }: AppProps) => {
+const Menus = ({ usage, onHidePopover }: AppProps) => {
   const navigate = useNavigate();
   const accounts = useTypedSelector((store) => store.accounts);
 
@@ -144,6 +145,11 @@ const Menus = ({ usage }: AppProps) => {
     }
   }, [usage]);
 
+  const handleMenu = (func: any) => {
+    func();
+    onHidePopover();
+  };
+
   return (
     <>
       <ModalDialog
@@ -176,7 +182,7 @@ const Menus = ({ usage }: AppProps) => {
             <S.GroupLink
               key={item.id}
               to={item.link}
-              onClick={item.onClick}
+              onClick={() => handleMenu(item.onClick)}
             >
               {item.icon}
               {item.label}

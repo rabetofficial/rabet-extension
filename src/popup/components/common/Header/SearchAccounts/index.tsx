@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import shorter from 'popup/utils/shorter';
@@ -36,7 +36,9 @@ const SearchAccounts = ({
   };
   const [searchString, setSearchString] = useState('');
   const [accounts, setAccounts] = useState([]);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [showPopover, setShowPopover] = useState(false);
+  const onShowPopover = () => setShowPopover(true);
+  const onHidePopover = () => setShowPopover(false);
 
   const handleChange = (e) => {
     setSearchString(e.target.value);
@@ -79,25 +81,28 @@ const SearchAccounts = ({
     setSearchString('');
   }, [isOpen]);
 
-  const handleOverlayOn = () => props.toggleOverlay(true);
+  const handleOverlayOn = () => {
+    props.toggleOverlay(true);
+    onShowPopover();
+  };
   const handleOverlayOff = () => props.toggleOverlay(false);
+
+  const triggerElement = (
+    <S.ToggleButton type="button" onClick={handleOverlayOn}>
+      {accs[activeAccountIndex] && accs[activeAccountIndex].name
+        ? accs[activeAccountIndex].name.substr(0, 1).toUpperCase()
+        : 'A'}
+    </S.ToggleButton>
+  );
 
   return (
     <>
-      <S.ToggleButton
-        type="button"
-        ref={buttonRef}
-        onClick={handleOverlayOn}
-      >
-        {accs[activeAccountIndex] && accs[activeAccountIndex].name
-          ? accs[activeAccountIndex].name.substr(0, 1).toUpperCase()
-          : 'A'}
-      </S.ToggleButton>
-
       <Popover
         placement="bottom"
-        ref={buttonRef}
+        visible={showPopover}
+        hideFunc={onHidePopover}
         onHide={handleOverlayOff}
+        triggerElement={triggerElement}
       >
         <S.Card>
           <div className="relative">
@@ -116,7 +121,7 @@ const SearchAccounts = ({
 
           <AccountList accounts={accounts} />
 
-          <Menus usage={usage} />
+          <Menus usage={usage} onHidePopover={onHidePopover} />
         </S.Card>
       </Popover>
     </>
