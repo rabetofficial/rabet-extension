@@ -11,6 +11,8 @@ export const Note = styled.div`
 `;
 
 export const Box = styled.div`
+  border: solid 1px #ffeac5;
+  background-color: #fff5ea;
   border-radius: 4px;
   padding: 10px 14px 10px 16px;
   color: #262728;

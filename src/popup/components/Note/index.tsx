@@ -1,9 +1,11 @@
 import React from 'react';
 
+import ExclamationCircle from 'popup/svgs/ExclamationCircle';
+
 import * as S from './styles';
 
 type NoteProps = {
-  children: JSX.Element;
+  children?: JSX.Element;
   variant?: 'warn';
   text?: string;
 };
@@ -16,13 +18,16 @@ const Note = ({ children, variant, text }: NoteProps) => {
   return (
     <S.Box className={`${variant}`}>
       {variant === 'warn' ? (
-        <S.Icon className="icon-exclamation-circle" />
+        <S.Icon>
+          <ExclamationCircle />
+        </S.Icon>
       ) : null}
       <span>{text}</span>
     </S.Box>
   );
 };
 Note.defaultProps = {
+  children: '',
   variant: '',
   text: '',
 };
