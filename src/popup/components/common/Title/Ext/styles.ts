@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px 0 0;
+  padding: 0;
 `;
 
 export const Title = styled.h1`

@@ -7,8 +7,7 @@ import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
 import Button from 'popup/components/common/Button';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
-
-import * as S from './styles';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 export type FormValues = {
   code: string;
@@ -69,95 +68,93 @@ const CustomAsset = ({ onSubmit, onCancel }: CustomAssetTypes) => {
   };
 
   return (
-    <S.Container>
-      <Form
-        onSubmit={onSubmit}
-        validate={validateForm}
-        render={({
-          submitError,
-          handleSubmit,
-          submitting,
-          pristine,
-          invalid,
-        }) => (
-          <form
-            className="form"
-            onSubmit={handleSubmit}
-            autoComplete="off"
-          >
-            <Field name="code">
-              {({ input, meta }) => (
-                <S.FieldContainer>
-                  <label className="label-primary">Assets code</label>
-                  <Input
-                    type="text"
-                    placeholder="USD"
-                    size="medium"
-                    input={input}
-                    meta={meta}
-                    autoFocus
-                  />
-                </S.FieldContainer>
-              )}
-            </Field>
+    <Form
+      onSubmit={onSubmit}
+      validate={validateForm}
+      render={({
+        submitError,
+        handleSubmit,
+        submitting,
+        pristine,
+        invalid,
+      }) => (
+        <form
+          className="form"
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
+          <Field name="code">
+            {({ input, meta }) => (
+              <div className="mb-[18px]">
+                <label className="label-primary">Assets code</label>
+                <Input
+                  type="text"
+                  placeholder="USD"
+                  size="medium"
+                  input={input}
+                  meta={meta}
+                  autoFocus
+                />
+              </div>
+            )}
+          </Field>
 
-            <Field name="issuer">
-              {({ input, meta }) => (
-                <S.FieldContainer>
-                  <label className="label-primary">Issuer</label>
-                  <Input
-                    type="text"
-                    placeholder="G..."
-                    size="medium"
-                    input={input}
-                    meta={meta}
-                  />
-                </S.FieldContainer>
-              )}
-            </Field>
+          <Field name="issuer">
+            {({ input, meta }) => (
+              <div className="mb-[18px]">
+                <label className="label-primary">Issuer</label>
+                <Input
+                  type="text"
+                  placeholder="G..."
+                  size="medium"
+                  input={input}
+                  meta={meta}
+                />
+              </div>
+            )}
+          </Field>
 
-            <Field name="limit">
-              {({ input, meta }) => (
-                <S.FieldContainer>
-                  <label className="label-primary">
-                    Limit
-                    <span className="text-sm text-primary-dark ml-2">
-                      (optional)
-                    </span>
-                  </label>
-                  <Input
-                    type="number"
-                    placeholder="10000"
-                    size="medium"
-                    input={input}
-                    meta={meta}
-                  />
-                </S.FieldContainer>
-              )}
-            </Field>
+          <Field name="limit">
+            {({ input, meta }) => (
+              <div className="mb-[18px]">
+                <label className="label-primary">
+                  Limit
+                  <span className="text-sm text-primary-dark ml-2">
+                    (optional)
+                  </span>
+                </label>
+                <Input
+                  type="number"
+                  placeholder="10000"
+                  size="medium"
+                  input={input}
+                  meta={meta}
+                />
+              </div>
+            )}
+          </Field>
 
-            {submitError && <Error>{submitError}</Error>}
+          {submitError && <Error>{submitError}</Error>}
 
-            <S.ButtonContainer>
-              <Button
-                variant="default"
-                size="medium"
-                content="Cancel"
-                onClick={onCancel}
-              />
+          <ButtonContainer btnSize={100} justify="end" mt={22}>
+            <Button
+              variant="default"
+              size="medium"
+              content="Cancel"
+              onClick={onCancel}
+            />
 
-              <Button
-                type="submit"
-                variant="primary"
-                size="medium"
-                content="Add"
-                disabled={invalid || pristine || submitting}
-              />
-            </S.ButtonContainer>
-          </form>
-        )}
-      />
-    </S.Container>
+            <Button
+              type="submit"
+              variant="primary"
+              size="medium"
+              content="Add"
+              disabled={invalid || pristine || submitting}
+            />
+          </ButtonContainer>
+        </form>
+      )}
+    />
   );
 };
 

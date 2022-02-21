@@ -20,7 +20,7 @@ import QRCode from './extension/Receive';
 import Assets from './Assets';
 import Confirm from './Confirm';
 import Setting from './Setting';
-import AddAsset from './AddAsset';
+import AddAsset from './extension/AddAssets';
 import FirstPage from './FirstPage';
 import FetchData from './FetchData';
 import PrivateKey from './PrivateKey';

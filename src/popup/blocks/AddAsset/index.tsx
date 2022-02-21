@@ -9,14 +9,16 @@ import CustomAsset, { FormValues } from './CustomAsset';
 
 type AddAssetType = {
   children?: React.ReactNode;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const AddAsset = ({ children, setModal }: AddAssetType) => {
   const [messageResult, setMessageResult] = useState('');
 
   const handleSubmit = async (values: FormValues) => {
-    setModal(false);
+    if (setModal) {
+      setModal(false);
+    }
 
     // SHOW LOADING NETWORK MODAL
 
@@ -42,7 +44,9 @@ const AddAsset = ({ children, setModal }: AddAssetType) => {
   };
 
   const handleCancel = () => {
-    setModal(false);
+    if (setModal) {
+      setModal(false);
+    }
   };
 
   const tabs: Tab[] = [
@@ -80,5 +84,6 @@ const AddAsset = ({ children, setModal }: AddAssetType) => {
 };
 AddAsset.defaultProps = {
   children: '',
+  setModal: () => {},
 };
 export default AddAsset;
