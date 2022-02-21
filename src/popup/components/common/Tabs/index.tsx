@@ -39,7 +39,7 @@ const Tabs = ({
             key={`${item.title}${item.id}`}
             onClick={() => handleTab(item)}
             className={visibleTab === item.id ? 'active' : ''}
-            style={{ width: isEqualWidth ? `${width}px` : 'auto' }}
+            style={{ width: isEqualWidth ? `${width}%` : 'auto' }}
           >
             {item.title}
           </S.TabTitle>

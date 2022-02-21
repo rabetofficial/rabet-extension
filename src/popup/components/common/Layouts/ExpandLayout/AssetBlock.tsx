@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import PlusBold from 'popup/svgs/PlusBold';
-import AddAsset from 'popup/pageComponents/NewAddAsset/AddAsset';
+import AddAsset from 'popup/blocks/AddAsset';
 import ModalDialog from 'popup/components/common/ModalDialog';
 import AssetList from './AssetList';
 
@@ -26,6 +26,7 @@ const AssetBlock = () => {
           padding="large"
           onClose={onCloseModal}
           isOpen={modal}
+          minHeight={538}
         >
           <AddAsset setModal={setModal} />
         </ModalDialog>
