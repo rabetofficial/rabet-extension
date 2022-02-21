@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import EditWalletName from 'popup/components/EditWalletName';
-import CopyKey from 'popup/components/common/CopyKey';
-import Button from 'popup/components/common/Button';
 import Trash from 'popup/svgs/Trash';
+import Button from 'popup/components/common/Button';
+import CopyKey from 'popup/components/common/CopyKey';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import EditWalletName from 'popup/components/EditWalletName';
 import InsideTabLayout from 'popup/components/common/Layouts/InsideTabLayout';
 
 const Hr = styled.hr`
@@ -12,28 +13,36 @@ const Hr = styled.hr`
   margin: 40px 0;
 `;
 
-const WalletInfo = () => (
-  <InsideTabLayout>
-    <div className="pb-[67px]">
-      <div className="label-primary mb-[6px]">Wallet name</div>
-      <EditWalletName height={48} checkIconWidth={22} fontSize={16} />
+const WalletInfo = () => {
+  const { publicKey, privateKey } = useActiveAccount();
 
-      <div className="label-primary mt-6 mb-[6px]">Private Key</div>
-      <CopyKey keyValue="SRTAVASMW6S344SCW4DESZFEXTCTJPE5KTCFNLyU3ZFLNQZ4TC67SEFU" />
+  return (
+    <InsideTabLayout>
+      <div className="pb-[67px]">
+        <div className="label-primary mb-[6px]">Wallet name</div>
+        <EditWalletName
+          height={48}
+          checkIconWidth={22}
+          fontSize={16}
+        />
 
-      <div className="label-primary mt-6 mb-[6px]">Address</div>
-      <CopyKey keyValue="GCHERU56A55FBC647QTX2QNA5DD7IZURIYJNX24NCR2QUHDEMLXI2FK0" />
+        <div className="label-primary mt-6 mb-[6px]">Private Key</div>
+        <CopyKey keyValue={privateKey} />
 
-      <Hr />
+        <div className="label-primary mt-6 mb-[6px]">Address</div>
+        <CopyKey keyValue={publicKey} />
 
-      <Button
-        variant="danger"
-        content="Delete account"
-        size="medium"
-        startIcon={<Trash />}
-      />
-    </div>
-  </InsideTabLayout>
-);
+        <Hr />
+
+        <Button
+          variant="danger"
+          content="Delete account"
+          size="medium"
+          startIcon={<Trash />}
+        />
+      </div>
+    </InsideTabLayout>
+  );
+};
 
 export default WalletInfo;
