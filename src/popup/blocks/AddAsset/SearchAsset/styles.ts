@@ -1,14 +1,9 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  margin-top: 10px;
-`;
-
-export const ButtonContainer = styled.div`
-  width: 205px;
-  display: flex;
-  margin: 24px 0px 0px auto;
-  @media (max-width: 360px) {
-    margin-top: 112px;
-  }
+export const ResultTitle = styled.h6`
+  font-size: 12px;
+  color: ${({ theme }) => theme.colors.primary.dark};
+  margin-top: 11px;
+  margin-bottom: 0;
+  font-weight: normal;
 `;
