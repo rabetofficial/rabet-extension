@@ -23,7 +23,6 @@ const NoteCard = ({
 }: NoteCardType) => (
   <div
     style={{
-      marginTop: '87px',
       minWidth: '328px',
       maxWidth: '428px',
     }}

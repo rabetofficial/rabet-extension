@@ -34,5 +34,5 @@ export const Msg = styled.p`
 
 export const Btn = styled.div`
   font-weight: bold;
-  width: 96px;
+  width: 98px;
 `;

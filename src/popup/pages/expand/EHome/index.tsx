@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Tab } from 'popup/models';
 import loadBids from 'popup/features/loadBids';
@@ -10,9 +10,13 @@ import WalletInfo from 'popup/pages/expand/EHome/WalletInfo';
 import loadAssetImages from 'popup/features/loadAssetImages';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 import Error from 'popup/pageComponents/Error';
+import ModalDialog from 'popup/components/common/ModalDialog';
 
 const EHome = () => {
   const activeAccount = useActiveAccount();
+  const [modal, setModal] = useState(false);
+  const onOpenModal = () => setModal(true);
+  const onCloseModal = () => setModal(false);
 
   useEffect(() => {
     loadCurrencies();
@@ -28,10 +32,21 @@ const EHome = () => {
       id: 1,
       title: 'Operation',
       content: (
-        <Error
-          handleClick={() => console.log('sadasd')}
-          message="Your received address is not allowed for this token"
-        />
+        <>
+          <div onClick={onOpenModal}>open pls</div>
+          <ModalDialog
+            isStyled={false}
+            title="Receive"
+            size="medium"
+            onClose={onCloseModal}
+            isOpen={modal}
+          >
+            <Error
+              handleClick={() => console.log('sadasd')}
+              message="Your received address is not allowed for this token"
+            />
+          </ModalDialog>
+        </>
       ),
     },
     { id: 2, title: 'Transactions', content: <Transactions /> },
