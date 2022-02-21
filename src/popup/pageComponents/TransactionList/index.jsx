@@ -13,25 +13,31 @@ import getTransactions from '../../utils/horizon/transactions';
 
 import styles from './styles.less';
 
-const Item = ({
-  item,
-  index,
-  operationList,
-  transactionList,
-}) => {
+const Item = ({ item, index, operationList, transactionList }) => {
   const [isHover, setHover] = useState(false);
   const toggleHover = () => setHover(!isHover);
 
-  const { operation_count } = transactionList.find((x) => x.id === item.transaction_hash);
+  const { operation_count } = transactionList.find(
+    (x) => x.id === item.transaction_hash,
+  );
 
   return (
     <li
-      onClick={() => { createTab(explorer(item.transaction_hash)); }}
+      onClick={() => {
+        createTab(explorer(item.transaction_hash));
+      }}
       className={styles.listItem}
       onMouseEnter={toggleHover}
       onMouseLeave={toggleHover}
     >
-      <div className={styles.border} style={{ borderBottom: !(index === (operationList.length - 1)) && '1px solid #f8f8f8' }}>
+      <div
+        className={styles.border}
+        style={{
+          borderBottom:
+            !(index === operationList.length - 1) &&
+            '1px solid #f8f8f8',
+        }}
+      >
         <div className={styles.logoContainer}>
           <span className="icon-exchange-alt" />
         </div>
@@ -40,13 +46,22 @@ const Item = ({
             {operationDetails(item).slice(0, 20)}
             ...
           </h6>
-          <p className={styles.value}>{moment(item.created_at).fromNow()}</p>
+          <p className={styles.value}>
+            {moment(item.created_at).fromNow()}
+          </p>
         </div>
-        <div className={styles.div} style={{ marginLeft: 'auto', paddingRight: '33px' }}>
+        <div
+          className={styles.div}
+          style={{ marginLeft: 'auto', paddingRight: '33px' }}
+        >
           <h6 className={styles.subject}>{operation_count}</h6>
           <p className={styles.value}>ops</p>
         </div>
-        {isHover && <div className={styles.next}><span className="icon-long-arrow-right" /></div>}
+        {isHover && (
+          <div className={styles.next}>
+            <span className="icon-long-arrow-right" />
+          </div>
+        )}
       </div>
     </li>
   );
@@ -61,7 +76,9 @@ const TransactionList = ({ maxHeight }) => {
   useEffect(() => {
     (async () => {
       if (isLoading) {
-        const transactions = await getTransactions(activeAccount.publicKey);
+        const transactions = await getTransactions(
+          activeAccount.publicKey,
+        );
         const operations = await getOperations(transactions);
 
         setOperationList(operations);
@@ -72,13 +89,20 @@ const TransactionList = ({ maxHeight }) => {
   });
 
   if (isLoading) {
-    return <div className={styles.loading}><Loading size={56} /></div>;
+    return (
+      <div className={styles.loading}>
+        <Loading size={56} />
+      </div>
+    );
   }
 
   return (
     <>
       {operationList && operationList.length > 0 ? (
-        <ul className={classNames(styles.list, 'hidden-scroll')} style={{ maxHeight: `${maxHeight}px` }}>
+        <ul
+          className={classNames(styles.list, 'hidden-scroll')}
+          style={{ maxHeight: `${maxHeight}px` }}
+        >
           {operationList.map((item, index) => (
             <Item
               key={item.id}
@@ -89,10 +113,9 @@ const TransactionList = ({ maxHeight }) => {
             />
           ))}
         </ul>
-      )
-        : (
-          <div className={styles.noData}>You have no transaction</div>
-        )}
+      ) : (
+        <div className={styles.noData}>You have no transaction</div>
+      )}
     </>
   );
 };

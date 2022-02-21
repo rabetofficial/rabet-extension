@@ -1,33 +1,38 @@
-import React from 'react';
-import { OperationsTx, TransferTx, SwapTx } from './Operations';
+import React, { useEffect, useState } from 'react';
+import { ServerApi } from 'stellar-sdk';
 
-const Transactions = () => (
-  <div>
-    <TransferTx
-      type="send"
-      amount={12}
-      asset_code="XLM"
-      date="1 min ago"
-    />
-    <TransferTx
-      type="recieve"
-      amount={12}
-      asset_code="XLM"
-      date="1 min ago"
-    />
-    <SwapTx
-      amount1={12}
-      amount2={12}
-      asset_code1="XLM"
-      asset_code2="XLM"
-      date="1 min ago"
-    />
-    <OperationsTx type="multi" date="1 min ago" />
-    <OperationsTx
-      type="single"
-      operation_name="Manage date"
-      date="1 min ago"
-    />
-  </div>
-);
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import loadTransactions from 'popup/features/loadTransactions';
+
+import Transaction from './Transaction';
+
+const Transactions = () => {
+  const { publicKey } = useActiveAccount();
+  const [transactions, setTransactions] = useState<
+    ServerApi.CollectionPage<ServerApi.OperationRecord>[]
+  >([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    loadTransactions(publicKey).then((txs) => {
+      setTransactions(txs);
+      setIsLoading(false);
+    });
+  }, [publicKey]);
+
+  if (isLoading) {
+    return <p>LOADING....</p>;
+  }
+
+  return (
+    <div>
+      {transactions.map((tx) => (
+        <div key={tx.records[0].transaction_hash}>
+          <Transaction transaction={tx} publicKey={publicKey} />
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default Transactions;
