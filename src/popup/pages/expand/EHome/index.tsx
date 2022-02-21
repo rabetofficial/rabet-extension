@@ -9,6 +9,7 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import WalletInfo from 'popup/pages/expand/EHome/WalletInfo';
 import loadAssetImages from 'popup/features/loadAssetImages';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
+import Error from 'popup/pageComponents/Error';
 
 const EHome = () => {
   const activeAccount = useActiveAccount();
@@ -23,7 +24,16 @@ const EHome = () => {
   }, [activeAccount.publicKey]);
 
   const tabs: Tab[] = [
-    { id: 1, title: 'Operation', content: '1' },
+    {
+      id: 1,
+      title: 'Operation',
+      content: (
+        <Error
+          handleClick={() => console.log('sadasd')}
+          message="Your received address is not allowed for this token"
+        />
+      ),
+    },
     { id: 2, title: 'Transactions', content: <Transactions /> },
     { id: 3, title: 'Wallet info', content: <WalletInfo /> },
     { id: 4, title: 'Settings', content: '1' },
