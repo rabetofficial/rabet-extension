@@ -11,6 +11,7 @@ import loadAssetImages from 'popup/features/loadAssetImages';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 import Error from 'popup/pageComponents/Error';
 import ModalDialog from 'popup/components/common/ModalDialog';
+import Loading from 'popup/components/Loading';
 
 const EHome = () => {
   const activeAccount = useActiveAccount();
@@ -41,7 +42,6 @@ const EHome = () => {
           </div>
           <ModalDialog
             isStyled={false}
-            title="Receive"
             size="medium"
             onClose={onCloseModal}
             isOpen={modal}
@@ -50,6 +50,20 @@ const EHome = () => {
               handleClick={() => console.log('Handel modal please')}
               message="YOUR RECEIVED ADDRESS IS NOT ALLOWED FOR THIS TOKEN"
             />
+          </ModalDialog>
+          <div
+            onClick={onOpenModal}
+            className="text-slate-600 text-[16px]"
+          >
+            Loading modal test (free to remove)
+          </div>
+          <ModalDialog
+            isStyled={false}
+            size="medium"
+            onClose={onCloseModal}
+            isOpen={modal}
+          >
+            <Loading size={120} title="Sending to network" />
           </ModalDialog>
         </>
       ),

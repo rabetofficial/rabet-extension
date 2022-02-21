@@ -1,25 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import loading from '../../../assets/images/loading.svg';
+import loading from 'src/assets/images/loading.svg';
 
-import styles from './styles.less';
+import * as S from './styles';
 
 type AppProps = {
-    title: string
-    size: number
-}
+  title: string;
+  size: number;
+};
 
 const Loading = ({ title, size }: AppProps) => (
-  <>
-    <img
+  <S.Container>
+    <S.Loading
       src={loading}
-      className={styles.loading}
       alt="loading"
       style={{ width: `${size}px`, height: `${size}px` }}
     />
-    {title && <p className={styles.title}>{title}</p>}
-  </>
+    {title && <S.Title>{title}</S.Title>}
+  </S.Container>
 );
 
 Loading.defaultProps = {
