@@ -73,7 +73,6 @@ const calculatePriceImpact = async (asset1, asset2) => {
 
     return new BN(nativeToTo.bids[0].price).times(fromCounterPrice);
   } catch (e) {
-    console.log(e);
     return 0;
   }
 };

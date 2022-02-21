@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-import Tabs from 'popup/components/Tabs';
+import Tabs from 'popup/components/common/Tabs';
 import addAssetAction from 'popup/actions/operations/addAsset';
 
+import { Tab } from 'popup/models';
 import SearchAsset from './SearchAsset';
 import CustomAsset, { FormValues } from './CustomAsset';
 
@@ -44,11 +45,11 @@ const AddAsset = ({ children, setModal }: AddAssetType) => {
     setModal(false);
   };
 
-  const tabs = [
+  const tabs: Tab[] = [
     {
       id: '1',
-      tabTitle: 'Search',
-      tabContent: (
+      title: 'Search',
+      content: (
         <SearchAsset
           key="searchAsset"
           onCancel={handleCancel}
@@ -58,8 +59,8 @@ const AddAsset = ({ children, setModal }: AddAssetType) => {
     },
     {
       id: '2',
-      tabTitle: 'Custom Asset',
-      tabContent: (
+      title: 'Custom Asset',
+      content: (
         <CustomAsset
           key="customAsset"
           onCancel={handleCancel}
@@ -73,7 +74,7 @@ const AddAsset = ({ children, setModal }: AddAssetType) => {
     <div>
       {children}
 
-      <Tabs data={tabs} tabTitleStyle={{ fontWeight: 'bold' }} />
+      <Tabs data={tabs} isEqualWidth />
     </div>
   );
 };

@@ -30,8 +30,6 @@ const getAccount = async (publicKey: string): getAccountResult => {
     // const a = await orderbooks.limit(1).call();
     // const paths = await path.call();
 
-    // console.log(paths);
-
     return account;
   } catch (err) {
     return null;
