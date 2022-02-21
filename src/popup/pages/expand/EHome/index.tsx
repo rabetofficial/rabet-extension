@@ -33,7 +33,12 @@ const EHome = () => {
       title: 'Operation',
       content: (
         <>
-          <div onClick={onOpenModal}>open pls</div>
+          <div
+            onClick={onOpenModal}
+            className="text-slate-600 text-[16px]"
+          >
+            Error modal test (free to remove)
+          </div>
           <ModalDialog
             isStyled={false}
             title="Receive"
@@ -42,8 +47,8 @@ const EHome = () => {
             isOpen={modal}
           >
             <Error
-              handleClick={() => console.log('sadasd')}
-              message="Your received address is not allowed for this token"
+              handleClick={() => console.log('Handel modal please')}
+              message="YOUR RECEIVED ADDRESS IS NOT ALLOWED FOR THIS TOKEN"
             />
           </ModalDialog>
         </>

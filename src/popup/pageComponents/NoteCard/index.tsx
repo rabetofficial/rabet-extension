@@ -21,12 +21,7 @@ const NoteCard = ({
   copy,
   btnText,
 }: NoteCardType) => (
-  <div
-    style={{
-      minWidth: '328px',
-      maxWidth: '428px',
-    }}
-  >
+  <S.container>
     <Note>
       <div>
         <S.Title>
@@ -51,7 +46,7 @@ const NoteCard = ({
         )}
       </div>
     </Note>
-  </div>
+  </S.container>
 );
 
 NoteCard.defaultProps = {

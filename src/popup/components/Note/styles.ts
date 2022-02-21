@@ -4,7 +4,10 @@ export const Note = styled.div`
   background-color: ${({ theme }) => theme.colors.primary.lighter};
   border: 1px solid ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 4px;
-  padding: 32px 17px;
+  padding: 48px 32px;
+  @media (max-width: 360px) {
+    padding: 32px 16px;
+  } ;
 `;
 
 export const Box = styled.div`
