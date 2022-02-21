@@ -10,14 +10,11 @@ const calculatePath = (p) => {
     if (asset.asset_type === 'native') {
       newPath.push(StellarSdk.Asset.native());
     } else {
-      newPath.push(new StellarSdk.Asset(
-        asset.asset_code,
-        asset.asset_issuer,
-      ));
+      newPath.push(
+        new StellarSdk.Asset(asset.asset_code, asset.asset_issuer),
+      );
     }
   }
-
-  console.log(newPath);
 
   return newPath;
 };

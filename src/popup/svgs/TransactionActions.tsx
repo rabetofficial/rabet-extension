@@ -19,7 +19,7 @@ export function Send() {
   );
 }
 
-export function Recieve() {
+export function Receive() {
   return (
     <svg
       width="14"
