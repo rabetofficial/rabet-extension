@@ -1,15 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import shortid from 'shortid';
-import { useNavigate, useParams } from 'react-router-dom';
+import React from 'react';
 
-import Header from 'popup/components/common/Header';
-import Button from 'popup/components/common/Button';
-import matchAsset from 'popup/utils/matchAsset';
-import PageTitle from 'popup/components/PageTitle';
-import addAssetAction from 'popup/actions/operations/addAsset';
-import currentActiveAccount from 'popup/utils/activeAccount';
-import getAssetWebsite from 'popup/utils/horizon/getAssetData';
 import Trash from 'popup/svgs/Trash';
+import Button from 'popup/components/common/Button';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
@@ -17,48 +9,21 @@ import * as S from './styles';
 type AssetType = {
   onClick: () => void;
   onCancel: () => void;
-  children?: React.ReactNode;
 };
-const Assets = ({ onClick, onCancel, children }: AssetType) => {
-  const { asset_code, asset_issuer } = useParams();
-  const navigate = useNavigate();
-  const [homeDomain, setHomeDomain] = useState('');
-  const [flags, setFlags] = useState({
-    auth_required: false,
-    auth_revocable: false,
-    auth_immutable: false,
-  });
 
-  const {
-    activeAccount: { balances },
-  } = currentActiveAccount();
-  const asset = balances.find((x) =>
-    matchAsset(x, { asset_code, asset_issuer }),
-  );
-
-  useEffect(() => {
-    getAssetWebsite(asset).then((assetData) => {
-      setFlags(assetData.flags);
-      setHomeDomain(assetData.homeDomain);
-    });
-  }, []);
-
-  const handleDelete = ({ code, issuer }) => {
-    addAssetAction({ code, issuer, limit: '0' }, navigate);
-  };
-
+const Assets = ({ onClick, onCancel }: AssetType) => {
   const assetInfo = [
-    { title: 'Assets code', value: asset_code },
-    { title: 'Issuer', value: asset_issuer },
+    { title: 'Assets code', value: 'RBT' },
+    {
+      title: 'Issuer',
+      value:
+        'GD2BZUXNTR36T5NIJCMWAGJGBAYNZL6G3TMEJB4IJLX7KH2CBJPORDEQ',
+    },
     {
       title: 'Website',
-      value: homeDomain && (
-        <a
-          href={`https://${homeDomain}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {homeDomain}
+      value: 'RBTRBTRBT.com' && (
+        <a href="https://rabet.io" target="_blank" rel="noreferrer">
+          RABEBRB
         </a>
       ),
     },
@@ -74,10 +39,9 @@ const Assets = ({ onClick, onCancel, children }: AssetType) => {
   return (
     <>
       <S.Page className="hidden-scroll content-scroll">
-        {children}
         <div className="content">
           {assetInfo.map((item, index) => (
-            <div key={shortid.generate()}>
+            <div key={index}>
               <S.Title>{item.title}</S.Title>
               <S.Value>{item.value}</S.Value>
               {assetInfo.length - 1 !== index && <S.Hr />}
@@ -94,15 +58,15 @@ const Assets = ({ onClick, onCancel, children }: AssetType) => {
               </thead>
               <tbody>
                 <tr>
-                  <td>{flags.auth_required ? 'True' : 'False'}</td>
-                  <td>{flags.auth_revocable ? 'True' : 'False'}</td>
-                  <td>{flags.auth_immutable ? 'True' : 'False'}</td>
+                  <td>True</td>
+                  <td>False</td>
+                  <td>False</td>
                 </tr>
               </tbody>
             </table>
           </S.Table>
 
-          {parseFloat(asset.balance) > 0 ? (
+          {parseFloat('2') > 0 ? (
             <div className="error-box" style={{ marginTop: '16px' }}>
               You cannot remove this asset unless the asset&apos;s
               balance is zero.
@@ -119,7 +83,7 @@ const Assets = ({ onClick, onCancel, children }: AssetType) => {
           variant="danger"
           size="medium"
           content={deleteBtn}
-          disabled={parseFloat(asset.balance) > 0}
+          disabled={parseFloat('2') > 0}
           onClick={onClick}
           style={{ marginRight: '10px' }}
         />
@@ -133,10 +97,6 @@ const Assets = ({ onClick, onCancel, children }: AssetType) => {
       </ButtonContainer>
     </>
   );
-};
-
-Assets.defaultProps = {
-  children: '',
 };
 
 export default Assets;
