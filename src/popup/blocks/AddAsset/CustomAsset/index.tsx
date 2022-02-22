@@ -136,7 +136,11 @@ const CustomAsset = ({ onSubmit, onCancel }: CustomAssetTypes) => {
 
           {submitError && <Error>{submitError}</Error>}
 
-          <ButtonContainer btnSize={100} justify="end" mt={22}>
+          <ButtonContainer
+            btnSize={100}
+            positionStyles={{ bottom: '26px' }}
+            justify="end"
+          >
             <Button
               variant="default"
               size="medium"

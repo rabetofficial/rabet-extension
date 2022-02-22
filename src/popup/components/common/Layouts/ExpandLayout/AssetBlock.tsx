@@ -26,7 +26,7 @@ const AssetBlock = () => {
           padding="large"
           onClose={onCloseModal}
           isOpen={modal}
-          minHeight={538}
+          minHeight={545}
         >
           <AddAsset setModal={setModal} />
         </ModalDialog>

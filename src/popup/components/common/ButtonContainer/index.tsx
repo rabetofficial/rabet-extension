@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import classNames from 'classnames';
 import { JustifyContent } from 'popup/models';
+import isEmpty from '../../../../helpers/isEmpty';
 
 type AppProps = {
   children: React.ReactNode;
@@ -30,16 +31,41 @@ const Container = styled.div.attrs((props: AppProps) => props)`
   }
 `;
 
+// for flex use: justify
+// for absolute use : positionStyles and justify
+
 const ButtonContainer = (props: AppProps) => {
   const { children, justify, positionStyles } = props;
   return (
-    <Container
-      {...props}
-      className={classNames('flex', justify && `justify-${justify}`)}
-      style={{ ...positionStyles }}
-    >
-      {children}
-    </Container>
+    <>
+      {isEmpty(positionStyles) ? (
+        <Container
+          {...props}
+          className={classNames(
+            'flex',
+            justify && `justify-${justify}`,
+          )}
+          style={{ ...positionStyles }}
+        >
+          {children}
+        </Container>
+      ) : (
+        <div
+          className={classNames(
+            'flex',
+            justify && `justify-${justify}`,
+          )}
+        >
+          <Container
+            {...props}
+            className="flex"
+            style={{ ...positionStyles }}
+          >
+            {children}
+          </Container>
+        </div>
+      )}
+    </>
   );
 };
 

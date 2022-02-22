@@ -129,7 +129,8 @@ const SearchAsset = ({ onCancel }: AppProps) => {
 
               <ButtonContainer
                 btnSize={100}
-                positionStyles={{ bottom: '26px', right: '0' }}
+                positionStyles={{ bottom: '26px' }}
+                justify="end"
               >
                 <Button
                   variant="default"
