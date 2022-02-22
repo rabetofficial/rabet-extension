@@ -5,6 +5,7 @@ import ArrowBack from 'popup/svgs/ArrowBack';
 import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
 import Button from 'popup/components/common/Button';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
@@ -15,9 +16,14 @@ export type FormValues = {
 type PrivateKeyType = {
   onCancel: () => void;
   onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
+  isModal?: boolean;
 };
 
-const PrivateKey = ({ onCancel, onSubmit }: PrivateKeyType) => {
+const PrivateKey = ({
+  onCancel,
+  onSubmit,
+  isModal,
+}: PrivateKeyType) => {
   const validateForm = (values: FormValues) => {
     const errors = {} as FormValues;
 
@@ -57,28 +63,51 @@ const PrivateKey = ({ onCancel, onSubmit }: PrivateKeyType) => {
 
             {submitError && <Error>{submitError}</Error>}
 
-            <S.ButtonContainer>
-              <Button
-                type="submit"
-                variant="primary"
-                size="medium"
-                content="Import"
-                disabled={pristine}
-              />
-              <Button
-                style={{ marginTop: '12px' }}
-                variant="default"
-                size="medium"
-                content="Back"
-                onClick={onCancel}
-                startIcon={<ArrowBack />}
-              />
-            </S.ButtonContainer>
+            {isModal ? (
+              <ButtonContainer btnSize={100} justify="end" mt={135}>
+                <Button
+                  variant="default"
+                  size="medium"
+                  content="Cancel"
+                  onClick={onCancel}
+                  style={{ marginRight: '5px' }}
+                />
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="medium"
+                  content="Import"
+                  disabled={pristine}
+                />
+              </ButtonContainer>
+            ) : (
+              <S.ButtonContainer>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="medium"
+                  content="Import"
+                  disabled={pristine}
+                />
+                <Button
+                  style={{ marginTop: '12px' }}
+                  variant="default"
+                  size="medium"
+                  content="Back"
+                  onClick={onCancel}
+                  startIcon={<ArrowBack />}
+                />
+              </S.ButtonContainer>
+            )}
           </form>
         )}
       />
     </div>
   );
+};
+
+PrivateKey.defaultProps = {
+  isModal: false,
 };
 
 export default PrivateKey;

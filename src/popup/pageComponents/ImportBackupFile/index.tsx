@@ -9,6 +9,7 @@ import Error from 'popup/components/common/Error';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
@@ -16,7 +17,11 @@ type FormValues = {
   key: string;
 };
 
-const ImportBackupFile = () => {
+type ImportBackupFileType = {
+  isModal?: boolean;
+};
+
+const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
   const navigate = useNavigate();
   const [showRest, setShowRest] = useState(false);
   const accounts = useTypedSelector((store) => store.accounts);
@@ -58,17 +63,18 @@ const ImportBackupFile = () => {
 
   return (
     <div>
-      <S.ButtonContainer>
-        <Button
-          type="file"
-          variant="outlined"
-          size="medium"
-          content="Select backup file"
-          startIcon={<Download />}
-          onClick={handleClick}
-          style={{ borderRadius: '4px', marginTop: '32px' }}
-        />
-      </S.ButtonContainer>
+      <Button
+        type="file"
+        variant="outlined"
+        size="medium"
+        content="Select backup file"
+        startIcon={<Download />}
+        onClick={handleClick}
+        style={{
+          borderRadius: '4px',
+          marginTop: '5px',
+        }}
+      />
 
       {showRest && (
         <Form
@@ -83,7 +89,7 @@ const ImportBackupFile = () => {
               <Field name="key">
                 {({ input, meta }) => (
                   <S.InputContainer>
-                    <label className="label-primary">key</label>
+                    <label className="label-primary">Key</label>
                     <Input
                       type="text"
                       size="medium"
@@ -96,25 +102,45 @@ const ImportBackupFile = () => {
                 )}
               </Field>
               {submitError && <Error>{submitError}</Error>}
-              <S.ButtonContainer>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="medium"
-                  content="Import"
-                  disabled={pristine}
-                />
-                <Button
-                  style={{ marginTop: '12px' }}
-                  variant="default"
-                  size="medium"
-                  content="Back"
-                  onClick={() => {
-                    handleCancel(form);
-                  }}
-                  startIcon={<ArrowBack />}
-                />
-              </S.ButtonContainer>
+              {isModal ? (
+                <ButtonContainer btnSize={100} justify="end" mt={60}>
+                  <Button
+                    variant="default"
+                    size="medium"
+                    content="Cancel"
+                    onClick={() => {
+                      handleCancel(form);
+                    }}
+                  />
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="medium"
+                    content="Import"
+                    disabled={pristine}
+                  />
+                </ButtonContainer>
+              ) : (
+                <S.ButtonContainer>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="medium"
+                    content="Import"
+                    disabled={pristine}
+                  />
+                  <Button
+                    style={{ marginTop: '12px' }}
+                    variant="default"
+                    size="medium"
+                    content="Back"
+                    onClick={() => {
+                      handleCancel(form);
+                    }}
+                    startIcon={<ArrowBack />}
+                  />
+                </S.ButtonContainer>
+              )}
             </form>
           )}
         />
@@ -123,4 +149,7 @@ const ImportBackupFile = () => {
   );
 };
 
+ImportBackupFile.defaultProps = {
+  isModal: false,
+};
 export default ImportBackupFile;

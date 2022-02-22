@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Trash from 'popup/svgs/Trash';
+import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
 import CopyKey from 'popup/components/common/CopyKey';
 import openModalAction from 'popup/actions/modal/open';
@@ -13,7 +14,6 @@ import EditWalletName from 'popup/components/EditWalletName';
 import DeleteAccount from 'popup/pageComponents/DeleteAccount';
 import removeAccountAction from 'popup/actions/accounts/remove';
 import InsideTabLayout from 'popup/components/common/Layouts/InsideTabLayout';
-import RouteName from 'popup/staticRes/routes';
 
 const Hr = styled.hr`
   border-top: 1px solid ${({ theme }) => theme.colors.primary.lighter};
