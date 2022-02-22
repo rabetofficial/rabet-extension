@@ -48,238 +48,236 @@ import AdvanceOperation from './Operation/Adavnce';
 import UITest from './UITest';
 
 const App = () => (
-  <Router>
-    <div className="layout">
-      <Routes>
-        <Route
-          path={RouteName.Home}
-          element={
-            <ProtectedRoute>
-              <DetectSize desktop={<EHome />}>
-                <Home />
-              </DetectSize>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.Send}
-          element={
-            <ProtectedRoute>
-              <Send />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.Error}
-          element={
-            <ProtectedRoute>
-              <Error />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.QRCode}
-          element={
-            <ProtectedRoute>
-              <DetectSize desktop={<div>Not found</div>}>
-                <QRCode />
-              </DetectSize>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.Confirm}
-          element={
-            <ProtectedRoute>
-              <Confirm />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.Setting}
-          element={
-            <ProtectedRoute>
-              <Setting />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.AddAsset}
-          element={
-            <ProtectedRoute>
-              <AddAsset />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.PrivateKey}
-          element={
-            <ProtectedRoute>
-              <PrivateKey />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.ShowPrivateKey}
-          element={
-            <ProtectedRoute>
-              <ShowPrivateKey />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.AccountManager}
-          element={<AccountManager />}
-        />
-        <Route
-          path={`${RouteName.Asset}/:asset_code/:asset_issuer`}
-          element={
-            <ProtectedRoute>
-              <Assets />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.XLMAsset}
-          element={
-            <ProtectedRoute>
-              <XLMAsset />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.Sucess}
-          element={
-            <ProtectedRoute>
-              <SuccessfulSubmission />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.BackupFile}
-          element={
-            <ProtectedRoute>
-              <BackupFile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.BasicOperation}
-          element={
-            <ProtectedRoute>
-              <BasicOperation />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.BasicSwapConfirm}
-          element={
-            <ProtectedRoute>
-              <BasicSwapConfirm />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.BasicSendConfirm}
-          element={
-            <ProtectedRoute>
-              <BasicSendConfirm />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={RouteName.AdvancedOperation}
-          element={
-            <ProtectedRoute>
-              <AdvanceOperation />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          exact
-          path={RouteName.Introduction}
-          element={<Intro />}
-        />
-        <Route
-          exact
-          path={RouteName.IntroSlides}
-          element={<IntroSlides />}
-        />
-        <Route exact path={RouteName.Flags} element={<Flags />} />
-        <Route
-          exact
-          path={RouteName.ConfirmFlag}
-          element={<ConfirmFlag />}
-        />
-        <Route exact path={RouteName.Login} element={<Login />} />
-        <Route exact path={RouteName.First} element={<FirstPage />} />
-        <Route
-          exact
-          path={RouteName.FetchData}
-          element={<FetchData />}
-        />
-        <Route
-          exact
-          path={RouteName.LoadingOne}
-          element={<LoadingOne />}
-        />
-        <Route
-          exact
-          path={RouteName.LoadingNetwork}
-          element={<LoadingNetwork />}
-        />
-        <Route
-          exact
-          path={RouteName.ContactRequest}
-          element={<ContactRequest />}
-        />
-        <Route
-          exact
-          path={RouteName.OfflineMode}
-          element={<OfflineMode />}
-        />
-        <Route
-          exact
-          path={RouteName.Register}
-          element={<ConfirmLogin />}
-        />
-        <Route
-          exact
-          path={RouteName.CreateWallet}
-          element={<CreateWallet />}
-        />
-        <Route
-          exact
-          path={RouteName.RestoreWallet}
-          element={<RestoreWallet />}
-        />
-        <Route
-          exact
-          path={RouteName.LoadingOverlay}
-          element={<LoadingOverlay />}
-        />
-        <Route
-          exact
-          path={RouteName.DeleteAccount}
-          element={<DeleteAccount />}
-        />
-        <Route
-          exact
-          path={RouteName.ConnectedWebsite}
-          element={<ConnectedWebsite />}
-        />
-        <Route
-          exact
-          path="ui"
-          element={
-            <ProtectedRoute>
-              <UITest />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </div>
-  </Router>
+  <div className="layout">
+    <Routes>
+      <Route
+        path={RouteName.Home}
+        element={
+          <ProtectedRoute>
+            <DetectSize desktop={<EHome />}>
+              <Home />
+            </DetectSize>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.Send}
+        element={
+          <ProtectedRoute>
+            <Send />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.Error}
+        element={
+          <ProtectedRoute>
+            <Error />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.QRCode}
+        element={
+          <ProtectedRoute>
+            <DetectSize desktop={<div>Not found</div>}>
+              <QRCode />
+            </DetectSize>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.Confirm}
+        element={
+          <ProtectedRoute>
+            <Confirm />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.Setting}
+        element={
+          <ProtectedRoute>
+            <Setting />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.AddAsset}
+        element={
+          <ProtectedRoute>
+            <AddAsset />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.PrivateKey}
+        element={
+          <ProtectedRoute>
+            <PrivateKey />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.ShowPrivateKey}
+        element={
+          <ProtectedRoute>
+            <ShowPrivateKey />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.AccountManager}
+        element={<AccountManager />}
+      />
+      <Route
+        path={`${RouteName.Asset}/:asset_code/:asset_issuer`}
+        element={
+          <ProtectedRoute>
+            <Assets />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.XLMAsset}
+        element={
+          <ProtectedRoute>
+            <XLMAsset />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.Sucess}
+        element={
+          <ProtectedRoute>
+            <SuccessfulSubmission />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.BackupFile}
+        element={
+          <ProtectedRoute>
+            <BackupFile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.BasicOperation}
+        element={
+          <ProtectedRoute>
+            <BasicOperation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.BasicSwapConfirm}
+        element={
+          <ProtectedRoute>
+            <BasicSwapConfirm />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.BasicSendConfirm}
+        element={
+          <ProtectedRoute>
+            <BasicSendConfirm />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.AdvancedOperation}
+        element={
+          <ProtectedRoute>
+            <AdvanceOperation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        exact
+        path={RouteName.Introduction}
+        element={<Intro />}
+      />
+      <Route
+        exact
+        path={RouteName.IntroSlides}
+        element={<IntroSlides />}
+      />
+      <Route exact path={RouteName.Flags} element={<Flags />} />
+      <Route
+        exact
+        path={RouteName.ConfirmFlag}
+        element={<ConfirmFlag />}
+      />
+      <Route exact path={RouteName.Login} element={<Login />} />
+      <Route exact path={RouteName.First} element={<FirstPage />} />
+      <Route
+        exact
+        path={RouteName.FetchData}
+        element={<FetchData />}
+      />
+      <Route
+        exact
+        path={RouteName.LoadingOne}
+        element={<LoadingOne />}
+      />
+      <Route
+        exact
+        path={RouteName.LoadingNetwork}
+        element={<LoadingNetwork />}
+      />
+      <Route
+        exact
+        path={RouteName.ContactRequest}
+        element={<ContactRequest />}
+      />
+      <Route
+        exact
+        path={RouteName.OfflineMode}
+        element={<OfflineMode />}
+      />
+      <Route
+        exact
+        path={RouteName.Register}
+        element={<ConfirmLogin />}
+      />
+      <Route
+        exact
+        path={RouteName.CreateWallet}
+        element={<CreateWallet />}
+      />
+      <Route
+        exact
+        path={RouteName.RestoreWallet}
+        element={<RestoreWallet />}
+      />
+      <Route
+        exact
+        path={RouteName.LoadingOverlay}
+        element={<LoadingOverlay />}
+      />
+      <Route
+        exact
+        path={RouteName.DeleteAccount}
+        element={<DeleteAccount />}
+      />
+      <Route
+        exact
+        path={RouteName.ConnectedWebsites}
+        element={<ConnectedWebsite />}
+      />
+      <Route
+        exact
+        path="ui"
+        element={
+          <ProtectedRoute>
+            <UITest />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  </div>
 );
 
 export default App;

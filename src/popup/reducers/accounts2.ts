@@ -38,6 +38,8 @@ const accountsSlice = createSlice({
     add: (state, action: PayloadAction<IAccount>) => {
       state.push(action.payload);
     },
+    remove: (state, action: PayloadAction<string>) =>
+      state.filter((x) => x.publicKey !== action.payload),
     changeActive: (state, action: PayloadAction<string>) => {
       for (let i = 0; i < state.length; i += 1) {
         if (state[i].publicKey === action.payload) {
@@ -75,9 +77,10 @@ const accountsSlice = createSlice({
 export const {
   add,
   load,
-  changeActive,
-  addAssets,
+  remove,
   addFlags,
+  addAssets,
   changeName,
+  changeActive,
 } = accountsSlice.actions;
 export default accountsSlice.reducer;
