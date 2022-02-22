@@ -160,6 +160,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
         isOpen={modal1}
       >
         <CreateWallet
+          isModal
           onSubmit={handleCreateWallet}
           onCancel={handleCloseModals}
         />
@@ -170,8 +171,10 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
         padding="large"
         onClose={onCloseModal2}
         isOpen={modal2}
+        minHeight={462}
       >
         <RestoreWallet
+          isModal
           onSubmit={handleRestoreWallet}
           onCancel={handleCloseModals}
         />

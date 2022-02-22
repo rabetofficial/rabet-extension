@@ -10,11 +10,13 @@ type RestoreWalletType = {
   children?: React.ReactNode;
   onCancel: () => void;
   onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
+  isModal?: boolean;
 };
 const RestoreWallet = ({
   children,
   onCancel,
   onSubmit,
+  isModal,
 }: RestoreWalletType) => (
   <>
     {children}
@@ -22,6 +24,7 @@ const RestoreWallet = ({
       <TabList
         onCancelPrivateKey={onCancel}
         onSubmitPrivateKey={onSubmit}
+        isModal={isModal}
       />
     </S.TabContainer>
   </>
@@ -29,6 +32,7 @@ const RestoreWallet = ({
 
 RestoreWallet.defaultProps = {
   children: '',
+  isModal: false,
 };
 
 export default RestoreWallet;

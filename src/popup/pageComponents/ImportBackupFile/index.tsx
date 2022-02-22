@@ -16,6 +16,7 @@ import * as S from './styles';
 type FormValues = {
   key: string;
 };
+
 type ImportBackupFileType = {
   isModal?: boolean;
 };
@@ -69,7 +70,10 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
         content="Select backup file"
         startIcon={<Download />}
         onClick={handleClick}
-        style={{ borderRadius: '4px', marginTop: '5px' }}
+        style={{
+          borderRadius: '4px',
+          marginTop: '5px',
+        }}
       />
 
       {showRest && (
@@ -85,7 +89,7 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
               <Field name="key">
                 {({ input, meta }) => (
                   <S.InputContainer>
-                    <label className="label-primary">key</label>
+                    <label className="label-primary">Key</label>
                     <Input
                       type="text"
                       size="medium"
@@ -98,8 +102,26 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
                 )}
               </Field>
               {submitError && <Error>{submitError}</Error>}
-              {isModal && (
-                <ButtonContainer btnSize={100} justify="end" mt={72}>
+              {isModal ? (
+                <ButtonContainer btnSize={100} justify="end" mt={60}>
+                  <Button
+                    variant="default"
+                    size="medium"
+                    content="Cancel"
+                    onClick={() => {
+                      handleCancel(form);
+                    }}
+                  />
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="medium"
+                    content="Import"
+                    disabled={pristine}
+                  />
+                </ButtonContainer>
+              ) : (
+                <S.ButtonContainer>
                   <Button
                     type="submit"
                     variant="primary"
@@ -117,27 +139,8 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
                     }}
                     startIcon={<ArrowBack />}
                   />
-                </ButtonContainer>
+                </S.ButtonContainer>
               )}
-              <S.ButtonContainer>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="medium"
-                  content="Import"
-                  disabled={pristine}
-                />
-                <Button
-                  style={{ marginTop: '12px' }}
-                  variant="default"
-                  size="medium"
-                  content="Back"
-                  onClick={() => {
-                    handleCancel(form);
-                  }}
-                  startIcon={<ArrowBack />}
-                />
-              </S.ButtonContainer>
             </form>
           )}
         />
@@ -145,6 +148,7 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
     </div>
   );
 };
+
 ImportBackupFile.defaultProps = {
   isModal: false,
 };

@@ -10,11 +10,13 @@ import ImportBackupFile from 'popup/pageComponents/ImportBackupFile';
 type TabListType = {
   onCancelPrivateKey: () => void;
   onSubmitPrivateKey: (v: FormValues) => Promise<Partial<FormValues>>;
+  isModal?: boolean;
 };
 
 const TabList = ({
   onCancelPrivateKey,
   onSubmitPrivateKey,
+  isModal,
 }: TabListType) => {
   const tabs: Tab[] = [
     {
@@ -24,17 +26,22 @@ const TabList = ({
         <PrivateKey
           onCancel={onCancelPrivateKey}
           onSubmit={onSubmitPrivateKey}
+          isModal={isModal}
         />
       ),
     },
     {
       id: '2',
       title: 'Backup file',
-      content: <ImportBackupFile />,
+      content: <ImportBackupFile isModal={isModal} />,
     },
   ];
 
   return <Tabs data={tabs} isEqualWidth />;
+};
+
+TabList.defaultProps = {
+  isModal: false,
 };
 
 export default TabList;

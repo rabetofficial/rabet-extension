@@ -5,6 +5,7 @@ import ArrowBack from 'popup/svgs/ArrowBack';
 import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
 import Button from 'popup/components/common/Button';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
@@ -16,12 +17,14 @@ type CreateWalletType = {
   children?: React.ReactNode;
   onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
   onCancel: () => void;
+  isModal?: boolean;
 };
 
 const CreateWallet = ({
   children,
   onCancel,
   onSubmit,
+  isModal,
 }: CreateWalletType) => {
   const validateForm = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
@@ -35,7 +38,8 @@ const CreateWallet = ({
 
   return (
     <div>
-      {children}
+      {children && <S.ChildContainer>{children}</S.ChildContainer>}
+
       <Form
         onSubmit={onSubmit}
         validate={(values: FormValues) => validateForm(values)}
@@ -47,7 +51,7 @@ const CreateWallet = ({
           >
             <Field name="name">
               {({ input, meta }) => (
-                <S.InputContainer>
+                <div style={{ marginTop: isModal ? '16px' : '0px' }}>
                   <label className="label-primary">Wallet name</label>
                   <Input
                     type="text"
@@ -57,30 +61,49 @@ const CreateWallet = ({
                     meta={meta}
                     autoFocus
                   />
-                </S.InputContainer>
+                </div>
               )}
             </Field>
 
             {submitError && <Error>{submitError}</Error>}
 
-            <S.ButtonContainer>
-              <Button
-                type="submit"
-                variant="primary"
-                size="medium"
-                content="Create"
-                disabled={pristine}
-              />
+            {isModal ? (
+              <ButtonContainer btnSize={100} justify="end" mt={203}>
+                <Button
+                  variant="default"
+                  size="medium"
+                  content="Cancel"
+                  onClick={onCancel}
+                  style={{ marginRight: '7px' }}
+                />
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="medium"
+                  content="Create"
+                  disabled={pristine}
+                />
+              </ButtonContainer>
+            ) : (
+              <S.ButtonContainer>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="medium"
+                  content="Create"
+                  disabled={pristine}
+                />
 
-              <Button
-                style={{ marginTop: '12px' }}
-                variant="default"
-                size="medium"
-                content="Back"
-                onClick={onCancel}
-                startIcon={<ArrowBack />}
-              />
-            </S.ButtonContainer>
+                <Button
+                  style={{ marginTop: '12px' }}
+                  variant="default"
+                  size="medium"
+                  content="Back"
+                  onClick={onCancel}
+                  startIcon={<ArrowBack />}
+                />
+              </S.ButtonContainer>
+            )}
           </form>
         )}
       />
@@ -90,6 +113,7 @@ const CreateWallet = ({
 
 CreateWallet.defaultProps = {
   children: '',
+  isModal: false,
 };
 
 export default CreateWallet;
