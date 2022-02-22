@@ -12,6 +12,7 @@ import WalletInfo from 'popup/pages/expand/EHome/WalletInfo';
 import loadAssetImages from 'popup/features/loadAssetImages';
 import ModalDialog from 'popup/components/common/ModalDialog';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
+import SuccessfulSubmission from 'popup/pageComponents/SuccessfulSubmission';
 
 const EHome = () => {
   const activeAccount = useActiveAccount();
@@ -21,6 +22,9 @@ const EHome = () => {
   const [modal1, setModal1] = useState(false);
   const onOpenModal1 = () => setModal1(true);
   const onCloseModal1 = () => setModal1(false);
+  const [modal2, setModal2] = useState(false);
+  const onOpenModal2 = () => setModal2(true);
+  const onCloseModal2 = () => setModal2(false);
 
   useEffect(() => {
     loadCurrencies();
@@ -67,6 +71,23 @@ const EHome = () => {
             isOpen={modal1}
           >
             <Loading size={120} title="Sending to network" />
+          </ModalDialog>
+          <div
+            onClick={onOpenModal2}
+            className="text-slate-600 text-[16px]"
+          >
+            Successful modal test (free to remove)
+          </div>
+          <ModalDialog
+            isStyled={false}
+            size="medium"
+            onClose={onCloseModal2}
+            isOpen={modal2}
+          >
+            <SuccessfulSubmission
+              onClick={() => console.log('hi')}
+              message="KJBJKSDBBJLSDBVLSDVDKBLI84Y2838909603SAY37AHKJC937330964"
+            />
           </ModalDialog>
         </>
       ),
