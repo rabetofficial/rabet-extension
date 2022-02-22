@@ -23,6 +23,7 @@ export const TabTitle = styled.li`
   &.active {
     color: black;
     position: relative;
+    font-weight: 500;
   }
 
   &::before,
