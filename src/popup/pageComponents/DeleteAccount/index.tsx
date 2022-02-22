@@ -3,6 +3,7 @@ import React from 'react';
 import Note from 'popup/components/Note';
 import Button from 'popup/components/common/Button';
 import Trash from 'popup/svgs/Trash';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
@@ -22,23 +23,24 @@ const DeleteAccount = (props: DeleteAccountTypes) => {
       {children}
       <S.Container>
         <Note text={message} />
-
         <S.ButtonContainer>
-          <Button
-            variant="default"
-            size="medium"
-            content="Cancel"
-            onClick={onCancel}
-          />
+          <ButtonContainer btnSize={102} justify="end" mt={36}>
+            <Button
+              variant="default"
+              size="medium"
+              content="Cancel"
+              onClick={onCancel}
+            />
 
-          <Button
-            type="button"
-            variant="danger"
-            size="medium"
-            content="Delete"
-            startIcon={<Trash />}
-            onClick={onClick}
-          />
+            <Button
+              type="button"
+              variant="danger"
+              size="medium"
+              content="Delete"
+              startIcon={<Trash />}
+              onClick={onClick}
+            />
+          </ButtonContainer>
         </S.ButtonContainer>
       </S.Container>
     </>
