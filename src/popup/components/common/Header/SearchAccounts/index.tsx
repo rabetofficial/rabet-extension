@@ -98,7 +98,7 @@ const SearchAccounts = ({
   return (
     <>
       <Popover
-        placement="bottom"
+        placement="bottom-start"
         visible={showPopover}
         hideFunc={onHidePopover}
         onHide={handleOverlayOff}

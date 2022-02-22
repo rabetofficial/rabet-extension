@@ -3,11 +3,11 @@ import Tippy from '@tippyjs/react';
 import { roundArrow } from 'tippy.js';
 import styled from 'styled-components';
 
-import { Placement } from 'popup/models';
+import { FullPlacement } from 'popup/models';
 
 type AppProps = {
   children: React.ReactNode;
-  placement?: Placement;
+  placement?: FullPlacement;
   className?: string;
   onHide?: () => void;
   visible: boolean;

@@ -19,6 +19,20 @@ export type JustifyContent = 'start' | 'end' | 'center';
 
 export type Placement = 'top' | 'bottom' | 'right' | 'left';
 
+export type FullPlacement =
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'right'
+  | 'right-start'
+  | 'right-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end';
+
 export type ElementOption = {
   value: string;
   label: string | React.ReactNode;

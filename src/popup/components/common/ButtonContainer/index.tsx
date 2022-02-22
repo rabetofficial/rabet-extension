@@ -45,7 +45,6 @@ const ButtonContainer = (props: AppProps) => {
             'flex',
             justify && `justify-${justify}`,
           )}
-          style={{ ...positionStyles }}
         >
           {children}
         </Container>
