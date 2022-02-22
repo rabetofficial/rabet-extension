@@ -1,14 +1,14 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import Header from '../../components/Header';
-import * as route from '../../staticRes/routes';
-import PageTitle from '../../components/PageTitle';
-import NoteCard from '../../pageComponents/NoteCard';
-import CopyText from '../../components/CopyText';
-import shareIcon from '../../../assets/images/share-arrow.svg';
-import createTab from '../../utils/createTab';
-import explorer from '../../utils/horizon/getTransaction';
+import Header from 'popup/components/common/Header';
+import RouteName from 'popup/staticRes/routes';
+import PageTitle from 'popup/components/PageTitle';
+import NoteCard from 'popup/pageComponents/NoteCard';
+import CopyText from 'popup/components/common/CopyText';
+import shareIcon from 'popup/../assets/images/share-arrow.svg';
+import createTab from 'popup/utils/createTab';
+import explorer from 'popup/utils/horizon/getTransaction';
 
 import styles from './styles.less';
 
@@ -17,14 +17,11 @@ const SuccessfulSubmission = () => {
   const { state } = useLocation();
 
   const handleClick = () => {
-    navigate(
-      route.homePage,
-      {
-        state: {
-          alreadyLoaded: false,
-        },
+    navigate(RouteName.Home, {
+      state: {
+        alreadyLoaded: false,
       },
-    );
+    });
   };
 
   const { hash } = state;
@@ -34,7 +31,9 @@ const SuccessfulSubmission = () => {
       <CopyText text={hash} button={hash} />
       <a
         className={styles.shareLink}
-        onClick={() => { createTab(explorer(hash)); }}
+        onClick={() => {
+          createTab(explorer(hash));
+        }}
       >
         <img src={shareIcon} alt="icon" />
       </a>
