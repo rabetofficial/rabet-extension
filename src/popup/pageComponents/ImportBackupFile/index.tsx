@@ -9,14 +9,18 @@ import Error from 'popup/components/common/Error';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
 type FormValues = {
   key: string;
 };
+type ImportBackupFileType = {
+  isModal?: boolean;
+};
 
-const ImportBackupFile = () => {
+const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
   const navigate = useNavigate();
   const [showRest, setShowRest] = useState(false);
   const accounts = useTypedSelector((store) => store.accounts);
@@ -58,17 +62,15 @@ const ImportBackupFile = () => {
 
   return (
     <div>
-      <S.ButtonContainer>
-        <Button
-          type="file"
-          variant="outlined"
-          size="medium"
-          content="Select backup file"
-          startIcon={<Download />}
-          onClick={handleClick}
-          style={{ borderRadius: '4px', marginTop: '32px' }}
-        />
-      </S.ButtonContainer>
+      <Button
+        type="file"
+        variant="outlined"
+        size="medium"
+        content="Select backup file"
+        startIcon={<Download />}
+        onClick={handleClick}
+        style={{ borderRadius: '4px', marginTop: '5px' }}
+      />
 
       {showRest && (
         <Form
@@ -96,6 +98,27 @@ const ImportBackupFile = () => {
                 )}
               </Field>
               {submitError && <Error>{submitError}</Error>}
+              {isModal && (
+                <ButtonContainer btnSize={100} justify="end" mt={72}>
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="medium"
+                    content="Import"
+                    disabled={pristine}
+                  />
+                  <Button
+                    style={{ marginTop: '12px' }}
+                    variant="default"
+                    size="medium"
+                    content="Back"
+                    onClick={() => {
+                      handleCancel(form);
+                    }}
+                    startIcon={<ArrowBack />}
+                  />
+                </ButtonContainer>
+              )}
               <S.ButtonContainer>
                 <Button
                   type="submit"
@@ -122,5 +145,7 @@ const ImportBackupFile = () => {
     </div>
   );
 };
-
+ImportBackupFile.defaultProps = {
+  isModal: false,
+};
 export default ImportBackupFile;

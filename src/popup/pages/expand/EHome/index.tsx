@@ -18,6 +18,9 @@ const EHome = () => {
   const [modal, setModal] = useState(false);
   const onOpenModal = () => setModal(true);
   const onCloseModal = () => setModal(false);
+  const [modal1, setModal1] = useState(false);
+  const onOpenModal1 = () => setModal1(true);
+  const onCloseModal1 = () => setModal1(false);
 
   useEffect(() => {
     loadCurrencies();
@@ -52,7 +55,7 @@ const EHome = () => {
             />
           </ModalDialog>
           <div
-            onClick={onOpenModal}
+            onClick={onOpenModal1}
             className="text-slate-600 text-[16px]"
           >
             Loading modal test (free to remove)
@@ -60,8 +63,8 @@ const EHome = () => {
           <ModalDialog
             isStyled={false}
             size="medium"
-            onClose={onCloseModal}
-            isOpen={modal}
+            onClose={onCloseModal1}
+            isOpen={modal1}
           >
             <Loading size={120} title="Sending to network" />
           </ModalDialog>

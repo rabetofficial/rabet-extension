@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Trash from 'popup/svgs/Trash';
+import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
 import CopyKey from 'popup/components/common/CopyKey';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
@@ -11,7 +12,6 @@ import EditWalletName from 'popup/components/EditWalletName';
 import InsideTabLayout from 'popup/components/common/Layouts/InsideTabLayout';
 import ModalDialog from 'popup/components/common/ModalDialog';
 import DeleteAccount from 'popup/pageComponents/DeleteAccount';
-import RouteName from 'popup/staticRes/routes';
 import currentActiveAccount from 'popup/utils/activeAccount';
 import removeAccountAction from 'popup/actions/accounts/remove';
 

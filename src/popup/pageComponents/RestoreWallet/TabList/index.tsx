@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Tabs from 'popup/components/Tabs';
+import Tabs from 'popup/components/common/Tabs';
+import { Tab } from 'popup/models';
 import PrivateKey, {
   FormValues,
 } from 'popup/pageComponents/PrivateKey';
@@ -15,11 +16,11 @@ const TabList = ({
   onCancelPrivateKey,
   onSubmitPrivateKey,
 }: TabListType) => {
-  const tabs = [
+  const tabs: Tab[] = [
     {
       id: '1',
-      tabTitle: 'Private key',
-      tabContent: (
+      title: 'Private key',
+      content: (
         <PrivateKey
           onCancel={onCancelPrivateKey}
           onSubmit={onSubmitPrivateKey}
@@ -28,12 +29,12 @@ const TabList = ({
     },
     {
       id: '2',
-      tabTitle: 'Backup file',
-      tabContent: <ImportBackupFile />,
+      title: 'Backup file',
+      content: <ImportBackupFile />,
     },
   ];
 
-  return <Tabs data={tabs} tabTitleStyle={{ fontWeight: 'bold' }} />;
+  return <Tabs data={tabs} isEqualWidth />;
 };
 
 export default TabList;
