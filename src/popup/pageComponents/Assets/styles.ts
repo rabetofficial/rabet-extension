@@ -1,43 +1,42 @@
-@import '../../styles/theme.less';
+import styled from 'styled-components';
 
-:local(.page) {
+export const Page = styled.div`
   position: relative;
 
   .content {
     padding-top: 28px;
     padding-bottom: 20px;
   }
-}
-
-:local(.title) {
+`;
+export const Title = styled.h4`
   font-size: 16px;
   color: @shark;
   margin: 0 0 5px 0;
   font-weight: 500;
-}
+`;
 
-:local(.value) {
+export const Value = styled.p`
   font-size: 16px;
   line-height: 1.63;
   color: @dove-gray;
   margin: 0;
   word-break: break-all;
 
-  a, a:hover {
+  a,
+  a:hover {
     text-decoration: none !important;
     color: @dove-gray;
   }
-}
+`;
 
-:local(.hr) {
+export const Hr = styled.hr`
   margin-top: 9px;
   margin-bottom: 10px;
   border: none;
   height: 1px;
   background-color: @gallery;
-}
-
-:local(.table) {
+`;
+export const Table = styled.div`
   margin-top: 24px;
 
   table {
@@ -52,7 +51,8 @@
     font-weight: normal;
   }
 
-  th, td {
+  th,
+  td {
     text-align: center;
     padding: 15px;
     font-size: 16px;
@@ -75,21 +75,8 @@
     border-radius: 0 2px 0 0;
   }
 
-  table td:first-child, table th:first-child {
+  table td:first-child,
+  table th:first-child {
     border-left: medium none;
   }
-}
-
-:local(.buttons) {
-  margin-top: 12px;
-  padding-right: 16px;
-  padding-left: 16px;
-
-  button {
-    width: 100px;
-  }
-
-  button:first-child {
-    margin-right: 12px;
-  }
-}
+`;
