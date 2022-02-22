@@ -6,11 +6,14 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
+import { HashRouter as Router } from 'react-router-dom';
 
 import store from './store';
 import Component from './pages';
+import Modal from './pageComponents/Modal';
 import loadUser from './actions/user/loadUser';
 import getHost from './actions/options/getHost';
+// import ModalDialog from './components/common/ModalDialog';
 
 import 'react-slideshow-image/dist/styles.css';
 import 'purecss/build/pure-min.css';
@@ -30,12 +33,17 @@ require('file-loader?name=[name].[ext]!./popup.html');
   await loadUser();
 
   render(
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <Global theme={theme} />
-        <Component />
-      </ThemeProvider>
-    </Provider>,
+    <Router>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Modal />
+
+          <Global theme={theme} />
+
+          <Component />
+        </ThemeProvider>
+      </Provider>
+    </Router>,
     global.document.getElementById('root'),
   );
 })();

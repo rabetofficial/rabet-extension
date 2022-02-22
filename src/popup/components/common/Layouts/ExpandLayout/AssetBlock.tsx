@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import PlusBold from 'popup/svgs/PlusBold';
 import AddAsset from 'popup/blocks/AddAsset';
-import ModalDialog from 'popup/components/common/ModalDialog';
+import openModalAction from 'popup/actions/modal/open';
+
 import AssetList from './AssetList';
 
 import * as S from './styles';
 
 const AssetBlock = () => {
-  const [modal, setModal] = useState(false);
-  const onOpenModal = () => setModal(true);
-  const onCloseModal = () => setModal(false);
+  const onOpenModal = () => {
+    openModalAction({
+      isStyled: true,
+      size: 'medium',
+      minHeight: 545,
+      padding: 'large',
+      title: 'Add asset',
+      children: <AddAsset />,
+    });
+  };
 
   return (
     <S.Card className="rounded pt-[20px]">
@@ -20,16 +28,6 @@ const AssetBlock = () => {
           <PlusBold />
           <div className="ml-1">Add assets</div>
         </S.AssetTrigger>
-        <ModalDialog
-          title="Add asset"
-          size="medium"
-          padding="large"
-          onClose={onCloseModal}
-          isOpen={modal}
-          minHeight={545}
-        >
-          <AddAsset setModal={setModal} />
-        </ModalDialog>
       </div>
       <AssetList />
     </S.Card>

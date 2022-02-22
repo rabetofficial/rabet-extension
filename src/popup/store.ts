@@ -6,6 +6,10 @@ import rootReducers from './reducers';
 const store = configureStore({
   reducer: rootReducers,
   devTools: true,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export type AppDispatch = typeof store.dispatch;

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
+import timeout from 'popup/utils/timeout';
 import Tabs from 'popup/components/common/Tabs';
+import closeModalAction from 'popup/actions/modal/close';
+import openModalAction from 'popup/actions/modal/open';
 import addAssetAction from 'popup/actions/operations/addAsset';
 
 import { Tab } from 'popup/models';
@@ -9,18 +12,25 @@ import CustomAsset, { FormValues } from './CustomAsset';
 
 type AddAssetType = {
   children?: React.ReactNode;
-  setModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const AddAsset = ({ children, setModal }: AddAssetType) => {
+const AddAsset = ({ children }: AddAssetType) => {
   const [messageResult, setMessageResult] = useState('');
 
   const handleSubmit = async (values: FormValues) => {
-    if (setModal) {
-      setModal(false);
-    }
+    closeModalAction();
 
-    // SHOW LOADING NETWORK MODAL
+    await timeout(100);
+
+    // SHOW LOADING MODAL
+    openModalAction({
+      minHeight: 0,
+      isStyled: true,
+      size: 'medium',
+      title: 'Receive',
+      padding: 'large',
+      children: <p>LOADING</p>,
+    });
 
     const [isSuccessful, message] = await addAssetAction(
       values.code,
@@ -31,23 +41,38 @@ const AddAsset = ({ children, setModal }: AddAssetType) => {
     setMessageResult(message);
 
     // STOP SHOWING LOADING NETWORK MODAL
+    closeModalAction();
+
+    await timeout(100);
 
     if (isSuccessful) {
       // SHOW SUCCESS MODAL
       // WITH MESSAGE
+      openModalAction({
+        minHeight: 0,
+        isStyled: true,
+        size: 'medium',
+        title: 'SUCCESS',
+        padding: 'large',
+        children: <p>SUCCESS</p>,
+      });
     } else {
       // SHOW ERROR MODAL
       // WITH MESSAGE
+      openModalAction({
+        minHeight: 0,
+        isStyled: true,
+        size: 'medium',
+        title: 'ERROR',
+        padding: 'large',
+        children: <p>ERROR</p>,
+      });
     }
 
     return values;
   };
 
-  const handleCancel = () => {
-    if (setModal) {
-      setModal(false);
-    }
-  };
+  const handleCancel = () => {};
 
   const tabs: Tab[] = [
     {
@@ -84,6 +109,6 @@ const AddAsset = ({ children, setModal }: AddAssetType) => {
 };
 AddAsset.defaultProps = {
   children: '',
-  setModal: () => {},
 };
+
 export default AddAsset;

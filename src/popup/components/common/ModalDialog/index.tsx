@@ -1,35 +1,28 @@
 import React from 'react';
-import { CSSTransition } from 'react-transition-group';
 import Modal from 'react-modal';
 
 import Multiply from 'popup/svgs/Multiply';
-import { ModalSize } from 'popup/models';
+import { IModal } from 'popup/reducers/modal';
 import useWindowDimensions from 'popup/hooks/useWindowDimensions';
 
 import * as S from './styles';
 
-type AppProps = {
-  title?: string;
-  isOpen: boolean;
+interface ModalDialogType extends IModal {
   onClose: () => void;
-  size?: ModalSize;
-  isStyled?: boolean;
-  padding?: 'medium' | 'large';
-  minHeight?: number;
-  children: React.ReactNode;
-};
+}
 
 const ModalDialog = ({
+  size,
   title,
   isOpen,
   onClose,
-  size,
-  isStyled,
   padding,
-  minHeight,
+  isStyled,
   children,
-}: AppProps) => {
+  minHeight,
+}: ModalDialogType) => {
   const { windowWidth } = useWindowDimensions();
+
   const renderModalSize = () => {
     if (size === 'small') {
       return 306;
@@ -92,14 +85,6 @@ const ModalDialog = ({
       )}
     </>
   );
-};
-
-ModalDialog.defaultProps = {
-  title: '',
-  size: 'sm',
-  isStyled: true,
-  padding: '',
-  minHeight: 100,
 };
 
 export default ModalDialog;
