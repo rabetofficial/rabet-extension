@@ -19,7 +19,7 @@ import Flags from './Flags';
 import QRCode from './extension/Receive';
 import Assets from './Assets';
 import Confirm from './Confirm';
-import Setting from './Setting';
+import Setting from './extension/Setting';
 import AddAsset from './extension/AddAssets';
 import FirstPage from './FirstPage';
 import FetchData from './FetchData';
