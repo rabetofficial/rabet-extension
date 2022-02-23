@@ -6,7 +6,7 @@ import capital from 'popup/utils/capital';
 import Button from 'popup/components/common/Button';
 import Tooltip from 'popup/components/common/Tooltips';
 import * as route from 'popup/staticRes/routes';
-import ToggleSwitch from 'popup/components/ToggleSwitch';
+import ToggleSwitch from 'popup/components/common/ToggleSwitch';
 import SelectOption from 'popup/components/SelectOption';
 import changeOptionsAction from 'popup/actions/options/change';
 import * as currenciesModule from 'popup/staticRes/currencies';
@@ -106,7 +106,7 @@ const SettingGeneral = ({ options }) => {
     }
   }, [options]);
 
-  const handleChecked = (c) => {
+  const handleChecked = (c: boolean) => {
     setChecked(c);
   };
 
@@ -166,19 +166,17 @@ const SettingGeneral = ({ options }) => {
       </div>
 
       <div className="flex justify-between items-center mt-[20px]">
-        <div>
-          <S.Title>
-            <span className="whitespace-nowrap">Auto-lock timer</span>
-            <Tooltip
-              text="Rabet will lock automatically after a set amount of time."
-              placement="top"
-            >
-              <span>
-                <CircleQuestion />
-              </span>
-            </Tooltip>
-          </S.Title>
-        </div>
+        <S.Title>
+          <span className="whitespace-nowrap">Auto-lock timer</span>
+          <Tooltip
+            text="Rabet will lock automatically after a set amount of time."
+            placement="top"
+          >
+            <span>
+              <CircleQuestion />
+            </span>
+          </Tooltip>
+        </S.Title>
 
         <S.Select>
           <SelectOption
