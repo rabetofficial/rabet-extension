@@ -3,13 +3,14 @@ import React from 'react';
 import CopyText from 'popup/components/CopyText';
 import Button from 'popup/components/common/Button';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
 type BackupTypes = {
   onClose: () => void;
   onClick: () => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const BackupFile = ({ onClose, onClick, children }: BackupTypes) => {
@@ -32,32 +33,36 @@ const BackupFile = ({ onClose, onClick, children }: BackupTypes) => {
           </S.Copy>
         </S.Box>
 
-        <S.Label>Address</S.Label>
+        <S.Label style={{ marginTop: '25px' }}>Address</S.Label>
         <S.Box>
           {publicKey}
           <S.Copy>
             <CopyText copyButton text={publicKey} />
           </S.Copy>
         </S.Box>
-
         <S.ButtonContainer>
-          <Button
-            variant="default"
-            size="medium"
-            content="Cancel"
-            onClick={onClose}
-          />
-          <Button
-            variant="primary"
-            size="medium"
-            content="Continue"
-            onClick={onClick}
-            style={{ marginRight: '17px' }}
-          />
+          <ButtonContainer mt={32} btnSize={100} justify="end">
+            <Button
+              variant="default"
+              size="medium"
+              content="Cancel"
+              onClick={onClose}
+              style={{ marginRight: '7px' }}
+            />
+            <Button
+              variant="primary"
+              size="medium"
+              content="Continue"
+              onClick={onClick}
+            />
+          </ButtonContainer>
         </S.ButtonContainer>
       </div>
     </S.Container>
   );
+};
+BackupFile.defaultProps = {
+  children: '',
 };
 
 export default BackupFile;

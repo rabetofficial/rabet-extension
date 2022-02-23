@@ -13,6 +13,7 @@ type PageTitleTypes = {
   status?: string;
   statusTitle?: String;
   alreadyLoaded?: any;
+  padding?: string;
 };
 
 const PageTitle = ({
@@ -20,6 +21,7 @@ const PageTitle = ({
   status,
   statusTitle,
   alreadyLoaded,
+  padding,
   ...props
 }: PageTitleTypes) => {
   const navigate = useNavigate();
@@ -72,7 +74,12 @@ const PageTitle = ({
   };
 
   return (
-    <S.Container>
+    <S.Container
+      style={{
+        padding: `${padding}px`,
+        paddingRight: !padding ? '10px' : '0px',
+      }}
+    >
       <div>{generateTitle()}</div>
 
       <S.Icon>
@@ -88,6 +95,7 @@ PageTitle.defaultProps = {
   status: '',
   statusTitle: '',
   alreadyLoaded: '',
+  padding: '',
 };
 
 export default connect((state) => ({

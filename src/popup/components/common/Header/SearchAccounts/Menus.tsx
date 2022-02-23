@@ -19,6 +19,7 @@ import createAccountAction from 'popup/actions/accounts/create';
 import validatePrivateKey from 'popup/utils/validate/privateKey';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import { FormValues as RestoreWalletFormValues } from 'popup/pageComponents/PrivateKey';
+import PageTitle from 'popup/components/PageTitle';
 
 import * as S from './styles';
 
@@ -59,17 +60,17 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     closeModalAction();
 
     openModalAction({
-      isStyled: true,
-      title: 'Backup File',
+      isStyled: false,
+      title: 'Backup',
       size: 'medium',
       padding: 'large',
-      minHeight: 0,
+      minHeight: 462,
       children: (
         <BackupFile
           onClose={closeModalAction}
           onClick={closeModalAction}
         >
-          Hi
+          <PageTitle title="Backup file" padding="0" />
         </BackupFile>
       ),
     });
@@ -115,7 +116,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
       title: 'Create Wallet',
       size: 'medium',
       padding: 'large',
-      minHeight: 0,
+      minHeight: 462,
       children: (
         <CreateWallet
           isModal
