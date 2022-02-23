@@ -25,12 +25,18 @@ const Transactions = () => {
     return (
       <Loading
         title="Loading Transactions"
-        size={100}
+        size={80}
         titleStyle="text-primary"
       />
     );
   }
-
+  if (transactions.length === 0) {
+    return (
+      <p className="flex justify-center text-primary text-base mt-[135px]">
+        You have no transaction
+      </p>
+    );
+  }
   return (
     <div>
       {transactions.map((tx) => (
