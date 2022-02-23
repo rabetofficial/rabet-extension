@@ -1,81 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 
-import shorter from 'popup/utils/shorter';
-import showBalance from 'popup/utils/showBalance';
-import formatCurrency from 'popup/utils/formatCurrency';
-import numberWithCommas from 'popup/utils/numberWithCommas';
-import getTotalBalance from 'popup/utils/getTotalBalance';
-import Popover from 'popup/components/common/Popover';
 import Search from 'popup/svgs/Search';
-import AccountList from './AccountsList';
-import Menus from './Menus';
+import { IAccount } from 'popup/reducers/accounts2';
+import Popover from 'popup/components/common/Popover';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 
+import Menus from './Menus';
 import * as S from './styles';
+import AccountList from './AccountsList';
 
 type AppProps = {
   isOpen: boolean;
-  accounts: any;
-  options: any;
-  currencies: any;
   usage: 'extension' | 'expand' | undefined;
   [x: string]: any;
 };
 
-const SearchAccounts = ({
-  isOpen,
-  accounts: accs,
-  options: o,
-  currencies,
-  usage,
-  ...props
-}: AppProps) => {
-  const activeCurrency = currencies[o.currency] || {
-    value: 0,
-    currency: 'USD',
-  };
+const SearchAccounts = ({ usage, isOpen, ...props }: AppProps) => {
+  const { name } = useActiveAccount();
   const [searchString, setSearchString] = useState('');
-  const [accounts, setAccounts] = useState([]);
   const [showPopover, setShowPopover] = useState(false);
+  const [activeAccounts, setActiveAccounts] = useState<IAccount[]>(
+    [],
+  );
+  const accounts = useTypedSelector((store) => store.accounts);
+
   const onShowPopover = () => setShowPopover(true);
   const onHidePopover = () => setShowPopover(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchString(e.target.value);
   };
 
-  let activeAccountIndex = accounts.findIndex((x) => x.active);
-
-  if (activeAccountIndex === -1) {
-    activeAccountIndex = 0;
-  }
-
   useEffect(() => {
-    const items = accs.map((item, index) => ({
-      active: item.active,
-      realPublicKey: item.publicKey,
-      publicKey: shorter(item.publicKey, 8),
-      name: item.name || `Account ${index + 1}`,
-      balances: showBalance(
-        numberWithCommas(
-          formatCurrency(
-            getTotalBalance(item.balances, activeCurrency),
-          ),
-        ),
-        activeCurrency.name,
-      ),
-      isConnected: item.isConnected,
-    }));
-
-    setAccounts(items);
-    let list = items;
-
-    if (searchString && searchString.length > 0) {
+    if (searchString.length > 0) {
       const data = searchString.trim().toLowerCase();
-      list = list.filter((l) => l.name.toLowerCase().match(data));
-      setAccounts(list);
+
+      setActiveAccounts(
+        accounts.filter((account) =>
+          account.name.toLowerCase().match(data),
+        ),
+      );
+    } else {
+      setActiveAccounts(accounts);
     }
-  }, [searchString, accs]);
+  }, [searchString, accounts]);
 
   useEffect(() => {
     setSearchString('');
@@ -85,13 +54,13 @@ const SearchAccounts = ({
     props.toggleOverlay(true);
     onShowPopover();
   };
-  const handleOverlayOff = () => props.toggleOverlay(false);
+  const handleOverlayOff = () => {
+    props.toggleOverlay(false);
+  };
 
   const triggerElement = (
     <S.ToggleButton type="button" onClick={handleOverlayOn}>
-      {accs[activeAccountIndex] && accs[activeAccountIndex].name
-        ? accs[activeAccountIndex].name.substr(0, 1).toUpperCase()
-        : 'A'}
+      {name.slice(0, 1).toUpperCase()}
     </S.ToggleButton>
   );
 
@@ -109,9 +78,10 @@ const SearchAccounts = ({
             <S.InputSearch
               type="text"
               value={searchString}
-              onChange={(e) => handleChange(e)}
+              onChange={handleChange}
               placeholder="Search Accounts"
             />
+
             {!searchString && (
               <S.SearchIcon>
                 <Search />
@@ -119,8 +89,7 @@ const SearchAccounts = ({
             )}
           </div>
 
-          <AccountList accounts={accounts} />
-
+          <AccountList accounts={activeAccounts} />
           <Menus usage={usage} onHidePopover={onHidePopover} />
         </S.Card>
       </Popover>
@@ -128,8 +97,4 @@ const SearchAccounts = ({
   );
 };
 
-export default connect((state) => ({
-  options: state.options,
-  accounts: state.accounts,
-  currencies: state.currencies,
-}))(SearchAccounts);
+export default SearchAccounts;

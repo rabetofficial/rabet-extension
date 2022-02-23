@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from 'popup/components/common/Button';
 import CopyText from 'popup/components/CopyText';
-import currentActiveAccount from 'popup/utils/activeAccount';
+import Button from 'popup/components/common/Button';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 
 import * as S from './styles';
 
@@ -11,10 +11,9 @@ type BackupTypes = {
   onClick: () => void;
   children: React.ReactNode;
 };
-const BackupFile = (props: BackupTypes) => {
-  const { onClose, onClick, children } = props;
-  const { activeAccount } = currentActiveAccount();
-  const { publicKey, privateKey } = activeAccount;
+
+const BackupFile = ({ onClose, onClick, children }: BackupTypes) => {
+  const { publicKey, privateKey } = useActiveAccount();
 
   return (
     <S.Container>
@@ -24,6 +23,7 @@ const BackupFile = (props: BackupTypes) => {
           <span>Make a backup of your private key! </span>secure it
           like the millions of dollars it may one day be worth.
         </S.Msg>
+
         <S.Label>Private Key</S.Label>
         <S.Box>
           <div className="hide-blur">{privateKey}</div>
@@ -31,6 +31,7 @@ const BackupFile = (props: BackupTypes) => {
             <CopyText copyButton text={privateKey} />
           </S.Copy>
         </S.Box>
+
         <S.Label>Address</S.Label>
         <S.Box>
           {publicKey}
@@ -38,6 +39,7 @@ const BackupFile = (props: BackupTypes) => {
             <CopyText copyButton text={publicKey} />
           </S.Copy>
         </S.Box>
+
         <S.ButtonContainer>
           <Button
             variant="default"

@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RouteName from 'popup/staticRes/routes';
-import lockAction from 'popup/actions/accounts/lock';
+import React, { useEffect, useState } from 'react';
+
 import Plus from 'popup/svgs/Plus';
 import File from 'popup/svgs/File';
-import Setting from 'popup/svgs/Setting';
 import Lock from 'popup/svgs/Lock';
-import ModalDialog from 'popup/components/common/ModalDialog';
+import Setting from 'popup/svgs/Setting';
 import CreateWallet, {
   FormValues as CreateWalletFormValues,
 } from 'popup/pageComponents/CreateWallet';
-import restoreAccountAction from 'popup/actions/accounts/restore';
-import { FormValues as RestoreWalletFormValues } from 'popup/pageComponents/PrivateKey';
+import RouteName from 'popup/staticRes/routes';
+import lockAction from 'popup/actions/accounts/lock';
+import openModalAction from 'popup/actions/modal/open';
+import closeModalAction from 'popup/actions/modal/close';
+import BackupFile from 'popup/pageComponents/BackupFile';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 import RestoreWallet from 'popup/pageComponents/RestoreWallet';
 import createAccountAction from 'popup/actions/accounts/create';
 import validatePrivateKey from 'popup/utils/validate/privateKey';
-import useTypedSelector from 'popup/hooks/useTypedSelector';
+import restoreAccountAction from 'popup/actions/accounts/restore';
+import { FormValues as RestoreWalletFormValues } from 'popup/pageComponents/PrivateKey';
 
 import * as S from './styles';
 
@@ -36,23 +39,10 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
   const navigate = useNavigate();
   const accounts = useTypedSelector((store) => store.accounts);
 
-  const [modal1, setModal1] = useState(false);
-  const onOpenModal1 = () => setModal1(true);
-  const onCloseModal1 = () => setModal1(false);
-
-  const [modal2, setModal2] = useState(false);
-  const onOpenModal2 = () => setModal2(true);
-  const onCloseModal2 = () => setModal2(false);
-
   const [menuItems, setMenuItems] = useState<Menu[]>([]);
 
   const handleLock = () => {
     lockAction(navigate);
-  };
-
-  const handleCloseModals = () => {
-    onCloseModal1();
-    onCloseModal2();
   };
 
   const handleCreateWallet = async (
@@ -66,9 +56,23 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
       };
     }
 
-    // TEMPORARY
-    handleCloseModals();
-    // OPEN BACKUP FILE MODAL
+    closeModalAction();
+
+    openModalAction({
+      isStyled: true,
+      title: 'Backup File',
+      size: 'medium',
+      padding: 'large',
+      minHeight: 0,
+      children: (
+        <BackupFile
+          onClose={closeModalAction}
+          onClick={closeModalAction}
+        >
+          Hi
+        </BackupFile>
+      ),
+    });
 
     return {};
   };
@@ -100,9 +104,43 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
       return { key: 'Invalid seed.' };
     }
 
-    handleCloseModals();
+    closeModalAction();
 
     return {};
+  };
+
+  const openCreateWalletModal = () => {
+    openModalAction({
+      isStyled: true,
+      title: 'Create Wallet',
+      size: 'medium',
+      padding: 'large',
+      minHeight: 0,
+      children: (
+        <CreateWallet
+          isModal
+          onCancel={closeModalAction}
+          onSubmit={handleCreateWallet}
+        />
+      ),
+    });
+  };
+
+  const openImportWalletModal = () => {
+    openModalAction({
+      isStyled: true,
+      title: 'Import Wallet',
+      size: 'medium',
+      padding: 'large',
+      minHeight: 462,
+      children: (
+        <RestoreWallet
+          isModal
+          onCancel={closeModalAction}
+          onSubmit={handleRestoreWallet}
+        />
+      ),
+    });
   };
 
   const menus: Menu[] = [
@@ -111,14 +149,14 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
       link: '#',
       icon: <Plus />,
       label: 'Create Wallet',
-      onClick: onOpenModal1,
+      onClick: openCreateWalletModal,
     },
     {
       id: 2,
       link: '#',
       icon: <File />,
       label: 'Import Wallet',
-      onClick: onOpenModal2,
+      onClick: openImportWalletModal,
     },
   ];
 
@@ -151,51 +189,20 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
   };
 
   return (
-    <>
-      <ModalDialog
-        isStyled
-        title="Create Wallet"
-        size="medium"
-        padding="large"
-        onClose={onCloseModal1}
-        isOpen={modal1}
-      >
-        <CreateWallet
-          isModal
-          onSubmit={handleCreateWallet}
-          onCancel={handleCloseModals}
-        />
-      </ModalDialog>
-      <ModalDialog
-        isStyled
-        title="Import Wallet"
-        size="medium"
-        padding="large"
-        onClose={onCloseModal2}
-        isOpen={modal2}
-        minHeight={462}
-      >
-        <RestoreWallet
-          isModal
-          onSubmit={handleRestoreWallet}
-          onCancel={handleCloseModals}
-        />
-      </ModalDialog>
-      <div>
-        <S.Group>
-          {menuItems.map((item: Menu) => (
-            <S.GroupLink
-              key={item.id}
-              to={item.link}
-              onClick={() => handleMenu(item.onClick)}
-            >
-              {item.icon}
-              {item.label}
-            </S.GroupLink>
-          ))}
-        </S.Group>
-      </div>
-    </>
+    <div>
+      <S.Group>
+        {menuItems.map((item: Menu) => (
+          <S.GroupLink
+            key={item.id}
+            to={item.link}
+            onClick={() => handleMenu(item.onClick)}
+          >
+            {item.icon}
+            {item.label}
+          </S.GroupLink>
+        ))}
+      </S.Group>
+    </div>
   );
 };
 
