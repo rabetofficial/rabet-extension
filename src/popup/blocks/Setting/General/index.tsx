@@ -4,14 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 import capital from 'popup/utils/capital';
 import Button from 'popup/components/common/Button';
-import Tooltip from 'popup/components/common/Tooltips';
 import * as route from 'popup/staticRes/routes';
 import ToggleSwitch from 'popup/components/common/ToggleSwitch';
 import SelectOption from 'popup/components/SelectOption';
 import changeOptionsAction from 'popup/actions/options/change';
 import * as currenciesModule from 'popup/staticRes/currencies';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-import CircleQuestion from 'popup/svgs/CircleQuestion';
+import TooltipLabel from 'popup/components/common/TooltipLabel';
 import config from '../../../../config';
 
 import * as S from './styles';
@@ -142,17 +141,10 @@ const SettingGeneral = ({ options }) => {
   return (
     <>
       <div className="flex justify-between items-center mt-[20px]">
-        <S.Title>
-          <span className="whitespace-nowrap">Explorer</span>
-          <Tooltip
-            text="You will be referred to this Explorer to see the details of your transactions."
-            placement="top"
-          >
-            <span>
-              <CircleQuestion />
-            </span>
-          </Tooltip>
-        </S.Title>
+        <TooltipLabel
+          text="Explorer"
+          tooltipText="You will be referred to this Explorer to see the details of your transactions."
+        />
 
         <S.Select>
           <SelectOption
@@ -166,17 +158,10 @@ const SettingGeneral = ({ options }) => {
       </div>
 
       <div className="flex justify-between items-center mt-[20px]">
-        <S.Title>
-          <span className="whitespace-nowrap">Auto-lock timer</span>
-          <Tooltip
-            text="Rabet will lock automatically after a set amount of time."
-            placement="top"
-          >
-            <span>
-              <CircleQuestion />
-            </span>
-          </Tooltip>
-        </S.Title>
+        <TooltipLabel
+          text="Auto-lock timer"
+          tooltipText="Rabet will lock automatically after a set amount of time."
+        />
 
         <S.Select>
           <SelectOption
@@ -190,16 +175,10 @@ const SettingGeneral = ({ options }) => {
       </div>
 
       <div className="flex justify-between items-center mt-[20px]">
-        <S.Title>
-          <span className="whitespace-nowrap">
-            Currency conversion
-          </span>
-          <Tooltip text="some info" placement="top">
-            <span>
-              <CircleQuestion />
-            </span>
-          </Tooltip>
-        </S.Title>
+        <TooltipLabel
+          text="Currency conversion"
+          tooltipText="some info"
+        />
 
         <S.Select>
           <SelectOption
@@ -213,14 +192,7 @@ const SettingGeneral = ({ options }) => {
       </div>
 
       <div className="flex justify-between items-center mt-[20px]">
-        <S.Title>
-          <span className="whitespace-nowrap">Mode</span>
-          <Tooltip text="some info" placement="top">
-            <span>
-              <CircleQuestion />
-            </span>
-          </Tooltip>
-        </S.Title>
+        <TooltipLabel text="Mode" tooltipText="some info" />
 
         <S.Select>
           <SelectOption
@@ -234,17 +206,10 @@ const SettingGeneral = ({ options }) => {
       </div>
 
       <div className="flex justify-between items-center mt-[20px]">
-        <S.Title>
-          <span className="whitespace-nowrap">Privacy mode</span>
-          <Tooltip
-            text="Websites must request access to view your account information."
-            placement="top"
-          >
-            <span>
-              <CircleQuestion />
-            </span>
-          </Tooltip>
-        </S.Title>
+        <TooltipLabel
+          text="Privacy mode"
+          tooltipText="Websites must request access to view your account information."
+        />
 
         <ToggleSwitch
           checked={checked}

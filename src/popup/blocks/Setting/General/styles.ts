@@ -1,18 +1,5 @@
 import styled from 'styled-components';
 
-export const Title = styled.h3`
-  font-size: 16px;
-  font-weight: 500;
-  color: black;
-  display: flex;
-  align-items: center;
-
-  svg {
-    margin-left: 4px;
-    cursor: pointer;
-  }
-`;
-
 export const Select = styled.div`
   text-align: left;
   display: flex;
