@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 
 import { Tab } from 'popup/models';
 
@@ -33,12 +34,15 @@ const Tabs = ({
 
   return (
     <>
-      <S.Tabs className={titleClass}>
+      <S.Tabs>
         {data.map((item: Tab) => (
           <S.TabTitle
             key={`${item.title}${item.id}`}
             onClick={() => handleTab(item)}
-            className={visibleTab === item.id ? 'active' : ''}
+            className={classNames(
+              visibleTab === item.id ? 'active' : '',
+              titleClass,
+            )}
             style={{ width: isEqualWidth ? `${width}%` : 'auto' }}
           >
             {item.title}
