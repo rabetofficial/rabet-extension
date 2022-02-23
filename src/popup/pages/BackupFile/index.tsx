@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
 import BackupFileComponent from 'popup/pageComponents/BackupFile';
-import Layout from 'popup/components/Layout';
 
 const BackupFile = () => {
   const navigate = useNavigate();
