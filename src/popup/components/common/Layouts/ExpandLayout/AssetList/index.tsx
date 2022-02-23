@@ -18,10 +18,10 @@ const AssetList = () => {
   const openAssetInfoModal = (asset: Horizon.BalanceLine) => {
     openModalAction({
       isStyled: true,
-      title: 'Create Wallet',
+      title: 'Asset info',
       size: 'medium',
       padding: 'large',
-      minHeight: 0,
+      minHeight: 597,
       children: (
         <Assets
           asset={asset}

@@ -20,15 +20,15 @@ const Assets = ({ asset, onClick, onCancel }: AssetType) => {
 
   const HandleDomain = () => {
     if (loading) {
-      return <p>Loading</p>;
+      return <S.Info>Loading</S.Info>;
     }
 
     if (error) {
-      return <p>Error</p>;
+      return <S.Info>Error</S.Info>;
     }
 
     if (!assetData?.home_domain) {
-      return <p>No home domain</p>;
+      return <S.Info>No home domain</S.Info>;
     }
 
     return (
@@ -39,6 +39,70 @@ const Assets = ({ asset, onClick, onCancel }: AssetType) => {
       >
         {assetData?.home_domain}
       </a>
+    );
+  };
+
+  const HandleFlags = () => {
+    let required = '';
+    let revocable = '';
+    let immutable = '';
+    let clawback = '';
+
+    if (loading) {
+      required = 'Loading';
+      revocable = 'Loading';
+      immutable = 'Loading';
+      clawback = 'Loading';
+    }
+
+    if (error) {
+      required = 'Error';
+      revocable = 'Error';
+      immutable = 'Error';
+      clawback = 'Error';
+    }
+
+    if (!assetData?.flags) {
+      required = '-';
+      revocable = '-';
+      immutable = '-';
+      clawback = '-';
+    } else {
+      required = assetData?.flags.auth_revocable ? 'True' : 'False';
+      revocable = assetData?.flags.auth_revocable ? 'True' : 'False';
+      immutable = assetData?.flags.auth_revocable ? 'True' : 'False';
+      clawback = assetData?.flags.auth_revocable ? 'True' : 'False';
+    }
+
+    return (
+      <S.Table>
+        <table>
+          <thead>
+            <tr>
+              <th>Required</th>
+              <th>Revocable</th>
+              <th>Immutable</th>
+              <th>Clawback</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <S.Info>{required}</S.Info>
+              </td>
+              <td>
+                <S.Info>{revocable}</S.Info>
+              </td>
+              <td>
+                <S.Info>{immutable}</S.Info>
+              </td>
+              <td>
+                <S.Info>{clawback}</S.Info>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </S.Table>
     );
   };
 
@@ -61,75 +125,48 @@ const Assets = ({ asset, onClick, onCancel }: AssetType) => {
     '0',
   );
 
-  const deleteBtn = (
-    <>
-      <Trash />
-      Delete
-    </>
-  );
-
   return (
-    <>
-      <S.Page className="hidden-scroll content-scroll">
-        <div className="content">
-          {assetInfo.map((item, index) => (
-            <div key={item.title}>
-              <S.Title>{item.title}</S.Title>
-              <S.Value>{item.value}</S.Value>
-              {assetInfo.length - 1 !== index && <S.Hr />}
-            </div>
-          ))}
-          <S.Table>
-            <table>
-              <thead>
-                <tr>
-                  <th>Required</th>
-                  <th>Revocable</th>
-                  <th>Immutable</th>
-                  <th>Clawback</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>True</td>
-                  <td>False</td>
-                  <td>False</td>
-                  <td>False</td>
-                </tr>
-              </tbody>
-            </table>
-          </S.Table>
-
-          {!isDeletable ? (
-            <div className="error-box" style={{ marginTop: '16px' }}>
-              You cannot remove this asset unless the asset&apos;s
-              balance is zero.
-            </div>
-          ) : (
-            ''
-          )}
+    <S.Page className="hidden-scroll content-scroll">
+      {assetInfo.map((item, index) => (
+        <div key={item.title}>
+          <S.Title>{item.title}</S.Title>
+          <S.Value>{item.value}</S.Value>
+          {assetInfo.length - 1 !== index && <S.Hr />}
         </div>
-      </S.Page>
-
-      <ButtonContainer btnSize={102} mt={32} justify="end">
-        <Button
-          type="button"
-          variant="danger"
-          size="medium"
-          content={deleteBtn}
-          disabled={!isDeletable}
-          onClick={onClick}
-          style={{ marginRight: '10px' }}
-        />
-
+      ))}
+      <HandleFlags />
+      {!isDeletable ? (
+        <div className="error-box" style={{ marginTop: '16px' }}>
+          You cannot remove this asset unless the asset&apos;s balance
+          is zero.
+        </div>
+      ) : (
+        ''
+      )}
+      <ButtonContainer
+        btnSize={102}
+        justify="end"
+        positionStyles={{ bottom: '0px' }}
+      >
         <Button
           variant="default"
           size="medium"
           content="Cancel"
           onClick={onCancel}
+          style={{ marginRight: '7px' }}
+        />
+
+        <Button
+          type="button"
+          variant="danger"
+          size="medium"
+          content="Delete"
+          disabled={!isDeletable}
+          onClick={onClick}
+          startIcon={<Trash />}
         />
       </ButtonContainer>
-    </>
+    </S.Page>
   );
 };
 

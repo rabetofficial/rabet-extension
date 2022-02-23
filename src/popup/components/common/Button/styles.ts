@@ -48,7 +48,9 @@ export const Button = styled.button`
     color: ${({ theme }) => theme.colors.error.main};
     background-color: ${({ theme }) => theme.colors.primary.lighter};
     border: 2px solid ${({ theme }) => theme.colors.primary.lighter};
-
+    path {
+      fill: ${({ theme }) => theme.colors.error.main};
+    }
     &:hover {
       box-shadow: 0 2px 13px 0 rgba(0, 0, 0, 0.12);
     }
@@ -58,6 +60,9 @@ export const Button = styled.button`
         theme.colors.primary.lighter};
       border: 2px solid ${({ theme }) => theme.colors.primary.lighter};
       color: ${({ theme }) => theme.colors.primary.main};
+      path {
+        fill: ${({ theme }) => theme.colors.primary.main};
+      }
     }
   }
 

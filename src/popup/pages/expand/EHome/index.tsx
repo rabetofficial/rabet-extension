@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { Tab } from 'popup/models';
 import loadBids from 'popup/features/loadBids';
