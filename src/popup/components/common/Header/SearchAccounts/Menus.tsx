@@ -153,6 +153,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
   return (
     <>
       <ModalDialog
+        isStyled
         title="Create Wallet"
         size="medium"
         padding="large"
@@ -166,6 +167,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
         />
       </ModalDialog>
       <ModalDialog
+        isStyled
         title="Import Wallet"
         size="medium"
         padding="large"

@@ -70,7 +70,7 @@ const PrivateKey = ({
                   size="medium"
                   content="Cancel"
                   onClick={onCancel}
-                  style={{ marginRight: '5px' }}
+                  style={{ marginRight: '7px' }}
                 />
                 <Button
                   type="submit"
