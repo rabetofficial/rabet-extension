@@ -5,6 +5,7 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import loadTransactions from 'popup/features/loadTransactions';
 
 import Transaction from './Transaction';
+import Loading from '../Loading';
 
 const Transactions = () => {
   const { publicKey } = useActiveAccount();
@@ -21,7 +22,13 @@ const Transactions = () => {
   }, [publicKey]);
 
   if (isLoading) {
-    return <p>LOADING....</p>;
+    return (
+      <Loading
+        title="Loading Transactions"
+        size={100}
+        titleStyle="text-primary"
+      />
+    );
   }
 
   return (
@@ -30,7 +37,7 @@ const Transactions = () => {
         <div key={tx.records[0].transaction_hash}>
           <Transaction transaction={tx} publicKey={publicKey} />
         </div>
-      )}
+      ))}
     </div>
   );
 };

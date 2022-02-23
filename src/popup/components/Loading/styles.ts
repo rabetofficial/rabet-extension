@@ -12,7 +12,6 @@ export const Loading = styled.img`
 export const Title = styled.p`
   font-size: 16px;
   text-align: center;
-  color: black;
   font-weight: 500;
   margin: -8px 0 0 0;
 `;
