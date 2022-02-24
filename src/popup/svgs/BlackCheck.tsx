@@ -1,9 +1,11 @@
 import React from 'react';
 
-const Icon = () => (
+type IconSize = { width?: string; height?: string };
+
+const Icon = ({ width, height }: IconSize) => (
   <svg
-    width="32"
-    height="32"
+    width={width}
+    height={height}
     viewBox="0 0 32 32"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -14,5 +16,10 @@ const Icon = () => (
     />
   </svg>
 );
+
+Icon.defaultProps = {
+  width: '32',
+  height: '32',
+};
 
 export default Icon;

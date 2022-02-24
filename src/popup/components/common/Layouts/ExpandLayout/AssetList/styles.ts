@@ -15,11 +15,16 @@ export const Circle = styled.div`
   background-color: #f8f8f8;
   margin-right: 12px;
 `;
-
-export const Image = styled.img`
+interface ImageProps {
+  isDark: boolean;
+  theme: any;
+}
+export const Image = styled.img<ImageProps>`
   width: 31px;
   height: auto;
   border-radius: 50%;
+  background-color: ${({ theme, isDark }) =>
+    isDark ? theme.colors.primary.darkest : 'auto'};
 `;
 
 export const Border = styled.div`
