@@ -12,6 +12,7 @@ import * as currenciesModule from 'popup/staticRes/currencies';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 import TooltipLabel from 'popup/components/common/TooltipLabel';
 import { ElementOption } from 'popup/models';
+import PageTitle from 'popup/components/PageTitle';
 import config from '../../../../config';
 
 import * as S from './styles';
@@ -147,6 +148,8 @@ const SettingGeneral = () => {
 
   return (
     <>
+      <PageTitle isSetting title="Backup" padding="0" />
+
       <div className="flex justify-between items-center mt-[20px]">
         <TooltipLabel
           text="Explorer"

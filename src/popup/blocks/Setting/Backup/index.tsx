@@ -5,6 +5,7 @@ import Input from 'popup/components/common/Input';
 import CopyText from 'popup/components/CopyText';
 import { Form, Field } from 'react-final-form';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import PageTitle from 'popup/components/PageTitle';
 
 import * as S from './styles';
 
@@ -12,6 +13,8 @@ type BackupType = { onSubmit: () => void };
 
 const Backup = ({ onSubmit }: BackupType) => (
   <div>
+    <PageTitle isSetting title="Backup" padding="0" />
+
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
       eiusmod tempor

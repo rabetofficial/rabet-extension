@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import RouteName from 'popup/staticRes/routes';
 import Multiply from 'popup/svgs/Multiply';
+import LongArrowLeft from 'popup/svgs/LongArrowLeft';
 
 import * as S from './styles';
 
@@ -14,6 +15,8 @@ type PageTitleTypes = {
   statusTitle?: String;
   alreadyLoaded?: any;
   padding?: string;
+  isSetting?: boolean;
+  onBack?: () => void;
 };
 
 const PageTitle = ({
@@ -22,6 +25,8 @@ const PageTitle = ({
   statusTitle,
   alreadyLoaded,
   padding,
+  isSetting,
+  onBack,
   ...props
 }: PageTitleTypes) => {
   const navigate = useNavigate();
@@ -73,6 +78,23 @@ const PageTitle = ({
     return navigate(-1);
   };
 
+  if (isSetting) {
+    return (
+      <S.SettingTypeContainer
+        style={{
+          padding: `${padding}px`,
+          paddingRight: !padding ? '10px' : '0px',
+        }}
+      >
+        <S.Icon style={{ marginRight: '8px' }}>
+          <span onClick={onBack}>
+            <LongArrowLeft />
+          </span>
+        </S.Icon>
+        <div>{generateTitle()}</div>
+      </S.SettingTypeContainer>
+    );
+  }
   return (
     <S.Container
       style={{
@@ -96,6 +118,8 @@ PageTitle.defaultProps = {
   statusTitle: '',
   alreadyLoaded: '',
   padding: '',
+  isSetting: false,
+  onBack: () => {},
 };
 
 export default connect((state) => ({

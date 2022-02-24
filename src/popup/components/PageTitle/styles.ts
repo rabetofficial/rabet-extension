@@ -6,6 +6,11 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const SettingTypeContainer = styled.div`
+  display: inline-flex;
+  align-items: center;
+`;
+
 export const Title = styled.h1`
   font-size: 20px;
   font-weight: bold;

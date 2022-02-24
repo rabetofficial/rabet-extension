@@ -5,6 +5,7 @@ import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
 import Button from 'popup/components/common/Button';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import PageTitle from 'popup/components/PageTitle';
 
 import * as S from './styles';
 
@@ -58,6 +59,8 @@ const ChangePassword = ({
 
   return (
     <div>
+      <PageTitle isSetting title="Change Password" padding="0" />
+
       <Form
         onSubmit={onSubmit}
         validate={validateForm}

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 
-import { SlideThree } from 'popup/svgs/slides';
+import { SlideThree } from 'popup/svgs/SlidesLogo';
 
 import * as S from './styles';
 

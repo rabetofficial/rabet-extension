@@ -1,9 +1,13 @@
 import React from 'react';
 import * as Icons from 'popup/svgs/ContactusLinks';
+import PageTitle from 'popup/components/PageTitle';
+
 import * as S from './styles';
 
 const About = () => (
   <div>
+    <PageTitle isSetting title="About" padding="0" />
+
     <div>
       <p>Version</p>
       <p>0.009</p>
