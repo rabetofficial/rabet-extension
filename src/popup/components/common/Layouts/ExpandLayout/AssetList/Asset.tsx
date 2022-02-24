@@ -7,9 +7,9 @@ import handleAssetAlt from 'popup/utils/handleAssetAlt';
 import handleAssetPrice from 'popup/utils/handleAssetPrice';
 import handleAssetImage from 'popup/utils/handleAssetImage';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
+import BlackCheck from 'popup/svgs/BlackCheck';
 import questionIcon from '../../../../../../assets/images/question-circle.png';
 import ImageOnErrorHandler from '../../../../../../helpers/ImageOnErrorHandler';
-import BlackCheck from 'popup/svgs/BlackCheck';
 
 import * as S from './styles';
 
