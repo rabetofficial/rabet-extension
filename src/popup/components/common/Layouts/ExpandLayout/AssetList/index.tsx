@@ -8,6 +8,7 @@ import closeModalAction from 'popup/actions/modal/close';
 import ScrollBar from 'popup/components/common/ScrollBar';
 import handleAssetsKeys from 'popup/utils/handleAssetKeys';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
+import PageTitle from 'popup/components/PageTitle';
 
 import Asset from './Asset';
 import { Border } from './styles';
@@ -17,11 +18,11 @@ const AssetList = () => {
 
   const openAssetInfoModal = (asset: Horizon.BalanceLine) => {
     openModalAction({
-      isStyled: true,
+      isStyled: false,
       title: 'Asset info',
       size: 'medium',
-      padding: 'large',
-      minHeight: 597,
+      padding: 'medium',
+      minHeight: 0,
       children: (
         <Assets
           asset={asset}
@@ -29,7 +30,9 @@ const AssetList = () => {
             console.log('hio');
           }}
           onCancel={closeModalAction}
-        />
+        >
+          <PageTitle title="Asset info" padding="0" />
+        </Assets>
       ),
     });
   };

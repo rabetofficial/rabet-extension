@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { Horizon } from 'stellar-sdk';
 
 import BN from 'helpers/BN';
@@ -12,10 +12,16 @@ import useAssetInfo from './useAssetInfo';
 type AssetType = {
   onClick: () => void;
   onCancel: () => void;
+  children?: React.ReactNode;
   asset: Horizon.BalanceLine;
 };
 
-const Assets = ({ asset, onClick, onCancel }: AssetType) => {
+const Assets = ({
+  asset,
+  onClick,
+  onCancel,
+  children,
+}: AssetType) => {
   const { loading, error, assetData } = useAssetInfo(asset);
 
   const HandleDomain = () => {
@@ -131,6 +137,7 @@ const Assets = ({ asset, onClick, onCancel }: AssetType) => {
 
   return (
     <S.Page className="hidden-scroll content-scroll">
+      {children}
       {assetInfo.map((item, index) => (
         <div key={item.title}>
           <S.Title>{item.title}</S.Title>
@@ -173,5 +180,5 @@ const Assets = ({ asset, onClick, onCancel }: AssetType) => {
     </S.Page>
   );
 };
-
+Assets.defaultProps = { children: '' };
 export default Assets;

@@ -2,12 +2,16 @@ import styled from 'styled-components';
 
 export const Page = styled.div`
   position: relative;
+  padding: 30px 32px 24px;
+  @media (max-width: 360px) {
+    padding: 16px;
+  }
 `;
 
 export const Title = styled.h4`
   font-size: 16px;
   color: #262728;
-  margin: 0 0 5px 0;
+  margin: 2.5px 0 2.5px 0;
   font-weight: 500;
 `;
 
@@ -49,7 +53,7 @@ export const Table = styled.div`
 
   th,
   td {
-    text-align: center;
+    margin-left: 14px;
     padding: 15px 8px;
     font-size: 16px;
   }
@@ -80,6 +84,6 @@ export const Table = styled.div`
   }
 `;
 export const Info = styled.p`
-  color: ${({ theme }) => theme.colors.primary.dark};
+  color: ${({ theme }) => theme.colors.primary.darkest};
   font-size: 16px;
 `;
