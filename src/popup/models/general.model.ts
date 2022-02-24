@@ -34,7 +34,7 @@ export type FullPlacement =
   | 'bottom-end';
 
 export type ElementOption = {
-  value: string;
+  value: string | number;
   label: string | React.ReactNode;
 };
 

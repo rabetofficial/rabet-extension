@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import capital from 'popup/utils/capital';
 import Button from 'popup/components/common/Button';
 import * as route from 'popup/staticRes/routes';
 import ToggleSwitch from 'popup/components/common/ToggleSwitch';
-import SelectOption from 'popup/components/SelectOption';
+import SelectOption from 'popup/components/common/SelectOption';
 import changeOptionsAction from 'popup/actions/options/change';
 import * as currenciesModule from 'popup/staticRes/currencies';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 import TooltipLabel from 'popup/components/common/TooltipLabel';
+import { ElementOption } from 'popup/models';
 import config from '../../../../config';
 
 import * as S from './styles';
@@ -29,9 +30,9 @@ const timerOptions = [
   { value: 60 * 24 * 30 * 12 * 5, label: 'Never' },
 ];
 
-let currencies = Object.values(currenciesModule);
+const currencies = Object.values(currenciesModule);
 
-currencies = currencies.map((x) => ({
+const currenciesList = currencies.map((x) => ({
   ...x,
   value: x.name,
   label: x.name,
@@ -42,15 +43,21 @@ const modeOptions = [
   { value: 'ADVANCED', label: 'Advance' },
 ];
 
-const SettingGeneral = ({ options }) => {
+const SettingGeneral = () => {
+  const options = useSelector((store) => store.options);
   const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
-  const [selectedExplorer, setSelectedExplorer] = useState({});
-  const [selectedTimer, setSelectedTimer] = useState({});
-  const [selectedCurrency, setSelectedCurrency] = useState(
-    currencies[0],
-  );
-  const [mode, setMode] = useState(modeOptions[0]);
+
+  const [selectedExplorer, setSelectedExplorer] = useState<
+    ElementOption | {}
+  >({});
+  const [selectedTimer, setSelectedTimer] = useState<
+    ElementOption | {}
+  >({});
+  const [selectedCurrency, setSelectedCurrency] = useState<
+    ElementOption | {}
+  >(currenciesList[0]);
+  const [mode, setMode] = useState<ElementOption>(modeOptions[0]);
 
   useEffect(() => {
     let label;
@@ -122,19 +129,19 @@ const SettingGeneral = ({ options }) => {
     );
   };
 
-  const onChangeCurrency = (e) => {
+  const onChangeCurrency = (e: ElementOption) => {
     setSelectedCurrency(e);
   };
 
-  const onChangeTimer = (e) => {
+  const onChangeTimer = (e: ElementOption) => {
     setSelectedTimer(e);
   };
 
-  const onChangeNetwork = (e) => {
+  const onChangeNetwork = (e: ElementOption) => {
     setSelectedExplorer(e);
   };
 
-  const onChangeMode = (e) => {
+  const onChangeMode = (e: ElementOption) => {
     setMode(e);
   };
 
@@ -150,9 +157,10 @@ const SettingGeneral = ({ options }) => {
           <SelectOption
             items={explorerOptions}
             onChange={onChangeNetwork}
-            variant="select-outlined"
+            variant="outlined"
             isSearchable={false}
             defaultValue={selectedExplorer}
+            width={134}
           />
         </S.Select>
       </div>
@@ -167,9 +175,10 @@ const SettingGeneral = ({ options }) => {
           <SelectOption
             items={timerOptions}
             onChange={onChangeTimer}
-            variant="select-outlined"
+            variant="outlined"
             isSearchable={false}
             defaultValue={selectedTimer}
+            width={134}
           />
         </S.Select>
       </div>
@@ -182,11 +191,12 @@ const SettingGeneral = ({ options }) => {
 
         <S.Select>
           <SelectOption
-            items={currencies}
+            items={currenciesList}
             onChange={onChangeCurrency}
-            variant="select-outlined"
+            variant="outlined"
             isSearchable
             defaultValue={selectedCurrency}
+            width={134}
           />
         </S.Select>
       </div>
@@ -198,9 +208,10 @@ const SettingGeneral = ({ options }) => {
           <SelectOption
             items={modeOptions}
             onChange={onChangeMode}
-            variant="select-outlined"
+            variant="outlined"
             isSearchable
             defaultValue={mode}
+            width={134}
           />
         </S.Select>
       </div>
@@ -244,6 +255,4 @@ const SettingGeneral = ({ options }) => {
   );
 };
 
-export default connect((state) => ({
-  options: state.options,
-}))(SettingGeneral);
+export default SettingGeneral;
