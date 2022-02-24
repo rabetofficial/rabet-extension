@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  cursor: pointer;
+`;
+
 export const Circle = styled.div`
   display: flex;
   align-items: center;

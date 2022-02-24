@@ -4,8 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 32px;
-  height: 100vh;
+  padding: 18px 32px 32px;
   @media (max-width: 360px) {
     padding: 0 16px;
     align-items: flex-start;
@@ -38,8 +37,11 @@ export const Box = styled.div`
 
 export const Label = styled.div`
   font-size: 16px;
-  margin: 26px 0 6px 0;
+  margin: 20px 0 6px 0;
   font-weight: 500;
+  @media (max-width: 360px) {
+    margin-top: 22px;
+  }
 `;
 
 export const Copy = styled.div`
@@ -47,12 +49,8 @@ export const Copy = styled.div`
   width: fit-content;
   margin: 0px 0 0px auto;
 `;
-
 export const ButtonContainer = styled.div`
-  width: 100px;
-  display: flex;
-  margin: 40px 100px 6px auto;
   @media (max-width: 360px) {
-    margin-top: 112px;
+    margin-top: 106px;
   }
 `;

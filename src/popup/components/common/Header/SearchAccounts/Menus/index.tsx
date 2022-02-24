@@ -10,7 +10,6 @@ import CreateWallet, {
 } from 'popup/pageComponents/CreateWallet';
 import RouteName from 'popup/staticRes/routes';
 import lockAction from 'popup/actions/accounts/lock';
-import openModalAction from 'popup/actions/modal/open';
 import closeModalAction from 'popup/actions/modal/close';
 import BackupFile from 'popup/pageComponents/BackupFile';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
@@ -19,9 +18,13 @@ import createAccountAction from 'popup/actions/accounts/create';
 import validatePrivateKey from 'popup/utils/validate/privateKey';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import { FormValues as RestoreWalletFormValues } from 'popup/pageComponents/PrivateKey';
-import PageTitle from 'popup/components/PageTitle';
 
-import * as S from './styles';
+import {
+  openCreateWalletModal,
+  openImportWalletModal,
+  openBackupFileModal,
+} from './Modals';
+import * as S from '../styles';
 
 type AppProps = {
   usage: 'extension' | 'expand' | undefined;
@@ -59,21 +62,12 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
 
     closeModalAction();
 
-    openModalAction({
-      isStyled: false,
-      title: 'Backup',
-      size: 'medium',
-      padding: 'large',
-      minHeight: 462,
-      children: (
-        <BackupFile
-          onClose={closeModalAction}
-          onClick={closeModalAction}
-        >
-          <PageTitle title="Backup file" padding="0" />
-        </BackupFile>
-      ),
-    });
+    openBackupFileModal(
+      <BackupFile
+        onClose={closeModalAction}
+        onClick={closeModalAction}
+      />,
+    );
 
     return {};
   };
@@ -110,38 +104,24 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     return {};
   };
 
-  const openCreateWalletModal = () => {
-    openModalAction({
-      isStyled: true,
-      title: 'Create Wallet',
-      size: 'medium',
-      padding: 'large',
-      minHeight: 462,
-      children: (
-        <CreateWallet
-          isModal
-          onCancel={closeModalAction}
-          onSubmit={handleCreateWallet}
-        />
-      ),
-    });
+  const openCreateWallet = () => {
+    openCreateWalletModal(
+      <CreateWallet
+        isModal
+        onCancel={closeModalAction}
+        onSubmit={handleCreateWallet}
+      />,
+    );
   };
 
-  const openImportWalletModal = () => {
-    openModalAction({
-      isStyled: true,
-      title: 'Import Wallet',
-      size: 'medium',
-      padding: 'large',
-      minHeight: 462,
-      children: (
-        <RestoreWallet
-          isModal
-          onCancel={closeModalAction}
-          onSubmit={handleRestoreWallet}
-        />
-      ),
-    });
+  const openImportWallet = () => {
+    openImportWalletModal(
+      <RestoreWallet
+        isModal
+        onCancel={closeModalAction}
+        onSubmit={handleRestoreWallet}
+      />,
+    );
   };
 
   const menus: Menu[] = [
@@ -150,14 +130,14 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
       link: '#',
       icon: <Plus />,
       label: 'Create Wallet',
-      onClick: openCreateWalletModal,
+      onClick: openCreateWallet,
     },
     {
       id: 2,
       link: '#',
       icon: <File />,
       label: 'Import Wallet',
-      onClick: openImportWalletModal,
+      onClick: openImportWallet,
     },
   ];
 

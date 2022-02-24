@@ -47,7 +47,7 @@ const PrivateKey = ({
           >
             <Field name="key">
               {({ input, meta }) => (
-                <S.InputContainer>
+                <div>
                   <label className="label-primary">Private key</label>
                   <Input
                     type="text"
@@ -57,7 +57,7 @@ const PrivateKey = ({
                     meta={meta}
                     autoFocus
                   />
-                </S.InputContainer>
+                </div>
               )}
             </Field>
 
@@ -89,14 +89,15 @@ const PrivateKey = ({
                   content="Import"
                   disabled={pristine}
                 />
-                <Button
-                  style={{ marginTop: '12px' }}
-                  variant="default"
-                  size="medium"
-                  content="Back"
-                  onClick={onCancel}
-                  startIcon={<ArrowBack />}
-                />
+                <S.SecondButton>
+                  <Button
+                    variant="default"
+                    size="medium"
+                    content="Back"
+                    onClick={onCancel}
+                    startIcon={<ArrowBack />}
+                  />
+                </S.SecondButton>
               </S.ButtonContainer>
             )}
           </form>

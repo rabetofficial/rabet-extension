@@ -1,4 +1,4 @@
-export default (name) => {
+export default (name: string): string => {
   const arr = name.toUpperCase().split(' ');
 
   if (arr.length === 1) {

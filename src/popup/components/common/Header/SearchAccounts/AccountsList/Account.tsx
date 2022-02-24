@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import abbr from 'popup/utils/abbr';
+import { IAccount } from 'popup/reducers/accounts2';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 import * as S from './styles';
 
 type AppProps = {
-  info: any;
+  account: IAccount;
 };
 
-const Account = ({ info }: AppProps) => {
+const Account = ({ account }: AppProps) => {
+  const host = useTypedSelector((store) => store.host);
   const [isImageLoaded, setIsImageLoaded] = useState(true);
-  const { isConnected } = info;
-  const host = useSelector((store) => store.host);
+
+  const { name, isConnected } = account;
 
   let img = '';
 
@@ -22,14 +24,12 @@ const Account = ({ info }: AppProps) => {
 
   return (
     <S.Item>
-      <S.Avatar>{abbr(info.name)}</S.Avatar>
+      <S.Avatar>{abbr(name)}</S.Avatar>
       <S.Container>
         <S.Name>
-          {info.name && info.name.length > 13
-            ? info.name.substr(0, 13).concat('...')
-            : info.name}
+          {name.length > 13 ? `${name.slice(0, 13)}...` : name}
         </S.Name>
-        <S.Amount>{info.balances}</S.Amount>
+        <S.Amount>{0}</S.Amount>
       </S.Container>
 
       {isConnected ? (

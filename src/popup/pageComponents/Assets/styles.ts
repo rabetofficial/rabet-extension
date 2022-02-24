@@ -2,15 +2,11 @@ import styled from 'styled-components';
 
 export const Page = styled.div`
   position: relative;
-
-  .content {
-    padding-top: 28px;
-    padding-bottom: 20px;
-  }
 `;
+
 export const Title = styled.h4`
   font-size: 16px;
-  color: @shark;
+  color: #262728;
   margin: 0 0 5px 0;
   font-weight: 500;
 `;
@@ -18,14 +14,14 @@ export const Title = styled.h4`
 export const Value = styled.p`
   font-size: 16px;
   line-height: 1.63;
-  color: @dove-gray;
+  color: ${({ theme }) => theme.colors.primary.dark};
   margin: 0;
   word-break: break-all;
 
   a,
   a:hover {
     text-decoration: none !important;
-    color: @dove-gray;
+    color: ${({ theme }) => theme.colors.primary.dark};
   }
 `;
 
@@ -34,7 +30,7 @@ export const Hr = styled.hr`
   margin-bottom: 10px;
   border: none;
   height: 1px;
-  background-color: @gallery;
+  background-color: ${({ theme }) => theme.colors.primary.lighter};
 `;
 export const Table = styled.div`
   margin-top: 24px;
@@ -43,28 +39,31 @@ export const Table = styled.div`
     width: 100%;
     border-spacing: 0;
     border-radius: 2px;
-    border: 1px solid @gallery;
+    border: 1px solid ${({ theme }) => theme.colors.primary.lighter};
   }
 
   th {
-    color: @abbey;
+    color: #b1b1b1;
     font-weight: normal;
   }
 
   th,
   td {
     text-align: center;
-    padding: 15px;
+    padding: 15px 8px;
     font-size: 16px;
   }
 
   table td {
-    border-left: 1px solid @gallery;
-    border-top: 1px solid @gallery;
+    border-left: 1px solid
+      ${({ theme }) => theme.colors.primary.lighter};
+    border-top: 1px solid
+      ${({ theme }) => theme.colors.primary.lighter};
   }
 
   table th {
-    border-left: 1px solid @gallery;
+    border-left: 1px solid
+      ${({ theme }) => theme.colors.primary.lighter};
   }
 
   table th:first-child {
@@ -79,4 +78,8 @@ export const Table = styled.div`
   table th:first-child {
     border-left: medium none;
   }
+`;
+export const Info = styled.p`
+  color: ${({ theme }) => theme.colors.primary.dark};
+  font-size: 16px;
 `;
