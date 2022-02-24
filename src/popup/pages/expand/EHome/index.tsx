@@ -10,6 +10,8 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import WalletInfo from 'popup/pages/expand/EHome/WalletInfo';
 import loadAssetImages from 'popup/features/loadAssetImages';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
+import Setting from 'popup/blocks/Setting';
+
 import Test from './TestContent';
 
 const EHome = () => {
@@ -32,7 +34,7 @@ const EHome = () => {
     },
     { id: 2, title: 'Transactions', content: <Transactions /> },
     { id: 3, title: 'Wallet info', content: <WalletInfo /> },
-    { id: 4, title: 'Settings', content: 'SETTINGS' },
+    { id: 4, title: 'Settings', content: <Setting /> },
   ];
 
   return <ExpandLayout tabItems={tabs} />;
