@@ -119,6 +119,10 @@ const Assets = ({ asset, onClick, onCancel }: AssetType) => {
       title: 'Website',
       value: <HandleDomain />,
     },
+    {
+      title: 'Assets type',
+      value: asset.asset_type,
+    },
   ];
 
   const isDeletable = new BN(assetData?.balance || '0').isEqualTo(
