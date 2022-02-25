@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import changeNetworkAction from 'popup/actions/options/changeNetwork';
 import DropDown from 'popup/components/common/DropDown';
 import { ElementOption } from 'popup/models';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 import Container from './styles';
 
 type AppProps = {
-  options: any;
   theme: 'dark' | 'light';
 };
 
-const Network = ({ options, theme }: AppProps) => {
+const items = [
+  { value: 'MAINNET', label: 'Main Network' },
+  { value: 'TESTNET', label: 'Test Network' },
+];
+
+const Network = ({ theme }: AppProps) => {
   const navigate = useNavigate();
-  const items = [
-    { value: 'MAINNET', label: 'Main Network' },
-    { value: 'TESTNET', label: 'Test Network' },
-  ];
+  const options = useTypedSelector((store) => store.options);
 
   let index = 0;
 
@@ -39,7 +40,7 @@ const Network = ({ options, theme }: AppProps) => {
   };
 
   return (
-    <Container isMain={selected === items[0]} drop={theme}>
+    <Container isMain={selected.value === items[0].value} drop={theme}>
       <DropDown
         width={160}
         items={items}
@@ -50,6 +51,4 @@ const Network = ({ options, theme }: AppProps) => {
   );
 };
 
-export default connect((state) => ({
-  options: state.options,
-}))(Network);
+export default Network;
