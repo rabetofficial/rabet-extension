@@ -1,39 +1,44 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-import changeNetworkAction from 'popup/actions/options/changeNetwork';
-import DropDown from 'popup/components/common/DropDown';
 import { ElementOption } from 'popup/models';
+import DropDown from 'popup/components/common/DropDown';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import changeNetworkAction from 'popup/actions/options/changeNetwork';
 
 import Container from './styles';
 
 type AppProps = {
-  options: any;
   theme: 'dark' | 'light';
 };
 
-const Network = ({ options, theme }: AppProps) => {
-  const navigate = useNavigate();
+const Network = ({ theme }: AppProps) => {
+  const options = useTypedSelector((store) => store.options);
+
   const items = [
     { value: 'MAINNET', label: 'Main Network' },
     { value: 'TESTNET', label: 'Test Network' },
   ];
 
-  let index = 0;
+  const [selected, setSelected] = useState<ElementOption>(() => {
+    if (options.network === 'MAINNET') {
+      return items[0];
+    }
 
-  if (options.network === 'MAINNET') {
-    index = 0;
-  } else if (options.network === 'TESTNET') {
-    index = 1;
-  }
+    return items[1];
+  });
 
-  const [selected, setSelected] = useState<ElementOption>(
-    items[index],
-  );
+  useEffect(() => {
+    if (options.network === 'MAINNET') {
+      setSelected(items[0]);
+    } else {
+      setSelected(items[1]);
+    }
+  }, [options.network]);
 
   const onChangeNetwork = (e: ElementOption) => {
-    changeNetworkAction(e, navigate);
+    if (e.value === 'MAINNET' || e.value === 'TESTNET') {
+      changeNetworkAction(e.value);
+    }
 
     setSelected(e);
   };
@@ -50,6 +55,4 @@ const Network = ({ options, theme }: AppProps) => {
   );
 };
 
-export default connect((state) => ({
-  options: state.options,
-}))(Network);
+export default Network;

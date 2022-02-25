@@ -10,6 +10,13 @@ const loadAccount = async (account: IAccount) => {
   const accountResult = await getAccount(account.publicKey);
 
   if (!accountResult) {
+    store.dispatch(
+      addAssets({
+        publicKey: account.publicKey,
+        assets: [],
+      }),
+    );
+
     return;
   }
 
