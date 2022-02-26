@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import timeout from 'popup/utils/timeout';
+import {
+  openErrorModal,
+  openSucessModal,
+  openLoadingModal,
+} from 'popup/components/Modals';
 import Tabs from 'popup/components/common/Tabs';
 import closeModalAction from 'popup/actions/modal/close';
-import openModalAction from 'popup/actions/modal/open';
 import addAssetAction from 'popup/actions/operations/addAsset';
+import { AssetImageWithActive } from 'popup/reducers/assetImages';
+import addMultipleAssets from 'popup/actions/operations/addMultipleAssets';
 
 import { Tab } from 'popup/models';
 import SearchAsset from './SearchAsset';
@@ -15,22 +21,12 @@ type AddAssetType = {
 };
 
 const AddAsset = ({ children }: AddAssetType) => {
-  const [messageResult, setMessageResult] = useState('');
-
-  const handleSubmit = async (values: FormValues) => {
+  const handleCustomAssetSubmitBtn = async (values: FormValues) => {
     closeModalAction();
 
-    await timeout(100);
+    await timeout(200);
 
-    // SHOW LOADING MODAL
-    openModalAction({
-      minHeight: 0,
-      isStyled: true,
-      size: 'medium',
-      title: 'Receive',
-      padding: 'large',
-      children: <p>LOADING</p>,
-    });
+    openLoadingModal({});
 
     const [isSuccessful, message] = await addAssetAction(
       values.code,
@@ -38,41 +34,51 @@ const AddAsset = ({ children }: AddAssetType) => {
       values.limit,
     );
 
-    setMessageResult(message);
-
-    // STOP SHOWING LOADING NETWORK MODAL
     closeModalAction();
 
     await timeout(100);
 
     if (isSuccessful) {
-      // SHOW SUCCESS MODAL
-      // WITH MESSAGE
-      openModalAction({
-        minHeight: 0,
-        isStyled: true,
-        size: 'medium',
-        title: 'SUCCESS',
-        padding: 'large',
-        children: <p>SUCCESS</p>,
+      openSucessModal({
+        message,
+        onClick: closeModalAction,
       });
     } else {
-      // SHOW ERROR MODAL
-      // WITH MESSAGE
-      openModalAction({
-        minHeight: 0,
-        isStyled: true,
-        size: 'medium',
-        title: 'ERROR',
-        padding: 'large',
-        children: <p>ERROR</p>,
+      openErrorModal({
+        message,
+        onClick: closeModalAction,
       });
     }
 
     return values;
   };
 
-  const handleCancel = () => {};
+  const handleSearchAssetSubmitBtn = async (
+    assets: AssetImageWithActive[],
+  ) => {
+    const result = await addMultipleAssets(assets);
+
+    const isSuccessful = result[0];
+    const message = result[1];
+
+    closeModalAction();
+
+    await timeout(200);
+
+    openLoadingModal({});
+
+    if (isSuccessful) {
+      openSucessModal({
+        message,
+        onClick: closeModalAction,
+      });
+    } else {
+      openErrorModal({
+        message,
+        onClick: closeModalAction,
+      });
+    }
+  };
 
   const tabs: Tab[] = [
     {
@@ -81,8 +87,8 @@ const AddAsset = ({ children }: AddAssetType) => {
       content: (
         <SearchAsset
           key="searchAsset"
-          onCancel={handleCancel}
-          onSubmit={handleSubmit}
+          onSubmit={handleSearchAssetSubmitBtn}
+          onCancel={closeModalAction}
         />
       ),
     },
@@ -92,8 +98,8 @@ const AddAsset = ({ children }: AddAssetType) => {
       content: (
         <CustomAsset
           key="customAsset"
-          onCancel={handleCancel}
-          onSubmit={handleSubmit}
+          onSubmit={handleCustomAssetSubmitBtn}
+          onCancel={closeModalAction}
         />
       ),
     },

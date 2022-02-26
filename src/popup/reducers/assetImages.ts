@@ -9,6 +9,10 @@ export interface AssetImage {
   is_verified?: string;
 }
 
+export interface AssetImageWithActive extends AssetImage {
+  active: boolean;
+}
+
 const initialState: AssetImage[] = [];
 
 const assetImagesSlice = createSlice({

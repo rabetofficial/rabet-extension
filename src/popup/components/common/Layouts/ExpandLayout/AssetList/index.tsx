@@ -14,7 +14,8 @@ import Asset from './Asset';
 import { Border } from './styles';
 
 const AssetList = () => {
-  const { assets } = useActiveAccount();
+  const { assets: asts } = useActiveAccount();
+  const assets = asts || [];
 
   const openAssetInfoModal = (asset: Horizon.BalanceLine) => {
     openModalAction({
@@ -37,7 +38,7 @@ const AssetList = () => {
     });
   };
 
-  if (!assets) {
+  if (!assets.length) {
     return <NoDate msg="No Assets" />;
   }
 

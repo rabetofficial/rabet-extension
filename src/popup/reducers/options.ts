@@ -1,10 +1,11 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type OptionMode = 'BASIC' | 'ADVANCED';
+export type OptionMode = 'BASIC' | 'ADVANCED';
+export type Network = 'MAINNET' | 'TESTNET';
 
 export interface IOption {
-  network: string;
+  network: Network;
   explorer: string;
   currency: string;
   privacyMode: boolean;
@@ -42,7 +43,7 @@ const optionSlice = createSlice({
         ...action.payload,
       };
     },
-    changeNetwork: (state, action: PayloadAction<string>) => {
+    changeNetwork: (state, action: PayloadAction<Network>) => {
       state.network = action.payload;
     },
     changeMode: (state, action: PayloadAction<OptionMode>) => {

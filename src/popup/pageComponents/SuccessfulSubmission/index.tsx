@@ -6,9 +6,9 @@ import CopyText from 'popup/components/CopyText';
 import createTab from 'popup/utils/createTab';
 import BlackCheck from 'popup/svgs/BlackCheck';
 import ShareArrowSquare from 'popup/svgs/ShareArrowSqaure';
-import explorer from 'popup/utils/horizon/getTransaction';
+import explorer from 'popup/utils/horizon/transactionLink';
 
-type SuccessfulSubmissionType = {
+export type SuccessfulSubmissionType = {
   onClick: () => void;
   message: string;
 };

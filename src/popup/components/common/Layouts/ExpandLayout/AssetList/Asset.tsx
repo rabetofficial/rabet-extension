@@ -15,10 +15,9 @@ import * as S from './styles';
 
 type AssetType = {
   asset: Horizon.BalanceLine;
-  isVerified: boolean;
 };
 
-const Asset = ({ asset, isVerified }: AssetType) => {
+const Asset = ({ asset }: AssetType) => {
   const [assetImages, currencies, options, bids] = useTypedSelector(
     (store) => [
       store.assetImages,
@@ -38,13 +37,7 @@ const Asset = ({ asset, isVerified }: AssetType) => {
   } else {
     asset_code = 'XLM';
   }
-  if (isVerified) {
-    return (
-      <span className="ml-1">
-        <BlackCheck width="16" height="16" />
-      </span>
-    );
-  }
+
   return (
     <S.Container className="flex items-center py-[18px]">
       <S.Circle>

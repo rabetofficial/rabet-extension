@@ -3,19 +3,19 @@ import React from 'react';
 import NoteCard from 'popup/pageComponents/NoteCard';
 import ExclamationTriangle from 'popup/svgs/ExclamationTriangle';
 
-type ErrorProps = {
+export type ErrorProps = {
   message: string;
-  handleClick: () => void;
+  onClick: () => void;
 };
 
-const Error = ({ handleClick, message }: ErrorProps) => (
+const Error = ({ onClick, message }: ErrorProps) => (
   <div>
     <NoteCard
       title="Error"
       message={message || 'ERROR!'}
       icon={<ExclamationTriangle />}
       btnText="Got it"
-      onClick={handleClick}
+      onClick={onClick}
     />
   </div>
 );
