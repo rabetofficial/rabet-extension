@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Icons from 'popup/svgs/ContactusLinks';
 import PageTitle from 'popup/components/PageTitle';
+import config from '../../../../config';
 
 import * as S from './styles';
 
@@ -9,27 +10,27 @@ const About = () => (
     <PageTitle isSetting title="About" padding="0" />
 
     <div>
-      <p>Version</p>
-      <p>0.009</p>
+      <S.Item className="mt-[26px]">Version</S.Item>
+      <S.Item className="mt-[7px]">{config.VERSION}</S.Item>
     </div>
     <S.Hr />
-    <p>Links</p>
-    <p>Privacy policy</p>
-    <p>Support</p>
-    <p>Contact</p>
+    <S.Item>Links</S.Item>
+    <S.Item className="mt-[20px]">Privacy policy</S.Item>
+    <S.Item className="mt-[24px]">Support</S.Item>
+    <S.Item className="mt-[24px]">Contact</S.Item>
     <S.Hr />
-    <p>Join us</p>
-    <div>
+    <S.Item>Join us</S.Item>
+    <S.ContactLinksContainer>
       <span>
         <Icons.Twitter />
       </span>
       <span>
-        <Icons.Telegram />
-      </span>
-      <span>
         <Icons.Discord />
       </span>
-    </div>
+      <span>
+        <Icons.Telegram />
+      </span>
+    </S.ContactLinksContainer>
   </div>
 );
 

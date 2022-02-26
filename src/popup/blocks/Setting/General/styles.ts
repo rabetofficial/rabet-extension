@@ -5,13 +5,7 @@ export const Select = styled.div`
     color: ${({ theme }) => theme.colors.primary.main} !important;
   }
 `;
-
-export const Version = styled.p`
-  font-size: 16px;
-  position: absolute;
-  bottom: 20px;
-  color: ${({ theme }) => theme.colors.primary.dark};
-  margin-bottom: 0;
-  width: 100%;
-  text-align: center;
+export const Hr = styled.hr`
+  margin: 15px 0 16px;
+  background-color: ${({ theme }) => theme.colors.primary.lighter};
 `;

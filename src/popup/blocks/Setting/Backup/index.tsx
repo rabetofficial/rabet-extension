@@ -12,13 +12,13 @@ import * as S from './styles';
 type BackupType = { onSubmit: () => void };
 
 const Backup = ({ onSubmit }: BackupType) => (
-  <div>
+  <div style={{ width: '80%' }}>
     <PageTitle isSetting title="Backup" padding="0" />
 
-    <p>
+    <S.info>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
       eiusmod tempor
-    </p>
+    </S.info>
     <div style={{ marginTop: '24px' }}>
       <S.Label>Key</S.Label>
       <S.Box>

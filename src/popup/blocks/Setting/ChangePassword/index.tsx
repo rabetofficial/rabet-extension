@@ -58,7 +58,7 @@ const ChangePassword = ({
   };
 
   return (
-    <div>
+    <div style={{ width: '80%' }}>
       <PageTitle isSetting title="Change Password" padding="0" />
 
       <Form
@@ -66,7 +66,7 @@ const ChangePassword = ({
         validate={validateForm}
         render={({ submitError, handleSubmit, invalid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
-            <Field name="password">
+            <Field name="old password">
               {({ input, meta }) => (
                 <div style={{ marginBottom: '32px' }}>
                   <S.Label>Old password</S.Label>

@@ -20,7 +20,7 @@ const Setting = () => {
   };
 
   const description =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing';
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor';
 
   const settingList: SettingPage[] = [
     {
@@ -31,7 +31,7 @@ const Setting = () => {
       },
     },
     {
-      title: 'Change Password',
+      title: 'Change password',
       description,
       onClick: () => {
         changeContent(
@@ -68,7 +68,7 @@ const Setting = () => {
 
   const SettingMainPage = () => (
     <>
-      {settingList.map((settingPg) => (
+      {settingList.map((settingPg, index) => (
         <S.Container onClick={settingPg.onClick}>
           <S.TopContainer>
             <S.Title>{settingPg.title}</S.Title>
@@ -77,6 +77,7 @@ const Setting = () => {
             </span>
           </S.TopContainer>
           <S.Description>{settingPg.description}</S.Description>
+          {settingList.length !== index + 1 && <S.Hr />}
         </S.Container>
       ))}
     </>

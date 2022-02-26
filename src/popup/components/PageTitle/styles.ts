@@ -13,7 +13,10 @@ export const SettingTypeContainer = styled.div`
 
 export const Title = styled.h1`
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 500;
+  letter-spacing: normal;
+  font-stretch: normal;
+  font-style: normal;
   margin: 0;
 `;
 

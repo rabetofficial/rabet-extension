@@ -12,6 +12,16 @@ export const Box = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 2px;
 `;
+export const info = styled.div`
+  font-size: 14px;
+  margin-top: 9px;
+  color: ${({ theme }) => theme.colors.primary.dark};
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+`;
 
 export const Label = styled.div`
   font-size: 16px;

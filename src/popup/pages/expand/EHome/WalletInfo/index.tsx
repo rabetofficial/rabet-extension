@@ -54,7 +54,7 @@ const WalletInfo = () => {
 
   return (
     <InsideTabLayout>
-      <div className="max-w-[460px]">
+      <div style={{ width: '80%' }}>
         <div className="pb-[67px]">
           <div className="label-primary mb-[6px]">Wallet name</div>
           <EditWalletName

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import capital from 'popup/utils/capital';
 import Button from 'popup/components/common/Button';
-import * as route from 'popup/staticRes/routes';
 import ToggleSwitch from 'popup/components/common/ToggleSwitch';
 import SelectOption from 'popup/components/common/SelectOption';
 import changeOptionsAction from 'popup/actions/options/change';
@@ -13,7 +12,6 @@ import ButtonContainer from 'popup/components/common/ButtonContainer';
 import TooltipLabel from 'popup/components/common/TooltipLabel';
 import { ElementOption } from 'popup/models';
 import PageTitle from 'popup/components/PageTitle';
-import config from '../../../../config';
 
 import * as S from './styles';
 
@@ -168,6 +166,8 @@ const SettingGeneral = () => {
         </S.Select>
       </div>
 
+      <S.Hr />
+
       <div className="flex justify-between items-center mt-[20px]">
         <TooltipLabel
           text="Auto-lock timer"
@@ -185,6 +185,8 @@ const SettingGeneral = () => {
           />
         </S.Select>
       </div>
+
+      <S.Hr />
 
       <div className="flex justify-between items-center mt-[20px]">
         <TooltipLabel
@@ -204,6 +206,8 @@ const SettingGeneral = () => {
         </S.Select>
       </div>
 
+      <S.Hr />
+
       <div className="flex justify-between items-center mt-[20px]">
         <TooltipLabel text="Mode" tooltipText="some info" />
 
@@ -219,6 +223,8 @@ const SettingGeneral = () => {
         </S.Select>
       </div>
 
+      <S.Hr />
+
       <div className="flex justify-between items-center mt-[20px]">
         <TooltipLabel
           text="Privacy mode"
@@ -231,20 +237,7 @@ const SettingGeneral = () => {
         />
       </div>
 
-      <ButtonContainer btnSize={100} justify="end" mt={40}>
-        <Button
-          variant="default"
-          size="medium"
-          content="Cancel"
-          onClick={() => {
-            navigate(route.homePage, {
-              state: {
-                alreadyLoaded: true,
-              },
-            });
-          }}
-        />
-
+      <ButtonContainer btnSize={100} justify="end" mt={117}>
         <Button
           onClick={handleSubmit}
           variant="primary"
@@ -252,8 +245,6 @@ const SettingGeneral = () => {
           content="Save"
         />
       </ButtonContainer>
-
-      <S.Version>Version {config.VERSION}</S.Version>
     </>
   );
 };
