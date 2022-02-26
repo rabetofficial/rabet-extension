@@ -11,6 +11,7 @@ export const Hr = styled.hr`
 `;
 export const MediaButton = styled.div`
   margin-top: 117px;
+  margin-bottom: 24px;
   @media (max-width: 360px) {
     margin-top: 32px;
   }

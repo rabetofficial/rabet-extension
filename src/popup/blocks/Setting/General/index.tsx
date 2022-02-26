@@ -237,7 +237,11 @@ const SettingGeneral = () => {
         />
       </div>
 
-      <ButtonContainer btnSize={100} justify="end">
+      <ButtonContainer
+        btnSize={100}
+        justify="end"
+        // positionStyles={{ bottom: '32px' }}
+      >
         <S.MediaButton>
           <Button
             onClick={handleSubmit}
