@@ -60,7 +60,7 @@ const Backup = ({ onSubmit }: BackupType) => (
 
           {submitError && <div className="error">{submitError}</div>}
 
-          <ButtonContainer btnSize={120} mt={32}>
+          <ButtonContainer btnSize={120} mt={32} justify="end">
             <Button
               type="submit"
               variant="primary"

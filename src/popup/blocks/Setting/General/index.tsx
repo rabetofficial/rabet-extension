@@ -148,7 +148,7 @@ const SettingGeneral = () => {
 
   return (
     <>
-      <PageTitle isSetting title="Backup" padding="0" />
+      <PageTitle isSetting title="General" padding="0" />
 
       <div className="flex justify-between items-center mt-[20px]">
         <TooltipLabel
