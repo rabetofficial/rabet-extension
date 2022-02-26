@@ -23,7 +23,7 @@ export const info = styled.div`
   letter-spacing: normal;
 `;
 
-export const Label = styled.div`
+export const Label = styled.p`
   font-size: 16px;
   margin: 20px 0 6px 0;
   font-weight: 500;

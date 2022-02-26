@@ -17,6 +17,7 @@ type PageTitleTypes = {
   padding?: string;
   isSetting?: boolean;
   onBack?: () => void;
+  titleStyle?: string;
 };
 
 const PageTitle = ({
@@ -27,6 +28,7 @@ const PageTitle = ({
   padding,
   isSetting,
   onBack,
+  titleStyle,
   ...props
 }: PageTitleTypes) => {
   const navigate = useNavigate();
@@ -58,7 +60,7 @@ const PageTitle = ({
     }
 
     if (title) {
-      return <S.Title>{title}</S.Title>;
+      return <S.Title className={titleStyle}>{title}</S.Title>;
     }
 
     return null;
@@ -120,6 +122,7 @@ PageTitle.defaultProps = {
   padding: '',
   isSetting: false,
   onBack: () => {},
+  titleStyle: '',
 };
 
 export default connect((state) => ({

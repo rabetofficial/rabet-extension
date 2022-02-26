@@ -237,13 +237,15 @@ const SettingGeneral = () => {
         />
       </div>
 
-      <ButtonContainer btnSize={100} justify="end" mt={117}>
-        <Button
-          onClick={handleSubmit}
-          variant="primary"
-          size="medium"
-          content="Save"
-        />
+      <ButtonContainer btnSize={100} justify="end">
+        <S.MediaButton>
+          <Button
+            onClick={handleSubmit}
+            variant="primary"
+            size="medium"
+            content="Save"
+          />
+        </S.MediaButton>
       </ButtonContainer>
     </>
   );
