@@ -1,8 +1,8 @@
-const numberWithCommas = (n) => {
+const numberWithCommas = (n: string | number) => {
   let num = n;
 
   if (typeof n === 'string') {
-    num = parseFloat(n, 10);
+    num = parseFloat(n);
   }
 
   const parts = num.toString().split('.');
