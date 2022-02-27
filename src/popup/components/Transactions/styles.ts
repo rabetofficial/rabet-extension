@@ -10,6 +10,7 @@ export const Container = styled.div`
     ${({ theme }) => theme.colors.primary.lighter};
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary.lighter};
+    transition: 1s background;
   }
 `;
 export const MainPart = styled.div`

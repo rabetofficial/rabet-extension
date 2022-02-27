@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.div`
   cursor: pointer;
   padding: 0;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.lighter};
+    transition: 1s background;
+  }
 `;
 
 export const TopContainer = styled.div`
