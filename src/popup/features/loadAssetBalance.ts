@@ -1,24 +1,20 @@
 import { Horizon } from 'stellar-sdk';
+import BigNumber from 'bignumber.js';
 
 import BN from 'helpers/BN';
 import { Bid } from 'popup/reducers/bids';
-import { IOption } from 'popup/reducers/options';
-import { Currencies } from 'popup/reducers/currencies';
 
-const handleAssetPrice = (
-  asset: Horizon.BalanceLine,
-  currencies: Currencies,
-  options: IOption,
-  bids: Bid[],
-) => {
-  const currency = options.currency || 'USD';
-  const activeCurrency = currencies[currency] || {
-    title: 'USD',
-    price: 0,
-  };
+type LoadAssetbalanceType = {
+  asset: Horizon.BalanceLine;
+  currencyPrice: BigNumber;
+  bids: Bid[];
+};
 
-  const currencyPrice = new BN(activeCurrency.price);
-
+const loadAssetBalance = ({
+  asset,
+  currencyPrice,
+  bids,
+}: LoadAssetbalanceType) => {
   if (asset.asset_type === 'liquidity_pool_shares') {
     return '0';
   }
@@ -28,11 +24,6 @@ const handleAssetPrice = (
 
     return price.toFixed(6).toString();
   }
-
-  /*
-   (1 / Number.parseFloat(item.toNative, 10))
-        * activeCurrency.value * Number.parseFloat(item.balance, 10);
-  */
 
   const foundBid = bids.find(
     (bid) =>
@@ -52,4 +43,4 @@ const handleAssetPrice = (
   return price.toFixed(6).toString();
 };
 
-export default handleAssetPrice;
+export default loadAssetBalance;

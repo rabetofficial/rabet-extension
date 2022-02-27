@@ -1,13 +1,14 @@
 import React from 'react';
 import { Horizon } from 'stellar-sdk';
 
-import useTypedSelector from 'popup/hooks/useTypedSelector';
+import BlackCheck from 'popup/svgs/BlackCheck';
+import useAssetPrice from 'popup/hooks/useAssetPrice';
 import formatCurrency from 'popup/utils/formatCurrency';
 import handleAssetAlt from 'popup/utils/handleAssetAlt';
-import handleAssetPrice from 'popup/utils/handleAssetPrice';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 import handleAssetImage from 'popup/utils/handleAssetImage';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
-import BlackCheck from 'popup/svgs/BlackCheck';
+
 import questionIcon from '../../../../../../assets/images/question-circle.png';
 import ImageOnErrorHandler from '../../../../../../helpers/ImageOnErrorHandler';
 
@@ -18,7 +19,7 @@ type AssetType = {
 };
 
 const Asset = ({ asset }: AssetType) => {
-  const [assetImages, currencies, options, bids] = useTypedSelector(
+  const [assetImages, currencies, options] = useTypedSelector(
     (store) => [
       store.assetImages,
       store.currencies,
@@ -26,6 +27,7 @@ const Asset = ({ asset }: AssetType) => {
       store.bids,
     ],
   );
+  const price = useAssetPrice(asset);
 
   let asset_code: string;
 
@@ -63,7 +65,7 @@ const Asset = ({ asset }: AssetType) => {
           </div>
           <div className="text-sm text-primary-dark mt-[2px]">
             {handleAssetSymbol(currencies, options)}
-            {handleAssetPrice(asset, currencies, options, bids)}
+            {price}
           </div>
         </div>
       </div>

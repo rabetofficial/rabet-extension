@@ -1,30 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Tab } from 'popup/models';
-import loadBids from 'popup/features/loadBids';
-
 import Setting from 'popup/blocks/Setting';
-import loadAccount from 'popup/features/loadAccount';
+import useLoadHome from 'popup/hooks/useLoadHome';
 import Transactions from 'popup/components/Transactions';
-import loadCurrencies from 'popup/features/loadCurrencies';
-import useTypedSelector from 'popup/hooks/useTypedSelector';
-import useActiveAccount from 'popup/hooks/useActiveAccount';
 import WalletInfo from 'popup/pages/expand/EHome/WalletInfo';
-import loadAssetImages from 'popup/features/loadAssetImages';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
+import { openLoadingModal } from 'popup/components/Modals';
+import closeModalAction from 'popup/actions/modal/close';
 
 const EHome = () => {
-  const activeAccount = useActiveAccount();
-  const { network } = useTypedSelector((store) => store.options);
+  const isLoading = useLoadHome();
 
-  useEffect(() => {
-    loadCurrencies();
-
-    loadAccount(activeAccount).then(() => {
-      loadBids();
-      loadAssetImages();
-    });
-  }, [activeAccount.publicKey, network]);
+  if (isLoading) {
+    openLoadingModal({});
+  } else {
+    closeModalAction();
+  }
 
   const tabs: Tab[] = [
     {
