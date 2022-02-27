@@ -1,38 +1,39 @@
 import React from 'react';
-import shortid from 'shortid';
 import { useNavigate } from 'react-router-dom';
 
+import RouteName from 'popup/staticRes/routes';
+import { IAccount } from 'popup/reducers/accounts2';
 import changeActiveAction from 'popup/actions/accounts/changeActive';
-import * as route from 'popup/staticRes/routes';
-import Account from './Account';
 
 import * as S from './styles';
+import Account from './Account';
 
 type AppProps = {
-  accounts: any;
+  accounts: IAccount[];
 };
 
 const AccountList = ({ accounts }: AppProps) => {
   const navigate = useNavigate();
-  const changeAccount = (account) => {
-    changeActiveAction(account.realPublicKey);
 
-    navigate(route.accountManagerPage);
+  const changeAccount = (account: IAccount) => {
+    changeActiveAction(account.publicKey);
 
-    // toggleMenu();
+    navigate(RouteName.AccountManager);
   };
+
   return (
     <>
-      {accounts && accounts.length > 0 ? (
+      {accounts.length ? (
         <S.List className="hidden-scroll">
           {accounts.map((account, index) => (
             <li
-              key={shortid.generate()}
+              key={`accountsList${account.publicKey}`}
               onClick={() => {
                 changeAccount(account);
               }}
             >
-              <Account info={account} />
+              <Account account={account} />
+
               <S.Border
                 className={
                   accounts.length - 1 !== index ? 'block' : 'hidden'

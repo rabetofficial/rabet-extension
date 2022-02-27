@@ -4,7 +4,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from 'popup/components/common/Button';
-import { SlideFour } from 'popup/svgs/slides';
+import { SlideFour } from 'popup/svgs/SlidesLogo';
 
 import RouteName from 'popup/staticRes/routes';
 

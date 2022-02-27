@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { SlidesLayout } from 'popup/components/Layout';
-import { SlideOne } from 'popup/svgs/slides';
+import { SlideOne } from 'popup/svgs/SlidesLogo';
 
 import * as S from './styles';
 

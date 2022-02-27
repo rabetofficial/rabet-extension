@@ -54,29 +54,33 @@ const WalletInfo = () => {
 
   return (
     <InsideTabLayout>
-      <div className="pb-[67px]">
-        <div className="label-primary mb-[6px]">Wallet name</div>
-        <EditWalletName
-          height={48}
-          checkIconWidth={22}
-          fontSize={16}
-        />
+      <div style={{ width: '80%' }}>
+        <div className="pb-[67px]">
+          <div className="label-primary mb-[6px]">Wallet name</div>
+          <EditWalletName
+            height={48}
+            checkIconWidth={22}
+            fontSize={16}
+          />
 
-        <div className="label-primary mt-6 mb-[6px]">Private Key</div>
-        <CopyKey keyValue={privateKey} />
+          <div className="label-primary mt-6 mb-[6px]">
+            Private Key
+          </div>
+          <CopyKey keyValue={privateKey} />
 
-        <div className="label-primary mt-6 mb-[6px]">Address</div>
-        <CopyKey keyValue={publicKey} />
+          <div className="label-primary mt-6 mb-[6px]">Address</div>
+          <CopyKey keyValue={publicKey} />
 
-        <Hr />
+          <Hr />
 
-        <Button
-          variant="danger"
-          content="Delete account"
-          size="medium"
-          startIcon={<Trash />}
-          onClick={onOpenModal}
-        />
+          <Button
+            variant="danger"
+            content="Delete account"
+            size="medium"
+            startIcon={<Trash />}
+            onClick={onOpenModal}
+          />
+        </div>
       </div>
     </InsideTabLayout>
   );

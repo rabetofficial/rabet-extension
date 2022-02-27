@@ -5,6 +5,7 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import loadTransactions from 'popup/features/loadTransactions';
 
 import Transaction from './Transaction';
+import Loading from '../Loading';
 
 const Transactions = () => {
   const { publicKey } = useActiveAccount();
@@ -21,16 +22,28 @@ const Transactions = () => {
   }, [publicKey]);
 
   if (isLoading) {
-    return <p>LOADING....</p>;
+    return (
+      <Loading
+        title="Loading Transactions"
+        size={80}
+        titleStyle="text-primary"
+      />
+    );
   }
-
+  if (transactions.length === 0) {
+    return (
+      <p className="flex justify-center text-primary text-base mt-[135px]">
+        You have no transaction
+      </p>
+    );
+  }
   return (
     <div>
       {transactions.map((tx) => (
         <div key={tx.records[0].transaction_hash}>
           <Transaction transaction={tx} publicKey={publicKey} />
         </div>
-      )}
+      ))}
     </div>
   );
 };

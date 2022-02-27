@@ -1,38 +1,40 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Field, Form } from 'react-final-form';
-import { useNavigate } from 'react-router-dom';
 
-import ButtonContainer from 'popup/components/common/ButtonContainer';
+import isEmpty from 'helpers/isEmpty';
+import matchAsset from 'popup/utils/matchAsset';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-import * as route from 'popup/staticRes/routes';
-import matchAsset from 'popup/utils/matchAsset';
-import getAssetsAction from 'popup/utils/server/getAssets';
-import currentActiveAccount from 'popup/utils/activeAccount';
-import addMultipleAssets from 'popup/actions/operations/addMultipleAssets';
-import isEmpty from '../../../../helpers/isEmpty';
-import AssetList from './AssetList';
+import getAssetsAction from 'popup/api/getSearchedAssets';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import { AssetImageWithActive } from 'popup/reducers/assetImages';
+
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import ResultTitle from './styles';
+import AssetList from './AssetList';
 
 type FormValues = {
-  token: string;
+  asset: string;
 };
 
 type AppProps = {
+  onSubmit: (x: AssetImageWithActive[]) => void;
   onCancel: () => void;
 };
 
-const SearchAsset = ({ onCancel }: AppProps) => {
-  const options = useSelector((store) => store.options);
-  const navigate = useNavigate();
-  const [list, setList] = useState([]);
+const SearchAsset = ({ onSubmit, onCancel }: AppProps) => {
+  const [list, setList] = useState<AssetImageWithActive[]>([]);
   const [value, setValue] = useState('');
-  const [selectedList, setSelectedList] = useState([]);
+  const [selectedList, setSelectedList] = useState<
+    AssetImageWithActive[]
+  >([]);
+  const options = useTypedSelector((store) => store.options);
+  const activeAccount = useActiveAccount();
 
-  const onSubmit = () => {
-    addMultipleAssets(selectedList, navigate);
+  const localOnSubmit = () => {
+    onSubmit(selectedList);
   };
 
   const setActive = (index: number) => {
@@ -48,18 +50,20 @@ const SearchAsset = ({ onCancel }: AppProps) => {
   };
 
   const validateForm = async (values: FormValues) => {
-    if (values.token && value !== values.token) {
-      setValue(values.token);
+    if (values.asset && value !== values.asset) {
+      setValue(values.asset);
 
-      const { activeAccount } = currentActiveAccount();
-      const currentBalances = activeAccount.balances || [];
+      const assets = activeAccount.assets || [];
 
-      getAssetsAction(values.token).then((assetList) => {
+      getAssetsAction(values.asset).then((assetList) => {
         const newAssetList = [];
 
         for (let i = 0; i < assetList.length; i += 1) {
-          const isOld = currentBalances.some((x) =>
-            matchAsset(x, assetList[i]),
+          const isOld = assets.some(
+            (asset) =>
+              (asset.asset_type === 'credit_alphanum4' ||
+                asset.asset_type === 'credit_alphanum12') &&
+              matchAsset(asset, assetList[i]),
           );
 
           if (isOld) {
@@ -77,25 +81,16 @@ const SearchAsset = ({ onCancel }: AppProps) => {
 
         setList(newAssetList);
       });
-    } else if (!values.token && list.length) {
+    } else if (!values.asset && list.length) {
       setList([]);
-      setSelectedList([]);
       setValue('');
+      setSelectedList([]);
     }
-  };
-
-  const onCancelSearch = () => {
-    navigate(route.homePage, {
-      state: {
-        alreadyLoaded: true,
-      },
-    });
-    onCancel();
   };
 
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={localOnSubmit}
       validate={(values: FormValues) => validateForm(values)}
       render={({ handleSubmit }) => (
         <form
@@ -103,7 +98,7 @@ const SearchAsset = ({ onCancel }: AppProps) => {
           onSubmit={handleSubmit}
           autoComplete="off"
         >
-          <Field name="token">
+          <Field name="asset">
             {({ input, meta }) => (
               <Input
                 type="text"
@@ -136,7 +131,7 @@ const SearchAsset = ({ onCancel }: AppProps) => {
                   variant="default"
                   size="medium"
                   content="Cancel"
-                  onClick={onCancelSearch}
+                  onClick={onCancel}
                 />
 
                 <Button

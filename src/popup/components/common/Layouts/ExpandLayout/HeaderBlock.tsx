@@ -26,10 +26,11 @@ const HeaderBlock = () => {
         </Link>
         <div className="flex items-center space-x-[22px]">
           <Network theme="light" />
+
           <SearchAccounts
-            toggleOverlay={toggleOverlay}
-            isOpen={overlay}
             usage="expand"
+            isOpen={overlay}
+            toggleOverlay={toggleOverlay}
           />
         </div>
       </div>

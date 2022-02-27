@@ -111,6 +111,7 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
                     onClick={() => {
                       handleCancel(form);
                     }}
+                    style={{ marginRight: '7px' }}
                   />
                   <Button
                     type="submit"
@@ -129,16 +130,17 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
                     content="Import"
                     disabled={pristine}
                   />
-                  <Button
-                    style={{ marginTop: '12px' }}
-                    variant="default"
-                    size="medium"
-                    content="Back"
-                    onClick={() => {
-                      handleCancel(form);
-                    }}
-                    startIcon={<ArrowBack />}
-                  />
+                  <S.SecondButton>
+                    <Button
+                      variant="default"
+                      size="medium"
+                      content="Back"
+                      onClick={() => {
+                        handleCancel(form);
+                      }}
+                      startIcon={<ArrowBack />}
+                    />
+                  </S.SecondButton>
                 </S.ButtonContainer>
               )}
             </form>
