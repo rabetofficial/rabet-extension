@@ -43,7 +43,7 @@ export const ImgSlideThird = styled.div`
 `;
 
 export const ImgSlideForth = styled.div`
-  margin: 67px auto 0 auto;
+  margin: 72px auto 0 auto;
   width: 288px;
   height: 376px;
   display: block;

@@ -31,7 +31,7 @@ const ForthSlide = () => {
           interact with any SApp you wish.
         </S.MainText>
       </S.TextContainer>
-      <div className="flex justify-center mt-[40px] mr-auto ml-auto 2xl:basis-[328px] sm:basis-[90%] w-[328px]">
+      <div className="flex justify-center mt-[35px] mr-auto ml-auto 2xl:basis-[328px] sm:basis-[90%] w-[328px]">
         <Button
           type="button"
           variant="primary"
