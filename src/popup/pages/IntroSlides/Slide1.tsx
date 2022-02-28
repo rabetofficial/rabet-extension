@@ -13,7 +13,7 @@ const FirstSlide = () => (
         <SlideOne />
       </S.ImgSlideOne>
       <S.TextContainer>
-        <S.HeadText className="mt-[50px]">
+        <S.HeadText className="mt-[47px]">
           Useful by design
         </S.HeadText>
         <S.MainText>

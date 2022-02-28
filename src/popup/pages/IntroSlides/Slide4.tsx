@@ -20,24 +20,25 @@ const ForthSlide = () => {
   return (
     <>
       <S.ImgSlideForth>
-        <SlideFour />{' '}
+        <SlideFour />
       </S.ImgSlideForth>
       <S.TextContainer>
         <S.HeadText className="mt-[56px]">
           Rabet is Your Identity
         </S.HeadText>
-        <S.MainText className="px-[10px]">
+        <S.MainText>
           In the Stellar world, Rabet is your passport, letting you
           interact with any SApp you wish.
         </S.MainText>
       </S.TextContainer>
-      <div className="flex justify-center mt-[40px] mr-auto ml-auto 2xl:basis-[328px] sm:basis-[90%] w-[320px]">
+      <div className="flex justify-center mt-[40px] mr-auto ml-auto 2xl:basis-[328px] sm:basis-[90%] w-[328px]">
         <Button
           type="button"
           variant="primary"
           size="large"
           content="Launch the App"
           onClick={handleGetStarted}
+          style={{ borderRadius: '4px' }}
         />
       </div>
     </>

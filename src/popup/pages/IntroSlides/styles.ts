@@ -14,20 +14,23 @@ export const ImgSlideOne = styled.div`
 `;
 
 export const ImgSlideTwo = styled.div`
-  margin: 105px auto 0 auto;
+  margin: 105px auto 0 151px;
   width: 334px;
   height: 348px;
   display: block;
 
+  @media (max-width: 830px) and (min-width: 630px) {
+    margin: 105px auto 0 auto;
+  }
   @media (max-width: 630px) and (min-width: 360px) {
-    margin-top: 64px;
+    margin: 64px auto 0 auto;
     width: 254px;
     height: 265px;
   }
 `;
 
 export const ImgSlideThird = styled.div`
-  margin: 72px auto 0 auto;
+  margin: 55px auto 0 auto;
   width: 352px;
   height: 385px;
   display: block;
@@ -41,8 +44,8 @@ export const ImgSlideThird = styled.div`
 
 export const ImgSlideForth = styled.div`
   margin: 67px auto 0 auto;
-  width: 292px;
-  height: 381px;
+  width: 288px;
+  height: 376px;
   display: block;
 
   @media (max-width: 630px) and (min-width: 360px) {
@@ -61,7 +64,7 @@ export const TextContainer = styled.div`
 
 export const HeadText = styled.p`
   font-size: 32px;
-  margin-bottom: 20px;
+  margin-bottom: 19px;
   font-weight: bold;
   @media (max-width: 410px) and (min-width: 360px) {
     font-size: 20px;
@@ -71,9 +74,21 @@ export const HeadText = styled.p`
 
 export const MainText = styled.p`
   font-size: 20px;
-  color: ${({ theme }) => theme.colors.primary.darkest};
+  color: ${({ theme }) => theme.colors.primary.dark};
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+
   @media (max-width: 410px) and (min-width: 360px) {
     font-size: 16px;
+  }
+  @media (max-width: 360px) {
+    font-size: 14px;
+    width: 328px;
+    margin: 0 auto;
   }
 `;
 
@@ -86,7 +101,7 @@ interface IndicatorsProps {
 export const Indicators = styled.div<IndicatorsProps>`
   width: 40px;
   height: 2px;
-  margin: -16% 4px 0px 4px;
+  margin: -99px 4px 0px 4px;
   background-color: ${({ theme, disabled }) =>
     disabled
       ? theme.colors.primary.light
@@ -105,7 +120,7 @@ interface CircleProps {
   theme: any;
 }
 export const Circle = styled.div<CircleProps>`
-  margin-top: -145px;
+  margin-top: -215px;
   padding: 21.5px 18px;
   display: flex;
   justify-content: center;
@@ -156,9 +171,9 @@ export const SlidesContainer = styled.div`
     width: 720px;
   }
   @media (max-width: 620px) and (min-width: 475px) {
-    width: 500px;
+    width: 600px;
   }
   @media (max-width: 475px) and (min-width: 360px) {
-    width: 390px;
+    width: 400px;
   }
 `;
