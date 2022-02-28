@@ -23,12 +23,12 @@ const Intro = () => {
 
       <S.Container>
         <div className="text-center">
-          <p className="2xl:text-xl lg:text-xl md:text-xl sm:text-[22px] text-[18px] text-primary-dark ">
+          <S.WelcomeText className="2xl:text-xl lg:text-xl md:text-xl sm:text-[22px] text-[18px] text-primary-dark ">
             Welcome to the new financial world
-          </p>
-          <p className="2xl:text-[40px] lg:text-4xl md:text-4xl sm:text-[30px] text-[26px] lg:whitespace-nowrap font-bold mt-4 mb-12 ">
+          </S.WelcomeText>
+          <S.MainText className="2xl:text-[40px] lg:text-4xl md:text-4xl sm:text-[30px] text-[26px] lg:whitespace-nowrap font-bold">
             Start interacting with Stellar
-          </p>
+          </S.MainText>
         </div>
       </S.Container>
 
@@ -38,7 +38,6 @@ const Intro = () => {
           variant="primary"
           size="medium"
           content="Get Started"
-          style={{ marginBottom: '28px' }}
           onClick={handleGetStarted}
         />
       </S.MbButton>
