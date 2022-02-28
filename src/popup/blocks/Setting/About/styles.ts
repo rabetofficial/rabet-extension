@@ -12,6 +12,7 @@ export const Item = styled.p`
 `;
 
 export const ContactLinksContainer = styled.div`
+  cursor: pointer;
   display: inline-flex;
   margin-top: 20px;
   span {

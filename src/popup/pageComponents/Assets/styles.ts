@@ -7,6 +7,12 @@ export const Page = styled.div`
     padding: 16px;
   }
 `;
+export const Content = styled.div`
+  margin-top: 22px;
+  @media (max-width: 360px) {
+    margin-top: 16px;
+  }
+`;
 
 export const Title = styled.h4`
   font-size: 16px;
@@ -16,10 +22,9 @@ export const Title = styled.h4`
 `;
 
 export const Value = styled.p`
+  margin-top: -2px;
   font-size: 16px;
-  line-height: 1.63;
   color: ${({ theme }) => theme.colors.primary.dark};
-  margin: 0;
   word-break: break-all;
 
   a,
@@ -30,14 +35,13 @@ export const Value = styled.p`
 `;
 
 export const Hr = styled.hr`
-  margin-top: 9px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   border: none;
   height: 1px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
 `;
 export const Table = styled.div`
-  margin-top: 24px;
+  margin-top: 20px;
 
   table {
     width: 100%;

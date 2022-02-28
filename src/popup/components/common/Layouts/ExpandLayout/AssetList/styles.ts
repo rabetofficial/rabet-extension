@@ -20,8 +20,8 @@ interface ImageProps {
   theme: any;
 }
 export const Image = styled.img<ImageProps>`
-  width: 31px;
-  height: auto;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background-color: ${({ theme, isDark }) =>
     isDark ? theme.colors.primary.darkest : 'auto'};

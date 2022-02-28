@@ -24,16 +24,17 @@ const AssetList = () => {
         title: 'Asset info',
         size: 'medium',
         padding: 'medium',
-        minHeight: 0,
+        minHeight: 597,
         children: (
           <Assets
             asset={asset}
             onClick={() => {
               console.log('hio');
             }}
+            isNative
             onCancel={closeModalAction}
           >
-            <PageTitle title="Asset info" padding="0" />
+            <PageTitle title="Asset info | XLM" padding="0" />
           </Assets>
         ),
       });
@@ -43,7 +44,7 @@ const AssetList = () => {
         title: 'Asset info',
         size: 'medium',
         padding: 'medium',
-        minHeight: 0,
+        minHeight: 597,
         children: (
           <Assets
             asset={asset}

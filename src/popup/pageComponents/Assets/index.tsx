@@ -10,6 +10,7 @@ import * as S from './styles';
 import useAssetInfo from './useAssetInfo';
 
 type AssetType = {
+  isNative?: boolean;
   onClick: () => void;
   onCancel: () => void;
   children?: React.ReactNode;
@@ -17,6 +18,7 @@ type AssetType = {
 };
 
 const Assets = ({
+  isNative,
   asset,
   onClick,
   onCancel,
@@ -134,51 +136,64 @@ const Assets = ({
   const isDeletable = new BN(assetData?.balance || '0').isEqualTo(
     '0',
   );
-
+  if (isNative) {
+    return (
+      <div className=" py-[30px] px-[32px]">
+        {children}
+        <div className="flex place-items-center h-[430px]">
+          <p className="text-base">
+            <strong className="text-lg">XLM</strong> is the native
+            currency of the network. An XLM is the only asset type
+            that can be used on the Stellar network that doesn&apos;t
+            require an issuer or a trustline. Any account can hold
+            XLM. You can trade XLM for other assets in the network
+          </p>
+        </div>
+      </div>
+    );
+  }
   return (
-    <S.Page className="hidden-scroll content-scroll">
+    <S.Page>
       {children}
-      {assetInfo.map((item, index) => (
-        <div key={item.title}>
-          <S.Title>{item.title}</S.Title>
-          <S.Value>{item.value}</S.Value>
-          {assetInfo.length - 1 !== index && <S.Hr />}
-        </div>
-      ))}
-      <HandleFlags />
-      {!isDeletable ? (
-        <div className="error-box" style={{ marginTop: '16px' }}>
-          You cannot remove this asset unless the asset&apos;s balance
-          is zero.
-        </div>
-      ) : (
-        ''
-      )}
-      <ButtonContainer
-        btnSize={102}
-        justify="end"
-        positionStyles={{ bottom: '0px' }}
-      >
-        <Button
-          variant="default"
-          size="medium"
-          content="Cancel"
-          onClick={onCancel}
-          style={{ marginRight: '7px' }}
-        />
+      <S.Content>
+        {assetInfo.map((item, index) => (
+          <div key={item.title}>
+            <S.Title>{item.title}</S.Title>
+            <S.Value>{item.value}</S.Value>
+            {assetInfo.length - 1 !== index && <S.Hr />}
+          </div>
+        ))}
+        <HandleFlags />
+        {!isDeletable ? (
+          <div className="text-xs text-error mt-1">
+            You cannot remove this asset unless the asset&apos;s
+            balance is zero.
+          </div>
+        ) : (
+          ''
+        )}
+        <ButtonContainer btnSize={102} justify="end" mt={32}>
+          <Button
+            variant="default"
+            size="medium"
+            content="Cancel"
+            onClick={onCancel}
+            style={{ marginRight: '5px' }}
+          />
 
-        <Button
-          type="button"
-          variant="danger"
-          size="medium"
-          content="Delete"
-          disabled={!isDeletable}
-          onClick={onClick}
-          startIcon={<Trash />}
-        />
-      </ButtonContainer>
+          <Button
+            type="button"
+            variant="danger"
+            size="medium"
+            content="Delete"
+            disabled={!isDeletable}
+            onClick={onClick}
+            startIcon={<Trash />}
+          />
+        </ButtonContainer>
+      </S.Content>
     </S.Page>
   );
 };
-Assets.defaultProps = { children: '' };
+Assets.defaultProps = { children: '', isNative: false };
 export default Assets;
