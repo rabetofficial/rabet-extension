@@ -23,8 +23,6 @@ export const Image = styled.img<ImageProps>`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: ${({ theme, isDark }) =>
-    isDark ? theme.colors.primary.darkest : 'auto'};
 `;
 
 export const Border = styled.div`

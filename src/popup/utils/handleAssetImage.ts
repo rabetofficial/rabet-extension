@@ -1,7 +1,7 @@
 import { Horizon } from 'stellar-sdk';
 
 import { AssetImage } from 'popup/reducers/assetImages';
-import xlmLogo from '../../assets/images/xlm-white.png';
+import xlmLogo from '../../assets/images/xlm-logo.svg';
 import questionLogo from '../../assets/images/question-circle.png';
 
 const handleAssetImage = (
