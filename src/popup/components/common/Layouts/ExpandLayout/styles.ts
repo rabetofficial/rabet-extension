@@ -9,6 +9,14 @@ export const Container = styled.div`
   height: 100%;
 `;
 
+export const XLResponsive = styled.div`
+  @media (min-width: ${({ theme }) => theme.screens.xl.min}) {
+    width: 1118px;
+    display: block;
+    margin: 0 auto;
+  }
+`;
+
 export const Card = styled.div`
   background-color: white;
   padding-right: 20px;

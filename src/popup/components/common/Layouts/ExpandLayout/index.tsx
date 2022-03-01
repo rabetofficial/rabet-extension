@@ -16,28 +16,30 @@ type AppProps = {
 
 const ExpandLayout = ({ children, tabItems = [] }: AppProps) => (
   <S.Container>
-    <HeaderBlock />
+    <S.XLResponsive>
+      <HeaderBlock />
 
-    <div className="flex flex-row md:flex-nowrap sm:flex-wrap flex-wrap md:space-x-[38px] sm:space-x-0 space-x-0 mt-[23px]">
-      <div
-        className="grow md:mb-0 sm:mb-[38px] mb-[38px]"
-        style={{ flexBasis: 'min-content' }}
-      >
-        <S.CardSimple className="rounded-md h-full pt-1">
-          {!isEmpty(tabItems) ? (
-            <Tabs data={tabItems} contentClass="px-[20px]" />
-          ) : (
-            children
-          )}
-        </S.CardSimple>
+      <div className="flex flex-row md:flex-nowrap sm:flex-wrap flex-wrap md:space-x-[38px] sm:space-x-0 space-x-0 mt-[23px]">
+        <div
+          className="grow md:mb-0 sm:mb-[38px] mb-[38px]"
+          style={{ flexBasis: 'min-content' }}
+        >
+          <S.CardSimple className="rounded-md h-full pt-1">
+            {!isEmpty(tabItems) ? (
+              <Tabs data={tabItems} contentClass="px-[20px]" />
+            ) : (
+              children
+            )}
+          </S.CardSimple>
+        </div>
+
+        <div className="lg:basis-[351px] md:basis-2/5 sm:basis-full basis-full space-y-[38px]">
+          <AddressBlock />
+
+          <AssetBlock />
+        </div>
       </div>
-
-      <div className="lg:basis-[351px] md:basis-2/5 sm:basis-full basis-full space-y-[38px]">
-        <AddressBlock />
-
-        <AssetBlock />
-      </div>
-    </div>
+    </S.XLResponsive>
   </S.Container>
 );
 
