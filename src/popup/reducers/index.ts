@@ -6,6 +6,7 @@ import host from './host';
 import modal from './modal';
 import options from './options';
 import interval from './interval';
+import contacts from './contacts';
 import accounts from './accounts2';
 import currencies from './currencies';
 import transaction from './transaction';
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   modal,
   options,
   interval,
+  contacts,
   accounts,
   currencies,
   transaction,

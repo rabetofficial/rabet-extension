@@ -13,16 +13,12 @@ type FormValues = {
   password: string;
   confirm: string;
 };
-type ChangePasswordType = {
+
+type ChangePasswordProps = {
   onClose: () => void;
-  onClick: () => void;
-  onSubmit: () => void;
 };
-const ChangePassword = ({
-  onClick,
-  onClose,
-  onSubmit,
-}: ChangePasswordType) => {
+
+const ChangePassword = ({ onClose }: ChangePasswordProps) => {
   const validateForm = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
 
@@ -59,10 +55,17 @@ const ChangePassword = ({
 
   return (
     <div style={{ width: '80%' }}>
-      <PageTitle isSetting title="Change Password" padding="0" />
+      <PageTitle
+        isSetting
+        padding="0"
+        onClose={onClose}
+        title="Change Password"
+      />
 
       <Form
-        onSubmit={onSubmit}
+        onSubmit={() => {
+          console.log('hi');
+        }}
         validate={validateForm}
         render={({ submitError, handleSubmit, invalid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
@@ -130,7 +133,6 @@ const ChangePassword = ({
                 size="medium"
                 content="Change"
                 disabled={invalid}
-                onClick={onClick}
               />
             </ButtonContainer>
           </form>

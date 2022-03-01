@@ -5,9 +5,18 @@ import config from '../../../../config';
 
 import * as S from './styles';
 
-const About = () => (
+type AboutProps = {
+  onClose: () => void;
+};
+
+const About = ({ onClose }: AboutProps) => (
   <div>
-    <PageTitle isSetting title="About" padding="0" />
+    <PageTitle
+      isSetting
+      title="About"
+      padding="0"
+      onClose={onClose}
+    />
 
     <div>
       <S.Item className="mt-[26px]">Version</S.Item>

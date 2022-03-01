@@ -1,11 +1,8 @@
-/* eslint-disable no-unneeded-ternary */
 import React from 'react';
-import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
-import RouteName from 'popup/staticRes/routes';
 import Multiply from 'popup/svgs/Multiply';
 import LongArrowLeft from 'popup/svgs/LongArrowLeft';
+import closeModalAction from 'popup/actions/modal/close';
 
 import * as S from './styles';
 
@@ -13,10 +10,9 @@ type PageTitleTypes = {
   title: String;
   status?: string;
   statusTitle?: String;
-  alreadyLoaded?: any;
   padding?: string;
   isSetting?: boolean;
-  onBack?: () => void;
+  onClose?: () => void;
   titleStyle?: string;
 };
 
@@ -24,14 +20,18 @@ const PageTitle = ({
   title,
   status,
   statusTitle,
-  alreadyLoaded,
   padding,
   isSetting,
-  onBack,
+  onClose,
   titleStyle,
-  ...props
 }: PageTitleTypes) => {
-  const navigate = useNavigate();
+  const closePageTitle = () => {
+    closeModalAction();
+
+    if (onClose) {
+      onClose();
+    }
+  };
 
   const generateTitle = () => {
     if (status) {
@@ -42,6 +42,7 @@ const PageTitle = ({
         </S.Status>
       );
     }
+
     if (status === 'warn') {
       return (
         <S.Warn>
@@ -50,6 +51,7 @@ const PageTitle = ({
         </S.Warn>
       );
     }
+
     if (status === 'success') {
       return (
         <S.Success>
@@ -66,20 +68,6 @@ const PageTitle = ({
     return null;
   };
 
-  const { accounts } = props;
-
-  const handleClose = () => {
-    if (accounts.length) {
-      return navigate(RouteName.Home, {
-        state: {
-          alreadyLoaded: alreadyLoaded === undefined ? true : false,
-        },
-      });
-    }
-
-    return navigate(-1);
-  };
-
   if (isSetting) {
     return (
       <S.SettingTypeContainer
@@ -89,7 +77,7 @@ const PageTitle = ({
         }}
       >
         <S.Icon style={{ marginRight: '8px' }}>
-          <span onClick={onBack}>
+          <span onClick={closePageTitle}>
             <LongArrowLeft />
           </span>
         </S.Icon>
@@ -97,6 +85,7 @@ const PageTitle = ({
       </S.SettingTypeContainer>
     );
   }
+
   return (
     <S.Container
       style={{
@@ -107,7 +96,7 @@ const PageTitle = ({
       <div>{generateTitle()}</div>
 
       <S.Icon>
-        <span onClick={handleClose}>
+        <span onClick={closePageTitle}>
           <Multiply />
         </span>
       </S.Icon>
@@ -118,13 +107,10 @@ const PageTitle = ({
 PageTitle.defaultProps = {
   status: '',
   statusTitle: '',
-  alreadyLoaded: '',
   padding: '',
   isSetting: false,
-  onBack: () => {},
+  onClose: () => {},
   titleStyle: '',
 };
 
-export default connect((state) => ({
-  accounts: state.accounts,
-}))(PageTitle);
+export default PageTitle;

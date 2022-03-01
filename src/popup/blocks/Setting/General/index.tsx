@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
 import capital from 'popup/utils/capital';
-import Button from 'popup/components/common/Button';
-import ToggleSwitch from 'popup/components/common/ToggleSwitch';
-import SelectOption from 'popup/components/common/SelectOption';
-import changeOptionsAction from 'popup/actions/options/change';
-import * as currenciesModule from 'popup/staticRes/currencies';
-import ButtonContainer from 'popup/components/common/ButtonContainer';
-import TooltipLabel from 'popup/components/common/TooltipLabel';
 import { ElementOption } from 'popup/models';
 import PageTitle from 'popup/components/PageTitle';
+import Button from 'popup/components/common/Button';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import changeOptionsAction from 'popup/actions/options/change';
+import * as currenciesModule from 'popup/staticRes/currencies';
+import SelectOption from 'popup/components/common/SelectOption';
+import TooltipLabel from 'popup/components/common/TooltipLabel';
+import ToggleSwitch from 'popup/components/common/ToggleSwitch';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
@@ -42,9 +41,12 @@ const modeOptions = [
   { value: 'ADVANCED', label: 'Advance' },
 ];
 
-const SettingGeneral = () => {
-  const options = useSelector((store) => store.options);
-  const navigate = useNavigate();
+type SettingProps = {
+  onClose: () => void;
+};
+
+const SettingGeneral = ({ onClose }: SettingProps) => {
+  const options = useTypedSelector((store) => store.options);
   const [checked, setChecked] = useState(true);
 
   const [selectedExplorer, setSelectedExplorer] = useState<
@@ -115,19 +117,6 @@ const SettingGeneral = () => {
     setChecked(c);
   };
 
-  const handleSubmit = () => {
-    changeOptionsAction(
-      {
-        privacyMode: checked,
-        explorer: selectedExplorer,
-        autoTimeLocker: selectedTimer,
-        currency: selectedCurrency,
-        mode,
-      },
-      navigate,
-    );
-  };
-
   const onChangeCurrency = (e: ElementOption) => {
     setSelectedCurrency(e);
   };
@@ -144,9 +133,26 @@ const SettingGeneral = () => {
     setMode(e);
   };
 
+  const handleSubmit = () => {
+    changeOptionsAction({
+      privacyMode: checked,
+      explorer: selectedExplorer.value,
+      autoTimeLocker: selectedTimer.value,
+      currency: selectedCurrency.value,
+      mode: mode.value,
+    });
+
+    onClose();
+  };
+
   return (
     <>
-      <PageTitle isSetting title="General" padding="0" />
+      <PageTitle
+        isSetting
+        title="General"
+        padding="0"
+        onClose={onClose}
+      />
 
       <div className="flex justify-between items-center mt-[20px]">
         <TooltipLabel
