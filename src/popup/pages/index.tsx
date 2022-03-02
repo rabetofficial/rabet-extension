@@ -7,6 +7,7 @@ import {
 
 import DetectSize from 'popup/components/DetectSize';
 import ProtectedRoute from '../components/ProtectedRoute';
+import UnprotectedRoute from '../components/UnprotectedRoute';
 
 import Home from './extension/Home';
 import EHome from './expand/EHome';
@@ -197,18 +198,30 @@ const App = () => (
       <Route
         exact
         path={RouteName.Introduction}
-        element={<Intro />}
+        element={
+          <UnprotectedRoute>
+            <Intro />
+          </UnprotectedRoute>
+        }
       />
       <Route
         exact
         path={RouteName.IntroSlides}
-        element={<IntroSlides />}
+        element={
+          <UnprotectedRoute>
+            <IntroSlides />
+          </UnprotectedRoute>
+        }
       />
       <Route exact path={RouteName.Flags} element={<Flags />} />
       <Route
         exact
         path={RouteName.ConfirmFlag}
-        element={<ConfirmFlag />}
+        element={
+          <ProtectedRoute>
+            <ConfirmFlag />
+          </ProtectedRoute>
+        }
       />
       <Route exact path={RouteName.Login} element={<Login />} />
       <Route exact path={RouteName.First} element={<FirstPage />} />
@@ -240,7 +253,11 @@ const App = () => (
       <Route
         exact
         path={RouteName.Register}
-        element={<ConfirmLogin />}
+        element={
+          <UnprotectedRoute>
+            <ConfirmLogin />
+          </UnprotectedRoute>
+        }
       />
       <Route
         exact
