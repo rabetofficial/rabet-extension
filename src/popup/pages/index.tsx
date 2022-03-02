@@ -41,7 +41,7 @@ import XLMAsset from './XLMAsset';
 import DeleteAccount from './DeleteAccount';
 import ConnectedWebsite from './ConnectedWebsite';
 import BackupFile from './BackupFile';
-import BasicOperation from './Operation/Basic';
+import BasicOperation from './extension/Operation/Basic';
 import BasicSwapConfirm from './Operation/Basic/Swap/Confirm';
 import BasicSendConfirm from './Operation/Basic/Send/Confirm';
 import AdvanceOperation from './Operation/Adavnce';
