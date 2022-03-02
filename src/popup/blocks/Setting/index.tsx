@@ -74,19 +74,21 @@ const Setting = () => {
   const SettingMainPage = () => (
     <>
       {settingList.map((settingPg, index) => (
-        <S.Container
-          onClick={settingPg.onClick}
-          key={`setting${settingPg.id}`}
-        >
-          <S.TopContainer>
-            <S.Title>{settingPg.title}</S.Title>
-            <span>
-              <AngleRight />
-            </span>
-          </S.TopContainer>
-          <S.Description>{settingPg.description}</S.Description>
+        <>
+          <S.Container
+            onClick={settingPg.onClick}
+            key={`setting${settingPg.id}`}
+          >
+            <S.TopContainer>
+              <S.Title>{settingPg.title}</S.Title>
+              <span>
+                <AngleRight />
+              </span>
+            </S.TopContainer>
+            <S.Description>{settingPg.description}</S.Description>
+          </S.Container>
           {settingList.length !== index + 1 && <S.Hr />}
-        </S.Container>
+        </>
       ))}
     </>
   );

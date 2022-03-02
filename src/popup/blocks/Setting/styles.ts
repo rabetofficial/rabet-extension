@@ -2,10 +2,13 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   cursor: pointer;
-  padding: 0;
+  padding: 17px 0 15px;
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary.lighter};
     transition: 1s background;
+  }
+  &:nth-of-type(1) {
+    padding-top: 0px;
   }
 `;
 
@@ -31,6 +34,5 @@ export const Description = styled.p`
 `;
 
 export const Hr = styled.hr`
-  margin: 17px 0 15px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
 `;
