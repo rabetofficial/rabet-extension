@@ -1,10 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 import Trash from 'popup/svgs/Trash';
-import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
 import CopyKey from 'popup/components/common/CopyKey';
 import openModalAction from 'popup/actions/modal/open';
@@ -12,7 +10,6 @@ import closeModalAction from 'popup/actions/modal/close';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import EditWalletName from 'popup/components/EditWalletName';
 import DeleteAccount from 'popup/pageComponents/DeleteAccount';
-import removeAccountAction from 'popup/actions/accounts/remove';
 import InsideTabLayout from 'popup/components/common/Layouts/InsideTabLayout';
 
 const Hr = styled.hr`
@@ -21,7 +18,6 @@ const Hr = styled.hr`
 `;
 
 const WalletInfo = () => {
-  const navigate = useNavigate();
   const { publicKey, privateKey } = useActiveAccount();
 
   const handleCancel = () => {
@@ -29,11 +25,7 @@ const WalletInfo = () => {
   };
 
   const handleDelete = () => {
-    removeAccountAction(publicKey).then(() => {
-      closeModalAction();
-
-      navigate(RouteName.AccountManager);
-    });
+    closeModalAction();
   };
 
   const onOpenModal = () => {
@@ -45,7 +37,7 @@ const WalletInfo = () => {
       title: 'Delete Account',
       children: (
         <DeleteAccount
-          onClick={handleDelete}
+          onDelete={handleDelete}
           onCancel={handleCancel}
         />
       ),

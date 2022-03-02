@@ -11,13 +11,16 @@ const UnprotectedRoute = ({
   children: JSX.Element;
 }) => {
   const isOnLine = checkOffline();
-  const user = useTypedSelector((store) => store.user);
+  const [user, accounts] = useTypedSelector((store) => [
+    store.user,
+    store.accounts,
+  ]);
 
   if (!isOnLine) {
     return <Navigate to={RouteName.OfflineMode} />;
   }
 
-  if (user.logged && user.registered) {
+  if (user.logged && user.registered && accounts.length) {
     return <Navigate to={RouteName.Home} />;
   }
 

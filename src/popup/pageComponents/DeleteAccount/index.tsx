@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import Trash from 'popup/svgs/Trash';
 import Note from 'popup/components/Note';
 import Button from 'popup/components/common/Button';
-import Trash from 'popup/svgs/Trash';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import removeAccountAction from 'popup/actions/accounts/remove';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
@@ -13,10 +16,21 @@ const message =
 type DeleteAccountTypes = {
   children?: React.ReactNode;
   onCancel: () => void;
-  onClick: () => void;
+  onDelete: () => void;
 };
-const DeleteAccount = (props: DeleteAccountTypes) => {
-  const { children, onClick, onCancel } = props;
+const DeleteAccount = ({
+  children,
+  onDelete,
+  onCancel,
+}: DeleteAccountTypes) => {
+  const navigate = useNavigate();
+  const { publicKey } = useActiveAccount();
+
+  const handleDelete = () => {
+    removeAccountAction(publicKey, navigate).then(() => {
+      onDelete();
+    });
+  };
 
   return (
     <>
@@ -38,7 +52,7 @@ const DeleteAccount = (props: DeleteAccountTypes) => {
               size="medium"
               content="Delete"
               startIcon={<Trash />}
-              onClick={onClick}
+              onClick={handleDelete}
             />
           </ButtonContainer>
         </S.ButtonContainer>
