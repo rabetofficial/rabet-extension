@@ -75,6 +75,7 @@ const WalletInfo = () => {
         <Hr />
 
         <Button
+          style={{ marginTop: '15px' }}
           variant="danger"
           content="Delete account"
           size="medium"
