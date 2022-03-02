@@ -1,5 +1,5 @@
-import { StrKey } from 'stellar-sdk';
 import React, { useState } from 'react';
+import { StrKey } from 'stellar-sdk';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,8 +14,16 @@ import controlNumberInput from 'popup/utils/controlNumberInput';
 import getAccountData from 'popup/utils/horizon/isAddressFound';
 import SelectAssetModal from 'popup/components/SelectAssetModal';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
-import styles from './styles.less';
+import ModalInput from './styles';
+
+type FormValues = {
+  amount: number;
+  asset: any;
+  destination: string;
+  memo: string;
+};
 
 const Send = () => {
   const navigate = useNavigate();
@@ -26,7 +34,7 @@ const Send = () => {
 
   const [selectedAsset, setSelectedAsset] = useState(assets[0]);
 
-  const onSubmit = async (v) => {
+  const onSubmit = async (v: FormValues) => {
     const values = {
       ...v,
       asset: selectedAsset,
@@ -40,7 +48,7 @@ const Send = () => {
     });
   };
 
-  const validateForm = async (v) => {
+  const validateForm = async (v: FormValues) => {
     const values = {
       ...v,
       asset: selectedAsset,
@@ -134,45 +142,45 @@ const Send = () => {
         validate={validateForm}
         render={({ form, invalid, pristine, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <div className={styles.group}>
-              <label className="label-primary">Amount</label>
-              <div className={styles.inputModal}>
-                <div className={styles.inputValue}>
-                  <Field name="amount">
-                    {({ input, meta }) => (
-                      <Input
-                        type="number"
-                        placeholder="123"
-                        size="medium"
-                        input={input}
-                        meta={meta}
-                        variant="max"
-                        setMax={form.mutators.setMax}
-                        onKeyPress={controlNumberInput}
-                      />
-                    )}
-                  </Field>
-                </div>
-
-                <Field name="asset">
+            <label className="label-primary mt-4">Amount</label>
+            <ModalInput>
+              <div className="flex flex-col">
+                <Field name="amount">
                   {({ input, meta }) => (
-                    <SelectAssetModal
+                    <Input
+                      type="number"
+                      placeholder="123"
+                      size="medium"
                       input={input}
                       meta={meta}
-                      max
-                      form={form}
-                      currencies={assets}
-                      onChange={setSelectedAsset}
+                      variant="max"
+                      setMax={form.mutators.setMax}
+                      onKeyPress={controlNumberInput}
                     />
                   )}
                 </Field>
               </div>
-            </div>
+
+              <Field name="asset">
+                {({ input, meta }) => (
+                  <SelectAssetModal
+                    input={input}
+                    meta={meta}
+                    max
+                    form={form}
+                    currencies={assets}
+                    onChange={setSelectedAsset}
+                  />
+                )}
+              </Field>
+            </ModalInput>
 
             <Field name="destination">
               {({ input, meta }) => (
-                <div className={styles.group}>
-                  <label className="label-primary">Destination</label>
+                <>
+                  <label className="label-primary mt-4">
+                    Destination
+                  </label>
                   <Input
                     type="text"
                     placeholder="G..."
@@ -180,14 +188,14 @@ const Send = () => {
                     input={input}
                     meta={meta}
                   />
-                </div>
+                </>
               )}
             </Field>
 
             <Field name="memo">
               {({ input, meta }) => (
-                <div className={styles.group}>
-                  <label className="label-primary">
+                <>
+                  <label className="label-primary mt-4">
                     Memo{' '}
                     <span className="label-optional">(optional)</span>
                   </label>
@@ -198,11 +206,11 @@ const Send = () => {
                     input={input}
                     meta={meta}
                   />
-                </div>
+                </>
               )}
             </Field>
 
-            <div className={styles.buttons}>
+            <ButtonContainer btnSize={100} justify="end" mt={40}>
               <Button
                 type="button"
                 variant="default"
@@ -220,7 +228,7 @@ const Send = () => {
                 content="Send"
                 disabled={invalid || pristine}
               />
-            </div>
+            </ButtonContainer>
           </form>
         )}
       />
