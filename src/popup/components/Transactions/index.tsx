@@ -38,7 +38,7 @@ const Transactions = () => {
     );
   }
   return (
-    <div>
+    <div className="mt-[-13px]">
       {transactions.map((tx) => (
         <div key={tx.records[0].transaction_hash}>
           <Transaction transaction={tx} publicKey={publicKey} />

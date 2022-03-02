@@ -54,12 +54,12 @@ const WalletInfo = () => {
           fontSize={16}
         />
 
-        <div className="label-primary mt-[18px] font-medium">
+        <div className="label-primary mb-[6px] mt-[18px] font-medium">
           Private Key
         </div>
         <CopyKey keyValue={privateKey} />
 
-        <div className="label-primary mt-[28px] font-medium">
+        <div className="label-primary mb-[6px] mt-[23px] font-medium">
           Address
         </div>
         <CopyKey keyValue={publicKey} />
