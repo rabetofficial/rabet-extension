@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Contact {
@@ -5,6 +6,11 @@ export interface Contact {
   publicKey: string;
   memo?: string;
 }
+
+type EditOnePayload = {
+  oldContact: Contact;
+  newContact: Contact;
+};
 
 const initialState: Contact[] = [];
 
@@ -20,8 +26,18 @@ const contactsSlice = createSlice({
       state.filter(
         (contact) => contact.publicKey !== action.payload.publicKey,
       ),
+    editOne: (state, action: PayloadAction<EditOnePayload>) => {
+      const { oldContact, newContact } = action.payload;
+
+      for (let i = 0; i < state.length; i += 1) {
+        if (state[i].publicKey === oldContact.publicKey) {
+          state[i] = newContact;
+        }
+      }
+    },
   },
 });
 
-export const { add, load, deleteOne } = contactsSlice.actions;
+export const { add, load, editOne, deleteOne } =
+  contactsSlice.actions;
 export default contactsSlice.reducer;

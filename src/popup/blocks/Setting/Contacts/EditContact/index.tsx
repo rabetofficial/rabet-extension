@@ -1,4 +1,5 @@
 import React from 'react';
+import { StrKey } from 'stellar-sdk';
 import styled from 'styled-components';
 import { Form, Field } from 'react-final-form';
 
@@ -6,6 +7,8 @@ import Input from 'popup/components/common/Input';
 import { Contact } from 'popup/reducers/contacts';
 import PageTitle from 'popup/components/PageTitle';
 import Button from 'popup/components/common/Button';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import editContactAction from 'popup/actions/contacts/edit';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 type EditContactType = {
@@ -19,13 +22,53 @@ const EditContact = ({
   children,
   onClose,
 }: EditContactType) => {
-  const onSubmit = () => {};
+  const accounts = useTypedSelector((store) => store.accounts);
+
+  const validateForm = (values: Contact) => {
+    const errors: Partial<Contact> = {};
+
+    if (!values.name) {
+      errors.name = '';
+    }
+
+    if (!values.publicKey) {
+      errors.publicKey = '';
+    } else {
+      if (!StrKey.isValidEd25519PublicKey(values.publicKey)) {
+        errors.publicKey = 'Address is invalid.';
+      } else {
+        const foundAccount = accounts.find(
+          (account) => account.publicKey === values.publicKey,
+        );
+
+        if (foundAccount) {
+          errors.publicKey =
+            'You cannot add your own account as a contact.';
+        }
+      }
+    }
+
+    if (values.memo && values.memo.length > 20) {
+      errors.memo = 'Memo is too large.';
+    }
+
+    return errors;
+  };
+
+  const onSubmit = (values: Contact) => {
+    editContactAction(contact, values);
+
+    onClose();
+
+    return {};
+  };
 
   return (
     <Container>
       {children}
       <div>
         <Form
+          validate={validateForm}
           onSubmit={onSubmit}
           render={({
             invalid,

@@ -23,6 +23,9 @@ const userSlice = createSlice({
       state.password = action.payload;
       state.logged = true;
     },
+    changePassword: (state, action: PayloadAction<string>) => {
+      state.password = action.payload;
+    },
     logout: (state) => {
       state.password = '';
       state.logged = false;
@@ -51,6 +54,7 @@ export const {
   login,
   logout,
   isRegistered,
+  changePassword,
   addConnectedWebsites,
   removeConnectedWebsite,
 } = userSlice.actions;
