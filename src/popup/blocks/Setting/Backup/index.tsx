@@ -9,11 +9,18 @@ import PageTitle from 'popup/components/PageTitle';
 
 import * as S from './styles';
 
-type BackupType = { onSubmit: () => void };
+type BackupProps = {
+  onClose: () => void;
+};
 
-const Backup = ({ onSubmit }: BackupType) => (
+const Backup = ({ onClose }: BackupProps) => (
   <div style={{ width: '80%' }}>
-    <PageTitle isSetting title="Backup" padding="0" />
+    <PageTitle
+      isSetting
+      padding="0"
+      title="Backup"
+      onClose={onClose}
+    />
 
     <S.info>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -29,7 +36,7 @@ const Backup = ({ onSubmit }: BackupType) => (
       </S.Box>
     </div>
     <Form
-      onSubmit={onSubmit}
+      onSubmit={onClose}
       render={({
         submitError,
         handleSubmit,

@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { Horizon } from 'stellar-sdk';
 
 import BN from 'helpers/BN';

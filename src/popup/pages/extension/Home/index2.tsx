@@ -53,7 +53,7 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="pure-u-1-12"></div>
+          <div className="pure-u-1-12" />
         </div>
       </div>
 

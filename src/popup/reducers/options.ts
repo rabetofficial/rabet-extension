@@ -26,23 +26,19 @@ const optionSlice = createSlice({
   name: 'options',
   initialState,
   reducers: {
-    change: (state, action: PayloadAction<Partial<IOption>>) => {
-      state = {
-        ...state,
-        ...action.payload,
-      };
-    },
+    change: (state, action: PayloadAction<Partial<IOption>>) => ({
+      ...state,
+      ...action.payload,
+    }),
     fixUsd: (state) => {
       if (state.currency === 'usd') {
         state.currency = 'USD';
       }
     },
-    load: (state, action: PayloadAction<Partial<IOption>>) => {
-      state = {
-        ...state,
-        ...action.payload,
-      };
-    },
+    load: (state, action: PayloadAction<Partial<IOption>>) => ({
+      ...state,
+      ...action.payload,
+    }),
     changeNetwork: (state, action: PayloadAction<Network>) => {
       state.network = action.payload;
     },

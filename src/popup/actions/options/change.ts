@@ -1,15 +1,19 @@
 import store from 'popup/store';
-import RouteName from 'popup/staticRes/routes';
-import { change } from 'popup/reducers/options';
+import { change, OptionMode } from 'popup/reducers/options';
 
 import storeOptions from './store';
 
-export default async (options, push) => {
-  const { privacyMode } = options;
-  const explorer = options.explorer.value;
-  const autoTimeLocker = options.autoTimeLocker.value;
-  const currency = options.currency.value;
-  const mode = options.mode.value;
+type ChangeOptionsType = {
+  explorer: string;
+  currency: string;
+  mode: OptionMode;
+  privacyMode: boolean;
+  autoTimeLocker: number;
+};
+
+const changeOptions = async (options: ChangeOptionsType) => {
+  const { mode, currency, explorer, privacyMode, autoTimeLocker } =
+    options;
 
   store.dispatch(
     change({
@@ -23,9 +27,7 @@ export default async (options, push) => {
 
   await storeOptions();
 
-  push(RouteName.Home, {
-    state: {
-      alreadyLoaded: true,
-    },
-  });
+  return true;
 };
+
+export default changeOptions;

@@ -34,7 +34,11 @@ const AssetList = () => {
             isNative
             onCancel={closeModalAction}
           >
-            <PageTitle title="Asset info | XLM" padding="0" />
+            <PageTitle
+              title="Asset info | XLM"
+              padding="0"
+              onClose={closeModalAction}
+            />
           </Assets>
         ),
       });
@@ -53,7 +57,11 @@ const AssetList = () => {
             }}
             onCancel={closeModalAction}
           >
-            <PageTitle title="Asset info" padding="0" />
+            <PageTitle
+              title="Asset info"
+              padding="0"
+              onClose={closeModalAction}
+            />
           </Assets>
         ),
       });

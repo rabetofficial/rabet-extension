@@ -4,52 +4,48 @@ import { Form, Field } from 'react-final-form';
 import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
 import Button from 'popup/components/common/Button';
-import ButtonContainer from 'popup/components/common/ButtonContainer';
 import PageTitle from 'popup/components/PageTitle';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
+import changeMasterPassword from 'popup/actions/options/changeMasterPassword';
 
 import * as S from './styles';
 
-type FormValues = {
-  password: string;
+export type FormValues = {
+  oldPassword: string;
+  newPassword: string;
   confirm: string;
 };
-type ChangePasswordType = {
+
+type ChangePasswordProps = {
   onClose: () => void;
-  onClick: () => void;
-  onSubmit: () => void;
 };
-const ChangePassword = ({
-  onClick,
-  onClose,
-  onSubmit,
-}: ChangePasswordType) => {
+
+const ChangePassword = ({ onClose }: ChangePasswordProps) => {
   const validateForm = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
 
     const hasError = {
-      password: false,
+      oldPassword: false,
+      newPassword: false,
       confirm: false,
     };
 
-    if (!values.password) {
-      errors.password = '';
-      hasError.password = true;
-    } else if (values.password.length < 8) {
-      hasError.password = true;
-      errors.password = 'Password must be at least 8 characters.';
+    if (!values.oldPassword) {
+      errors.oldPassword = '';
+      hasError.oldPassword = true;
     }
 
-    if (!values.confirm) {
-      errors.confirm = '';
-      hasError.confirm = true;
-    } else if (values.confirm.length < 8) {
-      hasError.confirm = true;
-      errors.confirm =
-        'Confirm password must be at least 8 characters.';
+    if (!values.newPassword) {
+      errors.newPassword = '';
+      hasError.newPassword = true;
+    } else if (values.newPassword.length < 8) {
+      hasError.newPassword = true;
+      errors.newPassword =
+        'New password must be at least 8 characters.';
     }
 
-    if (!hasError.password && !hasError.confirm) {
-      if (values.password !== values.confirm) {
+    if (!hasError.oldPassword && !hasError.newPassword) {
+      if (values.newPassword !== values.confirm) {
         errors.confirm = 'Passwords do not match.';
       }
     }
@@ -57,16 +53,41 @@ const ChangePassword = ({
     return errors;
   };
 
+  const onSubmit = async (values: FormValues) => {
+    const result = await changeMasterPassword(values);
+
+    if (result === 'wrong_password') {
+      return {
+        oldPassword: 'Password is incorrect.',
+      };
+    }
+
+    if (result === 'failed') {
+      return {
+        newPassword: 'Could not change password. Try again.',
+      };
+    }
+
+    onClose();
+
+    return {};
+  };
+
   return (
     <div style={{ width: '80%' }}>
-      <PageTitle isSetting title="Change Password" padding="0" />
+      <PageTitle
+        isSetting
+        padding="0"
+        onClose={onClose}
+        title="Change Password"
+      />
 
       <Form
         onSubmit={onSubmit}
         validate={validateForm}
         render={({ submitError, handleSubmit, invalid }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
-            <Field name="old password">
+            <Field name="oldPassword">
               {({ input, meta }) => (
                 <div style={{ marginBottom: '32px' }}>
                   <S.Label>Old password</S.Label>
@@ -82,7 +103,7 @@ const ChangePassword = ({
               )}
             </Field>
 
-            <Field name="password">
+            <Field name="newPassword">
               {({ input, meta }) => (
                 <div style={{ marginBottom: '24px' }}>
                   <S.Label>New password</S.Label>
@@ -130,7 +151,6 @@ const ChangePassword = ({
                 size="medium"
                 content="Change"
                 disabled={invalid}
-                onClick={onClick}
               />
             </ButtonContainer>
           </form>

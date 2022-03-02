@@ -34,10 +34,12 @@ const Login = () => {
         if (hasLogged) {
           loginUserAction(hasLogged).then((isLogged) => {
             if (isLogged) {
-              setLoading(false);
-
               navigate(RouteName.AccountManager);
+            } else {
+              navigate(RouteName.Login);
             }
+
+            setLoading(false);
           });
         } else {
           setLoading(false);
