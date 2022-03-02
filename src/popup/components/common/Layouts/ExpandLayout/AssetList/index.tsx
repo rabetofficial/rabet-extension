@@ -35,7 +35,7 @@ const AssetList = () => {
             onCancel={closeModalAction}
           >
             <PageTitle
-              title="Asset info | XLM"
+              title="Asset | XLM"
               padding="0"
               onClose={closeModalAction}
             />
