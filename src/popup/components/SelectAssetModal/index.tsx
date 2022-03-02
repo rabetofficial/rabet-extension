@@ -1,20 +1,18 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
 import classNames from 'classnames';
+import React, { useState } from 'react';
+
+import handleAssetImage from 'popup/utils/handleAssetImage';
 
 import Modal from '../Modal';
 import Image from '../Image';
 import SearchAsset from './SearchAsset';
-import handleAssetImage from '../../utils/handleAssetImage';
 import angleDownIcon from '../../../assets/images/angle-down.svg';
 import questionLogo from '../../../assets/images/question-circle.png';
 
 import styles from './styles.less';
 
-const SelectAssetModal = ({
-  currencies,
-  onChange,
-}) => {
+const SelectAssetModal = ({ currencies, onChange }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentAsset, setCurrentAsset] = useState(currencies[0]);
 
@@ -34,10 +32,10 @@ const SelectAssetModal = ({
           <Image
             fallBack={questionLogo}
             className={styles.currencyImg}
-            alt={currentAsset.asset_code}
+            alt={currentAsset?.asset_code || 'ASSET'}
             src={handleAssetImage(currentAsset)}
           />
-          {currentAsset.asset_code.toUpperCase()}
+          {currentAsset?.asset_code.toUpperCase() || 'ASSET'}
         </div>
         <img src={angleDownIcon} alt="icon" />
       </div>

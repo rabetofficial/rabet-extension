@@ -1,40 +1,36 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 
-import SwapButton from './SwapButton';
-import BN from '../../../../../helpers/BN';
-import ShowFractional from './ShowFractional';
-import Input from '../../../../components/Input';
-import Button from '../../../../components/Button';
-import Loading from '../../../../components/Loading';
-import * as route from '../../../../staticRes/routes';
-import getMaxBalance from '../../../../utils/maxBalance';
-import defaultTokens from '../../../../staticRes/tokens';
-import combineTokens from '../../../../utils/swap/combineTokens';
-import SwapDetails from '../../../../pageComponents/SwapDetails';
-import currentActiveAccount from '../../../../utils/activeAccount';
-import controlNumberInput from '../../../../utils/controlNumberInput';
-import SelectAssetModal from '../../../../components/SelectAssetModal';
-import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
-import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
-import calculateStrictSend from '../../../../utils/swap/calculateStrictSend';
-import swapImg from '../../../../../assets/images/swap.svg';
-import {
-  buttonSizes,
-  buttonTypes,
-  inputTypes,
-} from '../../../../staticRes/enum';
-import isAssetEqual from '../../../../utils/swap/isAssetEqual';
+import BN from 'helpers/BN';
+import Loading from 'popup/components/Loading';
+import * as route from 'popup/staticRes/routes';
+import Input from 'popup/components/common/Input';
+import getMaxBalance from 'popup/utils/maxBalance';
+import defaultTokens from 'popup/staticRes/tokens';
+import Button from 'popup/components/common/Button';
+import isAssetEqual from 'popup/utils/swap/isAssetEqual';
+import combineTokens from 'popup/utils/swap/combineTokens';
+import SwapDetails from 'popup/pageComponents/SwapDetails';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import controlNumberInput from 'popup/utils/controlNumberInput';
+import SelectAssetModal from 'popup/components/SelectAssetModal';
+import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
+import calculateStrictSend from 'popup/utils/swap/calculateStrictSend';
 
 import styles from './styles.less';
+import SwapButton from './SwapButton';
+import ShowFractional from './ShowFractional';
+import swapImg from '../../../../../assets/images/swap.svg';
+import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
 
 const Swap = () => {
   const navigate = useNavigate();
-  const {
-    activeAccount: { balances, maxXLM },
-  } = currentActiveAccount();
-  const asset2Tokens = combineTokens(balances, defaultTokens);
+  const account = useActiveAccount();
+
+  const assets = account.assets || [];
+
+  const asset2Tokens = combineTokens(assets, defaultTokens);
 
   const [path, setPath] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -58,7 +54,7 @@ const Swap = () => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      asset1: balances[0],
+      asset1: assets[0],
       asset2: asset2Tokens[0],
     },
   });
@@ -77,7 +73,6 @@ const Swap = () => {
     }
 
     clearErrors(['from']);
-    console.log('clear');
 
     if (
       new BN(formValues.from).isLessThanOrEqualTo('0') ||
@@ -91,10 +86,7 @@ const Swap = () => {
       return;
     }
 
-    if (
-      !isInsufficientAsset(formValues.asset1, maxXLM, formValues.from)
-    ) {
-      console.log('set');
+    if (!isInsufficientAsset(formValues.asset1, 0, formValues.from)) {
       setError('from', {
         type: 'error',
         message: 'Insufficient amount.',
@@ -161,7 +153,7 @@ const Swap = () => {
       return;
     }
 
-    if (!isInsufficientAsset(formValues.asset1, maxXLM, maxValue)) {
+    if (!isInsufficientAsset(formValues.asset1, 0, maxValue)) {
       setError('from', {
         type: 'error',
         message: 'Insufficient amount.',
@@ -186,7 +178,7 @@ const Swap = () => {
       setAsset2(formValues.asset1);
     }
 
-    if (!isInsufficientAsset(asset, maxXLM, formValues.from)) {
+    if (!isInsufficientAsset(asset, 0, formValues.from)) {
       setShowSwapInfo(false);
 
       setError('from', {
@@ -218,9 +210,7 @@ const Swap = () => {
 
     clearErrors(['to']);
 
-    if (
-      !isInsufficientAsset(formValues.asset1, maxXLM, formValues.from)
-    ) {
+    if (!isInsufficientAsset(formValues.asset1, 0, formValues.from)) {
       setError('from', {
         type: 'error',
         message: 'Insufficient amount.',
@@ -292,8 +282,8 @@ const Swap = () => {
                 <Input
                   type="number"
                   placeholder="123"
-                  size="input-medium"
-                  variant={inputTypes.max}
+                  size="medium"
+                  variant="max"
                   onChange={field.onChange}
                   defaultValue={field.value}
                   hookError={errors.from}
@@ -315,7 +305,7 @@ const Swap = () => {
                 asset={asset1}
                 valueName="asset1"
                 setValue={setValue}
-                currencies={balances}
+                currencies={assets}
                 onChange={handleAsset1}
               />
             )}
@@ -337,7 +327,7 @@ const Swap = () => {
                 <Input
                   type="number"
                   placeholder="123"
-                  size="input-medium"
+                  size="medium"
                   defaultValue={field.value}
                   onChange={field.onChange}
                   hookError={errors.to}
@@ -353,7 +343,6 @@ const Swap = () => {
             render={() => (
               <SelectAssetModal
                 max={false}
-                // defaultNull
                 asset={asset2}
                 valueName="asset2"
                 setValue={setValue}
@@ -402,8 +391,8 @@ const Swap = () => {
       <div className={styles.buttons}>
         <Button
           type="button"
-          variant={buttonTypes.default}
-          size={buttonSizes.medium}
+          variant="default"
+          size="medium"
           content="Cancel"
           onClick={() => {
             navigate('/', {

@@ -8,6 +8,10 @@ const handleAssetImage = (
   asset: Horizon.BalanceLine,
   assetImages: AssetImage[],
 ) => {
+  if (!asset) {
+    return questionLogo;
+  }
+
   if (asset.asset_type === 'native') {
     return xlmLogo;
   }

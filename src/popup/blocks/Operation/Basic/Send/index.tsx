@@ -1,34 +1,30 @@
-import { useState } from 'react';
+import { StrKey } from 'stellar-sdk';
+import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import Input from '../../../../components/Input';
-import Button from '../../../../components/Button';
-import * as route from '../../../../staticRes/routes';
-import getMaxBalance from '../../../../utils/maxBalance';
-import validateAddress from '../../../../utils/validate/address';
-import currentActiveAccount from '../../../../utils/activeAccount';
-import getAccountData from '../../../../utils/horizon/isAddressFound';
-import SelectAssetModal from '../../../../components/SelectAssetModal';
-import controlNumberInput from '../../../../utils/controlNumberInput';
-import {
-  buttonSizes,
-  buttonTypes,
-  inputTypes,
-} from '../../../../staticRes/enum';
-import validateMemo from '../../../../utils/validate/memo';
-import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
-import isTransferable from '../../../../utils/isTransferable';
+import RouteName from 'popup/staticRes/routes';
+import Input from 'popup/components/common/Input';
+import getMaxBalance from 'popup/utils/maxBalance';
+import Button from 'popup/components/common/Button';
+import validateMemo from 'popup/utils/validate/memo';
+import isTransferable from 'popup/utils/isTransferable';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import controlNumberInput from 'popup/utils/controlNumberInput';
+import getAccountData from 'popup/utils/horizon/isAddressFound';
+import SelectAssetModal from 'popup/components/SelectAssetModal';
+import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 
 import styles from './styles.less';
 
 const Send = () => {
   const navigate = useNavigate();
   const [isAccountNew, setIsAccountNew] = useState(false);
-  const {
-    activeAccount: { balances, maxXLM },
-  } = currentActiveAccount();
-  const [selectedAsset, setSelectedAsset] = useState(balances[0]);
+  const account = useActiveAccount();
+
+  const assets = account.assets || [];
+
+  const [selectedAsset, setSelectedAsset] = useState(assets[0]);
 
   const onSubmit = async (v) => {
     const values = {
@@ -37,7 +33,7 @@ const Send = () => {
       isAccountNew,
     };
 
-    navigate(route.basicSendConfirmPage, {
+    navigate(RouteName.BasicSendConfirm, {
       state: {
         values,
       },
@@ -62,7 +58,7 @@ const Send = () => {
       };
     }
 
-    if (!validateAddress(values.destination)) {
+    if (!StrKey.isValidEd25519PublicKey(values.destination)) {
       return {
         destination: 'Invalid destination.',
       };
@@ -74,7 +70,7 @@ const Send = () => {
       };
     }
 
-    if (!isInsufficientAsset(selectedAsset, maxXLM, values.amount)) {
+    if (!isInsufficientAsset(selectedAsset, 0, values.amount)) {
       return {
         amount: `Insufficient ${selectedAsset.asset_code} balance.`,
       };
@@ -147,10 +143,10 @@ const Send = () => {
                       <Input
                         type="number"
                         placeholder="123"
-                        size="input-medium"
+                        size="medium"
                         input={input}
                         meta={meta}
-                        variant={inputTypes.max}
+                        variant="max"
                         setMax={form.mutators.setMax}
                         onKeyPress={controlNumberInput}
                       />
@@ -165,7 +161,7 @@ const Send = () => {
                       meta={meta}
                       max
                       form={form}
-                      currencies={balances}
+                      currencies={assets}
                       onChange={setSelectedAsset}
                     />
                   )}
@@ -180,7 +176,7 @@ const Send = () => {
                   <Input
                     type="text"
                     placeholder="G..."
-                    size="input-medium"
+                    size="medium"
                     input={input}
                     meta={meta}
                   />
@@ -198,7 +194,7 @@ const Send = () => {
                   <Input
                     type="text"
                     placeholder="G..."
-                    size="input-medium"
+                    size="medium"
                     input={input}
                     meta={meta}
                   />
@@ -209,8 +205,8 @@ const Send = () => {
             <div className={styles.buttons}>
               <Button
                 type="button"
-                variant={buttonTypes.default}
-                size={buttonSizes.medium}
+                variant="default"
+                size="medium"
                 content="Cancel"
                 onClick={() => {
                   navigate(-1);
@@ -219,8 +215,8 @@ const Send = () => {
 
               <Button
                 type="submit"
-                variant={buttonTypes.primary}
-                size={buttonSizes.medium}
+                variant="primary"
+                size="medium"
                 content="Send"
                 disabled={invalid || pristine}
               />

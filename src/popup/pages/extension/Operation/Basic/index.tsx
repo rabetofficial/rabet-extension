@@ -1,7 +1,8 @@
 import React from 'react';
-import ExtTitle from 'popup/components/common/Title/Ext';
+
 import Header from 'popup/components/common/Header';
-import OpBasic from 'popup/blocks/operation/Basic';
+import OpBasic from 'popup/blocks/Operation/Basic';
+import ExtTitle from 'popup/components/common/Title/Ext';
 
 const OperationBasic = () => (
   <div>

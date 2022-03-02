@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 
+import Card from 'popup/components/common/Card';
+import SelectOption from 'popup/components/SelectOption';
+
 import Swap from './Swap';
 import Send from './Send';
-
-import Card from '../../../components/Card';
-import SelectOption from '../../../components/SelectOption';
 
 import styles from './styles.less';
 
@@ -29,7 +29,7 @@ const BasicOperation = () => {
           styles.content,
         )}
       >
-        <Card type="card-secondary">
+        <Card type="secondary">
           <div className={styles.card}>
             <SelectOption
               items={modes}
