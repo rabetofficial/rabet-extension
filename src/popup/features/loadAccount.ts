@@ -4,6 +4,7 @@ import {
   IAccount,
   addAssets,
   addFlags,
+  setInactive,
 } from 'popup/reducers/accounts2';
 
 const loadAccount = async (account: IAccount) => {
@@ -14,6 +15,13 @@ const loadAccount = async (account: IAccount) => {
       addAssets({
         publicKey: account.publicKey,
         assets: [],
+      }),
+    );
+
+    store.dispatch(
+      setInactive({
+        publicKey: account.publicKey,
+        inactive: true,
       }),
     );
 
@@ -47,6 +55,13 @@ const loadAccount = async (account: IAccount) => {
     addFlags({
       publicKey: account.publicKey,
       flags: accountResult.flags,
+    }),
+  );
+
+  store.dispatch(
+    setInactive({
+      publicKey: account.publicKey,
+      inactive: false,
     }),
   );
 };

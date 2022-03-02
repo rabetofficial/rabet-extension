@@ -31,7 +31,7 @@ const getBids = async (assets: Horizon.BalanceLine[]) => {
   const bids = await Promise.all(orderbooks);
 
   const newBids = bids.map((bid) => ({
-    price: bid.bids[0].price,
+    price: bid.bids[0]?.price || '0',
     counter: {
       asset_code: bid.counter.asset_code,
       asset_issuer: bid.counter.asset_issuer,

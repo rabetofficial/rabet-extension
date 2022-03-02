@@ -9,6 +9,10 @@ import closeModalAction from 'popup/actions/modal/close';
 import ScrollBar from 'popup/components/common/ScrollBar';
 import handleAssetsKeys from 'popup/utils/handleAssetKeys';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
+import {
+  openErrorModal,
+  openSucessModal,
+} from 'popup/components/Modals';
 
 import Asset from './Asset';
 import { Border } from './styles';
@@ -18,6 +22,20 @@ const AssetList = () => {
   const assets = asts || [];
 
   const openAssetInfoModal = (asset: Horizon.BalanceLine) => {
+    const showDeleteResult = (result: any[]) => {
+      if (result[0]) {
+        openSucessModal({
+          message: result[1],
+          onClick: closeModalAction,
+        });
+      } else {
+        openErrorModal({
+          message: result[1],
+          onClick: closeModalAction,
+        });
+      }
+    };
+
     if (asset.asset_type === 'native') {
       openModalAction({
         isStyled: false,
@@ -28,11 +46,9 @@ const AssetList = () => {
         children: (
           <Assets
             asset={asset}
-            onClick={() => {
-              console.log('hio');
-            }}
             isNative
             onCancel={closeModalAction}
+            onDelete={showDeleteResult}
           >
             <PageTitle
               title="Asset | XLM"
@@ -52,10 +68,8 @@ const AssetList = () => {
         children: (
           <Assets
             asset={asset}
-            onClick={() => {
-              console.log('hio');
-            }}
             onCancel={closeModalAction}
+            onDelete={showDeleteResult}
           >
             <PageTitle
               title="Asset info"

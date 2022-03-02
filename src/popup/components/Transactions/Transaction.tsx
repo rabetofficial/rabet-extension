@@ -13,7 +13,13 @@ const Transaction = ({ transaction, publicKey }: TransactionType) => {
   const date = op.created_at;
 
   if (transaction.records.length > 1) {
-    return <OperationsTx tx={op.id} type="multi" date={date} />;
+    return (
+      <OperationsTx
+        tx={op.transaction_hash}
+        type="multi"
+        date={date}
+      />
+    );
   }
 
   if (op.type === Horizon.OperationResponseType.pathPayment) {

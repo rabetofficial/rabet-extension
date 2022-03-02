@@ -24,12 +24,12 @@ const useActiveCurrency = () => {
   useEffect(() => {
     const currentCurrency = currencies[options.currency];
 
-    if (currentCurrency) {
+    if (currentCurrency !== undefined) {
       setActiveCurrency(currentCurrency);
     } else {
       setActiveCurrency(defaultCurrency);
     }
-  }, [options.currency]);
+  }, [currencies, options]);
 
   return activeCurrency;
 };

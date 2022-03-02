@@ -10,13 +10,13 @@ const useAssetPrice = (asset: Horizon.BalanceLine) => {
   const activeCurrency = useActiveCurrency();
   const bids = useTypedSelector((store) => store.bids);
 
-  const currencyPrice = new BN(activeCurrency.price || 0);
+  const currencyPrice = new BN(activeCurrency?.price || 0);
 
   return loadAssetBalance({
     asset,
     currencyPrice,
     bids,
-  });
+  }).toString();
 };
 
 export default useAssetPrice;

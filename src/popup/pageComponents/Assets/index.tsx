@@ -4,7 +4,10 @@ import { Horizon } from 'stellar-sdk';
 import BN from 'helpers/BN';
 import Trash from 'popup/svgs/Trash';
 import Button from 'popup/components/common/Button';
+import { openLoadingModal } from 'popup/components/Modals';
+import addAssetAction from 'popup/actions/operations/addAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+
 import xlmLogo from '../../../assets/images/xlm-logo.svg';
 
 import * as S from './styles';
@@ -12,7 +15,7 @@ import useAssetInfo from './useAssetInfo';
 
 type AssetType = {
   isNative?: boolean;
-  onClick: () => void;
+  onDelete: (result: any[]) => void;
   onCancel: () => void;
   children?: React.ReactNode;
   asset: Horizon.BalanceLine;
@@ -21,11 +24,26 @@ type AssetType = {
 const Assets = ({
   isNative,
   asset,
-  onClick,
+  onDelete,
   onCancel,
   children,
 }: AssetType) => {
   const { loading, error, assetData } = useAssetInfo(asset);
+
+  const handleDelete = () => {
+    if (
+      asset.asset_type === 'credit_alphanum4' ||
+      asset.asset_type === 'credit_alphanum12'
+    ) {
+      openLoadingModal({});
+
+      addAssetAction(asset.asset_code, asset.asset_issuer, '0').then(
+        (result) => {
+          onDelete(result);
+        },
+      );
+    }
+  };
 
   const HandleDomain = () => {
     if (loading) {
@@ -194,7 +212,7 @@ const Assets = ({
             size="medium"
             content="Delete"
             disabled={!isDeletable}
-            onClick={onClick}
+            onClick={handleDelete}
             startIcon={<Trash />}
           />
         </ButtonContainer>

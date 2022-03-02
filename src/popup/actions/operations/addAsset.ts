@@ -8,6 +8,7 @@ import {
 
 import currentNetwork from 'popup/utils/currentNetwork';
 import getActiveAccount from 'popup/utils/activeAccount';
+
 import config from '../../../config';
 
 export default async (

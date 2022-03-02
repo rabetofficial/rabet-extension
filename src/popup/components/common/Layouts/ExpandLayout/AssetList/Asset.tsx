@@ -2,6 +2,7 @@ import React from 'react';
 import { Horizon } from 'stellar-sdk';
 
 import BlackCheck from 'popup/svgs/BlackCheck';
+import formatBalance from 'popup/utils/formatBalance';
 import useAssetPrice from 'popup/hooks/useAssetPrice';
 import formatCurrency from 'popup/utils/formatCurrency';
 import handleAssetAlt from 'popup/utils/handleAssetAlt';
@@ -65,7 +66,7 @@ const Asset = ({ asset }: AssetType) => {
           </div>
           <div className="text-sm text-primary-dark mt-[2px]">
             {handleAssetSymbol(currencies, options)}
-            {price}
+            {formatBalance(price)}
           </div>
         </div>
       </div>

@@ -56,16 +56,11 @@ const AddAsset = ({ children }: AddAssetType) => {
   const handleSearchAssetSubmitBtn = async (
     assets: AssetImageWithActive[],
   ) => {
+    openLoadingModal({});
     const result = await addMultipleAssets(assets);
 
     const isSuccessful = result[0];
     const message = result[1];
-
-    closeModalAction();
-
-    await timeout(200);
-
-    openLoadingModal({});
 
     if (isSuccessful) {
       openSucessModal({

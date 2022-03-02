@@ -31,7 +31,7 @@ const SearchAsset = ({ onSubmit, onCancel }: AppProps) => {
     AssetImageWithActive[]
   >([]);
   const options = useTypedSelector((store) => store.options);
-  const activeAccount = useActiveAccount();
+  const account = useActiveAccount();
 
   const localOnSubmit = () => {
     onSubmit(selectedList);
@@ -53,7 +53,7 @@ const SearchAsset = ({ onSubmit, onCancel }: AppProps) => {
     if (values.asset && value !== values.asset) {
       setValue(values.asset);
 
-      const assets = activeAccount.assets || [];
+      const assets = account.assets || [];
 
       getAssetsAction(values.asset).then((assetList) => {
         const newAssetList = [];
@@ -139,7 +139,7 @@ const SearchAsset = ({ onSubmit, onCancel }: AppProps) => {
                   variant="primary"
                   size="medium"
                   content="Add"
-                  disabled={!selectedList.length}
+                  disabled={!selectedList.length || account.inactive}
                 />
               </ButtonContainer>
             </>

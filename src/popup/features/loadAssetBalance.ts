@@ -1,5 +1,5 @@
-import { Horizon } from 'stellar-sdk';
 import BigNumber from 'bignumber.js';
+import { Horizon } from 'stellar-sdk';
 
 import BN from 'helpers/BN';
 import { Bid } from 'popup/reducers/bids';
@@ -22,7 +22,7 @@ const loadAssetBalance = ({
   if (asset.asset_type === 'native') {
     const price = new BN(asset.balance).times(currencyPrice);
 
-    return price.toFixed(6).toString();
+    return price;
   }
 
   const foundBid = bids.find(
@@ -31,16 +31,16 @@ const loadAssetBalance = ({
       bid.counter.asset_issuer === asset.asset_issuer,
   );
 
-  if (!foundBid) {
+  if (!foundBid || foundBid.price === '0') {
     return '0';
   }
 
   const price = new BN(1)
-    .div(foundBid.price)
+    .div(foundBid?.price || '0')
     .times(currencyPrice)
     .times(new BN(asset.balance));
 
-  return price.toFixed(6).toString();
+  return price;
 };
 
 export default loadAssetBalance;

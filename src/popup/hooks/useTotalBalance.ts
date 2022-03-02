@@ -15,10 +15,11 @@ const useTotalBalance = () => {
   ]);
   const [totalBalance, setTotalBalance] = useState('0');
   const activeCurrency = useActiveCurrency();
-  const currencyPrice = new BN(activeCurrency.price || 0);
+  const currencyPrice = new BN(activeCurrency?.price || 0);
 
   useEffect(() => {
     const assets = account.assets || [];
+
     let totalBalanceTemp = new BN(0);
 
     for (let i = 0; i < assets.length; i += 1) {
@@ -32,7 +33,7 @@ const useTotalBalance = () => {
     }
 
     setTotalBalance(totalBalanceTemp.toString());
-  }, [account.publicKey, options.network]);
+  }, [account, options, bids, activeCurrency]);
 
   return totalBalance;
 };

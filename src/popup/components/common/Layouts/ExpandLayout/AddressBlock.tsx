@@ -1,15 +1,24 @@
 import React from 'react';
 
 import QRCode from 'popup/blocks/QRCode';
+import formatBalance from 'popup/utils/formatBalance';
 import openModalAction from 'popup/actions/modal/open';
 import CopyText from 'popup/components/common/CopyText';
+import useTotalBalance from 'popup/hooks/useTotalBalance';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 import EditWalletName from 'popup/components/EditWalletName';
+import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
 
 import * as S from './styles';
 
 const AddressBlock = () => {
+  const balance = useTotalBalance();
   const { publicKey } = useActiveAccount();
+  const [currencies, options] = useTypedSelector((store) => [
+    store.currencies,
+    store.options,
+  ]);
 
   const onOpenModal = () => {
     openModalAction({
@@ -26,7 +35,10 @@ const AddressBlock = () => {
     <S.Card className="rounded pt-[22px] pb-[18px]">
       <EditWalletName height={34} checkIconWidth={18} fontSize={14} />
 
-      <div className="text-3xl font-medium mt-[15px]">$0</div>
+      <div className="text-3xl font-medium mt-[15px]">
+        {handleAssetSymbol(currencies, options)}
+        {formatBalance(balance)}
+      </div>
 
       <div className="flex justify-between items-center mt-[18px]">
         <div className="text-base font-medium">Your Address</div>
