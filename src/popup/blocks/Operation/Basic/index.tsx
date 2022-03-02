@@ -1,51 +1,33 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';
+import React from 'react';
 
 import Card from 'popup/components/common/Card';
-import SelectOption from 'popup/components/SelectOption';
-
+import SelectOption from 'popup/components/common/SelectOption';
+import ScrollBar from 'popup/components/common/ScrollBar';
+import { ElementOption } from 'popup/models';
 import Swap from './Swap';
 import Send from './Send';
 
-import styles from './styles.less';
-
-const BasicOperation = () => {
-  const modes = [
-    { value: 'send', label: 'Send' },
-    { value: 'swap', label: 'Swap' },
-  ];
-
-  const [selected, setSelected] = useState(modes[0]);
-
-  const onChange = (e) => {
-    setSelected(e);
-  };
-
-  return (
-    <>
-      <div
-        className={classNames(
-          'content hidden-scroll',
-          styles.content,
-        )}
-      >
-        <Card type="secondary">
-          <div className={styles.card}>
-            <SelectOption
-              items={modes}
-              defaultValue={modes[0]}
-              variant="select-default"
-              onChange={onChange}
-              selected={selected}
-              isSearchable={false}
-            />
-
-            {selected.value === 'swap' ? <Swap /> : <Send />}
-          </div>
-        </Card>
-      </div>
-    </>
-  );
+type AppProps = {
+  modes: ElementOption[];
+  selected: ElementOption;
+  onChange: (e: ElementOption) => void;
 };
+
+const BasicOperation = ({ modes, onChange, selected }: AppProps) => (
+  <ScrollBar isHidden maxHeight={380}>
+    <Card type="secondary" className="mt-[20px] px-[11px] py-[15px]">
+      <SelectOption
+        defaultValue={modes[0]}
+        variant="default"
+        items={modes}
+        onChange={onChange}
+        selected={selected}
+        isSearchable={false}
+      />
+
+      {selected.value === 'swap' ? <Swap /> : <Send />}
+    </Card>
+  </ScrollBar>
+);
 
 export default BasicOperation;
