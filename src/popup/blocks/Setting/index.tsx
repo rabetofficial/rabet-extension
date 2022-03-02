@@ -72,7 +72,7 @@ const Setting = () => {
   ];
 
   const SettingMainPage = () => (
-    <>
+    <S.ContainerBox>
       {settingList.map((settingPg, index) => (
         <div key={`setting${settingPg.id}`}>
           <S.Container onClick={settingPg.onClick}>
@@ -87,7 +87,7 @@ const Setting = () => {
           {settingList.length !== index + 1 && <S.Hr />}
         </div>
       ))}
-    </>
+    </S.ContainerBox>
   );
 
   const [currentElement, setCurrentElement] = useState(

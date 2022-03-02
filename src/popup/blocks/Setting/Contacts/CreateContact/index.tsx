@@ -9,6 +9,7 @@ import Button from 'popup/components/common/Button';
 import addContactAction from 'popup/actions/contacts/add';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import Error from 'popup/components/common/Error';
 
 type FormValues = {
   name: string;
@@ -147,9 +148,7 @@ const CreateContact = ({ onClose, children }: CreateContactType) => {
                 )}
               </Field>
 
-              {submitError && (
-                <div className="error">{submitError}</div>
-              )}
+              {submitError && <Error>{submitError}</Error>}
 
               <ButtonContainer btnSize={100} mt={34} justify="end">
                 <Button

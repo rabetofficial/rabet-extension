@@ -24,20 +24,54 @@ const About = ({ onClose }: AboutProps) => (
     </div>
     <S.Hr />
     <S.Item>Links</S.Item>
-    <S.Item className="mt-[20px]">Privacy policy</S.Item>
-    <S.Item className="mt-[24px]">Support</S.Item>
+    <S.Item className="mt-[20px]">
+      <a
+        href="https://rabet.io/privacy-policy"
+        target="_blank"
+        rel="norefferer noreferrer"
+      >
+        Privacy policy
+      </a>
+    </S.Item>
+    <S.Item className="mt-[24px]">
+      <a
+        href="mailto:support@rabet.io"
+        target="_blank"
+        rel="norefferer noreferrer"
+      >
+        Support
+      </a>
+    </S.Item>
     <S.Item className="mt-[24px]">Contact</S.Item>
     <S.Hr />
     <S.Item>Join us</S.Item>
     <S.ContactLinksContainer>
       <span>
-        <Icons.Twitter />
+        <a
+          href=" https://twitter.com/rabetofficial"
+          target="_blank"
+          rel="norefferer"
+        >
+          <Icons.Twitter />
+        </a>
       </span>
       <span>
-        <Icons.Discord />
+        <a
+          href="https://discord.com/invite/VkYdnRKUtZ"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Icons.Discord />
+        </a>
       </span>
       <span>
-        <Icons.Telegram />
+        <a
+          href="https://t.me/rabet_community"
+          target="_blank"
+          rel="norefferer noreferrer"
+        >
+          <Icons.Telegram />
+        </a>
       </span>
     </S.ContactLinksContainer>
   </div>

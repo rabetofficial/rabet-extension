@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
+export const ContainerBox = styled.div`
+  margin-top: -24px;
+`;
+
 export const Container = styled.div`
   cursor: pointer;
   padding: 17px 0 15px;
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary.lighter};
     transition: 1s background;
-  }
-  &:nth-of-type(1) {
-    padding-top: 0px;
   }
 `;
 

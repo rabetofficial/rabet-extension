@@ -10,6 +10,7 @@ import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import editContactAction from 'popup/actions/contacts/edit';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import Error from 'popup/components/common/Error';
 
 type EditContactType = {
   contact: Contact;
@@ -138,9 +139,7 @@ const EditContact = ({
                   </div>
                 )}
               </Field>
-              {submitError && (
-                <div className="error">{submitError}</div>
-              )}
+              {submitError && <Error>{submitError}</Error>}
 
               <ButtonContainer btnSize={100} mt={34} justify="end">
                 <Button
