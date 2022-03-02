@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  HashRouter as Router,
-  Route,
-  Routes,
-} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import DetectSize from 'popup/components/DetectSize';
 import ProtectedRoute from '../components/ProtectedRoute';
@@ -196,7 +192,6 @@ const App = () => (
         }
       />
       <Route
-        exact
         path={RouteName.Introduction}
         element={
           <UnprotectedRoute>
@@ -205,7 +200,6 @@ const App = () => (
         }
       />
       <Route
-        exact
         path={RouteName.IntroSlides}
         element={
           <UnprotectedRoute>
@@ -213,9 +207,8 @@ const App = () => (
           </UnprotectedRoute>
         }
       />
-      <Route exact path={RouteName.Flags} element={<Flags />} />
+      <Route path={RouteName.Flags} element={<Flags />} />
       <Route
-        exact
         path={RouteName.ConfirmFlag}
         element={
           <ProtectedRoute>
@@ -223,35 +216,20 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-      <Route exact path={RouteName.Login} element={<Login />} />
-      <Route exact path={RouteName.First} element={<FirstPage />} />
+      <Route path={RouteName.Login} element={<Login />} />
+      <Route path={RouteName.First} element={<FirstPage />} />
+      <Route path={RouteName.FetchData} element={<FetchData />} />
+      <Route path={RouteName.LoadingOne} element={<LoadingOne />} />
       <Route
-        exact
-        path={RouteName.FetchData}
-        element={<FetchData />}
-      />
-      <Route
-        exact
-        path={RouteName.LoadingOne}
-        element={<LoadingOne />}
-      />
-      <Route
-        exact
         path={RouteName.LoadingNetwork}
         element={<LoadingNetwork />}
       />
       <Route
-        exact
         path={RouteName.ContactRequest}
         element={<ContactRequest />}
       />
+      <Route path={RouteName.OfflineMode} element={<OfflineMode />} />
       <Route
-        exact
-        path={RouteName.OfflineMode}
-        element={<OfflineMode />}
-      />
-      <Route
-        exact
         path={RouteName.Register}
         element={
           <UnprotectedRoute>
@@ -260,32 +238,26 @@ const App = () => (
         }
       />
       <Route
-        exact
         path={RouteName.CreateWallet}
         element={<CreateWallet />}
       />
       <Route
-        exact
         path={RouteName.RestoreWallet}
         element={<RestoreWallet />}
       />
       <Route
-        exact
         path={RouteName.LoadingOverlay}
         element={<LoadingOverlay />}
       />
       <Route
-        exact
         path={RouteName.DeleteAccount}
         element={<DeleteAccount />}
       />
       <Route
-        exact
         path={RouteName.ConnectedWebsites}
         element={<ConnectedWebsite />}
       />
       <Route
-        exact
         path="ui"
         element={
           <ProtectedRoute>
