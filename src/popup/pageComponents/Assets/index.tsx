@@ -5,6 +5,7 @@ import BN from 'helpers/BN';
 import Trash from 'popup/svgs/Trash';
 import Button from 'popup/components/common/Button';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import xlmLogo from '../../../assets/images/xlm-logo.svg';
 
 import * as S from './styles';
 import useAssetInfo from './useAssetInfo';
@@ -140,7 +141,13 @@ const Assets = ({
     return (
       <div className=" py-[30px] px-[32px]">
         {children}
-        <div className="flex place-items-center h-[430px]">
+
+        <div className="flex flex-col justify-center align-center h-[490px]">
+          <S.Circle>
+            <S.ImgContainer>
+              <img src={xlmLogo} alt="xlm logo" />
+            </S.ImgContainer>
+          </S.Circle>
           <p className="text-base">
             <strong className="text-lg">XLM</strong> is the native
             currency of the network. An XLM is the only asset type

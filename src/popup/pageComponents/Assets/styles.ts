@@ -13,7 +13,22 @@ export const Content = styled.div`
     margin-top: 16px;
   }
 `;
+export const ImgContainer = styled.div`
+  width: 40px;
+  height: 40px;
+  margin: auto;
+`;
 
+export const Circle = styled.div`
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.primary.lighter};
+  display: flex;
+  justift-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+`;
 export const Title = styled.h4`
   font-size: 16px;
   color: #262728;
