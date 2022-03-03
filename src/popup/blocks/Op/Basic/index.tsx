@@ -13,7 +13,7 @@ type AppProps = {
   onChange: (e: ElementOption) => void;
 };
 
-const BasicOperation = ({ modes, onChange, selected }: AppProps) => (
+const BasicOp = ({ modes, onChange, selected }: AppProps) => (
   <ScrollBar isHidden maxHeight={380}>
     <Card type="secondary" className="mt-[20px] px-[11px] py-[15px]">
       <SelectOption
@@ -30,4 +30,4 @@ const BasicOperation = ({ modes, onChange, selected }: AppProps) => (
   </ScrollBar>
 );
 
-export default BasicOperation;
+export default BasicOp;

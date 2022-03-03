@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import handleAssetImage from 'popup/utils/handleAssetImage';
-
 import Modal from 'popup/components/common/ModalDialog';
 import angleDownIcon from '../../../../../assets/images/angle-down.svg';
 import questionLogo from '../../../../../assets/images/question-circle.png';
-import SearchAsset from './SearchAsset';
+import SearchAsset from './Search';
 
 import * as S from './styles';
 
@@ -48,17 +46,15 @@ const SelectAssetModal = ({
   return (
     <S.InputContainer className="select-modal">
       <S.ModalTrigger onClick={onOpenModal}>
-        <div className="flex item-center">
+        <div className="flex items-center">
           {currentAsset ? (
             <>
               <S.Img
                 fallBack={questionLogo}
-                alt={currentAsset.asset_code}
-                src={handleAssetImage(currentAsset)}
+                alt="asset"
+                src={questionLogo}
               />
-
-              {currentAsset.asset_code &&
-                currentAsset.asset_code.toUpperCase()}
+              asset
             </>
           ) : (
             <p>NONE</p>

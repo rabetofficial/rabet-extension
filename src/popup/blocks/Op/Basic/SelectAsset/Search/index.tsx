@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import handleAssetImage from 'popup/utils/handleAssetImage';
 import Image from 'popup/components/common/Image';
 import ScrollBar from 'popup/components/common/ScrollBar';
 import questionLogo from '../../../../../../assets/images/question-circle.png';
@@ -55,7 +54,7 @@ const SearchAsset = ({
               <Image
                 fallBack={questionLogo}
                 alt={currency.asset_code}
-                src={handleAssetImage(currency)}
+                src={questionLogo}
               />
               <div>
                 <S.AssetName>

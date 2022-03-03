@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Header from 'popup/components/common/Header';
-import OpBasic from 'popup/blocks/Operation/Basic';
+import OpBasic from 'popup/blocks/Op/Basic';
 import ExtTitle from 'popup/components/common/Title/Ext';
 import { ElementOption } from 'popup/models';
 

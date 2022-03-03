@@ -1,58 +1,66 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Card from 'popup/components/common/Card';
 import shorter from 'popup/utils/shorter';
 import CopyText from 'popup/components/common/CopyText';
-import Confirm from 'popup/blocks/Operation/Basic/ConfirmLayout';
-import handleAssetImage from 'popup/utils/handleAssetImage';
+import ConfirmLayout from 'popup/blocks/Op/Basic/ConfirmLayout';
 import numberWithCommas from 'popup/utils/numberWithCommas';
 import basicSendAction from 'popup/actions/operations/basicSend';
-
-import * as S from 'popup/blocks/Operation/Basic/ConfirmLayout/styles';
+import * as S from 'popup/blocks/Op/Basic/ConfirmLayout/styles';
+import questionLogo from '../../../../../assets/images/question-circle.png';
 
 const BasicSendConfirm = () => {
   const navigate = useNavigate();
-  const {
-    state: { values },
-  } = useLocation();
 
   const handleClick = () => {
     basicSendAction(values, navigate);
   };
 
+  const values = {
+    amount: '20',
+    destination: 'GAMMfefedt6f6efVS3O',
+    memo: 'ygusxuy',
+    asset: {
+      asset_code: 'XLM',
+      asset_issuer: '123',
+      last_modified_ledger: '234',
+      limit: '567',
+      is_authorized: false,
+      is_authorized_to_maintain_liabilities: true,
+      logo: '',
+      domain: 'Stellar.org',
+      toNative: 1,
+    },
+  };
+
   return (
-    <Confirm handleClick={handleClick}>
+    <ConfirmLayout handleClick={handleClick}>
       <Card type="secondary" className="px-[11px] py-[16px]">
         <h2 className="text-lg font-medium mb-4">Confirm Send</h2>
         <S.Label>Amount</S.Label>
         <S.Value>
           {numberWithCommas(values.amount)}
-          <img
-            src={handleAssetImage(values.asset)}
-            alt={values.asset.asset_code}
-          />
+          <img src={questionLogo} alt={values.asset.asset_code} />
           <span>{values.asset.asset_code}</span>
         </S.Value>
         <S.Hr />
         <S.Label>To</S.Label>
-        <S.Value>
-          <CopyText
-            text={values.destination}
-            custom={shorter(values.destination, 4)}
-          />
-        </S.Value>
+        <CopyText
+          text={values.destination}
+          custom={<S.Value>{shorter(values.destination, 4)}</S.Value>}
+        />
         <S.Hr />
         {values.memo ? (
           <>
             <S.Label>Memo</S.Label>
-            <S.Hr>{values.memo}</S.Hr>
+            <S.Value>{values.memo}</S.Value>
           </>
         ) : (
           ''
         )}
       </Card>
-    </Confirm>
+    </ConfirmLayout>
   );
 };
 
