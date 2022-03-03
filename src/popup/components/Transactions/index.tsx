@@ -38,10 +38,13 @@ const Transactions = () => {
     );
   }
   return (
-    <div className="mt-[-13px]">
-      {transactions.map((tx) => (
+    <div className="mt-[-13px] mx-[-20px]">
+      {transactions.map((tx, index) => (
         <div key={tx.records[0].transaction_hash}>
           <Transaction transaction={tx} publicKey={publicKey} />
+          {transactions.length !== index + 1 && (
+            <hr className="bg-primary-lighter ml-[22px] mr-[19px]" />
+          )}
         </div>
       ))}
     </div>

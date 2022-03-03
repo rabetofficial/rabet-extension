@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { Fragment, useState, useEffect } from 'react';
 
-import Loading from '../../components/Loading';
-import createTab from '../../utils/createTab';
-import explorer from '../../utils/horizon/getTransaction';
-import getOperations from '../../utils/horizon/operations';
-import operationDetails from '../../utils/operationDetails';
-import currentActiveAccount from '../../utils/activeAccount';
-import getTransactions from '../../utils/horizon/transactions';
+import Loading from 'popup/components/Loading';
+import createTab from 'popup/utils/createTab';
+import explorer from 'popup/utils/horizon/getTransaction';
+import getOperations from 'popup/utils/horizon/operations';
+import operationDetails from 'popup/utils/operationDetails';
+import currentActiveAccount from 'popup/utils/activeAccount';
+import getTransactions from 'popup/utils/horizon/transactions';
 
 import styles from './styles.less';
 

@@ -5,9 +5,8 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 10px 14px 2px;
-  border-bottom: 1px solid
-    ${({ theme }) => theme.colors.primary.lighter};
+  padding: 14px 22px 14px 19px;
+  ${({ theme }) => theme.colors.primary.lighter};
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary.lighter};
     transition: 1s background;
@@ -39,4 +38,7 @@ export const TextContainer = styled.div`
   font-weight: 500;
   display: inline-flex;
   align-items: center;
+`;
+export const Hr = styled.hr`
+  background-color: ${({ theme }) => theme.colors.primary.lighter};
 `;
