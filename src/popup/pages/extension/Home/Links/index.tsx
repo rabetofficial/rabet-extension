@@ -8,8 +8,7 @@ import {
   basicOperationPage,
   QRCodePage,
 } from 'popup/staticRes/routes';
-
-import styles from './styles.less';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 const Links = () => {
   const { mode } = useSelector((store) => store.options);
@@ -17,26 +16,16 @@ const Links = () => {
   const isAdvanced = mode === 'ADVANCED';
 
   return (
-    <div className={styles.buttonBox}>
+    <ButtonContainer btnSize={112} mt={12} justify="center" gap={16}>
       <Link
         to={isAdvanced ? advanceOperationPage : basicOperationPage}
       >
-        <Button
-          size="small"
-          variant="primary"
-          content="Operation"
-          style={{ width: '112px' }}
-        />
+        <Button size="small" variant="primary" content="Send" />
       </Link>
       <Link to={QRCodePage}>
-        <Button
-          size="small"
-          variant="outlined"
-          content="Receive"
-          style={{ width: '112px' }}
-        />
+        <Button size="small" variant="outlined" content="Receive" />
       </Link>
-    </div>
+    </ButtonContainer>
   );
 };
 

@@ -92,7 +92,7 @@ const BasicSend = () => {
               {({ input, meta }) => (
                 <>
                   <label className="label-primary block mt-4">
-                    Memo{' '}
+                    Memo
                     <span className="label-optional">(optional)</span>
                   </label>
                   <Input

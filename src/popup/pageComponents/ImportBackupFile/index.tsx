@@ -103,7 +103,12 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
               </Field>
               {submitError && <Error>{submitError}</Error>}
               {isModal ? (
-                <ButtonContainer btnSize={100} justify="end" mt={60}>
+                <ButtonContainer
+                  btnSize={100}
+                  justify="end"
+                  mt={60}
+                  gap={7}
+                >
                   <Button
                     variant="default"
                     size="medium"
@@ -111,7 +116,6 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
                     onClick={() => {
                       handleCancel(form);
                     }}
-                    style={{ marginRight: '7px' }}
                   />
                   <Button
                     type="submit"

@@ -1,6 +1,5 @@
 import React from 'react';
 import { StrKey } from 'stellar-sdk';
-import styled from 'styled-components';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'popup/components/common/Input';
@@ -10,6 +9,7 @@ import addContactAction from 'popup/actions/contacts/add';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 import Error from 'popup/components/common/Error';
+import { ChildContainer, ChildLabel } from '../styles';
 
 type FormValues = {
   name: string;
@@ -18,11 +18,11 @@ type FormValues = {
 };
 
 type CreateContactType = {
-  children?: React.ReactNode;
+  TitlePage?: boolean;
   onClose: () => void;
 };
 
-const CreateContact = ({ onClose, children }: CreateContactType) => {
+const CreateContact = ({ onClose, TitlePage }: CreateContactType) => {
   const [accounts, contacts] = useTypedSelector((store) => [
     store.accounts,
     store.contacts,
@@ -76,8 +76,16 @@ const CreateContact = ({ onClose, children }: CreateContactType) => {
   };
 
   return (
-    <Container>
-      {children}
+    <ChildContainer>
+      {TitlePage ? (
+        <PageTitle
+          title="Create contact"
+          padding="0"
+          titleStyle="font-bold"
+        />
+      ) : (
+        ''
+      )}
 
       <div>
         <Form
@@ -98,7 +106,7 @@ const CreateContact = ({ onClose, children }: CreateContactType) => {
               <Field name="name">
                 {({ input, meta }) => (
                   <div className="mt-[24px]">
-                    <Label>Name</Label>
+                    <ChildLabel>Name</ChildLabel>
                     <Input
                       type="text"
                       placeholder="John"
@@ -114,7 +122,7 @@ const CreateContact = ({ onClose, children }: CreateContactType) => {
               <Field name="publicKey">
                 {({ input, meta }) => (
                   <div className="mt-[14px]">
-                    <Label>Address</Label>
+                    <ChildLabel>Address</ChildLabel>
                     <Input
                       type="text"
                       placeholder="G..."
@@ -130,12 +138,12 @@ const CreateContact = ({ onClose, children }: CreateContactType) => {
               <Field name="memo">
                 {({ input, meta }) => (
                   <div className="mt-[18px]">
-                    <Label>
+                    <ChildLabel>
                       Memo
                       <span className="ml-[2px] text-xs text-primary-dark">
                         (optional)
                       </span>
-                    </Label>
+                    </ChildLabel>
                     <Input
                       type="text"
                       placeholder="My friend"
@@ -150,13 +158,17 @@ const CreateContact = ({ onClose, children }: CreateContactType) => {
 
               {submitError && <Error>{submitError}</Error>}
 
-              <ButtonContainer btnSize={100} mt={34} justify="end">
+              <ButtonContainer
+                btnSize={100}
+                mt={34}
+                justify="end"
+                gap={5}
+              >
                 <Button
                   variant="default"
                   size="medium"
                   content="Reject"
                   onClick={onClose}
-                  style={{ marginRight: '5px' }}
                 />
 
                 <Button
@@ -171,31 +183,12 @@ const CreateContact = ({ onClose, children }: CreateContactType) => {
           )}
         />
       </div>
-    </Container>
+    </ChildContainer>
   );
 };
 
-const Container = styled.div`
-  padding: 18px 32px 24px;
-`;
-
-const Label = styled.div`
-  font-size: 16px;
-  margin-bottom: -2px;
-  font-weight: 500;
-  @media (max-width: 360px) {
-    margin-top: 22px;
-  }
-`;
-
 CreateContact.defaultProps = {
-  children: (
-    <PageTitle
-      title="Create contact"
-      padding="0"
-      titleStyle="font-bold"
-    />
-  ),
+  TitlePage: true,
 };
 
 export default CreateContact;

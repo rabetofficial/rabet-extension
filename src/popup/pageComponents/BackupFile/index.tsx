@@ -41,13 +41,17 @@ const BackupFile = ({ onClose, onClick, children }: BackupTypes) => {
           </S.Copy>
         </S.Box>
         <S.ButtonContainer>
-          <ButtonContainer mt={32} btnSize={100} justify="end">
+          <ButtonContainer
+            mt={32}
+            btnSize={100}
+            justify="end"
+            gap={7}
+          >
             <Button
               variant="default"
               size="medium"
               content="Cancel"
               onClick={onClose}
-              style={{ marginRight: '7px' }}
             />
             <Button
               variant="primary"

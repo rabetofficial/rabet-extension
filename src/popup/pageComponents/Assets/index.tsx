@@ -197,13 +197,12 @@ const Assets = ({
         ) : (
           ''
         )}
-        <ButtonContainer btnSize={102} justify="end" mt={32}>
+        <ButtonContainer btnSize={102} justify="end" mt={32} gap={5}>
           <Button
             variant="default"
             size="medium"
             content="Cancel"
             onClick={onCancel}
-            style={{ marginRight: '5px' }}
           />
 
           <Button

@@ -73,3 +73,16 @@ export const ActionIcons = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+
+export const ChildContainer = styled.div`
+  padding: 18px 32px 24px;
+`;
+
+export const ChildLabel = styled.div`
+  font-size: 16px;
+  margin-bottom: -2px;
+  font-weight: 500;
+  @media (max-width: 360px) {
+    margin-top: 22px;
+  }
+`;

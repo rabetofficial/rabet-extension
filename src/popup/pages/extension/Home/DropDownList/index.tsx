@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import styled from 'styled-components';
 import {
   flagPage,
   deleteAccountPage,
@@ -8,10 +8,8 @@ import {
   connectedWebsitePage,
 } from 'popup/staticRes/routes';
 import DropMenu from 'popup/components/DropMenu';
-import worldSrc from 'popup/../assets/images/world.svg';
-import trashSrc from 'popup/../assets/images/trash-delete.svg';
-
-import styles from './styles.less';
+import worldSrc from 'src/assets/images/world.svg';
+import Trash from 'popup/svgs/Trash';
 
 const DropDownList = () => {
   const navigate = useNavigate();
@@ -39,22 +37,37 @@ const DropDownList = () => {
       },
     },
     {
-      label: 'Delete account',
-      icon: <img src={trashSrc} alt="icon" />,
+      label: <p className="text-error">Delete account</p>,
+      icon: <Trash />,
       onClick: () => {
         navigate(deleteAccountPage);
       },
-      className: styles.delete,
     },
   ];
 
   return (
     <DropMenu width={198} items={dropMenuItems}>
-      <a className={styles.expand}>
+      <Expand>
         <span className="icon-expand-more" />
-      </a>
+      </Expand>
     </DropMenu>
   );
 };
+
+const Expand = styled.a`
+  color: black;
+  text-decoration: none !important;
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
+  width: 5px;
+  margin-left: auto;
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 export default DropDownList;

@@ -64,13 +64,17 @@ const PrivateKey = ({
             {submitError && <Error>{submitError}</Error>}
 
             {isModal ? (
-              <ButtonContainer btnSize={100} justify="end" mt={135}>
+              <ButtonContainer
+                btnSize={100}
+                justify="end"
+                mt={135}
+                gap={7}
+              >
                 <Button
                   variant="default"
                   size="medium"
                   content="Cancel"
                   onClick={onCancel}
-                  style={{ marginRight: '7px' }}
                 />
                 <Button
                   type="submit"

@@ -137,13 +137,17 @@ const ChangePassword = ({ onClose }: ChangePasswordProps) => {
 
             {submitError && <Error>{submitError}</Error>}
 
-            <ButtonContainer btnSize={100} mt={32} justify="end">
+            <ButtonContainer
+              btnSize={100}
+              mt={32}
+              justify="end"
+              gap={7}
+            >
               <Button
                 variant="default"
                 size="medium"
                 content="Cancel"
                 onClick={onClose}
-                style={{ marginRight: '7px' }}
               />
               <Button
                 type="submit"

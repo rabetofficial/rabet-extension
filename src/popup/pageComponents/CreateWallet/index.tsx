@@ -68,13 +68,17 @@ const CreateWallet = ({
             {submitError && <Error>{submitError}</Error>}
 
             {isModal ? (
-              <ButtonContainer btnSize={100} justify="end" mt={203}>
+              <ButtonContainer
+                btnSize={100}
+                justify="end"
+                mt={203}
+                gap={7}
+              >
                 <Button
                   variant="default"
                   size="medium"
                   content="Cancel"
                   onClick={onCancel}
-                  style={{ marginRight: '7px' }}
                 />
                 <Button
                   type="submit"
