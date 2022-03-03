@@ -8,12 +8,11 @@ import ButtonContainer from 'popup/components/common/ButtonContainer';
 import * as S from './styles';
 
 type BackupTypes = {
-  onClose: () => void;
   onClick: () => void;
   children?: React.ReactNode;
 };
 
-const BackupFile = ({ onClose, onClick, children }: BackupTypes) => {
+const BackupFile = ({ onClick, children }: BackupTypes) => {
   const { publicKey, privateKey } = useActiveAccount();
 
   return (
@@ -47,12 +46,6 @@ const BackupFile = ({ onClose, onClick, children }: BackupTypes) => {
             justify="end"
             gap={7}
           >
-            <Button
-              variant="default"
-              size="medium"
-              content="Cancel"
-              onClick={onClose}
-            />
             <Button
               variant="primary"
               size="medium"
