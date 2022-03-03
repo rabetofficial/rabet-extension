@@ -66,10 +66,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
       padding: 'large',
       minHeight: 462,
       children: (
-        <BackupFile
-          onClose={closeModalAction}
-          onClick={closeModalAction}
-        >
+        <BackupFile onClick={closeModalAction}>
           <PageTitle title="Backup file" padding="0" />
         </BackupFile>
       ),

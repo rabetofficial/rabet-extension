@@ -1,7 +1,7 @@
 import React from 'react';
-
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+
 import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
 import BackupFileComponent from 'popup/pageComponents/BackupFile';
@@ -12,15 +12,10 @@ const BackupFile = () => {
   const handleClick = () => {
     navigate(RouteName.Home);
   };
-  const handleClose = () => {
-    navigate(RouteName.First);
-  };
+
   return (
     <Container>
-      <BackupFileComponent
-        onClick={handleClick}
-        onClose={handleClose}
-      >
+      <BackupFileComponent onClick={handleClick}>
         <PageTitle title="Backup" padding="0" />
       </BackupFileComponent>
     </Container>

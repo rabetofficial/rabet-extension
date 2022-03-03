@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 
+import angleDownIcon from 'assets/images/angle-down.svg';
 import handleAssetImage from 'popup/utils/handleAssetImage';
+import questionLogo from 'assets/images/question-circle.png';
 
 import Modal from '../Modal';
 import Image from '../Image';
 import SearchAsset from './SearchAsset';
-import angleDownIcon from '../../../assets/images/angle-down.svg';
-import questionLogo from '../../../assets/images/question-circle.png';
 
 import styles from './styles.less';
 
