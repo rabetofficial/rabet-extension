@@ -4,6 +4,7 @@ import handleAssetImage from 'popup/utils/handleAssetImage';
 import Image from 'popup/components/common/Image';
 import ScrollBar from 'popup/components/common/ScrollBar';
 import questionLogo from '../../../../../../assets/images/question-circle.png';
+import BN from '../../../../../../helpers/BN';
 
 import * as S from './styles';
 
@@ -58,14 +59,25 @@ const SearchAsset = ({
               />
               <div>
                 <S.AssetName>
-                  {currency.asset_code.toUpperCase()}
+                  {currency.asset_code &&
+                    currency.asset_code.toUpperCase()}
                 </S.AssetName>
                 <S.AssetInfo>{currency.domain}</S.AssetInfo>
               </div>
             </S.Asset>
-            <S.AssetPrice>{currency.balance}</S.AssetPrice>
+            <S.AssetPrice>
+              {new BN(currency.balance ?? 0).toString()}
+            </S.AssetPrice>
           </S.ListItem>
         ))}
+
+        {!filteredCurrencies.length ? (
+          <div className="flex items-center justify-center h-[115px]">
+            Asset not found
+          </div>
+        ) : (
+          ''
+        )}
       </ScrollBar>
     </>
   );

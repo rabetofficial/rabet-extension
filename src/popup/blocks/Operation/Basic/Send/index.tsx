@@ -142,7 +142,7 @@ const Send = () => {
         validate={validateForm}
         render={({ form, invalid, pristine, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <label className="label-primary mt-4">Amount</label>
+            <label className="label-primary block mt-4">Amount</label>
             <ModalInput>
               <div className="flex flex-col">
                 <Field name="amount">
@@ -178,7 +178,7 @@ const Send = () => {
             <Field name="destination">
               {({ input, meta }) => (
                 <>
-                  <label className="label-primary mt-4">
+                  <label className="label-primary block mt-4">
                     Destination
                   </label>
                   <Input
@@ -195,7 +195,7 @@ const Send = () => {
             <Field name="memo">
               {({ input, meta }) => (
                 <>
-                  <label className="label-primary mt-4">
+                  <label className="label-primary block mt-4">
                     Memo{' '}
                     <span className="label-optional">(optional)</span>
                   </label>

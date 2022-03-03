@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import handleAssetImage from 'popup/utils/handleAssetImage';
 
@@ -14,28 +14,55 @@ type AppProps = {
   onChange: (value: any) => void;
 };
 
-const SelectAssetModal = ({ currencies, onChange }: AppProps) => {
+const SelectAssetModal = ({
+  asset,
+  onChange,
+  currencies,
+  setValue,
+  valueName,
+  defaultNull,
+}: AppProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentAsset, setCurrentAsset] = useState(currencies[0]);
+  const [currentAsset, setCurrentAsset] = useState(
+    defaultNull ? null : currencies[0],
+  );
 
   const onOpenModal = () => setIsModalOpen(true);
   const onCloseModal = () => setIsModalOpen(false);
 
-  const handleAssetChange = (asset) => {
-    setCurrentAsset(asset);
-    onChange(asset);
+  useEffect(() => {
+    if (asset) {
+      setCurrentAsset(asset);
+    }
+  }, [asset]);
+
+  const handleAssetChange = (newAsset) => {
+    setCurrentAsset(newAsset);
+    onChange(newAsset);
+
+    if (setValue) {
+      setValue(valueName, newAsset);
+    }
   };
 
   return (
     <S.InputContainer className="select-modal">
       <S.ModalTrigger onClick={onOpenModal}>
         <div className="flex item-center">
-          <S.Img
-            fallBack={questionLogo}
-            alt={currentAsset?.asset_code || 'ASSET'}
-            src={handleAssetImage(currentAsset)}
-          />
-          {currentAsset?.asset_code.toUpperCase() || 'ASSET'}
+          {currentAsset ? (
+            <>
+              <S.Img
+                fallBack={questionLogo}
+                alt={currentAsset.asset_code}
+                src={handleAssetImage(currentAsset)}
+              />
+
+              {currentAsset.asset_code &&
+                currentAsset.asset_code.toUpperCase()}
+            </>
+          ) : (
+            <p>NONE</p>
+          )}
         </div>
         <img src={angleDownIcon} alt="icon" />
       </S.ModalTrigger>
