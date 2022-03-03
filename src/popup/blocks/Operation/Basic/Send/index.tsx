@@ -12,7 +12,7 @@ import isTransferable from 'popup/utils/isTransferable';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import controlNumberInput from 'popup/utils/controlNumberInput';
 import getAccountData from 'popup/utils/horizon/isAddressFound';
-import SelectAssetModal from 'popup/components/SelectAssetModal';
+import SelectAssetModal from 'popup/blocks/Operation/Basic/SelectAssetModal';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
@@ -162,16 +162,16 @@ const Send = () => {
               </div>
 
               <Field name="asset">
-                {({ input, meta }) => (
+                {() => (
                   <SelectAssetModal
-                    input={input}
-                    meta={meta}
-                    max
-                    form={form}
                     currencies={assets}
                     onChange={setSelectedAsset}
                   />
                 )}
+                {/* input={input} */}
+                {/* meta={meta} */}
+                {/* max */}
+                {/* form={form} */}
               </Field>
             </ModalInput>
 
