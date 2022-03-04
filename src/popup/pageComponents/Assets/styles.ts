@@ -28,6 +28,7 @@ export const Circle = styled.div`
   justift-content: center;
   align-items: center;
   margin-bottom: 20px;
+  margin-top: 24px;
 `;
 export const Title = styled.h4`
   font-size: 16px;

@@ -160,7 +160,7 @@ const Assets = ({
       <div className=" py-[30px] px-[32px]">
         {children}
 
-        <div className="flex flex-col justify-center align-center h-[490px]">
+        <div className="flex flex-col h-[490px]">
           <S.Circle>
             <S.ImgContainer>
               <img src={xlmLogo} alt="xlm logo" />

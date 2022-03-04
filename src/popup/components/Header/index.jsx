@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import * as route from '../../staticRes/routes';
+import * as route from 'popup/staticRes/routes';
+import changeNetworkAction from 'popup/actions/options/changeNetwork';
 import logo from '../../../assets/images/logo.svg';
-import changeNetworkAction from '../../actions/options/changeNetwork';
 
 import styles from './styles.less';
 import PopupSearch from './PopupSearch';
@@ -36,23 +36,32 @@ const Header = (props) => {
 
     setSelected(e);
   };
-  const toggleOverlay = (open) => { toggleOverLay(open); };
+  const toggleOverlay = (open) => {
+    toggleOverLay(open);
+  };
   return (
     <>
       <div
         className="overlay"
         style={{ display: overlay ? 'block' : 'none' }}
-        onClick={() => { toggleOverlay(false); }}
+        onClick={() => {
+          toggleOverlay(false);
+        }}
       />
       <div className={styles.comp}>
         <div className={styles.header}>
           <div className="pure-g" style={{ position: 'relative' }}>
             <div className="pure-u-4-24">
-              <Link to={route.homePage}><img src={logo} alt="logo" className={styles.logo} /></Link>
+              <Link to={route.homePage}>
+                <img src={logo} alt="logo" className={styles.logo} />
+              </Link>
             </div>
             <div className="pure-u-16-24">
-              <div className={classNames(styles.select, (selected === items[0])
-                ? styles.main : styles.test)}
+              <div
+                className={classNames(
+                  styles.select,
+                  selected === items[0] ? styles.main : styles.test,
+                )}
               >
                 <Select
                   classNamePrefix="net"
@@ -68,7 +77,9 @@ const Header = (props) => {
                     ...styles,
                     control: (base, state) => ({
                       ...base,
-                      borderColor: state.isFocused ? 'black' : 'black',
+                      borderColor: state.isFocused
+                        ? 'black'
+                        : 'black',
                       boxShadow: state.isFocused ? 0 : 0,
                       '&:hover': { borderColor: 'black' },
                     }),
@@ -77,7 +88,10 @@ const Header = (props) => {
               </div>
             </div>
             <div className="pure-u-4-24">
-              <PopupSearch toggleOverlay={toggleOverlay} isOpen={overlay} />
+              <PopupSearch
+                toggleOverlay={toggleOverlay}
+                isOpen={overlay}
+              />
             </div>
           </div>
         </div>
@@ -87,9 +101,7 @@ const Header = (props) => {
   );
 };
 
-Header.propTypes = {
-
-};
+Header.propTypes = {};
 
 export default connect((state) => ({
   options: state.options,
