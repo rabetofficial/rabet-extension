@@ -23,18 +23,18 @@ const Transactions = () => {
 
   if (isLoading) {
     return (
-      <Loading
-        title="Loading Transactions"
-        size={80}
-        titleStyle="text-primary"
-      />
+      <div className="flex justify-center items-center h-[50vh] ">
+        <Loading size={80} />
+      </div>
     );
   }
   if (transactions.length === 0) {
     return (
-      <p className="flex justify-center text-primary text-base mt-[135px]">
-        You have no transaction
-      </p>
+      <div className="flex justify-center items-center h-[50vh]">
+        <p className="text-primary text-base">
+          You have no transaction
+        </p>
+      </div>
     );
   }
   return (
