@@ -16,16 +16,26 @@ const Links = () => {
   const isAdvanced = mode === 'ADVANCED';
 
   return (
-    <ButtonContainer btnSize={112} mt={12} justify="center" gap={16}>
+    <div className="flex justify-center align-center mt-3">
       <Link
         to={isAdvanced ? advanceOperationPage : basicOperationPage}
       >
-        <Button size="small" variant="primary" content="Send" />
+        <Button
+          size="small"
+          variant="primary"
+          content="Send"
+          style={{ width: '112px', marginRight: '8px' }}
+        />
       </Link>
       <Link to={QRCodePage}>
-        <Button size="small" variant="outlined" content="Receive" />
+        <Button
+          size="small"
+          variant="outlined"
+          content="Receive"
+          style={{ width: '112px', marginLeft: '8px' }}
+        />
       </Link>
-    </ButtonContainer>
+    </div>
   );
 };
 

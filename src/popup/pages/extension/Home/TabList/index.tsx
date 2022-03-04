@@ -1,29 +1,24 @@
 import React from 'react';
 
 import Tabs from 'popup/components/common/Tabs';
-import AssetList from 'popup/pageComponents/AssetList';
-import TransactionList from 'popup/pageComponents/TransactionList';
+import AssetList from 'popup/components/common/Layouts/ExpandLayout/AssetList';
+import Transactions from 'popup/components/Transactions';
 
-const TabList = ({ balances, editName }) => {
+const TabList = () => {
   const tabs = [
     {
       id: '1',
       title: 'Assets',
-      content: (
-        <AssetList
-          items={balances}
-          maxHeight={editName ? 205 : 214}
-        />
-      ),
+      content: <AssetList />,
     },
     {
       id: '2',
       title: 'Transactions',
-      content: <TransactionList maxHeight={editName ? 215 : 221} />,
+      content: <Transactions ScrollMaxHight={320} />,
     },
   ];
 
-  return <Tabs data={tabs} isEqualWidth titleClass="mt-[16px]" />;
+  return <Tabs data={tabs} isEqualWidth titleClass="mt-4" />;
 };
 
 export default TabList;

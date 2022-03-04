@@ -11,8 +11,9 @@ import PageTitle from 'popup/components/PageTitle';
 import ToggleSwitch from 'popup/components/ToggleSwitch';
 import currentActiveAccount from 'popup/utils/activeAccount';
 import setFlagsAction from 'popup/actions/operations/setFlags';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
-import styles from './styles.less';
+import * as S from './styles';
 
 const tooltipInfo = {
   required:
@@ -96,27 +97,18 @@ const Flags = () => {
 
   return (
     <>
-      <div
-        className={classNames(
-          styles.page,
-          'hidden-scroll content-scroll',
-        )}
-      >
+      <div className="hidden-scroll content-scroll">
         <Header />
-
-        <PageTitle title="Flags" />
-
-        <div className="content">
-          <h6 className={styles.title}>
+        <PageTitle title="Flags" padding="0" />
+        <S.Content>
+          <S.Ttile>
             Currently, there are 4 flags, used by issuers of assets.
             in below you can see your flags status:
-          </h6>
+          </S.Ttile>
 
-          <div
-            className={classNames('pure-g', styles.div, styles.first)}
-          >
+          <S.Div>
             <div className="pure-u-2-3">
-              <h3 className={styles.toggleTitle}>
+              <S.ToggleTitle>
                 Authorization required
                 <Tooltip
                   trigger="hover"
@@ -125,7 +117,7 @@ const Flags = () => {
                 >
                   <span className="icon-question-mark" />
                 </Tooltip>
-              </h3>
+              </S.ToggleTitle>
             </div>
 
             <div className="pure-u-1-3">
@@ -135,11 +127,11 @@ const Flags = () => {
                 handleChange={handleCheckedRequired}
               />
             </div>
-          </div>
+          </S.Div>
 
-          <div className={classNames('pure-g', styles.div)}>
+          <S.Div>
             <div className="pure-u-2-3">
-              <h3 className={styles.toggleTitle}>
+              <S.ToggleTitle>
                 Authorization revocable
                 <Tooltip
                   trigger="hover"
@@ -148,7 +140,7 @@ const Flags = () => {
                 >
                   <span className="icon-question-mark" />
                 </Tooltip>
-              </h3>
+              </S.ToggleTitle>
             </div>
 
             <div className="pure-u-1-3">
@@ -158,11 +150,11 @@ const Flags = () => {
                 handleChange={handleCheckedRevocable}
               />
             </div>
-          </div>
+          </S.Div>
 
-          <div className={classNames('pure-g', styles.div)}>
+          <S.Div>
             <div className="pure-u-2-3">
-              <h3 className={styles.toggleTitle}>
+              <S.ToggleTitle>
                 Authorization immutable
                 <Tooltip
                   trigger="hover"
@@ -171,7 +163,7 @@ const Flags = () => {
                 >
                   <span className="icon-question-mark" />
                 </Tooltip>
-              </h3>
+              </S.ToggleTitle>
             </div>
 
             <div className="pure-u-1-3">
@@ -181,11 +173,11 @@ const Flags = () => {
                 handleChange={handleCheckedImmutable}
               />
             </div>
-          </div>
+          </S.Div>
 
-          <div className={classNames('pure-g', styles.div)}>
+          <S.Div>
             <div className="pure-u-2-3">
-              <h3 className={styles.toggleTitle}>
+              <S.ToggleTitle>
                 Clawback enabled
                 <Tooltip
                   trigger="hover"
@@ -194,7 +186,7 @@ const Flags = () => {
                 >
                   <span className="icon-question-mark" />
                 </Tooltip>
-              </h3>
+              </S.ToggleTitle>
             </div>
 
             <div className="pure-u-1-3">
@@ -216,23 +208,17 @@ const Flags = () => {
             ) : (
               ''
             )}
-          </div>
-        </div>
+          </S.Div>
+        </S.Content>
       </div>
 
-      <div
-        className={classNames(
-          'pure-g justify-end content',
-          styles.buttons,
-        )}
-      >
+      <ButtonContainer gap={12} mt={12} btnSize={100}>
         <Button
           variant="default"
           size="medium"
           content="Cancel"
           onClick={onCancel}
         />
-
         <Button
           disabled={disabled}
           onClick={handleSubmit}
@@ -240,7 +226,7 @@ const Flags = () => {
           size="medium"
           content="Save"
         />
-      </div>
+      </ButtonContainer>
     </>
   );
 };

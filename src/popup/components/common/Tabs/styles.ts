@@ -51,4 +51,7 @@ export const TabTitle = styled.li`
 export const TabContent = styled.div`
   padding-top: 24px;
   margin: 0;
+  @media (max-width: 360px) {
+    padding-top: 0px;
+  }
 `;

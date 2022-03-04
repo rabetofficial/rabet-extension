@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { ServerApi } from 'stellar-sdk';
 
+import styled from 'styled-components';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import loadTransactions from 'popup/features/loadTransactions';
 
 import Transaction from './Transaction';
 import Loading from '../Loading';
+import ScrollBar from '../common/ScrollBar';
 
-const Transactions = () => {
+type TransactionsType = { ScrollMaxHight: number };
+const Transactions = ({ ScrollMaxHight }: TransactionsType) => {
   const { publicKey } = useActiveAccount();
   const [transactions, setTransactions] = useState<
     ServerApi.CollectionPage<ServerApi.OperationRecord>[]
@@ -38,17 +41,25 @@ const Transactions = () => {
     );
   }
   return (
-    <div className="mt-[-13px] mx-[-20px]">
-      {transactions.map((tx, index) => (
-        <div key={tx.records[0].transaction_hash}>
-          <Transaction transaction={tx} publicKey={publicKey} />
-          {transactions.length !== index + 1 && (
-            <hr className="bg-primary-lighter ml-[22px] mr-[19px]" />
-          )}
-        </div>
-      ))}
-    </div>
+    <ScrollBar isHidden maxHeight={ScrollMaxHight}>
+      <ContentContainer>
+        {transactions.map((tx, index) => (
+          <div key={tx.records[0].transaction_hash}>
+            <Transaction transaction={tx} publicKey={publicKey} />
+            {transactions.length !== index + 1 && (
+              <hr className="bg-primary-lighter ml-[22px] mr-[19px]" />
+            )}
+          </div>
+        ))}
+      </ContentContainer>
+    </ScrollBar>
   );
 };
 
+const ContentContainer = styled.div`
+  margin: -13px -20px 0px;
+  @media (max-width: 360px) {
+    margin-top: 0px;
+  }
+`;
 export default Transactions;

@@ -92,7 +92,7 @@ export const Button = styled.button`
 
   &.outlined {
     background: transparent;
-    outline: 1px solid ${({ theme }) => theme.colors.primary.darkest};
+    border: 1px solid ${({ theme }) => theme.colors.primary.darkest};
     color: ${({ theme }) => theme.colors.primary.darkest};
 
     &:hover {

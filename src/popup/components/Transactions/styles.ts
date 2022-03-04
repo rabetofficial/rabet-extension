@@ -7,9 +7,14 @@ export const Container = styled.div`
   align-items: center;
   padding: 14px 22px 14px 19px;
   ${({ theme }) => theme.colors.primary.lighter};
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary.lighter};
     transition: 1s background;
+  }
+
+  @media (max-width: 360px) {
+    padding: 14px 38px 14px 35px;
   }
 `;
 export const MainPart = styled.div`
