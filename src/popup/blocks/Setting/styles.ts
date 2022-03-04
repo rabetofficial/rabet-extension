@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const ContainerBox = styled.div`
-  margin-top: -24px;
+  margin: -24px -20px 0;
 `;
 
 export const Container = styled.div`
   cursor: pointer;
-  padding: 17px 0 15px;
+  padding: 17px 20px 15px;
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary.lighter};
     transition: 1s background;
@@ -36,4 +36,5 @@ export const Description = styled.p`
 
 export const Hr = styled.hr`
   background-color: ${({ theme }) => theme.colors.primary.lighter};
+  margin: 0 20px;
 `;
