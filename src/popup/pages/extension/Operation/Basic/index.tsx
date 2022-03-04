@@ -25,12 +25,13 @@ const OperationBasic = () => {
           title={`${selected.label}`.toString()}
           className="mt-[20px]"
         />
-
-        <OpBasic
-          onChange={onChange}
-          selected={selected}
-          modes={modes}
-        />
+        <div className="mt-[20px]">
+          <OpBasic
+            onChange={onChange}
+            selected={selected}
+            modes={modes}
+          />
+        </div>
       </div>
     </>
   );

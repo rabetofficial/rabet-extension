@@ -44,7 +44,7 @@ const BasicSend = () => {
           <form onSubmit={handleSubmit}>
             <label className="label-primary block mt-4">Amount</label>
             <ModalInput>
-              <div className="flex flex-col">
+              <div className="flex flex-col grow">
                 <Field name="amount">
                   {({ input, meta }) => (
                     <Input

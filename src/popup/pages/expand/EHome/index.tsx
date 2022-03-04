@@ -8,6 +8,7 @@ import closeModalAction from 'popup/actions/modal/close';
 import { openLoadingModal } from 'popup/components/Modals';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import WalletInfo from 'popup/pages/expand/EHome/WalletInfo';
+import BasicOperation from 'popup/pages/expand/EHome/BasicOperation';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 
 const EHome = () => {
@@ -29,7 +30,7 @@ const EHome = () => {
     {
       id: 1,
       title: 'Operation',
-      content: '2',
+      content: <BasicOperation />,
     },
     { id: 2, title: 'Transactions', content: <Transactions /> },
     { id: 3, title: 'Wallet info', content: <WalletInfo /> },

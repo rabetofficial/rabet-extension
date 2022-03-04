@@ -15,7 +15,7 @@ type AppProps = {
 
 const BasicOp = ({ modes, onChange, selected }: AppProps) => (
   <ScrollBar isHidden maxHeight={380}>
-    <Card type="secondary" className="mt-[20px] px-[11px] py-[15px]">
+    <Card type="secondary" className="px-[11px] py-[15px]">
       <SelectOption
         defaultValue={modes[0]}
         variant="default"
