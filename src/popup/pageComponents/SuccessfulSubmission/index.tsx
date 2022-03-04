@@ -2,7 +2,6 @@ import React from 'react';
 
 import styled from 'styled-components';
 import NoteCard from 'popup/pageComponents/NoteCard';
-import CopyText from 'popup/components/CopyText';
 import createTab from 'popup/utils/createTab';
 import BlackCheck from 'popup/svgs/BlackCheck';
 import ShareArrowSquare from 'popup/svgs/ShareArrowSqaure';
@@ -19,13 +18,13 @@ const SuccessfulSubmission = ({
 }: SuccessfulSubmissionType) => {
   const ShareLink = styled.a`
     margin-left: 4px;
-    // cursor: pointer;
+    cursor: pointer;
     display: inline-flex;
   `;
 
-  const copyText = (
+  const Text = (
     <>
-      <CopyText text={message} button={message} />
+      <span>{message}</span>
       <ShareLink
         onClick={() => {
           createTab(explorer(message));
@@ -39,7 +38,7 @@ const SuccessfulSubmission = ({
   return (
     <NoteCard
       title="Transaction Sent"
-      message={message ? copyText : 'SUCCESS!'}
+      message={message ? Text : 'SUCCESS!'}
       btnText="OK"
       icon={<BlackCheck />}
       onClick={onClick}
