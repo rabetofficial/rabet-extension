@@ -8,6 +8,7 @@ import PageTitle from 'popup/components/PageTitle';
 import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import TooltipLabel from 'popup/components/common/TooltipLabel';
 
 import * as S from './styles';
 
@@ -45,11 +46,14 @@ const Backup = ({ onClose }: BackupProps) => {
       />
 
       <S.info>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-        do eiusmod tempor
+        Save the key and download the backup file. With this file and
+        key, you will import all wallets when you want.
       </S.info>
       <div style={{ marginTop: '24px' }}>
-        <S.Label>Key</S.Label>
+        <TooltipLabel
+          text="Key"
+          tooltipText="Rabet will lock automatically after a set amount of time."
+        />
         <S.Box>
           {id}
           <S.Copy>
