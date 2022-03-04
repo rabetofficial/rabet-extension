@@ -22,7 +22,7 @@ export const ModalTrigger = styled.div`
   height: 48px;
   background: transparent;
   border-radius: 0 2px 2px 0;
-  border: 1px solid ${({ theme }) => theme.colors.primary.light};
+  border: 1px solid ${({ theme }) => theme.colors.primary.lighter};
   border-left: none;
   display: flex;
   justify-content: space-between;

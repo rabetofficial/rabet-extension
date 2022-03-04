@@ -27,6 +27,7 @@ type AppProps = {
   autoFocus?: boolean;
   setMax?: () => void;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  styleType?: 'light' | 'dark';
   [x: string]: any;
 };
 
@@ -46,6 +47,7 @@ const Input = (props: AppProps) => {
     setMax,
     autoFocus,
     onChange,
+    styleType,
     ...inputProps
   } = props;
   const isError = !meta.valid;
@@ -71,7 +73,11 @@ const Input = (props: AppProps) => {
 
   return (
     <>
-      <S.Group className={`${className} ${size}`} style={style}>
+      <S.Group
+        className={`${className} ${size}`}
+        style={style}
+        styleType={styleType}
+      >
         <input
           autoComplete="off"
           type={visibleType}
@@ -113,6 +119,7 @@ Input.defaultProps = {
   autoFocus: false,
   setMax: () => {},
   onChange: () => {},
+  styleType: 'dark',
 };
 
 export default Input;

@@ -59,6 +59,7 @@ const BasicSend = ({ usage }: AppProps) => {
                       input={input}
                       meta={meta}
                       variant="max"
+                      styleType="light"
                       setMax={form.mutators.setMax}
                       onKeyPress={controlNumberInput}
                     />
@@ -86,6 +87,7 @@ const BasicSend = ({ usage }: AppProps) => {
                     type="text"
                     placeholder="G..."
                     size="medium"
+                    styleType="light"
                     input={input}
                     meta={meta}
                   />
@@ -107,6 +109,7 @@ const BasicSend = ({ usage }: AppProps) => {
                     type="text"
                     placeholder="G..."
                     size="medium"
+                    styleType="light"
                     input={input}
                     meta={meta}
                   />
