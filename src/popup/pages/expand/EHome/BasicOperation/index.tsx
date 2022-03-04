@@ -21,6 +21,7 @@ const OperationBasic = () => {
         onChange={onChange}
         selected={selected}
         modes={modes}
+        usage="desktop"
       />
     </InsideTabLayout>
   );

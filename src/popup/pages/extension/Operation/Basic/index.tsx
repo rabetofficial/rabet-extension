@@ -30,6 +30,7 @@ const OperationBasic = () => {
             onChange={onChange}
             selected={selected}
             modes={modes}
+            usage="extension"
           />
         </div>
       </div>

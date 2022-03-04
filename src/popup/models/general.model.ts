@@ -43,3 +43,5 @@ export type Tab = {
   title: string;
   content: ReactNode;
 };
+
+export type Usage = 'desktop' | 'extension';

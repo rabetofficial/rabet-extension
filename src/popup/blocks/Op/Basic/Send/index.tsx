@@ -93,7 +93,10 @@ const BasicSend = () => {
                 <>
                   <label className="label-primary block mt-4">
                     Memo
-                    <span className="label-optional">(optional)</span>
+                    <span className="label-optional">
+                      {' '}
+                      (optional)
+                    </span>
                   </label>
                   <Input
                     type="text"
