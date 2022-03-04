@@ -7,6 +7,7 @@ import Input from 'popup/components/common/Input';
 import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 import Button from 'popup/components/common/Button';
+import { Usage } from 'popup/models';
 
 import ModalInput from './styles';
 
@@ -17,7 +18,11 @@ type FormValues = {
   memo: string;
 };
 
-const BasicSend = () => {
+type AppProps = {
+  usage: Usage;
+};
+
+const BasicSend = ({ usage }: AppProps) => {
   const navigate = useNavigate();
 
   const onSubmit = async (v: FormValues) => {};
@@ -109,7 +114,14 @@ const BasicSend = () => {
               )}
             </Field>
 
-            <ButtonContainer btnSize={100} justify="end" mt={40}>
+            <ButtonContainer
+              btnSize={100}
+              justify="end"
+              positionStyles={{
+                bottom: usage === 'extension' ? '22px' : '32px',
+              }}
+              mt={40}
+            >
               <Button
                 type="button"
                 variant="default"
@@ -125,6 +137,7 @@ const BasicSend = () => {
                 variant="primary"
                 size="medium"
                 content="Send"
+                className="mr-[-11px]"
                 disabled={invalid || pristine}
               />
             </ButtonContainer>
