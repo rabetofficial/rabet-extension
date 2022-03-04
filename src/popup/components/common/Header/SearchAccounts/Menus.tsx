@@ -57,8 +57,6 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
       };
     }
 
-    closeModalAction();
-
     openModalAction({
       isStyled: false,
       title: 'Backup',

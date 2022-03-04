@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Tab } from 'popup/models';
 import Setting from 'popup/blocks/Setting';
 import useLoadHome from 'popup/hooks/useLoadHome';
 import Transactions from 'popup/components/Transactions';
+import closeModalAction from 'popup/actions/modal/close';
+import { openLoadingModal } from 'popup/components/Modals';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 import WalletInfo from 'popup/pages/expand/EHome/WalletInfo';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
-import { openLoadingModal } from 'popup/components/Modals';
-import closeModalAction from 'popup/actions/modal/close';
 
 const EHome = () => {
   const isLoading = useLoadHome();
+  const modal = useTypedSelector((store) => store.modal);
 
-  if (isLoading) {
-    openLoadingModal({});
-  } else {
-    closeModalAction();
-  }
+  useEffect(() => {
+    if (isLoading) {
+      openLoadingModal({});
+    } else {
+      // If loading modal is showing
+      if (modal.size === 'medium' && modal.title === '') {
+        closeModalAction();
+      }
+    }
+  }, [isLoading]);
 
   const tabs: Tab[] = [
     {

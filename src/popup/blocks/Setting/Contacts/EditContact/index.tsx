@@ -24,7 +24,10 @@ const EditContact = ({
   TitlePage,
   onClose,
 }: EditContactType) => {
-  const accounts = useTypedSelector((store) => store.accounts);
+  const [accounts, contacts] = useTypedSelector((store) => [
+    store.accounts,
+    store.contacts,
+  ]);
 
   const validateForm = (values: Contact) => {
     const errors: Partial<Contact> = {};
@@ -46,6 +49,18 @@ const EditContact = ({
         if (foundAccount) {
           errors.publicKey =
             'You cannot add your own account as a contact.';
+        } else {
+          const otherContacts = contacts.filter(
+            (aContact) => aContact.publicKey !== contact.publicKey,
+          );
+
+          const foundContact = otherContacts.find(
+            (aContact) => aContact.publicKey === values.publicKey,
+          );
+
+          if (foundContact) {
+            errors.publicKey = 'Contact is duplicated.';
+          }
         }
       }
     }
