@@ -1,51 +1,39 @@
-@import '../../styles/theme.less';
+import styled from 'styled-components';
 
-:local(.comp) {
+export const Comp = styled.div`
   position: absolute;
   z-index: 100;
-}
-
-:local(.header) {
-  background: @Concrete;
+`;
+export const Header = styled.div`
+  background: ${({ theme }) => theme.colors.primary.lighter};
   height: 60px;
   width: 360px;
-
-  .pure-g {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    padding: 7px 16px 6px 16px;
-  }
-}
-
-:local(.logo) {
-  width: 24px;
-  height: 46px;
-}
-
-:local(.icon) {
-  color: black;
+`;
+export const Icon = styled.div`
+  color: ${({ theme }) => theme.colors.primary.darkest};
   font-size: 20px;
   text-decoration: none !important;
 
-  .icon-lock {
+  icon-lock {
     float: right;
   }
-}
-
-:local(.select) {
-
+`;
+export const Logo = styled.div`
+  width: 24px;
+  height: 46px;
+`;
+export const Select = styled.div`
   .net__control {
     width: 160px;
     height: 40px;
     cursor: pointer;
-    background: @darkGallery;
-    border-color: @darkGallery;
+    background: #eaeaea;
+    border-color: #eaeaea;
     margin: 0 auto;
   }
 
   .net__control:hover {
-    border-color: @darkGallery;
+    border-color: #eaeaea;
   }
 
   .net__menu {
@@ -62,7 +50,7 @@
   }
 
   .net__menu-list {
-    :local(.group) {
+    group {
       display: none;
     }
   }
@@ -75,13 +63,13 @@
   }
 
   .net__option--is-selected,
-  .net__option--is-focused{
+  .net__option--is-focused {
     background-color: white;
     color: black;
   }
 
   .net__option:hover {
-    background-color: @Alabaster;
+    background-color: ${({ theme }) => theme.colors.primary.darkest};
     transition: 0.3s ease-in-out;
   }
 
@@ -112,22 +100,20 @@
   }
 
   .net__single-value:before {
-    content: "•";
+    content: '•';
     font-weight: bold;
     width: 8px;
     font-size: 28px;
     margin-right: 6px;
   }
-}
-
-:local(.main) {
+`;
+export const Main = styled.div`
   .net__single-value:before {
-    color: @Apple;
+    color: #40ab31;
   }
-}
-
-:local(.test) {
+`;
+export const Test = styled.div`
   .net__single-value:before {
-    color: @Tangerine;
+    color: #f48b00;
   }
-}
+`;

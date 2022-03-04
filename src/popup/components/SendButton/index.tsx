@@ -2,14 +2,14 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../Button';
-import * as route from '../../staticRes/routes';
+import RouteName from 'popup/staticRes/routes';
+import Button from '../common/Button';
 
 const SendButton = ({ transaction }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(route.ConfirmPage);
+    navigate(RouteName.Confirm);
   };
 
   const { operations, memo } = transaction;
@@ -33,8 +33,8 @@ const SendButton = ({ transaction }) => {
   return (
     <Button
       onClick={handleClick}
-      variant="btn-primary"
-      size="btn-medium"
+      variant="primary"
+      size="medium"
       content="Send"
       disabled={isDisabled}
     />

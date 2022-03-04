@@ -8,7 +8,7 @@ import * as route from 'popup/staticRes/routes';
 import changeNetworkAction from 'popup/actions/options/changeNetwork';
 import logo from '../../../assets/images/logo.svg';
 
-import styles from './styles.less';
+import * as S from './styles';
 import PopupSearch from './PopupSearch';
 
 export const items = [
@@ -48,20 +48,19 @@ const Header = (props) => {
           toggleOverlay(false);
         }}
       />
-      <div className={styles.comp}>
-        <div className={styles.header}>
+      <S.Comp>
+        <S.Header>
           <div className="pure-g" style={{ position: 'relative' }}>
             <div className="pure-u-4-24">
               <Link to={route.homePage}>
-                <img src={logo} alt="logo" className={styles.logo} />
+                <S.Logo>
+                  <img src={logo} alt="logo" />
+                </S.Logo>
               </Link>
             </div>
             <div className="pure-u-16-24">
-              <div
-                className={classNames(
-                  styles.select,
-                  selected === items[0] ? styles.main : styles.test,
-                )}
+              <S.Select
+              // {selected === items[0] ? styles.main : styles.test}
               >
                 <Select
                   classNamePrefix="net"
@@ -74,7 +73,6 @@ const Header = (props) => {
                   backspaceRemovesValue={false}
                   onChange={(e) => onChangeNetwork(e)}
                   styles={{
-                    ...styles,
                     control: (base, state) => ({
                       ...base,
                       borderColor: state.isFocused
@@ -85,7 +83,7 @@ const Header = (props) => {
                     }),
                   }}
                 />
-              </div>
+              </S.Select>
             </div>
             <div className="pure-u-4-24">
               <PopupSearch
@@ -94,8 +92,8 @@ const Header = (props) => {
               />
             </div>
           </div>
-        </div>
-      </div>
+        </S.Header>
+      </S.Comp>
       <div style={{ height: '60px' }} />
     </>
   );
