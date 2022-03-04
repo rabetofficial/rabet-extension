@@ -4,17 +4,43 @@ import { Form, Field } from 'react-final-form';
 import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
 import Button from 'popup/components/common/Button';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+
 import WalletInfo from '../index';
 
+type FormValues = {
+  password: string;
+};
 const ConfirmWallet = () => {
-  const changeContent = (element: JSX.Element) => {
-    setCurrentElement(element);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const user = useTypedSelector((store) => store.user);
+
+  const onSubmit = (values: FormValues) => {
+    if (user.password !== values.password) {
+      return {
+        password: 'Password is incorrect.',
+      };
+    }
+
+    setIsSubmitted(true);
+
+    return {};
   };
-  const onSubmit = () => {
-    changeContent(<WalletInfo />);
+
+  const validateForm = (values: FormValues) => {
+    if (!values.password) {
+      return {
+        password: '',
+      };
+    }
+
+    return {};
   };
-  const validateForm = () => {};
+
+  if (isSubmitted) {
+    return <WalletInfo />;
+  }
 
   return (
     <div className="max-w-[460px]">
@@ -27,7 +53,12 @@ const ConfirmWallet = () => {
       <Form
         onSubmit={onSubmit}
         validate={validateForm}
-        render={({ submitError, handleSubmit, invalid }) => (
+        render={({
+          pristine,
+          submitting,
+          submitError,
+          handleSubmit,
+        }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <Field name="password">
               {({ input, meta }) => (
@@ -55,7 +86,7 @@ const ConfirmWallet = () => {
                 variant="primary"
                 size="medium"
                 content="Show"
-                disabled={invalid}
+                disabled={submitting || pristine}
               />
             </ButtonContainer>
           </form>

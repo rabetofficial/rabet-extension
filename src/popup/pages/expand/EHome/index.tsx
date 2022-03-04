@@ -7,7 +7,7 @@ import Transactions from 'popup/components/Transactions';
 import closeModalAction from 'popup/actions/modal/close';
 import { openLoadingModal } from 'popup/components/Modals';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
-import WalletInfo from 'popup/pages/expand/EHome/WalletInfo/ConfirmWallet';
+import ConfirmWallet from 'popup/pages/expand/EHome/WalletInfo/ConfirmWallet';
 import BasicOperation from 'popup/pages/expand/EHome/BasicOperation';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 
@@ -33,7 +33,7 @@ const EHome = () => {
       content: <BasicOperation />,
     },
     { id: 2, title: 'Transactions', content: <Transactions /> },
-    { id: 3, title: 'Wallet info', content: <WalletInfo /> },
+    { id: 3, title: 'Wallet info', content: <ConfirmWallet /> },
     { id: 4, title: 'Settings', content: <Setting /> },
   ];
 
