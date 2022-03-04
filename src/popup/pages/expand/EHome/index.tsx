@@ -7,7 +7,7 @@ import Transactions from 'popup/components/Transactions';
 import closeModalAction from 'popup/actions/modal/close';
 import { openLoadingModal } from 'popup/components/Modals';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
-import WalletInfo from 'popup/pages/expand/EHome/WalletInfo';
+import WalletInfo from 'popup/pages/expand/EHome/WalletInfo/ConfirmWallet';
 import BasicOperation from 'popup/pages/expand/EHome/BasicOperation';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 
