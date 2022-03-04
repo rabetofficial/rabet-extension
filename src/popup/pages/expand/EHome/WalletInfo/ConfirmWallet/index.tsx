@@ -62,23 +62,32 @@ const ConfirmWallet = () => {
           <form onSubmit={handleSubmit} autoComplete="off">
             <Field name="password">
               {({ input, meta }) => (
-                <div>
-                  <label className="mb-[6px] text-base font-medium">
-                    Password
-                  </label>
-                  <Input
-                    type="password"
-                    placeholder="Enter your password"
-                    size="medium"
-                    variant="password"
-                    input={input}
-                    meta={meta}
-                  />
-                </div>
+                <>
+                  <div>
+                    <label className="mb-[6px] text-base font-medium">
+                      Password
+                    </label>
+                    <Input
+                      type="password"
+                      placeholder="Enter your password"
+                      size="medium"
+                      variant="password"
+                      input={input}
+                      meta={meta}
+                    />
+                  </div>
+
+                  {submitError && !meta.modifiedSinceLastSubmit ? (
+                    <Error>{submitError}</Error>
+                  ) : (
+                    ''
+                  )}
+                  {console.log(
+                    submitError && !meta.modifiedSinceLastSubmit,
+                  )}
+                </>
               )}
             </Field>
-
-            {submitError && <Error>{submitError}</Error>}
 
             <ButtonContainer btnSize={86} mt={32} justify="end">
               <Button
