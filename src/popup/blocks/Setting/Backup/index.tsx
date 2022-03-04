@@ -1,11 +1,13 @@
 import React from 'react';
-
-import Button from 'popup/components/common/Button';
-import Input from 'popup/components/common/Input';
-import CopyText from 'popup/components/CopyText';
 import { Form, Field } from 'react-final-form';
-import ButtonContainer from 'popup/components/common/ButtonContainer';
+import { customAlphabet, urlAlphabet } from 'nanoid';
+
+import CopyText from 'popup/components/CopyText';
+import Input from 'popup/components/common/Input';
 import PageTitle from 'popup/components/PageTitle';
+import Button from 'popup/components/common/Button';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
@@ -13,73 +15,96 @@ type BackupProps = {
   onClose: () => void;
 };
 
-const Backup = ({ onClose }: BackupProps) => (
-  <div style={{ width: '80%' }}>
-    <PageTitle
-      isSetting
-      padding="0"
-      title="Backup"
-      onClose={onClose}
-    />
+type FormValues = {
+  password: string;
+};
 
-    <S.info>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-      eiusmod tempor
-    </S.info>
-    <div style={{ marginTop: '24px' }}>
-      <S.Label>Key</S.Label>
-      <S.Box>
-        w5qSjNMeT33XpAfHeuKJ
-        <S.Copy>
-          <CopyText copyButton text="w5qSjNMeT33XpAfHeuKJ" />
-        </S.Copy>
-      </S.Box>
-    </div>
-    <Form
-      onSubmit={onClose}
-      render={({
-        submitError,
-        handleSubmit,
-        submitting,
-        pristine,
-      }) => (
-        <form
-          className="form"
-          onSubmit={handleSubmit}
-          autoComplete="off"
-        >
-          <Field name="password">
-            {({ input, meta }) => (
-              <div>
-                <S.Label>Password</S.Label>
-                <Input
-                  type="password"
-                  placeholder="Enter your password"
-                  size="medium"
-                  variant="password"
-                  input={input}
-                  meta={meta}
-                  autoFocus
-                />
-              </div>
+const Backup = ({ onClose }: BackupProps) => {
+  const user = useTypedSelector((store) => store.user);
+
+  const nanoid = customAlphabet(urlAlphabet, 10);
+  const id = nanoid(20);
+
+  const onSubmit = (values: FormValues) => {
+    if (user.password !== values.password) {
+      return {
+        password: 'Password is incorrect',
+      };
+    }
+
+    console.log('NOW GIMME THE BACKUP');
+  };
+
+  return (
+    <div style={{ width: '80%' }}>
+      <PageTitle
+        isSetting
+        padding="0"
+        title="Backup"
+        onClose={onClose}
+      />
+
+      <S.info>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+        do eiusmod tempor
+      </S.info>
+      <div style={{ marginTop: '24px' }}>
+        <S.Label>Key</S.Label>
+        <S.Box>
+          {id}
+          <S.Copy>
+            <CopyText copyButton text={id} />
+          </S.Copy>
+        </S.Box>
+      </div>
+      <Form
+        onSubmit={onSubmit}
+        render={({
+          submitError,
+          handleSubmit,
+          submitting,
+          pristine,
+        }) => (
+          <form
+            className="form"
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
+            <Field name="password">
+              {({ input, meta }) => (
+                <div>
+                  <S.Label>Password</S.Label>
+                  <Input
+                    type="password"
+                    placeholder="Enter your password"
+                    size="medium"
+                    variant="password"
+                    input={input}
+                    meta={meta}
+                    autoFocus
+                  />
+                </div>
+              )}
+            </Field>
+
+            {submitError && (
+              <div className="error">{submitError}</div>
             )}
-          </Field>
 
-          {submitError && <div className="error">{submitError}</div>}
-
-          <ButtonContainer btnSize={120} mt={32} justify="end">
-            <Button
-              type="submit"
-              variant="primary"
-              size="medium"
-              content="Download"
-              disabled={pristine || submitting}
-            />
-          </ButtonContainer>
-        </form>
-      )}
-    />
-  </div>
-);
+            <ButtonContainer btnSize={120} mt={32} justify="end">
+              <Button
+                type="submit"
+                variant="primary"
+                size="medium"
+                content="Download"
+                disabled={pristine || submitting}
+              />
+            </ButtonContainer>
+          </form>
+        )}
+      />
+    </div>
+  );
+};
 
 export default Backup;
