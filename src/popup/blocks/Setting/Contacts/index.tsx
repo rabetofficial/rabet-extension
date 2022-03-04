@@ -81,7 +81,13 @@ const Contact = ({ onClose }: ContactProps) => {
                   </S.IconContainer>
                 </div>
                 <div>
-                  <S.Name>{contact.name}</S.Name>
+                  <S.Name>
+                    {contact.name.length > 20 ? (
+                      <span>{`${contact.name.slice(0, 10)}...`}</span>
+                    ) : (
+                      <span>{contact.name}</span>
+                    )}
+                  </S.Name>
                   <S.Address>
                     {shorter(contact.publicKey, 8)}
                   </S.Address>
