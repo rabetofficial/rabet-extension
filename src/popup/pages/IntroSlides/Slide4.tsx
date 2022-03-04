@@ -14,7 +14,7 @@ const ForthSlide = () => {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate(RouteName.IntroSlides);
+    navigate(RouteName.Register);
   };
 
   return (

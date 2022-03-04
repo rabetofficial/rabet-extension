@@ -33,6 +33,10 @@ const CreateContact = ({ onClose, TitlePage }: CreateContactType) => {
 
     if (!values.name) {
       errors.name = '';
+    } else {
+      if (values.name.length > 50) {
+        errors.name = 'Name cannot be more than 50 characters.';
+      }
     }
 
     if (!values.publicKey) {

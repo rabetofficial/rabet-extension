@@ -18,7 +18,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
       return <Navigate to={RouteName.Login} />;
     }
 
-    return <Navigate to={RouteName.Register} />;
+    return <Navigate to={RouteName.Introduction} />;
   }
 
   return children;

@@ -40,6 +40,7 @@ const Slides = () => {
         <S.Indicators index={i} disabled={i > slideIndex} />
       ),
   };
+
   return (
     <SlidesLayout>
       <S.SlidesContainer>

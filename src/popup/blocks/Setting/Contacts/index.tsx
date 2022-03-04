@@ -60,7 +60,7 @@ const Contact = ({ onClose }: ContactProps) => {
         type="file"
         variant="outlined"
         size="medium"
-        content="Add Contacts"
+        content="Add Contact"
         startIcon={<Plus />}
         onClick={openAddContactModal}
         style={{
@@ -91,7 +91,7 @@ const Contact = ({ onClose }: ContactProps) => {
               {contact.memo && (
                 <div>
                   <S.Title>Memo</S.Title>
-                  <S.Code>{contact.memo}</S.Code>
+                  <S.Code>{contact.memo || '-'}</S.Code>
                 </div>
               )}
 
