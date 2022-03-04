@@ -25,14 +25,11 @@ const Setting = () => {
     changeContent(<SettingMainPage />);
   };
 
-  const description =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor';
-
   const settingList: SettingPage[] = [
     {
       id: '1',
       title: 'General',
-      description,
+      description: 'Currency conversion, Mode, Explorer',
       onClick: () => {
         changeContent(<General onClose={showMainPage} />);
       },
@@ -40,7 +37,7 @@ const Setting = () => {
     {
       id: '2',
       title: 'Change password',
-      description,
+      description: 'Change your wallet password',
       onClick: () => {
         changeContent(<ChangePassword onClose={showMainPage} />);
       },
@@ -48,7 +45,7 @@ const Setting = () => {
     {
       id: '3',
       title: 'Backup',
-      description,
+      description: 'Get a backup of all your imported wallets',
       onClick: () => {
         changeContent(<Backup onClose={showMainPage} />);
       },
@@ -56,7 +53,7 @@ const Setting = () => {
     {
       id: '4',
       title: 'Contacts',
-      description,
+      description: 'Add, edit, delete and manage your contacts',
       onClick: () => {
         changeContent(<Contacts onClose={showMainPage} />);
       },
@@ -64,7 +61,7 @@ const Setting = () => {
     {
       id: '5',
       title: 'About',
-      description,
+      description: 'Version, Contact info, Community',
       onClick: () => {
         changeContent(<About onClose={showMainPage} />);
       },
