@@ -33,7 +33,7 @@ export const ModalTrigger = styled.div`
 `;
 
 export const Img = styled(Image)`
-  width: 18px;
+  width: 24px;
   height: auto;
   margin-right: 4px;
 `;

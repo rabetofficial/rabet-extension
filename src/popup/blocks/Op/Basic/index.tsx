@@ -26,7 +26,11 @@ const BasicOp = ({ modes, onChange, selected, usage }: AppProps) => (
         isSearchable={false}
       />
 
-      {selected.value === 'swap' ? <Swap /> : <Send usage={usage} />}
+      {selected.value === 'swap' ? (
+        <Swap usage={usage} />
+      ) : (
+        <Send usage={usage} />
+      )}
     </Card>
   </ScrollBar>
 );
