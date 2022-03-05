@@ -10,11 +10,24 @@ import { Usage } from 'popup/models';
 import isNative from 'popup/utils/isNative';
 import matchAsset from 'popup/utils/matchAsset';
 import nativeAsset from 'popup/utils/nativeAsset';
-import SwapDetails from 'popup/pageComponents/SwapDetails';
+import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
 import Swap from 'popup/svgs/Swap';
 import Rotate from 'popup/svgs/Rotate';
 
 import * as S from './styles';
+
+type FormValues = {
+  from: number;
+  to: number;
+  asset1: any;
+  asset2: any;
+};
+
+declare global {
+  interface Window {
+    calculateTo: () => void;
+  }
+}
 
 type AppProps = {
   usage: Usage;
@@ -68,7 +81,7 @@ const BasicSwap = ({ usage }: AppProps) => {
     setTimeout(() => {
       setLoading(true);
       setShowSwapInfo(false);
-      window.calculateTo();
+      ((window as Window) && typeof globalThis).calculateTo();
     }, 150);
   };
 
@@ -88,8 +101,6 @@ const BasicSwap = ({ usage }: AppProps) => {
     }, 150);
   };
 
-  const onSubmit = async (v) => {};
-
   const handleFieldFrom = async () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -99,11 +110,17 @@ const BasicSwap = ({ usage }: AppProps) => {
     setShowSwapInfo(false);
   };
 
-  const handleFieldTo = (e) => {
+  const handleFieldTo = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
   };
 
-  const validate = (v) => {};
+  const onSubmit = async (v: FormValues) => {
+    console.warn(v);
+  };
+
+  const validate = (v: FormValues) => {
+    console.warn(v);
+  };
 
   return (
     <Form
@@ -133,12 +150,8 @@ const BasicSwap = ({ usage }: AppProps) => {
             </div>
 
             <Field name="asset1">
-              {({ input, meta }) => (
+              {() => (
                 <SelectAsset
-                  input={input}
-                  meta={meta}
-                  max
-                  form={form}
                   currencies={balances1}
                   onChange={handleChangeAsset1}
                 />
@@ -169,17 +182,15 @@ const BasicSwap = ({ usage }: AppProps) => {
             </div>
 
             <Field name="asset2">
-              {({ input, meta }) => (
+              {() => (
                 <SelectAsset
-                  input={input}
-                  meta={meta}
-                  max={false}
                   currencies={balances2}
                   onChange={handleChangeAsset2}
                 />
               )}
             </Field>
           </S.ModalInput>
+
           {invalid && loading ? <p>LOADING</p> : null}
 
           {showSwapInfo ? (
@@ -188,8 +199,10 @@ const BasicSwap = ({ usage }: AppProps) => {
                 1 BTC = 12 ETH
                 <Rotate />
               </S.Equivalent>
+
               <S.Hr />
-              <SwapDetails
+
+              <SwapDetail
                 form={form}
                 path={path}
                 asset1={selectedAsset1}
