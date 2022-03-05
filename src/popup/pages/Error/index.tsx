@@ -1,17 +1,17 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import Header from '../../components/Header';
-import Error from '../../pageComponents/Error';
-import * as route from '../../staticRes/routes';
-import PageTitle from '../../components/PageTitle';
+import Header from 'popup/components/common/Header';
+import Error from 'popup/pageComponents/Error';
+import RouteName from 'popup/staticRes/routes';
+import PageTitle from 'popup/components/PageTitle';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
   const handleClick = () => {
-    navigate(route.homePage, {
+    navigate(RouteName.Home, {
       state: {
         alreadyLoaded: true,
       },
@@ -23,8 +23,9 @@ const ErrorPage = () => {
       <Header />
 
       <PageTitle />
-
-      <Error handleClick={handleClick} error={state.message} />
+      <div className="flex my-auto">
+        <Error handleClick={handleClick} error={state.message} />
+      </div>
     </>
   );
 };

@@ -1,25 +1,37 @@
 import styled from 'styled-components';
 
 export const Content = styled.div`
-  padding-top: 24px;
+  padding: 20px 16px 0px;
 `;
 
 export const Ttile = styled.h6`
+  margin: 8px 0 -20px 0;
   font-size: 16px;
   font-weight: normal;
   line-height: 1.5;
-  margin: 0 0 -20px 0;
   color: ${({ theme }) => theme.colors.primary.dark};
 `;
 
 export const Div = styled.div`
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 29px;
+  margin-top: 26px;
 `;
 
 export const First = styled.div`
   margin-top: 32px !important;
+`;
+export const ErrorBox = styled.div`
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  padding: 8px 12px 8px 14px;
+  border-radius: 2px;
+  border: solid 1px #fbeded;
+  background-color: #fff4f4;
+  color: #ce3d3d;
 `;
 
 export const ToggleTitle = styled.h3`

@@ -8,6 +8,7 @@ import loadTransactions from 'popup/features/loadTransactions';
 import Transaction from './Transaction';
 import Loading from '../Loading';
 import ScrollBar from '../common/ScrollBar';
+import Nodata from '../common/Nodata';
 
 type TransactionsType = {
   ScrollMaxHeight?: number;
@@ -46,9 +47,7 @@ const Transactions = ({
         className="flex justify-center items-center"
         style={{ height: isExtention ? '200px' : '60vh' }}
       >
-        <p className="text-primary text-base">
-          You have no transaction
-        </p>
+        <Nodata msg="You have no transaction" className="text-base" />
       </div>
     );
   }

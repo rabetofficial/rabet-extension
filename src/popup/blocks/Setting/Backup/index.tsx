@@ -55,7 +55,7 @@ const Backup = ({ onClose, needTitle }: BackupProps) => {
       <div style={{ marginTop: '24px' }}>
         <TooltipLabel
           text="Key"
-          tooltipText="Rabet will lock automatically after a set amount of time."
+          tooltipText="Please make sure you save this key because the backup file will be encrypted with it, and if you lose it, you will not be able to import your wallets."
         />
         <S.Box>
           {id}

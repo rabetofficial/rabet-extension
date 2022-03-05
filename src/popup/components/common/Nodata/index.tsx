@@ -7,7 +7,7 @@ type AppProps = {
 
 const NoDate = ({ msg, className }: AppProps) => (
   <div
-    className={`text-sm text-primary-dark py-6 text-center ${className}`}
+    className={`text-base text-primary py-6 text-center font-medium	${className}`}
   >
     {msg}
   </div>

@@ -1,8 +1,8 @@
 import StellarSdk from 'stellar-sdk';
 
-import * as route from '../../staticRes/routes';
-import currentActiveAccount from '../../utils/activeAccount';
-import currentNetwork from '../../utils/currentNetwork';
+import RouteName from 'popup/staticRes/routes';
+import currentActiveAccount from 'popup/utils/activeAccount';
+import currentNetwork from 'popup/utils/currentNetwork';
 
 export default async (
   {
@@ -13,7 +13,7 @@ export default async (
   },
   push,
 ) => {
-  push(route.loadingNetworkPage);
+  push(RouteName.LoadingNetwork);
 
   const { activeAccount } = currentActiveAccount();
   const { url, passphrase } = currentNetwork();
@@ -75,14 +75,14 @@ export default async (
       return server.submitTransaction(transaction);
     })
     .then((result) => {
-      push(route.successSubmitPage, {
+      push(RouteName.Sucess, {
         state: {
           hash: result.hash,
         },
       });
     })
     .catch((err) => {
-      push(route.errorPage, {
+      push(RouteName.Error, {
         state: {
           message: err.message,
         },

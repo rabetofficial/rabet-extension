@@ -1,5 +1,5 @@
 import React from 'react';
-import SettingGeneral from 'popup/blocks/Setting/General';
+import SettingComponent from 'popup/blocks/Setting';
 import Header from 'popup/components/common/Header';
 import ExtTitle from 'popup/components/common/Title/Ext';
 
@@ -9,7 +9,7 @@ const Setting = () => (
 
     <div className="content">
       <ExtTitle title="Setting" className="mt-[20px]" />
-      <SettingGeneral needTitle={false} />
+      <SettingComponent />
     </div>
   </>
 );

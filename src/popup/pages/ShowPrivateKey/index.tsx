@@ -6,6 +6,7 @@ import ShowPrivateKeyComponent, {
   FormValues,
 } from 'popup/pageComponents/ShowPrivateKey';
 import showPrivateKeyAction from 'popup/actions/accounts/showPrivateKey';
+import ExtTitle from 'popup/components/common/Title/Ext';
 
 const ShowPrivateKey = () => {
   const navigate = useNavigate();
@@ -30,10 +31,9 @@ const ShowPrivateKey = () => {
     });
   };
   return (
-    <ShowPrivateKeyComponent
-      onCancel={onCancel}
-      onSubmit={onSubmit}
-    />
+    <ShowPrivateKeyComponent onCancel={onCancel} onSubmit={onSubmit}>
+      <ExtTitle title="Show private key" />
+    </ShowPrivateKeyComponent>
   );
 };
 

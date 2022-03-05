@@ -15,6 +15,7 @@ import { Contact as ContactType } from 'popup/reducers/contacts';
 import * as S from './styles';
 import EditContact from './EditContact';
 import CreateContact from './CreateContact';
+import CopyText from 'popup/components/common/CopyText';
 
 type ContactProps = {
   onClose: () => void;
@@ -91,9 +92,14 @@ const Contact = ({ onClose, needTitle }: ContactProps) => {
                       <span>{contact.name}</span>
                     )}
                   </S.Name>
-                  <S.Address>
-                    {shorter(contact.publicKey, 8)}
-                  </S.Address>
+                  <CopyText
+                    text={contact.publicKey}
+                    custom={
+                      <S.Address>
+                        {shorter(contact.publicKey, 8)}
+                      </S.Address>
+                    }
+                  />
                 </div>
               </div>
 

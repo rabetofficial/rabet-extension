@@ -1,16 +1,16 @@
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
+import RouteName from 'popup/staticRes/routes';
 import Header from 'popup/components/common/Header';
 import Button from 'popup/components/common/Button';
-import Tooltip from 'popup/components/Tooltip';
-import RouteName from 'popup/staticRes/routes';
-import PageTitle from 'popup/components/PageTitle';
-import ToggleSwitch from 'popup/components/ToggleSwitch';
+import Tooltip from 'popup/components/common/Tooltips';
+import ExtTitle from 'popup/components/common/Title/Ext';
+import ScrollBar from 'popup/components/common/ScrollBar';
 import currentActiveAccount from 'popup/utils/activeAccount';
 import setFlagsAction from 'popup/actions/operations/setFlags';
+import ToggleSwitch from 'popup/components/common/ToggleSwitch';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
@@ -97,30 +97,25 @@ const Flags = () => {
 
   return (
     <>
-      <div className="hidden-scroll content-scroll">
+      <ScrollBar isHidden maxHeight={600}>
         <Header />
-        <PageTitle title="Flags" padding="0" />
         <S.Content>
+          <ExtTitle title="Flags" />
           <S.Ttile>
             Currently, there are 4 flags, used by issuers of assets.
             in below you can see your flags status:
           </S.Ttile>
-
           <S.Div>
-            <div className="pure-u-2-3">
+            <div>
               <S.ToggleTitle>
                 Authorization required
-                <Tooltip
-                  trigger="hover"
-                  tooltip={tooltipInfo.required}
-                  placement="top"
-                >
+                <Tooltip text={tooltipInfo.required} placement="top">
                   <span className="icon-question-mark" />
                 </Tooltip>
               </S.ToggleTitle>
             </div>
 
-            <div className="pure-u-1-3">
+            <div>
               <ToggleSwitch
                 disabled={disabled}
                 checked={auth_required}
@@ -128,22 +123,17 @@ const Flags = () => {
               />
             </div>
           </S.Div>
-
           <S.Div>
-            <div className="pure-u-2-3">
+            <div>
               <S.ToggleTitle>
                 Authorization revocable
-                <Tooltip
-                  trigger="hover"
-                  tooltip={tooltipInfo.revocable}
-                  placement="top"
-                >
+                <Tooltip text={tooltipInfo.revocable} placement="top">
                   <span className="icon-question-mark" />
                 </Tooltip>
               </S.ToggleTitle>
             </div>
 
-            <div className="pure-u-1-3">
+            <div>
               <ToggleSwitch
                 disabled={disabled}
                 checked={auth_revocable}
@@ -151,22 +141,17 @@ const Flags = () => {
               />
             </div>
           </S.Div>
-
           <S.Div>
-            <div className="pure-u-2-3">
+            <div>
               <S.ToggleTitle>
                 Authorization immutable
-                <Tooltip
-                  trigger="hover"
-                  tooltip={tooltipInfo.immutable}
-                  placement="top"
-                >
+                <Tooltip text={tooltipInfo.immutable} placement="top">
                   <span className="icon-question-mark" />
                 </Tooltip>
               </S.ToggleTitle>
             </div>
 
-            <div className="pure-u-1-3">
+            <div>
               <ToggleSwitch
                 disabled={disabled}
                 checked={auth_immutable}
@@ -174,59 +159,54 @@ const Flags = () => {
               />
             </div>
           </S.Div>
-
           <S.Div>
-            <div className="pure-u-2-3">
+            <div>
               <S.ToggleTitle>
                 Clawback enabled
-                <Tooltip
-                  trigger="hover"
-                  tooltip={tooltipInfo.clawback}
-                  placement="top"
-                >
+                <Tooltip text={tooltipInfo.clawback} placement="top">
                   <span className="icon-question-mark" />
                 </Tooltip>
               </S.ToggleTitle>
             </div>
 
-            <div className="pure-u-1-3">
+            <div>
               <ToggleSwitch
                 disabled={disabled}
                 checked={auth_clawback_enabled}
                 handleChange={handleClawbackEnabled}
               />
             </div>
-
-            {disabled ? (
-              <div
-                className="error-box"
-                style={{ marginTop: '16px' }}
-              >
-                You can no longer change the status of your flags
-                because you have already activated theImmutable flag.
-              </div>
-            ) : (
-              ''
-            )}
           </S.Div>
+          {disabled ? (
+            <S.ErrorBox style={{ marginTop: '8px' }}>
+              You can no longer change the status of your flags
+              because you have already activated theImmutable flag.
+            </S.ErrorBox>
+          ) : (
+            ''
+          )}
+          <ButtonContainer
+            gap={12}
+            mt={12}
+            btnSize={100}
+            justify="end"
+          >
+            <Button
+              variant="default"
+              size="medium"
+              content="Cancel"
+              onClick={onCancel}
+            />
+            <Button
+              disabled={disabled}
+              onClick={handleSubmit}
+              variant="primary"
+              size="medium"
+              content="Save"
+            />
+          </ButtonContainer>
         </S.Content>
-      </div>
-
-      <ButtonContainer gap={12} mt={12} btnSize={100}>
-        <Button
-          variant="default"
-          size="medium"
-          content="Cancel"
-          onClick={onCancel}
-        />
-        <Button
-          disabled={disabled}
-          onClick={handleSubmit}
-          variant="primary"
-          size="medium"
-          content="Save"
-        />
-      </ButtonContainer>
+      </ScrollBar>
     </>
   );
 };
