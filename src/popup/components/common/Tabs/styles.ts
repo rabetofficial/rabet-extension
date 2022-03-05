@@ -7,8 +7,8 @@ export const Tabs = styled.ul`
   display: flex;
   border-bottom: 1.5px solid
     ${({ theme }) => theme.colors.primary.lighter};
-  @media(max-width:360px){
-    padding 0 16px;
+  @media (max-width: 360px) {
+    margin: 0 16px;
   }
 `;
 

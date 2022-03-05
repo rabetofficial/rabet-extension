@@ -14,7 +14,7 @@ const TabList = () => {
     {
       id: '2',
       title: 'Transactions',
-      content: <Transactions ScrollMaxHeight={200} />,
+      content: <Transactions ScrollMaxHeight={200} isExtention />,
     },
   ];
 

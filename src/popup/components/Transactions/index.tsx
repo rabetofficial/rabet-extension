@@ -9,8 +9,14 @@ import Transaction from './Transaction';
 import Loading from '../Loading';
 import ScrollBar from '../common/ScrollBar';
 
-type TransactionsType = { ScrollMaxHeight?: number };
-const Transactions = ({ ScrollMaxHeight }: TransactionsType) => {
+type TransactionsType = {
+  ScrollMaxHeight?: number;
+  isExtention?: boolean;
+};
+const Transactions = ({
+  ScrollMaxHeight,
+  isExtention,
+}: TransactionsType) => {
   const { publicKey } = useActiveAccount();
   const [transactions, setTransactions] = useState<
     ServerApi.CollectionPage<ServerApi.OperationRecord>[]
@@ -26,14 +32,20 @@ const Transactions = ({ ScrollMaxHeight }: TransactionsType) => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-[50vh] ">
+      <div
+        className="flex justify-center items-center"
+        style={{ height: isExtention ? '200px' : '60vh' }}
+      >
         <Loading size={80} />
       </div>
     );
   }
   if (transactions.length === 0) {
     return (
-      <div className="flex justify-center items-center h-[50vh]">
+      <div
+        className="flex justify-center items-center"
+        style={{ height: isExtention ? '200px' : '60vh' }}
+      >
         <p className="text-primary text-base">
           You have no transaction
         </p>
@@ -63,5 +75,8 @@ const ContentContainer = styled.div`
   }
 `;
 
-Transactions.defaultProps = { ScrollMaxHeight: 600 };
+Transactions.defaultProps = {
+  ScrollMaxHeight: 600,
+  isExtention: false,
+};
 export default Transactions;

@@ -1,4 +1,3 @@
-// @import '../../../styles/theme.less';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -43,23 +42,35 @@ export const Value = styled.div`
 
 export const XlmBox = styled.div`
   padding: 12px 0 12px 0;
+  position: relative;
 `;
 
 export const ModalInactive = styled.span`
+  position: absolute;
+  top: 20px;
+  right: 16px;
   border: 1px solid #f48b00;
-  width: 10px;
-  height: 10px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
+  margin-left: 40px;
 `;
 
-export const ModalActive = styled(ModalInactive)`
+export const ModalActive = styled.span`
+  position: absolute;
+  top: 20px;
+  right: 16px;
   border: 1px solid ${({ theme }) => theme.colors.success};
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-left: 40px;
 `;
 
 export const DropDown = styled.span`
   position: absolute;
-  top: 170px;
-  right: 8px;
+  top: 190px;
+  right: 16px;
 `;
 
 export const ModalBtn = styled.div`
