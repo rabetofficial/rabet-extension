@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 
 import BN from 'helpers/BN';
+import { IAccount } from 'popup/reducers/accounts2';
 import loadAssetBalance from 'popup/features/loadAssetBalance';
 
 import useActiveAccount from './useActiveAccount';
 import useTypedSelector from './useTypedSelector';
 import useActiveCurrency from './useActiveCurrency';
 
-const useTotalBalance = () => {
-  const account = useActiveAccount();
+const useTotalBalance = (acc: IAccount) => {
+  const activeAccount = useActiveAccount();
   const [options, bids] = useTypedSelector((store) => [
     store.options,
     store.bids,
@@ -16,6 +17,8 @@ const useTotalBalance = () => {
   const [totalBalance, setTotalBalance] = useState('0');
   const activeCurrency = useActiveCurrency();
   const currencyPrice = new BN(activeCurrency?.price || 0);
+
+  const account = acc || activeAccount;
 
   useEffect(() => {
     const assets = account.assets || [];

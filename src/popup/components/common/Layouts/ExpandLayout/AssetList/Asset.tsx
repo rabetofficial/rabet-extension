@@ -31,13 +31,24 @@ const Asset = ({ asset }: AssetType) => {
   const price = useAssetPrice(asset);
 
   let asset_code: string;
+  let isVerified = false;
 
   if (
     asset.asset_type === 'credit_alphanum4' ||
     asset.asset_type === 'credit_alphanum12'
   ) {
     asset_code = asset.asset_code;
+    const assetImageFound = assetImages.find(
+      (assetImage) =>
+        assetImage.asset_code === asset.asset_code &&
+        assetImage.asset_issuer === asset.asset_issuer,
+    );
+
+    if (assetImageFound && assetImageFound.is_verified) {
+      isVerified = true;
+    }
   } else {
+    isVerified = true;
     asset_code = 'XLM';
   }
 
@@ -60,9 +71,11 @@ const Asset = ({ asset }: AssetType) => {
             <span className="text-primary-dark font-normal ml-1">
               {asset_code}
             </span>
-            <div className="ml-1 mt-1">
-              <BlackCheck width="16" height="16" />
-            </div>
+            {isVerified && (
+              <div className="ml-1 mt-1">
+                <BlackCheck width="16" height="16" />
+              </div>
+            )}
           </div>
           <div className="text-sm text-primary-dark mt-[2px]">
             {handleAssetSymbol(currencies, options)}

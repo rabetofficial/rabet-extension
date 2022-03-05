@@ -1,9 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { homePage } from 'popup/staticRes/routes';
 import Multiply from 'popup/svgs/Multiply';
+import RouteName from 'popup/staticRes/routes';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 import * as S from './styles';
 
@@ -20,8 +20,8 @@ const ExtTitle = ({
   alreadyLoaded,
   className,
 }: AppProps) => {
-  const accounts = useSelector((state) => state.accounts);
   const navigate = useNavigate();
+  const accounts = useTypedSelector((state) => state.accounts);
 
   const generateTitle = () => {
     if (status) {
@@ -42,7 +42,7 @@ const ExtTitle = ({
 
   const handleClose = () => {
     if (accounts.length) {
-      return navigate(homePage, {
+      return navigate(RouteName.Home, {
         state: {
           alreadyLoaded,
         },

@@ -45,8 +45,12 @@ const ChangePassword = ({ onClose }: ChangePasswordProps) => {
     }
 
     if (!hasError.oldPassword && !hasError.newPassword) {
-      if (values.newPassword !== values.confirm) {
-        errors.confirm = 'Passwords do not match.';
+      if (!values.confirm) {
+        errors.confirm = '';
+      } else {
+        if (values.newPassword !== values.confirm) {
+          errors.confirm = 'Passwords do not match.';
+        }
       }
     }
 
@@ -85,7 +89,12 @@ const ChangePassword = ({ onClose }: ChangePasswordProps) => {
       <Form
         onSubmit={onSubmit}
         validate={validateForm}
-        render={({ submitError, handleSubmit, invalid }) => (
+        render={({
+          pristine,
+          submitting,
+          submitError,
+          handleSubmit,
+        }) => (
           <form onSubmit={handleSubmit} autoComplete="off">
             <Field name="oldPassword">
               {({ input, meta }) => (
@@ -154,7 +163,7 @@ const ChangePassword = ({ onClose }: ChangePasswordProps) => {
                 variant="primary"
                 size="medium"
                 content="Change"
-                disabled={invalid}
+                disabled={submitting || pristine}
               />
             </ButtonContainer>
           </form>

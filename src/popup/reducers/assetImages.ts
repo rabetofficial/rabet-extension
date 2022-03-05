@@ -6,7 +6,9 @@ export interface AssetImage {
   asset_issuer: string;
   logo: string;
   domain: string;
-  is_verified?: string;
+  is_verified: boolean;
+  trustline: number;
+  description: string;
 }
 
 export interface AssetImageWithActive extends AssetImage {

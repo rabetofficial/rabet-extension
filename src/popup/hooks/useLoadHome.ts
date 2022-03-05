@@ -16,8 +16,9 @@ const useLoadHome = () => {
   const { network } = useTypedSelector((store) => store.options);
 
   useEffect(() => {
-    loadCurrencies();
+    setIsLoading(true);
 
+    loadCurrencies();
     loadAccount(activeAccount).then(() => {
       loadBids();
       loadAssetImages();

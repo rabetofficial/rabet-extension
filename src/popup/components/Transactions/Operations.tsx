@@ -110,7 +110,10 @@ export const OperationsTx = ({
   let name = 'Multi Operations';
 
   if (type === 'single') {
-    name = props.operation_name;
+    name = props.operation_name
+      .split(' ')
+      .map((word: string) => word[0].toUpperCase() + word.slice(1))
+      .join(' ');
   }
 
   return (

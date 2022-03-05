@@ -153,9 +153,7 @@ const CustomAsset = ({ onSubmit, onCancel }: CustomAssetTypes) => {
               variant="primary"
               size="medium"
               content="Add"
-              disabled={
-                invalid || pristine || submitting || account.inactive
-              }
+              disabled={invalid || pristine || submitting}
             />
           </ButtonContainer>
         </form>

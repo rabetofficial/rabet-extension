@@ -3,7 +3,7 @@ const config = {
   VERSION: '1.2.0',
   INTERVAL_TIME_SECONDS: 13,
   OFFLINE_MODE_TIMEOUT_SECONDS: 4,
-  ASSET_SERVER: 'https://assets.rabet.io',
+  ASSET_SERVER: 'https://asset.rabet.io/assets',
   HORIZON: {
     mainnet: 'https://horizon.stellar.org',
     testnet: 'https://horizon-testnet.stellar.org',

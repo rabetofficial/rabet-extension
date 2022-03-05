@@ -139,7 +139,7 @@ const SearchAsset = ({ onSubmit, onCancel }: AppProps) => {
                   variant="primary"
                   size="medium"
                   content="Add"
-                  disabled={!selectedList.length || account.inactive}
+                  disabled={!selectedList.length}
                 />
               </ButtonContainer>
             </>
