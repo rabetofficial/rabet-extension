@@ -18,9 +18,13 @@ export type FormValues = {
 
 type ChangePasswordProps = {
   onClose: () => void;
+  needTitle?: boolean;
 };
 
-const ChangePassword = ({ onClose }: ChangePasswordProps) => {
+const ChangePassword = ({
+  onClose,
+  needTitle,
+}: ChangePasswordProps) => {
   const validateForm = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
 
@@ -79,12 +83,14 @@ const ChangePassword = ({ onClose }: ChangePasswordProps) => {
 
   return (
     <div style={{ width: '80%' }}>
-      <PageTitle
-        isSetting
-        padding="0"
-        onClose={onClose}
-        title="Change Password"
-      />
+      {needTitle && (
+        <PageTitle
+          isSetting
+          padding="0"
+          onClose={onClose}
+          title="Change Password"
+        />
+      )}
 
       <Form
         onSubmit={onSubmit}
@@ -172,5 +178,6 @@ const ChangePassword = ({ onClose }: ChangePasswordProps) => {
     </div>
   );
 };
+ChangePassword.defaultProps = { needTitle: true };
 
 export default ChangePassword;

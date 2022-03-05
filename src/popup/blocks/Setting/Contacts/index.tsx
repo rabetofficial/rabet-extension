@@ -18,9 +18,10 @@ import CreateContact from './CreateContact';
 
 type ContactProps = {
   onClose: () => void;
+  needTitle?: boolean;
 };
 
-const Contact = ({ onClose }: ContactProps) => {
+const Contact = ({ onClose, needTitle }: ContactProps) => {
   const contacts = useTypedSelector((store) => store.contacts);
 
   const openAddContactModal = () => {
@@ -49,12 +50,14 @@ const Contact = ({ onClose }: ContactProps) => {
 
   return (
     <div style={{ width: '80%' }}>
-      <PageTitle
-        isSetting
-        padding="0"
-        title="Contacts"
-        onClose={onClose}
-      />
+      {needTitle && (
+        <PageTitle
+          isSetting
+          padding="0"
+          title="Contacts"
+          onClose={onClose}
+        />
+      )}
 
       <Button
         type="file"
@@ -128,5 +131,7 @@ const Contact = ({ onClose }: ContactProps) => {
     </div>
   );
 };
+
+Contact.defaultProps = { needTitle: true };
 
 export default Contact;

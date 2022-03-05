@@ -9,7 +9,7 @@ const Setting = () => (
 
     <div className="content">
       <ExtTitle title="Setting" className="mt-[20px]" />
-      <SettingGeneral />
+      <SettingGeneral needTitle={false} />
     </div>
   </>
 );

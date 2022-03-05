@@ -14,13 +14,14 @@ import * as S from './styles';
 
 type BackupProps = {
   onClose: () => void;
+  needTitle?: boolean;
 };
 
 type FormValues = {
   password: string;
 };
 
-const Backup = ({ onClose }: BackupProps) => {
+const Backup = ({ onClose, needTitle }: BackupProps) => {
   const user = useTypedSelector((store) => store.user);
 
   const nanoid = customAlphabet(urlAlphabet, 10);
@@ -38,12 +39,14 @@ const Backup = ({ onClose }: BackupProps) => {
 
   return (
     <div style={{ width: '80%' }}>
-      <PageTitle
-        isSetting
-        padding="0"
-        title="Backup"
-        onClose={onClose}
-      />
+      {needTitle && (
+        <PageTitle
+          isSetting
+          padding="0"
+          title="Backup"
+          onClose={onClose}
+        />
+      )}
 
       <S.info>
         Save the key and download the backup file. With this file and
@@ -110,5 +113,6 @@ const Backup = ({ onClose }: BackupProps) => {
     </div>
   );
 };
+Backup.defaultProps = { needTitle: true };
 
 export default Backup;

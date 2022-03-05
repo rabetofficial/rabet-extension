@@ -43,9 +43,10 @@ const modeOptions = [
 
 type SettingProps = {
   onClose: () => void;
+  needTitle?: boolean;
 };
 
-const SettingGeneral = ({ onClose }: SettingProps) => {
+const SettingGeneral = ({ onClose, needTitle }: SettingProps) => {
   const options = useTypedSelector((store) => store.options);
   const [checked, setChecked] = useState(true);
 
@@ -147,12 +148,14 @@ const SettingGeneral = ({ onClose }: SettingProps) => {
 
   return (
     <>
-      <PageTitle
-        isSetting
-        title="General"
-        padding="0"
-        onClose={onClose}
-      />
+      {needTitle && (
+        <PageTitle
+          isSetting
+          title="General"
+          padding="0"
+          onClose={onClose}
+        />
+      )}
 
       <div className="flex justify-between items-center mt-[20px]">
         <TooltipLabel
@@ -246,7 +249,8 @@ const SettingGeneral = ({ onClose }: SettingProps) => {
       <ButtonContainer
         btnSize={100}
         justify="end"
-        // positionStyles={{ bottom: '32px' }}
+        mt={32}
+        positionStyles={{ bottom: '24px' }}
       >
         <S.MediaButton>
           <Button
@@ -261,4 +265,5 @@ const SettingGeneral = ({ onClose }: SettingProps) => {
   );
 };
 
+SettingGeneral.defaultProps = { needTitle: true };
 export default SettingGeneral;
