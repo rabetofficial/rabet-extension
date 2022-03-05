@@ -2,10 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   cursor: pointer;
-  @media (max-width: 360px) {
-    padding-right: 16px;
-    padding-left: 16px;
-  }
 `;
 
 export const Circle = styled.div`

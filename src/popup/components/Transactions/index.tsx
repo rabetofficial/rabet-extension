@@ -9,8 +9,8 @@ import Transaction from './Transaction';
 import Loading from '../Loading';
 import ScrollBar from '../common/ScrollBar';
 
-type TransactionsType = { ScrollMaxHight: number };
-const Transactions = ({ ScrollMaxHight }: TransactionsType) => {
+type TransactionsType = { ScrollMaxHeight?: number };
+const Transactions = ({ ScrollMaxHeight }: TransactionsType) => {
   const { publicKey } = useActiveAccount();
   const [transactions, setTransactions] = useState<
     ServerApi.CollectionPage<ServerApi.OperationRecord>[]
@@ -41,8 +41,8 @@ const Transactions = ({ ScrollMaxHight }: TransactionsType) => {
     );
   }
   return (
-    <ScrollBar isHidden maxHeight={ScrollMaxHight}>
-      <ContentContainer>
+    <ContentContainer>
+      <ScrollBar isHidden maxHeight={ScrollMaxHeight}>
         {transactions.map((tx, index) => (
           <div key={tx.records[0].transaction_hash}>
             <Transaction transaction={tx} publicKey={publicKey} />
@@ -51,15 +51,17 @@ const Transactions = ({ ScrollMaxHight }: TransactionsType) => {
             )}
           </div>
         ))}
-      </ContentContainer>
-    </ScrollBar>
+      </ScrollBar>
+    </ContentContainer>
   );
 };
 
 const ContentContainer = styled.div`
-  margin: -13px -20px 0px;
+  margin: -24px -20px 0px;
   @media (max-width: 360px) {
     margin-top: 0px;
   }
 `;
+
+Transactions.defaultProps = { ScrollMaxHeight: 600 };
 export default Transactions;

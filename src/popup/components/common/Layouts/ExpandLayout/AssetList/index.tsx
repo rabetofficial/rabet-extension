@@ -17,7 +17,8 @@ import {
 import Asset from './Asset';
 import { Border } from './styles';
 
-const AssetList = () => {
+type AssetsListType = { ScrollMaxHeight?: number };
+const AssetList = ({ ScrollMaxHeight }: AssetsListType) => {
   const { assets: asts } = useActiveAccount();
   const assets = asts || [];
 
@@ -83,11 +84,16 @@ const AssetList = () => {
   };
 
   if (!assets.length) {
-    return <NoDate msg="No Assets" />;
+    return (
+      <NoDate
+        msg="No Assets"
+        className="flex justify-center items-center min-h-[200px]"
+      />
+    );
   }
 
   return (
-    <ScrollBar isHidden maxHeight={320}>
+    <ScrollBar isHidden maxHeight={ScrollMaxHeight}>
       {assets.map((asset) => (
         <Border
           key={`assetList${handleAssetsKeys(asset)}`}
@@ -101,5 +107,7 @@ const AssetList = () => {
     </ScrollBar>
   );
 };
+
+AssetList.defaultProps = { ScrollMaxHeight: 320 };
 
 export default AssetList;

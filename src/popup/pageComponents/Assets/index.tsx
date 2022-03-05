@@ -7,11 +7,13 @@ import Button from 'popup/components/common/Button';
 import { openLoadingModal } from 'popup/components/Modals';
 import addAssetAction from 'popup/actions/operations/addAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import CopyText from 'popup/components/common/CopyText';
 
 import xlmLogo from '../../../assets/images/xlm-logo.svg';
 
 import * as S from './styles';
 import useAssetInfo from './useAssetInfo';
+import Copy from 'popup/svgs/Copy';
 
 type AssetType = {
   isNative?: boolean;
@@ -66,6 +68,21 @@ const Assets = ({
       >
         {assetData?.home_domain}
       </a>
+    );
+  };
+
+  const HandleIssuer = () => {
+    if (loading) {
+      return <S.Info>Loading</S.Info>;
+    }
+
+    return (
+      <div>
+        <CopyText
+          text={assetData?.asset_issuer}
+          custom={<S.Value>{assetData?.asset_issuer}</S.Value>}
+        />
+      </div>
     );
   };
 
@@ -140,7 +157,7 @@ const Assets = ({
     },
     {
       title: 'Issuer',
-      value: assetData?.asset_issuer || 'LOADING',
+      value: <HandleIssuer />,
     },
     {
       title: 'Website',

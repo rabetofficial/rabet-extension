@@ -12,10 +12,6 @@ export const Container = styled.div`
     background-color: ${({ theme }) => theme.colors.primary.lighter};
     transition: 1s background;
   }
-
-  @media (max-width: 360px) {
-    padding: 14px 38px 14px 35px;
-  }
 `;
 export const MainPart = styled.div`
   display: flex;

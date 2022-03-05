@@ -9,16 +9,23 @@ const TabList = () => {
     {
       id: '1',
       title: 'Assets',
-      content: <AssetList />,
+      content: <AssetList ScrollMaxHeight={200} />,
     },
     {
       id: '2',
       title: 'Transactions',
-      content: <Transactions ScrollMaxHight={320} />,
+      content: <Transactions ScrollMaxHeight={200} />,
     },
   ];
 
-  return <Tabs data={tabs} isEqualWidth titleClass="mt-4" />;
+  return (
+    <Tabs
+      data={tabs}
+      isEqualWidth
+      titleClass="mt-4"
+      contentClass="px-4"
+    />
+  );
 };
 
 export default TabList;
