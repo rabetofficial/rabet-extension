@@ -12,7 +12,7 @@ import matchAsset from 'popup/utils/matchAsset';
 import nativeAsset from 'popup/utils/nativeAsset';
 import SwapDetails from 'popup/pageComponents/SwapDetails';
 import Swap from 'popup/svgs/Swap';
-import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
+import Rotate from 'popup/svgs/Rotate';
 
 import * as S from './styles';
 
@@ -186,7 +186,7 @@ const BasicSwap = ({ usage }: AppProps) => {
             <>
               <S.Equivalent>
                 1 BTC = 12 ETH
-                <img src={iconRotateSrc} alt="icon" />
+                <Rotate />
               </S.Equivalent>
               <S.Hr />
               <SwapDetails

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Modal from 'popup/components/common/ModalDialog';
-import angleDownIcon from '../../../../../assets/images/angle-down.svg';
+import AngleDownBold from 'popup/svgs/AngleDownBold';
 import questionLogo from '../../../../../assets/images/question-circle.png';
 import SearchAsset from './Search';
 
@@ -60,7 +60,7 @@ const SelectAssetModal = ({
             <p>NONE</p>
           )}
         </div>
-        <img src={angleDownIcon} alt="icon" />
+        <AngleDownBold />
       </S.ModalTrigger>
 
       <Modal

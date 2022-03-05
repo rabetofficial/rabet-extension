@@ -30,7 +30,7 @@ export const Equivalent = styled.div`
   justify-content: right;
   align-items: center;
 
-  img {
+  svg {
     margin-left: 4px;
   }
 `;
