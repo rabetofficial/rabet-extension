@@ -30,7 +30,7 @@ export const Label = styled.p`
 
 export const Value = styled.div`
   font-size: 20px;
-  color: @shark;
+  color: #262728;
   font-weight: 500;
   text-align: center;
   margin: -3px auto 0;
@@ -70,7 +70,7 @@ export const ModalActive = styled.span`
 
 export const DropDown = styled.span`
   position: absolute;
-  top: 107px;
+  top: 165px;
   right: 16px;
 `;
 
