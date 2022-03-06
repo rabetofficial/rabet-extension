@@ -39,9 +39,3 @@ export const Box = styled.div`
     flex-direction: column;
   }
 `;
-export const Copy = styled.div`
-  display: block;
-  width: fit-content;
-  margin-top: 4px;
-  margin-left: auto;
-`;

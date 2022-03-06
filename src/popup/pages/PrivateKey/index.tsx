@@ -29,9 +29,7 @@ const PrivateKey = () => {
         </div>
         <S.Box>
           <Card type="primary">
-            <S.Copy>
-              <CopyKey keyValue={activeAccount.privateKey} />
-            </S.Copy>
+            <CopyKey keyValue={activeAccount.privateKey} />
           </Card>
         </S.Box>
       </div>
