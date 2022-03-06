@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  padding: 30px 32px;
+  @media (max-width: 360px) {
+    padding: 16px;
+  }
+`;
+
 export const Page = styled.div`
   position: relative;
   padding: 30px 32px 24px;
