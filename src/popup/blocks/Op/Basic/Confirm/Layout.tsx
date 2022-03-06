@@ -7,19 +7,27 @@ import shorter from 'popup/utils/shorter';
 import currentActiveAccount from 'popup/utils/activeAccount';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
+import { Usage } from 'popup/models';
 import * as S from './styles';
 
 type AppProps = {
   children: React.ReactNode;
   handleClick: () => void;
+  className?: string;
+  usage: Usage;
 };
 
-const BasicConfirmLayout = ({ children, handleClick }: AppProps) => {
+const BasicConfirmLayout = ({
+  children,
+  handleClick,
+  className,
+  usage,
+}: AppProps) => {
   const navigate = useNavigate();
   const { activeAccount } = currentActiveAccount();
 
   return (
-    <>
+    <div className={className}>
       <S.Account>
         <S.AccountTitle>Source account:</S.AccountTitle>
         <div className="font-medium">
@@ -37,7 +45,9 @@ const BasicConfirmLayout = ({ children, handleClick }: AppProps) => {
       <ButtonContainer
         btnSize={100}
         justify="end"
-        positionStyles={{ bottom: '40px', right: '16px' }}
+        positionStyles={{
+          bottom: usage === 'extension' ? '40px' : '14px',
+        }}
       >
         <Button
           type="button"
@@ -57,8 +67,12 @@ const BasicConfirmLayout = ({ children, handleClick }: AppProps) => {
           onClick={handleClick}
         />
       </ButtonContainer>
-    </>
+    </div>
   );
+};
+
+BasicConfirmLayout.defaultProps = {
+  className: '',
 };
 
 export default BasicConfirmLayout;

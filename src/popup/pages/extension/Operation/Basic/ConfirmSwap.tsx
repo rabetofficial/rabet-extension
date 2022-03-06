@@ -14,7 +14,9 @@ const BasicConfirmSwap = () => {
   return (
     <div className="content mt-8">
       <ExtTitle status={status} title={networkTitle} />
-      <Confirm />
+      <div className="mt-[28px]">
+        <Confirm usage="extension" />
+      </div>
     </div>
   );
 };

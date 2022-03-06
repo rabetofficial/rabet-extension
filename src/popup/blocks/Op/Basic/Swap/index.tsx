@@ -13,6 +13,7 @@ import nativeAsset from 'popup/utils/nativeAsset';
 import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
 import Swap from 'popup/svgs/Swap';
 import Rotate from 'popup/svgs/Rotate';
+import ModalSwap from 'popup/pages/expand/EHome/BasicOperation/ModalSwap';
 
 import * as S from './styles';
 
@@ -35,6 +36,9 @@ type AppProps = {
 
 const BasicSwap = ({ usage }: AppProps) => {
   const navigate = useNavigate();
+  const [isModalOpen, setModal] = useState(false);
+  const onOpenModal = () => setModal(true);
+  const onCloseModal = () => setModal(false);
 
   const balances = Array(5).fill({
     asset_code: 'XLM',
@@ -116,6 +120,11 @@ const BasicSwap = ({ usage }: AppProps) => {
 
   const onSubmit = async (v: FormValues) => {
     console.warn(v);
+    if (usage === 'extension') {
+      // navigate()
+    } else {
+      onOpenModal();
+    }
   };
 
   const validate = (v: FormValues) => {
@@ -246,9 +255,11 @@ const BasicSwap = ({ usage }: AppProps) => {
               variant="primary"
               size="medium"
               content="Send"
-              disabled={invalid || pristine}
             />
           </ButtonContainer>
+          {/* disabled={invalid || pristine} */}
+
+          <ModalSwap isOpen={isModalOpen} onClose={onCloseModal} />
         </form>
       )}
     />

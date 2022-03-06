@@ -6,12 +6,18 @@ import Card from 'popup/components/common/Card';
 import basicSwapAction from 'popup/actions/operations/basicSwap';
 import ArrowDown from 'popup/svgs/ArrowDown';
 import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
+import { Usage } from 'popup/models';
+import ScrollBar from 'popup/components/common/ScrollBar';
 import ConfirmLayout from './Layout';
 import questionLogo from '../../../../../assets/images/question-circle.png';
 
 import * as S from './styles';
 
-const BasicConfirmSwap = () => {
+type AppProps = {
+  usage: Usage;
+};
+
+const BasicConfirmSwap = ({ usage }: AppProps) => {
   const navigate = useNavigate();
 
   const values = {
@@ -51,40 +57,42 @@ const BasicConfirmSwap = () => {
   };
 
   return (
-    <ConfirmLayout handleClick={handleClick}>
-      <Card type="secondary" className="px-[11px] py-[16px]">
-        <h2 className="text-lg font-medium mb-4">Confirm Swap</h2>
-        <S.Label>From</S.Label>
-        <S.Value>
-          {numberWithCommas(values.from)}
-          <img src={questionLogo} alt={values.asset1.asset_code} />
-          <span>{values.asset1.asset_code}</span>
-        </S.Value>
+    <ConfirmLayout usage={usage} handleClick={handleClick}>
+      <ScrollBar isHidden maxHeight={335}>
+        <Card type="secondary" className="px-[11px] py-[16px]">
+          <h2 className="text-lg font-medium mb-4">Confirm Swap</h2>
+          <S.Label>From</S.Label>
+          <S.Value>
+            {numberWithCommas(values.from)}
+            <img src={questionLogo} alt={values.asset1.asset_code} />
+            <span className="light">{values.asset1.asset_code}</span>
+          </S.Value>
 
-        <div className="my-1">
-          <ArrowDown />
-        </div>
+          <div className="my-1">
+            <ArrowDown />
+          </div>
 
-        <S.Label>To</S.Label>
-        <S.Value>
-          {numberWithCommas(values.to)}
-          <img src={questionLogo} alt={values.asset2.asset_code} />
-          <span>{values.asset2.asset_code}</span>
-        </S.Value>
+          <S.Label>To</S.Label>
+          <S.Value>
+            {numberWithCommas(values.to)}
+            <img src={questionLogo} alt={values.asset2.asset_code} />
+            <span className="light">{values.asset2.asset_code}</span>
+          </S.Value>
 
-        <S.Hr />
+          <S.Hr />
 
-        <SwapDetail
-          values={values}
-          path={values.path}
-          asset1={values.asset1}
-          asset2={values.asset2}
-          received={{
-            asset: values.asset2,
-            minimumReceived: values.minimumReceived,
-          }}
-        />
-      </Card>
+          <SwapDetail
+            values={values}
+            path={values.path}
+            asset1={values.asset1}
+            asset2={values.asset2}
+            received={{
+              asset: values.asset2,
+              minimumReceived: values.minimumReceived,
+            }}
+          />
+        </Card>
+      </ScrollBar>
     </ConfirmLayout>
   );
 };

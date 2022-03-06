@@ -8,7 +8,6 @@ export const Account = styled.div`
   border-radius: 4px;
   padding: 10px;
   font-size: 14px;
-  margin-top: 28px;
   margin-bottom: 16px;
 `;
 
@@ -30,7 +29,7 @@ export const Value = styled.div`
   align-items: center;
   margin-top: 2px;
 
-  span {
+  .light {
     font-size: 16px;
     font-weight: normal;
   }

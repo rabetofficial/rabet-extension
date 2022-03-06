@@ -8,6 +8,7 @@ import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 import Button from 'popup/components/common/Button';
 import { Usage } from 'popup/models';
+import ModalSend from 'popup/pages/expand/EHome/BasicOperation/ModalSend';
 
 import ModalInput from './styles';
 
@@ -24,12 +25,15 @@ type AppProps = {
 
 const BasicSend = ({ usage }: AppProps) => {
   const navigate = useNavigate();
+  const [isModalOpen, setModal] = useState(false);
+  const onOpenModal = () => setModal(true);
+  const onCloseModal = () => setModal(false);
 
   const onSubmit = async (v: FormValues) => {
     if (usage === 'extension') {
       // navigate()
     } else {
-      console.warn('hello');
+      onOpenModal();
     }
   };
 
@@ -151,6 +155,8 @@ const BasicSend = ({ usage }: AppProps) => {
               />
               {/* disabled={invalid || pristine} */}
             </ButtonContainer>
+
+            <ModalSend isOpen={isModalOpen} onClose={onCloseModal} />
           </form>
         )}
       />
