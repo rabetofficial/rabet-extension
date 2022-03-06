@@ -17,12 +17,14 @@ const OperationBasic = () => {
 
   return (
     <InsideTabLayout>
-      <OpBasic
-        onChange={onChange}
-        selected={selected}
-        modes={modes}
-        usage="desktop"
-      />
+      <div className="pb-[110px]">
+        <OpBasic
+          onChange={onChange}
+          selected={selected}
+          modes={modes}
+          usage="desktop"
+        />
+      </div>
     </InsideTabLayout>
   );
 };
