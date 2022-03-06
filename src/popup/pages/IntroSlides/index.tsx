@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { Slide } from 'react-slideshow-image';
+
 import { SlidesLayout } from 'popup/components/Layout';
 import { SlideLeft, SlideRight } from 'popup/svgs/longArrowCircle';
-
-import { Slide } from 'react-slideshow-image';
 
 import Slide1 from './Slide1';
 import Slide2 from './Slide2';
 import Slide3 from './Slide3';
 import Slide4 from './Slide4';
+import config from '../../../config';
 
 import * as S from './styles';
 
@@ -17,7 +18,7 @@ const Slides = () => {
   const properties = {
     autoplay: false,
     canSwipe: false,
-    transitionDuration: 380,
+    transitionDuration: config.SLIDESHOW_TRANSITION,
     infinite: false,
     arrows: true,
     prevArrow: (
@@ -31,7 +32,7 @@ const Slides = () => {
       </S.RightCircle>
     ),
     onChange: (_: number, newIndex: number) => {
-      setSlideIndex(newIndex);
+      // setSlideIndex(newIndex);
     },
     indicators: (i: number) =>
       slideIndex === 3 ? (
@@ -41,10 +42,13 @@ const Slides = () => {
       ),
   };
 
+  console.log('hihihihihi');
+
   return (
     <SlidesLayout>
       <S.SlidesContainer>
         <Slide {...properties}>
+          {console.log('hihihihih')}
           <Slide1 />
           <Slide2 />
           <Slide3 />
