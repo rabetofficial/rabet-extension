@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
+import { StrKey } from 'stellar-sdk';
 
 import Input from '../../../components/Input';
 import isNative from '../../../utils/isNative';
@@ -8,7 +9,6 @@ import matchAsset from '../../../utils/matchAsset';
 import nativeAsset from '../../../utils/nativeAsset';
 import getMaxBalance from '../../../utils/maxBalance';
 import SelectOption from '../../../components/SelectOption';
-import validateAddress from '../../../utils/validate/address';
 import currentActiveAccount from '../../../utils/activeAccount';
 import getAccountData from '../../../utils/horizon/isAddressFound';
 import changeOperationAction from '../../../actions/operations/change';
@@ -16,7 +16,9 @@ import changeOperationAction from '../../../actions/operations/change';
 import styles from './styles.less';
 
 const PaymentSendOps = ({ id }) => {
-  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const {
+    activeAccount: { balances, maxXLM },
+  } = currentActiveAccount();
 
   const [sendAsset, setSendAsset] = useState(balances[0]);
   const [destAsset, setDestAsset] = useState(balances[0]);
@@ -37,7 +39,7 @@ const PaymentSendOps = ({ id }) => {
       changeOperationAction(id, {
         checked: false,
       });
-    } else if (!validateAddress(values.destination)) {
+    } else if (!StrKey.isValidEd25519SecretSeed(values.destination)) {
       errors.destination = 'Invalid destination.';
       hasError.destination = true;
 
@@ -79,7 +81,9 @@ const PaymentSendOps = ({ id }) => {
 
         selectedTokenBalance = xlmBalance;
       } else {
-        selectedTokenBalance = balances.find((x) => matchAsset(x, sendAsset));
+        selectedTokenBalance = balances.find((x) =>
+          matchAsset(x, sendAsset),
+        );
       }
 
       if (!selectedTokenBalance) {
@@ -93,8 +97,8 @@ const PaymentSendOps = ({ id }) => {
 
       if (isNative(sendAsset)) {
         if (
-          Number(selectedTokenBalance.balance || '0')
-          < Number(values.sendAmount, 10) + maxXLM + numSL
+          Number(selectedTokenBalance.balance || '0') <
+          Number(values.sendAmount, 10) + maxXLM + numSL
         ) {
           errors.sendAmount = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendAmount = true;
@@ -105,7 +109,8 @@ const PaymentSendOps = ({ id }) => {
         }
       } else {
         if (
-          Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendAmount, 10) + numSL
+          Number(selectedTokenBalance.balance || '0') <
+          parseFloat(values.sendAmount, 10) + numSL
         ) {
           errors.sendAmount = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendAmount = true;
@@ -127,23 +132,28 @@ const PaymentSendOps = ({ id }) => {
     }
 
     if (
-      !hasError.destination
-      && !hasError.sendAmount
-      && !hasError.destMin
-      && sendAsset.value
-      && destAsset.value
+      !hasError.destination &&
+      !hasError.sendAmount &&
+      !hasError.destMin &&
+      sendAsset.value &&
+      destAsset.value
     ) {
       const destinationTokens = accountData.balances || [];
-      let selectedToken = destinationTokens.find((x) => x.asset_type === 'native');
+      let selectedToken = destinationTokens.find(
+        (x) => x.asset_type === 'native',
+      );
 
       if (!isNative(destAsset)) {
-        selectedToken = destinationTokens.find((x) => matchAsset(x, destAsset));
+        selectedToken = destinationTokens.find((x) =>
+          matchAsset(x, destAsset),
+        );
       } else {
         selectedToken.limit = 999999999;
       }
 
       if (!selectedToken) {
-        errors.destMin = 'The destination account does not trust the asset you are attempting to send.';
+        errors.destMin =
+          'The destination account does not trust the asset you are attempting to send.';
         hasError.destMin = true;
 
         changeOperationAction(id, {
@@ -151,10 +161,11 @@ const PaymentSendOps = ({ id }) => {
         });
       } else {
         if (
-          Number(selectedToken.limit)
-          < Number(values.destMin) + Number(selectedToken.balance)
+          Number(selectedToken.limit) <
+          Number(values.destMin) + Number(selectedToken.balance)
         ) {
-          errors.destMin = 'The destination account balance would exceed the trust of the destination in the asset.';
+          errors.destMin =
+            'The destination account balance would exceed the trust of the destination in the asset.';
           hasError.destMin = true;
 
           changeOperationAction(id, {
@@ -180,7 +191,9 @@ const PaymentSendOps = ({ id }) => {
     <Form
       mutators={{
         sendAmountMax: (a, s, u) => {
-          u.changeValue(s, 'sendAmount', () => getMaxBalance(sendAsset));
+          u.changeValue(s, 'sendAmount', () =>
+            getMaxBalance(sendAsset),
+          );
         },
       }}
       onSubmit={() => {}}
@@ -237,7 +250,9 @@ const PaymentSendOps = ({ id }) => {
             {({ input, meta }) => (
               <div className="pure-g group">
                 <div className={styles.selectInput}>
-                  <label className="label-primary">Destination min</label>
+                  <label className="label-primary">
+                    Destination min
+                  </label>
                   <Input
                     type="number"
                     placeholder="1"

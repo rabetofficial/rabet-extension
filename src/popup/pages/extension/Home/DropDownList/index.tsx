@@ -1,15 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  flagPage,
-  deleteAccountPage,
-  ShowPrivateKeyPage,
-  connectedWebsitePage,
-} from 'popup/staticRes/routes';
+import { useNavigate } from 'react-router-dom';
+
+import Trash from 'popup/svgs/Trash';
+import RouteName from 'popup/staticRes/routes';
 import DropMenu from 'popup/components/DropMenu';
 import worldSrc from 'src/assets/images/world.svg';
-import Trash from 'popup/svgs/Trash';
 
 const DropDownList = () => {
   const navigate = useNavigate();
@@ -19,28 +15,28 @@ const DropDownList = () => {
       label: 'Show private key',
       icon: 'icon-key',
       onClick: () => {
-        navigate(ShowPrivateKeyPage);
+        navigate(RouteName.ShowPrivateKey);
       },
     },
     {
       label: 'Show flags',
       icon: 'icon-flag',
       onClick: () => {
-        navigate(flagPage);
+        navigate(RouteName.Flags);
       },
     },
     {
       label: 'Connected sites',
       icon: <img src={worldSrc} alt="icon" />,
       onClick: () => {
-        navigate(connectedWebsitePage);
+        navigate(RouteName.ConnectedWebsites);
       },
     },
     {
       label: <p className="text-error">Delete account</p>,
       icon: <Trash />,
       onClick: () => {
-        navigate(deleteAccountPage);
+        navigate(RouteName.DeleteAccount);
       },
     },
   ];

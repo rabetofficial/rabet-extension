@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Form, Field } from 'react-final-form';
+import { StrKey } from 'stellar-sdk';
 
 import Input from '../../../components/Input';
-import validateAddress from '../../../utils/validate/address';
 import changeOperationAction from '../../../actions/operations/change';
 
 import styles from './styles.less';
@@ -20,7 +20,7 @@ const SignerOps = ({ id }) => {
       changeOperationAction(id, {
         checked: false,
       });
-    } else if (!validateAddress(values.signer)) {
+    } else if (!StrKey.isValidEd25519PublicKey(values.signer)) {
       errors.signer = 'Invalid signer.';
       hasError.signer = true;
 

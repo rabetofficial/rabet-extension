@@ -65,7 +65,7 @@ const ExtTitle = ({
 
 ExtTitle.defaultProps = {
   status: null,
-  alreadyLoaded: false,
+  alreadyLoaded: true,
   className: '',
 };
 

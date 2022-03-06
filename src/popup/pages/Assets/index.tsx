@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
 import Header from 'popup/components/common/Header';
-import AssetsComponent from 'popup/pageComponents/Assets';
+import AssetsComponent from 'popup/pageComponents/AssetInfo';
 
 const Assets = () => {
   const navigate = useNavigate();

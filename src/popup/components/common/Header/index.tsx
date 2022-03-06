@@ -28,10 +28,13 @@ const Header = () => {
           <Link to={route.homePage}>
             <RabetLogo />
           </Link>
+
           <Network theme="dark" />
+
           <SearchAccounts
-            toggleOverlay={toggleOverlay}
+            usage="extension"
             isOpen={overlay}
+            toggleOverlay={toggleOverlay}
           />
         </div>
       </S.Header>

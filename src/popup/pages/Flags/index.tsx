@@ -180,7 +180,7 @@ const Flags = () => {
           {disabled ? (
             <S.ErrorBox style={{ marginTop: '8px' }}>
               You can no longer change the status of your flags
-              because you have already activated theImmutable flag.
+              because you have already activated the Immutable flag.
             </S.ErrorBox>
           ) : (
             ''

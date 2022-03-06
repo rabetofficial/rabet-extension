@@ -1,4 +1,5 @@
 import React from 'react';
+import { StrKey } from 'stellar-sdk';
 import { useNavigate } from 'react-router-dom';
 
 import Logo from 'popup/components/Logo';
@@ -6,7 +7,6 @@ import Layout from 'popup/components/Layout';
 import RouteName from 'popup/staticRes/routes';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import { FormValues } from 'popup/pageComponents/PrivateKey';
-import validatePrivateKey from 'popup/utils/validate/privateKey';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import RestoreWalletComponent from 'popup/pageComponents/RestoreWallet';
 
@@ -27,7 +27,7 @@ const RestoreWallet = () => {
   };
 
   const onSubmit = async (values: FormValues) => {
-    if (!validatePrivateKey(values.key)) {
+    if (!StrKey.isValidEd25519SecretSeed(values.key)) {
       return { key: 'Invalid private key.' };
     }
 

@@ -8,8 +8,8 @@ import config from '../../config';
 const getAssetImages = async (assets: Horizon.BalanceLine[]) => {
   const assetsInJSON = getJSONAssets(assets);
 
-  const assetImagesResult = await fetch(config.ASSET_SERVER, {
-    method: 'GET',
+  const assetImagesResult = await fetch(`${config.ASSET_SERVER}`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -17,7 +17,7 @@ const getAssetImages = async (assets: Horizon.BalanceLine[]) => {
     body: JSON.stringify(assetsInJSON),
   }).then((res) => res.json());
 
-  const assetImages: AssetImage[] = assetImagesResult.assets;
+  const assetImages: AssetImage[] = assetImagesResult;
 
   return assetImages;
 };

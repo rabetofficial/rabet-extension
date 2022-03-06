@@ -1,9 +1,11 @@
 import React from 'react';
 import { Horizon } from 'stellar-sdk';
+import { useNavigate } from 'react-router-dom';
 
-import Assets from 'popup/pageComponents/Assets';
+import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
 import NoDate from 'popup/components/common/Nodata';
+import AssetInfo from 'popup/pageComponents/AssetInfo';
 import openModalAction from 'popup/actions/modal/open';
 import closeModalAction from 'popup/actions/modal/close';
 import ScrollBar from 'popup/components/common/ScrollBar';
@@ -12,31 +14,40 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import {
   openErrorModal,
   openSucessModal,
+  openLoadingModal,
 } from 'popup/components/Modals';
 
 import Asset from './Asset';
 import { Border } from './styles';
 
-type AssetsListType = { ScrollMaxHeight?: number };
-const AssetList = ({ ScrollMaxHeight }: AssetsListType) => {
+type AssetsListProps = {
+  isExtension?: boolean;
+  scrollMaxHeight?: number;
+};
+
+const AssetList = ({
+  isExtension,
+  scrollMaxHeight,
+}: AssetsListProps) => {
+  const navigate = useNavigate();
   const { assets: asts } = useActiveAccount();
   const assets = asts || [];
 
-  const openAssetInfoModal = (asset: Horizon.BalanceLine) => {
-    const showDeleteResult = (result: any[]) => {
-      if (result[0]) {
-        openSucessModal({
-          message: result[1],
-          onClick: closeModalAction,
-        });
-      } else {
-        openErrorModal({
-          message: result[1],
-          onClick: closeModalAction,
-        });
-      }
-    };
+  const showDeleteResult = (result: [boolean, string]) => {
+    if (result[0]) {
+      openSucessModal({
+        message: result[1],
+        onClick: closeModalAction,
+      });
+    } else {
+      openErrorModal({
+        message: result[1],
+        onClick: closeModalAction,
+      });
+    }
+  };
 
+  const openAssetInfoModal = (asset: Horizon.BalanceLine) => {
     if (asset.asset_type === 'native') {
       openModalAction({
         isStyled: false,
@@ -45,18 +56,21 @@ const AssetList = ({ ScrollMaxHeight }: AssetsListType) => {
         padding: 'medium',
         minHeight: 597,
         children: (
-          <Assets
-            asset={asset}
+          <AssetInfo
             isNative
+            asset={asset}
             onCancel={closeModalAction}
             onDelete={showDeleteResult}
+            onBeforeDelete={() => {
+              openLoadingModal({});
+            }}
           >
             <PageTitle
               title="Asset | XLM"
               padding="0"
               onClose={closeModalAction}
             />
-          </Assets>
+          </AssetInfo>
         ),
       });
     } else {
@@ -67,19 +81,35 @@ const AssetList = ({ ScrollMaxHeight }: AssetsListType) => {
         padding: 'medium',
         minHeight: 597,
         children: (
-          <Assets
+          <AssetInfo
             asset={asset}
             onCancel={closeModalAction}
             onDelete={showDeleteResult}
+            onBeforeDelete={() => {
+              openLoadingModal({});
+            }}
           >
             <PageTitle
               title="Asset info"
               padding="0"
               onClose={closeModalAction}
             />
-          </Assets>
+          </AssetInfo>
         ),
       });
+    }
+  };
+
+  const openAssetInfoPage = (asset: Horizon.BalanceLine) => {
+    if (
+      asset.asset_type === 'native' ||
+      asset.asset_type === 'liquidity_pool_shares'
+    ) {
+      navigate(`${RouteName.AssetInfo}/XLM/none/native`);
+    } else {
+      navigate(
+        `${RouteName.AssetInfo}/${asset.asset_code}/${asset.asset_issuer}/${asset.asset_type}`,
+      );
     }
   };
 
@@ -93,12 +123,16 @@ const AssetList = ({ ScrollMaxHeight }: AssetsListType) => {
   }
 
   return (
-    <ScrollBar isHidden maxHeight={ScrollMaxHeight}>
+    <ScrollBar isHidden maxHeight={scrollMaxHeight}>
       {assets.map((asset) => (
         <Border
           key={`assetList${handleAssetsKeys(asset)}`}
           onClick={() => {
-            openAssetInfoModal(asset);
+            if (isExtension) {
+              openAssetInfoPage(asset);
+            } else {
+              openAssetInfoModal(asset);
+            }
           }}
         >
           <Asset asset={asset} />
@@ -108,6 +142,9 @@ const AssetList = ({ ScrollMaxHeight }: AssetsListType) => {
   );
 };
 
-AssetList.defaultProps = { ScrollMaxHeight: 320 };
+AssetList.defaultProps = {
+  scrollMaxHeight: 320,
+  isExtension: false,
+};
 
 export default AssetList;

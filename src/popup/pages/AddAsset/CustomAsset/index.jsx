@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
+import { StrKey } from 'stellar-sdk';
 
 import Input from '../../../components/Input';
 import Button from '../../../components/Button';
 import * as route from '../../../staticRes/routes';
 import assetExists from '../../../api/assetExists';
-import validateAddress from '../../../utils/validate/address';
 import addAssetAction from '../../../actions/operations/addAsset';
 import currentActiveAccount from '../../../utils/activeAccount';
 
@@ -39,7 +39,7 @@ const CustomAsset = () => {
     } else {
       errors.issuer = null;
       hasError.issuer = true;
-      if (!validateAddress(values.issuer)) {
+      if (!StrKey.isValidEd25519PublicKey(values.issuer)) {
         errors.issuer = 'Invalid issuer.';
         hasError.issuer = true;
       } else {

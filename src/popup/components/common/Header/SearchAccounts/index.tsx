@@ -12,7 +12,7 @@ import AccountList from './AccountsList';
 
 type AppProps = {
   isOpen: boolean;
-  usage: 'extension' | 'expand' | undefined;
+  usage: 'extension' | 'expand';
   [x: string]: any;
 };
 
@@ -90,6 +90,7 @@ const SearchAccounts = ({ usage, isOpen, ...props }: AppProps) => {
           </div>
 
           <AccountList accounts={activeAccounts} />
+
           <Menus usage={usage} onHidePopover={onHidePopover} />
         </S.Card>
       </Popover>

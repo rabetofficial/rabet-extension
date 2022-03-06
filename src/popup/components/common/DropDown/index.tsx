@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import Tippy from '@tippyjs/react';
+import React, { useState } from 'react';
 
 import AngleDown from 'popup/svgs/AngleDown';
 import { ElementOption } from 'popup/models';
@@ -29,6 +29,7 @@ const DropDown = ({
     onChange(item);
     hide();
   };
+
   return (
     <Tippy
       content={

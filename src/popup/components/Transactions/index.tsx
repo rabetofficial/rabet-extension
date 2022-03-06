@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { ServerApi } from 'stellar-sdk';
-
 import styled from 'styled-components';
+import { ServerApi } from 'stellar-sdk';
+import React, { useEffect, useState } from 'react';
+
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import loadTransactions from 'popup/features/loadTransactions';
 
-import Transaction from './Transaction';
 import Loading from '../Loading';
-import ScrollBar from '../common/ScrollBar';
 import Nodata from '../common/Nodata';
+import Transaction from './Transaction';
+import ScrollBar from '../common/ScrollBar';
 
 type TransactionsType = {
-  ScrollMaxHeight?: number;
+  scrollMaxHeight?: number;
   isExtention?: boolean;
 };
+
 const Transactions = ({
-  ScrollMaxHeight,
+  scrollMaxHeight,
   isExtention,
 }: TransactionsType) => {
   const { publicKey } = useActiveAccount();
@@ -53,7 +54,7 @@ const Transactions = ({
   }
   return (
     <ContentContainer>
-      <ScrollBar isHidden maxHeight={ScrollMaxHeight}>
+      <ScrollBar isHidden maxHeight={scrollMaxHeight}>
         {transactions.map((tx, index) => (
           <div key={tx.records[0].transaction_hash}>
             <Transaction transaction={tx} publicKey={publicKey} />
@@ -75,7 +76,7 @@ const ContentContainer = styled.div`
 `;
 
 Transactions.defaultProps = {
-  ScrollMaxHeight: 600,
+  scrollMaxHeight: 600,
   isExtention: false,
 };
 export default Transactions;

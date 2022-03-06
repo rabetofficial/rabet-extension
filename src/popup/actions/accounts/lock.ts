@@ -1,10 +1,12 @@
+import { NavigateFunction } from 'react-router-dom';
+
 import store from 'popup/store';
 import { set } from 'helpers/storage';
 import { logout } from 'popup/reducers/user';
 import { stop } from 'popup/reducers/interval';
 import RouteName from 'popup/staticRes/routes';
 
-export default (push) => {
+export default (navigate: NavigateFunction) => {
   localStorage.clear();
 
   store.dispatch(logout());
@@ -12,7 +14,7 @@ export default (push) => {
 
   set('timer', {});
 
-  push(RouteName.Setting, {
+  navigate(RouteName.Setting, {
     state: {
       hadLogged: false,
     },

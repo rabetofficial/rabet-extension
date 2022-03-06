@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import Header from 'popup/components/common/Header';
 import Error from 'popup/pageComponents/Error';
 import RouteName from 'popup/staticRes/routes';
-import PageTitle from 'popup/components/PageTitle';
+import Header from 'popup/components/common/Header';
+import ExtTitle from 'popup/components/common/Title/Ext';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
@@ -22,9 +22,10 @@ const ErrorPage = () => {
     <>
       <Header />
 
-      <PageTitle />
+      <ExtTitle title="Receive" className="content mt-[20px]" />
+
       <div className="flex my-auto">
-        <Error handleClick={handleClick} error={state.message} />
+        <Error onClick={handleClick} message={state.message} />
       </div>
     </>
   );

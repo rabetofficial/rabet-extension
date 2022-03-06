@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Form, Field } from 'react-final-form';
+import { StrKey } from 'stellar-sdk';
 
 import Input from '../../../components/Input';
-import validateAddress from '../../../utils/validate/address';
 import currentActiveAccount from '../../../utils/activeAccount';
 import changeOperationAction from '../../../actions/operations/change';
 
@@ -26,7 +26,7 @@ const AllowTrustOps = ({ id }) => {
         checked: false,
       });
     } else {
-      if (!validateAddress(values.trustor)) {
+      if (!StrKey.isValidEd25519PublicKey(values.trustor)) {
         errors.trustor = 'Invalid trustor.';
         hasError.trustor = true;
 
@@ -47,7 +47,9 @@ const AllowTrustOps = ({ id }) => {
       const balances = activeAccount.balances || [];
 
       const ownedAsset = balances.find(
-        (x) => x.asset_code === values.code && x.asset_issuer === activeAccount.publicKey,
+        (x) =>
+          x.asset_code === values.code &&
+          x.asset_issuer === activeAccount.publicKey,
       );
 
       if (!ownedAsset) {

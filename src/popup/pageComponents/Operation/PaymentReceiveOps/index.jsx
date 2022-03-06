@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
+import { StrKey } from 'stellar-sdk';
 
 import Input from '../../../components/Input';
 import isNative from '../../../utils/isNative';
@@ -8,7 +9,6 @@ import matchAsset from '../../../utils/matchAsset';
 import nativeAsset from '../../../utils/nativeAsset';
 import getMaxBalance from '../../../utils/maxBalance';
 import SelectOption from '../../../components/SelectOption';
-import validateAddress from '../../../utils/validate/address';
 import currentActiveAccount from '../../../utils/activeAccount';
 import getAccountData from '../../../utils/horizon/isAddressFound';
 import changeOperationAction from '../../../actions/operations/change';
@@ -16,7 +16,9 @@ import changeOperationAction from '../../../actions/operations/change';
 import styles from './styles.less';
 
 const PaymentReceiveOps = ({ id }) => {
-  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const {
+    activeAccount: { balances, maxXLM },
+  } = currentActiveAccount();
 
   const [sendAsset, setSendAsset] = useState(balances[0]);
   const [destAsset, setDestAsset] = useState(balances[0]);
@@ -37,7 +39,7 @@ const PaymentReceiveOps = ({ id }) => {
       changeOperationAction(id, {
         checked: false,
       });
-    } else if (!validateAddress(values.destination)) {
+    } else if (!StrKey.isValidEd25519PublicKey(values.destination)) {
       errors.destination = 'Invalid destination.';
       hasError.destination = true;
 
@@ -77,7 +79,9 @@ const PaymentReceiveOps = ({ id }) => {
       if (isNative(sendAsset)) {
         selectedTokenBalance = balances.find(nativeAsset);
       } else {
-        selectedTokenBalance = balances.find((x) => matchAsset(x, sendAsset));
+        selectedTokenBalance = balances.find((x) =>
+          matchAsset(x, sendAsset),
+        );
       }
 
       if (!selectedTokenBalance) {
@@ -91,8 +95,8 @@ const PaymentReceiveOps = ({ id }) => {
 
       if (isNative(sendAsset)) {
         if (
-          Number(selectedTokenBalance.balance || '0')
-          < Number(values.sendMax, 10) + maxXLM + numSL
+          Number(selectedTokenBalance.balance || '0') <
+          Number(values.sendMax, 10) + maxXLM + numSL
         ) {
           errors.sendMax = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendMax = true;
@@ -103,7 +107,8 @@ const PaymentReceiveOps = ({ id }) => {
         }
       } else {
         if (
-          Number(selectedTokenBalance.balance || '0') < parseFloat(values.sendMax, 10) + numSL
+          Number(selectedTokenBalance.balance || '0') <
+          parseFloat(values.sendMax, 10) + numSL
         ) {
           errors.sendMax = `Insufficient ${sendAsset.value} balance.`;
           hasError.sendMax = true;
@@ -125,24 +130,27 @@ const PaymentReceiveOps = ({ id }) => {
     }
 
     if (
-      !hasError.destination
-      && !hasError.sendMax
-      && !hasError.destAmount
-      && sendAsset.value
-      && destAsset.value
+      !hasError.destination &&
+      !hasError.sendMax &&
+      !hasError.destAmount &&
+      sendAsset.value &&
+      destAsset.value
     ) {
       const destinationTokens = accountData.balances || [];
 
       let selectedToken = destinationTokens.find(nativeAsset);
 
       if (!isNative(destAsset)) {
-        selectedToken = destinationTokens.find((x) => matchAsset(x, destAsset));
+        selectedToken = destinationTokens.find((x) =>
+          matchAsset(x, destAsset),
+        );
       } else {
         selectedToken.limit = 999999999;
       }
 
       if (!selectedToken) {
-        errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+        errors.destination =
+          'The destination account does not trust the asset you are attempting to send.';
         hasError.destination = true;
 
         changeOperationAction(id, {
@@ -150,10 +158,11 @@ const PaymentReceiveOps = ({ id }) => {
         });
       } else {
         if (
-          Number(selectedToken.limit)
-          < Number(values.destAmount) + Number(selectedToken.balance)
+          Number(selectedToken.limit) <
+          Number(values.destAmount) + Number(selectedToken.balance)
         ) {
-          errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+          errors.destination =
+            'The destination account balance would exceed the trust of the destination in the asset.';
           hasError.destination = true;
 
           changeOperationAction(id, {
@@ -237,7 +246,9 @@ const PaymentReceiveOps = ({ id }) => {
             {({ input, meta }) => (
               <div className="pure-g group">
                 <div className={styles.selectInput}>
-                  <label className="label-primary">Destination amount</label>
+                  <label className="label-primary">
+                    Destination amount
+                  </label>
                   <Input
                     type="number"
                     placeholder="1"

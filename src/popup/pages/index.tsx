@@ -2,24 +2,23 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import DetectSize from 'popup/components/DetectSize';
-import ProtectedRoute from '../components/ProtectedRoute';
-import UnprotectedRoute from '../components/UnprotectedRoute';
+import ProtectedRoute from 'popup/components/ProtectedRoute';
+import UnprotectedRoute from 'popup/components/UnprotectedRoute';
 
 import Home from './extension/Home';
 import EHome from './expand/EHome';
 import Intro from './Intro';
 import IntroSlides from './IntroSlides';
 import Login from './Login';
-import Error from './Error';
+import Error from './extension/Error';
 import Send from './Send';
 import Flags from './Flags';
 import QRCode from './extension/Receive';
-import Assets from './Assets';
+import AssetInfo from './extension/AssetInfo';
 import Confirm from './Confirm';
 import Setting from './extension/Setting';
 import AddAsset from './extension/AddAssets';
 import FirstPage from './FirstPage';
-import FetchData from './FetchData';
 import PrivateKey from './PrivateKey';
 import LoadingOne from './LoadingOne';
 import OfflineMode from './OfflineMode';
@@ -29,12 +28,10 @@ import CreateWallet from './CreateWallet';
 import RestoreWallet from './RestoreWallet';
 import RouteName from '../staticRes/routes';
 import ShowPrivateKey from './ShowPrivateKey';
-import ContactRequest from './ContactRequest';
 import LoadingOverlay from './LoadingOverlay';
 import AccountManager from './AccountManager';
-import SuccessfulSubmission from './SuccessfulSubmission';
+import SuccessfulSubmission from './extension/SuccessfulSubmission';
 import ConfirmFlag from './ConfirmFlag';
-import XLMAsset from './XLMAsset';
 import DeleteAccount from './DeleteAccount';
 import ConnectedWebsite from './ConnectedWebsite';
 import BackupFile from './BackupFile';
@@ -128,18 +125,10 @@ const App = () => (
         element={<AccountManager />}
       />
       <Route
-        path={`${RouteName.Asset}/:asset_code/:asset_issuer`}
+        path={`${RouteName.AssetInfo}/:asset_code/:asset_issuer/:asset_type`}
         element={
           <ProtectedRoute>
-            <Assets />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path={RouteName.XLMAsset}
-        element={
-          <ProtectedRoute>
-            <XLMAsset />
+            <AssetInfo />
           </ProtectedRoute>
         }
       />
@@ -218,15 +207,10 @@ const App = () => (
       />
       <Route path={RouteName.Login} element={<Login />} />
       <Route path={RouteName.First} element={<FirstPage />} />
-      <Route path={RouteName.FetchData} element={<FetchData />} />
       <Route path={RouteName.LoadingOne} element={<LoadingOne />} />
       <Route
         path={RouteName.LoadingNetwork}
         element={<LoadingNetwork />}
-      />
-      <Route
-        path={RouteName.ContactRequest}
-        element={<ContactRequest />}
       />
       <Route path={RouteName.OfflineMode} element={<OfflineMode />} />
       <Route

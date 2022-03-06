@@ -8,7 +8,7 @@ import useActiveAccount from './useActiveAccount';
 import useTypedSelector from './useTypedSelector';
 import useActiveCurrency from './useActiveCurrency';
 
-const useTotalBalance = (acc: IAccount) => {
+const useTotalBalance = (acc?: IAccount) => {
   const activeAccount = useActiveAccount();
   const [options, bids] = useTypedSelector((store) => [
     store.options,

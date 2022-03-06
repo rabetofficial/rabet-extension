@@ -22,7 +22,7 @@ enum RouteName {
   BasicSwapConfirm = '/basic-operation/swap/confirm',
 
   Flags = '/flag',
-  Asset = '/asset',
+  AssetInfo = '/asset',
   DeleteAccount = '/delete-account',
   ConnectedWebsites = '/connected-website',
   XLMAsset = '/xlm-asset',

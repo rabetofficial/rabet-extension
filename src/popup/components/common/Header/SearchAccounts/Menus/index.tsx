@@ -1,3 +1,4 @@
+import { StrKey } from 'stellar-sdk';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
@@ -15,7 +16,6 @@ import BackupFile from 'popup/pageComponents/BackupFile';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import RestoreWallet from 'popup/pageComponents/RestoreWallet';
 import createAccountAction from 'popup/actions/accounts/create';
-import validatePrivateKey from 'popup/utils/validate/privateKey';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import { FormValues as RestoreWalletFormValues } from 'popup/pageComponents/PrivateKey';
 
@@ -27,7 +27,7 @@ import {
 import * as S from '../styles';
 
 type AppProps = {
-  usage: 'extension' | 'expand' | undefined;
+  usage: 'extension' | 'expand';
   onHidePopover: () => void;
 };
 
@@ -75,7 +75,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
   const handleRestoreWallet = async (
     values: RestoreWalletFormValues,
   ) => {
-    if (!validatePrivateKey(values.key)) {
+    if (!StrKey.isValidEd25519SecretSeed(values.key)) {
       return { key: 'Invalid private key.' };
     }
 
@@ -114,6 +114,10 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     );
   };
 
+  const openCreateWalletPage = () => {
+    navigate(RouteName.CreateWallet);
+  };
+
   const openImportWallet = () => {
     openImportWalletModal(
       <RestoreWallet
@@ -124,20 +128,26 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     );
   };
 
+  const openImportWalletPage = () => {
+    navigate(RouteName.RestoreWallet);
+  };
+
   const menus: Menu[] = [
     {
       id: 1,
       link: '#',
       icon: <Plus />,
       label: 'Create Wallet',
-      onClick: openCreateWallet,
+      onClick:
+        usage === 'expand' ? openCreateWallet : openCreateWalletPage,
     },
     {
       id: 2,
       link: '#',
       icon: <File />,
       label: 'Import Wallet',
-      onClick: openImportWallet,
+      onClick:
+        usage === 'expand' ? openImportWallet : openImportWalletPage,
     },
   ];
 

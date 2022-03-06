@@ -1,24 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
+import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
-import {
-  advanceOperationPage,
-  basicOperationPage,
-  QRCodePage,
-} from 'popup/staticRes/routes';
-import ButtonContainer from 'popup/components/common/ButtonContainer';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 const Links = () => {
-  const { mode } = useSelector((store) => store.options);
+  const { mode } = useTypedSelector((store) => store.options);
 
   const isAdvanced = mode === 'ADVANCED';
 
   return (
     <div className="flex justify-center align-center mt-3">
       <Link
-        to={isAdvanced ? advanceOperationPage : basicOperationPage}
+        to={
+          isAdvanced
+            ? RouteName.AdvancedOperation
+            : RouteName.BasicOperation
+        }
       >
         <Button
           size="small"
@@ -27,7 +26,7 @@ const Links = () => {
           style={{ width: '112px', marginRight: '8px' }}
         />
       </Link>
-      <Link to={QRCodePage}>
+      <Link to={RouteName.QRCode}>
         <Button
           size="small"
           variant="outlined"

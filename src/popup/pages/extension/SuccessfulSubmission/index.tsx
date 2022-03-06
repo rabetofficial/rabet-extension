@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import Header from 'popup/components/common/Header';
 import RouteName from 'popup/staticRes/routes';
-import PageTitle from 'popup/components/PageTitle';
+import Header from 'popup/components/common/Header';
+import ExtTitle from 'popup/components/common/Title/Ext';
 import SuccessfulSubmissionComponent from 'popup/pageComponents/SuccessfulSubmission';
 
 const SuccessfulSubmission = () => {
@@ -18,17 +18,22 @@ const SuccessfulSubmission = () => {
     });
   };
 
-  const { message } = state;
-
   return (
     <>
       <Header />
 
-      <PageTitle alreadyLoaded={false} />
-      <SuccessfulSubmissionComponent
-        onClick={handleClick}
-        message={message}
+      <ExtTitle
+        title="Receive"
+        className="content mt-[20px]"
+        alreadyLoaded={false}
       />
+
+      <div className="flex my-auto">
+        <SuccessfulSubmissionComponent
+          onClick={handleClick}
+          message={state.message}
+        />
+      </div>
     </>
   );
 };

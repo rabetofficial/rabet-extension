@@ -9,12 +9,12 @@ const TabList = () => {
     {
       id: '1',
       title: 'Assets',
-      content: <AssetList ScrollMaxHeight={200} />,
+      content: <AssetList scrollMaxHeight={200} isExtension />,
     },
     {
       id: '2',
       title: 'Transactions',
-      content: <Transactions ScrollMaxHeight={200} isExtention />,
+      content: <Transactions scrollMaxHeight={200} isExtention />,
     },
   ];
 

@@ -2,21 +2,16 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import React from 'react';
 import { Form, Field } from 'react-final-form';
+import { StrKey } from 'stellar-sdk';
 
 import Input from '../../../components/Input';
 import validateDomain from '../../../utils/validate/domain';
 import validateNumber from '../../../utils/validate/number';
-import validateAddress from '../../../utils/validate/address';
 import * as operationNames from '../../../staticRes/operations';
 import getAccountData from '../../../utils/horizon/isAddressFound';
 import changeOperationAction from '../../../actions/operations/change';
 
-const SetOptionOps = ({
-  id,
-  type,
-  label,
-  inputInfo,
-}) => {
+const SetOptionOps = ({ id, type, label, inputInfo }) => {
   const validateForm = async (values) => {
     const errors = {};
     const hasError = {};
@@ -47,7 +42,10 @@ const SetOptionOps = ({
           });
         }
       } else if (type === operationNames.accountMerge) {
-        if (values.value && !validateAddress(values.value)) {
+        if (
+          values.value &&
+          !StrKey.isValidEd25519PublicKey(values.value)
+        ) {
           changeOperationAction(id, {
             checked: false,
             destination: values.value,
@@ -56,10 +54,13 @@ const SetOptionOps = ({
           errors.value = 'Invalid destination.';
           hasError.value = true;
         } else {
-          const accountData = await getAccountData(values.destination);
+          const accountData = await getAccountData(
+            values.destination,
+          );
 
           if (accountData.status === 404) {
-            errors.value = 'You cannot merge your account to an inactive account.';
+            errors.value =
+              'You cannot merge your account to an inactive account.';
             hasError.value = true;
 
             changeOperationAction(id, {
@@ -91,7 +92,7 @@ const SetOptionOps = ({
           }
         }
       } else if (type === operationNames.setOptionsInflationDest) {
-        if (!validateAddress(values.value)) {
+        if (!StrKey.isValidEd25519PublicKey(values.value)) {
           errors.value = 'Invalid destination.';
           hasError.value = true;
 
@@ -164,7 +165,11 @@ const SetOptionOps = ({
       onSubmit={() => {}}
       validate={(values) => validateForm(values)}
       render={({ submitError, handleSubmit }) => (
-        <form className={classNames('form')} onSubmit={handleSubmit} autoComplete="off">
+        <form
+          className={classNames('form')}
+          onSubmit={handleSubmit}
+          autoComplete="off"
+        >
           <Field name="value">
             {({ input, meta }) => (
               <div className="group">

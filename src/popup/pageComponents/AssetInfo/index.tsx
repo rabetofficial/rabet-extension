@@ -3,32 +3,31 @@ import { Horizon } from 'stellar-sdk';
 
 import BN from 'helpers/BN';
 import Trash from 'popup/svgs/Trash';
+import xlmLogo from 'assets/images/xlm-logo.svg';
 import Button from 'popup/components/common/Button';
-import { openLoadingModal } from 'popup/components/Modals';
+import CopyText from 'popup/components/common/CopyText';
 import addAssetAction from 'popup/actions/operations/addAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-import CopyText from 'popup/components/common/CopyText';
-
-import xlmLogo from '../../../assets/images/xlm-logo.svg';
 
 import * as S from './styles';
 import useAssetInfo from './useAssetInfo';
-import Copy from 'popup/svgs/Copy';
 
 type AssetType = {
   isNative?: boolean;
-  onDelete: (result: any[]) => void;
+  onDelete: (result: [boolean, string]) => void;
   onCancel: () => void;
   children?: React.ReactNode;
   asset: Horizon.BalanceLine;
+  onBeforeDelete: () => void;
 };
 
-const Assets = ({
+const AssetInfo = ({
   isNative,
   asset,
   onDelete,
   onCancel,
   children,
+  onBeforeDelete,
 }: AssetType) => {
   const { loading, error, assetData } = useAssetInfo(asset);
 
@@ -37,7 +36,7 @@ const Assets = ({
       asset.asset_type === 'credit_alphanum4' ||
       asset.asset_type === 'credit_alphanum12'
     ) {
-      openLoadingModal({});
+      onBeforeDelete();
 
       addAssetAction(asset.asset_code, asset.asset_issuer, '0').then(
         (result) => {
@@ -79,7 +78,7 @@ const Assets = ({
     return (
       <div>
         <CopyText
-          text={assetData?.asset_issuer}
+          text={assetData?.asset_issuer || ''}
           custom={<S.Value>{assetData?.asset_issuer}</S.Value>}
         />
       </div>
@@ -236,5 +235,10 @@ const Assets = ({
     </S.Page>
   );
 };
-Assets.defaultProps = { children: '', isNative: false };
-export default Assets;
+
+AssetInfo.defaultProps = {
+  children: '',
+  isNative: false,
+};
+
+export default AssetInfo;

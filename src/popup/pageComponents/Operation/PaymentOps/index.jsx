@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
+import { StrKey } from 'stellar-sdk';
 
 import Input from '../../../components/Input';
 import isNative from '../../../utils/isNative';
@@ -8,7 +9,6 @@ import matchAsset from '../../../utils/matchAsset';
 import nativeAsset from '../../../utils/nativeAsset';
 import getMaxBalance from '../../../utils/maxBalance';
 import SelectOption from '../../../components/SelectOption';
-import validateAddress from '../../../utils/validate/address';
 import currentActiveAccount from '../../../utils/activeAccount';
 import getAccountData from '../../../utils/horizon/isAddressFound';
 import changeOperationAction from '../../../actions/operations/change';
@@ -18,7 +18,9 @@ import isInsufficientAsset from '../../../utils/isInsufficientAsset';
 import isTransferable from '../../../utils/isTransferable';
 
 const PaymentOps = ({ id }) => {
-  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const {
+    activeAccount: { balances, maxXLM },
+  } = currentActiveAccount();
   const [selected, setSelected] = useState(balances[0]);
 
   const onChange = (e) => setSelected(e);
@@ -49,7 +51,9 @@ const PaymentOps = ({ id }) => {
       if (isNative(selected)) {
         selectedTokenBalance = balances.find(nativeAsset);
       } else {
-        selectedTokenBalance = balances.find((x) => matchAsset(x, selected));
+        selectedTokenBalance = balances.find((x) =>
+          matchAsset(x, selected),
+        );
       }
 
       if (!selectedTokenBalance) {
@@ -58,7 +62,13 @@ const PaymentOps = ({ id }) => {
         };
       }
 
-      if (!isInsufficientAsset(selectedTokenBalance, maxXLM, values.amount)) {
+      if (
+        !isInsufficientAsset(
+          selectedTokenBalance,
+          maxXLM,
+          values.amount,
+        )
+      ) {
         errors.amount = `Insufficient ${selected.asset_code} balance.`;
         hasError.amount = true;
 
@@ -68,7 +78,7 @@ const PaymentOps = ({ id }) => {
       }
     }
 
-    if (!validateAddress(values.destination)) {
+    if (!StrKey.isValidEd25519PublicKey(values.destination)) {
       errors.destination = 'Invalid destination.';
       hasError.destination = true;
 
@@ -77,7 +87,11 @@ const PaymentOps = ({ id }) => {
       });
     }
 
-    if (!hasError.amount && !hasError.destination && selected.asset_code) {
+    if (
+      !hasError.amount &&
+      !hasError.destination &&
+      selected.asset_code
+    ) {
       if (selected.asset_issuer === values.destination) {
         changeOperationAction(id, {
           checked: true,
@@ -92,11 +106,15 @@ const PaymentOps = ({ id }) => {
 
       const accountData = await getAccountData(values.destination);
 
-      const [transferableResult, resultCode] = isTransferable(values, accountData);
+      const [transferableResult, resultCode] = isTransferable(
+        values,
+        accountData,
+      );
       let checked = true;
 
       if (!transferableResult && resultCode === 0) {
-        errors.destination = 'Inactive accounts cannot receive tokens.';
+        errors.destination =
+          'Inactive accounts cannot receive tokens.';
         hasError.destination = true;
 
         changeOperationAction(id, {
@@ -108,7 +126,8 @@ const PaymentOps = ({ id }) => {
         errors.destination = 'Wrong.';
         hasError.destination = true;
       } else if (!transferableResult && resultCode === 2) {
-        errors.destination = 'The destination account does not trust the asset you are attempting to send.';
+        errors.destination =
+          'The destination account does not trust the asset you are attempting to send.';
         hasError.destination = true;
 
         changeOperationAction(id, {
@@ -117,7 +136,8 @@ const PaymentOps = ({ id }) => {
 
         checked = false;
       } else if (!transferableResult && resultCode === 3) {
-        errors.destination = 'The destination account balance would exceed the trust of the destination in the asset.';
+        errors.destination =
+          'The destination account balance would exceed the trust of the destination in the asset.';
         hasError.destination = true;
 
         changeOperationAction(id, {
