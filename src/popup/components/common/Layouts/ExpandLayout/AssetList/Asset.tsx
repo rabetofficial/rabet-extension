@@ -53,37 +53,39 @@ const Asset = ({ asset }: AssetType) => {
   }
 
   return (
-    <S.Container className="flex items-center py-[18px]">
-      <S.Circle>
-        <S.Image
-          isDark={asset.asset_type === 'native'}
-          src={handleAssetImage(asset, assetImages)}
-          alt={handleAssetAlt(asset)}
-          onError={(e) => ImageOnErrorHandler(e, questionIcon)}
-        />
-      </S.Circle>
-      <div className="flex justify-between items-center w-full">
-        <div className="flex flex-col">
-          <div className="inline-flex text-base">
-            <span className=" font-medium">
-              {formatCurrency(asset.balance)}
-            </span>
-            <span className="text-primary-dark font-normal ml-1">
-              {asset_code}
-            </span>
-            {isVerified && (
-              <div className="ml-1 mt-1">
-                <BlackCheck width="16" height="16" />
-              </div>
-            )}
-          </div>
-          <div className="text-sm text-primary-dark mt-[2px]">
-            {handleAssetSymbol(currencies, options)}
-            {formatBalance(price)}
+    <div>
+      <S.Container className="flex items-center">
+        <S.Circle>
+          <S.Image
+            isDark={asset.asset_type === 'native'}
+            src={handleAssetImage(asset, assetImages)}
+            alt={handleAssetAlt(asset)}
+            onError={(e) => ImageOnErrorHandler(e, questionIcon)}
+          />
+        </S.Circle>
+        <div className="flex justify-between items-center w-full">
+          <div className="flex flex-col">
+            <div className="inline-flex text-base">
+              <span className=" font-medium">
+                {formatCurrency(asset.balance)}
+              </span>
+              <span className="text-primary-dark font-normal ml-1">
+                {asset_code}
+              </span>
+              {isVerified && (
+                <div className="ml-1 mt-1">
+                  <BlackCheck width="16" height="16" />
+                </div>
+              )}
+            </div>
+            <div className="text-sm text-primary-dark mt-[2px]">
+              {handleAssetSymbol(currencies, options)}
+              {formatBalance(price)}
+            </div>
           </div>
         </div>
-      </div>
-    </S.Container>
+      </S.Container>
+    </div>
   );
 };
 

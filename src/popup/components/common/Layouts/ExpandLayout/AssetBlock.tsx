@@ -29,8 +29,9 @@ const AssetBlock = () => {
           <div className="ml-1">Add assets</div>
         </S.AssetTrigger>
       </div>
-
-      <AssetList />
+      <div className="mx-[-24px]">
+        <AssetList />
+      </div>
     </S.Card>
   );
 };
