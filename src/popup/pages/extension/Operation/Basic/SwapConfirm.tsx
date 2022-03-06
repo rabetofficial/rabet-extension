@@ -1,5 +1,22 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-const SwapConfirm = () => <div>swap confirm</div>;
+import ConfirmSwap from 'popup/blocks/Op/Basic/Swap/Confirm';
+import ExtTitle from 'popup/components/common/Title/Ext';
 
-export default SwapConfirm;
+const SendConfirm = () => {
+  const { network } = useSelector((store) => store.options);
+  const networkTitle =
+    network === 'MAINNET' ? 'Main network' : 'Test network';
+
+  const status = network === 'MAINNET' ? 'success' : 'warn';
+
+  return (
+    <div className="content mt-8">
+      <ExtTitle status={status} title={networkTitle} />
+      <ConfirmSwap />
+    </div>
+  );
+};
+
+export default SendConfirm;
