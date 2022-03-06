@@ -19,34 +19,31 @@ const ScrollBar = ({
   maxWidth,
   maxHeight,
 }: AppProps) => {
-  const renderScrollBar = () => {
-    if (isVertical) {
-      return (
-        <S.VerticalScroll maxHeight={maxHeight}>
-          {children}
-        </S.VerticalScroll>
-      );
-    }
+  if (isVertical) {
+    return (
+      <S.VerticalScroll maxHeight={maxHeight}>
+        {children}
+      </S.VerticalScroll>
+    );
+  }
 
-    if (isHorizontal) {
-      return (
-        <S.HorizontalScroll maxWidth={maxWidth}>
-          {children}
-        </S.HorizontalScroll>
-      );
-    }
+  if (isHorizontal) {
+    return (
+      <S.HorizontalScroll maxWidth={maxWidth}>
+        {children}
+      </S.HorizontalScroll>
+    );
+  }
 
-    if (isHidden) {
-      return (
-        <S.HiddenScroll maxHeight={maxHeight} maxWidth={maxWidth}>
-          {children}
-        </S.HiddenScroll>
-      );
-    }
+  if (isHidden) {
+    return (
+      <S.HiddenScroll maxHeight={maxHeight} maxWidth={maxWidth}>
+        {children}
+      </S.HiddenScroll>
+    );
+  }
 
-    return <div>children</div>;
-  };
-  return renderScrollBar();
+  return <div>children</div>;
 };
 
 ScrollBar.defaultProps = {

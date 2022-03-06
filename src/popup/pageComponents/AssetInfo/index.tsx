@@ -187,6 +187,7 @@ const AssetInfo = ({
   return (
     <S.Page>
       {children}
+
       <S.Content>
         {assetInfo.map((item, index) => (
           <div key={item.title}>
@@ -195,7 +196,9 @@ const AssetInfo = ({
             {assetInfo.length - 1 !== index && <S.Hr />}
           </div>
         ))}
+
         <HandleFlags />
+
         {!isDeletable ? (
           <div className="text-xs text-error mt-2 py-1 px-2 bg-[#fbeded] rounded-sm	">
             You cannot remove this asset unless the asset&apos;s
