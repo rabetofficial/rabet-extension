@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-import Search from 'popup/svgs/Search';
 import { IAccount } from 'popup/reducers/accounts2';
 import Popover from 'popup/components/common/Popover';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
@@ -74,20 +73,14 @@ const SearchAccounts = ({ usage, isOpen, ...props }: AppProps) => {
         triggerElement={triggerElement}
       >
         <S.Card>
-          <div className="relative">
+          <S.Label>
             <S.InputSearch
               type="text"
               value={searchString}
               onChange={handleChange}
               placeholder="Search Accounts"
             />
-
-            {!searchString && (
-              <S.SearchIcon>
-                <Search />
-              </S.SearchIcon>
-            )}
-          </div>
+          </S.Label>
 
           <AccountList accounts={activeAccounts} />
 

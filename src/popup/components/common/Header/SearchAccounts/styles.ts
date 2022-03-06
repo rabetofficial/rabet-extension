@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import Search from 'popup/svgs/Search';
+import svgToMarkupString from '../../../../../helpers/svgToMarkupString';
+
 export const ToggleButton = styled.button`
   width: 40px;
   height: 40px;
@@ -17,10 +20,29 @@ export const Card = styled.div`
   background: white;
 `;
 
+export const Label = styled.label`
+  position: relative;
+  display: flex;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 10px;
+    bottom: 0;
+    width: 15px;
+    height: 15px;
+    background: ${({ color }) =>
+      `url(${svgToMarkupString(Search, {
+        color,
+      })}) no-repeat center`};
+  }
+`;
+
 export const InputSearch = styled.input`
   width: 100%;
   border: none;
-  padding: 0 16.5px;
+  padding: 0 14px 0 34px;
   border-bottom: 1px solid
     ${({ theme }) => theme.colors.primary.lighter};
   box-sizing: border-box;
@@ -37,15 +59,6 @@ export const InputSearch = styled.input`
   &::placeholder {
     font-size: 14px;
     color: ${({ theme }) => theme.colors.primary.main};
-    padding-left: 24px;
-  }
-`;
-
-export const SearchIcon = styled.div`
-  svg {
-    position: absolute;
-    top: 11px;
-    left: 18px;
   }
 `;
 

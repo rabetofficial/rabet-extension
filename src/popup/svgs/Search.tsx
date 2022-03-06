@@ -4,9 +4,9 @@ function Icon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
+      width="15"
+      height="15"
+      viewBox="0 0 15 15"
     >
       <path
         fill="#afafaf"
