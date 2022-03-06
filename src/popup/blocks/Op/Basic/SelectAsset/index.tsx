@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Modal from 'popup/components/common/ModalDialog';
 import AngleDownBold from 'popup/svgs/AngleDownBold';
+import { Usage } from 'popup/models';
 import questionLogo from '../../../../../assets/images/question-circle.png';
 import SearchAsset from './Search';
 
@@ -10,6 +11,7 @@ import * as S from './styles';
 type AppProps = {
   currencies: any[];
   onChange: (value: any) => void;
+  usage: Usage;
 };
 
 const SelectAssetModal = ({
@@ -19,6 +21,7 @@ const SelectAssetModal = ({
   setValue,
   valueName,
   defaultNull,
+  usage,
 }: AppProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentAsset, setCurrentAsset] = useState(
@@ -67,6 +70,7 @@ const SelectAssetModal = ({
         isOpen={isModalOpen}
         onClose={onCloseModal}
         isStyled={false}
+        size={usage === 'extension' ? 'small' : 'medium'}
       >
         <SearchAsset
           currencies={currencies}

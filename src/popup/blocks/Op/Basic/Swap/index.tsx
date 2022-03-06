@@ -152,6 +152,7 @@ const BasicSwap = ({ usage }: AppProps) => {
             <Field name="asset1">
               {() => (
                 <SelectAsset
+                  usage={usage}
                   currencies={balances1}
                   onChange={handleChangeAsset1}
                 />
@@ -184,6 +185,7 @@ const BasicSwap = ({ usage }: AppProps) => {
             <Field name="asset2">
               {() => (
                 <SelectAsset
+                  usage={usage}
                   currencies={balances2}
                   onChange={handleChangeAsset2}
                 />

@@ -23,15 +23,25 @@ const ModalDialog = ({
 }: ModalDialogType) => {
   const { windowWidth } = useWindowDimensions();
 
-  const renderModalSize = () => {
+  const getModalSize = () => {
     if (size === 'small') {
       return 306;
     }
     if (size === 'medium') {
       return 428;
     }
-
     return 800;
+  };
+
+  const renderModalWidth = () => {
+    const modalSize = getModalSize();
+    if (windowWidth - 80 <= modalSize) {
+      if (modalSize <= 360) {
+        return '306px';
+      }
+      return 'auto';
+    }
+    return `${modalSize}px`;
   };
 
   const modalStyles = {
@@ -42,10 +52,7 @@ const ModalDialog = ({
     content: {
       borderRadius: '2px',
       padding: '0',
-      width:
-        windowWidth - 80 <= renderModalSize()
-          ? 'auto'
-          : `${renderModalSize()}px`,
+      width: renderModalWidth(),
       height: 'fit-content',
       border: '1px solid rgba(33 35 38, 0.05)',
       margin: 'auto',

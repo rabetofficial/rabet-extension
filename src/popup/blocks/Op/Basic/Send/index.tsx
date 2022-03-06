@@ -70,6 +70,7 @@ const BasicSend = ({ usage }: AppProps) => {
               <Field name="asset">
                 {() => (
                   <SelectAssetModal
+                    usage={usage}
                     currencies={currencies}
                     onChange={setSelectedAsset}
                   />
