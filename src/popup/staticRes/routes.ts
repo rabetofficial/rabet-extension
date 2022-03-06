@@ -30,6 +30,8 @@ enum RouteName {
   AddAsset = '/add-asset',
   QRCode = '/qr-code',
   ConfirmFlag = '/confirm-flag',
+  AddContact = '/add-contact',
+  EditContact = '/edit-contact',
 
   FetchData = '/fetch-data',
   BackupFile = '/backup-file',

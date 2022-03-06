@@ -1,6 +1,7 @@
 const config = {
   BASE_FEE: '50000',
   VERSION: '1.2.0',
+  SLIDESHOW_TRANSITION: 1400,
   INTERVAL_TIME_SECONDS: 13,
   OFFLINE_MODE_TIMEOUT_SECONDS: 4,
   ASSET_SERVER: 'https://asset.rabet.io/assets',

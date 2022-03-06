@@ -191,8 +191,11 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     }
   }, [usage]);
 
-  const handleMenu = (func: any) => {
-    func();
+  const handleMenuOnClick = (func: (() => void) | undefined) => {
+    if (func) {
+      func();
+    }
+
     onHidePopover();
   };
 
@@ -203,7 +206,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
           <S.GroupLink
             key={item.id}
             to={item.link}
-            onClick={() => handleMenu(item.onClick)}
+            onClick={() => handleMenuOnClick(item.onClick)}
           >
             {item.icon}
             {item.label}
