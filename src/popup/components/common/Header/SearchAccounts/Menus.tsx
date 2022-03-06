@@ -122,10 +122,6 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     });
   };
 
-  const openCreateWalletPage = () => {
-    navigate(RouteName.CreateWallet);
-  };
-
   const openImportWalletModal = () => {
     openModalAction({
       isStyled: true,
@@ -143,10 +139,6 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     });
   };
 
-  const openImportWalletPage = () => {
-    navigate(RouteName.RestoreWallet);
-  };
-
   const menus: Menu[] = [
     {
       id: 1,
@@ -157,7 +149,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
         if (usage === 'expand') {
           openCreateWalletModal();
         } else {
-          openCreateWalletPage();
+          navigate(RouteName.CreateWallet);
         }
       },
     },
@@ -170,7 +162,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
         if (usage === 'expand') {
           openImportWalletModal();
         } else {
-          openImportWalletPage();
+          navigate(RouteName.RestoreWallet);
         }
       },
     },

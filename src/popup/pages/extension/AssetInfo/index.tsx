@@ -65,7 +65,7 @@ const AssetInfo = () => {
         title={`Assets | ${asset_code || 'XLM'}`}
       />
 
-      <div className="content mt-[33px]">
+      <div className="content">
         <AssetInfoContent
           asset={asset}
           isNative={isNative}

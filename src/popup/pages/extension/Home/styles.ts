@@ -105,7 +105,7 @@ export const Info = styled.div`
   letter-spacing: normal;
 `;
 
-export const InfoBox = styled.p`
+export const InfoBox = styled.div`
   border-top: 1px solid #ececec;
   padding: 16px;
 `;

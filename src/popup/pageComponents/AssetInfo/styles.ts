@@ -37,7 +37,7 @@ export const Title = styled.h4`
   font-weight: 500;
 `;
 
-export const Value = styled.p`
+export const Value = styled.div`
   margin-top: -2px;
   font-size: 16px;
   color: ${({ theme }) => theme.colors.primary.dark};
