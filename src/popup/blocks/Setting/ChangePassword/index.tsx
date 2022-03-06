@@ -82,7 +82,7 @@ const ChangePassword = ({
   };
 
   return (
-    <div style={{ width: '80%' }}>
+    <div style={{ maxWidth: '460px' }}>
       {needTitle && (
         <PageTitle
           isSetting

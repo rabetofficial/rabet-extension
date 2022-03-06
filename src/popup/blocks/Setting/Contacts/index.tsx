@@ -16,6 +16,7 @@ import * as S from './styles';
 import EditContact from './EditContact';
 import CreateContact from './CreateContact';
 import CopyText from 'popup/components/common/CopyText';
+import ScrollBar from 'popup/components/common/ScrollBar';
 
 type ContactProps = {
   onClose: () => void;
@@ -50,7 +51,7 @@ const Contact = ({ onClose, needTitle }: ContactProps) => {
   };
 
   return (
-    <div style={{ width: '80%' }}>
+    <div style={{ maxWidth: '460px' }}>
       {needTitle && (
         <PageTitle
           isSetting
@@ -72,68 +73,73 @@ const Contact = ({ onClose, needTitle }: ContactProps) => {
           marginTop: '13px',
         }}
       />
-      <S.Container>
-        {contacts.map((contact) => (
-          <div key={`contact${contact.publicKey}`}>
-            <S.ContentContainer>
-              <div style={{ display: 'flex' }}>
-                <div>
-                  <S.IconContainer>
-                    <S.IconExample>
-                      {contact.name[0].toUpperCase()}
-                    </S.IconExample>
-                  </S.IconContainer>
+      <ScrollBar isHidden>
+        <S.Container>
+          {contacts.map((contact) => (
+            <div key={`contact${contact.publicKey}`}>
+              <S.ContentContainer>
+                <div style={{ display: 'flex' }}>
+                  <div>
+                    <S.IconContainer>
+                      <S.IconExample>
+                        {contact.name[0].toUpperCase()}
+                      </S.IconExample>
+                    </S.IconContainer>
+                  </div>
+                  <div>
+                    <S.Name>
+                      {contact.name.length > 20 ? (
+                        <span>{`${contact.name.slice(
+                          0,
+                          10,
+                        )}...`}</span>
+                      ) : (
+                        <span>{contact.name}</span>
+                      )}
+                    </S.Name>
+                    <CopyText
+                      text={contact.publicKey}
+                      custom={
+                        <S.Address>
+                          {shorter(contact.publicKey, 8)}
+                        </S.Address>
+                      }
+                    />
+                  </div>
                 </div>
-                <div>
-                  <S.Name>
-                    {contact.name.length > 20 ? (
-                      <span>{`${contact.name.slice(0, 10)}...`}</span>
-                    ) : (
-                      <span>{contact.name}</span>
-                    )}
-                  </S.Name>
-                  <CopyText
-                    text={contact.publicKey}
-                    custom={
-                      <S.Address>
-                        {shorter(contact.publicKey, 8)}
-                      </S.Address>
-                    }
-                  />
-                </div>
-              </div>
 
-              {contact.memo && (
-                <div>
-                  <S.Title>Memo</S.Title>
-                  <S.Code>{contact.memo || '-'}</S.Code>
-                </div>
-              )}
+                {contact.memo && (
+                  <div>
+                    <S.Title>Memo</S.Title>
+                    <S.Code>{contact.memo || '-'}</S.Code>
+                  </div>
+                )}
 
-              <S.ActionIcons>
-                <span
-                  style={{ marginRight: '15px', cursor: 'pointer' }}
-                  onClick={() => {
-                    openEditContactModal(contact);
-                  }}
-                >
-                  <EditPen />
-                </span>
-                <span
-                  onClick={() => {
-                    deleteContactAction(contact);
-                  }}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <Multiply />
-                </span>
-              </S.ActionIcons>
-            </S.ContentContainer>
+                <S.ActionIcons>
+                  <span
+                    style={{ marginRight: '15px', cursor: 'pointer' }}
+                    onClick={() => {
+                      openEditContactModal(contact);
+                    }}
+                  >
+                    <EditPen />
+                  </span>
+                  <span
+                    onClick={() => {
+                      deleteContactAction(contact);
+                    }}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <Multiply />
+                  </span>
+                </S.ActionIcons>
+              </S.ContentContainer>
 
-            <S.Hr />
-          </div>
-        ))}
-      </S.Container>
+              <S.Hr />
+            </div>
+          ))}
+        </S.Container>
+      </ScrollBar>
     </div>
   );
 };
