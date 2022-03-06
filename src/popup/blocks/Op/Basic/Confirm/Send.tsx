@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import Card from 'popup/components/common/Card';
 import shorter from 'popup/utils/shorter';
 import CopyText from 'popup/components/common/CopyText';
-import ConfirmLayout from 'popup/blocks/Op/Basic/ConfirmLayout';
 import numberWithCommas from 'popup/utils/numberWithCommas';
 import basicSendAction from 'popup/actions/operations/basicSend';
-import * as S from 'popup/blocks/Op/Basic/ConfirmLayout/styles';
+import ConfirmLayout from './Layout';
 import questionLogo from '../../../../../assets/images/question-circle.png';
 
-const BasicSendConfirm = () => {
+import * as S from './styles';
+
+const BasicConfirmSend = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -64,4 +65,4 @@ const BasicSendConfirm = () => {
   );
 };
 
-export default BasicSendConfirm;
+export default BasicConfirmSend;

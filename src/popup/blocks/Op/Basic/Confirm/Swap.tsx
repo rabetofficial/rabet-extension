@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import numberWithCommas from 'popup/utils/numberWithCommas';
 import Card from 'popup/components/common/Card';
 import basicSwapAction from 'popup/actions/operations/basicSwap';
-import ConfirmLayout from 'popup/blocks/Op/Basic/ConfirmLayout';
 import ArrowDown from 'popup/svgs/ArrowDown';
-import * as S from 'popup/blocks/Op/Basic/ConfirmLayout/styles';
+import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
+import ConfirmLayout from './Layout';
 import questionLogo from '../../../../../assets/images/question-circle.png';
-import SwapDetail from './Detail';
 
-const BasicSwapConfirm = () => {
+import * as S from './styles';
+
+const BasicConfirmSwap = () => {
   const navigate = useNavigate();
 
   const values = {
@@ -88,4 +89,4 @@ const BasicSwapConfirm = () => {
   );
 };
 
-export default BasicSwapConfirm;
+export default BasicConfirmSwap;

@@ -36,8 +36,8 @@ import DeleteAccount from './DeleteAccount';
 import ConnectedWebsite from './ConnectedWebsite';
 import BackupFile from './BackupFile';
 import BasicOperation from './extension/Operation/Basic';
-import BasicSwapConfirm from './extension/Operation/Basic/SwapConfirm';
-import BasicSendConfirm from './extension/Operation/Basic/SendConfirm';
+import BasicSwapConfirm from './extension/Operation/Basic/ConfirmSwap';
+import BasicSendConfirm from './extension/Operation/Basic/ConfirmSend';
 import AdvanceOperation from './Operation/Adavnce';
 import UITest from './UITest';
 

@@ -14,7 +14,7 @@ type AppProps = {
   handleClick: () => void;
 };
 
-const ConfirmLayout = ({ children, handleClick }: AppProps) => {
+const BasicConfirmLayout = ({ children, handleClick }: AppProps) => {
   const navigate = useNavigate();
   const { activeAccount } = currentActiveAccount();
 
@@ -61,4 +61,4 @@ const ConfirmLayout = ({ children, handleClick }: AppProps) => {
   );
 };
 
-export default ConfirmLayout;
+export default BasicConfirmLayout;

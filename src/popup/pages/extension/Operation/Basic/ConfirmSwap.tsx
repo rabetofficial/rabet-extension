@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import ConfirmSend from 'popup/blocks/Op/Basic/Send/Confirm';
+import Confirm from 'popup/blocks/Op/Basic/Confirm/Swap';
 import ExtTitle from 'popup/components/common/Title/Ext';
 
-const SendConfirm = () => {
+const BasicConfirmSwap = () => {
   const { network } = useSelector((store) => store.options);
   const networkTitle =
     network === 'MAINNET' ? 'Main network' : 'Test network';
@@ -14,9 +14,9 @@ const SendConfirm = () => {
   return (
     <div className="content mt-8">
       <ExtTitle status={status} title={networkTitle} />
-      <ConfirmSend />
+      <Confirm />
     </div>
   );
 };
 
-export default SendConfirm;
+export default BasicConfirmSwap;
