@@ -1,16 +1,23 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  padding: 30px 32px;
+  @media (max-width: 360px) {
+    padding: 0px 16px 16px;
+  }
+`;
+
 export const Page = styled.div`
   position: relative;
   padding: 30px 32px 24px;
   @media (max-width: 360px) {
-    padding: 16px;
+    padding: 0px 16px 16px;
   }
 `;
 export const Content = styled.div`
   margin-top: 22px;
   @media (max-width: 360px) {
-    margin-top: 16px;
+    margin-top: 8px;
   }
 `;
 export const ImgContainer = styled.div`

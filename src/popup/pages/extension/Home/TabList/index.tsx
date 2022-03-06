@@ -16,7 +16,7 @@ const TabList = () => {
           <div className="text-sm flex justify-end mt-2">
             <Link to={RouteName.AddAsset}>+ Add asset</Link>
           </div>
-          <AssetList scrollMaxHeight={175} isExtension />
+          <AssetList scrollMaxHeight={200} isExtension />
         </div>
       ),
     },
@@ -25,7 +25,7 @@ const TabList = () => {
       title: 'Transactions',
       content: (
         <div className="max-h-[200px]">
-          <Transactions scrollMaxHeight={195} isExtention />
+          <Transactions scrollMaxHeight={200} isExtention />
         </div>
       ),
     },

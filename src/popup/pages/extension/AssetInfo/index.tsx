@@ -6,6 +6,7 @@ import Header from 'popup/components/common/Header';
 import ExtTitle from 'popup/components/common/Title/Ext';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import AssetInfoContent from 'popup/pageComponents/AssetInfo';
+import ScrollBar from 'popup/components/common/ScrollBar';
 
 const AssetInfo = () => {
   const navigate = useNavigate();
@@ -58,22 +59,22 @@ const AssetInfo = () => {
 
   return (
     <>
-      <Header />
+      <ScrollBar isHidden maxHeight={600}>
+        <Header />
 
-      <ExtTitle
-        className="content mt-[20px]"
-        title={`Assets | ${asset_code || 'XLM'}`}
-      />
-
-      <div className="content">
         <AssetInfoContent
           asset={asset}
           isNative={isNative}
           onCancel={onCancel}
           onDelete={onDelete}
           onBeforeDelete={handleBeforeDelete}
-        />
-      </div>
+        >
+          <ExtTitle
+            className="mt-[20px]"
+            title={`Assets | ${asset_code || 'XLM'}`}
+          />
+        </AssetInfoContent>
+      </ScrollBar>
     </>
   );
 };

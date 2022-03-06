@@ -72,7 +72,11 @@ const AssetInfo = ({
 
   const HandleIssuer = () => {
     if (loading) {
-      return <S.Info>Loading</S.Info>;
+      return (
+        <S.Info className="h-[52px] flex justify-start items-center">
+          Loading
+        </S.Info>
+      );
     }
 
     return (
@@ -164,10 +168,9 @@ const AssetInfo = ({
   );
   if (isNative) {
     return (
-      <div className=" py-[30px] px-[32px]">
-        {children}
-
+      <S.Container>
         <div className="flex flex-col h-[490px]">
+          {children}
           <S.Circle>
             <S.ImgContainer>
               <img src={xlmLogo} alt="xlm logo" />
@@ -181,7 +184,7 @@ const AssetInfo = ({
             XLM. You can trade XLM for other assets in the network
           </p>
         </div>
-      </div>
+      </S.Container>
     );
   }
   return (
