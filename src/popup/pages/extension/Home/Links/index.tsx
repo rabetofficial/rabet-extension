@@ -11,7 +11,7 @@ const Links = () => {
   const isAdvanced = mode === 'ADVANCED';
 
   return (
-    <div className="flex justify-center align-center mt-3">
+    <div className="flex justify-center align-center mt-2">
       <Link
         to={
           isAdvanced

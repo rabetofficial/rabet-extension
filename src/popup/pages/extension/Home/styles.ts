@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
+  max-height: 600px;
 `;
 
 export const Xlm = styled.div`
@@ -14,7 +15,7 @@ export const Subject = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.colors.primary.dark};
   text-align: center;
-  margin: 6px auto 0 auto;
+  margin: 0 auto;
 `;
 
 export const Label = styled.p`
@@ -32,7 +33,7 @@ export const Value = styled.div`
   color: @shark;
   font-weight: 500;
   text-align: center;
-  margin: 0 auto;
+  margin: -3px auto 0;
 
   span {
     font-weight: 100;
@@ -47,9 +48,9 @@ export const XlmBox = styled.div`
 
 export const ModalInactive = styled.span`
   position: absolute;
-  top: 20px;
-  right: 16px;
-  border: 1px solid #f48b00;
+  top: 18px;
+  right: 15px;
+  border: 2px solid #f48b00;
   width: 11px;
   height: 11px;
   border-radius: 50%;
@@ -58,9 +59,9 @@ export const ModalInactive = styled.span`
 
 export const ModalActive = styled.span`
   position: absolute;
-  top: 20px;
-  right: 16px;
-  border: 1px solid ${({ theme }) => theme.colors.success};
+  top: 18px;
+  right: 15px;
+  border: 2px solid ${({ theme }) => theme.colors.success};
   width: 11px;
   height: 11px;
   border-radius: 50%;
@@ -69,7 +70,7 @@ export const ModalActive = styled.span`
 
 export const DropDown = styled.span`
   position: absolute;
-  top: 190px;
+  top: 107px;
   right: 16px;
 `;
 
@@ -105,7 +106,6 @@ export const Info = styled.div`
 `;
 
 export const InfoBox = styled.p`
-  //background-color: @Alabaster;
   border-top: 1px solid #ececec;
   padding: 16px;
 `;

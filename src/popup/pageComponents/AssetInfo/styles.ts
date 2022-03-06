@@ -73,8 +73,8 @@ export const Table = styled.div`
 
   th,
   td {
-    margin-left: 14px;
-    padding: 15px 8px;
+    text-align: center;
+    padding: 15px;
     font-size: 16px;
   }
 

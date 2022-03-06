@@ -34,19 +34,21 @@ const Transactions = ({
 
   if (isLoading) {
     return (
-      <div
-        className="flex justify-center items-center"
-        style={{ height: isExtention ? '200px' : '60vh' }}
-      >
-        <Loading size={80} />
-      </div>
+      <ScrollBar isHidden maxHeight={isExtention ? 199 : 600}>
+        <div
+          className="flex justify-center items-center"
+          style={{ height: isExtention ? '200px' : '60vh' }}
+        >
+          <Loading size={80} />
+        </div>
+      </ScrollBar>
     );
   }
   if (transactions.length === 0) {
     return (
       <div
         className="flex justify-center items-center"
-        style={{ height: isExtention ? '200px' : '60vh' }}
+        style={{ height: isExtention ? '198px' : '60vh' }}
       >
         <Nodata msg="You have no transaction" className="text-base" />
       </div>

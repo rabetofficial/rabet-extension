@@ -89,32 +89,27 @@ const AssetInfo = ({
     let required = '';
     let revocable = '';
     let immutable = '';
-    let clawback = '';
 
     if (loading) {
       required = 'Loading';
       revocable = 'Loading';
       immutable = 'Loading';
-      clawback = 'Loading';
     }
 
     if (error) {
       required = 'Error';
       revocable = 'Error';
       immutable = 'Error';
-      clawback = 'Error';
     }
 
     if (!assetData?.flags) {
       required = '-';
       revocable = '-';
       immutable = '-';
-      clawback = '-';
     } else {
       required = assetData?.flags.auth_revocable ? 'True' : 'False';
       revocable = assetData?.flags.auth_revocable ? 'True' : 'False';
       immutable = assetData?.flags.auth_revocable ? 'True' : 'False';
-      clawback = assetData?.flags.auth_revocable ? 'True' : 'False';
     }
 
     return (
@@ -125,7 +120,6 @@ const AssetInfo = ({
               <th>Required</th>
               <th>Revocable</th>
               <th>Immutable</th>
-              <th>Clawback</th>
             </tr>
           </thead>
           <tbody>
@@ -138,9 +132,6 @@ const AssetInfo = ({
               </td>
               <td>
                 <S.Info>{immutable}</S.Info>
-              </td>
-              <td>
-                <S.Info>{clawback}</S.Info>
               </td>
             </tr>
           </tbody>
@@ -206,7 +197,7 @@ const AssetInfo = ({
         ))}
         <HandleFlags />
         {!isDeletable ? (
-          <div className="text-xs text-error mt-1">
+          <div className="text-xs text-error mt-2 py-1 px-2 bg-[#fbeded] rounded-sm	">
             You cannot remove this asset unless the asset&apos;s
             balance is zero.
           </div>

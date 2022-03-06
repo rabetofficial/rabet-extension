@@ -39,7 +39,6 @@ const Home = () => {
     <ScrollBar isHidden maxHeight={600}>
       <S.Container>
         <Header />
-
         <S.XlmBox>
           <S.Value>
             {handleAssetSymbol(currencies, options)}
@@ -53,7 +52,6 @@ const Home = () => {
           </S.Value>
           <S.Subject>Total ({activeCurrency.name})</S.Subject>
         </S.XlmBox>
-
         <S.InfoBox>
           <S.Label className="mb-[2px]">Name</S.Label>
           <S.Info className="mb-[6px]">
@@ -76,9 +74,7 @@ const Home = () => {
             />
           </S.Info>
         </S.InfoBox>
-
         <Links />
-
         <div className="mt-3">
           <TabList />
         </div>
