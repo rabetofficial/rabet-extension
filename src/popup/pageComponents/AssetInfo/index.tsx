@@ -72,7 +72,11 @@ const AssetInfo = ({
 
   const HandleIssuer = () => {
     if (loading) {
-      return <S.Info className="h-[52px]">Loading</S.Info>;
+      return (
+        <S.Info className="h-[52px] flex justify-start items-center">
+          Loading
+        </S.Info>
+      );
     }
 
     return (
@@ -165,9 +169,8 @@ const AssetInfo = ({
   if (isNative) {
     return (
       <S.Container>
-        {children}
-
         <div className="flex flex-col h-[490px]">
+          {children}
           <S.Circle>
             <S.ImgContainer>
               <img src={xlmLogo} alt="xlm logo" />
