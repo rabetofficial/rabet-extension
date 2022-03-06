@@ -40,6 +40,8 @@ import BasicSwapConfirm from './extension/Operation/Basic/ConfirmSwap';
 import BasicSendConfirm from './extension/Operation/Basic/ConfirmSend';
 import AdvanceOperation from './Operation/Adavnce';
 import UITest from './UITest';
+import EditContact from './extension/EditContact';
+import AddContact from './extension/AddContact';
 
 const App = () => (
   <div className="layout">
@@ -93,6 +95,22 @@ const App = () => (
         element={
           <ProtectedRoute>
             <Setting />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.AddContact}
+        element={
+          <ProtectedRoute>
+            <AddContact />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path={RouteName.EditContact}
+        element={
+          <ProtectedRoute>
+            <EditContact />
           </ProtectedRoute>
         }
       />

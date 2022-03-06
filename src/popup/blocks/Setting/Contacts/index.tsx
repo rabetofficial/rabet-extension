@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Plus from 'popup/svgs/Plus';
 import EditPen from 'popup/svgs/EditPen';
@@ -11,19 +12,26 @@ import closeModalAction from 'popup/actions/modal/close';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import deleteContactAction from 'popup/actions/contacts/delete';
 import { Contact as ContactType } from 'popup/reducers/contacts';
+import CopyText from 'popup/components/common/CopyText';
+import ScrollBar from 'popup/components/common/ScrollBar';
+import RouteName from 'popup/staticRes/routes';
 
 import * as S from './styles';
 import EditContact from './EditContact';
 import CreateContact from './CreateContact';
-import CopyText from 'popup/components/common/CopyText';
-import ScrollBar from 'popup/components/common/ScrollBar';
 
 type ContactProps = {
   onClose: () => void;
   needTitle?: boolean;
+  isExtension: boolean;
 };
 
-const Contact = ({ onClose, needTitle }: ContactProps) => {
+const Contact = ({
+  onClose,
+  needTitle,
+  isExtension,
+}: ContactProps) => {
+  const navigate = useNavigate();
   const contacts = useTypedSelector((store) => store.contacts);
 
   const openAddContactModal = () => {
@@ -50,6 +58,34 @@ const Contact = ({ onClose, needTitle }: ContactProps) => {
     });
   };
 
+  const openAddContactPage = () => {
+    navigate(RouteName.AddContact);
+  };
+
+  const openEditContactPage = (contact: ContactType) => {
+    navigate(RouteName.EditContact, {
+      state: {
+        contact,
+      },
+    });
+  };
+
+  const handleOpenAddContact = () => {
+    if (isExtension) {
+      openAddContactModal();
+    } else {
+      openAddContactPage();
+    }
+  };
+
+  const handleOpenEditContact = (contact: ContactType) => {
+    if (isExtension) {
+      openEditContactModal(contact);
+    } else {
+      openEditContactPage(contact);
+    }
+  };
+
   return (
     <div style={{ maxWidth: '460px' }}>
       {needTitle && (
@@ -67,12 +103,13 @@ const Contact = ({ onClose, needTitle }: ContactProps) => {
         size="medium"
         content="Add Contact"
         startIcon={<Plus />}
-        onClick={openAddContactModal}
+        onClick={handleOpenAddContact}
         style={{
           borderRadius: '4px',
           marginTop: '13px',
         }}
       />
+
       <ScrollBar isHidden>
         <S.Container>
           {contacts.map((contact) => (
@@ -86,6 +123,7 @@ const Contact = ({ onClose, needTitle }: ContactProps) => {
                       </S.IconExample>
                     </S.IconContainer>
                   </div>
+
                   <div>
                     <S.Name>
                       {contact.name.length > 20 ? (
@@ -97,6 +135,7 @@ const Contact = ({ onClose, needTitle }: ContactProps) => {
                         <span>{contact.name}</span>
                       )}
                     </S.Name>
+
                     <CopyText
                       text={contact.publicKey}
                       custom={
@@ -119,7 +158,7 @@ const Contact = ({ onClose, needTitle }: ContactProps) => {
                   <span
                     style={{ marginRight: '15px', cursor: 'pointer' }}
                     onClick={() => {
-                      openEditContactModal(contact);
+                      handleOpenEditContact(contact);
                     }}
                   >
                     <EditPen />

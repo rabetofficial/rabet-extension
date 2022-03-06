@@ -16,7 +16,11 @@ type SettingPage = {
   onClick: () => void;
 };
 
-const Setting = () => {
+type SettingProps = {
+  isExtension?: boolean;
+};
+
+const Setting = ({ isExtension }: SettingProps) => {
   const changeContent = (element: JSX.Element) => {
     setCurrentElement(element);
   };
@@ -55,7 +59,12 @@ const Setting = () => {
       title: 'Contacts',
       description: 'Add, edit, delete and manage your contacts',
       onClick: () => {
-        changeContent(<Contacts onClose={showMainPage} />);
+        changeContent(
+          <Contacts
+            onClose={showMainPage}
+            isExtension={isExtension}
+          />,
+        );
       },
     },
     {
@@ -92,6 +101,10 @@ const Setting = () => {
   );
 
   return <>{currentElement}</>;
+};
+
+Setting.defaultProps = {
+  isExtension: false,
 };
 
 export default Setting;
