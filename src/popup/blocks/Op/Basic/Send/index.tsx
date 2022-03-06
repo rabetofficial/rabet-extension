@@ -25,7 +25,13 @@ type AppProps = {
 const BasicSend = ({ usage }: AppProps) => {
   const navigate = useNavigate();
 
-  const onSubmit = async (v: FormValues) => {};
+  const onSubmit = async (v: FormValues) => {
+    if (usage === 'extension') {
+      // navigate()
+    } else {
+      console.warn('hello');
+    }
+  };
 
   const currencies = Array(5).fill({
     asset_code: 'XLM',
@@ -142,8 +148,8 @@ const BasicSend = ({ usage }: AppProps) => {
                 size="medium"
                 content="Send"
                 className="mr-[-11px]"
-                disabled={invalid || pristine}
               />
+              {/* disabled={invalid || pristine} */}
             </ButtonContainer>
           </form>
         )}

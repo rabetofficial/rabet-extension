@@ -35,10 +35,8 @@ const Popover = ({
   <Tippy
     content={<Container className={className}>{children}</Container>}
     placement={placement}
-    trigger="click"
     animation="shift-away"
     arrow={roundArrow}
-    className="arrow-light"
     interactive
     onHide={onHide}
     visible={visible}

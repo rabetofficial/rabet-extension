@@ -50,7 +50,6 @@ const DropDown = ({
       animation="shift-away"
       arrow
       theme="light-border"
-      trigger="click"
       appendTo="parent"
       interactive
       visible={visible}
