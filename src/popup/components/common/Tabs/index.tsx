@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import classNames from 'classnames';
 
 import { Tab } from 'popup/models';
@@ -10,10 +10,12 @@ type AppProps = {
   titleClass?: string;
   contentClass?: string;
   isEqualWidth?: boolean;
+  style?: CSSProperties;
 };
 
 const Tabs = ({
   data,
+  style,
   titleClass,
   contentClass,
   isEqualWidth,
@@ -34,7 +36,7 @@ const Tabs = ({
 
   return (
     <>
-      <S.Tabs>
+      <S.Tabs style={style}>
         {data.map((item: Tab) => (
           <S.TabTitle
             key={`${item.title}${item.id}`}
@@ -57,6 +59,7 @@ const Tabs = ({
 };
 
 Tabs.defaultProps = {
+  style: {},
   titleClass: '',
   contentClass: '',
   isEqualWidth: false,

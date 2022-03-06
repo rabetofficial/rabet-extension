@@ -13,3 +13,9 @@ export const ButtonContainer = styled.div`
     margin-top: 8px;
   }
 `;
+
+export const Label = styled.div`
+  @media (max-width: 360px) {
+    margin-top: 24px;
+  }
+`;

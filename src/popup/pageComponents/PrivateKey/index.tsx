@@ -48,7 +48,9 @@ const PrivateKey = ({
             <Field name="key">
               {({ input, meta }) => (
                 <div>
-                  <label className="label-primary">Private key</label>
+                  <S.Label className="label-primary">
+                    Private key
+                  </S.Label>
                   <Input
                     type="text"
                     size="medium"

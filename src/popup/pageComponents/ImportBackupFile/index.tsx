@@ -63,19 +63,20 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
 
   return (
     <div>
-      <Button
-        type="file"
-        variant="outlined"
-        size="medium"
-        content="Select backup file"
-        startIcon={<Download />}
-        onClick={handleClick}
-        style={{
-          borderRadius: '4px',
-          marginTop: '5px',
-        }}
-      />
-
+      <S.MediaBtn>
+        <Button
+          type="file"
+          variant="outlined"
+          size="medium"
+          content="Select backup file"
+          startIcon={<Download />}
+          onClick={handleClick}
+          style={{
+            borderRadius: '4px',
+            marginTop: '5px',
+          }}
+        />
+      </S.MediaBtn>
       {showRest && (
         <Form
           onSubmit={onSubmit}

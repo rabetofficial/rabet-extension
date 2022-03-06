@@ -19,3 +19,8 @@ export const SecondButton = styled.div`
     margin-top: 8px;
   }
 `;
+export const MediaBtn = styled.div`
+  @media (max-width: 360px) {
+    margin-top: 24px;
+  }
+`;

@@ -13,7 +13,7 @@ const TabList = () => {
       title: 'Assets',
       content: (
         <div className="max-h-[200px]">
-          <div className="text-sm flex justify-end mt-2">
+          <div className="text-sm flex justify-end mt-2 px-4">
             <Link to={RouteName.AddAsset}>+ Add assets</Link>
           </div>
           <AssetList scrollMaxHeight={200} isExtension />
@@ -31,7 +31,14 @@ const TabList = () => {
     },
   ];
 
-  return <Tabs data={tabs} isEqualWidth titleClass="mt-[10px]" />;
+  return (
+    <Tabs
+      data={tabs}
+      isEqualWidth
+      style={{ margin: '0 16px' }}
+      titleClass="mt-[10px]"
+    />
+  );
 };
 
 export default TabList;
