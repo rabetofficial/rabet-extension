@@ -32,7 +32,7 @@ const Slides = () => {
       </S.RightCircle>
     ),
     onChange: (_: number, newIndex: number) => {
-      // setSlideIndex(newIndex);
+      setSlideIndex(newIndex);
     },
     indicators: (i: number) =>
       slideIndex === 3 ? (
@@ -42,13 +42,10 @@ const Slides = () => {
       ),
   };
 
-  console.log('hihihihihi');
-
   return (
     <SlidesLayout>
       <S.SlidesContainer>
         <Slide {...properties}>
-          {console.log('hihihihih')}
           <Slide1 />
           <Slide2 />
           <Slide3 />

@@ -7,7 +7,7 @@ const Setting = () => (
     <Header />
 
     <div className="content mt-[24px]">
-      <SettingComponent />
+      <SettingComponent isExtension />
     </div>
   </>
 );

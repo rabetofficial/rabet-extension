@@ -15,14 +15,16 @@ import { ChildContainer, ChildLabel } from '../styles';
 
 type EditContactType = {
   contact: Contact;
-  TitlePage?: boolean;
+  titlePage?: boolean;
   onClose: () => void;
+  children?: JSX.Element;
 };
 
 const EditContact = ({
   contact,
-  TitlePage,
   onClose,
+  children,
+  titlePage,
 }: EditContactType) => {
   const [accounts, contacts] = useTypedSelector((store) => [
     store.accounts,
@@ -82,14 +84,14 @@ const EditContact = ({
 
   return (
     <ChildContainer>
-      {TitlePage ? (
+      {titlePage ? (
         <PageTitle
           title="Edit contact"
           padding="0"
           titleStyle="font-bold"
         />
       ) : (
-        ''
+        <>{children}</>
       )}
       <div>
         <Form
@@ -195,6 +197,7 @@ const EditContact = ({
 };
 
 EditContact.defaultProps = {
-  TitlePage: true,
+  titlePage: true,
+  children: '',
 };
 export default EditContact;

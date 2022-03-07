@@ -142,27 +142,23 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
   const menus: Menu[] = [
     {
       id: 1,
-      link: '#',
+      link: usage === 'expand' ? '#' : RouteName.CreateWallet,
       icon: <Plus />,
       label: 'Create Wallet',
       onClick: () => {
         if (usage === 'expand') {
           openCreateWalletModal();
-        } else {
-          navigate(RouteName.CreateWallet);
         }
       },
     },
     {
       id: 2,
-      link: '#',
+      link: usage === 'expand' ? '#' : RouteName.RestoreWallet,
       icon: <File />,
       label: 'Import Wallet',
       onClick: () => {
         if (usage === 'expand') {
           openImportWalletModal();
-        } else {
-          navigate(RouteName.RestoreWallet);
         }
       },
     },

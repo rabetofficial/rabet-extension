@@ -23,7 +23,7 @@ import CreateContact from './CreateContact';
 type ContactProps = {
   onClose: () => void;
   needTitle?: boolean;
-  isExtension: boolean;
+  isExtension?: boolean;
 };
 
 const Contact = ({
@@ -58,31 +58,23 @@ const Contact = ({
     });
   };
 
-  const openAddContactPage = () => {
-    navigate(RouteName.AddContact);
-  };
-
-  const openEditContactPage = (contact: ContactType) => {
-    navigate(RouteName.EditContact, {
-      state: {
-        contact,
-      },
-    });
-  };
-
   const handleOpenAddContact = () => {
     if (isExtension) {
-      openAddContactModal();
+      navigate(RouteName.AddContact);
     } else {
-      openAddContactPage();
+      openAddContactModal();
     }
   };
 
   const handleOpenEditContact = (contact: ContactType) => {
     if (isExtension) {
-      openEditContactModal(contact);
+      navigate(RouteName.EditContact, {
+        state: {
+          contact,
+        },
+      });
     } else {
-      openEditContactPage(contact);
+      openEditContactModal(contact);
     }
   };
 
@@ -183,6 +175,9 @@ const Contact = ({
   );
 };
 
-Contact.defaultProps = { needTitle: true };
+Contact.defaultProps = {
+  needTitle: true,
+  isExtension: false,
+};
 
 export default Contact;

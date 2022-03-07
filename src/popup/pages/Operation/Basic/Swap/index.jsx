@@ -15,14 +15,20 @@ import currentActiveAccount from '../../../../utils/activeAccount';
 import SelectAssetModal from '../../../../components/SelectAssetModal';
 import iconRotateSrc from '../../../../../assets/images/arrow-rotate.svg';
 import calculateStrictSend from '../../../../utils/swap/calculateStrictSend';
-import { buttonSizes, buttonTypes, inputTypes } from '../../../../staticRes/enum';
+import {
+  buttonSizes,
+  buttonTypes,
+  inputTypes,
+} from '../../../../staticRes/enum';
 
 import styles from './styles.less';
 import isInsufficientAsset from '../../../../utils/isInsufficientAsset';
 
 const Swap = () => {
   const navigate = useNavigate();
-  const { activeAccount: { balances, maxXLM } } = currentActiveAccount();
+  const {
+    activeAccount: { balances, maxXLM },
+  } = currentActiveAccount();
   const [balances1, setBalances1] = useState(balances);
   const [balances2, setBalances2] = useState(balances);
   const [selectedAsset1, setSelectedAsset1] = useState(balances[0]);
@@ -148,7 +154,9 @@ const Swap = () => {
             u.changeValue(s, 'from', () => a[0]);
           },
           setMax: (a, s, u) => {
-            u.changeValue(s, 'from', () => getMaxBalance(selectedAsset1));
+            u.changeValue(s, 'from', () =>
+              getMaxBalance(selectedAsset1),
+            );
 
             setTimeout(() => {
               window.calculateTo();
@@ -175,15 +183,24 @@ const Swap = () => {
             }
 
             timeoutRef.current = setTimeout(async () => {
-              const calculatedResult = await calculateStrictSend(values);
+              const calculatedResult = await calculateStrictSend(
+                values,
+              );
 
               setLoading(false);
 
-              if (!calculatedResult.path.length && calculatedResult.destination_amount === '0') {
+              if (
+                !calculatedResult.path.length &&
+                calculatedResult.destination_amount === '0'
+              ) {
                 return;
               }
 
-              u.changeValue(s, 'to', () => calculatedResult.destination_amount);
+              u.changeValue(
+                s,
+                'to',
+                () => calculatedResult.destination_amount,
+              );
 
               const calculatePath = [
                 values.asset1,
@@ -197,12 +214,7 @@ const Swap = () => {
           },
         }}
         subscription={{ submitting: true, pristine: true }}
-        render={({
-          form,
-          pristine,
-          invalid,
-          handleSubmit,
-        }) => {
+        render={({ form, pristine, invalid, handleSubmit }) => {
           if (!window.setTo) {
             window.setTo = form.mutators.setTo;
             window.setFrom = form.mutators.setFrom;
@@ -275,30 +287,30 @@ const Swap = () => {
                       />
                     )}
                   </Field>
-
                 </div>
-                {invalid && loading ? (
-                  <p>LOADING</p>
-                ) : null}
+                {invalid && loading ? <p>LOADING</p> : null}
 
-                {showSwapInfo
-                  ? (
-                    <>
-                      <div className={styles.equivalent}>
-                        1 BTC = 12 ETH
-                        <img src={iconRotateSrc} alt="icon" />
-                      </div>
-                      <hr className={styles.hr} />
-                      <SwapDetails
-                        form={form}
-                        path={path}
-                        asset1={selectedAsset1}
-                        asset2={selectedAsset2}
-                        received={{ asset: selectedAsset2, minimumReceived }}
-                      />
-                    </>
-                  )
-                  : ''}
+                {showSwapInfo ? (
+                  <>
+                    <div className={styles.equivalent}>
+                      1 BTC = 12 ETH
+                      <img src={iconRotateSrc} alt="icon" />
+                    </div>
+                    <hr className={styles.hr} />
+                    <SwapDetails
+                      form={form}
+                      path={path}
+                      asset1={selectedAsset1}
+                      asset2={selectedAsset2}
+                      received={{
+                        asset: selectedAsset2,
+                        minimumReceived,
+                      }}
+                    />
+                  </>
+                ) : (
+                  ''
+                )}
               </div>
 
               <div className={styles.buttons}>
@@ -308,14 +320,11 @@ const Swap = () => {
                   size={buttonSizes.medium}
                   content="Cancel"
                   onClick={() => {
-                    navigate(
-                      '/',
-                      {
-                        state: {
-                          alreadyLoaded: true,
-                        },
+                    navigate('/', {
+                      state: {
+                        alreadyLoaded: true,
                       },
-                    );
+                    });
                   }}
                 />
 

@@ -54,7 +54,7 @@ const PrivateKey = ({
                   <Input
                     type="text"
                     size="medium"
-                    placeholder="Private key"
+                    placeholder="S..."
                     input={input}
                     meta={meta}
                     autoFocus

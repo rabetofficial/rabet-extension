@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import AngleRight from 'popup/svgs/AngleRight';
 
@@ -21,6 +22,8 @@ type SettingProps = {
 };
 
 const Setting = ({ isExtension }: SettingProps) => {
+  const { state } = useLocation();
+
   const changeContent = (element: JSX.Element) => {
     setCurrentElement(element);
   };
@@ -29,13 +32,23 @@ const Setting = ({ isExtension }: SettingProps) => {
     changeContent(<SettingMainPage />);
   };
 
+  const settingPageContents = {
+    '1': <General onClose={showMainPage} />,
+    '2': <ChangePassword onClose={showMainPage} />,
+    '3': <Backup onClose={showMainPage} />,
+    '4': (
+      <Contacts onClose={showMainPage} isExtension={isExtension} />
+    ),
+    '5': <About onClose={showMainPage} />,
+  };
+
   const settingList: SettingPage[] = [
     {
       id: '1',
       title: 'General',
       description: 'Currency conversion, Mode, Explorer',
       onClick: () => {
-        changeContent(<General onClose={showMainPage} />);
+        changeContent(settingPageContents['1']);
       },
     },
     {
@@ -43,7 +56,7 @@ const Setting = ({ isExtension }: SettingProps) => {
       title: 'Change password',
       description: 'Change your wallet password',
       onClick: () => {
-        changeContent(<ChangePassword onClose={showMainPage} />);
+        changeContent(settingPageContents['2']);
       },
     },
     {
@@ -51,7 +64,7 @@ const Setting = ({ isExtension }: SettingProps) => {
       title: 'Backup',
       description: 'Get a backup of all your imported wallets',
       onClick: () => {
-        changeContent(<Backup onClose={showMainPage} />);
+        changeContent(settingPageContents['3']);
       },
     },
     {
@@ -59,12 +72,7 @@ const Setting = ({ isExtension }: SettingProps) => {
       title: 'Contacts',
       description: 'Add, edit, delete and manage your contacts',
       onClick: () => {
-        changeContent(
-          <Contacts
-            onClose={showMainPage}
-            isExtension={isExtension}
-          />,
-        );
+        changeContent(settingPageContents['4']);
       },
     },
     {
@@ -72,7 +80,7 @@ const Setting = ({ isExtension }: SettingProps) => {
       title: 'About',
       description: 'Version, Contact info, Community',
       onClick: () => {
-        changeContent(<About onClose={showMainPage} />);
+        changeContent(settingPageContents['5']);
       },
     },
   ];
@@ -96,9 +104,20 @@ const Setting = ({ isExtension }: SettingProps) => {
     </S.ContainerBox>
   );
 
-  const [currentElement, setCurrentElement] = useState(
-    <SettingMainPage />,
-  );
+  const [currentElement, setCurrentElement] = useState(() => {
+    if (state?.defaultPage) {
+      const elementToBeRendered =
+        settingPageContents[state?.defaultPage];
+
+      if (elementToBeRendered) {
+        return elementToBeRendered;
+      }
+
+      return <SettingMainPage />;
+    }
+
+    return <SettingMainPage />;
+  });
 
   return <>{currentElement}</>;
 };

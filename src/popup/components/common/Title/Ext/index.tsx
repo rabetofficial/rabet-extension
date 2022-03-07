@@ -12,6 +12,7 @@ type AppProps = {
   status?: 'success' | 'warn' | null;
   alreadyLoaded?: boolean;
   className?: string;
+  onClose?: () => void | undefined;
 };
 
 const ExtTitle = ({
@@ -19,6 +20,7 @@ const ExtTitle = ({
   status,
   alreadyLoaded,
   className,
+  onClose,
 }: AppProps) => {
   const navigate = useNavigate();
   const accounts = useTypedSelector((state) => state.accounts);
@@ -41,6 +43,10 @@ const ExtTitle = ({
   };
 
   const handleClose = () => {
+    if (onClose) {
+      return onClose();
+    }
+
     if (accounts.length) {
       return navigate(RouteName.Home, {
         state: {
@@ -67,6 +73,7 @@ ExtTitle.defaultProps = {
   status: null,
   alreadyLoaded: true,
   className: '',
+  onClose: undefined,
 };
 
 export default ExtTitle;

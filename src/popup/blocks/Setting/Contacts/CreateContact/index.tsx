@@ -2,13 +2,14 @@ import React from 'react';
 import { StrKey } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
+import Error from 'popup/components/common/Error';
 import Input from 'popup/components/common/Input';
 import PageTitle from 'popup/components/PageTitle';
 import Button from 'popup/components/common/Button';
 import addContactAction from 'popup/actions/contacts/add';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-import Error from 'popup/components/common/Error';
+
 import { ChildContainer, ChildLabel } from '../styles';
 
 type FormValues = {
@@ -18,11 +19,16 @@ type FormValues = {
 };
 
 type CreateContactType = {
-  TitlePage?: boolean;
+  titlePage?: boolean;
   onClose: () => void;
+  children?: JSX.Element;
 };
 
-const CreateContact = ({ onClose, TitlePage }: CreateContactType) => {
+const CreateContact = ({
+  titlePage,
+  onClose,
+  children,
+}: CreateContactType) => {
   const [accounts, contacts] = useTypedSelector((store) => [
     store.accounts,
     store.contacts,
@@ -81,14 +87,14 @@ const CreateContact = ({ onClose, TitlePage }: CreateContactType) => {
 
   return (
     <ChildContainer>
-      {TitlePage ? (
+      {titlePage ? (
         <PageTitle
           title="Create contact"
           padding="0"
           titleStyle="font-bold"
         />
       ) : (
-        ''
+        <>{children}</>
       )}
 
       <div>
@@ -192,7 +198,8 @@ const CreateContact = ({ onClose, TitlePage }: CreateContactType) => {
 };
 
 CreateContact.defaultProps = {
-  TitlePage: true,
+  titlePage: true,
+  children: '',
 };
 
 export default CreateContact;
