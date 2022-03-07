@@ -2,15 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-import Trash from 'popup/svgs/Trash';
+import ExpandIcon from 'popup/svgs/Expand';
 import RouteName from 'popup/staticRes/routes';
 import DropMenu from 'popup/components/DropMenu';
 import worldSrc from 'src/assets/images/world.svg';
+import trashSrc from 'src/assets/images/trash-delete.svg';
 
 const DropDownList = () => {
   const navigate = useNavigate();
 
   const dropMenuItems = [
+    {
+      label: 'Expand view',
+      icon: <ExpandIcon />,
+      onClick: () => {
+        navigate(RouteName.Home);
+      },
+    },
     {
       label: 'Show private key',
       icon: 'icon-key',
@@ -34,7 +42,7 @@ const DropDownList = () => {
     },
     {
       label: <p className="text-error">Delete account</p>,
-      icon: <Trash />,
+      icon: <img src={trashSrc} alt="icon" />,
       onClick: () => {
         navigate(RouteName.DeleteAccount);
       },
