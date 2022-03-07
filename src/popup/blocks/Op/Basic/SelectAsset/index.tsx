@@ -1,15 +1,19 @@
+import { Horizon } from 'stellar-sdk';
 import React, { useEffect, useState } from 'react';
 
-import Modal from 'popup/components/common/ModalDialog';
-import AngleDownBold from 'popup/svgs/AngleDownBold';
 import { Usage } from 'popup/models';
-import questionLogo from '../../../../../assets/images/question-circle.png';
-import SearchAsset from './Search';
+import AngleDownBold from 'popup/svgs/AngleDownBold';
+import Modal from 'popup/components/common/ModalDialog';
+import handleAssetAlt from 'popup/utils/handleAssetAlt';
+import handleAssetImage from 'popup/utils/handleAssetImage';
+import questionLogo from 'assets/images/question-circle.png';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 import * as S from './styles';
+import SearchAsset from './Search';
 
 type AppProps = {
-  currencies: any[];
+  assets: Horizon.BalanceLine[];
   onChange: (value: any) => void;
   usage: Usage;
 };
@@ -17,7 +21,7 @@ type AppProps = {
 const SelectAssetModal = ({
   asset,
   onChange,
-  currencies,
+  assets,
   setValue,
   valueName,
   defaultNull,
@@ -25,8 +29,9 @@ const SelectAssetModal = ({
 }: AppProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentAsset, setCurrentAsset] = useState(
-    defaultNull ? null : currencies[0],
+    defaultNull ? null : assets[0],
   );
+  const assetImages = useTypedSelector((store) => store.assetImages);
 
   const onOpenModal = () => setIsModalOpen(true);
   const onCloseModal = () => setIsModalOpen(false);
@@ -37,8 +42,9 @@ const SelectAssetModal = ({
     }
   }, [asset]);
 
-  const handleAssetChange = (newAsset) => {
+  const handleAssetChange = (newAsset: Horizon.BalanceLine) => {
     setCurrentAsset(newAsset);
+
     onChange(newAsset);
 
     if (setValue) {
@@ -54,10 +60,10 @@ const SelectAssetModal = ({
             <>
               <S.Img
                 fallBack={questionLogo}
-                alt="asset"
-                src={questionLogo}
+                alt={handleAssetAlt(currentAsset)}
+                src={handleAssetImage(currentAsset, assetImages)}
               />
-              asset
+              {currentAsset.asset_code || 'XLM'}
             </>
           ) : (
             <p>NONE</p>
@@ -73,7 +79,7 @@ const SelectAssetModal = ({
         size={usage === 'extension' ? 'small' : 'medium'}
       >
         <SearchAsset
-          currencies={currencies}
+          assets={assets}
           closeModal={onCloseModal}
           onChange={handleAssetChange}
         />

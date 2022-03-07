@@ -2,21 +2,22 @@ import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import controlNumberInput from 'popup/utils/controlNumberInput';
+import { Usage } from 'popup/models';
 import Input from 'popup/components/common/Input';
+import Button from 'popup/components/common/Button';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import controlNumberInput from 'popup/utils/controlNumberInput';
 import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-import Button from 'popup/components/common/Button';
-import { Usage } from 'popup/models';
 import ModalSend from 'popup/pages/expand/EHome/BasicOperation/ModalSend';
 
 import ModalInput from './styles';
+import { StrKey } from 'stellar-sdk';
 
 type FormValues = {
-  amount: number;
-  asset: any;
-  destination: string;
   memo: string;
+  amount: string;
+  destination: string;
 };
 
 type AppProps = {
@@ -25,37 +26,68 @@ type AppProps = {
 
 const BasicSend = ({ usage }: AppProps) => {
   const navigate = useNavigate();
+  const account = useActiveAccount();
   const [isModalOpen, setModal] = useState(false);
-  const onOpenModal = () => setModal(true);
-  const onCloseModal = () => setModal(false);
+
+  const assets = account.assets || [];
+
+  const [selectedAsset, setSelectedAsset] = useState(assets[0]);
 
   const onSubmit = async (v: FormValues) => {
     if (usage === 'extension') {
       // navigate()
     } else {
-      onOpenModal();
+      setModal(true);
     }
   };
 
-  const currencies = Array(5).fill({
-    asset_code: 'XLM',
-    asset_issuer: '123',
-    last_modified_ledger: '234',
-    limit: '567',
-    is_authorized: false,
-    is_authorized_to_maintain_liabilities: true,
-    logo: '',
-    domain: 'Stellar.org',
-    toNative: 1,
-  });
+  const validateForm = (v: FormValues) => {
+    const values = {
+      ...v,
+      asset: selectedAsset,
+    };
 
-  const [selectedAsset, setSelectedAsset] = useState(currencies[0]);
+    if (values.memo && values.memo.length > 28) {
+      return {
+        memo: 'Memo should not be more than 28 characters.',
+      };
+    }
+
+    if (!values.destination) {
+      return {
+        destination: '',
+      };
+    }
+
+    if (!StrKey.isValidEd25519PublicKey(values.destination)) {
+      return {
+        destination: 'Invalid destination.',
+      };
+    }
+
+    if (!values.amount) {
+      return {
+        amount: '',
+      };
+    }
+
+    if (!isInsufficientAsset(selectedAsset, maxXLM, values.amount)) {
+      return {
+        amount: `Insufficient ${selectedAsset.asset_code} balance.`,
+      };
+    }
+
+    if (selectedAsset.asset_issuer === values.destination) {
+      return {};
+    }
+  };
 
   return (
     <>
       <Form
+        validate={validateForm}
         onSubmit={onSubmit}
-        render={({ form, invalid, pristine, handleSubmit }) => (
+        render={({ form, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <label className="label-primary block mt-4">Amount</label>
             <ModalInput>
@@ -81,7 +113,7 @@ const BasicSend = ({ usage }: AppProps) => {
                 {() => (
                   <SelectAssetModal
                     usage={usage}
-                    currencies={currencies}
+                    assets={assets}
                     onChange={setSelectedAsset}
                   />
                 )}
@@ -118,7 +150,7 @@ const BasicSend = ({ usage }: AppProps) => {
                   </label>
                   <Input
                     type="text"
-                    placeholder="G..."
+                    placeholder="My friend"
                     size="medium"
                     styleType="light"
                     input={input}
@@ -153,10 +185,14 @@ const BasicSend = ({ usage }: AppProps) => {
                 content="Send"
                 className="mr-[-11px]"
               />
-              {/* disabled={invalid || pristine} */}
             </ButtonContainer>
 
-            <ModalSend isOpen={isModalOpen} onClose={onCloseModal} />
+            <ModalSend
+              isOpen={isModalOpen}
+              onClose={() => {
+                setModal(false);
+              }}
+            />
           </form>
         )}
       />

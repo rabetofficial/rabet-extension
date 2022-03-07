@@ -1,36 +1,54 @@
+import { Horizon } from 'stellar-sdk';
 import React, { useState } from 'react';
 
+import BN from 'helpers/BN';
 import Image from 'popup/components/common/Image';
+import formatBalance from 'popup/utils/formatBalance';
+import handleAssetAlt from 'popup/utils/handleAssetAlt';
 import ScrollBar from 'popup/components/common/ScrollBar';
-import questionLogo from '../../../../../../assets/images/question-circle.png';
-import BN from '../../../../../../helpers/BN';
+import handleAssetsKeys from 'popup/utils/handleAssetKeys';
+import handleAssetImage from 'popup/utils/handleAssetImage';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import questionLogo from 'assets/images/question-circle.png';
 
 import * as S from './styles';
 
 type AppProps = {
-  currencies: any[];
+  assets: Horizon.BalanceLine[];
   closeModal: () => void;
-  onChange: (value: any) => void;
+  onChange: (value: Horizon.BalanceLine) => void;
 };
 
-const SearchAsset = ({
-  currencies,
-  closeModal,
-  onChange,
-}: AppProps) => {
+const SearchAsset = ({ assets, closeModal, onChange }: AppProps) => {
   const [searchString, setSearchString] = useState('');
+  const assetImages = useTypedSelector((store) => store.assetImages);
 
   const handleChange = (e) => {
     setSearchString(e.target.value);
   };
 
-  const filteredCurrencies = currencies.filter((x) =>
-    new RegExp(searchString, 'i').test(x.asset_code),
+  const filteredCurrencies = assets.filter((asset) =>
+    new RegExp(searchString, 'i').test(asset.asset_code),
   );
 
-  const handleClick = (asset) => {
+  const handleClick = (asset: Horizon.BalanceLine) => {
     onChange(asset);
+
     closeModal();
+  };
+
+  const handleShowDomain = (asset: Horizon.BalanceLine) => {
+    const foundAssetImage = assetImages.find(
+      (assetImage) =>
+        assetImage.asset_code === asset.asset_code &&
+        assetImage.asset_issuer === asset.asset_issuer,
+    );
+
+    if (foundAssetImage && foundAssetImage.domain) {
+      return foundAssetImage.domain;
+    }
+
+    return '';
   };
 
   return (
@@ -43,29 +61,28 @@ const SearchAsset = ({
       />
 
       <ScrollBar isHidden maxHeight={265}>
-        {filteredCurrencies.map((currency, index) => (
+        {filteredCurrencies.map((asset) => (
           <S.ListItem
-            key={index}
+            key={`send-basic-${handleAssetsKeys(asset)}`}
             onClick={() => {
-              handleClick(currency);
+              handleClick(asset);
             }}
           >
             <S.Asset>
               <Image
                 fallBack={questionLogo}
-                alt={currency.asset_code}
-                src={questionLogo}
+                alt={handleAssetAlt(asset)}
+                src={handleAssetImage(asset, assetImages)}
               />
+
               <div>
-                <S.AssetName>
-                  {currency.asset_code &&
-                    currency.asset_code.toUpperCase()}
-                </S.AssetName>
-                <S.AssetInfo>{currency.domain}</S.AssetInfo>
+                <S.AssetName>{asset.asset_code || 'XLM'}</S.AssetName>
+
+                <S.AssetInfo>{handleShowDomain(asset)}</S.AssetInfo>
               </div>
             </S.Asset>
             <S.AssetPrice>
-              {new BN(currency.balance ?? 0).toString()}
+              {formatBalance(asset.balance)}
             </S.AssetPrice>
           </S.ListItem>
         ))}
