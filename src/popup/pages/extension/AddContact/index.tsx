@@ -1,4 +1,6 @@
 import React from 'react';
+
+import Header from 'popup/components/common/Header';
 import CreateContact from 'popup/blocks/Setting/Contacts/CreateContact';
 
 const AddContact = () => {
@@ -6,8 +8,8 @@ const AddContact = () => {
 
   return (
     <div>
-      <ExtTitle title="Add Contact" />
-      <CreateContact />
+      <Header />
+      <CreateContact onClose={() => console.log('shit')} />
     </div>
   );
 };

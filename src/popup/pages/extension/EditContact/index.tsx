@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import Header from 'popup/components/common/Header';
 import EditContactComponent from 'popup/blocks/Setting/Contacts/EditContact';
-import ExtTitle from 'popup/components/common/Title/Ext';
 
 const EditContact = () => {
   const { state } = useLocation();
@@ -11,8 +11,8 @@ const EditContact = () => {
 
   return (
     <div>
-      <ExtTitle title="Edit Contact" />
-      <EditContactComponent />
+      <Header />
+      <EditContactComponent onClose={() => console.log('shit')} />
     </div>
   );
 };
