@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import RouteName from 'popup/staticRes/routes';
 import Header from 'popup/components/common/Header';
-import PageTitle from 'popup/components/PageTitle';
+import ExtTitle from 'popup/components/common/Title/Ext';
 import currentActiveAccount from 'popup/utils/activeAccount';
 import removeAccountAction from 'popup/actions/accounts/remove';
 import DeleteAccountComponent from 'popup/pageComponents/DeleteAccount';
@@ -30,7 +30,7 @@ const DeleteAccount = () => {
       onCancel={handleCancel}
     >
       <Header />
-      <PageTitle title="Delete account" />
+      <ExtTitle title="Delete account" className=" mt-5 mx-4" />
     </DeleteAccountComponent>
   );
 };

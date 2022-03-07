@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Trash from 'popup/svgs/Trash';
-import Note from 'popup/components/Note';
+import Alert from 'popup/components/Alert';
 import Button from 'popup/components/common/Button';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import removeAccountAction from 'popup/actions/accounts/remove';
@@ -36,7 +36,7 @@ const DeleteAccount = ({
     <>
       {children}
       <S.Container>
-        <Note text={message} />
+        <Alert text={message} type="alert-warning" />
         <S.ButtonContainer>
           <ButtonContainer btnSize={102} justify="end" mt={36}>
             <Button

@@ -18,8 +18,11 @@ export const Box = styled.div`
   border-radius: 4px;
   border: solid 1px #ffeac5;
   background-color: #fff5ea;
+  color: #262728;
   p {
-    color: #262728;
     margin-left: 4px;
+  }
+  @media (max-width: 360px) {
+    padding: 10px 16px 10px;
   }
 `;
