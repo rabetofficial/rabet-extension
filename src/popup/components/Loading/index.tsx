@@ -11,14 +11,20 @@ type AppProps = {
 };
 
 const Loading = ({ title, size, titleStyle }: AppProps) => (
-  <S.Container>
-    <S.Loading
-      src={loading}
-      alt="loading"
-      style={{ width: `${size}px`, height: `${size}px` }}
-    />
-    {title && <S.Title className={titleStyle}>{title}</S.Title>}
-  </S.Container>
+  <>
+    <S.Container>
+      <S.Loading
+        src={loading}
+        alt="loading"
+        style={{ width: `${size}px`, height: `${size}px` }}
+      />
+      {title && (
+        <S.Title className={titleStyle}>
+          <p>{title}</p>
+        </S.Title>
+      )}
+    </S.Container>
+  </>
 );
 
 Loading.defaultProps = {

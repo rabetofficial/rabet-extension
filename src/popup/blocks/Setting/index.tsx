@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import AngleRight from 'popup/svgs/AngleRight';
+import ExtTitle from 'popup/components/common/Title/Ext';
 
 import About from './About';
 import * as S from './styles';
@@ -9,7 +10,6 @@ import Backup from './Backup';
 import General from './General';
 import Contacts from './Contacts';
 import ChangePassword from './ChangePassword';
-import ExtTitle from 'popup/components/common/Title/Ext';
 
 type SettingPage = {
   id: string;

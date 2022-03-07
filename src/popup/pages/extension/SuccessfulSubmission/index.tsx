@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import RouteName from 'popup/staticRes/routes';
 import Header from 'popup/components/common/Header';
 import ExtTitle from 'popup/components/common/Title/Ext';
+import ScrollBar from 'popup/components/common/ScrollBar';
 import SuccessfulSubmissionComponent from 'popup/pageComponents/SuccessfulSubmission';
 
 const SuccessfulSubmission = () => {
@@ -19,22 +20,22 @@ const SuccessfulSubmission = () => {
   };
 
   return (
-    <>
-      <Header />
-
+    <ScrollBar isHidden>
       <ExtTitle
-        title="Receive"
-        className="content mt-[20px]"
+        className="mt-[20px] mb-[87px]"
         alreadyLoaded={false}
       />
+      <div className="content">
+        <Header />
 
-      <div className="flex my-auto h-[540px]">
-        <SuccessfulSubmissionComponent
-          onClick={handleClick}
-          message={state.message}
-        />
+        <div className="flex">
+          <SuccessfulSubmissionComponent
+            onClick={handleClick}
+            message={state.message}
+          />
+        </div>
       </div>
-    </>
+    </ScrollBar>
   );
 };
 

@@ -1,15 +1,13 @@
 import React from 'react';
 
-import Logo from '../../components/Logo';
-import Loading from '../../components/Loading';
-
-import styles from './styles.less';
+import Logo from 'popup/components/Logo';
+import Loading from 'popup/components/Loading';
 
 const LoadingOne = () => (
   <div style={{ marginTop: '167px' }}>
     <Logo />
 
-    <div className={styles.loading}>
+    <div className="mt-2">
       <Loading size={58} />
     </div>
   </div>
