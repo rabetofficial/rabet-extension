@@ -1,6 +1,5 @@
 import React from 'react';
 import shortid from 'shortid';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import Header from 'popup/components/common/Header';
@@ -8,7 +7,8 @@ import PageTitle from 'popup/components/PageTitle';
 import currentActiveAccount from 'popup/utils/activeAccount';
 import removeConnectedWebsitesAction from 'popup/actions/user/removeConnectedWebsites';
 
-import styles from './styles.less';
+import * as S from './styles';
+import ExtTitle from 'popup/components/common/Title/Ext';
 
 const ConnectedWebsite = ({ user }) => {
   const { activeAccount } = currentActiveAccount();
@@ -29,25 +29,25 @@ const ConnectedWebsite = ({ user }) => {
   return (
     <div>
       <Header />
-      <PageTitle title="Connected website" />
-      <div className="content">
-        <p className={styles.desc}>
+      <div className="content mt-4">
+        <ExtTitle title="Connected website" />
+        <S.Desc>
           List of websites that are allowed to interact with this
           account and get its public-key
-        </p>
+        </S.Desc>
         <div>
           {websitesMapped.map((web) => (
-            <div key={shortid.generate()} className={styles.website}>
-              <a href="#" rel="noreferrer" className={styles.link}>
+            <S.Website key={shortid.generate()}>
+              <S.Link href="#" rel="noreferrer">
                 {web}
-              </a>
-              <span
-                className={classNames('icon-multiply', styles.icon)}
+              </S.Link>
+              <S.Icon
+                className="icon-multiply"
                 onClick={() => {
                   removeConnectedWebsites(web);
                 }}
               />
-            </div>
+            </S.Website>
           ))}
         </div>
       </div>

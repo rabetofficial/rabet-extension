@@ -28,7 +28,7 @@ const SuccessfulSubmission = () => {
         alreadyLoaded={false}
       />
 
-      <div className="flex my-auto">
+      <div className="flex my-auto h-[540px]">
         <SuccessfulSubmissionComponent
           onClick={handleClick}
           message={state.message}
