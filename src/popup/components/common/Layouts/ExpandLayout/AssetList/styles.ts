@@ -5,6 +5,7 @@ export const Container = styled.div`
   cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.colors.primary.lighter};
+    transition: 1s background-color;
   }
 `;
 
