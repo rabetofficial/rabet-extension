@@ -47,16 +47,14 @@ const BasicSend = ({ usage }: AppProps) => {
       asset: selectedAsset,
     };
 
+    const errors: Partial<FormValues> = {};
+
     if (values.memo && values.memo.length > 28) {
-      return {
-        memo: 'Memo should not be more than 28 characters.',
-      };
+      errors.memo = 'Memo should not be more than 28 characters';
     }
 
     if (!values.destination) {
-      return {
-        destination: '',
-      };
+      errors.destination = '';
     }
 
     if (!StrKey.isValidEd25519PublicKey(values.destination)) {

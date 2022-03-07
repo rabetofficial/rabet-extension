@@ -46,7 +46,7 @@ const Asset = ({
     <S.ListItemName>{asset.asset_code}</S.ListItemName>
     &nbsp;
     <S.ListItemWeb>{asset.domain ? asset.domain : '-'}</S.ListItemWeb>
-    {asset.is_verified === '1' ? (
+    {asset.is_verified ? (
       <div className="ml-auto">
         <CheckMarkFill />
       </div>
