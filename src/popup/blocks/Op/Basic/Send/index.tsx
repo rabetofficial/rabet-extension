@@ -1,3 +1,4 @@
+import { StrKey } from 'stellar-sdk';
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +13,6 @@ import ButtonContainer from 'popup/components/common/ButtonContainer';
 import ModalSend from 'popup/pages/expand/EHome/BasicOperation/ModalSend';
 
 import ModalInput from './styles';
-import { StrKey } from 'stellar-sdk';
 
 type FormValues = {
   memo: string;
@@ -71,15 +71,11 @@ const BasicSend = ({ usage }: AppProps) => {
       };
     }
 
-    if (!isInsufficientAsset(selectedAsset, maxXLM, values.amount)) {
-      return {
-        amount: `Insufficient ${selectedAsset.asset_code} balance.`,
-      };
-    }
-
     if (selectedAsset.asset_issuer === values.destination) {
       return {};
     }
+
+    return {};
   };
 
   return (
