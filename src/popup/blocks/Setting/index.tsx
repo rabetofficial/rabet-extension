@@ -9,6 +9,7 @@ import Backup from './Backup';
 import General from './General';
 import Contacts from './Contacts';
 import ChangePassword from './ChangePassword';
+import ExtTitle from 'popup/components/common/Title/Ext';
 
 type SettingPage = {
   id: string;
@@ -87,6 +88,13 @@ const Setting = ({ isExtension }: SettingProps) => {
 
   const SettingMainPage = () => (
     <S.ContainerBox>
+      {isExtension ? (
+        <div className="pt-3 px-4">
+          <ExtTitle title="Setting" />
+        </div>
+      ) : (
+        ''
+      )}
       {settingList.map((settingPg, index) => (
         <div key={`setting${settingPg.id}`}>
           <S.Container onClick={settingPg.onClick}>
