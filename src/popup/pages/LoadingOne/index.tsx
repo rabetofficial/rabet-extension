@@ -6,9 +6,8 @@ import Loading from 'popup/components/Loading';
 const LoadingOne = () => (
   <div style={{ marginTop: '167px' }}>
     <Logo />
-
-    <div className="mt-2">
-      <Loading size={58} />
+    <div>
+      <Loading size={42} />
     </div>
   </div>
 );

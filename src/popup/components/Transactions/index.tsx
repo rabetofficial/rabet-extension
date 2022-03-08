@@ -39,7 +39,7 @@ const Transactions = ({
           className="flex justify-center items-center"
           style={{ height: isExtention ? '200px' : '60vh' }}
         >
-          <Loading size={80} />
+          <Loading size={isExtention ? 32 : 48} />
         </div>
       </ScrollBar>
     );

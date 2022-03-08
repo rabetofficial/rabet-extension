@@ -7,14 +7,15 @@ export const Container = styled.div`
   }
 `;
 
-export const Loading = styled.img`
-  display: block;
+export const Loading = styled.div`
+  display: flex;
   margin: 0 auto;
+  justify-content: center;
 `;
 
 export const Title = styled.div`
   font-size: 16px;
   text-align: center;
   font-weight: 500;
-  margin: -8px 0 0 0;
+  margin: 13px 0 0 0;
 `;

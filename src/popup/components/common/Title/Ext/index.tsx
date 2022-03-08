@@ -8,7 +8,7 @@ import useTypedSelector from 'popup/hooks/useTypedSelector';
 import * as S from './styles';
 
 type AppProps = {
-  title: string;
+  title?: string;
   status?: 'success' | 'warn' | null;
   alreadyLoaded?: boolean;
   className?: string;
@@ -70,6 +70,7 @@ const ExtTitle = ({
 };
 
 ExtTitle.defaultProps = {
+  title: '',
   status: null,
   alreadyLoaded: true,
   className: '',

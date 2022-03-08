@@ -28,6 +28,7 @@ const SuccessfulSubmission = () => {
           className="mt-[20px] mb-[87px]"
           alreadyLoaded={false}
         />
+
         <div className="flex">
           <SuccessfulSubmissionComponent
             onClick={handleClick}
