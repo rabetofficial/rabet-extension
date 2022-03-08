@@ -46,10 +46,7 @@ const Transactions = ({
   }
   if (transactions.length === 0) {
     return (
-      <div
-        className="flex justify-center items-center"
-        style={{ height: isExtention ? '198px' : '60vh' }}
-      >
+      <div style={{ marginTop: isExtention ? '31' : '72' }}>
         <Nodata msg="You have no transaction" className="text-base" />
       </div>
     );
