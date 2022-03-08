@@ -9,6 +9,8 @@ type AssetInfo = {
   asset_issuer: string;
   home_domain?: string;
   flags?: Horizon.Flags;
+  selling_liabilities: string;
+  buying_liabilities: string;
 };
 
 type useAssetInfoResult = {
@@ -30,18 +32,24 @@ const useAssetInfo = (
         asset_code: 'XLM',
         asset_issuer: '',
         balance: asset.balance,
+        selling_liabilities: asset.selling_liabilities,
+        buying_liabilities: asset.buying_liabilities,
       });
     } else if (asset.asset_type === 'liquidity_pool_shares') {
       setAssetData({
         asset_code: '',
         asset_issuer: '',
         balance: '0',
+        selling_liabilities: '1',
+        buying_liabilities: '1',
       });
     } else {
       setAssetData({
         asset_code: asset.asset_code,
         asset_issuer: asset.asset_issuer,
         balance: asset.balance,
+        selling_liabilities: asset.selling_liabilities,
+        buying_liabilities: asset.buying_liabilities,
       });
 
       getAccount(asset.asset_issuer).then((res) => {
@@ -54,6 +62,8 @@ const useAssetInfo = (
             asset_issuer: asset.asset_issuer,
             home_domain: res.home_domain,
             flags: res.flags,
+            selling_liabilities: asset.selling_liabilities,
+            buying_liabilities: asset.buying_liabilities,
           });
         }
 

@@ -19,7 +19,11 @@ export const openLoadingModal = ({
     title: '',
     padding: 'medium',
     children: (
-      <Loading size={120} title={message || 'Sending to network'} />
+      <Loading
+        size={65}
+        title={message || 'Sending to network'}
+        titleStyle="mt-3"
+      />
     ),
   });
 };

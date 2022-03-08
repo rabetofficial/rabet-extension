@@ -111,6 +111,16 @@ export const Table = styled.div`
   }
 `;
 export const Info = styled.p`
-  color: ${({ theme }) => theme.colors.primary.darkest};
   font-size: 16px;
+  color: ${({ theme }) => theme.colors.primary.darkest};
+`;
+
+export const ErrorBox = styled.div`
+  font-size: 12px !important;
+  margin-top: 8px;
+  font-size: 16px;
+  padding: 4px 8px;
+  background-color: #fbeded;
+  border: 1px solid #fbeded;
+  border-radius: 4px;
 `;

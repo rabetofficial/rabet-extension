@@ -166,6 +166,12 @@ const AssetInfo = ({
   const isDeletable = new BN(assetData?.balance || '0').isEqualTo(
     '0',
   );
+  const noLiabilities = new BN(
+    (assetData?.buying_liabilities &&
+      assetData?.selling_liabilities) ||
+      '0',
+  ).isEqualTo('0');
+
   if (isNative) {
     return (
       <S.Container>
@@ -189,6 +195,7 @@ const AssetInfo = ({
   }
   return (
     <S.Page>
+      {console.log('hey', assetData?.selling_liabilities)}
       {children}
 
       <S.Content>
@@ -203,10 +210,18 @@ const AssetInfo = ({
         <HandleFlags />
 
         {!isDeletable ? (
-          <div className="text-xs text-error mt-2 py-1 px-2 bg-[#fbeded] rounded-sm	">
+          <S.ErrorBox className="text-error">
             You cannot remove this asset unless the asset&apos;s
             balance is zero.
-          </div>
+          </S.ErrorBox>
+        ) : (
+          ''
+        )}
+        {!noLiabilities ? (
+          <S.ErrorBox className="text-error">
+            You cannot remove this asset unless the asset&apos;s
+            liabilities are zero.
+          </S.ErrorBox>
         ) : (
           ''
         )}
