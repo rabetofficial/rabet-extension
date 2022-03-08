@@ -129,6 +129,7 @@ const AdvanceOperation = () => {
                         type="text"
                         placeholder="Gift"
                         size="medium"
+                        styleType="light"
                         input={input}
                         meta={meta}
                       />

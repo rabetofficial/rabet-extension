@@ -18,7 +18,7 @@ import options from './options';
 
 import OfferOps from './OfferOps';
 import SignerOps from './SignerOps';
-// import PaymentOps from './PaymentOps';
+import PaymentOps from './PaymentOps';
 import SetOptionOps from './SetOptionOps';
 import ThresholdOps from './ThresholdOps';
 import AllowTrustOps from './AllowTrustOps';
@@ -73,7 +73,7 @@ const Operation = ({
   };
 
   const generateOption = () => {
-    if (selected === options[0]) return 'payment';
+    if (selected === options[0]) return <PaymentOps id={id} />;
     if (selected === options[1]) return <PaymentSendOps id={id} />;
     if (selected === options[2]) return <PaymentReceiveOps id={id} />;
     if (selected === options[3])
@@ -169,7 +169,7 @@ const Operation = ({
           type={operations.bumpSequence}
         />
       );
-    return 'payment';
+    return <PaymentOps id={id} />;
   };
 
   return (
@@ -189,7 +189,7 @@ const Operation = ({
         <div className="mt-4">
           {generateOption()}
 
-          <ButtonContainer btnSize={102} justify="end">
+          <ButtonContainer btnSize={102} justify="end" mt={14}>
             <Button
               type="button"
               variant="danger"

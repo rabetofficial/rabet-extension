@@ -1,37 +1,55 @@
-import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
 
-import Input from '../../../../../components/Input';
-import isNative from '../../../../../utils/isNative';
-import matchAsset from '../../../../../utils/matchAsset';
-import nativeAsset from '../../../../../utils/nativeAsset';
-import getMaxBalance from '../../../../../utils/maxBalance';
-import SelectOption from '../../../../../components/SelectOption';
-import currentActiveAccount from '../../../../../utils/activeAccount';
-import getAccountData from '../../../../../utils/horizon/isAddressFound';
-import changeOperationAction from '../../../../../actions/operations/change';
+import Input from 'popup/components/common/Input';
+import isNative from 'popup/utils/isNative';
+import matchAsset from 'popup/utils/matchAsset';
+import nativeAsset from 'popup/utils/nativeAsset';
+import getMaxBalance from 'popup/utils/maxBalance';
+import SelectOption from 'popup/components/common/SelectOption';
+import getAccountData from 'popup/utils/horizon/isAddressFound';
+import changeOperationAction from 'popup/actions/operations/change';
+import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
+import isTransferable from 'popup/utils/isTransferable';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import { ElementOption } from 'popup/models';
 
-import styles from './styles.less';
-import isInsufficientAsset from '../../../../../utils/isInsufficientAsset';
-import isTransferable from '../../../../../utils/isTransferable';
+type FormValues = {
+  destination: string;
+  amount: any;
+};
 
-const PaymentOps = ({ id }) => {
-  const {
-    activeAccount: { balances, maxXLM },
-  } = currentActiveAccount();
+type AppProps = {
+  id: string;
+};
+
+const PaymentOps = ({ id }: AppProps) => {
+  const { maxXLM } = useActiveAccount();
+
+  const balances = Array(5).fill({
+    asset_code: 'XLM',
+    asset_issuer: '123',
+    last_modified_ledger: '234',
+    limit: '567',
+    is_authorized: false,
+    is_authorized_to_maintain_liabilities: true,
+    logo: '',
+    domain: 'Stellar.org',
+    toNative: 1,
+  });
+
   const [selected, setSelected] = useState(balances[0]);
 
-  const onChange = (e) => setSelected(e);
+  const onChange = (e: ElementOption) => setSelected(e);
 
-  const validateForm = async (v) => {
+  const validateForm = async (v: FormValues) => {
     const values = {
       ...v,
       asset: selected,
     };
 
-    const errors = {};
+    const errors = {} as FormValues;
 
     const hasError = {
       amount: false,
@@ -173,57 +191,59 @@ const PaymentOps = ({ id }) => {
         },
       }}
       onSubmit={() => {}}
-      validate={(values) => validateForm(values)}
+      validate={(values: FormValues) => validateForm(values)}
       render={({ submitError, handleSubmit, form }) => (
         <form
-          className={classNames(styles.form, 'form')}
+          className="form"
           onSubmit={handleSubmit}
           autoComplete="off"
         >
           <Field name="destination">
             {({ input, meta }) => (
-              <div className="group">
+              <>
                 <label className="label-primary">Destination</label>
 
                 <Input
                   type="text"
                   placeholder="G…"
-                  size="input-medium"
+                  size="medium"
+                  styleType="light"
                   input={input}
                   meta={meta}
                   autoFocus
                 />
-              </div>
+              </>
             )}
           </Field>
 
           <Field name="amount">
             {({ input, meta }) => (
-              <div className="pure-g group">
-                <div className={styles.selectInput}>
-                  <label className="label-primary">Amount</label>
+              <>
+                <label className="label-primary mt-2">Amount</label>
 
+                <div className="flex justify-center items-center">
                   <Input
                     type="number"
                     placeholder="1"
-                    size="input-medium"
+                    size="medium"
                     input={input}
                     meta={meta}
                     variant="max"
+                    styleType="light"
                     setMax={form.mutators.setMax}
                   />
-                </div>
 
-                <div className={styles.select}>
                   <SelectOption
                     items={balances}
                     onChange={onChange}
-                    variant="select-outlined"
+                    variant="outlined"
+                    width={99}
+                    className="ml-2"
                     defaultValue={selected}
                     selected={selected}
                   />
                 </div>
-              </div>
+              </>
             )}
           </Field>
 

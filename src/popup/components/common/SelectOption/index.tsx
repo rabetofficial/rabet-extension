@@ -12,7 +12,7 @@ type AppProps = {
   defaultValue: ElementOption | {};
   selected?: ElementOption | {};
   isSearchable?: boolean;
-  className?: '';
+  className?: string;
   width?: number | null;
 };
 
@@ -26,7 +26,7 @@ const SelectOption = ({
   className,
   width,
 }: AppProps) => {
-  const borderColor = variant === 'default' ? '#f8f8f8' : '#ededed';
+  const borderColor = variant === 'default' ? '#f8f8f8' : '#f3f3f3';
   const [value, setValue] = useState<ElementOption | {}>({});
 
   useEffect(() => {
