@@ -21,13 +21,13 @@ const SuccessfulSubmission = () => {
 
   return (
     <ScrollBar isHidden>
-      <ExtTitle
-        className="mt-[20px] mb-[87px]"
-        alreadyLoaded={false}
-      />
-      <div className="content">
-        <Header />
+      <Header />
 
+      <div className="content">
+        <ExtTitle
+          className="mt-[20px] mb-[87px]"
+          alreadyLoaded={false}
+        />
         <div className="flex">
           <SuccessfulSubmissionComponent
             onClick={handleClick}
