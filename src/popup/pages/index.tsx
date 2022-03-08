@@ -38,7 +38,7 @@ import BackupFile from './BackupFile';
 import BasicOperation from './extension/Operation/Basic';
 import BasicSwapConfirm from './extension/Operation/Basic/ConfirmSwap';
 import BasicSendConfirm from './extension/Operation/Basic/ConfirmSend';
-import AdvanceOperation from './Operation/Adavnce';
+import AdvanceOperation from './extension/Operation/Advance';
 import UITest from './UITest';
 import EditContact from './extension/EditContact';
 import AddContact from './extension/AddContact';
