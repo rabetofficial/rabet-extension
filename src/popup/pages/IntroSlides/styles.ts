@@ -131,6 +131,10 @@ export const Circle = styled.div<CircleProps>`
   @media (max-width: 630px) and (min-width: 360px) {
     display: ${({ thirdSlide }) => (thirdSlide ? 'none' : 'block')};
   }
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.lighter};
+    transition: 0.6s background-color;
+  }
 `;
 
 export const LeftCircle = styled(Circle)<CircleProps>`
