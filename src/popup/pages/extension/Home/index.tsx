@@ -14,6 +14,11 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import EditWalletName from 'popup/components/EditWalletName';
 import useActiveCurrency from 'popup/hooks/useActiveCurrency';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
+// import isOtherConnected from 'popup/utils/isOtherConnected';
+import openModalAction from 'popup/actions/modal/open';
+import closeModalAction from 'popup/actions/modal/close';
+// import ModalConnectStatus from 'popup/pageComponents/ModalConnectStatus';
+import ExtTitle from 'popup/components/common/Title/Ext';
 
 import Links from './Links';
 import * as S from './styles';
@@ -26,6 +31,9 @@ const Home = () => {
   const totalBalance = useTotalBalance();
   const activeCurrency = useActiveCurrency();
   const { isConnected, publicKey } = useActiveAccount();
+  // const [isOtherConnectedState, setIsOtherConnectedState] =
+  //   useState(false);
+
   const [currencies, options] = useTypedSelector((store) => [
     store.currencies,
     store.options,
@@ -34,6 +42,28 @@ const Home = () => {
   if (isLoading && !state?.alreadyLoaded) {
     return <LoadingOne />;
   }
+  const toggleModal = () => {
+    openModalAction({
+      isStyled: false,
+      title: '',
+      size: 'medium',
+      padding: 'medium',
+      minHeight: 150,
+      children: (
+        <div className="content mt-4">
+          <ExtTitle onClose={closeModalAction} />
+          {/* <ModalConnectStatus
+            host={host}
+            forceUpdate={forceUpdate}
+            toggleModal={toggleModal}
+            result={isConnected}
+            publicKey={activeAccount.publicKey}
+            isOtherConnected={isOtherConnectedState}
+          /> */}
+        </div>
+      ),
+    });
+  };
 
   return (
     <ScrollBar isHidden maxHeight={600}>
@@ -45,11 +75,9 @@ const Home = () => {
             {handleAssetSymbol(currencies, options)}
             {formatBalance(totalBalance)}
 
-            {isConnected ? (
-              <S.ModalActive onClick={() => {}} />
-            ) : (
-              <S.ModalInactive onClick={() => {}} />
-            )}
+            <span onClick={toggleModal} style={{ cursor: 'pointer' }}>
+              {isConnected ? <S.ModalActive /> : <S.ModalInactive />}
+            </span>
           </S.Value>
           <S.Subject>Total ({activeCurrency.name})</S.Subject>
         </S.XlmBox>
