@@ -19,11 +19,11 @@ import options from './options';
 import OfferOps from './OfferOps';
 import SignerOps from './SignerOps';
 import PaymentOps from './PaymentOps';
+import PaymentSendOps from './PaymentSendOps';
 import SetOptionOps from './SetOptionOps';
 import ThresholdOps from './ThresholdOps';
 import AllowTrustOps from './AllowTrustOps';
 import ManageDataOps from './ManageDataOps';
-import PaymentSendOps from './PaymentSendOps';
 import ChangeTrustOps from './ChangeTrustops';
 import PaymentReceiveOps from './PaymentReceiveOps';
 

@@ -15,9 +15,9 @@ import isTransferable from 'popup/utils/isTransferable';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import { ElementOption } from 'popup/models';
 
-type FormValues = {
+type FormValidate = {
   destination: string;
-  amount: any;
+  amount: string | null;
 };
 
 type AppProps = {
@@ -43,13 +43,13 @@ const PaymentOps = ({ id }: AppProps) => {
 
   const onChange = (e: ElementOption) => setSelected(e);
 
-  const validateForm = async (v: FormValues) => {
+  const validateForm = async (v: FormValidate) => {
     const values = {
       ...v,
       asset: selected,
     };
 
-    const errors = {} as FormValues;
+    const errors = {} as FormValidate;
 
     const hasError = {
       amount: false,
@@ -191,7 +191,7 @@ const PaymentOps = ({ id }: AppProps) => {
         },
       }}
       onSubmit={() => {}}
-      validate={(values: FormValues) => validateForm(values)}
+      validate={(values: FormValidate) => validateForm(values)}
       render={({ submitError, handleSubmit, form }) => (
         <form
           className="form"
@@ -221,7 +221,7 @@ const PaymentOps = ({ id }: AppProps) => {
               <>
                 <label className="label-primary mt-2">Amount</label>
 
-                <div className="flex justify-center items-center">
+                <div className="flex items-center">
                   <Input
                     type="number"
                     placeholder="1"
@@ -230,9 +230,9 @@ const PaymentOps = ({ id }: AppProps) => {
                     meta={meta}
                     variant="max"
                     styleType="light"
+                    className="grow"
                     setMax={form.mutators.setMax}
                   />
-
                   <SelectOption
                     items={balances}
                     onChange={onChange}
