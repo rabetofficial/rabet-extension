@@ -1,44 +1,64 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Card from 'popup/components/common/Card';
 import shorter from 'popup/utils/shorter';
+import RouteName from 'popup/staticRes/routes';
+import Card from 'popup/components/common/Card';
+import { Usage, SendValues } from 'popup/models';
+import formatBalance from 'popup/utils/formatBalance';
 import CopyText from 'popup/components/common/CopyText';
-import numberWithCommas from 'popup/utils/numberWithCommas';
-import basicSendAction from 'popup/actions/operations/basicSend';
-import { Usage } from 'popup/models';
+import handleAssetAlt from 'popup/utils/handleAssetAlt';
+import closeModalAction from 'popup/actions/modal/close';
 import ScrollBar from 'popup/components/common/ScrollBar';
-import ConfirmLayout from './Layout';
-import questionLogo from '../../../../../assets/images/question-circle.png';
+import handleAssetImage from 'popup/utils/handleAssetImage';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import basicSendAction from 'popup/actions/operations/basicSend';
+import {
+  openErrorModal,
+  openLoadingModal,
+  openSucessModal,
+} from 'popup/components/Modals';
 
 import * as S from './styles';
+import ConfirmLayout from './Layout';
 
 type AppProps = {
   usage: Usage;
+  values: SendValues;
 };
 
-const BasicConfirmSend = ({ usage }: AppProps) => {
+const BasicConfirmSend = ({ usage, values }: AppProps) => {
   const navigate = useNavigate();
+  const assetImages = useTypedSelector((store) => store.assetImages);
 
-  const handleClick = () => {
-    basicSendAction(values, navigate);
-  };
+  const handleClick = async () => {
+    if (usage === 'desktop') {
+      openLoadingModal({});
+    } else {
+      navigate(RouteName.LoadingNetwork);
+    }
 
-  const values = {
-    amount: '20',
-    destination: 'GAMMfefedt6f6efVS3O',
-    memo: 'ygusxuy',
-    asset: {
-      asset_code: 'XLM',
-      asset_issuer: '123',
-      last_modified_ledger: '234',
-      limit: '567',
-      is_authorized: false,
-      is_authorized_to_maintain_liabilities: true,
-      logo: '',
-      domain: 'Stellar.org',
-      toNative: 1,
-    },
+    const [isDone, message] = await basicSendAction(values);
+
+    if (usage === 'extension') {
+      navigate(isDone ? RouteName.Sucess : RouteName.Error, {
+        state: {
+          message,
+        },
+      });
+    } else {
+      if (isDone) {
+        openSucessModal({
+          message,
+          onClick: closeModalAction,
+        });
+      } else {
+        openErrorModal({
+          message,
+          onClick: closeModalAction,
+        });
+      }
+    }
   };
 
   return (
@@ -48,11 +68,19 @@ const BasicConfirmSend = ({ usage }: AppProps) => {
           <h2 className="text-lg font-medium mb-4">Confirm Send</h2>
           <S.Label>Amount</S.Label>
           <S.Value>
-            {numberWithCommas(values.amount)}
-            <img src={questionLogo} alt={values.asset.asset_code} />
-            <span className="light">{values.asset.asset_code}</span>
+            {formatBalance(values.amount)}
+            <img
+              alt={handleAssetAlt(values.asset)}
+              src={handleAssetImage(values.asset, assetImages)}
+            />
+
+            <span className="light">
+              {values.asset.asset_code || 'XLM'}
+            </span>
           </S.Value>
+
           <S.Hr />
+
           <S.Label>To</S.Label>
           <CopyText
             text={values.destination}

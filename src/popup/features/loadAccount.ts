@@ -2,9 +2,10 @@ import store from 'popup/store';
 import getAccount from 'popup/api/getAccount';
 import {
   IAccount,
-  addAssets,
   addFlags,
+  addAssets,
   setInactive,
+  addSubentryCount,
 } from 'popup/reducers/accounts2';
 
 const loadAccount = async (account: IAccount) => {
@@ -43,6 +44,14 @@ const loadAccount = async (account: IAccount) => {
   if (nativeAsset) {
     assets.unshift(nativeAsset);
   }
+
+  store.dispatch(
+    addSubentryCount({
+      publicKey: account.publicKey,
+      subentry_count:
+        (accountResult.subentry_count + 2) * 0.5 + 0.005,
+    }),
+  );
 
   store.dispatch(
     addAssets({

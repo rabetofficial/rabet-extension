@@ -1,30 +1,44 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Usage } from 'popup/models';
+import shorter from 'popup/utils/shorter';
+import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
 import CopyText from 'popup/components/common/CopyText';
-import shorter from 'popup/utils/shorter';
-import currentActiveAccount from 'popup/utils/activeAccount';
+import closeModalAction from 'popup/actions/modal/close';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
-import { Usage } from 'popup/models';
 import * as S from './styles';
 
 type AppProps = {
-  children: React.ReactNode;
-  handleClick: () => void;
-  className?: string;
   usage: Usage;
+  className?: string;
+  handleClick: () => void;
+  children: React.ReactNode;
 };
 
 const BasicConfirmLayout = ({
-  children,
-  handleClick,
-  className,
   usage,
+  children,
+  className,
+  handleClick,
 }: AppProps) => {
   const navigate = useNavigate();
-  const { activeAccount } = currentActiveAccount();
+  const { publicKey } = useActiveAccount();
+
+  const handleCancel = () => {
+    if (usage === 'desktop') {
+      closeModalAction();
+    } else {
+      navigate(RouteName.Home, {
+        state: {
+          alreadyLoaded: true,
+        },
+      });
+    }
+  };
 
   return (
     <div className={className}>
@@ -32,10 +46,8 @@ const BasicConfirmLayout = ({
         <S.AccountTitle>Source account:</S.AccountTitle>
         <div className="font-medium">
           <CopyText
-            text={activeAccount.publicKey}
-            custom={
-              <span>{shorter(activeAccount.publicKey, 4)}</span>
-            }
+            text={publicKey}
+            custom={<span>{shorter(publicKey, 4)}</span>}
           />
         </div>
       </S.Account>
@@ -54,9 +66,7 @@ const BasicConfirmLayout = ({
           variant="default"
           size="medium"
           content="Cancel"
-          onClick={() => {
-            navigate(-1);
-          }}
+          onClick={handleCancel}
         />
 
         <Button

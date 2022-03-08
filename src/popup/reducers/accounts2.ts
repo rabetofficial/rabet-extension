@@ -9,6 +9,7 @@ export interface IAccount {
   privateKey: string;
   inactive?: boolean;
   isConnected: boolean;
+  subentry_count: number;
   assets?: Horizon.BalanceLine[];
   flags?: Horizon.Flags;
 }
@@ -21,6 +22,11 @@ type AddAssetsAction = {
 type AddFlagsAction = {
   publicKey: string;
   flags: Horizon.Flags;
+};
+
+type AddSubAction = {
+  publicKey: string;
+  subentry_count: number;
 };
 
 type ChangeNameAction = {
@@ -69,6 +75,16 @@ const accountsSlice = createSlice({
         }
       }
     },
+    addSubentryCount: (
+      state,
+      action: PayloadAction<AddSubAction>,
+    ) => {
+      for (let i = 0; i < state.length; i += 1) {
+        if (state[i].publicKey === action.payload.publicKey) {
+          state[i].subentry_count = action.payload.subentry_count;
+        }
+      }
+    },
     changeName: (state, action: PayloadAction<ChangeNameAction>) => {
       for (let i = 0; i < state.length; i += 1) {
         if (state[i].publicKey === action.payload.publicKey) {
@@ -99,5 +115,6 @@ export const {
   changeName,
   setInactive,
   changeActive,
+  addSubentryCount,
 } = accountsSlice.actions;
 export default accountsSlice.reducer;
