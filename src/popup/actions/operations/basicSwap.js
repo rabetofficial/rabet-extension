@@ -2,7 +2,7 @@ import StellarSdk from 'stellar-sdk';
 
 import isNative from '../../utils/isNative';
 import * as route from '../../staticRes/routes';
-import showError from '../../utils/errorMessage';
+import showError from '../../staticRes/errorMessage';
 import calculatePath from '../../utils/calculatePath';
 import currentActiveAccount from '../../utils/activeAccount';
 import currentNetwork from '../../utils/currentNetwork';

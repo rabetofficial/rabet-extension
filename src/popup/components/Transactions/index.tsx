@@ -60,6 +60,7 @@ const Transactions = ({
         {transactions.map((tx, index) => (
           <div key={tx.records[0].transaction_hash}>
             <Transaction transaction={tx} publicKey={publicKey} />
+
             {transactions.length !== index + 1 && (
               <hr className="bg-primary-lighter ml-[22px] mr-[19px]" />
             )}

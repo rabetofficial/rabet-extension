@@ -20,6 +20,7 @@ export default async (privateKey: string) => {
     privateKey,
     active: false,
     isConnected: false,
+    subentry_count: 0,
     name: 'My account',
     publicKey: source.publicKey(),
   };

@@ -4,7 +4,7 @@ import store from '../../store';
 import isNative from '../../utils/isNative';
 import payment from '../../operations/payment';
 import * as route from '../../staticRes/routes';
-import showError from '../../utils/errorMessage';
+import showError from '../../staticRes/errorMessage';
 import allowTrust from '../../operations/allowTrust';
 import manageData from '../../operations/manageData';
 import changeTrust from '../../operations/changeTrust';

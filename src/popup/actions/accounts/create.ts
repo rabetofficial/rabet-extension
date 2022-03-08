@@ -13,6 +13,7 @@ export default async (name: string): Promise<boolean> => {
       name,
       active: false,
       isConnected: false,
+      subentry_count: 0,
       privateKey: pair.secret(),
       publicKey: pair.publicKey(),
     };

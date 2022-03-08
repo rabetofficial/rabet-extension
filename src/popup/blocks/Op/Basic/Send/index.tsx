@@ -4,13 +4,18 @@ import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
 import { Usage } from 'popup/models';
+import getAccount from 'popup/api/getAccount';
+import RouteName from 'popup/staticRes/routes';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
+import openModalAction from 'popup/actions/modal/open';
+import isTransferable from 'popup/utils/isTransferable';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import controlNumberInput from 'popup/utils/controlNumberInput';
 import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
+import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
+import BasicConfirmSend from 'popup/blocks/Op/Basic/Confirm/Send';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-import ModalSend from 'popup/pages/expand/EHome/BasicOperation/ModalSend';
 
 import ModalInput from './styles';
 
@@ -27,21 +32,42 @@ type AppProps = {
 const BasicSend = ({ usage }: AppProps) => {
   const navigate = useNavigate();
   const account = useActiveAccount();
-  const [isModalOpen, setModal] = useState(false);
+  const [isAccountNew, setIsAccountNew] = useState(false);
 
   const assets = account.assets || [];
 
   const [selectedAsset, setSelectedAsset] = useState(assets[0]);
 
   const onSubmit = async (v: FormValues) => {
+    const values = {
+      ...v,
+      asset: selectedAsset,
+      isAccountNew,
+    };
+
     if (usage === 'extension') {
-      // navigate()
+      navigate(RouteName.BasicSendConfirm, {
+        state: {
+          values,
+        },
+      });
     } else {
-      setModal(true);
+      openModalAction({
+        title: '',
+        isStyled: false,
+        size: 'medium',
+        padding: 'medium',
+        minHeight: 0,
+        children: (
+          <div className="px-8 pt-8 pb-[14px] min-h-[490px]">
+            <BasicConfirmSend usage="desktop" values={values} />
+          </div>
+        ),
+      });
     }
   };
 
-  const validateForm = (v: FormValues) => {
+  const validateForm = async (v: FormValues) => {
     const values = {
       ...v,
       asset: selectedAsset,
@@ -55,23 +81,60 @@ const BasicSend = ({ usage }: AppProps) => {
 
     if (!values.destination) {
       errors.destination = '';
-    }
-
-    if (!StrKey.isValidEd25519PublicKey(values.destination)) {
-      return {
-        destination: 'Invalid destination.',
-      };
+    } else if (!StrKey.isValidEd25519PublicKey(values.destination)) {
+      errors.destination = 'Invalid destination.';
+    } else if (!values.asset) {
+      errors.destination = 'No asset selected.';
     }
 
     if (!values.amount) {
+      errors.amount = '';
+    }
+
+    if (
+      !isInsufficientAsset(
+        values.asset,
+        account.subentry_count,
+        values.amount,
+      )
+    ) {
       return {
-        amount: '',
+        amount: `Insufficient ${
+          values.asset.asset_code || 'XLM'
+        } balance.`,
       };
     }
 
-    if (selectedAsset.asset_issuer === values.destination) {
-      return {};
+    if (Object.keys(errors).length) {
+      return errors;
     }
+
+    const destinationAccount = await getAccount(values.destination);
+    const [isAllowed, transferResult] = isTransferable(
+      values,
+      destinationAccount,
+    );
+    if (!isAllowed && transferResult === 'INACTIVE') {
+      return {
+        destination: 'Inactive accounts cannot receive tokens.',
+      };
+    }
+
+    if (!isAllowed && transferResult === 'NO_TRUST') {
+      return {
+        destination:
+          'The destination account does not trust the asset you are attempting to send.',
+      };
+    }
+
+    if (!isAllowed && transferResult === 'LIMIT_EXCEED') {
+      return {
+        destination:
+          'The destination account balance would exceed the trust of the destination in the asset.',
+      };
+    }
+
+    setIsAccountNew(transferResult === 'INACTIVE');
 
     return {};
   };
@@ -81,7 +144,7 @@ const BasicSend = ({ usage }: AppProps) => {
       <Form
         validate={validateForm}
         onSubmit={onSubmit}
-        render={({ form, handleSubmit }) => (
+        render={({ form, handleSubmit, invalid, pristine }) => (
           <form onSubmit={handleSubmit}>
             <label className="label-primary block mt-4">Amount</label>
             <ModalInput>
@@ -178,15 +241,9 @@ const BasicSend = ({ usage }: AppProps) => {
                 size="medium"
                 content="Send"
                 className="mr-[-11px]"
+                disabled={invalid || pristine}
               />
             </ButtonContainer>
-
-            <ModalSend
-              isOpen={isModalOpen}
-              onClose={() => {
-                setModal(false);
-              }}
-            />
           </form>
         )}
       />

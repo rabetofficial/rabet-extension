@@ -3,6 +3,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 import createTab from 'popup/utils/createTab';
+import formatBalance from 'popup/utils/formatBalance';
 import * as Icons from 'popup/svgs/TransactionActions';
 import transactionLink from 'popup/utils/horizon/transactionLink';
 
@@ -58,7 +59,8 @@ export const TransferTx = ({
           {type === 'send' ? <Icons.Send /> : <Icons.Receive />}
         </S.ImgContainer>
         <S.TextContainer>
-          {type === 'send' ? 'Send' : 'Receive'} {amount} {asset_code}
+          {type === 'send' ? 'Send' : 'Receive'}{' '}
+          {formatBalance(amount)} {asset_code}
         </S.TextContainer>
       </S.MainPart>
       <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
@@ -87,11 +89,11 @@ export const SwapTx = ({
           <Icons.Swap />
         </S.ImgContainer>
         <S.TextContainer>
-          Swap {amount1} {asset_code1}
+          Swap {formatBalance(amount1)} {asset_code1}
           <span className="mx-1">
             <Icons.SwapBack />
           </span>
-          {amount2} {asset_code2}
+          {formatBalance(amount2)} {asset_code2}
         </S.TextContainer>
       </S.MainPart>
       <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
