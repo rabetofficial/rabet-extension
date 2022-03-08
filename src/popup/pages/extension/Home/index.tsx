@@ -56,7 +56,7 @@ const Home = () => {
 
         <S.InfoBox>
           <S.Label className="mb-[2px]">Name</S.Label>
-          <S.Info className="mb-[6px]">
+          <S.Info className="mb-[6px] w-[285px]">
             <EditWalletName
               height={32}
               checkIconWidth={22}

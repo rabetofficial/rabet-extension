@@ -117,7 +117,7 @@ const AssetList = ({
     return (
       <NoDate
         msg="No Assets"
-        className="flex justify-center items-center min-h-[200px]"
+        className="flex justify-center items-center min-h-[180px]"
       />
     );
   }

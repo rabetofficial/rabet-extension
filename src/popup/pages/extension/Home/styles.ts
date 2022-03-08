@@ -70,7 +70,7 @@ export const ModalActive = styled.span`
 
 export const DropDown = styled.span`
   position: absolute;
-  top: 165px;
+  top: 155px;
   right: 16px;
 `;
 

@@ -12,20 +12,20 @@ const TabList = () => {
       id: '1',
       title: 'Assets',
       content: (
-        <div className="max-h-[200px]">
+        <>
           <div className="text-sm flex justify-end mt-2 px-4">
             <Link to={RouteName.AddAsset}>+ Add assets</Link>
           </div>
-          <AssetList scrollMaxHeight={200} isExtension />
-        </div>
+          <AssetList scrollMaxHeight={192} isExtension />
+        </>
       ),
     },
     {
       id: '2',
       title: 'Transactions',
       content: (
-        <div className="max-h-[200px] px-4">
-          <Transactions scrollMaxHeight={200} isExtention />
+        <div className="px-4">
+          <Transactions scrollMaxHeight={220} isExtention />
         </div>
       ),
     },
