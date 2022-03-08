@@ -11,12 +11,23 @@ import trashSrc from 'src/assets/images/trash-delete.svg';
 const DropDownList = () => {
   const navigate = useNavigate();
 
+  const openInNewTab = (url: string) => {
+    const newWindow = window.open(
+      url,
+      '_blank',
+      'noopener,noreferrer',
+    );
+    if (newWindow) newWindow.opener = null;
+  };
+
   const dropMenuItems = [
     {
       label: 'Expand view',
       icon: <ExpandIcon />,
       onClick: () => {
-        navigate(RouteName.Home);
+        openInNewTab(
+          `chrome-extension://${chrome.runtime.id}/dist/popup.html#/`,
+        );
       },
     },
     {
