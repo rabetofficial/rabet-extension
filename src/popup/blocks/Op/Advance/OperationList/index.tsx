@@ -20,8 +20,8 @@ import PaymentOps from './PaymentOps';
 import PaymentSendOps from './PaymentSendOps';
 import PaymentReceiveOps from './PaymentReceiveOps';
 import OfferOps from './OfferOps';
-import SignerOps from './SignerOps';
 import SetOptionOps from './SetOptionOps';
+import SignerOps from './SignerOps';
 import ThresholdOps from './ThresholdOps';
 import AllowTrustOps from './AllowTrustOps';
 import ManageDataOps from './ManageDataOps';
@@ -77,23 +77,9 @@ const Operation = ({
     if (selected === options[1]) return <PaymentSendOps id={id} />;
     if (selected === options[2]) return <PaymentReceiveOps id={id} />;
     if (selected === options[3])
-      return (
-        <OfferOps
-          key="offer1"
-          id={id}
-          type={operations.manageBuyOffer}
-          offer
-        />
-      );
+      return <OfferOps key="offer1" id={id} offer />;
     if (selected === options[4])
-      return (
-        <OfferOps
-          key="offer2"
-          id={id}
-          type={operations.createPassiveSellOffer}
-          offer={false}
-        />
-      );
+      return <OfferOps key="offer2" id={id} offer={false} />;
     if (selected === options[5])
       return (
         <SetOptionOps
