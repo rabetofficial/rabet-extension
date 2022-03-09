@@ -8,9 +8,11 @@ import Transactions from 'popup/components/Transactions';
 import BasicOperation from 'popup/pages/expand/EHome/BasicOperation';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 import ConfirmWallet from 'popup/pages/expand/EHome/WalletInfo/ConfirmWallet';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 const EHome = () => {
   const isLoading = useLoadHome();
+  const options = useTypedSelector((store) => store.options);
 
   if (isLoading) {
     return <LoadingOne />;
@@ -20,7 +22,12 @@ const EHome = () => {
     {
       id: 1,
       title: 'Operation',
-      content: <BasicOperation />,
+      content:
+        options.mode === 'BASIC' ? (
+          <BasicOperation />
+        ) : (
+          <p>ADVANCED</p>
+        ),
     },
     { id: 2, title: 'Transactions', content: <Transactions /> },
     { id: 3, title: 'Wallet info', content: <ConfirmWallet /> },
