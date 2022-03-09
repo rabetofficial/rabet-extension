@@ -163,14 +163,31 @@ const AssetInfo = ({
     },
   ];
 
-  const isDeletable = new BN(assetData?.balance || '0').isEqualTo(
-    '0',
-  );
-  const noLiabilities = new BN(
-    (assetData?.buying_liabilities &&
-      assetData?.selling_liabilities) ||
-      '0',
-  ).isEqualTo('0');
+  const nBalance = new BN(asset.balance);
+
+  let nSL; // BigNumber for asset's selling liabilities
+  let nBL; // BigNumber for assets's buying liabilities
+
+  if (asset.asset_type === 'liquidity_pool_shares') {
+    nSL = new BN('');
+    nBL = new BN('');
+  } else {
+    nSL = new BN(asset.selling_liabilities);
+    nBL = new BN(asset.buying_liabilities);
+  }
+
+  let isDeletable = false;
+  let notDeletableReason = '';
+
+  if (!nBalance.isEqualTo('0')) {
+    isDeletable = true;
+    notDeletableReason =
+      "You cannot remove this asset unless the asset's balance is zero.";
+  } else if (!nSL.plus(nBL).isEqualTo('0')) {
+    isDeletable = true;
+    notDeletableReason =
+      "You cannot remove this asset unless the asset's liabilities are zero.";
+  }
 
   if (isNative) {
     return (
@@ -195,7 +212,6 @@ const AssetInfo = ({
   }
   return (
     <S.Page>
-      {console.log('hey', assetData?.selling_liabilities)}
       {children}
 
       <S.Content>
@@ -209,22 +225,12 @@ const AssetInfo = ({
 
         <HandleFlags />
 
-        {!isDeletable ? (
+        {isDeletable && (
           <S.ErrorBox className="text-error">
-            You cannot remove this asset unless the asset&apos;s
-            balance is zero.
+            {notDeletableReason}
           </S.ErrorBox>
-        ) : (
-          ''
         )}
-        {!noLiabilities ? (
-          <S.ErrorBox className="text-error">
-            You cannot remove this asset unless the asset&apos;s
-            liabilities are zero.
-          </S.ErrorBox>
-        ) : (
-          ''
-        )}
+
         <ButtonContainer btnSize={102} justify="end" mt={32} gap={5}>
           <Button
             variant="default"
@@ -238,7 +244,7 @@ const AssetInfo = ({
             variant="danger"
             size="medium"
             content="Delete"
-            disabled={!isDeletable}
+            disabled={isDeletable}
             onClick={handleDelete}
             startIcon={<Trash />}
           />
