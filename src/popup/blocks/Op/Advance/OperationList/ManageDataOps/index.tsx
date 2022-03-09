@@ -1,15 +1,21 @@
-import classNames from 'classnames';
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 
-import Input from '../../../../../components/Input';
-import changeOperationAction from '../../../../../actions/operations/change';
+import Input from 'popup/components/common/Input';
+import changeOperationAction from 'popup/actions/operations/change';
 
-import styles from './styles.less';
+type FormValidate = {
+  name: string | null;
+  value: string | null;
+};
 
-const ManageDataOps = ({ id }) => {
-  const validateForm = (values) => {
-    const errors = {};
+type AppProps = {
+  id: string;
+};
+
+const ManageDataOps = ({ id }: AppProps) => {
+  const validateForm = (values: FormValidate) => {
+    const errors = {} as FormValidate;
 
     const hasError = {
       name: false,
@@ -57,46 +63,51 @@ const ManageDataOps = ({ id }) => {
   return (
     <Form
       onSubmit={() => {}}
-      validate={(values) => validateForm(values)}
+      validate={(values: FormValidate) => validateForm(values)}
       render={({ submitError, handleSubmit }) => (
         <form
-          className={classNames(styles.form, 'form')}
+          className="form"
           onSubmit={handleSubmit}
           autoComplete="off"
         >
           <Field name="name">
             {({ input, meta }) => (
-              <div className="group">
+              <>
                 <label className="label-primary">Name</label>
+
                 <Input
                   type="text"
                   placeholder="Name"
-                  size="input-medium"
+                  size="medium"
+                  styleType="light"
                   input={input}
                   meta={meta}
                   autoFocus
                 />
-              </div>
+              </>
             )}
           </Field>
 
           <Field name="value">
             {({ input, meta }) => (
-              <div className="group">
-                <label className="label-primary">
+              <>
+                <label className="label-primary mt-2">
                   Value
                   <span className="label-optional"> (optional)</span>
                 </label>
+
                 <Input
                   type="text"
                   placeholder="John"
-                  size="input-medium"
+                  size="medium"
+                  styleType="light"
                   input={input}
                   meta={meta}
                 />
-              </div>
+              </>
             )}
           </Field>
+
           {submitError && <div className="error">{submitError}</div>}
         </form>
       )}

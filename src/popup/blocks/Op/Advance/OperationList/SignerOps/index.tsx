@@ -1,17 +1,28 @@
-import classNames from 'classnames';
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
 
-import Input from '../../../../../components/Input';
-import changeOperationAction from '../../../../../actions/operations/change';
+import Input from 'popup/components/common/Input';
+import changeOperationAction from 'popup/actions/operations/change';
 
-import styles from './styles.less';
+type FormValidate = {
+  signer: string | null;
+  weight: string | null;
+};
 
-const SignerOps = ({ id }) => {
-  const validateForm = (values) => {
-    const errors = {};
-    const hasError = {};
+type AppProps = {
+  id: string;
+};
+
+const SignerOps = ({ id }: AppProps) => {
+  const validateForm = (values: FormValidate) => {
+    type HasError = {
+      signer: boolean;
+      weight: boolean;
+    };
+
+    const errors = {} as FormValidate;
+    const hasError = {} as HasError;
 
     if (!values.signer) {
       errors.signer = null;
@@ -52,42 +63,44 @@ const SignerOps = ({ id }) => {
   return (
     <Form
       onSubmit={() => {}}
-      validate={(values) => validateForm(values)}
+      validate={(values: FormValidate) => validateForm(values)}
       render={({ submitError, handleSubmit }) => (
         <form
-          className={classNames(styles.form, 'form')}
+          className="form"
           onSubmit={handleSubmit}
           autoComplete="off"
         >
           <Field name="signer">
             {({ input, meta }) => (
-              <div className="group">
+              <>
                 <label className="label-primary">Signer</label>
                 <Input
                   type="text"
                   placeholder="G..."
-                  size="input-medium"
+                  size="medium"
                   input={input}
                   meta={meta}
                   autoFocus
                 />
-              </div>
+              </>
             )}
           </Field>
+
           <Field name="weight">
             {({ input, meta }) => (
-              <div className="group">
-                <label className="label-primary">Weight</label>
+              <>
+                <label className="label-primary mt-2">Weight</label>
                 <Input
                   type="number"
                   placeholder="1"
-                  size="input-medium"
+                  size="medium"
                   input={input}
                   meta={meta}
                 />
-              </div>
+              </>
             )}
           </Field>
+
           {submitError && <div className="error">{submitError}</div>}
         </form>
       )}

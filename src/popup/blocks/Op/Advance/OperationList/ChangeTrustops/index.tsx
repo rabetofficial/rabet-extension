@@ -1,27 +1,48 @@
-import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
-import Input from '../../../../../components/Input';
-import SelectOption from '../../../../../components/SelectOption';
-import validateNumber from '../../../../../utils/validate/number';
-import currentActiveAccount from '../../../../../utils/activeAccount';
-import changeOperationAction from '../../../../../actions/operations/change';
+import Input from 'popup/components/common/Input';
+import SelectOption from 'popup/components/common/SelectOption';
+import validateNumber from 'popup/utils/validate/number';
+import changeOperationAction from 'popup/actions/operations/change';
+import isNative from 'popup/utils/isNative';
+import { ElementOption } from 'popup/models';
 
-import styles from './styles.less';
-import isNative from '../../../../../utils/isNative';
+type FormValidate = {
+  limit: any;
+};
 
-const ChangeTrustOps = ({ id }) => {
-  const { activeAccount: { balances: b } } = currentActiveAccount();
+type AppProps = {
+  id: string;
+};
+
+const ChangeTrustOps = ({ id }: AppProps) => {
+  const b = Array(5).fill({
+    asset_code: 'XLM',
+    asset_issuer: '123',
+    last_modified_ledger: '234',
+    limit: '567',
+    is_authorized: false,
+    is_authorized_to_maintain_liabilities: true,
+    logo: '',
+    domain: 'Stellar.org',
+    toNative: 1,
+  });
+
   const balances = b.filter((x) => !isNative(x));
 
   const [selected, setSelected] = useState(balances[0]);
 
-  const onChange = (e) => setSelected(e);
+  const onChange = (e: ElementOption) => setSelected(e);
 
-  const validateForm = async (values) => {
-    const errors = {};
-    const hasError = {
+  const validateForm = async (values: FormValidate) => {
+    type HasError = {
+      limit?: boolean;
+      code: boolean;
+    };
+
+    const errors = {} as FormValidate;
+    const hasError: HasError = {
       code: false,
     };
 
@@ -36,7 +57,8 @@ const ChangeTrustOps = ({ id }) => {
       const l = parseInt(values.limit, 10);
 
       if (l > 922337203685 || l < 1) {
-        errors.limit = 'Limit number must be between 1 and 922,337,203,685';
+        errors.limit =
+          'Limit number must be between 1 and 922,337,203,685';
         hasError.limit = true;
       }
     }
@@ -55,36 +77,39 @@ const ChangeTrustOps = ({ id }) => {
   return (
     <Form
       onSubmit={() => {}}
-      validate={(values) => validateForm(values)}
+      validate={(values: FormValidate) => validateForm(values)}
       render={({ submitError, handleSubmit }) => (
         <form
-          className={classNames(styles.form, 'form')}
+          className="form"
           onSubmit={handleSubmit}
           autoComplete="off"
         >
           <Field name="limit">
             {({ input, meta }) => (
-              <div className="pure-g group">
-                <div className={styles.selectInput}>
-                  <label className="label-primary">Limit amount</label>
+              <>
+                <label className="label-primary">Limit amount</label>
+
+                <div className="flex items-center">
                   <Input
                     type="number"
                     placeholder="1000"
-                    size="input-medium"
+                    size="medium"
+                    styleType="light"
+                    className="grow"
                     input={input}
                     meta={meta}
                   />
-                </div>
-                <div className={styles.select}>
                   <SelectOption
                     items={balances}
                     onChange={onChange}
-                    variant="select-outlined"
+                    variant="outlined"
+                    width={99}
+                    className="ml-2"
                     defaultValue={selected}
                     selected={selected}
                   />
                 </div>
-              </div>
+              </>
             )}
           </Field>
           {submitError && <div className="error">{submitError}</div>}

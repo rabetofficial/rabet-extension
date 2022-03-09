@@ -4,17 +4,38 @@ import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
 
-import Input from '../../../../../components/Input';
-import validateDomain from '../../../../../utils/validate/domain';
-import validateNumber from '../../../../../utils/validate/number';
-import * as operationNames from '../../../../../staticRes/operations';
-import getAccountData from '../../../../../utils/horizon/isAddressFound';
-import changeOperationAction from '../../../../../actions/operations/change';
+import Input from 'popup/components/common/Input';
+import validateDomain from 'popup/utils/validate/domain';
+import validateNumber from 'popup/utils/validate/number';
+import * as operationNames from 'popup/staticRes/operations';
+import getAccountData from 'popup/utils/horizon/isAddressFound';
+import changeOperationAction from 'popup/actions/operations/change';
 
-const SetOptionOps = ({ id, type, label, inputInfo }) => {
-  const validateForm = async (values) => {
-    const errors = {};
-    const hasError = {};
+type FormValidate = {
+  value: any;
+  destination: string;
+};
+
+type InputInfo = {
+  type: string;
+  placeholder: string;
+};
+
+type AppProps = {
+  id: string;
+  type: string;
+  label: string;
+  inputInfo: InputInfo;
+};
+
+const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
+  const validateForm = async (values: FormValidate) => {
+    type HasError = {
+      value: boolean;
+    };
+
+    const errors = {} as FormValidate;
+    const hasError = {} as HasError;
 
     if (!values.value) {
       changeOperationAction(id, {
@@ -163,7 +184,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }) => {
   return (
     <Form
       onSubmit={() => {}}
-      validate={(values) => validateForm(values)}
+      validate={(values: FormValidate) => validateForm(values)}
       render={({ submitError, handleSubmit }) => (
         <form
           className={classNames('form')}
@@ -172,19 +193,21 @@ const SetOptionOps = ({ id, type, label, inputInfo }) => {
         >
           <Field name="value">
             {({ input, meta }) => (
-              <div className="group">
+              <>
                 <label className="label-primary">{label}</label>
                 <Input
                   type={inputInfo.type}
                   placeholder={inputInfo.placeholder}
-                  size="input-medium"
+                  size="medium"
+                  styleType="light"
                   input={input}
                   meta={meta}
                   autoFocus
                 />
-              </div>
+              </>
             )}
           </Field>
+
           {submitError && <div className="error">{submitError}</div>}
         </form>
       )}

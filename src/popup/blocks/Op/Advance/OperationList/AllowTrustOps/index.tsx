@@ -1,20 +1,33 @@
-import classNames from 'classnames';
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
 
-import Input from '../../../../../components/Input';
-import currentActiveAccount from '../../../../../utils/activeAccount';
-import changeOperationAction from '../../../../../actions/operations/change';
+import Input from 'popup/components/common/Input';
+import currentActiveAccount from 'popup/utils/activeAccount';
+import changeOperationAction from 'popup/actions/operations/change';
 
-import styles from './styles.less';
+type FormValidate = {
+  trustor: string | null;
+  code: string | null;
+  authorize: string | null;
+};
 
-const AllowTrustOps = ({ id }) => {
-  const validateForm = (values) => {
+type AppProps = {
+  id: string;
+};
+
+const AllowTrustOps = ({ id }: AppProps) => {
+  const validateForm = (values: FormValidate) => {
+    type HasError = {
+      trustor: boolean;
+      code?: boolean;
+      authorize?: boolean;
+    };
+
     const { activeAccount } = currentActiveAccount();
 
-    const errors = {};
-    const hasError = {
+    const errors = {} as FormValidate;
+    const hasError: HasError = {
       trustor: false,
     };
 
@@ -97,56 +110,66 @@ const AllowTrustOps = ({ id }) => {
   return (
     <Form
       onSubmit={() => {}}
-      validate={(values) => validateForm(values)}
+      validate={(values: FormValidate) => validateForm(values)}
       render={({ submitError, handleSubmit }) => (
         <form
-          className={classNames(styles.form, 'form')}
+          className="form"
           onSubmit={handleSubmit}
           autoComplete="off"
         >
           <Field name="trustor">
             {({ input, meta }) => (
-              <div className="group">
+              <>
                 <label className="label-primary">Trustor</label>
                 <Input
                   type="text"
                   placeholder="G..."
-                  size="input-medium"
+                  size="medium"
+                  styleType="light"
                   input={input}
                   meta={meta}
                   autoFocus
                 />
-              </div>
+              </>
             )}
           </Field>
+
           <Field name="code">
             {({ input, meta }) => (
-              <div className="group">
-                <label className="label-primary">Assets code</label>
+              <>
+                <label className="label-primary mt-2">
+                  Assets code
+                </label>
                 <Input
                   type="text"
                   placeholder="BTC"
-                  size="input-medium"
+                  size="medium"
+                  styleType="light"
                   input={input}
                   meta={meta}
                 />
-              </div>
+              </>
             )}
           </Field>
+
           <Field name="authorize">
             {({ input, meta }) => (
-              <div className="group">
-                <label className="label-primary">Authorize</label>
+              <>
+                <label className="label-primary mt-2">
+                  Authorize
+                </label>
                 <Input
                   type="number"
                   placeholder="0 | 1 | 2"
-                  size="input-medium"
+                  size="medium"
+                  styleType="light"
                   input={input}
                   meta={meta}
                 />
-              </div>
+              </>
             )}
           </Field>
+
           {submitError && <div className="error">{submitError}</div>}
         </form>
       )}

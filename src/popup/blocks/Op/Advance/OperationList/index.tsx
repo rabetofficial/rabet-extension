@@ -23,9 +23,9 @@ import OfferOps from './OfferOps';
 import SetOptionOps from './SetOptionOps';
 import SignerOps from './SignerOps';
 import ThresholdOps from './ThresholdOps';
+import ChangeTrustOps from './ChangeTrustops';
 import AllowTrustOps from './AllowTrustOps';
 import ManageDataOps from './ManageDataOps';
-import ChangeTrustOps from './ChangeTrustops';
 
 const Container = styled.div`
   .ops__option {
