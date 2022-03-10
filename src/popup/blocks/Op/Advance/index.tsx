@@ -8,7 +8,7 @@ import Card from 'popup/components/common/Card';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-import * as route from 'popup/staticRes/routes';
+import RouteName from 'popup/staticRes/routes';
 import addMemoAction from 'popup/actions/operations/addMemo';
 import addOperationAction from 'popup/actions/operations/add';
 import clearOperationsAction from 'popup/actions/operations/clear';
@@ -78,22 +78,20 @@ const AdvanceOperation = () => {
 
   return (
     <>
-      <div className="content mt-8">
-        <Button
-          variant="outlined"
-          size="medium"
-          content="Add Operation"
-          startIcon={
-            <PlusIcon>
-              <PlusBold />
-            </PlusIcon>
-          }
-          className="w-full"
-          onClick={addOperation}
-        />
-      </div>
+      <Button
+        variant="outlined"
+        size="medium"
+        content="Add Operation"
+        startIcon={
+          <PlusIcon>
+            <PlusBold />
+          </PlusIcon>
+        }
+        className="w-full"
+        onClick={addOperation}
+      />
 
-      <div className="content mt-6">
+      <div className="mt-6">
         {operations.map((item) => (
           <div key={item.id}>
             <Operation
@@ -150,7 +148,7 @@ const AdvanceOperation = () => {
             size="medium"
             content="Back"
             onClick={() => {
-              navigate(route.homePage, {
+              navigate(RouteName.Home, {
                 state: {
                   alreadyLoaded: true,
                 },

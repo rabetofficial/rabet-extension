@@ -11,7 +11,9 @@ const OperationAdvance = () => (
       <Header />
 
       <ExtTitle title="Operation" className="content mt-4" />
-      <OpAdvance />
+      <div className="content mt-8">
+        <OpAdvance />
+      </div>
     </div>
   </ScrollBar>
 );

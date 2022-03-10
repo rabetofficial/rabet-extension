@@ -5,7 +5,8 @@ import Setting from 'popup/blocks/Setting';
 import LoadingOne from 'popup/pages/LoadingOne';
 import useLoadHome from 'popup/hooks/useLoadHome';
 import Transactions from 'popup/components/Transactions';
-import BasicOperation from 'popup/pages/expand/EHome/BasicOperation';
+import BasicOperation from 'popup/pages/expand/EHome/Operation/Basic';
+import AdvanceOperation from 'popup/pages/expand/EHome/Operation/Advance';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 import ConfirmWallet from 'popup/pages/expand/EHome/WalletInfo/ConfirmWallet';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
@@ -26,7 +27,7 @@ const EHome = () => {
         options.mode === 'BASIC' ? (
           <BasicOperation />
         ) : (
-          <p>ADVANCED</p>
+          <AdvanceOperation />
         ),
     },
     { id: 2, title: 'Transactions', content: <Transactions /> },
