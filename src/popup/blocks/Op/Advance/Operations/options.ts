@@ -1,53 +1,73 @@
-import * as operations from 'popup/staticRes/operations';
+import { Horizon } from 'stellar-sdk';
+
+const operation = Horizon.OperationResponseType;
 
 const options = [
-  { value: operations.payment, label: 'Payment' },
+  { value: operation.payment, label: 'Payment' },
   {
-    value: operations.pathPaymentStrictSend,
+    value: operation.pathPaymentStrictSend,
     label: 'Path payment strict send',
   },
   {
-    value: operations.pathPaymentStrictReceive,
+    value: operation.pathPayment,
     label: 'Path payment strict receive',
   },
-  { value: operations.manageBuyOffer, label: 'Manage offer' },
   {
-    value: operations.createPassiveSellOffer,
+    value: operation.manageBuyOffer,
+    label: 'Manage offer',
+  },
+  {
+    value: operation.createPassiveOffer,
     label: 'Manage passive offer',
   },
   {
-    value: operations.setOptionsInflationDest,
+    value: `${operation.setOptions}_inflation`,
     label: 'Set options (inflation)',
   },
   {
-    value: operations.setOptionsClearFlags,
+    value: `${operation.setOptions}_clear_flag`,
     label: 'Set options (Clear flag)',
   },
   {
-    value: operations.setOptionsSetFlags,
+    value: `${operation.setOptions}_set_flag`,
     label: 'Set options (Set flag)',
   },
   {
-    value: operations.setOptionsMasterWeight,
+    value: `${operation.setOptions}_master_weight`,
     label: 'Set options (Master weight)',
   },
   {
-    value: operations.setOptionsHomeDomain,
+    value: `${operation.setOptions}_home_domain`,
     label: 'Set options (Home domain)',
   },
   {
-    value: operations.setOptionsSigner,
+    value: `${operation.setOptions}_signer`,
     label: 'Set options (Signer)',
   },
   {
-    value: operations.setOptionsThreshold,
+    value: `${operation.setOptions}_threshold`,
     label: 'Set options (Threshold)',
   },
-  { value: operations.changeTrust, label: 'Change trust' },
-  { value: operations.allowTrust, label: 'Allow trust' },
-  { value: operations.accountMerge, label: 'Account merge' },
-  { value: operations.manageData, label: 'Manage data' },
-  { value: operations.bumpSequence, label: 'Bump sequence' },
+  {
+    value: operation.changeTrust,
+    label: 'Change trust',
+  },
+  {
+    value: operation.allowTrust,
+    label: 'Allow trust',
+  },
+  {
+    value: operation.accountMerge,
+    label: 'Account merge',
+  },
+  {
+    value: operation.manageData,
+    label: 'Manage data',
+  },
+  {
+    value: operation.bumpSequence,
+    label: 'Bump sequence',
+  },
 ];
 
 export default options;

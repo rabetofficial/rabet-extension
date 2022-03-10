@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import Card from 'popup/components/common/Card';
 import Button from 'popup/components/common/Button';
 import SelectOption from 'popup/components/common/SelectOption';
-import * as operations from 'popup/staticRes/operations';
 import removeOperationAction from 'popup/actions/operations/remove';
 import changeOperationAction from 'popup/actions/operations/change';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
@@ -87,7 +86,7 @@ const Operation = ({
           label="Inflation destination"
           inputInfo={{ type: 'text', placeholder: 'G…' }}
           id={id}
-          type={operations.setOptionsInflationDest}
+          type={options[5].value}
         />
       );
     if (selected === options[6])
@@ -97,7 +96,7 @@ const Operation = ({
           label="Flag number"
           inputInfo={{ type: 'number', placeholder: '1' }}
           id={id}
-          type={operations.setOptionsClearFlags}
+          type={options[6].value}
         />
       );
     if (selected === options[7])
@@ -107,7 +106,7 @@ const Operation = ({
           label="Flag number"
           inputInfo={{ type: 'number', placeholder: '1' }}
           id={id}
-          type={operations.setOptionsSetFlags}
+          type={options[7].value}
         />
       );
     if (selected === options[8])
@@ -117,7 +116,7 @@ const Operation = ({
           label="Weight"
           inputInfo={{ type: 'number', placeholder: '1' }}
           id={id}
-          type={operations.setOptionsMasterWeight}
+          type={options[8].value}
         />
       );
     if (selected === options[9])
@@ -127,7 +126,7 @@ const Operation = ({
           label="Domain address"
           inputInfo={{ type: 'text', placeholder: 'sample.com' }}
           id={id}
-          type={operations.setOptionsHomeDomain}
+          type={options[8].value}
         />
       );
     if (selected === options[10]) return <SignerOps id={id} />;
@@ -141,7 +140,7 @@ const Operation = ({
           label="Destination"
           inputInfo={{ type: 'text', placeholder: 'G...' }}
           id={id}
-          type={operations.accountMerge}
+          type={options[14].value}
         />
       );
     if (selected === options[15]) return <ManageDataOps id={id} />;
@@ -152,7 +151,7 @@ const Operation = ({
           label="Bump to"
           inputInfo={{ type: 'number', placeholder: '1234' }}
           id={id}
-          type={operations.bumpSequence}
+          type={options[16].value}
         />
       );
     return <PaymentOps id={id} />;
