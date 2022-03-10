@@ -1,4 +1,4 @@
-export interface TokenType {
+export interface AssetType {
   logo: string;
   domain: string;
   asset_code: string;

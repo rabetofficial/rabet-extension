@@ -4,10 +4,4 @@ import YBX from './YBX';
 import AQUA from './AQUA';
 import USDC from './USDC';
 
-export default [
-  USDC,
-  LSP,
-  AQUA,
-  RBT,
-  YBX,
-];
+export default [USDC, LSP, AQUA, RBT, YBX];

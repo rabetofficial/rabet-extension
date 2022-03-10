@@ -38,6 +38,14 @@ const BasicSend = ({ usage }: AppProps) => {
 
   const [selectedAsset, setSelectedAsset] = useState(assets[0]);
 
+  const handleCancel = () => {
+    navigate(RouteName.Home, {
+      state: {
+        alreadyLoaded: true,
+      },
+    });
+  };
+
   const onSubmit = async (v: FormValues) => {
     const values = {
       ...v,
@@ -225,15 +233,15 @@ const BasicSend = ({ usage }: AppProps) => {
               }}
               mt={40}
             >
-              <Button
-                type="button"
-                variant="default"
-                size="medium"
-                content="Cancel"
-                onClick={() => {
-                  navigate(-1);
-                }}
-              />
+              {usage === 'extension' && (
+                <Button
+                  type="button"
+                  variant="default"
+                  size="medium"
+                  content="Cancel"
+                  onClick={handleCancel}
+                />
+              )}
 
               <Button
                 type="submit"
