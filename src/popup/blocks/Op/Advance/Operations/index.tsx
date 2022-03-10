@@ -16,16 +16,16 @@ import ButtonContainer from 'popup/components/common/ButtonContainer';
 import Trash from 'popup/svgs/Trash';
 import options from './options';
 
-import PaymentOps from './PaymentOps';
-import PaymentSendOps from './PaymentSendOps';
-import PaymentReceiveOps from './PaymentReceiveOps';
-import OfferOps from './OfferOps';
-import SetOptionOps from './SetOptionOps';
-import SignerOps from './SignerOps';
-import ThresholdOps from './ThresholdOps';
-import ChangeTrustOps from './ChangeTrustops';
-import AllowTrustOps from './AllowTrustOps';
-import ManageDataOps from './ManageDataOps';
+import PaymentOps from './List/PaymentOps';
+import PaymentSendOps from './List/PaymentSendOps';
+import PaymentReceiveOps from './List/PaymentReceiveOps';
+import OfferOps from './List/OfferOps';
+import SetOptionOps from './List/SetOptionOps';
+import SignerOps from './List/SignerOps';
+import ThresholdOps from './List/ThresholdOps';
+import ChangeTrustOps from './List/ChangeTrustops';
+import AllowTrustOps from './List/AllowTrustOps';
+import ManageDataOps from './List/ManageDataOps';
 
 const Container = styled.div`
   .ops__option {

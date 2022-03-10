@@ -13,7 +13,7 @@ import addMemoAction from 'popup/actions/operations/addMemo';
 import addOperationAction from 'popup/actions/operations/add';
 import clearOperationsAction from 'popup/actions/operations/clear';
 import SendButton from 'popup/components/SendButton';
-import Operation from 'popup/blocks/Op/Advance/OperationList';
+import Operation from 'popup/blocks/Op/Advance/Operations';
 import PlusBold from 'popup/svgs/PlusBold';
 
 const PlusIcon = styled.div`

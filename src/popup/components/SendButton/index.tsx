@@ -1,11 +1,12 @@
-import { connect } from 'react-redux';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import RouteName from 'popup/staticRes/routes';
-import Button from '../common/Button';
+import Button from 'popup/components/common/Button';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
-const SendButton = ({ transaction }) => {
+const SendButton = () => {
+  const transaction = useTypedSelector((store) => store.transaction);
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -41,6 +42,4 @@ const SendButton = ({ transaction }) => {
   );
 };
 
-export default connect((state) => ({
-  transaction: state.transaction,
-}))(SendButton);
+export default SendButton;
