@@ -9,7 +9,7 @@ import { Usage } from 'popup/models';
 import Rotate from 'popup/svgs/Rotate';
 import RouteName from 'popup/staticRes/routes';
 import matchAsset from 'popup/utils/matchAsset';
-import Input from 'popup/components/common/Input';
+import Input from 'popup/components/common/Input/InputHook';
 import getMaxBalance from 'popup/utils/maxBalance';
 import Button from 'popup/components/common/Button';
 import getStrictSend from 'popup/api/getStrictSend';
@@ -335,69 +335,71 @@ const BasicSwap = ({ usage }: AppProps) => {
           name="from"
           control={control}
           render={({ field }) => (
-            <input
+            <Input
               type="number"
               placeholder="123"
               size="medium"
               variant="max"
               onChange={field.onChange}
               defaultValue={field.value}
-              hookError={errors.from}
-              inputOnChange={handleFromChange}
               setMax={setFromMax}
-              errorMsg={errors.from && errors.from.message}
+              errorMsg={errors.from}
               onKeyPress={controlNumberInput}
+              styleType="light"
+              className="grow"
+            />
+          )}
+        />
+
+        <Controller
+          name="asset1"
+          control={control}
+          render={() => (
+            <SelectAssetModal
+              asset={asset1}
+              valueName="asset1"
+              setValue={setValue}
+              assets={assets}
+              onChange={handleAsset1}
             />
           )}
         />
       </S.ModalInput>
 
-      <Controller
-        name="asset1"
-        control={control}
-        render={() => (
-          <SelectAssetModal
-            asset={asset1}
-            valueName="asset1"
-            setValue={setValue}
-            assets={assets}
-            onChange={handleAsset1}
-          />
-        )}
-      />
-
+      <label className="label-primary block mt-4">To</label>
       <S.ModalInput>
         <Controller
           name="to"
           control={control}
           rules={{ required: true }}
           render={({ field }) => (
-            <input
+            <Input
               type="number"
               placeholder="123"
               size="medium"
               defaultValue={field.value}
               onChange={field.onChange}
-              hookError={errors.to}
-              errorMsg={errors.to && errors.to.message}
+              errorMsg={errors.to}
+              styleType="light"
+              className="grow"
+            />
+          )}
+        />
+
+        <Controller
+          name="asset2"
+          control={control}
+          render={() => (
+            <SelectAssetModal
+              asset={asset2}
+              valueName="asset2"
+              setValue={setValue}
+              assets={assetsPlusDefaultAssets}
+              onChange={handleAsset2}
             />
           )}
         />
       </S.ModalInput>
-
-      <Controller
-        name="asset2"
-        control={control}
-        render={() => (
-          <SelectAssetModal
-            asset={asset2}
-            valueName="asset2"
-            setValue={setValue}
-            assets={assetsPlusDefaultAssets}
-            onChange={handleAsset2}
-          />
-        )}
-      />
 
       {loading ? (
         <div>
