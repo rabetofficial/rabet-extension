@@ -136,6 +136,14 @@ const Container = styled.div.attrs(
   .ops__indicator {
     padding-right: 16px;
   }
+}
+
+&.indicator-small {
+  .ops__indicator svg {
+    width: 17px;
+  }
+}
+
 `;
 
 export default Container;

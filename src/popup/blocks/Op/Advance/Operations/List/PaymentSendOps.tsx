@@ -271,6 +271,7 @@ const PaymentSendOps = ({ id }: AppProps) => {
                     variant="outlined"
                     width={99}
                     className="ml-2"
+                    indicatorSize="small"
                     defaultValue={sendAsset}
                     selected={sendAsset}
                   />
@@ -302,6 +303,7 @@ const PaymentSendOps = ({ id }: AppProps) => {
                     variant="outlined"
                     width={99}
                     className="ml-2"
+                    indicatorSize="small"
                     defaultValue={destAsset}
                     selected={destAsset}
                   />

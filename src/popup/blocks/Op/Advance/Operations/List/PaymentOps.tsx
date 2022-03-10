@@ -239,6 +239,7 @@ const PaymentOps = ({ id }: AppProps) => {
                     variant="outlined"
                     width={99}
                     className="ml-2"
+                    indicatorSize="small"
                     defaultValue={selected}
                     selected={selected}
                   />

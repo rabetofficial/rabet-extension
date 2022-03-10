@@ -9,6 +9,7 @@ type AppProps = {
   items: ElementOption[];
   onChange: (value: any) => void;
   variant: 'default' | 'outlined';
+  indicatorSize?: 'large' | 'small';
   defaultValue: ElementOption | {};
   selected?: ElementOption | {};
   isSearchable?: boolean;
@@ -25,6 +26,7 @@ const SelectOption = ({
   selected,
   className,
   width,
+  indicatorSize,
 }: AppProps) => {
   const borderColor = variant === 'default' ? '#f8f8f8' : '#f3f3f3';
   const [value, setValue] = useState<ElementOption | {}>({});
@@ -47,7 +49,10 @@ const SelectOption = ({
   };
 
   return (
-    <Container className={`${variant} ${className}`} width={width}>
+    <Container
+      className={`${variant} ${className} indicator-${indicatorSize}`}
+      width={width}
+    >
       <Select
         classNamePrefix="ops"
         closeMenuOnSelect
@@ -68,6 +73,7 @@ SelectOption.defaultProps = {
   selected: {},
   className: '',
   width: null,
+  indicatorSize: 'large',
 };
 
 export default SelectOption;

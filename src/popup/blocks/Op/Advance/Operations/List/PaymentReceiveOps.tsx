@@ -264,6 +264,7 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
                     variant="outlined"
                     width={99}
                     className="ml-2"
+                    indicatorSize="small"
                     selected={sendAsset}
                   />
                 </div>
@@ -295,6 +296,7 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
                     variant="outlined"
                     width={99}
                     className="ml-2"
+                    indicatorSize="small"
                     selected={destAsset}
                   />
                 </div>
