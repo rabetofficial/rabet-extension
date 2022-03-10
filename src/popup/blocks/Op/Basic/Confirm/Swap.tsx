@@ -1,60 +1,82 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import numberWithCommas from 'popup/utils/numberWithCommas';
-import Card from 'popup/components/common/Card';
-import basicSwapAction from 'popup/actions/operations/basicSwap';
-import ArrowDown from 'popup/svgs/ArrowDown';
-import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
 import { Usage } from 'popup/models';
+import ArrowDown from 'popup/svgs/ArrowDown';
+import RouteName from 'popup/staticRes/routes';
+import Card from 'popup/components/common/Card';
+import formatBalance from 'popup/utils/formatBalance';
+import closeModalAction from 'popup/actions/modal/close';
 import ScrollBar from 'popup/components/common/ScrollBar';
-import ConfirmLayout from './Layout';
-import questionLogo from '../../../../../assets/images/question-circle.png';
+import SwapDetails from 'popup/blocks/Op/Basic/Swap/Detail';
+import handleAssetImage from 'popup/utils/handleAssetImage';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import basicSwapAction from 'popup/actions/operations/basicSwap';
+import {
+  openLoadingModal,
+  openSucessModal,
+  openErrorModal,
+} from 'popup/components/Modals';
 
 import * as S from './styles';
+import { FormValues } from '../Swap';
+import ConfirmLayout from './Layout';
 
 type AppProps = {
   usage: Usage;
+  values: FormValues;
 };
 
-const BasicConfirmSwap = ({ usage }: AppProps) => {
+const BasicConfirmSwap = ({ usage, values }: AppProps) => {
   const navigate = useNavigate();
+  const assetImages = useTypedSelector((store) => store.assetImages);
 
-  const values = {
-    amount: '20',
-    destination: 'GAMMfefedt6f6efVS3O',
-    memo: 'ygusxuy',
-    minimumReceived: 'test',
-    from: '5',
-    to: '8',
-    path: [],
-    asset1: {
-      asset_code: 'XLM',
-      asset_issuer: '123',
-      last_modified_ledger: '234',
-      limit: '567',
-      is_authorized: false,
-      is_authorized_to_maintain_liabilities: true,
-      logo: '',
-      domain: 'Stellar.org',
-      toNative: 1,
-    },
-    asset2: {
-      asset_code: 'XLM',
-      asset_issuer: '123',
-      last_modified_ledger: '234',
-      limit: '567',
-      is_authorized: false,
-      is_authorized_to_maintain_liabilities: true,
-      logo: '',
-      domain: 'Stellar.org',
-      toNative: 1,
-    },
+  const handleClick = async () => {
+    if (usage === 'desktop') {
+      openLoadingModal({});
+    } else {
+      navigate(RouteName.LoadingNetwork);
+    }
+
+    const [isDone, message] = await basicSwapAction(values);
+
+    if (usage === 'extension') {
+      navigate(isDone ? RouteName.Sucess : RouteName.Error, {
+        state: {
+          message,
+        },
+      });
+    } else {
+      if (isDone) {
+        openSucessModal({
+          message,
+          onClick: closeModalAction,
+        });
+      } else {
+        openErrorModal({
+          message,
+          onClick: closeModalAction,
+        });
+      }
+    }
   };
 
-  const handleClick = () => {
-    basicSwapAction(values, navigate);
-  };
+  let asset1Code = 'XLM';
+  let asset2Code = 'XLM';
+
+  if (
+    values.asset1.asset_type === 'credit_alphanum4' ||
+    values.asset1.asset_type === 'credit_alphanum12'
+  ) {
+    asset1Code = values.asset1.asset_code;
+  }
+
+  if (
+    values.asset2.asset_type === 'credit_alphanum4' ||
+    values.asset2.asset_type === 'credit_alphanum12'
+  ) {
+    asset2Code = values.asset2.asset_code;
+  }
 
   return (
     <ConfirmLayout usage={usage} handleClick={handleClick}>
@@ -63,9 +85,13 @@ const BasicConfirmSwap = ({ usage }: AppProps) => {
           <h2 className="text-lg font-medium mb-4">Confirm Swap</h2>
           <S.Label>From</S.Label>
           <S.Value>
-            {numberWithCommas(values.from)}
-            <img src={questionLogo} alt={values.asset1.asset_code} />
-            <span className="light">{values.asset1.asset_code}</span>
+            {formatBalance(values.from)}
+            <img
+              src={handleAssetImage(values.asset1, assetImages)}
+              alt={asset1Code}
+            />
+
+            <span className="light">{asset1Code}</span>
           </S.Value>
 
           <div className="my-1">
@@ -74,22 +100,20 @@ const BasicConfirmSwap = ({ usage }: AppProps) => {
 
           <S.Label>To</S.Label>
           <S.Value>
-            {numberWithCommas(values.to)}
-            <img src={questionLogo} alt={values.asset2.asset_code} />
-            <span className="light">{values.asset2.asset_code}</span>
+            {formatBalance(values.to)}
+            <img
+              src={handleAssetImage(values.asset2, assetImages)}
+              alt={asset2Code}
+            />
+            <span className="light">{asset2Code}</span>
           </S.Value>
 
           <S.Hr />
 
-          <SwapDetail
+          <SwapDetails
             values={values}
             path={values.path}
-            asset1={values.asset1}
-            asset2={values.asset2}
-            received={{
-              asset: values.asset2,
-              minimumReceived: values.minimumReceived,
-            }}
+            minimumReceived={values.minumumReceived}
           />
         </Card>
       </ScrollBar>

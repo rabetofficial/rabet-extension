@@ -29,6 +29,8 @@ import * as S from './styles';
 import ShowFractional from './ShowFractional';
 
 export type FormValues = {
+  path: any[];
+  minumumReceived: number;
   to: string;
   from: string;
   asset1: Horizon.BalanceLine;
@@ -341,12 +343,6 @@ const BasicSwap = ({ usage }: AppProps) => {
     }
   };
 
-  const validate = (v: FormValues) => {
-    console.warn(v);
-
-    return {};
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <label className="label-primary block mt-4">From</label>
@@ -484,7 +480,7 @@ const BasicSwap = ({ usage }: AppProps) => {
           type="submit"
           variant="primary"
           size="medium"
-          content="Send"
+          content="Swap"
         />
       </ButtonContainer>
     </form>

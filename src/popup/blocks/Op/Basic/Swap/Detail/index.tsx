@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 import BN from 'helpers/BN';
 import formatBalance from 'popup/utils/formatBalance';
+import { FormValues } from 'popup/blocks/Op/Basic/Swap';
 import angleRightIcon from 'assets/images/angle-right.svg';
 import calculatePriceImpact from 'popup/api/calculatePriceImpact';
 
@@ -11,9 +12,9 @@ import * as S from './styles';
 
 type SwapDetailsProps = {
   path: any[];
-  values: any;
-  control: any;
-  minimumReceived: string;
+  values: FormValues;
+  control?: any;
+  minimumReceived: number;
 };
 
 const SwapDetails = ({
@@ -88,8 +89,14 @@ const SwapDetails = ({
       <S.Box>
         <S.BoxTitle>Minimum received</S.BoxTitle>
         <div>
-          {formatBalance(minimumReceived)}{' '}
-          {formValues.asset2.asset_code}
+          {minimumReceived ? (
+            <>
+              {formatBalance(minimumReceived.toString())}{' '}
+              {formValues.asset2.asset_code || 'XLM'}
+            </>
+          ) : (
+            <p>Asset</p>
+          )}
         </div>
       </S.Box>
     </>
