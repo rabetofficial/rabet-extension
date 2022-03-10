@@ -13,9 +13,13 @@ import * as S from './styles';
 import SearchAsset from './Search';
 
 type AppProps = {
+  asset: Horizon.BalanceLine;
   assets: Horizon.BalanceLine[];
   onChange: (value: any) => void;
   usage: Usage;
+  valueName?: string;
+  defaultNull?: boolean;
+  setValue?: null;
 };
 
 const SelectAssetModal = ({
@@ -86,6 +90,12 @@ const SelectAssetModal = ({
       </Modal>
     </S.InputContainer>
   );
+};
+
+SelectAssetModal.defaultProps = {
+  valueName: '',
+  setValue: undefined,
+  defaultNull: false,
 };
 
 export default SelectAssetModal;
