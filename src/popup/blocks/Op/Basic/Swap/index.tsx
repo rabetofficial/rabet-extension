@@ -8,15 +8,15 @@ import Swap from 'popup/svgs/Swap';
 import { Usage } from 'popup/models';
 import Rotate from 'popup/svgs/Rotate';
 import RouteName from 'popup/staticRes/routes';
-import matchAsset from 'popup/utils/matchAsset';
-import Input from 'popup/components/common/Input/InputHook';
 import getMaxBalance from 'popup/utils/maxBalance';
 import Button from 'popup/components/common/Button';
 import getStrictSend from 'popup/api/getStrictSend';
 import openModalAction from 'popup/actions/modal/open';
+import rotateLogo from 'assets/images/arrow-rotate.svg';
 import isAssetEqual from 'popup/utils/swap/isAssetEqual';
 import defaultAssets from 'popup/staticRes/defaultAssets';
 import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
+import Input from 'popup/components/common/Input/InputHook';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import combineTokens from 'popup/utils/swap/addDefaultAssets';
 import controlNumberInput from 'popup/utils/controlNumberInput';
@@ -26,10 +26,13 @@ import BasicConfirmSwap from 'popup/blocks/Op/Basic/Confirm/Swap';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
+import ShowFractional from './ShowFractional';
 
-type FormValues = {
-  from: string;
+export type FormValues = {
   to: string;
+  from: string;
+  asset1: Horizon.BalanceLine;
+  asset2: Horizon.BalanceLine;
 };
 
 declare global {
@@ -75,6 +78,8 @@ const BasicSwap = ({ usage }: AppProps) => {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
+      to: '',
+      from: '',
       asset1: assets[0],
       asset2: assetsPlusDefaultAssets[0],
     },
@@ -123,6 +128,15 @@ const BasicSwap = ({ usage }: AppProps) => {
     setLoading(true);
     const calculatedResult = await getStrictSend(formValues);
     setLoading(false);
+
+    if (!calculatedResult) {
+      setError('from', {
+        type: 'error',
+        message: 'Could not find a valid path for swap.',
+      });
+
+      return;
+    }
 
     if (
       calculatedResult.destination_amount === '0' &&
@@ -197,7 +211,7 @@ const BasicSwap = ({ usage }: AppProps) => {
     calculate();
   };
 
-  const handleAsset1 = (asset) => {
+  const handleAsset1 = (asset: Horizon.BalanceLine) => {
     const formValues = getValues();
 
     if (!formValues.asset2) {
@@ -209,7 +223,13 @@ const BasicSwap = ({ usage }: AppProps) => {
       setAsset2(formValues.asset1);
     }
 
-    if (!isInsufficientAsset(asset, maxXLM, formValues.from)) {
+    if (
+      !isInsufficientAsset(
+        asset,
+        account.subentry_count,
+        formValues.from,
+      )
+    ) {
       setShowSwapInfo(false);
 
       setError('from', {
@@ -231,7 +251,7 @@ const BasicSwap = ({ usage }: AppProps) => {
     }, 150);
   };
 
-  const handleAsset2 = (asset) => {
+  const handleAsset2 = (asset: Horizon.BalanceLineAsset) => {
     const formValues = getValues();
 
     if (isAssetEqual(formValues.asset1, asset)) {
@@ -288,7 +308,7 @@ const BasicSwap = ({ usage }: AppProps) => {
       return;
     }
 
-    setValue('to', 0);
+    setValue('to', '0');
     calculate();
   };
 
@@ -340,7 +360,10 @@ const BasicSwap = ({ usage }: AppProps) => {
               placeholder="123"
               size="medium"
               variant="max"
-              onChange={field.onChange}
+              onChange={(e) => {
+                field.onChange(e);
+                handleFromChange();
+              }}
               defaultValue={field.value}
               setMax={setFromMax}
               errorMsg={errors.from}
@@ -411,22 +434,24 @@ const BasicSwap = ({ usage }: AppProps) => {
 
       {showSwapInfo ? (
         <>
-          <S.Equivalent>
-            1 BTC = 12 ETH
-            <Rotate />
-          </S.Equivalent>
+          <ShowFractional
+            control={control}
+            isRotateActive={isRotateActive}
+          />
 
+          <img
+            alt="icon"
+            src={rotateLogo}
+            onClick={() => {
+              setIsRotateActive(!isRotateActive);
+            }}
+          />
           <S.Hr />
 
           <SwapDetail
-            form={form}
             path={path}
-            asset1={asset1}
-            asset2={asset2}
-            received={{
-              asset: asset2,
-              minimumReceived,
-            }}
+            control={control}
+            minimumReceived={minimumReceived}
           />
         </>
       ) : (

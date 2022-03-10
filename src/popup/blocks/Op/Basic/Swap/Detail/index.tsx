@@ -1,74 +1,66 @@
+import BigNumber from 'bignumber.js';
+import { useWatch } from 'react-hook-form';
 import React, { useState, useEffect } from 'react';
-import * as BigNumber from 'bignumber.js';
 
-import formatCurrency from 'popup/utils/formatCurrency';
-import calculatePriceImpact from 'popup/utils/swap/calculatePriceImpact';
-import AngleRight from 'popup/svgs/AngleRight';
-import BN from '../../../../../../helpers/BN';
+import BN from 'helpers/BN';
+import formatBalance from 'popup/utils/formatBalance';
+import angleRightIcon from 'assets/images/angle-right.svg';
+import calculatePriceImpact from 'popup/api/calculatePriceImpact';
 
 import * as S from './styles';
 
-type AppProps = {
+type SwapDetailsProps = {
   path: any[];
-  received: any;
-  asset1: any;
-  asset2: any;
-  form: any;
   values: any;
+  control: any;
+  minimumReceived: string;
 };
 
-const SwapDetail = ({
+const SwapDetails = ({
   path,
-  received,
-  asset1,
-  asset2,
-  form,
-  values: formValues,
-}: AppProps) => {
-  const [marketPrice, setMarketPrice] = useState(0);
+  values,
+  control,
+  minimumReceived,
+}: SwapDetailsProps) => {
+  const [marketPrice, setMarketPrice] = useState<BigNumber | string>(
+    '',
+  );
 
-  let values;
+  let formValues = values;
 
-  if (formValues) {
-    values = formValues;
-  } else {
-    values = form.getState().values;
+  if (control) {
+    formValues = useWatch({ control });
   }
 
   useEffect(() => {
-    calculatePriceImpact(asset1, asset2).then((result) => {
-      setMarketPrice(result);
-    });
-  }, [
-    asset1.asset_code + asset1.asset_issuer,
-    asset2.asset_code + asset2.asset_issuer,
-  ]);
+    calculatePriceImpact(formValues.asset1, formValues.asset2).then(
+      (result) => {
+        setMarketPrice(result);
+      },
+    );
+  }, [formValues]);
 
   const priceImpact = new BN(1)
     .minus(
-      new BN(received.minimumReceived).div(
-        new BN(marketPrice).times(values.from),
+      new BN(minimumReceived).div(
+        new BN(marketPrice).times(formValues.from),
       ),
     )
     .times(100);
 
-  let finalPriceImpact: BigNumber.BigNumber | string =
-    priceImpact.toFixed(2);
+  let finalPriceImpact = priceImpact.toFixed(2);
 
   if (priceImpact.isNaN() || !priceImpact.isFinite()) {
-    finalPriceImpact = new BN(0);
+    finalPriceImpact = '0';
   }
 
   if (priceImpact.isLessThan(0)) {
-    finalPriceImpact = new BN(0);
+    finalPriceImpact = '0';
   }
 
   if (priceImpact.isLessThan(0.1)) {
-    finalPriceImpact = '0.01>';
+    finalPriceImpact = '<0.01';
   }
-
-  const assetType = (asset) =>
-    asset.asset_type === 'native' ? 'XLM' : asset.asset_code;
 
   return (
     <>
@@ -76,9 +68,11 @@ const SwapDetail = ({
         <S.BoxTitle>Path</S.BoxTitle>
         <S.Path>
           {path.map((p, index) => (
-            <div key={assetType(p)}>
-              {assetType(p)}
-              {index !== path.length - 1 && <AngleRight />}
+            <div key={p.asset_code}>
+              {p.asset_type === 'native' ? 'XLM' : p.asset_code}
+              {index !== path.length - 1 && (
+                <img src={angleRightIcon} alt="icon" />
+              )}
             </div>
           ))}
         </S.Path>
@@ -94,12 +88,12 @@ const SwapDetail = ({
       <S.Box>
         <S.BoxTitle>Minimum received</S.BoxTitle>
         <div>
-          {formatCurrency(received.minimumReceived)}{' '}
-          {received.asset.asset_code}
+          {formatBalance(minimumReceived)}{' '}
+          {formValues.asset2.asset_code}
         </div>
       </S.Box>
     </>
   );
 };
 
-export default SwapDetail;
+export default SwapDetails;
