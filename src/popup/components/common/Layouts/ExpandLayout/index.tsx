@@ -33,7 +33,7 @@ const ExpandLayout = ({ children, tabItems = [] }: AppProps) => (
           </S.CardSimple>
         </div>
 
-        <div className="lg:basis-[351px] md:basis-2/5 sm:basis-full basis-full space-y-[38px]">
+        <div className="lg:basis-[351px] md:basis-2/5 sm:basis-full basis-full flex flex-col space-y-[38px]">
           <AddressBlock />
 
           <AssetBlock />
