@@ -8,17 +8,17 @@ import Lock from 'popup/svgs/Lock';
 import Setting from 'popup/svgs/Setting';
 import CreateWallet, {
   FormValues as CreateWalletFormValues,
-} from 'popup/pageComponents/CreateWallet';
+} from 'popup/components/CreateWallet';
 import RouteName from 'popup/staticRes/routes';
 import lockAction from 'popup/actions/accounts/lock';
 import openModalAction from 'popup/actions/modal/open';
 import closeModalAction from 'popup/actions/modal/close';
-import BackupFile from 'popup/pageComponents/BackupFile';
+import BackupFile from 'popup/components/BackupFile';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
-import RestoreWallet from 'popup/pageComponents/RestoreWallet';
+import RestoreWallet from 'popup/components/RestoreWallet';
 import createAccountAction from 'popup/actions/accounts/create';
 import restoreAccountAction from 'popup/actions/accounts/restore';
-import { FormValues as RestoreWalletFormValues } from 'popup/pageComponents/PrivateKey';
+import { FormValues as RestoreWalletFormValues } from 'popup/components/PrivateKey';
 import PageTitle from 'popup/components/PageTitle';
 
 import * as S from './styles';

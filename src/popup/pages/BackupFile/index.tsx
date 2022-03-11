@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
-import BackupFileComponent from 'popup/pageComponents/BackupFile';
+import BackupFileComponent from 'popup/components/BackupFile';
 
 const BackupFile = () => {
   const navigate = useNavigate();

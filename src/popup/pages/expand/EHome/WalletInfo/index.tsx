@@ -9,7 +9,7 @@ import openModalAction from 'popup/actions/modal/open';
 import closeModalAction from 'popup/actions/modal/close';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import EditWalletName from 'popup/components/EditWalletName';
-import DeleteAccount from 'popup/pageComponents/DeleteAccount';
+import DeleteAccount from 'popup/components/DeleteAccount';
 import InsideTabLayout from 'popup/components/common/Layouts/InsideTabLayout';
 
 const Hr = styled.hr`

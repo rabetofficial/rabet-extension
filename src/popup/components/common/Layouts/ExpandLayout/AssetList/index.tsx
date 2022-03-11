@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
 import NoDate from 'popup/components/common/Nodata';
-import AssetInfo from 'popup/pageComponents/AssetInfo';
+import AssetInfo from 'popup/components/AssetInfo';
 import openModalAction from 'popup/actions/modal/open';
 import closeModalAction from 'popup/actions/modal/close';
 import ScrollBar from 'popup/components/common/ScrollBar';

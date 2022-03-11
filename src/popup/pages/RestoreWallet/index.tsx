@@ -6,9 +6,9 @@ import Logo from 'popup/components/Logo';
 import Layout from 'popup/components/common/Layouts/BaseLayout';
 import RouteName from 'popup/staticRes/routes';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
-import { FormValues } from 'popup/pageComponents/PrivateKey';
+import { FormValues } from 'popup/components/PrivateKey';
 import restoreAccountAction from 'popup/actions/accounts/restore';
-import RestoreWalletComponent from 'popup/pageComponents/RestoreWallet';
+import RestoreWalletComponent from 'popup/components/RestoreWallet';
 
 const RestoreWallet = () => {
   const navigate = useNavigate();

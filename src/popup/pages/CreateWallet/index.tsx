@@ -8,7 +8,7 @@ import useTypedSelector from 'popup/hooks/useTypedSelector';
 import createAccountAction from 'popup/actions/accounts/create';
 import CreateWalletComponent, {
   FormValues,
-} from 'popup/pageComponents/CreateWallet';
+} from 'popup/components/CreateWallet';
 
 const CreateWallet = () => {
   const navigate = useNavigate();

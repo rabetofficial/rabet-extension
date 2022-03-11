@@ -10,7 +10,7 @@ import { HashRouter as Router } from 'react-router-dom';
 
 import store from './store';
 import Component from './pages';
-import Modal from './pageComponents/Modal';
+import Modal from './components/Modal';
 import loadUser from './actions/user/loadUser';
 import getHost from './actions/options/getHost';
 // import ModalDialog from './components/common/ModalDialog';
