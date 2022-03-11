@@ -1,32 +1,33 @@
-import shortid from 'shortid';
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
-import styles from './styles.less';
+import * as S from './styles';
 
-const DropMenu = ({ children, width, items }) => {
+type AppProps = {
+  children: React.ReactNode;
+  width: number;
+  items: any[];
+};
+
+const DropMenu = ({ children, width, items }: AppProps) => {
   const [active, setActive] = useState(false);
   const toggle = () => setActive(!active);
   const close = () => setActive(false);
 
   return (
-    <div className={styles.drop}>
-      <div className="dropdown-menu" tabIndex={0} onBlur={close}>
-        <div
-          className={`toggle ${active ? 'active' : ''}`}
-          onClick={toggle}
-        >
+    <div className="relative">
+      <S.DropMenu tabIndex={0} onBlur={close}>
+        <S.Toggle className={active ? 'active' : ''} onClick={toggle}>
           {children}
-        </div>
-        <div
-          className={`menu ${active ? 'expanded' : 'collapsed'} `}
-          style={{ width: active && `${width}px` }}
+        </S.Toggle>
+        <S.Menu
+          className={active ? 'expanded' : 'collapsed'}
+          style={{ width: active ? `${width}px` : 'auto' }}
         >
           <ul>
             {items.map((i) => (
               <li
                 className={i.className}
-                key={shortid.generate()}
+                key={i.id}
                 onClick={() => {
                   i.onClick();
                   toggle();
@@ -39,18 +40,14 @@ const DropMenu = ({ children, width, items }) => {
                     i.icon
                   )}
                 </>
-                <span className="label">{i.label}</span>
+                <span className="ml-2">{i.label}</span>
               </li>
             ))}
           </ul>
-        </div>
-      </div>
+        </S.Menu>
+      </S.DropMenu>
     </div>
   );
-};
-
-DropMenu.propTypes = {
-  width: PropTypes.number.isRequired,
 };
 
 export default DropMenu;

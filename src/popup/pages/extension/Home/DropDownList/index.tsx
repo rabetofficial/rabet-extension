@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 import ExpandIcon from 'popup/svgs/Expand';
 import RouteName from 'popup/staticRes/routes';
-import DropMenu from 'popup/components/DropMenu';
 import worldSrc from 'src/assets/images/world.svg';
 import trashSrc from 'src/assets/images/trash-delete.svg';
+import DropMenu from './DropMenu';
 
 const DropDownList = () => {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ const DropDownList = () => {
 
   const dropMenuItems = [
     {
+      id: 1,
       label: 'Expand view',
       icon: <ExpandIcon />,
       onClick: () => {
@@ -31,6 +32,7 @@ const DropDownList = () => {
       },
     },
     {
+      id: 2,
       label: 'Show private key',
       icon: 'icon-key',
       onClick: () => {
@@ -38,6 +40,7 @@ const DropDownList = () => {
       },
     },
     {
+      id: 3,
       label: 'Show flags',
       icon: 'icon-flag',
       onClick: () => {
@@ -45,6 +48,7 @@ const DropDownList = () => {
       },
     },
     {
+      id: 4,
       label: 'Connected sites',
       icon: <img src={worldSrc} alt="icon" />,
       onClick: () => {
@@ -52,6 +56,7 @@ const DropDownList = () => {
       },
     },
     {
+      id: 5,
       label: <p className="text-error">Delete account</p>,
       icon: <img src={trashSrc} alt="icon" />,
       onClick: () => {
