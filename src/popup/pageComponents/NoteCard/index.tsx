@@ -2,13 +2,13 @@ import React from 'react';
 
 import Note from 'popup/components/Note';
 import Button from 'popup/components/common/Button';
-import CopyText from 'popup/components/CopyText';
+import CopyText from 'popup/components/common/CopyText';
 
 import * as S from './styles';
 
 type NoteCardType = {
   title: string;
-  message: string | React.ReactNode;
+  message: string;
   onClick: () => void;
   copy?: boolean;
   icon: React.ReactNode;

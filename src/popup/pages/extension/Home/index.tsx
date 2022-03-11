@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import shorter from 'popup/utils/shorter';
 import LoadingOne from 'popup/pages/LoadingOne';
-import CopyText from 'popup/components/CopyText';
+import CopyText from 'popup/components/common/CopyText';
 import useLoadHome from 'popup/hooks/useLoadHome';
 import Header from 'popup/components/common/Header';
 import formatBalance from 'popup/utils/formatBalance';
@@ -100,7 +100,7 @@ const Home = () => {
           <S.Info>
             <CopyText
               text={publicKey}
-              button={shorter(publicKey, 8)}
+              custom={<span>{shorter(publicKey, 8)}</span>}
             />
           </S.Info>
         </S.InfoBox>

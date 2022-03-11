@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Logo from 'popup/components/Logo';
 import Button from 'popup/components/common/Button';
 import RouteName from 'popup/staticRes/routes';
-import Layout from 'popup/components/Layout';
+import Layout from 'popup/components/common/Layouts/BaseLayout';
 
 const FirstPage = () => {
   const navigate = useNavigate();

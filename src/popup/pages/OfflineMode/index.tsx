@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import Layout from 'popup/components/Layout';
+import Layout from 'popup/components/common/Layouts/BaseLayout';
 import offline from 'src/assets/images/offline.svg';
 import config from '../../../config';
 

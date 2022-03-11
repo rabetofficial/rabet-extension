@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Logo from 'popup/svgs/IntroLogo';
-import Layout from 'popup/components/Layout';
+import Layout from 'popup/components/common/Layouts/BaseLayout';
 import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
 

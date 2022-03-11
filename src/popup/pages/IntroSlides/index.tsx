@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Slide } from 'react-slideshow-image';
 
-import { SlidesLayout } from 'popup/components/Layout';
+import SlidesLayout from 'popup/components/common/Layouts/SlidesLayout';
 import { SlideLeft, SlideRight } from 'popup/svgs/longArrowCircle';
 
 import Slide1 from './Slide1';

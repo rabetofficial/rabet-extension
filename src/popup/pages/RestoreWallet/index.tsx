@@ -3,7 +3,7 @@ import { StrKey } from 'stellar-sdk';
 import { useNavigate } from 'react-router-dom';
 
 import Logo from 'popup/components/Logo';
-import Layout from 'popup/components/Layout';
+import Layout from 'popup/components/common/Layouts/BaseLayout';
 import RouteName from 'popup/staticRes/routes';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import { FormValues } from 'popup/pageComponents/PrivateKey';

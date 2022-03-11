@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { customAlphabet, urlAlphabet } from 'nanoid';
 
-import CopyText from 'popup/components/CopyText';
+import CopyText from 'popup/components/common/CopyText';
 import Input from 'popup/components/common/Input';
 import PageTitle from 'popup/components/PageTitle';
 import Button from 'popup/components/common/Button';
@@ -60,7 +60,7 @@ const Backup = ({ onClose, needTitle }: BackupProps) => {
         <S.Box>
           {id}
           <S.Copy>
-            <CopyText copyButton text={id} />
+            <CopyText fullIcon text={id} />
           </S.Copy>
         </S.Box>
       </div>

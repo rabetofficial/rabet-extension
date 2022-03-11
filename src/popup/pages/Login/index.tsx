@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import Logo from 'popup/components/Logo';
-import Layout from 'popup/components/Layout';
+import Layout from 'popup/components/common/Layouts/BaseLayout';
 import RouteName from 'popup/staticRes/routes';
 import LoadingOne from 'popup/pages/LoadingOne';
 import Input from 'popup/components/common/Input';

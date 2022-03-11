@@ -4,7 +4,7 @@ import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
 import Logo from 'popup/components/Logo';
-import Layout from 'popup/components/Layout';
+import Layout from 'popup/components/common/Layouts/BaseLayout';
 import RouteName from 'popup/staticRes/routes';
 import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';

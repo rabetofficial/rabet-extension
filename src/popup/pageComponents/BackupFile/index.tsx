@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CopyText from 'popup/components/CopyText';
+import CopyText from 'popup/components/common/CopyText';
 import Button from 'popup/components/common/Button';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
@@ -28,7 +28,7 @@ const BackupFile = ({ onClick, children }: BackupTypes) => {
         <S.Box>
           <div className="hide-blur">{privateKey}</div>
           <S.Copy>
-            <CopyText copyButton text={privateKey} />
+            <CopyText fullIcon text={privateKey} />
           </S.Copy>
         </S.Box>
 
@@ -36,7 +36,7 @@ const BackupFile = ({ onClick, children }: BackupTypes) => {
         <S.Box>
           {publicKey}
           <S.Copy>
-            <CopyText copyButton text={publicKey} />
+            <CopyText fullIcon text={publicKey} />
           </S.Copy>
         </S.Box>
         <S.ButtonContainer>
