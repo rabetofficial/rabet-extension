@@ -34,7 +34,11 @@ const Transactions = ({
 
   if (isLoading) {
     return (
-      <ScrollBar isHidden maxHeight={isExtention ? 220 : 600}>
+      <ScrollBar
+        isHidden
+        maxHeight={isExtention ? 220 : 600}
+        maxWidth={isExtention ? 360 : 0}
+      >
         <div
           className="flex justify-center items-center"
           style={{ height: isExtention ? '220px' : '60vh' }}
@@ -53,7 +57,11 @@ const Transactions = ({
   }
   return (
     <ContentContainer>
-      <ScrollBar isHidden maxHeight={scrollMaxHeight}>
+      <ScrollBar
+        isHidden
+        maxHeight={scrollMaxHeight}
+        maxWidth={isExtention ? 360 : 0}
+      >
         {transactions.map((tx, index) => (
           <div key={tx.records[0].transaction_hash}>
             <Transaction transaction={tx} publicKey={publicKey} />
