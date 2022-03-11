@@ -4,10 +4,12 @@ import Logo from 'popup/components/Logo';
 import Loading from 'popup/components/Loading';
 
 const LoadingOne = () => (
-  <div style={{ marginTop: '167px' }}>
-    <Logo />
+  <div className="flex justify-center items-center h-screen w-screen">
     <div>
-      <Loading size={42} />
+      <Logo />
+      <span className="mt-6">
+        <Loading size={42} />
+      </span>
     </div>
   </div>
 );
