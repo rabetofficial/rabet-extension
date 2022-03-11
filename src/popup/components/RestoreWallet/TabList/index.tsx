@@ -2,10 +2,8 @@ import React from 'react';
 
 import Tabs from 'popup/components/common/Tabs';
 import { Tab } from 'popup/models';
-import PrivateKey, {
-  FormValues,
-} from 'popup/components/PrivateKey';
-import ImportBackupFile from 'popup/components/ImportBackupFile';
+import PrivateKey, { FormValues } from 'popup/components/PrivateKey';
+import ImportBackupFile from './ImportBackupFile';
 
 type TabListType = {
   onCancelPrivateKey: () => void;
