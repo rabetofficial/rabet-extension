@@ -18,6 +18,7 @@ type CreateWalletType = {
   onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
   onCancel: () => void;
   isModal?: boolean;
+  isExtension?: boolean;
 };
 
 const CreateWallet = ({
@@ -25,6 +26,7 @@ const CreateWallet = ({
   onCancel,
   onSubmit,
   isModal,
+  isExtension,
 }: CreateWalletType) => {
   const validateForm = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
@@ -67,11 +69,11 @@ const CreateWallet = ({
 
             {submitError && <Error>{submitError}</Error>}
 
-            {isModal ? (
+            {isModal || isExtension ? (
               <ButtonContainer
                 btnSize={100}
                 justify="end"
-                mt={203}
+                mt={isExtension ? 28 : 203}
                 gap={7}
               >
                 <Button
@@ -118,6 +120,7 @@ const CreateWallet = ({
 CreateWallet.defaultProps = {
   children: '',
   isModal: false,
+  isExtension: false,
 };
 
 export default CreateWallet;
