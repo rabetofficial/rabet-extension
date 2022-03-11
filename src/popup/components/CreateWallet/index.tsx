@@ -40,7 +40,11 @@ const CreateWallet = ({
 
   return (
     <div>
-      {children && <S.ChildContainer>{children}</S.ChildContainer>}
+      {children && (
+        <div style={{ marginBottom: isExtension ? '28px' : '55px' }}>
+          {children}
+        </div>
+      )}
 
       <Form
         onSubmit={onSubmit}
@@ -91,7 +95,7 @@ const CreateWallet = ({
                 />
               </ButtonContainer>
             ) : (
-              <S.ButtonContainer>
+              <div className="mt-6">
                 <Button
                   type="submit"
                   variant="primary"
@@ -108,7 +112,7 @@ const CreateWallet = ({
                   onClick={onCancel}
                   startIcon={<ArrowBack />}
                 />
-              </S.ButtonContainer>
+              </div>
             )}
           </form>
         )}

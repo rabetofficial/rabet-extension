@@ -19,9 +19,13 @@ type FormValues = {
 
 type ImportBackupFileType = {
   isModal?: boolean;
+  isExtension?: boolean;
 };
 
-const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
+const ImportBackupFile = ({
+  isModal,
+  isExtension,
+}: ImportBackupFileType) => {
   const navigate = useNavigate();
   const [showRest, setShowRest] = useState(false);
   const accounts = useTypedSelector((store) => store.accounts);
@@ -103,11 +107,11 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
                 )}
               </Field>
               {submitError && <Error>{submitError}</Error>}
-              {isModal ? (
+              {isModal || isExtension ? (
                 <ButtonContainer
                   btnSize={100}
                   justify="end"
-                  mt={60}
+                  mt={isExtension ? 170 : 60}
                   gap={7}
                 >
                   <Button
@@ -158,5 +162,6 @@ const ImportBackupFile = ({ isModal }: ImportBackupFileType) => {
 
 ImportBackupFile.defaultProps = {
   isModal: false,
+  isExtension: false,
 };
 export default ImportBackupFile;

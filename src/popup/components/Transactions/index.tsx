@@ -34,11 +34,7 @@ const Transactions = ({
 
   if (isLoading) {
     return (
-      <ScrollBar
-        isHidden
-        maxHeight={isExtension ? 220 : 600}
-        maxWidth={isExtension ? 360 : 0}
-      >
+      <ScrollBar isHidden maxHeight={isExtension ? 220 : 600}>
         <div
           className="flex justify-center items-center"
           style={{ height: isExtension ? '220px' : '60vh' }}
@@ -57,11 +53,7 @@ const Transactions = ({
   }
   return (
     <ContentContainer>
-      <ScrollBar
-        isHidden
-        maxHeight={scrollMaxHeight}
-        maxWidth={isExtension ? 360 : 0}
-      >
+      <ScrollBar isHidden maxHeight={scrollMaxHeight}>
         {transactions.map((tx, index) => (
           <div key={tx.records[0].transaction_hash}>
             <Transaction transaction={tx} publicKey={publicKey} />
@@ -79,7 +71,7 @@ const Transactions = ({
 const ContentContainer = styled.div`
   margin: -24px -20px 0px;
   @media (max-width: 360px) {
-    margin-top: 0px;
+    margin: 0px -16px;
   }
 `;
 

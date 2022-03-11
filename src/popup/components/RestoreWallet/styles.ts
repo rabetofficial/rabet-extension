@@ -10,4 +10,7 @@ export const ButtonContainer = styled.div`
 
 export const TabContainer = styled.div`
   margin-top: 32px;
+  @media (max-width: 360px) {
+    margin-top: 18px;
+  } ;
 `;

@@ -36,6 +36,7 @@ import EditContact from './extension/EditContact';
 import ConnectedWebsite from './ConnectedWebsite';
 import BasicOperation from './extension/Operation/Basic';
 import LoggedCreateWallet from './extension/CreateWallet';
+import LoggedImportWallet from './extension/ImportWallet';
 import AdvanceOperation from './extension/Operation/Advance';
 import SuccessfulSubmission from './extension/SuccessfulSubmission';
 import BasicSendConfirm from './extension/Operation/Basic/ConfirmSend';
@@ -264,7 +265,7 @@ const App = () => (
         path={RouteName.LoggedImportWallet}
         element={
           <ProtectedRoute>
-            <LoggedCreateWallet />
+            <LoggedImportWallet />
           </ProtectedRoute>
         }
       />

@@ -1,0 +1,75 @@
+import React from 'react';
+import { StrKey } from 'stellar-sdk';
+import { useNavigate } from 'react-router-dom';
+
+import RouteName from 'popup/staticRes/routes';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import { FormValues } from 'popup/components/PrivateKey';
+import restoreAccountAction from 'popup/actions/accounts/restore';
+import RestoreWalletComponent from 'popup/components/RestoreWallet';
+import ExtTitle from 'popup/components/common/Title/Ext';
+import Header from 'popup/components/common/Header';
+
+const RestoreWallet = () => {
+  const navigate = useNavigate();
+  const accounts = useTypedSelector((store) => store.accounts);
+
+  const onCancel = () => {
+    if (accounts.length) {
+      navigate(RouteName.Home, {
+        state: {
+          alreadyLoaded: true,
+        },
+      });
+    } else {
+      navigate(RouteName.First);
+    }
+  };
+
+  const onSubmit = async (values: FormValues) => {
+    if (!StrKey.isValidEd25519SecretSeed(values.key)) {
+      return { key: 'Invalid private key.' };
+    }
+
+    const isDuplicated = accounts.some(
+      (x) => x.privateKey === values.key,
+    );
+
+    if (isDuplicated) {
+      return { key: 'Account is duplicated.' };
+    }
+
+    const account = await restoreAccountAction(values.key);
+
+    if (account === 'duplicate') {
+      return {
+        key: "The account you're trying to import is a duplicate.",
+      };
+    }
+
+    if (!account) {
+      return { key: 'Invalid seed.' };
+    }
+
+    navigate(RouteName.Home);
+
+    return {};
+  };
+
+  return (
+    <>
+      <Header />
+      <div className="content">
+        <RestoreWalletComponent
+          onCancel={onCancel}
+          onSubmit={onSubmit}
+          isExtension
+        >
+          <ExtTitle title="Create wallet" className="mt-4" />
+        </RestoreWalletComponent>
+      </div>
+    </>
+  );
+};
+
+export default RestoreWallet;

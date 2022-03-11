@@ -44,13 +44,13 @@ const CreateWallet = () => {
     <>
       <Header />
 
-      <div className="parent">
+      <div className="content">
         <CreateWalletComponent
           isExtension
           onSubmit={onSubmit}
           onCancel={handleCancel}
         >
-          <ExtTitle title="Create wallet" />
+          <ExtTitle title="Create wallet" className="mt-4" />
         </CreateWalletComponent>
       </div>
     </>

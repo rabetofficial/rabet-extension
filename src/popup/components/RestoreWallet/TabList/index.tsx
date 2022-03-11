@@ -9,12 +9,14 @@ type TabListType = {
   onCancelPrivateKey: () => void;
   onSubmitPrivateKey: (v: FormValues) => Promise<Partial<FormValues>>;
   isModal?: boolean;
+  isExtension?: boolean;
 };
 
 const TabList = ({
   onCancelPrivateKey,
   onSubmitPrivateKey,
   isModal,
+  isExtension,
 }: TabListType) => {
   const tabs: Tab[] = [
     {
@@ -25,13 +27,19 @@ const TabList = ({
           onCancel={onCancelPrivateKey}
           onSubmit={onSubmitPrivateKey}
           isModal={isModal}
+          isExtension={isExtension}
         />
       ),
     },
     {
       id: '2',
       title: 'Backup file',
-      content: <ImportBackupFile isModal={isModal} />,
+      content: (
+        <ImportBackupFile
+          isModal={isModal}
+          isExtension={isExtension}
+        />
+      ),
     },
   ];
 
@@ -40,6 +48,7 @@ const TabList = ({
 
 TabList.defaultProps = {
   isModal: false,
+  isExtension: false,
 };
 
 export default TabList;

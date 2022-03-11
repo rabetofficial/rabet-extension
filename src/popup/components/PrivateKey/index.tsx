@@ -17,12 +17,14 @@ type PrivateKeyType = {
   onCancel: () => void;
   onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
   isModal?: boolean;
+  isExtension?: boolean;
 };
 
 const PrivateKey = ({
   onCancel,
   onSubmit,
   isModal,
+  isExtension,
 }: PrivateKeyType) => {
   const validateForm = (values: FormValues) => {
     const errors = {} as FormValues;
@@ -65,11 +67,11 @@ const PrivateKey = ({
 
             {submitError && <Error>{submitError}</Error>}
 
-            {isModal ? (
+            {isModal || isExtension ? (
               <ButtonContainer
                 btnSize={100}
                 justify="end"
-                mt={135}
+                mt={isExtension ? 28 : 135}
                 gap={7}
               >
                 <Button
@@ -115,6 +117,7 @@ const PrivateKey = ({
 
 PrivateKey.defaultProps = {
   isModal: false,
+  isExtension: false,
 };
 
 export default PrivateKey;
