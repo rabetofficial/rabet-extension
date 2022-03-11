@@ -4,16 +4,40 @@ import { useNavigate } from 'react-router-dom';
 import RouteName from 'popup/staticRes/routes';
 import Header from 'popup/components/common/Header';
 import ExtTitle from 'popup/components/common/Title/Ext';
-import CreateWalletComponent from 'popup/components/CreateWallet';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import createAccountAction from 'popup/actions/accounts/create';
+import CreateWalletComponent, {
+  FormValues,
+} from 'popup/components/CreateWallet';
 
 const CreateWallet = () => {
   const navigate = useNavigate();
+  const accounts = useTypedSelector((store) => store.accounts);
+
   const handleCancel = () => {
-    navigate(RouteName.Home, {
-      state: {
-        alreadyLoaded: true,
-      },
-    });
+    if (accounts.length) {
+      navigate(RouteName.Home, {
+        state: {
+          alreadyLoaded: true,
+        },
+      });
+    } else {
+      navigate(RouteName.First);
+    }
+  };
+
+  const onSubmit = async (values: FormValues) => {
+    const isDone = await createAccountAction(values.name);
+
+    if (!isDone) {
+      return {
+        name: 'Error.',
+      };
+    }
+
+    navigate(RouteName.BackupFile);
+
+    return {};
   };
 
   return (
@@ -22,8 +46,8 @@ const CreateWallet = () => {
 
       <CreateWalletComponent
         isExtension
+        onSubmit={onSubmit}
         onCancel={handleCancel}
-        onSubmit={() => {}}
       >
         <ExtTitle title="Create wallet" />
       </CreateWalletComponent>
