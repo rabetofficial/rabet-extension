@@ -38,6 +38,7 @@ import BasicSendConfirm from './extension/Operation/Basic/ConfirmSend';
 import AdvanceOperation from './extension/Operation/Advance';
 import EditContact from './extension/EditContact';
 import AddContact from './extension/AddContact';
+import LoggedCreateWallet from './extension/CreateWallet';
 
 const App = () => (
   <div className="layout">
@@ -247,6 +248,16 @@ const App = () => (
       <Route
         path={RouteName.CreateWallet}
         element={<CreateWallet />}
+      />
+
+      <Route
+        path={RouteName.LoggedCreateWallet}
+        element={<LoggedCreateWallet />}
+      />
+
+      <Route
+        path={RouteName.LoggedImportWallet}
+        element={<LoggedCreateWallet />}
       />
 
       <Route

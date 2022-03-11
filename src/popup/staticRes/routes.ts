@@ -8,6 +8,8 @@ enum RouteName {
   OfflineMode = '/offline-mode',
   CreateWallet = '/create-wallet',
   RestoreWallet = '/restore-wallet',
+  LoggedCreateWallet = '/logged-create-wallet',
+  LoggedImportWallet = '/logged-import-wallet',
 
   Error = '/error',
   Sucess = '/sucess',
