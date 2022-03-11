@@ -253,12 +253,20 @@ const App = () => (
 
       <Route
         path={RouteName.LoggedCreateWallet}
-        element={<LoggedCreateWallet />}
+        element={
+          <ProtectedRoute>
+            <LoggedCreateWallet />
+          </ProtectedRoute>
+        }
       />
 
       <Route
         path={RouteName.LoggedImportWallet}
-        element={<LoggedCreateWallet />}
+        element={
+          <ProtectedRoute>
+            <LoggedCreateWallet />
+          </ProtectedRoute>
+        }
       />
 
       <Route
