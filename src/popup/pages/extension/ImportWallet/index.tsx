@@ -65,7 +65,7 @@ const RestoreWallet = () => {
           onSubmit={onSubmit}
           isExtension
         >
-          <ExtTitle title="Create wallet" className="mt-4" />
+          <ExtTitle title="Import wallet" className="mt-4" />
         </RestoreWalletComponent>
       </div>
     </>
