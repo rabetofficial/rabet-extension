@@ -7,6 +7,7 @@ import { Usage } from 'popup/models';
 import getAccount from 'popup/api/getAccount';
 import RouteName from 'popup/staticRes/routes';
 import Input from 'popup/components/common/Input';
+import getMaxBalance from 'popup/utils/maxBalance';
 import Button from 'popup/components/common/Button';
 import openModalAction from 'popup/actions/modal/open';
 import isTransferable from 'popup/utils/isTransferable';
@@ -106,10 +107,17 @@ const BasicSend = ({ usage }: AppProps) => {
         values.amount,
       )
     ) {
+      let code = 'XLM';
+
+      if (
+        values.asset.asset_type !== 'native' &&
+        values.asset.asset_type !== 'liquidity_pool_shares'
+      ) {
+        code = values.asset.asset_code;
+      }
+
       return {
-        amount: `Insufficient ${
-          values.asset.asset_code || 'XLM'
-        } balance.`,
+        amount: `Insufficient ${code} balance.`,
       };
     }
 
@@ -152,6 +160,13 @@ const BasicSend = ({ usage }: AppProps) => {
       <Form
         validate={validateForm}
         onSubmit={onSubmit}
+        mutators={{
+          setMax: (args, state, tools) => {
+            tools.changeValue(state, 'from', () =>
+              getMaxBalance(selectedAsset, account),
+            );
+          },
+        }}
         render={({ form, handleSubmit, invalid, pristine }) => (
           <form onSubmit={handleSubmit}>
             <label className="label-primary block mt-4">Amount</label>

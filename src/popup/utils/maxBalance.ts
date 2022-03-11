@@ -1,30 +1,21 @@
 import { Horizon } from 'stellar-sdk';
 
 import BN from 'helpers/BN';
-import matchAsset from 'popup/utils/matchAsset';
 import { IAccount } from 'popup/reducers/accounts2';
 
 const getMaxBalance = (
   asset: Horizon.BalanceLine,
   account: IAccount,
 ) => {
-  const assets = account.assets || [];
+  const maxXLM =
+    asset.asset_type === 'native' ? account.subentry_count : 0;
 
-  const isNativeAsset = asset.asset_type === 'native';
-  const maxXLM = isNativeAsset ? account.subentry_count : 0;
-
-  let selectedAsset;
-
-  if (isNativeAsset) {
-    selectedAsset = assets.find((x) => x.asset_type === 'native');
-  } else {
-    selectedAsset = assets.find((x) => matchAsset(x, asset));
+  if (asset.asset_type === 'liquidity_pool_shares') {
+    return '0';
   }
 
-  const nSL = selectedAsset.selling_liabilities;
-
-  const subentries = new BN(maxXLM).plus(nSL);
-  const result = new BN(selectedAsset.balance).minus(subentries);
+  const subentries = new BN(maxXLM).plus(asset.selling_liabilities);
+  const result = new BN(asset.balance).minus(subentries);
 
   return result.toFixed(7);
 };

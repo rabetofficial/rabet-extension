@@ -1,9 +1,10 @@
 import React from 'react';
 
 import Card from 'popup/components/common/Card';
-import SelectOption from 'popup/components/common/SelectOption';
-import ScrollBar from 'popup/components/common/ScrollBar';
 import { ElementOption, Usage } from 'popup/models';
+import ScrollBar from 'popup/components/common/ScrollBar';
+import SelectOption from 'popup/components/common/SelectOption';
+
 import Swap from './Swap';
 import Send from './Send';
 
