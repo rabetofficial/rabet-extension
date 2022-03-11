@@ -18,7 +18,7 @@ import defaultAssets from 'popup/staticRes/defaultAssets';
 import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
 import Input from 'popup/components/common/Input/InputHook';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
-import combineTokens from 'popup/utils/swap/addDefaultAssets';
+import combineAssets from 'popup/utils/swap/addDefaultAssets';
 import controlNumberInput from 'popup/utils/controlNumberInput';
 import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
@@ -30,7 +30,7 @@ import ShowFractional from './ShowFractional';
 
 export type FormValues = {
   path: any[];
-  minumumReceived: number;
+  minimumReceived: number;
   to: string;
   from: string;
   asset1: Horizon.BalanceLine;
@@ -53,7 +53,7 @@ const BasicSwap = ({ usage }: AppProps) => {
 
   const assets = account.assets || [];
 
-  const assetsPlusDefaultAssets = combineTokens(
+  const assetsPlusDefaultAssets = combineAssets(
     assets,
     defaultAssets,
   );
@@ -209,7 +209,7 @@ const BasicSwap = ({ usage }: AppProps) => {
       return;
     }
 
-    setValue('to', 0);
+    setValue('to', '0');
     calculate();
   };
 

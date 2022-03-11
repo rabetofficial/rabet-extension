@@ -12,6 +12,10 @@ const handleAssetImage = (
     return questionLogo;
   }
 
+  if (asset.logo) {
+    return asset.logo;
+  }
+
   if (asset.asset_type === 'native') {
     return xlmLogo;
   }

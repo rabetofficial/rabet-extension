@@ -48,6 +48,10 @@ const SearchAsset = ({ assets, closeModal, onChange }: AppProps) => {
       return foundAssetImage.domain;
     }
 
+    if (asset.domain) {
+      return asset.domain;
+    }
+
     return '';
   };
 
