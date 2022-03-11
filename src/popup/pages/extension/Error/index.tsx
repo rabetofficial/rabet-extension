@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import Error from 'popup/pageComponents/Error';
+import Error from 'popup/components/Error';
 import RouteName from 'popup/staticRes/routes';
 import Header from 'popup/components/common/Header';
 import ExtTitle from 'popup/components/common/Title/Ext';

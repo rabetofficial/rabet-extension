@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FormValues } from 'popup/pageComponents/PrivateKey';
+import { FormValues } from 'popup/components/PrivateKey';
 
 import TabList from './TabList';
 

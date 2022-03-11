@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import NoteCard from 'popup/pageComponents/NoteCard';
+import NoteCard from 'popup/components/NoteCard';
 import createTab from 'popup/utils/createTab';
 import BlackCheck from 'popup/svgs/BlackCheck';
 import ShareArrowSquare from 'popup/svgs/ShareArrowSqaure';

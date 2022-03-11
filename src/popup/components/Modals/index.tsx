@@ -2,10 +2,10 @@ import React from 'react';
 
 import Loading from 'popup/components/Loading';
 import openModalAction from 'popup/actions/modal/open';
-import Error, { ErrorProps } from 'popup/pageComponents/Error';
+import Error, { ErrorProps } from 'popup/components/Error';
 import SuccessfulSubmission, {
   SuccessfulSubmissionType,
-} from 'popup/pageComponents/SuccessfulSubmission';
+} from 'popup/components/SuccessfulSubmission';
 
 export const openLoadingModal = ({
   message,

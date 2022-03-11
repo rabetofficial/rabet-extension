@@ -17,7 +17,7 @@ import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
 // import isOtherConnected from 'popup/utils/isOtherConnected';
 import openModalAction from 'popup/actions/modal/open';
 import closeModalAction from 'popup/actions/modal/close';
-// import ModalConnectStatus from 'popup/pageComponents/ModalConnectStatus';
+// import ModalConnectStatus from 'popup/components/ModalConnectStatus';
 import ExtTitle from 'popup/components/common/Title/Ext';
 
 import Links from './Links';

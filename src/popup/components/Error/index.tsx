@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NoteCard from 'popup/pageComponents/NoteCard';
+import NoteCard from 'popup/components/NoteCard';
 import ExclamationTriangle from 'popup/svgs/ExclamationTriangle';
 
 export type ErrorProps = {

@@ -4,7 +4,7 @@ import RouteName from 'popup/staticRes/routes';
 import { useNavigate } from 'react-router-dom';
 import ShowPrivateKeyComponent, {
   FormValues,
-} from 'popup/pageComponents/ShowPrivateKey';
+} from 'popup/components/ShowPrivateKey';
 import showPrivateKeyAction from 'popup/actions/accounts/showPrivateKey';
 import ExtTitle from 'popup/components/common/Title/Ext';
 

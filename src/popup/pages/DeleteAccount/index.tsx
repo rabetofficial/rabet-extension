@@ -6,7 +6,7 @@ import Header from 'popup/components/common/Header';
 import ExtTitle from 'popup/components/common/Title/Ext';
 import currentActiveAccount from 'popup/utils/activeAccount';
 import removeAccountAction from 'popup/actions/accounts/remove';
-import DeleteAccountComponent from 'popup/pageComponents/DeleteAccount';
+import DeleteAccountComponent from 'popup/components/DeleteAccount';
 
 const DeleteAccount = () => {
   const navigate = useNavigate();

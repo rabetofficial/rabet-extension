@@ -5,7 +5,7 @@ import RouteName from 'popup/staticRes/routes';
 import Header from 'popup/components/common/Header';
 import ExtTitle from 'popup/components/common/Title/Ext';
 import ScrollBar from 'popup/components/common/ScrollBar';
-import SuccessfulSubmissionComponent from 'popup/pageComponents/SuccessfulSubmission';
+import SuccessfulSubmissionComponent from 'popup/components/SuccessfulSubmission';
 
 const SuccessfulSubmission = () => {
   const navigate = useNavigate();

@@ -5,7 +5,7 @@ import RouteName from 'popup/staticRes/routes';
 import Header from 'popup/components/common/Header';
 import ExtTitle from 'popup/components/common/Title/Ext';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
-import AssetInfoContent from 'popup/pageComponents/AssetInfo';
+import AssetInfoContent from 'popup/components/AssetInfo';
 import ScrollBar from 'popup/components/common/ScrollBar';
 
 const AssetInfo = () => {

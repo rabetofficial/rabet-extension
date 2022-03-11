@@ -4,8 +4,8 @@ import Tabs from 'popup/components/common/Tabs';
 import { Tab } from 'popup/models';
 import PrivateKey, {
   FormValues,
-} from 'popup/pageComponents/PrivateKey';
-import ImportBackupFile from 'popup/pageComponents/ImportBackupFile';
+} from 'popup/components/PrivateKey';
+import ImportBackupFile from 'popup/components/ImportBackupFile';
 
 type TabListType = {
   onCancelPrivateKey: () => void;
