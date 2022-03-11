@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'popup/components/common/Input';
-import isNative from 'popup/utils/isNative';
 import matchAsset from 'popup/utils/matchAsset';
-import nativeAsset from 'popup/utils/nativeAsset';
 import getMaxBalance from 'popup/utils/maxBalance';
 import SelectOption from 'popup/components/common/SelectOption';
 import changeOperationAction from 'popup/actions/operations/change';
@@ -67,8 +65,10 @@ const OfferOps = ({ id, offer }: AppProps) => {
       if (sellingAsset.value) {
         let selectedTokenBalance;
 
-        if (isNative(sellingAsset)) {
-          selectedTokenBalance = balances.find(nativeAsset);
+        if (sellingAsset.asset_type === 'native') {
+          selectedTokenBalance = balances.find(
+            (asset) => asset.asset_type === 'native',
+          );
         } else {
           selectedTokenBalance = balances.find((x) =>
             matchAsset(x, sellingAsset),
@@ -123,7 +123,7 @@ const OfferOps = ({ id, offer }: AppProps) => {
       if (buyingAsset.value) {
         let selectedTokenBalance;
 
-        if (isNative(buyingAsset)) {
+        if (buyingAsset.asset_type === 'native') {
           selectedTokenBalance = balances.find(
             (x) => x.asset_type === 'native',
           );
@@ -133,7 +133,7 @@ const OfferOps = ({ id, offer }: AppProps) => {
           );
         }
 
-        if (!isNative(buyingAsset)) {
+        if (buyingAsset.asset_type !== 'native') {
           if (
             Number(selectedTokenBalance.limit || '0') < values.buying
           ) {

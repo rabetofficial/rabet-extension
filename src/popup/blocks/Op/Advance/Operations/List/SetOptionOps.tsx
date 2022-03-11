@@ -1,14 +1,14 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React from 'react';
-import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
+import isValidDomain from 'is-valid-domain';
+import { Form, Field } from 'react-final-form';
 
+import BN from 'helpers/BN';
 import Input from 'popup/components/common/Input';
-import validateDomain from 'popup/utils/validate/domain';
-import validateNumber from 'popup/utils/validate/number';
+import getAccountData from 'popup/api/getAccount';
 import * as operationNames from 'popup/staticRes/operations';
-import getAccountData from 'popup/utils/horizon/isAddressFound';
 import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
@@ -48,7 +48,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
 
     if (!hasError.value) {
       if (type === operationNames.bumpSequence) {
-        if (!validateNumber(values.value)) {
+        if (!new BN(values.value).isNaN()) {
           changeOperationAction(id, {
             checked: false,
             bumpTo: values.value,
@@ -97,7 +97,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
       } else if (type === operationNames.setOptionsSetFlags) {
         const flagNumber = parseInt(values.value, 10);
 
-        if (!validateNumber(values.value)) {
+        if (!new BN(values.value).isNaN()) {
           changeOperationAction(id, {
             checked: false,
           });
@@ -129,7 +129,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
       } else if (type === operationNames.setOptionsClearFlags) {
         const flagNumber = parseInt(values.value, 10);
 
-        if (!validateNumber(values.value)) {
+        if (!new BN(values.value).isNaN()) {
           errors.value = null;
           hasError.value = true;
 
@@ -148,7 +148,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
           }
         }
       } else if (type === operationNames.setOptionsHomeDomain) {
-        if (!validateDomain(values.value)) {
+        if (!isValidDomain(values.value)) {
           errors.value = 'Invalid domain.';
           hasError.value = true;
 
@@ -162,7 +162,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
           });
         }
       } else if (type === operationNames.setOptionsMasterWeight) {
-        if (!validateNumber(values.value)) {
+        if (!new BN(values.value).isNaN()) {
           errors.value = null;
           hasError.value = true;
 

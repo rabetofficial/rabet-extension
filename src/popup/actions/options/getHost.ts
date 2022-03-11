@@ -1,6 +1,7 @@
+import isValidDomain from 'is-valid-domain';
+
 import store from 'popup/store';
 import { change } from '../../reducers/host';
-import isDomain from '../../utils/validate/domain';
 import getHostOfUrl from '../../utils/getHostOfUrl';
 
 const getHost = () =>
@@ -11,7 +12,7 @@ const getHost = () =>
         const tab = tabs[0];
         const host = getHostOfUrl(tab.url);
 
-        if (isDomain(host)) {
+        if (isValidDomain(host)) {
           store.dispatch(change(host));
         }
 

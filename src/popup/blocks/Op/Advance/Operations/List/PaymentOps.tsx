@@ -3,9 +3,7 @@ import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
 
 import Input from 'popup/components/common/Input';
-import isNative from 'popup/utils/isNative';
 import matchAsset from 'popup/utils/matchAsset';
-import nativeAsset from 'popup/utils/nativeAsset';
 import getMaxBalance from 'popup/utils/maxBalance';
 import SelectOption from 'popup/components/common/SelectOption';
 import getAccountData from 'popup/utils/horizon/isAddressFound';
@@ -66,8 +64,10 @@ const PaymentOps = ({ id }: AppProps) => {
     } else {
       let selectedTokenBalance;
 
-      if (isNative(selected)) {
-        selectedTokenBalance = balances.find(nativeAsset);
+      if (selected.asset_type === 'native') {
+        selectedTokenBalance = balances.find(
+          (asset) => asset.asset_type === 'native',
+        );
       } else {
         selectedTokenBalance = balances.find((x) =>
           matchAsset(x, selected),
