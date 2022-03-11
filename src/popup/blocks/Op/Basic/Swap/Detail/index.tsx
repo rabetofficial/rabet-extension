@@ -12,7 +12,7 @@ import * as S from './styles';
 
 type SwapDetailsProps = {
   path: any[];
-  values: FormValues;
+  values?: FormValues;
   control?: any;
   minimumReceived: number;
 };
@@ -101,6 +101,10 @@ const SwapDetails = ({
       </S.Box>
     </>
   );
+};
+
+SwapDetails.defaultProps = {
+  values: null,
 };
 
 export default SwapDetails;

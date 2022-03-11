@@ -78,6 +78,8 @@ const BasicConfirmSwap = ({ usage, values }: AppProps) => {
     asset2Code = values.asset2.asset_code;
   }
 
+  console.log(values);
+
   return (
     <ConfirmLayout usage={usage} handleClick={handleClick}>
       <ScrollBar isHidden maxHeight={335}>
@@ -113,7 +115,7 @@ const BasicConfirmSwap = ({ usage, values }: AppProps) => {
           <SwapDetails
             values={values}
             path={values.path}
-            minimumReceived={values.minumumReceived}
+            minimumReceived={values.minimumReceived}
           />
         </Card>
       </ScrollBar>

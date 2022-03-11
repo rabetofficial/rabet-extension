@@ -6,6 +6,7 @@ import {
   TransactionBuilder,
 } from 'stellar-sdk';
 
+import matchAsset from 'popup/utils/matchAsset';
 import showError from 'popup/staticRes/errorMessage';
 import currentNetwork from 'popup/utils/currentNetwork';
 import { FormValues } from 'popup/blocks/Op/Basic/Swap';
@@ -18,6 +19,8 @@ const basicSendAction = async (values: FormValues) => {
   const { activeAccount } = currentActiveAccount();
   const { url, passphrase } = currentNetwork();
 
+  const assets = activeAccount.assets || [];
+
   const server = new Server(url);
   const sourceKeys = Keypair.fromSecret(activeAccount.privateKey);
 
@@ -27,30 +30,28 @@ const basicSendAction = async (values: FormValues) => {
     sendAsset: Asset.native(),
     destAsset: Asset.native(),
     path: calculatePath(values.path),
-    destMin: values.to,
+    destMin: values.minimumReceived.toFixed(5),
     sendAmount: values.from.toString(),
     destination: activeAccount.publicKey,
   };
 
-  if (
-    values.asset1.asset_type === 'credit_alphanum4' ||
-    values.asset1.asset_type === 'credit_alphanum12'
-  ) {
+  if (values.asset1.asset_type !== 'native') {
     params.sendAsset = new Asset(
       values.asset1.asset_code,
       values.asset1.asset_issuer,
     );
   }
 
-  if (
-    values.asset2.asset_type === 'credit_alphanum4' ||
-    values.asset2.asset_type === 'credit_alphanum12'
-  ) {
-    params.sendAsset = new Asset(
+  if (values.asset2.asset_type !== 'native') {
+    params.destAsset = new Asset(
       values.asset2.asset_code,
       values.asset2.asset_issuer,
     );
   }
+
+  const foundAsset = assets.find((ast) =>
+    matchAsset(ast, values.asset2),
+  );
 
   try {
     const result = await server
@@ -59,10 +60,22 @@ const basicSendAction = async (values: FormValues) => {
         transaction = new TransactionBuilder(sourceAccount, {
           fee: config.BASE_FEE,
           networkPassphrase: passphrase,
-        })
-          .addOperation(Operation.pathPaymentStrictSend(params))
-          .setTimeout(180)
-          .build();
+        });
+
+        if (!foundAsset) {
+          transaction = transaction.addOperation(
+            Operation.changeTrust({
+              limit: '999999',
+              asset: params.destAsset,
+            }),
+          );
+        }
+
+        transaction = transaction.addOperation(
+          Operation.pathPaymentStrictSend(params),
+        );
+
+        transaction = transaction.setTimeout(180).build();
 
         transaction.sign(sourceKeys);
 
