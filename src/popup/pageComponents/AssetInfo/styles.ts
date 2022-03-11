@@ -116,7 +116,7 @@ export const Info = styled.p`
 `;
 
 export const ErrorBox = styled.div`
-  font-size: 12px !important;
+  font-size: 14px !important;
   margin-top: 8px;
   font-size: 16px;
   padding: 4px 8px;
