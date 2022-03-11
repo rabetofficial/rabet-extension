@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import Alert from 'popup/components/Alert';
+import Alert from 'popup/components/common/Alert';
 import Header from 'popup/components/common/Header';
 import Button from 'popup/components/common/Button';
 import setFlagsAction from 'popup/actions/operations/setFlags';

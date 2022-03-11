@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Trash from 'popup/svgs/Trash';
-import Alert from 'popup/components/Alert';
+import Alert from 'popup/components/common/Alert';
 import Button from 'popup/components/common/Button';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import removeAccountAction from 'popup/actions/accounts/remove';

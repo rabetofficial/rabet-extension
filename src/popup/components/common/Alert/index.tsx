@@ -1,5 +1,6 @@
-import ExclamationCircle from 'popup/svgs/ExclamationCircle';
 import React from 'react';
+
+import ExclamationCircle from 'popup/svgs/ExclamationCircle';
 
 import * as S from './styles';
 
