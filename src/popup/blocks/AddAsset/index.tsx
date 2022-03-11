@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import timeout from 'popup/utils/timeout';
 import {
@@ -6,6 +7,7 @@ import {
   openSucessModal,
   openLoadingModal,
 } from 'popup/components/Modals';
+import RouteName from 'popup/staticRes/routes';
 import Tabs from 'popup/components/common/Tabs';
 import closeModalAction from 'popup/actions/modal/close';
 import addAssetAction from 'popup/actions/operations/addAsset';
@@ -18,9 +20,12 @@ import CustomAsset, { FormValues } from './CustomAsset';
 
 type AddAssetType = {
   children?: React.ReactNode;
+  isExtension?: boolean;
 };
 
-const AddAsset = ({ children }: AddAssetType) => {
+const AddAsset = ({ children, isExtension }: AddAssetType) => {
+  const navigate = useNavigate();
+
   const handleCustomAssetSubmitBtn = async (values: FormValues) => {
     closeModalAction();
 
@@ -74,7 +79,13 @@ const AddAsset = ({ children }: AddAssetType) => {
       });
     }
   };
-
+  const handleCancel = () => {
+    navigate(RouteName.Home, {
+      state: {
+        alreadyLoaded: true,
+      },
+    });
+  };
   const tabs: Tab[] = [
     {
       id: '1',
@@ -83,7 +94,7 @@ const AddAsset = ({ children }: AddAssetType) => {
         <SearchAsset
           key="searchAsset"
           onSubmit={handleSearchAssetSubmitBtn}
-          onCancel={closeModalAction}
+          onCancel={isExtension ? handleCancel : closeModalAction}
         />
       ),
     },
@@ -94,7 +105,7 @@ const AddAsset = ({ children }: AddAssetType) => {
         <CustomAsset
           key="customAsset"
           onSubmit={handleCustomAssetSubmitBtn}
-          onCancel={closeModalAction}
+          onCancel={isExtension ? handleCancel : closeModalAction}
         />
       ),
     },
@@ -104,12 +115,17 @@ const AddAsset = ({ children }: AddAssetType) => {
     <div>
       {children}
 
-      <Tabs data={tabs} isEqualWidth />
+      <Tabs
+        data={tabs}
+        isEqualWidth
+        contentStyle={{ marginTop: isExtension ? '16px' : '0' }}
+      />
     </div>
   );
 };
 AddAsset.defaultProps = {
   children: '',
+  isExtension: false,
 };
 
 export default AddAsset;

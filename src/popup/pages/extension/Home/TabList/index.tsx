@@ -25,7 +25,7 @@ const TabList = () => {
       title: 'Transactions',
       content: (
         <div className="px-4">
-          <Transactions scrollMaxHeight={220} isExtention />
+          <Transactions scrollMaxHeight={220} isExtension />
         </div>
       ),
     },

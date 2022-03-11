@@ -12,12 +12,12 @@ import ScrollBar from '../common/ScrollBar';
 
 type TransactionsType = {
   scrollMaxHeight?: number;
-  isExtention?: boolean;
+  isExtension?: boolean;
 };
 
 const Transactions = ({
   scrollMaxHeight,
-  isExtention,
+  isExtension,
 }: TransactionsType) => {
   const { publicKey } = useActiveAccount();
   const [transactions, setTransactions] = useState<
@@ -36,21 +36,21 @@ const Transactions = ({
     return (
       <ScrollBar
         isHidden
-        maxHeight={isExtention ? 220 : 600}
-        maxWidth={isExtention ? 360 : 0}
+        maxHeight={isExtension ? 220 : 600}
+        maxWidth={isExtension ? 360 : 0}
       >
         <div
           className="flex justify-center items-center"
-          style={{ height: isExtention ? '220px' : '60vh' }}
+          style={{ height: isExtension ? '220px' : '60vh' }}
         >
-          <Loading size={isExtention ? 32 : 48} />
+          <Loading size={isExtension ? 32 : 48} />
         </div>
       </ScrollBar>
     );
   }
   if (transactions.length === 0) {
     return (
-      <div style={{ marginTop: isExtention ? '31' : '72' }}>
+      <div style={{ marginTop: isExtension ? '31' : '72' }}>
         <Nodata msg="You have no transaction" className="text-base" />
       </div>
     );
@@ -60,7 +60,7 @@ const Transactions = ({
       <ScrollBar
         isHidden
         maxHeight={scrollMaxHeight}
-        maxWidth={isExtention ? 360 : 0}
+        maxWidth={isExtension ? 360 : 0}
       >
         {transactions.map((tx, index) => (
           <div key={tx.records[0].transaction_hash}>
@@ -85,6 +85,6 @@ const ContentContainer = styled.div`
 
 Transactions.defaultProps = {
   scrollMaxHeight: 600,
-  isExtention: false,
+  isExtension: false,
 };
 export default Transactions;

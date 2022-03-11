@@ -11,7 +11,7 @@ const AddAssets = () => (
     <div className="content">
       <ExtTitle title="Add assets" className="mt-[20px]" />
       <div className="mt-[6px]">
-        <AddAsset />
+        <AddAsset isExtension />
       </div>
     </div>
   </>

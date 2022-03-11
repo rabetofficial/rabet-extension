@@ -11,6 +11,7 @@ type AppProps = {
   contentClass?: string;
   isEqualWidth?: boolean;
   style?: CSSProperties;
+  contentStyle?: CSSProperties;
 };
 
 const Tabs = ({
@@ -18,6 +19,7 @@ const Tabs = ({
   style,
   titleClass,
   contentClass,
+  contentStyle,
   isEqualWidth,
 }: AppProps) => {
   const [visibleTab, setVisibleTab] = useState(data[0].id);
@@ -51,7 +53,7 @@ const Tabs = ({
           </S.TabTitle>
         ))}
       </S.Tabs>
-      <S.TabContent className={contentClass}>
+      <S.TabContent className={contentClass} style={contentStyle}>
         {listContent}
       </S.TabContent>
     </>
@@ -63,6 +65,7 @@ Tabs.defaultProps = {
   titleClass: '',
   contentClass: '',
   isEqualWidth: false,
+  contentStyle: {},
 };
 
 export default Tabs;
