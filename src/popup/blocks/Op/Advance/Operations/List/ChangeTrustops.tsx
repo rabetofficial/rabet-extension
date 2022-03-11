@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
+import BN from 'helpers/BN';
 import Input from 'popup/components/common/Input';
 import SelectOption from 'popup/components/common/SelectOption';
-import validateNumber from 'popup/utils/validate/number';
 import changeOperationAction from 'popup/actions/operations/change';
-import isNative from 'popup/utils/isNative';
 import { ElementOption } from 'popup/models';
 
 type FormValidate = {
@@ -29,7 +28,7 @@ const ChangeTrustOps = ({ id }: AppProps) => {
     toNative: 1,
   });
 
-  const balances = b.filter((x) => !isNative(x));
+  const balances = b.filter((x) => x.asset_type !== 'native');
 
   const [selected, setSelected] = useState(balances[0]);
 
@@ -46,7 +45,7 @@ const ChangeTrustOps = ({ id }: AppProps) => {
       code: false,
     };
 
-    if (values.limit && !validateNumber(values.limit)) {
+    if (values.limit && !new BN(values.limit).isNaN()) {
       errors.limit = null;
       hasError.limit = true;
 

@@ -3,12 +3,11 @@ import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
 
 import Input from 'popup/components/common/Input';
-import isNative from 'popup/utils/isNative';
 import matchAsset from 'popup/utils/matchAsset';
 import nativeAsset from 'popup/utils/nativeAsset';
 import getMaxBalance from 'popup/utils/maxBalance';
 import SelectOption from 'popup/components/common/SelectOption';
-import getAccountData from 'popup/utils/horizon/isAddressFound';
+import getAccountData from 'popup/api/getAccount';
 import changeOperationAction from 'popup/actions/operations/change';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import { ElementOption } from 'popup/models';
@@ -100,7 +99,7 @@ const PaymentSendOps = ({ id }: AppProps) => {
     } else {
       let selectedTokenBalance;
 
-      if (isNative(sendAsset)) {
+      if (sendAsset.asset_type === 'native') {
         const xlmBalance = balances.find(nativeAsset);
 
         selectedTokenBalance = xlmBalance;
@@ -119,7 +118,7 @@ const PaymentSendOps = ({ id }: AppProps) => {
       const { selling_liabilities } = selectedTokenBalance;
       const numSL = Number(selling_liabilities);
 
-      if (isNative(sendAsset)) {
+      if (sendAsset.asset_type === 'native') {
         if (
           Number(selectedTokenBalance.balance || '0') <
           Number(values.sendAmount, 10) + maxXLM + numSL
@@ -167,7 +166,7 @@ const PaymentSendOps = ({ id }: AppProps) => {
         (x) => x.asset_type === 'native',
       );
 
-      if (!isNative(destAsset)) {
+      if (destAsset.asset_type !== 'native`') {
         selectedToken = destinationTokens.find((x) =>
           matchAsset(x, destAsset),
         );

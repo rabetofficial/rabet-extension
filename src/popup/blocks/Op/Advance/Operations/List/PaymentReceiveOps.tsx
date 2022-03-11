@@ -3,7 +3,6 @@ import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
 
 import Input from 'popup/components/common/Input';
-import isNative from 'popup/utils/isNative';
 import matchAsset from 'popup/utils/matchAsset';
 import nativeAsset from 'popup/utils/nativeAsset';
 import getMaxBalance from 'popup/utils/maxBalance';
@@ -100,7 +99,7 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
     } else {
       let selectedTokenBalance;
 
-      if (isNative(sendAsset)) {
+      if (sendAsset.asset_type === 'native') {
         selectedTokenBalance = balances.find(nativeAsset);
       } else {
         selectedTokenBalance = balances.find((x) =>
@@ -117,7 +116,7 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
       const { selling_liabilities } = selectedTokenBalance;
       const numSL = Number(selling_liabilities);
 
-      if (isNative(sendAsset)) {
+      if (sendAsset.asset_type === 'native') {
         if (
           Number(selectedTokenBalance.balance || '0') <
           Number(values.sendMax, 10) + maxXLM + numSL
@@ -164,7 +163,7 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
 
       let selectedToken = destinationTokens.find(nativeAsset);
 
-      if (!isNative(destAsset)) {
+      if (destAsset.asset_type !== 'native') {
         selectedToken = destinationTokens.find((x) =>
           matchAsset(x, destAsset),
         );
