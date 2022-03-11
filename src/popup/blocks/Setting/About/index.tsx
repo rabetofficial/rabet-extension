@@ -46,7 +46,7 @@ const About = ({ onClose }: AboutProps) => (
     <S.Hr />
     <S.Item>Join us</S.Item>
     <S.ContactLinksContainer>
-      <span>
+      <S.Circle>
         <a
           href=" https://twitter.com/rabetofficial"
           target="_blank"
@@ -54,8 +54,8 @@ const About = ({ onClose }: AboutProps) => (
         >
           <Icons.Twitter />
         </a>
-      </span>
-      <span>
+      </S.Circle>
+      <S.Circle>
         <a
           href="https://discord.com/invite/VkYdnRKUtZ"
           target="_blank"
@@ -63,8 +63,8 @@ const About = ({ onClose }: AboutProps) => (
         >
           <Icons.Discord />
         </a>
-      </span>
-      <span>
+      </S.Circle>
+      <S.Circle>
         <a
           href="https://t.me/rabet_community"
           target="_blank"
@@ -72,7 +72,7 @@ const About = ({ onClose }: AboutProps) => (
         >
           <Icons.Telegram />
         </a>
-      </span>
+      </S.Circle>
     </S.ContactLinksContainer>
   </div>
 );
