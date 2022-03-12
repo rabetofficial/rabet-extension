@@ -7,9 +7,9 @@ export const Container = styled.div`
   }
 `;
 
-export const Loading = styled.div`
+export const Loading = styled.img`
   display: flex;
-  margin: 0 auto;
+  margin: 0px auto;
   justify-content: center;
 `;
 
