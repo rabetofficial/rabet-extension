@@ -6,8 +6,8 @@ import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 const SendButton = () => {
-  const transaction = useTypedSelector((store) => store.transaction);
   const navigate = useNavigate();
+  const transaction = useTypedSelector((store) => store.transaction);
 
   const handleClick = () => {
     navigate(RouteName.Confirm);

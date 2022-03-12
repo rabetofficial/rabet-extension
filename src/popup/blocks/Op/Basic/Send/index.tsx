@@ -162,7 +162,7 @@ const BasicSend = ({ usage }: AppProps) => {
         onSubmit={onSubmit}
         mutators={{
           setMax: (args, state, tools) => {
-            tools.changeValue(state, 'from', () =>
+            tools.changeValue(state, 'amount', () =>
               getMaxBalance(selectedAsset, account),
             );
           },

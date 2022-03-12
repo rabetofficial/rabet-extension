@@ -5,19 +5,19 @@ import isEmpty from '../../../../helpers/isEmpty';
 
 import Container from './styles';
 
-type AppProps = {
-  items: ElementOption[];
+type AppProps<T> = {
+  items: ElementOption<T>[];
   onChange: (value: any) => void;
   variant: 'default' | 'outlined';
   indicatorSize?: 'large' | 'small';
-  defaultValue: ElementOption | {};
-  selected?: ElementOption | {};
+  defaultValue: ElementOption<string> | {};
+  selected?: ElementOption<string> | {};
   isSearchable?: boolean;
   className?: string;
   width?: number | null;
 };
 
-const SelectOption = ({
+const SelectOption = <T,>({
   items,
   onChange,
   variant,
@@ -27,7 +27,7 @@ const SelectOption = ({
   className,
   width,
   indicatorSize,
-}: AppProps) => {
+}: AppProps<T>) => {
   const borderColor = variant === 'default' ? '#f8f8f8' : '#f3f3f3';
   const [value, setValue] = useState<ElementOption | {}>({});
 

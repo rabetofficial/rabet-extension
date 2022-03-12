@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
 import shortid from 'shortid';
+import { Horizon } from 'stellar-sdk';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { Field, Form } from 'react-final-form';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
 
+import PlusBold from 'popup/svgs/PlusBold';
+import RouteName from 'popup/staticRes/routes';
 import Card from 'popup/components/common/Card';
-import ButtonContainer from 'popup/components/common/ButtonContainer';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-import RouteName from 'popup/staticRes/routes';
+import { OpType } from 'popup/reducers/transaction';
+import SendButton from 'popup/components/SendButton';
+import Operation from 'popup/blocks/Op/Advance/Operations';
 import addMemoAction from 'popup/actions/operations/addMemo';
 import addOperationAction from 'popup/actions/operations/add';
 import clearOperationsAction from 'popup/actions/operations/clear';
-import SendButton from 'popup/components/SendButton';
-import Operation from 'popup/blocks/Op/Advance/Operations';
-import PlusBold from 'popup/svgs/PlusBold';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 const PlusIcon = styled.div`
   svg {
@@ -33,26 +35,23 @@ type FormValues = {
 
 const AdvanceOperation = () => {
   const navigate = useNavigate();
-  const [operations, setOperations] = useState([]);
+  const [operations, setOperations] = useState<OpType[]>([]);
 
   const addOperation = () => {
     const operation = {
-      type: 'payment',
+      checked: false,
       id: shortid.generate(),
+      type: Horizon.OperationResponseType.payment,
     };
 
     setOperations([...operations, operation]);
-    addOperationAction(operation.id);
+    addOperationAction(operation);
   };
 
   useEffect(() => {
     clearOperationsAction();
     addOperation();
   }, []);
-
-  // const onSend = () => {
-  //   sendAction(navigate);
-  // };
 
   const validateForm = async (values: FormValues) => {
     if (values.memo) {
@@ -74,6 +73,14 @@ const AdvanceOperation = () => {
     }
 
     return {};
+  };
+
+  const handleCancel = () => {
+    navigate(RouteName.Home, {
+      state: {
+        alreadyLoaded: true,
+      },
+    });
   };
 
   return (
@@ -106,7 +113,7 @@ const AdvanceOperation = () => {
         <Card type="secondary" className="pt-4 pb-[18px] px-[11px]">
           <Form
             onSubmit={() => {}}
-            validate={(values: FormValues) => validateForm(values)}
+            validate={validateForm}
             render={({ submitError, handleSubmit }) => (
               <form
                 className="form"
@@ -134,6 +141,7 @@ const AdvanceOperation = () => {
                     </div>
                   )}
                 </Field>
+
                 {submitError && (
                   <div className="error">{submitError}</div>
                 )}
@@ -147,14 +155,9 @@ const AdvanceOperation = () => {
             variant="default"
             size="medium"
             content="Back"
-            onClick={() => {
-              navigate(RouteName.Home, {
-                state: {
-                  alreadyLoaded: true,
-                },
-              });
-            }}
+            onClick={handleCancel}
           />
+
           <SendButton />
         </ButtonContainer>
       </div>

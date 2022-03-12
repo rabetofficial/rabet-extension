@@ -1,30 +1,31 @@
 import React, {
+  Dispatch,
   useState,
   useEffect,
   useReducer,
-  Dispatch,
 } from 'react';
 import styled from 'styled-components';
 
+import Trash from 'popup/svgs/Trash';
 import Card from 'popup/components/common/Card';
+import { OpType } from 'popup/reducers/transaction';
 import Button from 'popup/components/common/Button';
 import SelectOption from 'popup/components/common/SelectOption';
 import removeOperationAction from 'popup/actions/operations/remove';
 import changeOperationAction from 'popup/actions/operations/change';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-import Trash from 'popup/svgs/Trash';
-import options from './options';
 
-import PaymentOps from './List/PaymentOps';
-import PaymentSendOps from './List/PaymentSendOps';
-import PaymentReceiveOps from './List/PaymentReceiveOps';
+import options from './options';
 import OfferOps from './List/OfferOps';
-import SetOptionOps from './List/SetOptionOps';
 import SignerOps from './List/SignerOps';
+import PaymentOps from './List/PaymentOps';
 import ThresholdOps from './List/ThresholdOps';
-import ChangeTrustOps from './List/ChangeTrustops';
+import SetOptionOps from './List/SetOptionOps';
 import AllowTrustOps from './List/AllowTrustOps';
 import ManageDataOps from './List/ManageDataOps';
+import PaymentSendOps from './List/PaymentSendOps';
+import ChangeTrustOps from './List/ChangeTrustops';
+import PaymentReceiveOps from './List/PaymentReceiveOps';
 
 const Container = styled.div`
   .ops__option {
@@ -35,7 +36,7 @@ const Container = styled.div`
 type AppProps = {
   id: string;
   type: string;
-  operations: any[];
+  operations: OpType[];
   setOperations: Dispatch<any>;
 };
 
@@ -163,7 +164,7 @@ const Operation = ({
         type="secondary"
         className="px-[11px] pt-4 pb-[22px] mb-4"
       >
-        <SelectOption
+        <SelectOption<Horizon.OperationResponseType>
           items={options}
           defaultValue={options[0]}
           variant="default"

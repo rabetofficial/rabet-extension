@@ -1,21 +1,28 @@
 /* eslint-disable no-param-reassign */
+import { Horizon } from 'stellar-sdk';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Memo {
+export interface Memo {
   text: string;
   checked: boolean;
 }
 
-interface Operation {
+export type OpType = {
   id: string;
-  type: string;
-  values?: {};
-  errors?: {};
-}
+  checked: boolean;
+  type: Horizon.OperationResponseType;
+};
+
+// interface Operation {
+//   id: string;
+//   type: string;
+//   values?: {};
+//   errors?: {};
+// }
 
 interface ITransaction {
   memo: Memo;
-  operations: Operation[];
+  operations: OpType[];
 }
 
 const initialState: ITransaction = {
@@ -30,7 +37,7 @@ const transactionSlice = createSlice({
   name: 'transaction',
   initialState,
   reducers: {
-    addOperation: (state, action: PayloadAction<Operation>) => {
+    addOperation: (state, action: PayloadAction<OpType>) => {
       state.operations.push(action.payload);
     },
     removeOperation: (state, action: PayloadAction<string>) => {
@@ -69,11 +76,11 @@ const transactionSlice = createSlice({
 });
 
 export const {
+  addMemo,
+  clearMemo,
   addOperation,
   removeOperation,
   changeOperation,
   clearOperations,
-  addMemo,
-  clearMemo,
 } = transactionSlice.actions;
 export default transactionSlice.reducer;
