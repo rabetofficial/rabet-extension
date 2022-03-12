@@ -26,9 +26,7 @@ const DropDownList = () => {
       label: 'Expand view',
       icon: <ExpandIcon />,
       onClick: () => {
-        openInNewTab(
-          `chrome-extension://${chrome.runtime.id}/dist/popup.html#/`,
-        );
+        openInNewTab(chrome.runtime.getURL('dist/popup.html#/'));
       },
     },
     {
