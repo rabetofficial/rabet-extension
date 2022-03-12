@@ -34,128 +34,142 @@ const Container = styled.div`
 `;
 
 type AppProps = {
-  id: string;
-  type: string;
+  operation: OpType;
   operations: OpType[];
   setOperations: Dispatch<any>;
 };
 
 const Operation = ({
-  id,
-  type,
-  operations: ops,
+  operation,
+  operations,
   setOperations,
 }: AppProps) => {
-  const [selected, setSelected] = useState({});
+  const [selected, setSelected] = useState({
+    value: '',
+  });
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
-    const defaultItem = options.find((x) => x.value === type);
+    const defaultItem = options.find(
+      (x) => x.value === operation.type,
+    );
 
-    if (type) {
+    if (operation.type) {
       setSelected(defaultItem);
     }
   }, []);
 
   const onChange = (e) => {
     forceUpdate();
-    changeOperationAction(id, { type: e.value });
+    changeOperationAction(operation.id, { type: e.value });
 
     setSelected(e);
   };
 
   const removeOperation = () => {
-    removeOperationAction(id);
+    removeOperationAction(operation.id);
 
-    const newOperations = ops.filter((x) => x.id !== id);
+    const newOperations = operations.filter(
+      (x) => x.id !== operation.id,
+    );
 
     setOperations(newOperations);
   };
 
   const generateOption = () => {
-    if (selected === options[0]) return <PaymentOps id={id} />;
-    if (selected === options[1]) return <PaymentSendOps id={id} />;
-    if (selected === options[2]) return <PaymentReceiveOps id={id} />;
-    if (selected === options[3])
-      return <OfferOps key="offer1" id={id} offer />;
-    if (selected === options[4])
-      return <OfferOps key="offer2" id={id} offer={false} />;
-    if (selected === options[5])
+    if (selected.value === options[0].value)
+      return <PaymentOps id={operation.id} />;
+    if (selected.value === options[1].value)
+      return <PaymentSendOps id={operation.id} />;
+    if (selected.value === options[2].value)
+      return <PaymentReceiveOps id={operation.id} />;
+    if (selected.value === options[3].value)
+      return <OfferOps key="offer1" id={operation.id} offer />;
+    if (selected.value === options[4].value)
+      return (
+        <OfferOps key="offer2" id={operation.id} offer={false} />
+      );
+    if (selected.value === options[5].value)
       return (
         <SetOptionOps
           key="Inflation"
           label="Inflation destination"
           inputInfo={{ type: 'text', placeholder: 'G…' }}
-          id={id}
+          id={operation.id}
           type={options[5].value}
         />
       );
-    if (selected === options[6])
+    if (selected.value === options[6].value)
       return (
         <SetOptionOps
           key="flag1"
           label="Flag number"
           inputInfo={{ type: 'number', placeholder: '1' }}
-          id={id}
+          id={operation.id}
           type={options[6].value}
         />
       );
-    if (selected === options[7])
+    if (selected.value === options[7].value)
       return (
         <SetOptionOps
           key="flag2"
           label="Flag number"
           inputInfo={{ type: 'number', placeholder: '1' }}
-          id={id}
+          id={operation.id}
           type={options[7].value}
         />
       );
-    if (selected === options[8])
+    if (selected.value === options[8].value)
       return (
         <SetOptionOps
           key="weight"
           label="Weight"
           inputInfo={{ type: 'number', placeholder: '1' }}
-          id={id}
+          id={operation.id}
           type={options[8].value}
         />
       );
-    if (selected === options[9])
+    if (selected.value === options[9].value)
       return (
         <SetOptionOps
           key="domain"
           label="Domain address"
           inputInfo={{ type: 'text', placeholder: 'sample.com' }}
-          id={id}
+          id={operation.id}
           type={options[8].value}
         />
       );
-    if (selected === options[10]) return <SignerOps id={id} />;
-    if (selected === options[11]) return <ThresholdOps id={id} />;
-    if (selected === options[12]) return <ChangeTrustOps id={id} />;
-    if (selected === options[13]) return <AllowTrustOps id={id} />;
-    if (selected === options[14])
+    if (selected.value === options[10].value)
+      return <SignerOps id={operation.id} />;
+    if (selected.value === options[11].value)
+      return <ThresholdOps id={operation.id} />;
+    if (selected.value === options[12].value)
+      return <ChangeTrustOps id={operation.id} />;
+    if (selected.value === options[13].value)
+      return <AllowTrustOps id={operation.id} />;
+    if (selected.value === options[14].value)
       return (
         <SetOptionOps
           key="destination"
           label="Destination"
           inputInfo={{ type: 'text', placeholder: 'G...' }}
-          id={id}
+          id={operation.id}
           type={options[14].value}
         />
       );
-    if (selected === options[15]) return <ManageDataOps id={id} />;
-    if (selected === options[16])
+    if (selected.value === options[15].value)
+      return <ManageDataOps id={operation.id} />;
+    if (selected.value === options[16].value)
       return (
         <SetOptionOps
           key="bump"
           label="Bump to"
           inputInfo={{ type: 'number', placeholder: '1234' }}
-          id={id}
+          id={operation.id}
           type={options[16].value}
         />
       );
-    return <PaymentOps id={id} />;
+    return <PaymentOps id={operation.id} />;
   };
 
   return (
@@ -164,7 +178,7 @@ const Operation = ({
         type="secondary"
         className="px-[11px] pt-4 pb-[22px] mb-4"
       >
-        <SelectOption<Horizon.OperationResponseType>
+        <SelectOption
           items={options}
           defaultValue={options[0]}
           variant="default"

@@ -99,11 +99,10 @@ const AdvanceOperation = () => {
       />
 
       <div className="mt-6">
-        {operations.map((item) => (
-          <div key={item.id}>
+        {operations.map((op) => (
+          <div key={op.id}>
             <Operation
-              id={item.id}
-              type={item.type}
+              operation={op}
               operations={operations}
               setOperations={setOperations}
             />

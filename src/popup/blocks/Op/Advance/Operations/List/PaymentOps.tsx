@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
+import { Horizon, StrKey } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
-import { StrKey } from 'stellar-sdk';
 
-import Input from 'popup/components/common/Input';
+import { ElementOption } from 'popup/models';
 import matchAsset from 'popup/utils/matchAsset';
+import Input from 'popup/components/common/Input';
+import getAccountData from 'popup/api/getAccount';
 import getMaxBalance from 'popup/utils/maxBalance';
-import SelectOption from 'popup/components/common/SelectOption';
-import getAccountData from 'popup/utils/horizon/isAddressFound';
-import changeOperationAction from 'popup/actions/operations/change';
-import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import isTransferable from 'popup/utils/isTransferable';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
-import { ElementOption } from 'popup/models';
+import SelectOption from 'popup/components/common/SelectOption';
+import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
+import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
+  amount: string;
   destination: string;
-  amount: string | null;
 };
 
 type AppProps = {
@@ -23,23 +23,17 @@ type AppProps = {
 };
 
 const PaymentOps = ({ id }: AppProps) => {
-  const { maxXLM } = useActiveAccount();
+  const account = useActiveAccount();
 
-  const balances = Array(5).fill({
-    asset_code: 'XLM',
-    asset_issuer: '123',
-    last_modified_ledger: '234',
-    limit: '567',
-    is_authorized: false,
-    is_authorized_to_maintain_liabilities: true,
-    logo: '',
-    domain: 'Stellar.org',
-    toNative: 1,
-  });
+  const { subentry_count } = account;
+  const assets = account.assets || [];
 
-  const [selected, setSelected] = useState(balances[0]);
+  const [selected, setSelected] = useState(assets[0]);
 
-  const onChange = (e: ElementOption) => setSelected(e);
+  const onChange = (e: ElementOption<Horizon.BalanceLine>) => {
+    setSelected(e.value);
+    console.log(e.value);
+  };
 
   const validateForm = async (v: FormValidate) => {
     const values = {
@@ -47,7 +41,7 @@ const PaymentOps = ({ id }: AppProps) => {
       asset: selected,
     };
 
-    const errors = {} as FormValidate;
+    const errors: Partial<FormValidate> = {};
 
     const hasError = {
       amount: false,
@@ -55,7 +49,7 @@ const PaymentOps = ({ id }: AppProps) => {
     };
 
     if (!values.amount) {
-      errors.amount = null;
+      errors.amount = '';
       hasError.amount = true;
 
       changeOperationAction(id, {
@@ -65,11 +59,11 @@ const PaymentOps = ({ id }: AppProps) => {
       let selectedTokenBalance;
 
       if (selected.asset_type === 'native') {
-        selectedTokenBalance = balances.find(
+        selectedTokenBalance = assets.find(
           (asset) => asset.asset_type === 'native',
         );
       } else {
-        selectedTokenBalance = balances.find((x) =>
+        selectedTokenBalance = assets.find((x) =>
           matchAsset(x, selected),
         );
       }
@@ -83,11 +77,13 @@ const PaymentOps = ({ id }: AppProps) => {
       if (
         !isInsufficientAsset(
           selectedTokenBalance,
-          maxXLM,
+          subentry_count,
           values.amount,
         )
       ) {
-        errors.amount = `Insufficient ${selected.asset_code} balance.`;
+        errors.amount = `Insufficient ${
+          selected.asset_code || 'XLM'
+        } balance.`;
         hasError.amount = true;
 
         changeOperationAction(id, {
@@ -187,7 +183,9 @@ const PaymentOps = ({ id }: AppProps) => {
     <Form
       mutators={{
         setMax: (a, s, u) => {
-          u.changeValue(s, 'amount', () => getMaxBalance(selected));
+          u.changeValue(s, 'amount', () =>
+            getMaxBalance(selected, account),
+          );
         },
       }}
       onSubmit={() => {}}
@@ -233,8 +231,9 @@ const PaymentOps = ({ id }: AppProps) => {
                     className="grow"
                     setMax={form.mutators.setMax}
                   />
+
                   <SelectOption
-                    items={balances}
+                    items={assets}
                     onChange={onChange}
                     variant="outlined"
                     width={99}

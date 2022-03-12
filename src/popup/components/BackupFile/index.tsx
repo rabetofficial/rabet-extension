@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import CopyText from 'popup/components/common/CopyText';
 import Button from 'popup/components/common/Button';
@@ -13,7 +13,14 @@ type BackupTypes = {
 };
 
 const BackupFile = ({ onClick, children }: BackupTypes) => {
+  const btnRef = useRef(null);
   const { publicKey, privateKey } = useActiveAccount();
+
+  useEffect(() => {
+    if (btnRef.current) {
+      btnRef.current.focus();
+    }
+  }, [btnRef]);
 
   return (
     <S.Container>
@@ -47,6 +54,7 @@ const BackupFile = ({ onClick, children }: BackupTypes) => {
             gap={7}
           >
             <Button
+              reference={btnRef}
               variant="primary"
               size="medium"
               content="Continue"

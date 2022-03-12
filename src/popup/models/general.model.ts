@@ -33,8 +33,8 @@ export type FullPlacement =
   | 'bottom-start'
   | 'bottom-end';
 
-export interface ElementOption<T> {
-  value: T | string;
+export interface ElementOption<T = string | number> {
+  value: T;
   label: string | React.ReactNode;
 }
 

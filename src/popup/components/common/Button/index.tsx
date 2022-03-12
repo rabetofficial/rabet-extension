@@ -17,42 +17,40 @@ type ButtonTypes = {
   className?: string | any;
 };
 
-const Button = (props: ButtonTypes) => {
-  const {
-    type,
-    variant,
-    size,
-    disabled,
-    style,
-    onClick,
-    className,
-    content,
-    startIcon,
-    endIcon,
-  } = props;
-
-  return (
-    <S.Button
-      className={`${className} ${variant} ${size} button`}
-      style={style}
-      type={type}
-      disabled={disabled}
-      onClick={onClick}
-    >
-      {startIcon && (
-        <S.BurgerImageStyle style={{ marginRight: '6px' }}>
-          {startIcon}
-        </S.BurgerImageStyle>
-      )}
-      {content}
-      {endIcon && (
-        <S.BurgerImageStyle style={{ marginLeft: '6px' }}>
-          {endIcon}
-        </S.BurgerImageStyle>
-      )}
-    </S.Button>
-  );
-};
+const Button = ({
+  reference,
+  type,
+  variant,
+  size,
+  disabled,
+  style,
+  onClick,
+  className,
+  content,
+  startIcon,
+  endIcon,
+}: ButtonTypes) => (
+  <S.Button
+    ref={reference}
+    className={`${className} ${variant} ${size} button`}
+    style={style}
+    type={type}
+    disabled={disabled}
+    onClick={onClick}
+  >
+    {startIcon && (
+      <S.BurgerImageStyle style={{ marginRight: '6px' }}>
+        {startIcon}
+      </S.BurgerImageStyle>
+    )}
+    {content}
+    {endIcon && (
+      <S.BurgerImageStyle style={{ marginLeft: '6px' }}>
+        {endIcon}
+      </S.BurgerImageStyle>
+    )}
+  </S.Button>
+);
 
 Button.defaultProps = {
   disabled: false,
