@@ -5,6 +5,7 @@ import Error from 'popup/components/Error';
 import RouteName from 'popup/staticRes/routes';
 import Header from 'popup/components/common/Header';
 import ExtTitle from 'popup/components/common/Title/Ext';
+import ScrollBar from 'popup/components/common/ScrollBar';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
@@ -19,15 +20,20 @@ const ErrorPage = () => {
   };
 
   return (
-    <>
+    <ScrollBar isHidden>
       <Header />
 
-      <ExtTitle title="Receive" className="content mt-[20px]" />
+      <div className="content">
+        <ExtTitle
+          className="mt-[20px] mb-[87px]"
+          alreadyLoaded={false}
+        />
 
-      <div className="flex my-auto">
-        <Error onClick={handleClick} message={state.message} />
+        <div className="flex">
+          <Error onClick={handleClick} message={state.message} />
+        </div>
       </div>
-    </>
+    </ScrollBar>
   );
 };
 

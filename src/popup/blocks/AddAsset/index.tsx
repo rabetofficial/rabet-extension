@@ -61,22 +61,42 @@ const AddAsset = ({ children, isExtension }: AddAssetType) => {
   const handleSearchAssetSubmitBtn = async (
     assets: AssetImageWithActive[],
   ) => {
-    openLoadingModal({});
+    if (isExtension) {
+      navigate(RouteName.LoadingNetwork);
+    } else {
+      openLoadingModal({});
+    }
     const result = await addMultipleAssets(assets);
 
     const isSuccessful = result[0];
     const message = result[1];
 
     if (isSuccessful) {
-      openSucessModal({
-        message,
-        onClick: closeModalAction,
-      });
+      if (isExtension) {
+        navigate(RouteName.Sucess, {
+          state: {
+            message,
+          },
+        });
+      } else {
+        openSucessModal({
+          message,
+          onClick: closeModalAction,
+        });
+      }
     } else {
-      openErrorModal({
-        message,
-        onClick: closeModalAction,
-      });
+      if (isExtension) {
+        navigate(RouteName.Error, {
+          state: {
+            message,
+          },
+        });
+      } else {
+        openErrorModal({
+          message,
+          onClick: closeModalAction,
+        });
+      }
     }
   };
   const handleCancel = () => {

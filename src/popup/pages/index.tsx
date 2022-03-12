@@ -28,7 +28,7 @@ import RestoreWallet from './RestoreWallet';
 import DeleteAccount from './DeleteAccount';
 import AddAsset from './extension/AddAssets';
 import AssetInfo from './extension/AssetInfo';
-import LoadingNetwork from './LoadingNetwork';
+import LoadingNetwork from './extension/LoadingNetwork';
 import ShowPrivateKey from './ShowPrivateKey';
 import AccountManager from './AccountManager';
 import AddContact from './extension/AddContact';
