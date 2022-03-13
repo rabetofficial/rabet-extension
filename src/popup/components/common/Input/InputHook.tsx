@@ -69,7 +69,7 @@ const Input = (props: AppProps) => {
     setVisibleType(visibleType === 'password' ? 'text' : type);
 
   return (
-    <>
+    <div className="flex flex-col grow">
       <S.Group
         className={`${className} ${size}`}
         style={style}
@@ -100,7 +100,7 @@ const Input = (props: AppProps) => {
       {!isEmpty(errorMsg) && (
         <S.ErrorMsg>{errorMsg.message}</S.ErrorMsg>
       )}
-    </>
+    </div>
   );
 };
 
