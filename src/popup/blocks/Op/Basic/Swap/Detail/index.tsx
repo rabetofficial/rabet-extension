@@ -63,14 +63,17 @@ const SwapDetails = ({
     finalPriceImpact = '<0.01';
   }
 
+  const assetCode = (asset) =>
+    asset.asset_type === 'native' ? 'XLM' : asset.asset_code;
+
   return (
     <>
       <S.Box>
         <S.BoxTitle>Path</S.BoxTitle>
         <S.Path>
           {path.map((p, index) => (
-            <div key={p.asset_code} className="flex items-center">
-              {p.asset_type === 'native' ? 'XLM' : p.asset_code}
+            <div key={assetCode(p)} className="flex items-center">
+              {assetCode(p)}
               {index !== path.length - 1 && (
                 <div className="mx-[5px]">
                   <AngleRight />
