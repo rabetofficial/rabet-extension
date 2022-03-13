@@ -12,7 +12,7 @@ import getMaxBalance from 'popup/utils/maxBalance';
 import Button from 'popup/components/common/Button';
 import getStrictSend from 'popup/api/getStrictSend';
 import openModalAction from 'popup/actions/modal/open';
-import rotateLogo from 'assets/images/arrow-rotate.svg';
+// import rotateLogo from 'assets/images/arrow-rotate.svg';
 import isAssetEqual from 'popup/utils/swap/isAssetEqual';
 import defaultAssets from 'popup/staticRes/defaultAssets';
 import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
@@ -24,9 +24,10 @@ import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import BasicConfirmSwap from 'popup/blocks/Op/Basic/Confirm/Swap';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import ShowFractional from './ShowFractional';
 
 import * as S from './styles';
-import ShowFractional from './ShowFractional';
+import Loading from '../../../../components/Loading';
 
 export type FormValues = {
   path: any[];
@@ -421,8 +422,8 @@ const BasicSwap = ({ usage }: AppProps) => {
       </S.ModalInput>
 
       {loading ? (
-        <div>
-          <p>LOADING</p>
+        <div className="flex justify-center">
+          <Loading size={40} className="!p-0" />
         </div>
       ) : (
         ''
@@ -430,18 +431,17 @@ const BasicSwap = ({ usage }: AppProps) => {
 
       {showSwapInfo ? (
         <>
-          <ShowFractional
-            control={control}
-            isRotateActive={isRotateActive}
-          />
+          <div className="flex items-center justify-end">
+            <ShowFractional
+              control={control}
+              isRotateActive={isRotateActive}
+            />
 
-          <img
-            alt="icon"
-            src={rotateLogo}
-            onClick={() => {
-              setIsRotateActive(!isRotateActive);
-            }}
-          />
+            <div className="ml-1">
+              <Rotate />
+            </div>
+          </div>
+
           <S.Hr />
 
           <SwapDetail

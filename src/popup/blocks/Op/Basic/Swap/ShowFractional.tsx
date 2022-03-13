@@ -33,7 +33,7 @@ const ShowFractional = ({
     .toFixed(5);
 
   return (
-    <span>
+    <span className="text-sm text-primary-dark">
       1 {values.asset1.asset_code} = {denominator.toString()}{' '}
       {values.asset2.asset_code}
     </span>

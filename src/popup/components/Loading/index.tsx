@@ -8,11 +8,17 @@ type AppProps = {
   title?: string;
   size: number;
   titleStyle?: string;
+  className?: string;
 };
 
-const Loading = ({ title, size, titleStyle }: AppProps) => (
+const Loading = ({
+  title,
+  size,
+  titleStyle,
+  className,
+}: AppProps) => (
   <>
-    <S.Container>
+    <S.Container className={className}>
       <S.Loading
         src={loading}
         alt="loading"
@@ -30,6 +36,7 @@ const Loading = ({ title, size, titleStyle }: AppProps) => (
 Loading.defaultProps = {
   title: '',
   titleStyle: '',
+  className: '',
 };
 
 export default Loading;

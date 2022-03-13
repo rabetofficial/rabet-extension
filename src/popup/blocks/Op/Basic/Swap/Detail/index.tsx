@@ -69,10 +69,12 @@ const SwapDetails = ({
         <S.BoxTitle>Path</S.BoxTitle>
         <S.Path>
           {path.map((p, index) => (
-            <div key={p.asset_code}>
+            <div key={p.asset_code} className="flex items-center">
               {p.asset_type === 'native' ? 'XLM' : p.asset_code}
               {index !== path.length - 1 && (
-                <img src={angleRightIcon} alt="icon" />
+                <div className="mx-[5px]">
+                  <img src={angleRightIcon} alt="icon" />
+                </div>
               )}
             </div>
           ))}
@@ -105,6 +107,7 @@ const SwapDetails = ({
 
 SwapDetails.defaultProps = {
   values: null,
+  control: null,
 };
 
 export default SwapDetails;
