@@ -56,9 +56,17 @@ const RestoreWallet = () => {
     return {};
   };
 
+  const onSubmitBackup = () => {
+    navigate(RouteName.Home);
+  };
+
   return (
     <Layout isDashboard={false}>
-      <RestoreWalletComponent onCancel={onCancel} onSubmit={onSubmit}>
+      <RestoreWalletComponent
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+        onSubmitBackup={onSubmitBackup}
+      >
         <Logo />
       </RestoreWalletComponent>
     </Layout>

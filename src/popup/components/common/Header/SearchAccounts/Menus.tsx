@@ -105,6 +105,10 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     return {};
   };
 
+  const handleRestoreWalletBackup = () => {
+    closeModalAction();
+  };
+
   const openCreateWalletModal = () => {
     openModalAction({
       isStyled: true,
@@ -134,6 +138,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
           isModal
           onCancel={closeModalAction}
           onSubmit={handleRestoreWallet}
+          onSubmitBackup={handleRestoreWalletBackup}
         />
       ),
     });

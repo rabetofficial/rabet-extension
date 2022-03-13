@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
+import React, { useState, useCallback } from 'react';
 
+import { decrypt } from 'helpers/crypto';
 import Download from 'popup/svgs/Download';
 import ArrowBack from 'popup/svgs/ArrowBack';
 import RouteName from 'popup/staticRes/routes';
@@ -10,6 +12,7 @@ import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import addBackupAccountsAction from 'popup/actions/accounts/addBackup';
 
 import * as S from './styles';
 
@@ -19,38 +22,79 @@ type FormValues = {
 
 type ImportBackupFileType = {
   isModal?: boolean;
+  onSubmit: () => void;
+  onCancel: () => void;
   isExtension?: boolean;
 };
 
 const ImportBackupFile = ({
   isModal,
+  onCancel,
+  onSubmit,
   isExtension,
 }: ImportBackupFileType) => {
-  const navigate = useNavigate();
-  const [showRest, setShowRest] = useState(false);
-  const accounts = useTypedSelector((store) => store.accounts);
+  const [fileContent, setFileContent] = useState('');
 
-  const handleClick = () => {
-    setShowRest(!showRest);
-  };
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
+
+    const reader = new FileReader();
+
+    reader.onabort = () => {};
+    reader.onerror = () => {};
+    reader.onload = () => {
+      const binaryStr = reader.result;
+      const enc = new TextDecoder('utf-8');
+      const text = enc.decode(binaryStr);
+
+      setFileContent(text);
+    };
+    reader.readAsArrayBuffer(file);
+  }, []);
+
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: 'text/plain',
+    maxFiles: 1,
+  });
 
   const handleCancel = (form: any) => {
     form.reset();
 
-    if (accounts.length) {
-      return navigate(RouteName.Home, {
-        state: {
-          alreadyLoaded: true,
-        },
-      });
-    }
+    onCancel();
+    // if (accounts.length) {
+    //   return navigate(RouteName.Home, {
+    //     state: {
+    //       alreadyLoaded: true,
+    //     },
+    //   });
+    // }
 
-    return navigate(RouteName.First);
+    // return navigate(RouteName.First);
   };
 
-  const onSubmit = async (values: FormValues) => {
-    console.log('i will deal with this later');
-    console.log(values);
+  const handleSubmitFunc = async (values: FormValues) => {
+    if (!fileContent) {
+      return {
+        key: 'Uploaded file has no content',
+      };
+    }
+
+    let data;
+
+    try {
+      data = JSON.parse(decrypt(values.key, fileContent));
+    } catch (e) {
+      return {
+        key: 'Could not decrypt the specified file.',
+      };
+    }
+
+    addBackupAccountsAction(data);
+
+    onSubmit();
+
+    return {};
   };
 
   const validateForm = (values: FormValues) => {
@@ -58,32 +102,37 @@ const ImportBackupFile = ({
 
     if (!values.key) {
       errors.key = '';
-    } else if (values.key.length < 30) {
+    } else if (values.key.length < 10) {
       errors.key = 'Invalid key';
     }
 
     return errors;
   };
 
+  const isUploaded = acceptedFiles && acceptedFiles.length;
+
   return (
     <div>
-      <S.MediaBtn>
+      <S.MediaBtn {...getRootProps()}>
+        <input {...getInputProps()} />
         <Button
           type="file"
           variant="outlined"
           size="medium"
-          content="Select backup file"
-          startIcon={<Download />}
-          onClick={handleClick}
+          content={
+            isUploaded ? acceptedFiles[0].name : 'Select backup file'
+          }
+          startIcon={isUploaded ? '' : <Download />}
           style={{
             borderRadius: '4px',
             marginTop: '5px',
           }}
         />
       </S.MediaBtn>
-      {showRest && (
+
+      {isUploaded ? (
         <Form
-          onSubmit={onSubmit}
+          onSubmit={handleSubmitFunc}
           validate={validateForm}
           render={({ submitError, handleSubmit, form, pristine }) => (
             <form
@@ -155,6 +204,8 @@ const ImportBackupFile = ({
             </form>
           )}
         />
+      ) : (
+        ''
       )}
     </div>
   );

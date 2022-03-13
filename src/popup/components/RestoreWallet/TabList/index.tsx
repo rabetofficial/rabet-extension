@@ -5,19 +5,23 @@ import { Tab } from 'popup/models';
 import PrivateKey, { FormValues } from 'popup/components/PrivateKey';
 import ImportBackupFile from './ImportBackupFile';
 
-type TabListType = {
+type TabListProps = {
   onCancelPrivateKey: () => void;
   onSubmitPrivateKey: (v: FormValues) => Promise<Partial<FormValues>>;
+  onCancelBackup: () => void;
+  onSubmitBackup: () => void;
   isModal?: boolean;
   isExtension?: boolean;
 };
 
 const TabList = ({
-  onCancelPrivateKey,
-  onSubmitPrivateKey,
   isModal,
   isExtension,
-}: TabListType) => {
+  onCancelBackup,
+  onSubmitBackup,
+  onCancelPrivateKey,
+  onSubmitPrivateKey,
+}: TabListProps) => {
   const tabs: Tab[] = [
     {
       id: '1',
@@ -37,6 +41,8 @@ const TabList = ({
       content: (
         <ImportBackupFile
           isModal={isModal}
+          onCancel={onCancelBackup}
+          onSubmit={onSubmitBackup}
           isExtension={isExtension}
         />
       ),

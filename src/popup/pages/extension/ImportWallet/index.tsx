@@ -3,12 +3,12 @@ import { StrKey } from 'stellar-sdk';
 import { useNavigate } from 'react-router-dom';
 
 import RouteName from 'popup/staticRes/routes';
-import useTypedSelector from 'popup/hooks/useTypedSelector';
+import Header from 'popup/components/common/Header';
 import { FormValues } from 'popup/components/PrivateKey';
+import ExtTitle from 'popup/components/common/Title/Ext';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 import restoreAccountAction from 'popup/actions/accounts/restore';
 import RestoreWalletComponent from 'popup/components/RestoreWallet';
-import ExtTitle from 'popup/components/common/Title/Ext';
-import Header from 'popup/components/common/Header';
 
 const RestoreWallet = () => {
   const navigate = useNavigate();
@@ -56,14 +56,20 @@ const RestoreWallet = () => {
     return {};
   };
 
+  const onSubmitBackup = () => {
+    navigate(RouteName.Home);
+  };
+
   return (
     <>
       <Header />
+
       <div className="content">
         <RestoreWalletComponent
+          isExtension
           onCancel={onCancel}
           onSubmit={onSubmit}
-          isExtension
+          onSubmitBackup={onSubmitBackup}
         >
           <ExtTitle title="Import wallet" className="mt-4" />
         </RestoreWalletComponent>

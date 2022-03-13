@@ -1,14 +1,15 @@
-import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { customAlphabet, urlAlphabet } from 'nanoid';
+import React, { useEffect, useRef, useState } from 'react';
 
-import CopyText from 'popup/components/common/CopyText';
+import { encrypt } from 'helpers/crypto';
 import Input from 'popup/components/common/Input';
 import PageTitle from 'popup/components/PageTitle';
 import Button from 'popup/components/common/Button';
+import CopyText from 'popup/components/common/CopyText';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
-import ButtonContainer from 'popup/components/common/ButtonContainer';
 import TooltipLabel from 'popup/components/common/TooltipLabel';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
@@ -22,10 +23,19 @@ type FormValues = {
 };
 
 const Backup = ({ onClose, needTitle }: BackupProps) => {
-  const user = useTypedSelector((store) => store.user);
+  const dlRef = useRef(null);
+  const [user, accounts] = useTypedSelector((store) => [
+    store.user,
+    store.accounts,
+  ]);
+  const [fileDownloadUrl, setFileDownloadUrl] = useState('');
+  const [id, setId] = useState('');
 
-  const nanoid = customAlphabet(urlAlphabet, 10);
-  const id = nanoid(20);
+  useEffect(() => {
+    const nanoid = customAlphabet(urlAlphabet, 10);
+
+    setId(nanoid(20));
+  }, []);
 
   const onSubmit = (values: FormValues) => {
     if (user.password !== values.password) {
@@ -34,7 +44,20 @@ const Backup = ({ onClose, needTitle }: BackupProps) => {
       };
     }
 
-    console.log('NOW GIMME THE BACKUP');
+    const accountsJSON = JSON.stringify(accounts, null, 2);
+    const jsonEncrypted = encrypt(id, accountsJSON);
+    const blob = new Blob([jsonEncrypted]);
+    const fileDlUrl = URL.createObjectURL(blob);
+
+    setFileDownloadUrl(fileDlUrl);
+
+    setTimeout(() => {
+      dlRef?.current?.click();
+
+      onClose();
+    }, 100);
+
+    return {};
   };
 
   return (
@@ -107,6 +130,15 @@ const Backup = ({ onClose, needTitle }: BackupProps) => {
                 disabled={pristine || submitting}
               />
             </ButtonContainer>
+
+            <a
+              className="hidden"
+              download="backup.txt"
+              href={fileDownloadUrl}
+              ref={dlRef}
+            >
+              download it
+            </a>
           </form>
         )}
       />

@@ -47,6 +47,19 @@ const accountsSlice = createSlice({
   reducers: {
     load: (state, action: PayloadAction<IAccount[]>) =>
       action.payload,
+    loadBackup: (state, action: PayloadAction<IAccount[]>) => {
+      for (let i = 0; i < action.payload.length; i += 1) {
+        const newAccount = action.payload[i];
+
+        if (
+          !state.find(
+            (account) => account.publicKey === newAccount.publicKey,
+          )
+        ) {
+          state.push(newAccount);
+        }
+      }
+    },
     add: (state, action: PayloadAction<IAccount>) => {
       state.push(action.payload);
     },
@@ -112,6 +125,7 @@ export const {
   remove,
   addFlags,
   addAssets,
+  loadBackup,
   changeName,
   setInactive,
   changeActive,
