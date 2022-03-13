@@ -16,8 +16,6 @@ import getHost from './actions/options/getHost';
 // import ModalDialog from './components/common/ModalDialog';
 
 import 'react-slideshow-image/dist/styles.css';
-import 'purecss/build/pure-min.css';
-import 'react-popper-tooltip/dist/styles.css';
 import 'tippy.js/dist/svg-arrow.css';
 import 'tippy.js/animations/scale.css';
 import 'tippy.js/animations/shift-away.css';
