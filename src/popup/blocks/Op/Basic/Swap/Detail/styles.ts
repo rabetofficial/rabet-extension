@@ -28,7 +28,7 @@ export const Path = styled.div`
 
   svg {
     margin: 0 5px;
-    width: 9px;
+    width: 8px;
     height: auto;
 
     path {

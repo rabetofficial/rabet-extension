@@ -1,12 +1,12 @@
+import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { useWatch } from 'react-hook-form';
-import React, { useState, useEffect } from 'react';
 
 import BN from 'helpers/BN';
 import formatBalance from 'popup/utils/formatBalance';
 import { FormValues } from 'popup/blocks/Op/Basic/Swap';
-import angleRightIcon from 'assets/images/angle-right.svg';
 import calculatePriceImpact from 'popup/api/calculatePriceImpact';
+import AngleRight from 'popup/svgs/AngleRight';
 
 import * as S from './styles';
 
@@ -73,7 +73,7 @@ const SwapDetails = ({
               {p.asset_type === 'native' ? 'XLM' : p.asset_code}
               {index !== path.length - 1 && (
                 <div className="mx-[5px]">
-                  <img src={angleRightIcon} alt="icon" />
+                  <AngleRight />
                 </div>
               )}
             </div>

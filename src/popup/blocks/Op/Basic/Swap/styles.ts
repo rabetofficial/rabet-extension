@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const ModalInput = styled.div`
   display: flex;
@@ -33,4 +33,22 @@ export const Equivalent = styled.div`
   svg {
     margin-left: 4px;
   }
+`;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+export const Rotate = styled.div.attrs(
+  (props: { isRotate: boolean }) => props,
+)`
+  cursor: pointer;
+  animation: ${({ isRotate }) =>
+    isRotate ? `${rotate} 2s linear infinite` : ''};
 `;

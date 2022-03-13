@@ -24,10 +24,10 @@ import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import BasicConfirmSwap from 'popup/blocks/Op/Basic/Confirm/Swap';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import Loading from 'popup/components/Loading';
 import ShowFractional from './ShowFractional';
 
 import * as S from './styles';
-import Loading from '../../../../components/Loading';
 
 export type FormValues = {
   path: any[];
@@ -432,14 +432,16 @@ const BasicSwap = ({ usage }: AppProps) => {
       {showSwapInfo ? (
         <>
           <div className="flex items-center justify-end">
-            <ShowFractional
-              control={control}
-              isRotateActive={isRotateActive}
-            />
-
-            <div className="ml-1">
-              <Rotate />
+            <div className="mr-1">
+              <ShowFractional
+                control={control}
+                isRotateActive={isRotateActive}
+              />
             </div>
+
+            <S.Rotate isRotate={isRotateActive}>
+              <Rotate />
+            </S.Rotate>
           </div>
 
           <S.Hr />
