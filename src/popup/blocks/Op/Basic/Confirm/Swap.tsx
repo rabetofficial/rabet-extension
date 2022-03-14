@@ -82,7 +82,11 @@ const BasicConfirmSwap = ({ usage, values }: AppProps) => {
 
   return (
     <ConfirmLayout usage={usage} handleClick={handleClick}>
-      <ScrollBar isHidden maxHeight={335}>
+      <ScrollBar
+        isHidden
+        maxHeight={335}
+        disableOverflow={usage === 'desktop'}
+      >
         <Card type="secondary" className="px-[11px] py-[16px]">
           <h2 className="text-lg font-medium mb-4">Confirm Swap</h2>
           <S.Label>From</S.Label>

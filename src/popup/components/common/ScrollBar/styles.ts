@@ -26,47 +26,56 @@ export const Scroll = styled.div`
 `;
 
 export const VerticalScroll = styled(Scroll).attrs(
-  (props: { maxHeight: number }) => ({
+  (props: { maxHeight: number; disableOverflow: boolean }) => ({
     maxHeight: props.maxHeight,
+    disableOverflow: props.disableOverflow,
   }),
 )`
   max-height: ${(props) => props.maxHeight}px;
-  overflow-y: auto;
+  overflow-y: ${(props) =>
+    props.disableOverflow ? 'initial' : 'auto'};
   &:hover::-webkit-scrollbar {
     width: 6px;
   }
 `;
 
 export const HorizontalScroll = styled(Scroll).attrs(
-  (props: { maxWidth: number }) => ({
+  (props: { maxWidth: number; disableOverflow: boolean }) => ({
     maxWidth: props.maxWidth,
+    disableOverflow: props.disableOverflow,
   }),
 )`
   max-width: ${(props) => props.maxWidth}px;
-  overflow-x: auto;
+  overflow-x: ${(props) =>
+    props.disableOverflow ? 'initial' : 'auto'};
   &:hover::-webkit-scrollbar {
     height: 6px;
   }
 `;
 
 export const HiddenScroll = styled.div.attrs(
-  (props: { maxHeight: number; maxWidth: number }) => ({
+  (props: {
+    maxHeight: number;
+    maxWidth: number;
+    disableOverflow: boolean;
+  }) => ({
     maxHeight: props.maxHeight,
     maxWidth: props.maxWidth,
+    disableOverflow: props.disableOverflow,
   }),
 )`
   ${(props) =>
     props.maxHeight > 0 &&
     css`
       max-height: ${props.maxHeight}px;
-      overflow-y: auto;
+      overflow-y: ${props.disableOverflow ? 'initial' : 'auto'};
     `}
 
   ${(props) =>
     props.maxWidth > 0 &&
     css`
       max-width: ${props.maxWidth}px;
-      overflow-x: auto;
+      overflow-x: ${props.disableOverflow ? 'initial' : 'auto'};
     `}
   
 

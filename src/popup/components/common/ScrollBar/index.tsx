@@ -9,6 +9,7 @@ type AppProps = {
   isHidden?: boolean;
   maxWidth?: number;
   maxHeight?: number;
+  disableOverflow?: boolean;
 };
 
 const ScrollBar = ({
@@ -18,10 +19,14 @@ const ScrollBar = ({
   isHidden,
   maxWidth,
   maxHeight,
+  disableOverflow,
 }: AppProps) => {
   if (isVertical) {
     return (
-      <S.VerticalScroll maxHeight={maxHeight}>
+      <S.VerticalScroll
+        maxHeight={maxHeight}
+        disableOverflow={disableOverflow}
+      >
         {children}
       </S.VerticalScroll>
     );
@@ -29,7 +34,10 @@ const ScrollBar = ({
 
   if (isHorizontal) {
     return (
-      <S.HorizontalScroll maxWidth={maxWidth}>
+      <S.HorizontalScroll
+        maxWidth={maxWidth}
+        disableOverflow={disableOverflow}
+      >
         {children}
       </S.HorizontalScroll>
     );
@@ -37,7 +45,11 @@ const ScrollBar = ({
 
   if (isHidden) {
     return (
-      <S.HiddenScroll maxHeight={maxHeight} maxWidth={maxWidth}>
+      <S.HiddenScroll
+        maxHeight={maxHeight}
+        maxWidth={maxWidth}
+        disableOverflow={disableOverflow}
+      >
         {children}
       </S.HiddenScroll>
     );
@@ -52,6 +64,7 @@ ScrollBar.defaultProps = {
   isHidden: false,
   maxWidth: 0,
   maxHeight: 0,
+  disableOverflow: false,
 };
 
 export default ScrollBar;
