@@ -12,7 +12,6 @@ import getMaxBalance from 'popup/utils/maxBalance';
 import Button from 'popup/components/common/Button';
 import getStrictSend from 'popup/api/getStrictSend';
 import openModalAction from 'popup/actions/modal/open';
-// import rotateLogo from 'assets/images/arrow-rotate.svg';
 import isAssetEqual from 'popup/utils/swap/isAssetEqual';
 import defaultAssets from 'popup/staticRes/defaultAssets';
 import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
@@ -386,7 +385,11 @@ const BasicSwap = ({ usage }: AppProps) => {
         />
       </S.ModalInput>
 
-      <label className="label-primary block mt-4">To</label>
+      <div className="flex justify-center">
+        <Swap />
+      </div>
+
+      <label className="label-primary block mt-[-21px]">To</label>
       <S.ModalInput>
         <Controller
           name="to"
