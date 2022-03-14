@@ -28,7 +28,16 @@ const PaymentOps = ({ id }: AppProps) => {
   const { subentry_count } = account;
   const assets = account.assets || [];
 
+  const assetsMapped = assets.map((asset) => ({
+    label: asset.asset_code || 'XLM',
+    value: asset,
+  }));
+
+  console.log(assets);
+
   const [selected, setSelected] = useState(assets[0]);
+
+  console.log(selected);
 
   const onChange = (e: ElementOption<Horizon.BalanceLine>) => {
     setSelected(e.value);
@@ -233,7 +242,7 @@ const PaymentOps = ({ id }: AppProps) => {
                   />
 
                   <SelectOption
-                    items={assets}
+                    items={assetsMapped}
                     onChange={onChange}
                     variant="outlined"
                     width={99}

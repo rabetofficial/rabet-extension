@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
+import React, { useState, useEffect } from 'react';
+
+import isEmpty from 'helpers/isEmpty';
 import { ElementOption } from 'popup/models';
-import isEmpty from '../../../../helpers/isEmpty';
 
 import Container from './styles';
 
-type AppProps = {
-  items: ElementOption[];
+type AppProps<T = string> = {
+  items: ElementOption<T>[];
   onChange: (value: any) => void;
   variant: 'default' | 'outlined';
   indicatorSize?: 'large' | 'small';
@@ -17,7 +18,7 @@ type AppProps = {
   width?: number | null;
 };
 
-const SelectOption = ({
+const SelectOption = <T extends unknown>({
   items,
   onChange,
   variant,
@@ -27,7 +28,7 @@ const SelectOption = ({
   className,
   width,
   indicatorSize,
-}: AppProps) => {
+}: AppProps<T>) => {
   const borderColor = variant === 'default' ? '#f8f8f8' : '#f3f3f3';
   const [value, setValue] = useState<ElementOption | {}>({});
 
