@@ -10,11 +10,7 @@ import listenMessage from './actions/listenMessage';
 require('file-loader?name=[name].[ext]!./interaction.html');
 
 (async () => {
-  listenMessage()
-    .then(() => {
-      render(
-        <App />,
-        global.document.getElementById('root'),
-      );
-    });
+  listenMessage().then(() => {
+    render(<App />, global.document.getElementById('root'));
+  });
 })();

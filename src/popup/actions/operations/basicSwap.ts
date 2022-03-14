@@ -83,7 +83,7 @@ const basicSendAction = async (values: FormValues) => {
       });
 
     return [true, result.hash];
-  } catch (err) {
+  } catch (err: any) {
     if (err && err.response && err.response.data) {
       return [false, showError(err.response.data)];
     }
