@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const ModalInput = styled.div`
+export const ModalInput = styled.div`
   display: flex;
   align-items: flex-start;
 
@@ -16,4 +16,9 @@ const ModalInput = styled.div`
   }
 `;
 
-export default ModalInput;
+export const PopoverContainer = styled.div`
+  [data-tippy-root] {
+    width: 100%;
+    margin-top: -10px !important;
+  }
+`;

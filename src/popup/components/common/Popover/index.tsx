@@ -12,7 +12,9 @@ type AppProps = {
   onHide?: () => void;
   visible: boolean;
   hideFunc: () => void;
-  triggerElement: React.ReactNode;
+  triggerElement?: React.ReactNode;
+  maxWidth?: number | string;
+  parent?: any;
 };
 
 const Container = styled.div`
@@ -31,6 +33,8 @@ const Popover = ({
   visible,
   hideFunc,
   triggerElement,
+  maxWidth,
+  parent,
 }: AppProps) => (
   <Tippy
     content={<Container className={className}>{children}</Container>}
@@ -41,6 +45,9 @@ const Popover = ({
     onHide={onHide}
     visible={visible}
     onClickOutside={hideFunc}
+    maxWidth={maxWidth}
+    className="test"
+    appendTo={parent}
   >
     <div>{triggerElement}</div>
   </Tippy>
@@ -50,6 +57,9 @@ Popover.defaultProps = {
   placement: 'top',
   className: '',
   onHide: () => {},
+  triggerElement: null,
+  maxWidth: 'none',
+  parent: document.body,
 };
 
 export default Popover;

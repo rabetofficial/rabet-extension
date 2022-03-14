@@ -17,8 +17,9 @@ import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import BasicConfirmSend from 'popup/blocks/Op/Basic/Confirm/Send';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import DestinationSuggest from './DestinationSuggestion';
 
-import ModalInput from './styles';
+import { ModalInput, PopoverContainer } from './styles';
 
 type FormValues = {
   memo: string;
@@ -202,7 +203,7 @@ const BasicSend = ({ usage }: AppProps) => {
 
             <Field name="destination">
               {({ input, meta }) => (
-                <>
+                <PopoverContainer className="relative" id="full">
                   <label className="label-primary block mt-4">
                     Destination
                   </label>
@@ -214,7 +215,10 @@ const BasicSend = ({ usage }: AppProps) => {
                     input={input}
                     meta={meta}
                   />
-                </>
+                  {input.value && input.value.length > 0 && (
+                    <DestinationSuggest />
+                  )}
+                </PopoverContainer>
               )}
             </Field>
 
