@@ -15,6 +15,7 @@ type AppProps = {
   triggerElement?: React.ReactNode;
   maxWidth?: number | string;
   parent?: any;
+  arrow?: boolean;
 };
 
 const Container = styled.div`
@@ -35,12 +36,13 @@ const Popover = ({
   triggerElement,
   maxWidth,
   parent,
+  arrow,
 }: AppProps) => (
   <Tippy
     content={<Container className={className}>{children}</Container>}
     placement={placement}
     animation="shift-away"
-    arrow={roundArrow}
+    arrow={arrow ? roundArrow : false}
     interactive
     onHide={onHide}
     visible={visible}
@@ -60,6 +62,7 @@ Popover.defaultProps = {
   triggerElement: null,
   maxWidth: 'none',
   parent: document.body,
+  arrow: true,
 };
 
 export default Popover;
