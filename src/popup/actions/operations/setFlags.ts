@@ -1,17 +1,24 @@
-import StellarSdk from 'stellar-sdk';
+import {
+  Server,
+  Horizon,
+  Keypair,
+  Operation,
+  AuthRequiredFlag,
+  AuthRevocableFlag,
+  AuthImmutableFlag,
+  TransactionBuilder,
+} from 'stellar-sdk';
 
 import RouteName from 'popup/staticRes/routes';
-import currentActiveAccount from 'popup/utils/activeAccount';
+import { NavigateFunction } from 'react-router-dom';
 import currentNetwork from 'popup/utils/currentNetwork';
+import currentActiveAccount from 'popup/utils/activeAccount';
+
+import config from '../../../config';
 
 export default async (
-  {
-    auth_required,
-    auth_revocable,
-    auth_immutable,
-    auth_clawback_enabled,
-  },
-  push,
+  flags: Horizon.Flags,
+  push: NavigateFunction,
 ) => {
   push(RouteName.LoadingNetwork);
 
@@ -21,48 +28,44 @@ export default async (
   let setFlags;
   let clearFlags;
 
-  if (auth_required) {
-    setFlags |= StellarSdk.AuthRequiredFlag;
+  if (flags.auth_required) {
+    setFlags |= AuthRequiredFlag;
   } else {
-    clearFlags |= StellarSdk.AuthRequiredFlag;
+    clearFlags |= AuthRequiredFlag;
   }
 
-  if (auth_revocable) {
-    setFlags |= StellarSdk.AuthRevocableFlag;
+  if (flags.auth_revocable) {
+    setFlags |= AuthRevocableFlag;
   } else {
-    clearFlags |= StellarSdk.AuthRevocableFlag;
+    clearFlags |= AuthRevocableFlag;
   }
 
-  if (auth_immutable) {
-    setFlags |= StellarSdk.AuthImmutableFlag;
+  if (flags.auth_immutable) {
+    setFlags |= AuthImmutableFlag;
   } else {
-    clearFlags |= StellarSdk.AuthImmutableFlag;
+    clearFlags |= AuthImmutableFlag;
   }
 
-  if (auth_clawback_enabled) {
-    // setFlags |= StellarSdk.AuthClawbackEnabledFlag;
+  if (flags.auth_clawback_enabled) {
     setFlags |= 8;
   } else {
-    // clearFlags |= StellarSdk.AuthClawbackEnabledFlag;
     clearFlags |= 8;
   }
 
-  const server = new StellarSdk.Server(url);
-  const sourceKeys = StellarSdk.Keypair.fromSecret(
-    activeAccount.privateKey,
-  );
+  const server = new Server(url);
+  const sourceKeys = Keypair.fromSecret(activeAccount.privateKey);
 
   let transaction;
 
   server
     .loadAccount(sourceKeys.publicKey())
     .then((sourceAccount) => {
-      transaction = new StellarSdk.TransactionBuilder(sourceAccount, {
-        fee: StellarSdk.BASE_FEE,
+      transaction = new TransactionBuilder(sourceAccount, {
+        fee: config.BASE_FEE,
         networkPassphrase: passphrase,
       })
         .addOperation(
-          StellarSdk.Operation.setOptions({
+          Operation.setOptions({
             setFlags,
             clearFlags,
           }),
@@ -77,14 +80,20 @@ export default async (
     .then((result) => {
       push(RouteName.Sucess, {
         state: {
-          hash: result.hash,
+          message: result.hash,
         },
       });
     })
     .catch((err) => {
+      let error = err.message;
+
+      if (err && err.response && err.response.data) {
+        error = err.response.data;
+      }
+
       push(RouteName.Error, {
         state: {
-          message: err.message,
+          message: error,
         },
       });
     });

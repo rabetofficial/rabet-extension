@@ -69,7 +69,7 @@ export default async (values: SendValues) => {
       });
 
     return [true, transactionResult.hash];
-  } catch (err) {
+  } catch (err: any) {
     if (err && err.response && err.response.data) {
       return [false, showError(err.response.data)];
     }

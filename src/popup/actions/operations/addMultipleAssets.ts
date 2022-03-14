@@ -53,7 +53,7 @@ const addMultipleAssets = async (
       });
 
     return [true, result.hash];
-  } catch (err) {
+  } catch (err: any) {
     return [false, err.message];
   }
 };

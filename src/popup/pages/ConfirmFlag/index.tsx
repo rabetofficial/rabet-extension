@@ -1,26 +1,27 @@
 import React from 'react';
+import { Horizon } from 'stellar-sdk';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import Alert from 'popup/components/common/Alert';
 import Header from 'popup/components/common/Header';
 import Button from 'popup/components/common/Button';
-import setFlagsAction from 'popup/actions/operations/setFlags';
-import currentActiveAccount from 'popup/utils/activeAccount';
-import ButtonContainer from 'popup/components/common/ButtonContainer';
 import ExtTitle from 'popup/components/common/Title/Ext';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import setFlagsAction from 'popup/actions/operations/setFlags';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 const ConfirmFlag = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
+  const account = useActiveAccount();
+
+  const newFlags: Horizon.Flags = state.flags;
+  const isAuthClawbackEnabledAlreadyEnabled =
+    !!account.flags?.auth_clawback_enabled;
 
   const handleSubmit = () => {
-    const { activeAccount } = currentActiveAccount();
-
-    const isAuthClawbackEnabledAlreadyEnabled =
-      activeAccount.flags.auth_clawback_enabled;
-
     const flags = {
-      ...state,
+      ...newFlags,
     };
 
     if (
@@ -41,20 +42,13 @@ const ConfirmFlag = () => {
     setFlagsAction(flags, navigate);
   };
 
-  const { activeAccount } = currentActiveAccount();
-  const { auth_revocable, auth_immutable, auth_clawback_enabled } =
-    state;
-
-  const isAuthClawbackEnabledAlreadyEnabled =
-    activeAccount.flags.auth_clawback_enabled;
-
   return (
     <>
       <Header />
 
       <div style={{ padding: '16px' }}>
         <ExtTitle title="Flags" />
-        {auth_immutable ? (
+        {newFlags.auth_immutable ? (
           <>
             <Alert
               type="alert-warning"
@@ -68,8 +62,8 @@ const ConfirmFlag = () => {
         ) : (
           ''
         )}
-        {auth_clawback_enabled &&
-        !auth_revocable &&
+        {newFlags.auth_clawback_enabled &&
+        !newFlags.auth_revocable &&
         !isAuthClawbackEnabledAlreadyEnabled ? (
           <>
             <Alert
@@ -80,8 +74,8 @@ const ConfirmFlag = () => {
         ) : (
           ''
         )}
-        {auth_clawback_enabled &&
-        !auth_revocable &&
+        {newFlags.auth_clawback_enabled &&
+        !newFlags.auth_revocable &&
         isAuthClawbackEnabledAlreadyEnabled ? (
           <>
             <Alert
@@ -92,6 +86,7 @@ const ConfirmFlag = () => {
         ) : (
           ''
         )}
+
         <ButtonContainer btnSize={100} gap={12} mt={40} justify="end">
           <Button
             variant="default"

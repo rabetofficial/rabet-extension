@@ -44,7 +44,7 @@ export default async (
     const result = await server.submitTransaction(transaction);
 
     return [true, result.hash];
-  } catch (err) {
+  } catch (err: any) {
     return [false, err.message];
   }
 };

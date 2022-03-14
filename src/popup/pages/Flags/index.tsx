@@ -1,89 +1,102 @@
-import { connect } from 'react-redux';
+import { Horizon } from 'stellar-sdk';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 import RouteName from 'popup/staticRes/routes';
+import * as flagsText from 'popup/staticRes/flags';
 import Header from 'popup/components/common/Header';
 import Button from 'popup/components/common/Button';
 import Tooltip from 'popup/components/common/Tooltips';
 import ExtTitle from 'popup/components/common/Title/Ext';
 import ScrollBar from 'popup/components/common/ScrollBar';
-import currentActiveAccount from 'popup/utils/activeAccount';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 import setFlagsAction from 'popup/actions/operations/setFlags';
 import ToggleSwitch from 'popup/components/common/ToggleSwitch';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
-const tooltipInfo = {
-  required:
-    'Requires the issuing account to give other accounts permission before they can hold the issuing account’s credit.',
-  revocable:
-    'Allows the issuing account to revoke its credit held by other accounts.',
-  immutable:
-    'If this is set then none of the authorization flags can be changed and the account can never be deleted.',
-  clawback:
-    'Enables clawbacks for all assets issued by this account. Note that this only applies along trustlines established after this flag has been set. Requires authorization revocable.',
-};
-
 const Flags = () => {
   const navigate = useNavigate();
-
+  const account = useActiveAccount();
+  const [flags, setFlags] = useState<Partial<Horizon.Flags> | null>(
+    null,
+  );
   const [disabled, setDisabled] = useState(false);
-  const [auth_required, setAuth_required] = useState(false);
-  const [auth_revocable, setAuth_revocable] = useState(false);
-  const [auth_immutable, setAuth_immutable] = useState(false);
-
-  const [auth_clawback_enabled, setAuth_clawback_enabled] =
-    useState(false);
 
   useEffect(() => {
-    const { activeAccount } = currentActiveAccount();
+    if (account.flags) {
+      setFlags(account.flags);
 
-    if (activeAccount.flags.auth_immutable) {
-      setDisabled(true);
+      if (account.flags.auth_immutable) {
+        setDisabled(true);
+      }
     }
+  }, [account.flags]);
 
-    setAuth_required(activeAccount.flags.auth_required || false);
-    setAuth_revocable(activeAccount.flags.auth_revocable || false);
-    setAuth_immutable(activeAccount.flags.auth_immutable || false);
-    setAuth_clawback_enabled(
-      activeAccount.flags.auth_clawback_enabled || false,
-    );
-  }, []);
+  const handleCheckedRequired = (checked: boolean) => {
+    if (flags) {
+      setFlags({
+        ...flags,
+        auth_required: checked,
+      });
+    } else {
+      setFlags({
+        auth_required: checked,
+      });
+    }
+  };
+  const handleCheckedRevocable = (checked: boolean) => {
+    if (flags) {
+      setFlags({
+        ...flags,
+        auth_revocable: checked,
+      });
+    } else {
+      setFlags({
+        auth_revocable: checked,
+      });
+    }
+  };
 
-  const handleCheckedRequired = (checked) =>
-    setAuth_required(checked);
-  const handleCheckedRevocable = (checked) =>
-    setAuth_revocable(checked);
-  const handleCheckedImmutable = (checked) =>
-    setAuth_immutable(checked);
-  const handleClawbackEnabled = (checked) =>
-    setAuth_clawback_enabled(checked);
+  const handleCheckedImmutable = (checked: boolean) => {
+    if (flags) {
+      setFlags({
+        ...flags,
+        auth_immutable: checked,
+      });
+    } else {
+      setFlags({
+        auth_immutable: checked,
+      });
+    }
+  };
+
+  const handleClawbackEnabled = (checked: boolean) => {
+    if (flags) {
+      setFlags({
+        ...flags,
+        auth_clawback_enabled: checked,
+      });
+    } else {
+      setFlags({
+        auth_clawback_enabled: checked,
+      });
+    }
+  };
 
   const handleSubmit = () => {
     if (
-      auth_immutable ||
-      (auth_clawback_enabled && !auth_revocable)
+      flags?.auth_immutable ||
+      (flags?.auth_clawback_enabled && !flags?.auth_revocable)
     ) {
       navigate(RouteName.ConfirmFlag, {
         state: {
-          auth_required,
-          auth_revocable,
-          auth_immutable,
-          auth_clawback_enabled,
+          flags,
         },
       });
     } else {
-      setFlagsAction(
-        {
-          auth_required,
-          auth_revocable,
-          auth_immutable,
-          auth_clawback_enabled,
-        },
-        navigate,
-      );
+      setFlagsAction(flags, navigate);
     }
   };
 
@@ -99,17 +112,20 @@ const Flags = () => {
     <>
       <ScrollBar isHidden maxHeight={600}>
         <Header />
+
         <S.Content>
           <ExtTitle title="Flags" />
+
           <S.Ttile>
             Currently, there are 4 flags, used by issuers of assets.
             in below you can see your flags status:
           </S.Ttile>
+
           <S.Div>
             <div>
               <S.ToggleTitle>
                 Authorization required
-                <Tooltip text={tooltipInfo.required} placement="top">
+                <Tooltip text={flagsText.required} placement="top">
                   <span className="icon-question-mark" />
                 </Tooltip>
               </S.ToggleTitle>
@@ -118,16 +134,17 @@ const Flags = () => {
             <div>
               <ToggleSwitch
                 disabled={disabled}
-                checked={auth_required}
+                checked={!!flags?.auth_required}
                 handleChange={handleCheckedRequired}
               />
             </div>
           </S.Div>
+
           <S.Div>
             <div>
               <S.ToggleTitle>
                 Authorization revocable
-                <Tooltip text={tooltipInfo.revocable} placement="top">
+                <Tooltip text={flagsText.revocable} placement="top">
                   <span className="icon-question-mark" />
                 </Tooltip>
               </S.ToggleTitle>
@@ -136,16 +153,17 @@ const Flags = () => {
             <div>
               <ToggleSwitch
                 disabled={disabled}
-                checked={auth_revocable}
+                checked={!!flags?.auth_revocable}
                 handleChange={handleCheckedRevocable}
               />
             </div>
           </S.Div>
+
           <S.Div>
             <div>
               <S.ToggleTitle>
                 Authorization immutable
-                <Tooltip text={tooltipInfo.immutable} placement="top">
+                <Tooltip text={flagsText.immutable} placement="top">
                   <span className="icon-question-mark" />
                 </Tooltip>
               </S.ToggleTitle>
@@ -154,16 +172,17 @@ const Flags = () => {
             <div>
               <ToggleSwitch
                 disabled={disabled}
-                checked={auth_immutable}
+                checked={!!flags?.auth_immutable}
                 handleChange={handleCheckedImmutable}
               />
             </div>
           </S.Div>
+
           <S.Div>
             <div>
               <S.ToggleTitle>
                 Clawback enabled
-                <Tooltip text={tooltipInfo.clawback} placement="top">
+                <Tooltip text={flagsText.clawback} placement="top">
                   <span className="icon-question-mark" />
                 </Tooltip>
               </S.ToggleTitle>
@@ -172,11 +191,12 @@ const Flags = () => {
             <div>
               <ToggleSwitch
                 disabled={disabled}
-                checked={auth_clawback_enabled}
+                checked={!!flags?.auth_clawback_enabled}
                 handleChange={handleClawbackEnabled}
               />
             </div>
           </S.Div>
+
           {disabled ? (
             <S.ErrorBox style={{ marginTop: '8px' }}>
               You can no longer change the status of your flags
@@ -185,6 +205,7 @@ const Flags = () => {
           ) : (
             ''
           )}
+
           <ButtonContainer
             gap={12}
             mt={12}
@@ -197,6 +218,7 @@ const Flags = () => {
               content="Cancel"
               onClick={onCancel}
             />
+
             <Button
               disabled={disabled}
               onClick={handleSubmit}
@@ -211,6 +233,4 @@ const Flags = () => {
   );
 };
 
-export default connect((state) => ({
-  accounts: state.accounts,
-}))(Flags);
+export default Flags;

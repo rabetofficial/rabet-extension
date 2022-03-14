@@ -60,11 +60,11 @@ export const TransferTx = ({
         </S.ImgContainer>
         <S.TextContainer>
           {type === 'send' ? 'Send' : 'Receive'}{' '}
-          {formatBalance(amount)} {asset_code}
+          {formatBalance(amount.toString())} {asset_code}
         </S.TextContainer>
       </S.MainPart>
       <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
-        {DateTime.fromISO(date).toRelativeCalendar()}
+        {DateTime.fromISO(date).toFormat('MMM dd')}
       </S.DateContainer>
     </S.Container>
   </div>
@@ -89,15 +89,15 @@ export const SwapTx = ({
           <Icons.Swap />
         </S.ImgContainer>
         <S.TextContainer>
-          Swap {formatBalance(amount1)} {asset_code1}
+          Swap {formatBalance(amount1.toString())} {asset_code1}
           <span className="mx-1">
             <Icons.SwapBack />
           </span>
-          {formatBalance(amount2)} {asset_code2}
+          {formatBalance(amount2.toString())} {asset_code2}
         </S.TextContainer>
       </S.MainPart>
       <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
-        {DateTime.fromISO(date).toRelativeCalendar()}
+        {DateTime.fromISO(date).toFormat('MMM dd')}
       </S.DateContainer>
     </S.Container>
   </div>
@@ -137,7 +137,7 @@ export const OperationsTx = ({
         </S.MainPart>
 
         <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
-          {DateTime.fromISO(date).toRelativeCalendar()}
+          {DateTime.fromISO(date).toFormat('MMM dd')}
         </S.DateContainer>
       </S.Container>
     </div>
