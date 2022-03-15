@@ -42,6 +42,7 @@ const Home = () => {
   if (isLoading && !state?.alreadyLoaded) {
     return <LoadingOne />;
   }
+
   const toggleModal = () => {
     openModalAction({
       isStyled: false,

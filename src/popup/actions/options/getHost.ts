@@ -1,8 +1,8 @@
 import isValidDomain from 'is-valid-domain';
 
 import store from 'popup/store';
-import { change } from '../../reducers/host';
-import getHostOfUrl from '../../utils/getHostOfUrl';
+import { change } from 'popup/reducers/host';
+import getHostOfUrl from 'popup/utils/getHostOfUrl';
 
 const getHost = () =>
   new Promise((resolve) => {

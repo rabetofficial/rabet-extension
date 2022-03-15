@@ -91,6 +91,7 @@ const ConfirmLogin = () => {
                       variant="password"
                       input={input}
                       meta={meta}
+                      autoFocus
                     />
                   )}
                 </Field>

@@ -1,27 +1,29 @@
 import React from 'react';
-import shortid from 'shortid';
-import { connect } from 'react-redux';
 
+import Multiply from 'popup/svgs/Multiply';
 import Header from 'popup/components/common/Header';
-import PageTitle from 'popup/components/PageTitle';
-import currentActiveAccount from 'popup/utils/activeAccount';
+import ExtTitle from 'popup/components/common/Title/Ext';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 import removeConnectedWebsitesAction from 'popup/actions/user/removeConnectedWebsites';
 
 import * as S from './styles';
-import ExtTitle from 'popup/components/common/Title/Ext';
 
-const ConnectedWebsite = ({ user }) => {
-  const { activeAccount } = currentActiveAccount();
-  const { connectedWebsites } = user;
+const ConnectedWebsite = () => {
+  const { publicKey } = useActiveAccount();
+  const { connectedWebsites } = useTypedSelector(
+    (store) => store.user,
+  );
+
   const associatedWebsites = connectedWebsites.filter((x) =>
-    x.includes(activeAccount.publicKey),
+    x.includes(publicKey),
   );
   const websitesMapped = associatedWebsites.map(
     (x) => x.split('/')[0],
   );
 
-  const removeConnectedWebsites = (web) => {
-    const cw = `${web}/${activeAccount.publicKey}`;
+  const removeConnectedWebsites = (web: string) => {
+    const cw = `${web}/${publicKey}`;
 
     removeConnectedWebsitesAction(cw);
   };
@@ -29,24 +31,29 @@ const ConnectedWebsite = ({ user }) => {
   return (
     <div>
       <Header />
+
       <div className="content mt-4">
         <ExtTitle title="Connected website" />
+
         <S.Desc>
           List of websites that are allowed to interact with this
           account and get its public-key
         </S.Desc>
+
         <div>
           {websitesMapped.map((web) => (
-            <S.Website key={shortid.generate()}>
+            <S.Website key={web}>
               <S.Link href="#" rel="noreferrer">
                 {web}
               </S.Link>
-              <S.Icon
-                className="icon-multiply"
+
+              <div
                 onClick={() => {
                   removeConnectedWebsites(web);
                 }}
-              />
+              >
+                <Multiply />
+              </div>
             </S.Website>
           ))}
         </div>
@@ -55,6 +62,4 @@ const ConnectedWebsite = ({ user }) => {
   );
 };
 
-export default connect((store) => ({
-  user: store.user,
-}))(ConnectedWebsite);
+export default ConnectedWebsite;

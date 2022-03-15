@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import abbr from 'popup/utils/abbr';
 import { IAccount } from 'popup/reducers/accounts2';
@@ -14,39 +14,50 @@ type AppProps = {
 };
 
 const Account = ({ account }: AppProps) => {
-  const [host, currencies, options] = useTypedSelector((store) => [
-    store.host,
-    store.currencies,
-    store.options,
-  ]);
+  const [host, currencies, options, user] = useTypedSelector(
+    (store) => [
+      store.host,
+      store.currencies,
+      store.options,
+      store.user,
+    ],
+  );
   const [isImageLoaded, setIsImageLoaded] = useState(true);
   const totalBalance = useTotalBalance(account);
+  const [imageSrc, setImageSrc] = useState('');
 
-  const { name, isConnected } = account;
+  useEffect(() => {
+    if (host) {
+      setImageSrc(`https://logo.clearbit.com/${host}?size=30`);
+    }
+  }, [host, user.connectedWebsites]);
 
-  let img = '';
+  const { name, isConnected, publicKey } = account;
 
-  if (host) {
-    img = `https://logo.clearbit.com/${host}?size=30`;
-  }
+  const isConnectedAndExistsInConnectedWebsites =
+    isConnected &&
+    user.connectedWebsites.includes(`${host}/${publicKey}`);
 
   return (
     <S.Item>
       <S.Avatar>{abbr(name)}</S.Avatar>
+
       <S.Container>
         <S.Name>
           {name.length > 13 ? `${name.slice(0, 13)}...` : name}
         </S.Name>
+
         <S.Amount>
           {handleAssetSymbol(currencies, options)}
+
           {formatBalance(totalBalance)}
         </S.Amount>
       </S.Container>
 
-      {isConnected ? (
+      {isConnectedAndExistsInConnectedWebsites ? (
         <S.ImageContainer>
           <img
-            src={img}
+            src={imageSrc}
             alt="Host"
             className={!isImageLoaded ? 'hidden' : ''}
             onError={() => {

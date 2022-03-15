@@ -7,6 +7,7 @@ import BN from 'helpers/BN';
 import Swap from 'popup/svgs/Swap';
 import { Usage } from 'popup/models';
 import Rotate from 'popup/svgs/Rotate';
+import Loading from 'popup/components/Loading';
 import RouteName from 'popup/staticRes/routes';
 import getMaxBalance from 'popup/utils/maxBalance';
 import Button from 'popup/components/common/Button';
@@ -23,10 +24,9 @@ import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import BasicConfirmSwap from 'popup/blocks/Op/Basic/Confirm/Swap';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-import Loading from 'popup/components/Loading';
-import ShowFractional from './ShowFractional';
 
 import * as S from './styles';
+import ShowFractional from './ShowFractional';
 
 export type FormValues = {
   path: any[];
@@ -314,6 +314,13 @@ const BasicSwap = ({ usage }: AppProps) => {
     calculate();
   };
 
+  const handleSwapPlaces = () => {
+    // const { to, from } = getValues();
+    // setValue('from', to);
+    // setValue('to', from);
+    // calculate();
+  };
+
   const onSubmit = async (v: FormValues) => {
     const values = {
       ...v,
@@ -385,7 +392,10 @@ const BasicSwap = ({ usage }: AppProps) => {
         />
       </S.ModalInput>
 
-      <div className="flex justify-center cursor-pointer">
+      <div
+        onClick={handleSwapPlaces}
+        className="flex justify-center cursor-pointer"
+      >
         <Swap />
       </div>
 

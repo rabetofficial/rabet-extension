@@ -13,7 +13,7 @@ export default async (password: string): Promise<boolean> => {
     const newAccounts = accounts.map((account) => ({
       ...account,
       isConnected: connectedWebsites.some(
-        (y) => y === `${host.value}/${account.publicKey}`,
+        (y) => y === `${host}/${account.publicKey}`,
       ),
     }));
 

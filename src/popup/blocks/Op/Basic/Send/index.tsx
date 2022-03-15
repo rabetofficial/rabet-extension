@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Usage } from 'popup/models';
 import getAccount from 'popup/api/getAccount';
 import RouteName from 'popup/staticRes/routes';
+import Error from 'popup/components/common/Error';
 import Input from 'popup/components/common/Input';
 import getMaxBalance from 'popup/utils/maxBalance';
 import Button from 'popup/components/common/Button';
@@ -103,6 +104,14 @@ const BasicSend = ({ usage }: AppProps) => {
     }
 
     if (
+      errors.memo !== undefined ||
+      errors.destination !== undefined ||
+      errors.amount !== undefined
+    ) {
+      return errors;
+    }
+
+    if (
       !isInsufficientAsset(
         values.asset,
         account.subentry_count,
@@ -121,10 +130,6 @@ const BasicSend = ({ usage }: AppProps) => {
       return {
         amount: `Insufficient ${code} balance.`,
       };
-    }
-
-    if (Object.keys(errors).length) {
-      return errors;
     }
 
     const destinationAccount = await getAccount(values.destination);
@@ -174,10 +179,11 @@ const BasicSend = ({ usage }: AppProps) => {
         }}
         render={({
           form,
-          handleSubmit,
           invalid,
           pristine,
           submitting,
+          submitError,
+          handleSubmit,
         }) => (
           <form onSubmit={handleSubmit}>
             <label className="label-primary block mt-4">Amount</label>
@@ -258,6 +264,8 @@ const BasicSend = ({ usage }: AppProps) => {
                 </>
               )}
             </Field>
+
+            {submitError && <Error>{submitError}</Error>}
 
             <ButtonContainer
               btnSize={100}
