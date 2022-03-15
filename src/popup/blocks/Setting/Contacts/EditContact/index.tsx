@@ -97,6 +97,11 @@ const EditContact = ({
         <Form
           validate={validateForm}
           onSubmit={onSubmit}
+          initialValues={{
+            name: contact.name,
+            publicKey: contact.publicKey,
+            memo: contact.memo || '',
+          }}
           render={({
             invalid,
             pristine,
@@ -120,7 +125,6 @@ const EditContact = ({
                       input={input}
                       meta={meta}
                       autoFocus
-                      defaultValue={contact.name}
                     />
                   </div>
                 )}
@@ -137,7 +141,6 @@ const EditContact = ({
                       input={input}
                       meta={meta}
                       autoFocus
-                      defaultValue={contact.publicKey}
                     />
                   </div>
                 )}
@@ -160,7 +163,6 @@ const EditContact = ({
                       input={input}
                       meta={meta}
                       autoFocus
-                      defaultValue={contact.memo || ''}
                     />
                   </div>
                 )}
