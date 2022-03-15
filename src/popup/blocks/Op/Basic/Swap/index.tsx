@@ -385,7 +385,7 @@ const BasicSwap = ({ usage }: AppProps) => {
         />
       </S.ModalInput>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center cursor-pointer">
         <Swap />
       </div>
 
