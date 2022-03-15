@@ -140,7 +140,6 @@ const EditContact = ({
                       size="medium"
                       input={input}
                       meta={meta}
-                      autoFocus
                     />
                   </div>
                 )}
@@ -162,7 +161,6 @@ const EditContact = ({
                       size="medium"
                       input={input}
                       meta={meta}
-                      autoFocus
                     />
                   </div>
                 )}

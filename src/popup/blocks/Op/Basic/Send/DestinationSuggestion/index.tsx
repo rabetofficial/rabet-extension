@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-import Popover from 'popup/components/common/Popover';
+import React, { useState } from 'react';
+
 import { Tab } from 'popup/models';
 import Tabs from 'popup/components/common/Tabs';
+import Popover from 'popup/components/common/Popover';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
+
 import AccountList from './AccountList';
 
 const Container = styled.div`
@@ -13,25 +15,40 @@ const Container = styled.div`
   border: solid 1px ${({ theme }) => theme.colors.primary.lighter};
 `;
 
-const DestinationSuggest = () => {
+type DestinationProps = {
+  handleChange: (publicKey: string) => void;
+};
+
+const DestinationSuggest = ({ handleChange }: DestinationProps) => {
   const [accounts, contacts] = useTypedSelector((store) => [
     store.accounts,
     store.contacts,
   ]);
   const [showPopover, setShowPopover] = useState(true);
+
   const onHidePopover = () => setShowPopover(false);
   const parent = document.querySelector('#full');
+
+  const onChange = (publicKey: string) => {
+    setShowPopover(false);
+
+    handleChange(publicKey);
+  };
 
   const tabs: Tab[] = [
     {
       id: '1',
       title: 'My Accounts',
-      content: <AccountList accounts={accounts} />,
+      content: (
+        <AccountList accounts={accounts} onChange={onChange} />
+      ),
     },
     {
       id: '2',
       title: 'My Contacts',
-      content: '2',
+      content: (
+        <AccountList accounts={contacts} onChange={onChange} />
+      ),
     },
   ];
 

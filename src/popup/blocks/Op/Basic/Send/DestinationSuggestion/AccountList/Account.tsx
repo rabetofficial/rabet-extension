@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
-import { IAccount } from 'popup/reducers/accounts2';
+
 import abbr from 'popup/utils/abbr';
-import useTypedSelector from 'popup/hooks/useTypedSelector';
 import shorter from 'popup/utils/shorter';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 import * as S from './styles';
+import { AccountLike } from './index';
 
 type AppProps = {
-  account: IAccount;
+  account: AccountLike;
 };
 
 const Account = ({ account }: AppProps) => {
   const [host] = useTypedSelector((store) => [store.host]);
   const [isImageLoaded, setIsImageLoaded] = useState(true);
 
-  const { name, address, isConnected } = account;
+  const { name, publicKey, isConnected } = account;
 
   let img = '';
 
@@ -29,7 +30,7 @@ const Account = ({ account }: AppProps) => {
         <S.Name>
           {name.length > 13 ? `${name.slice(0, 13)}...` : name}
         </S.Name>
-        <S.Detail>{address && shorter(address, 8)}</S.Detail>
+        <S.Detail>{publicKey && shorter(publicKey, 8)}</S.Detail>
       </div>
 
       {isConnected ? (

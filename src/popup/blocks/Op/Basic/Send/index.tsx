@@ -17,6 +17,7 @@ import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import BasicConfirmSend from 'popup/blocks/Op/Basic/Confirm/Send';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+
 import DestinationSuggest from './DestinationSuggestion';
 
 import { ModalInput, PopoverContainer } from './styles';
@@ -167,8 +168,17 @@ const BasicSend = ({ usage }: AppProps) => {
               getMaxBalance(selectedAsset, account),
             );
           },
+          changeDestination: (args, state, tools) => {
+            tools.changeValue(state, 'destination', () => args[0]);
+          },
         }}
-        render={({ form, handleSubmit, invalid, pristine }) => (
+        render={({
+          form,
+          handleSubmit,
+          invalid,
+          pristine,
+          submitting,
+        }) => (
           <form onSubmit={handleSubmit}>
             <label className="label-primary block mt-4">Amount</label>
             <ModalInput>
@@ -215,8 +225,13 @@ const BasicSend = ({ usage }: AppProps) => {
                     input={input}
                     meta={meta}
                   />
-                  {input.value && input.value.length > 0 && (
-                    <DestinationSuggest />
+
+                  {(meta.active || meta.touched) && (
+                    <DestinationSuggest
+                      handleChange={(pk) => {
+                        form.mutators.changeDestination(pk);
+                      }}
+                    />
                   )}
                 </PopoverContainer>
               )}
@@ -268,7 +283,7 @@ const BasicSend = ({ usage }: AppProps) => {
                 size="medium"
                 content="Send"
                 className="mr-[-11px]"
-                disabled={invalid || pristine}
+                disabled={invalid || pristine || submitting}
               />
             </ButtonContainer>
           </form>
