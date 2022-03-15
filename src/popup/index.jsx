@@ -24,8 +24,6 @@ import './styles/font.css';
 import theme from './styles/theme';
 import Global from './styles/global';
 
-require('file-loader?name=[name].[ext]!./popup.html');
-
 (async () => {
   await getHost();
   await loadUser();

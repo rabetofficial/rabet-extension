@@ -101,13 +101,18 @@ const PaymentOps = ({ id }: AppProps) => {
       }
     }
 
-    if (!StrKey.isValidEd25519PublicKey(values.destination)) {
-      errors.destination = 'Invalid destination.';
+    if (!values.destination) {
+      errors.destination = '';
       hasError.destination = true;
+    } else {
+      if (!StrKey.isValidEd25519PublicKey(values.destination)) {
+        errors.destination = 'Invalid destination.';
+        hasError.destination = true;
 
-      changeOperationAction(id, {
-        checked: false,
-      });
+        changeOperationAction(id, {
+          checked: false,
+        });
+      }
     }
 
     if (

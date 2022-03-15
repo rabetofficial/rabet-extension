@@ -6,7 +6,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const ManifestPlugin = require('./manifestPlugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -14,6 +16,17 @@ const plugins = [
   new webpack.ProvidePlugin({
     Buffer: ['buffer', 'Buffer'],
   }),
+  new HtmlWebpackPlugin({
+    chunks: ['popup'],
+    template: `${resolve(__dirname, 'src', 'popup')}/popup.html`,
+    filename: `${resolve(`${__dirname}/dist`)}/popup.html`,
+  }),
+  new HtmlWebpackPlugin({
+    chunks: ['interaction'],
+    template: `${resolve(__dirname, 'src', 'interaction')}/interaction.html`,
+    filename: `${resolve(`${__dirname}/dist`)}/interaction.html`,
+  }),
+  new ManifestPlugin(),
 ];
 
 if (!devMode) {
@@ -49,13 +62,27 @@ const config = {
       }),
       new CssMinimizerPlugin(),
     ],
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   module: {
     rules: [
       {
         test: /\.tsx?/,
         exclude: /node_modules/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
+        // use: 'ts-loader',
+        // options: {
+        //   ignoreDiagnostics: [2339, 7006, 7016],
+        // },
       },
       {
         test: /\.(js|jsx)$/,
@@ -115,6 +142,9 @@ const config = {
       popup: resolve(__dirname, 'src', 'popup'),
       helpers: resolve(__dirname, 'src', 'helpers'),
       assets: resolve(__dirname, 'src', 'assets'),
+      background_script_bundle: devMode
+        ? 'dist/vendors-node_modules_aes256_index_js-node_modules_babel-polyfill_lib_index_js-node_modules_st-aa6ffa.js'
+        : 'dist/686.js',
     },
   },
   watch: devMode,
