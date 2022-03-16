@@ -11,6 +11,12 @@ export const Item = styled.p`
   color: ${({ theme }) => theme.colors.primary.darkest};
 `;
 
+export const ItemHead = styled.p`
+  font-size: 16px;
+  font-weight: normal;
+  color: ${({ theme }) => theme.colors.primary.dark};
+`;
+
 export const Circle = styled.span`
   display: flex;
   justify-content: center;

@@ -86,6 +86,6 @@ export const ChildLabel = styled.div`
   margin-bottom: -2px;
   font-weight: 500;
   @media (max-width: 360px) {
-    margin-top: 22px;
+    margin-top: 0px;
   }
 `;

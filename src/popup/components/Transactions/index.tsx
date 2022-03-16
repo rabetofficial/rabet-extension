@@ -39,10 +39,7 @@ const Transactions = ({
         isHidden
         maxHeight={usage === 'extension' ? 220 : 600}
       >
-        <div
-          className="flex justify-center items-center"
-          style={{ height: usage === 'extension' ? '220px' : '60vh' }}
-        >
+        <div className="flex justify-center items-center lg:my-[190px] md:my-[180px] sm:my-[40px] my-[40px]">
           <Loading size={usage === 'extension' ? 60 : 80} />
         </div>
       </ScrollBar>

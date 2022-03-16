@@ -82,6 +82,7 @@ const ConfirmWallet = () => {
 
             <ButtonContainer btnSize={86} mt={32} justify="end">
               <Button
+                className="mb-6"
                 type="submit"
                 variant="primary"
                 size="medium"

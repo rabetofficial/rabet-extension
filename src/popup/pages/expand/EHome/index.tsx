@@ -10,6 +10,7 @@ import AdvanceOperation from 'popup/pages/expand/EHome/Operation/Advance';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 import ConfirmWallet from 'popup/pages/expand/EHome/WalletInfo/ConfirmWallet';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
+import InsideTabLayout from 'popup/components/common/Layouts/InsideTabLayout';
 
 const EHome = () => {
   const isLoading = useLoadHome();
@@ -30,9 +31,17 @@ const EHome = () => {
           <AdvanceOperation />
         ),
     },
-    { id: 2, title: 'Transactions', content: <Transactions /> },
+    {
+      id: 2,
+      title: 'Transactions',
+      content: <Transactions usage="desktop" />,
+    },
     { id: 3, title: 'Wallet info', content: <ConfirmWallet /> },
-    { id: 4, title: 'Settings', content: <Setting /> },
+    {
+      id: 4,
+      title: 'Settings',
+      content: <Setting usage="desktop" />,
+    },
   ];
 
   return <ExpandLayout tabItems={tabs} />;

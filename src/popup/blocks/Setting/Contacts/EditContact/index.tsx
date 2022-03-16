@@ -2,6 +2,7 @@ import React from 'react';
 import { StrKey } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
+import { Usage } from 'popup/models';
 import Input from 'popup/components/common/Input';
 import { Contact } from 'popup/reducers/contacts';
 import PageTitle from 'popup/components/PageTitle';
@@ -18,9 +19,11 @@ type EditContactType = {
   titlePage?: boolean;
   onClose: () => void;
   children?: JSX.Element;
+  usage: Usage;
 };
 
 const EditContact = ({
+  usage,
   contact,
   onClose,
   children,
@@ -170,6 +173,9 @@ const EditContact = ({
               <ButtonContainer
                 btnSize={100}
                 mt={34}
+                positionStyles={{
+                  bottom: usage === 'extension' ? '47px' : '32px',
+                }}
                 justify="end"
                 gap={5}
               >

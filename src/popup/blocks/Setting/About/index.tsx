@@ -19,11 +19,10 @@ const About = ({ onClose }: AboutProps) => (
     />
 
     <div>
-      <S.Item className="mt-[26px]">Version</S.Item>
+      <S.ItemHead className="mt-[26px]">Version</S.ItemHead>
       <S.Item className="mt-[7px]">{config.VERSION}</S.Item>
     </div>
     <S.Hr />
-    <S.Item>Links</S.Item>
     <S.Item className="mt-[20px]">
       <a
         href="https://rabet.io/privacy-policy"
@@ -44,7 +43,7 @@ const About = ({ onClose }: AboutProps) => (
     </S.Item>
     <S.Item className="mt-[24px]">Contact</S.Item>
     <S.Hr />
-    <S.Item>Join us</S.Item>
+    <S.ItemHead>Join us</S.ItemHead>
     <S.ContactLinksContainer>
       <S.Circle>
         <a

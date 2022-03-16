@@ -2,6 +2,7 @@ import React from 'react';
 import { StrKey } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
+import { Usage } from 'popup/models';
 import Error from 'popup/components/common/Error';
 import Input from 'popup/components/common/Input';
 import PageTitle from 'popup/components/PageTitle';
@@ -19,15 +20,17 @@ type FormValues = {
 };
 
 type CreateContactType = {
+  usage: Usage;
   titlePage?: boolean;
   onClose: () => void;
   children?: JSX.Element;
 };
 
 const CreateContact = ({
-  titlePage,
+  usage,
   onClose,
   children,
+  titlePage,
 }: CreateContactType) => {
   const [accounts, contacts] = useTypedSelector((store) => [
     store.accounts,
@@ -172,6 +175,9 @@ const CreateContact = ({
                 btnSize={100}
                 mt={34}
                 justify="end"
+                positionStyles={{
+                  bottom: usage === 'extension' ? '47px' : '32px',
+                }}
                 gap={5}
               >
                 <Button
