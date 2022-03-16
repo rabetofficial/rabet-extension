@@ -20,10 +20,13 @@ export const Website = styled.div`
 export const Link = styled.a`
   font-size: 16px;
   font-weight: 500;
-  color: 3273ff;
+  color: #3273ff;
 `;
 
 export const Icon = styled.span`
   color: ${({ theme }) => theme.colors.primary.lighter};
+  cursor: pointer;
+`;
+export const Close = styled.span`
   cursor: pointer;
 `;

@@ -52,7 +52,9 @@ const ConnectedWebsite = () => {
                   removeConnectedWebsites(web);
                 }}
               >
-                <Multiply />
+                <S.Close>
+                  <Multiply size={12} />
+                </S.Close>
               </div>
             </S.Website>
           ))}
