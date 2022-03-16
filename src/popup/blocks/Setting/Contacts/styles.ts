@@ -76,6 +76,9 @@ export const ActionIcons = styled.div`
 
 export const ChildContainer = styled.div`
   padding: 18px 32px 24px;
+  @media (max-width: 360px) {
+    padding: 16px;
+  }
 `;
 
 export const ChildLabel = styled.div`
