@@ -3,10 +3,13 @@ import { useLocation } from 'react-router-dom';
 
 import shorter from 'popup/utils/shorter';
 import LoadingOne from 'popup/pages/LoadingOne';
-import CopyText from 'popup/components/common/CopyText';
 import useLoadHome from 'popup/hooks/useLoadHome';
 import Header from 'popup/components/common/Header';
 import formatBalance from 'popup/utils/formatBalance';
+import openModalAction from 'popup/actions/modal/open';
+import CopyText from 'popup/components/common/CopyText';
+import closeModalAction from 'popup/actions/modal/close';
+import ExtTitle from 'popup/components/common/Title/Ext';
 import useTotalBalance from 'popup/hooks/useTotalBalance';
 import ScrollBar from 'popup/components/common/ScrollBar';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
@@ -14,11 +17,7 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import EditWalletName from 'popup/components/EditWalletName';
 import useActiveCurrency from 'popup/hooks/useActiveCurrency';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
-// import isOtherConnected from 'popup/utils/isOtherConnected';
-import openModalAction from 'popup/actions/modal/open';
-import closeModalAction from 'popup/actions/modal/close';
-// import ModalConnectStatus from 'popup/components/ModalConnectStatus';
-import ExtTitle from 'popup/components/common/Title/Ext';
+import ModalConnectStatus from 'popup/components/ModalConnectStatus';
 
 import Links from './Links';
 import * as S from './styles';
@@ -31,8 +30,6 @@ const Home = () => {
   const totalBalance = useTotalBalance();
   const activeCurrency = useActiveCurrency();
   const { isConnected, publicKey } = useActiveAccount();
-  // const [isOtherConnectedState, setIsOtherConnectedState] =
-  //   useState(false);
 
   const [currencies, options] = useTypedSelector((store) => [
     store.currencies,
@@ -53,14 +50,7 @@ const Home = () => {
       children: (
         <div className="content mt-4">
           <ExtTitle onClose={closeModalAction} />
-          {/* <ModalConnectStatus
-            host={host}
-            forceUpdate={forceUpdate}
-            toggleModal={toggleModal}
-            result={isConnected}
-            publicKey={activeAccount.publicKey}
-            isOtherConnected={isOtherConnectedState}
-          /> */}
+          <ModalConnectStatus />
         </div>
       ),
     });

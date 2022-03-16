@@ -39,6 +39,11 @@ type SetInactiveAction = {
   inactive: boolean;
 };
 
+type ChangeIsConnectedAction = {
+  publicKey: string;
+  isConnected: boolean;
+};
+
 const initialState: IAccount[] = [];
 
 const accountsSlice = createSlice({
@@ -106,6 +111,16 @@ const accountsSlice = createSlice({
         }
       }
     },
+    changeIsConnected: (
+      state,
+      action: PayloadAction<ChangeIsConnectedAction>,
+    ) => {
+      for (let i = 0; i < state.length; i += 1) {
+        if (state[i].publicKey === action.payload.publicKey) {
+          state[i].isConnected = action.payload.isConnected;
+        }
+      }
+    },
     setInactive: (
       state,
       action: PayloadAction<SetInactiveAction>,
@@ -130,5 +145,6 @@ export const {
   setInactive,
   changeActive,
   addSubentryCount,
+  changeIsConnected,
 } = accountsSlice.actions;
 export default accountsSlice.reducer;

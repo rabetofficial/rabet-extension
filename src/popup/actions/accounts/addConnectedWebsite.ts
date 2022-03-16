@@ -1,12 +1,17 @@
 import store from 'popup/store';
 import { set } from 'helpers/storage';
 import { addConnectedWebsites } from 'popup/reducers/user';
-import { changeIsConnected } from 'popup/reducers/accounts';
+import { changeIsConnected } from 'popup/reducers/accounts2';
 
-export default async (
-  { host, publicKey }: { host: string; publicKey: string },
-  forceUpdate: () => {},
-): Promise<void> => {
+type AddConnectedWebsitesArgs = {
+  host: string;
+  publicKey: string;
+};
+
+export default async ({
+  host,
+  publicKey,
+}: AddConnectedWebsitesArgs): Promise<void> => {
   const { connectedWebsites } = store.getState().user;
   const pair = `${host}/${publicKey}`;
 
@@ -21,5 +26,4 @@ export default async (
   );
 
   await set('connectedWebsites', newWebsites);
-  forceUpdate();
 };

@@ -1,6 +1,6 @@
-import store from '../store';
+import store from 'popup/store';
 
-const isOtherConnected = (publicKey, host) => {
+const isOtherConnected = (publicKey: string, host: string) => {
   const { connectedWebsites } = store.getState().user;
   const pair = `${host}/${publicKey}`;
 

@@ -1,37 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import Button from 'popup/components/common/Button';
+import closeModalAction from 'popup/actions/modal/close';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import isOtherConnected from 'popup/utils/isOtherConnected';
 import addConnectedWebsite from 'popup/actions/accounts/addConnectedWebsite';
 import removeConnectedWebsite from 'popup/actions/accounts/removeConnectedWebsite';
 
-type ModalConnectStatusType = {
-  host: any;
-  result: any;
-  publicKey: string;
-  toggleModal: any;
-  forceUpdate: any;
-  isOtherConnected: boolean;
-};
-const ModalConnectStatus = ({
-  host,
-  result,
-  publicKey,
-  toggleModal,
-  forceUpdate,
-  isOtherConnected,
-}: ModalConnectStatusType) => {
+const ModalConnectStatus = () => {
+  const host = useTypedSelector((store) => store.host);
+  const { publicKey, isConnected } = useActiveAccount();
+  const [othersConnected, setOthersConnected] = useState(false);
+
+  useEffect(() => {
+    setOthersConnected(isOtherConnected(publicKey, host));
+  }, [host, publicKey, isConnected]);
+
   const handleConnect = () => {
-    addConnectedWebsite({ host, publicKey }, forceUpdate);
-    toggleModal();
+    addConnectedWebsite({ host, publicKey });
+
+    closeModalAction();
   };
 
   const handleDisconnect = () => {
-    removeConnectedWebsite({ host, publicKey }, forceUpdate);
-    toggleModal();
+    removeConnectedWebsite({ host, publicKey });
+
+    closeModalAction();
   };
 
-  if (result) {
+  if (isConnected) {
     return (
       <div>
         This account is connected to this site. Do you want to
@@ -50,7 +49,7 @@ const ModalConnectStatus = ({
     );
   }
 
-  if (isOtherConnected) {
+  if (othersConnected) {
     return (
       <div>
         You have an account connected to this site. Do you want to
@@ -81,4 +80,5 @@ const ButtonContainer = styled.div`
   font-size: 18px;
   width: 100%;
 `;
+
 export default ModalConnectStatus;
