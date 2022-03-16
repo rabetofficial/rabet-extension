@@ -14,7 +14,7 @@ const ThirdSlide = () => (
       <S.HeadText className="mt-[62px]">
         Made for interaction
       </S.HeadText>
-      <S.MainText>
+      <S.MainText className="h-[80px]">
         Anything you have yet gained was derived from the interaction.
         The structure of Rabet is designed such that one can interact
         with the next generation financial network, i.e., Stellar.

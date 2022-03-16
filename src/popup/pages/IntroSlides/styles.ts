@@ -36,7 +36,7 @@ export const ImgSlideThird = styled.div`
   display: block;
 
   @media (max-width: 630px) and (min-width: 360px) {
-    margin-top: 40px;
+    margin-top: 25px;
     width: 263px;
     height: 288px;
   }
