@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Usage } from 'popup/models';
 import { FormValues } from 'popup/components/PrivateKey';
 
 import TabList from './TabList';
@@ -11,7 +12,7 @@ type RestoreWalletProps = {
   onCancel: () => void;
   onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
   isModal?: boolean;
-  isExtension?: boolean;
+  usage: Usage;
   onSubmitBackup: () => void;
 };
 
@@ -20,7 +21,7 @@ const RestoreWallet = ({
   onCancel,
   onSubmit,
   isModal,
-  isExtension,
+  usage,
   onSubmitBackup,
 }: RestoreWalletProps) => (
   <>
@@ -32,7 +33,7 @@ const RestoreWallet = ({
         onCancelPrivateKey={onCancel}
         onSubmitPrivateKey={onSubmit}
         isModal={isModal}
-        isExtension={isExtension}
+        usage={usage}
       />
     </S.TabContainer>
   </>
@@ -41,7 +42,6 @@ const RestoreWallet = ({
 RestoreWallet.defaultProps = {
   children: '',
   isModal: false,
-  isExtension: false,
 };
 
 export default RestoreWallet;

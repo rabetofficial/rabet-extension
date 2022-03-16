@@ -15,6 +15,7 @@ import { Contact as ContactType } from 'popup/reducers/contacts';
 import CopyText from 'popup/components/common/CopyText';
 import ScrollBar from 'popup/components/common/ScrollBar';
 import RouteName from 'popup/staticRes/routes';
+import { Usage } from 'popup/models';
 
 import * as S from './styles';
 import EditContact from './EditContact';
@@ -23,14 +24,10 @@ import CreateContact from './CreateContact';
 type ContactProps = {
   onClose: () => void;
   needTitle?: boolean;
-  isExtension?: boolean;
+  usage: Usage;
 };
 
-const Contact = ({
-  onClose,
-  needTitle,
-  isExtension,
-}: ContactProps) => {
+const Contact = ({ onClose, needTitle, usage }: ContactProps) => {
   const navigate = useNavigate();
   const contacts = useTypedSelector((store) => store.contacts);
 
@@ -59,7 +56,7 @@ const Contact = ({
   };
 
   const handleOpenAddContact = () => {
-    if (isExtension) {
+    if (usage === 'extension') {
       navigate(RouteName.AddContact);
     } else {
       openAddContactModal();
@@ -67,7 +64,7 @@ const Contact = ({
   };
 
   const handleOpenEditContact = (contact: ContactType) => {
-    if (isExtension) {
+    if (usage === 'extension') {
       navigate(RouteName.EditContact, {
         state: {
           contact,
@@ -177,7 +174,6 @@ const Contact = ({
 
 Contact.defaultProps = {
   needTitle: true,
-  isExtension: false,
 };
 
 export default Contact;

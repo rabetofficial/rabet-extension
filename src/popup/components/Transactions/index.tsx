@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ServerApi } from 'stellar-sdk';
 import React, { useEffect, useState } from 'react';
 
+import { Usage } from 'popup/models';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import loadTransactions from 'popup/features/loadTransactions';
 
@@ -12,12 +13,12 @@ import ScrollBar from '../common/ScrollBar';
 
 type TransactionsType = {
   scrollMaxHeight?: number;
-  isExtension?: boolean;
+  usage: Usage;
 };
 
 const Transactions = ({
   scrollMaxHeight,
-  isExtension,
+  usage,
 }: TransactionsType) => {
   const { publicKey } = useActiveAccount();
   const [transactions, setTransactions] = useState<
@@ -34,19 +35,22 @@ const Transactions = ({
 
   if (isLoading) {
     return (
-      <ScrollBar isHidden maxHeight={isExtension ? 220 : 600}>
+      <ScrollBar
+        isHidden
+        maxHeight={usage === 'extension' ? 220 : 600}
+      >
         <div
           className="flex justify-center items-center"
-          style={{ height: isExtension ? '220px' : '60vh' }}
+          style={{ height: usage === 'extension' ? '220px' : '60vh' }}
         >
-          <Loading size={isExtension ? 60 : 80} />
+          <Loading size={usage === 'extension' ? 60 : 80} />
         </div>
       </ScrollBar>
     );
   }
   if (transactions.length === 0) {
     return (
-      <div style={{ marginTop: isExtension ? '31' : '72' }}>
+      <div style={{ marginTop: usage === 'extension' ? '31' : '72' }}>
         <Nodata msg="You have no transaction" className="text-base" />
       </div>
     );
@@ -77,6 +81,5 @@ const ContentContainer = styled.div`
 
 Transactions.defaultProps = {
   scrollMaxHeight: 600,
-  isExtension: false,
 };
 export default Transactions;

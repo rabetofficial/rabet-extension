@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import { Usage } from 'popup/models';
 import AngleRight from 'popup/svgs/AngleRight';
 import ExtTitle from 'popup/components/common/Title/Ext';
 
@@ -19,10 +20,10 @@ type SettingPage = {
 };
 
 type SettingProps = {
-  isExtension?: boolean;
+  usage: Usage;
 };
 
-const Setting = ({ isExtension }: SettingProps) => {
+const Setting = ({ usage }: SettingProps) => {
   const { state } = useLocation();
 
   const changeContent = (element: JSX.Element) => {
@@ -37,9 +38,7 @@ const Setting = ({ isExtension }: SettingProps) => {
     '1': <General onClose={showMainPage} />,
     '2': <ChangePassword onClose={showMainPage} />,
     '3': <Backup onClose={showMainPage} />,
-    '4': (
-      <Contacts onClose={showMainPage} isExtension={isExtension} />
-    ),
+    '4': <Contacts onClose={showMainPage} usage={usage} />,
     '5': <About onClose={showMainPage} />,
   };
 
@@ -88,7 +87,7 @@ const Setting = ({ isExtension }: SettingProps) => {
 
   const SettingMainPage = () => (
     <S.ContainerBox>
-      {isExtension ? (
+      {usage === 'extension' ? (
         <div className="pt-3 px-4">
           <ExtTitle title="Setting" />
         </div>
@@ -128,10 +127,6 @@ const Setting = ({ isExtension }: SettingProps) => {
   });
 
   return <>{currentElement}</>;
-};
-
-Setting.defaultProps = {
-  isExtension: false,
 };
 
 export default Setting;

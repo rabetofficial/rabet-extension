@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 
+import { Usage } from 'popup/models';
 import ArrowBack from 'popup/svgs/ArrowBack';
 import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
@@ -17,14 +18,14 @@ type PrivateKeyType = {
   onCancel: () => void;
   onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
   isModal?: boolean;
-  isExtension?: boolean;
+  usage: Usage;
 };
 
 const PrivateKey = ({
   onCancel,
   onSubmit,
   isModal,
-  isExtension,
+  usage,
 }: PrivateKeyType) => {
   const validateForm = (values: FormValues) => {
     const errors = {} as FormValues;
@@ -67,11 +68,11 @@ const PrivateKey = ({
 
             {submitError && <Error>{submitError}</Error>}
 
-            {isModal || isExtension ? (
+            {isModal || usage === 'extension' ? (
               <ButtonContainer
                 btnSize={100}
                 justify="end"
-                mt={isExtension ? 28 : 135}
+                mt={usage === 'extension' ? 28 : 135}
                 gap={7}
               >
                 <Button
@@ -117,7 +118,6 @@ const PrivateKey = ({
 
 PrivateKey.defaultProps = {
   isModal: false,
-  isExtension: false,
 };
 
 export default PrivateKey;

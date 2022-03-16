@@ -3,6 +3,7 @@ import { Form, Field } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useCallback } from 'react';
 
+import { Usage } from 'popup/models';
 import { decrypt } from 'helpers/crypto';
 import Download from 'popup/svgs/Download';
 import ArrowBack from 'popup/svgs/ArrowBack';
@@ -24,14 +25,14 @@ type ImportBackupFileType = {
   isModal?: boolean;
   onSubmit: () => void;
   onCancel: () => void;
-  isExtension?: boolean;
+  usage: Usage;
 };
 
 const ImportBackupFile = ({
   isModal,
   onCancel,
   onSubmit,
-  isExtension,
+  usage,
 }: ImportBackupFileType) => {
   const [fileContent, setFileContent] = useState('');
 
@@ -156,11 +157,11 @@ const ImportBackupFile = ({
                 )}
               </Field>
               {submitError && <Error>{submitError}</Error>}
-              {isModal || isExtension ? (
+              {isModal || usage === 'extension' ? (
                 <ButtonContainer
                   btnSize={100}
                   justify="end"
-                  mt={isExtension ? 170 : 60}
+                  mt={usage === 'extension' ? 170 : 60}
                   gap={7}
                 >
                   <Button
@@ -213,6 +214,5 @@ const ImportBackupFile = ({
 
 ImportBackupFile.defaultProps = {
   isModal: false,
-  isExtension: false,
 };
 export default ImportBackupFile;

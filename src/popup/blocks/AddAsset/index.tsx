@@ -14,16 +14,16 @@ import addAssetAction from 'popup/actions/operations/addAsset';
 import { AssetImageWithActive } from 'popup/reducers/assetImages';
 import addMultipleAssets from 'popup/actions/operations/addMultipleAssets';
 
-import { Tab } from 'popup/models';
+import { Usage, Tab } from 'popup/models';
 import SearchAsset from './SearchAsset';
 import CustomAsset, { FormValues } from './CustomAsset';
 
 type AddAssetType = {
   children?: React.ReactNode;
-  isExtension?: boolean;
+  usage: Usage;
 };
 
-const AddAsset = ({ children, isExtension }: AddAssetType) => {
+const AddAsset = ({ children, usage }: AddAssetType) => {
   const navigate = useNavigate();
 
   const handleCustomAssetSubmitBtn = async (values: FormValues) => {
@@ -61,7 +61,7 @@ const AddAsset = ({ children, isExtension }: AddAssetType) => {
   const handleSearchAssetSubmitBtn = async (
     assets: AssetImageWithActive[],
   ) => {
-    if (isExtension) {
+    if (usage === 'extension') {
       navigate(RouteName.LoadingNetwork);
     } else {
       openLoadingModal({});
@@ -72,7 +72,7 @@ const AddAsset = ({ children, isExtension }: AddAssetType) => {
     const message = result[1];
 
     if (isSuccessful) {
-      if (isExtension) {
+      if (usage === 'extension') {
         navigate(RouteName.Sucess, {
           state: {
             message,
@@ -85,7 +85,7 @@ const AddAsset = ({ children, isExtension }: AddAssetType) => {
         });
       }
     } else {
-      if (isExtension) {
+      if (usage === 'extension') {
         navigate(RouteName.Error, {
           state: {
             message,
@@ -114,7 +114,9 @@ const AddAsset = ({ children, isExtension }: AddAssetType) => {
         <SearchAsset
           key="searchAsset"
           onSubmit={handleSearchAssetSubmitBtn}
-          onCancel={isExtension ? handleCancel : closeModalAction}
+          onCancel={
+            usage === 'extension' ? handleCancel : closeModalAction
+          }
         />
       ),
     },
@@ -125,7 +127,9 @@ const AddAsset = ({ children, isExtension }: AddAssetType) => {
         <CustomAsset
           key="customAsset"
           onSubmit={handleCustomAssetSubmitBtn}
-          onCancel={isExtension ? handleCancel : closeModalAction}
+          onCancel={
+            usage === 'extension' ? handleCancel : closeModalAction
+          }
         />
       ),
     },
@@ -138,14 +142,15 @@ const AddAsset = ({ children, isExtension }: AddAssetType) => {
       <Tabs
         data={tabs}
         isEqualWidth
-        contentStyle={{ marginTop: isExtension ? '16px' : '0' }}
+        contentStyle={{
+          marginTop: usage === 'extension' ? '16px' : '0',
+        }}
       />
     </div>
   );
 };
 AddAsset.defaultProps = {
   children: '',
-  isExtension: false,
 };
 
 export default AddAsset;

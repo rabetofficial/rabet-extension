@@ -46,7 +46,7 @@ const CreateWallet = () => {
 
       <div className="content">
         <CreateWalletComponent
-          isExtension
+          usage="extension"
           onSubmit={onSubmit}
           onCancel={handleCancel}
         >

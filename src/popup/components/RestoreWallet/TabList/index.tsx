@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Tabs from 'popup/components/common/Tabs';
-import { Tab } from 'popup/models';
+import { Tab, Usage } from 'popup/models';
 import PrivateKey, { FormValues } from 'popup/components/PrivateKey';
 import ImportBackupFile from './ImportBackupFile';
 
@@ -11,12 +11,12 @@ type TabListProps = {
   onCancelBackup: () => void;
   onSubmitBackup: () => void;
   isModal?: boolean;
-  isExtension?: boolean;
+  usage: Usage;
 };
 
 const TabList = ({
   isModal,
-  isExtension,
+  usage,
   onCancelBackup,
   onSubmitBackup,
   onCancelPrivateKey,
@@ -31,7 +31,7 @@ const TabList = ({
           onCancel={onCancelPrivateKey}
           onSubmit={onSubmitPrivateKey}
           isModal={isModal}
-          isExtension={isExtension}
+          usage={usage}
         />
       ),
     },
@@ -43,7 +43,7 @@ const TabList = ({
           isModal={isModal}
           onCancel={onCancelBackup}
           onSubmit={onSubmitBackup}
-          isExtension={isExtension}
+          usage={usage}
         />
       ),
     },
@@ -54,7 +54,6 @@ const TabList = ({
 
 TabList.defaultProps = {
   isModal: false,
-  isExtension: false,
 };
 
 export default TabList;

@@ -1,13 +1,12 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 
+import { Usage } from 'popup/models';
 import ArrowBack from 'popup/svgs/ArrowBack';
 import Input from 'popup/components/common/Input';
 import Error from 'popup/components/common/Error';
 import Button from 'popup/components/common/Button';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-
-import * as S from './styles';
 
 export type FormValues = {
   name: string;
@@ -18,7 +17,7 @@ type CreateWalletType = {
   onSubmit: (v: FormValues) => Promise<Partial<FormValues>>;
   onCancel: () => void;
   isModal?: boolean;
-  isExtension?: boolean;
+  usage: Usage;
 };
 
 const CreateWallet = ({
@@ -26,7 +25,7 @@ const CreateWallet = ({
   onCancel,
   onSubmit,
   isModal,
-  isExtension,
+  usage,
 }: CreateWalletType) => {
   const validateForm = (values: FormValues) => {
     const errors: Partial<FormValues> = {};
@@ -41,7 +40,11 @@ const CreateWallet = ({
   return (
     <div>
       {children && (
-        <div style={{ marginBottom: isExtension ? '28px' : '55px' }}>
+        <div
+          style={{
+            marginBottom: usage === 'extension' ? '28px' : '55px',
+          }}
+        >
           {children}
         </div>
       )}
@@ -73,11 +76,11 @@ const CreateWallet = ({
 
             {submitError && <Error>{submitError}</Error>}
 
-            {isModal || isExtension ? (
+            {isModal || usage === 'extension' ? (
               <ButtonContainer
                 btnSize={100}
                 justify="end"
-                mt={isExtension ? 28 : 203}
+                mt={usage === 'extension' ? 28 : 203}
                 gap={7}
               >
                 <Button
@@ -124,7 +127,6 @@ const CreateWallet = ({
 CreateWallet.defaultProps = {
   children: '',
   isModal: false,
-  isExtension: false,
 };
 
 export default CreateWallet;

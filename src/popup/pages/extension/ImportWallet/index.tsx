@@ -66,7 +66,7 @@ const RestoreWallet = () => {
 
       <div className="content">
         <RestoreWalletComponent
-          isExtension
+          usage="extension"
           onCancel={onCancel}
           onSubmit={onSubmit}
           onSubmitBackup={onSubmitBackup}

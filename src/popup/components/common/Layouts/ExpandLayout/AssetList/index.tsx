@@ -16,19 +16,17 @@ import {
   openSucessModal,
   openLoadingModal,
 } from 'popup/components/Modals';
+import { Usage } from 'popup/models';
 
 import Asset from './Asset';
 import { Border } from './styles';
 
 type AssetsListProps = {
-  isExtension?: boolean;
+  usage: Usage;
   scrollMaxHeight?: number;
 };
 
-const AssetList = ({
-  isExtension,
-  scrollMaxHeight,
-}: AssetsListProps) => {
+const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
   const navigate = useNavigate();
   const { assets: asts } = useActiveAccount();
   const assets = asts || [];
@@ -128,7 +126,7 @@ const AssetList = ({
         <Border
           key={`assetList${handleAssetsKeys(asset)}`}
           onClick={() => {
-            if (isExtension) {
+            if (usage === 'extension') {
               openAssetInfoPage(asset);
             } else {
               openAssetInfoModal(asset);
@@ -144,7 +142,6 @@ const AssetList = ({
 
 AssetList.defaultProps = {
   scrollMaxHeight: 320,
-  isExtension: false,
 };
 
 export default AssetList;
