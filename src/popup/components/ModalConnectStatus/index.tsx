@@ -9,6 +9,8 @@ import isOtherConnected from 'popup/utils/isOtherConnected';
 import addConnectedWebsite from 'popup/actions/accounts/addConnectedWebsite';
 import removeConnectedWebsite from 'popup/actions/accounts/removeConnectedWebsite';
 
+import * as S from './styles';
+
 const ModalConnectStatus = () => {
   const host = useTypedSelector((store) => store.host);
   const { publicKey, isConnected } = useActiveAccount();
@@ -32,53 +34,54 @@ const ModalConnectStatus = () => {
 
   if (isConnected) {
     return (
-      <div>
-        This account is connected to this site. Do you want to
-        Disconnect?
-        <ButtonContainer>
+      <>
+        <S.Msg>
+          This account is connected to this site. Do you want to
+          Disconnect?
+        </S.Msg>
+
+        <S.ButtonContainer>
           <Button
             type="button"
             variant="primary"
             size="medium"
             content="Disconnect"
             onClick={handleDisconnect}
-            style={{ borderRadius: '4px' }}
+            style={{ borderRadius: '4px', marginBottom: '8px' }}
           />
-        </ButtonContainer>
-      </div>
+        </S.ButtonContainer>
+      </>
     );
   }
 
   if (othersConnected) {
     return (
-      <div>
-        You have an account connected to this site. Do you want to
-        connect with this account?
-        <ButtonContainer>
+      <>
+        <S.Msg>
+          You have an account connected to this site. Do you want to
+          connect with this account?
+        </S.Msg>
+
+        <S.ButtonContainer>
           <Button
             type="button"
             variant="primary"
             size="medium"
             content="Connect"
             onClick={handleConnect}
-            style={{ borderRadius: '4px' }}
+            style={{ borderRadius: '4px', marginBottom: '8px' }}
           />
-        </ButtonContainer>
-      </div>
+        </S.ButtonContainer>
+      </>
     );
   }
 
   return (
-    <div>
+    <S.Msg className="pb-2 px-2">
       Rabet is not connected to this site. To connect it, find connect
       button on their site.
-    </div>
+    </S.Msg>
   );
 };
-const ButtonContainer = styled.div`
-  margin-top: 45px;
-  font-size: 18px;
-  width: 100%;
-`;
 
 export default ModalConnectStatus;

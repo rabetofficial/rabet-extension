@@ -61,7 +61,7 @@ export const ModalActive = styled.span`
   position: absolute;
   top: 18px;
   right: 15px;
-  border: 2px solid ${({ theme }) => theme.colors.success};
+  border: 2px solid #26c362;
   width: 11px;
   height: 11px;
   border-radius: 50%;

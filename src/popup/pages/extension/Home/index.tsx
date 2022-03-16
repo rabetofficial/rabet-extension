@@ -48,7 +48,7 @@ const Home = () => {
       padding: 'medium',
       minHeight: 150,
       children: (
-        <div className="content mt-4">
+        <div className="content p-4">
           <ExtTitle onClose={closeModalAction} />
           <ModalConnectStatus />
         </div>
