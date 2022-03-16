@@ -496,6 +496,7 @@ const BasicSwap = ({ usage }: AppProps) => {
           variant="primary"
           size="medium"
           content="Swap"
+          style={{ marginRight: '-12px' }}
         />
       </ButtonContainer>
     </form>
