@@ -17,22 +17,24 @@ type AppProps = {
 
 const BasicOp = ({ modes, onChange, selected, usage }: AppProps) => (
   <ScrollBar isHidden maxHeight={usage === 'extension' ? 384 : 1000}>
-    <Card type="secondary" className="px-[11px] py-[15px]">
-      <SelectOption
-        defaultValue={modes[0]}
-        variant="default"
-        items={modes}
-        onChange={onChange}
-        selected={selected}
-        isSearchable={false}
-      />
+    <div style={{ maxWidth: '460px' }}>
+      <Card type="secondary" className="px-[11px] py-[15px]">
+        <SelectOption
+          defaultValue={modes[0]}
+          variant="default"
+          items={modes}
+          onChange={onChange}
+          selected={selected}
+          isSearchable={false}
+        />
 
-      {selected.value === 'swap' ? (
-        <Swap usage={usage} />
-      ) : (
-        <Send usage={usage} />
-      )}
-    </Card>
+        {selected.value === 'swap' ? (
+          <Swap usage={usage} />
+        ) : (
+          <Send usage={usage} />
+        )}
+      </Card>
+    </div>
   </ScrollBar>
 );
 

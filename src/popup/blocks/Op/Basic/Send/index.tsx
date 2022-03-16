@@ -290,7 +290,7 @@ const BasicSend = ({ usage }: AppProps) => {
                 variant="primary"
                 size="medium"
                 content="Send"
-                className="mr-[-11px]"
+                style={{ marginRight: '-12px' }}
                 disabled={invalid || pristine || submitting}
               />
             </ButtonContainer>
