@@ -10,7 +10,6 @@ import AdvanceOperation from 'popup/pages/expand/EHome/Operation/Advance';
 import ExpandLayout from 'popup/components/common/Layouts/ExpandLayout';
 import ConfirmWallet from 'popup/pages/expand/EHome/WalletInfo/ConfirmWallet';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
-import InsideTabLayout from 'popup/components/common/Layouts/InsideTabLayout';
 
 const EHome = () => {
   const isLoading = useLoadHome();
