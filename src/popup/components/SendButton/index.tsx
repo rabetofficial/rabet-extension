@@ -7,13 +7,15 @@ import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 const SendButton = () => {
   const navigate = useNavigate();
-  const transaction = useTypedSelector((store) => store.transaction);
+  const { operations, memo } = useTypedSelector(
+    (store) => store.transaction,
+  );
 
   const handleClick = () => {
     navigate(RouteName.Confirm);
   };
 
-  const { operations, memo } = transaction;
+  console.log(operations, memo);
 
   let isDisabled = false;
 
@@ -27,7 +29,7 @@ const SendButton = () => {
     }
   }
 
-  if (!memo.checked) {
+  if (memo.text && !memo.checked) {
     isDisabled = true;
   }
 

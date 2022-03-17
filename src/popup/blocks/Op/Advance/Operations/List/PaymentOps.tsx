@@ -3,7 +3,6 @@ import { Horizon, StrKey } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
 import { ElementOption } from 'popup/models';
-import matchAsset from 'popup/utils/matchAsset';
 import Input from 'popup/components/common/Input';
 import getAccountData from 'popup/api/getAccount';
 import getMaxBalance from 'popup/utils/maxBalance';
@@ -33,21 +32,16 @@ const PaymentOps = ({ id }: AppProps) => {
     value: asset,
   }));
 
-  console.log(assets);
-
-  const [selected, setSelected] = useState(assets[0]);
-
-  console.log(selected);
+  const [selected, setSelected] = useState(assetsMapped[0]);
 
   const onChange = (e: ElementOption<Horizon.BalanceLine>) => {
-    setSelected(e.value);
-    console.log(e.value);
+    setSelected(e);
   };
 
   const validateForm = async (v: FormValidate) => {
     const values = {
       ...v,
-      asset: selected,
+      asset: selected.value,
     };
 
     const errors: Partial<FormValidate> = {};
@@ -65,33 +59,15 @@ const PaymentOps = ({ id }: AppProps) => {
         checked: false,
       });
     } else {
-      let selectedTokenBalance;
-
-      if (selected.asset_type === 'native') {
-        selectedTokenBalance = assets.find(
-          (asset) => asset.asset_type === 'native',
-        );
-      } else {
-        selectedTokenBalance = assets.find((x) =>
-          matchAsset(x, selected),
-        );
-      }
-
-      if (!selectedTokenBalance) {
-        selectedTokenBalance = {
-          balance: 0,
-        };
-      }
-
       if (
         !isInsufficientAsset(
-          selectedTokenBalance,
+          values.asset,
           subentry_count,
           values.amount,
         )
       ) {
         errors.amount = `Insufficient ${
-          selected.asset_code || 'XLM'
+          values.asset.asset_code || 'XLM'
         } balance.`;
         hasError.amount = true;
 
@@ -115,18 +91,14 @@ const PaymentOps = ({ id }: AppProps) => {
       }
     }
 
-    if (
-      !hasError.amount &&
-      !hasError.destination &&
-      selected.asset_code
-    ) {
-      if (selected.asset_issuer === values.destination) {
+    if (!hasError.amount && !hasError.destination && values.asset) {
+      if (values.asset.asset_issuer === values.destination) {
         changeOperationAction(id, {
           checked: true,
           isAccountNew: false,
-          amount: parseFloat(values.amount, 10).toFixed(7),
+          amount: parseFloat(values.amount).toFixed(7),
           destination: values.destination,
-          asset: selected,
+          asset: values.asset,
         });
 
         return;
@@ -138,9 +110,10 @@ const PaymentOps = ({ id }: AppProps) => {
         values,
         accountData,
       );
+
       let checked = true;
 
-      if (!transferableResult && resultCode === 0) {
+      if (!transferableResult && resultCode === 'INACTIVE') {
         errors.destination =
           'Inactive accounts cannot receive tokens.';
         hasError.destination = true;
@@ -150,10 +123,7 @@ const PaymentOps = ({ id }: AppProps) => {
         });
 
         checked = false;
-      } else if (!transferableResult && resultCode === 1) {
-        errors.destination = 'Wrong.';
-        hasError.destination = true;
-      } else if (!transferableResult && resultCode === 2) {
+      } else if (!transferableResult && resultCode === 'NO_TRUST') {
         errors.destination =
           'The destination account does not trust the asset you are attempting to send.';
         hasError.destination = true;
@@ -163,7 +133,10 @@ const PaymentOps = ({ id }: AppProps) => {
         });
 
         checked = false;
-      } else if (!transferableResult && resultCode === 3) {
+      } else if (
+        !transferableResult &&
+        resultCode === 'LIMIT_EXCEED'
+      ) {
         errors.destination =
           'The destination account balance would exceed the trust of the destination in the asset.';
         hasError.destination = true;
@@ -175,12 +148,12 @@ const PaymentOps = ({ id }: AppProps) => {
         checked = false;
       }
 
-      const isAccountNew = resultCode === 0;
+      const isAccountNew = resultCode === 'INACTIVE';
 
       changeOperationAction(id, {
         checked,
         isAccountNew,
-        amount: parseFloat(values.amount, 10).toFixed(7),
+        amount: parseFloat(values.amount).toFixed(7),
         destination: values.destination,
         asset: selected,
       });
@@ -198,7 +171,7 @@ const PaymentOps = ({ id }: AppProps) => {
       mutators={{
         setMax: (a, s, u) => {
           u.changeValue(s, 'amount', () =>
-            getMaxBalance(selected, account),
+            getMaxBalance(selected.value, account),
           );
         },
       }}

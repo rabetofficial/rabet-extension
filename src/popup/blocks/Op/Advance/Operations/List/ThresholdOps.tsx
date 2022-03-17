@@ -3,53 +3,84 @@ import { Form, Field } from 'react-final-form';
 
 import Input from 'popup/components/common/Input';
 import changeOperationAction from 'popup/actions/operations/change';
+import BN from 'helpers/BN';
 
 type FormValidate = {
-  low: string | null;
-  medium: string | null;
-  high: string | null;
+  low: string;
+  medium: string;
+  high: string;
 };
 
 type AppProps = {
   id: string;
 };
 
+type HasError = {
+  low: boolean;
+  medium: boolean;
+  high: boolean;
+};
+
 const ThresholdOps = ({ id }: AppProps) => {
   const validateForm = (values: FormValidate) => {
-    type HasError = {
-      low: boolean;
-      medium: boolean;
-      high: boolean;
-    };
-
     const errors = {} as FormValidate;
     const hasError = {} as HasError;
 
     if (!values.low) {
-      errors.low = null;
+      errors.low = '';
       hasError.low = true;
 
       changeOperationAction(id, {
         checked: false,
       });
+    } else {
+      const l = new BN(values.low);
+      if (!l.isInteger() || l.isNaN()) {
+        errors.low = 'Invalid number';
+        hasError.low = true;
+
+        changeOperationAction(id, {
+          checked: false,
+        });
+      }
     }
 
     if (!values.medium) {
-      errors.medium = null;
+      errors.medium = '';
       hasError.medium = true;
 
       changeOperationAction(id, {
         checked: false,
       });
+    } else {
+      const m = new BN(values.medium);
+      if (!m.isInteger() || m.isNaN()) {
+        errors.medium = 'Invalid number';
+        hasError.medium = true;
+
+        changeOperationAction(id, {
+          checked: false,
+        });
+      }
     }
 
     if (!values.high) {
-      errors.high = null;
+      errors.high = '';
       hasError.high = true;
 
       changeOperationAction(id, {
         checked: false,
       });
+    } else {
+      const h = new BN(values.high);
+      if (!h.isInteger() || h.isNaN()) {
+        errors.high = 'Invalid number';
+        hasError.high = true;
+
+        changeOperationAction(id, {
+          checked: false,
+        });
+      }
     }
 
     if (!hasError.low && !hasError.medium && !hasError.high) {

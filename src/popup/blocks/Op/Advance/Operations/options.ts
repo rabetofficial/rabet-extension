@@ -2,7 +2,12 @@ import { Horizon } from 'stellar-sdk';
 
 const operation = Horizon.OperationResponseType;
 
-const options = [
+type OptionType = {
+  value: Horizon.OperationResponseType | string;
+  label: string;
+};
+
+const options: OptionType[] = [
   { value: operation.payment, label: 'Payment' },
   {
     value: operation.pathPaymentStrictSend,

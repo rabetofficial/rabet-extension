@@ -1,31 +1,31 @@
 import React from 'react';
-import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
+import { Form, Field } from 'react-final-form';
 
 import Input from 'popup/components/common/Input';
 import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
-  signer: string | null;
-  weight: string | null;
+  signer: string;
+  weight: string;
 };
 
 type AppProps = {
   id: string;
 };
 
+type HasError = {
+  signer: boolean;
+  weight: boolean;
+};
+
 const SignerOps = ({ id }: AppProps) => {
   const validateForm = (values: FormValidate) => {
-    type HasError = {
-      signer: boolean;
-      weight: boolean;
-    };
-
-    const errors = {} as FormValidate;
+    const errors: Partial<FormValidate> = {};
     const hasError = {} as HasError;
 
     if (!values.signer) {
-      errors.signer = null;
+      errors.signer = '';
       hasError.signer = true;
 
       changeOperationAction(id, {
@@ -41,7 +41,7 @@ const SignerOps = ({ id }: AppProps) => {
     }
 
     if (!values.weight) {
-      errors.weight = null;
+      errors.weight = '';
       hasError.weight = true;
 
       changeOperationAction(id, {

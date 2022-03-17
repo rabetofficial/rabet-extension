@@ -5,8 +5,8 @@ import Input from 'popup/components/common/Input';
 import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
-  name: string | null;
-  value: string | null;
+  name: string;
+  value: string;
 };
 
 type AppProps = {
@@ -15,7 +15,7 @@ type AppProps = {
 
 const ManageDataOps = ({ id }: AppProps) => {
   const validateForm = (values: FormValidate) => {
-    const errors = {} as FormValidate;
+    const errors: Partial<FormValidate> = {};
 
     const hasError = {
       name: false,
@@ -23,7 +23,7 @@ const ManageDataOps = ({ id }: AppProps) => {
     };
 
     if (!values.name) {
-      errors.name = null;
+      errors.name = '';
       hasError.name = true;
 
       changeOperationAction(id, {

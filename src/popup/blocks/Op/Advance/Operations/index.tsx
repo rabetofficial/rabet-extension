@@ -136,7 +136,7 @@ const Operation = ({
           label="Domain address"
           inputInfo={{ type: 'text', placeholder: 'sample.com' }}
           id={operation.id}
-          type={options[8].value}
+          type={options[9].value}
         />
       );
     if (selected.value === options[10].value)

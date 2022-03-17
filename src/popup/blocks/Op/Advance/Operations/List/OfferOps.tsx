@@ -1,18 +1,20 @@
+import { Horizon } from 'stellar-sdk';
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
-import Input from 'popup/components/common/Input';
-import matchAsset from 'popup/utils/matchAsset';
-import getMaxBalance from 'popup/utils/maxBalance';
-import SelectOption from 'popup/components/common/SelectOption';
-import changeOperationAction from 'popup/actions/operations/change';
-import useActiveAccount from 'popup/hooks/useActiveAccount';
 import { ElementOption } from 'popup/models';
+import Input from 'popup/components/common/Input';
+import getMaxBalance from 'popup/utils/maxBalance';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import SelectOption from 'popup/components/common/SelectOption';
+import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
+import changeOperationAction from 'popup/actions/operations/change';
+import BN from 'helpers/BN';
 
 type FormValidate = {
-  selling: string | null;
-  buying: string | null;
-  offerId: string | null;
+  selling: string;
+  buying: string;
+  offerId: string;
 };
 
 type AppProps = {
@@ -20,33 +22,36 @@ type AppProps = {
   offer: boolean;
 };
 
+type HasError = {
+  selling: boolean;
+  buying?: boolean;
+  offerId?: boolean;
+};
+
 const OfferOps = ({ id, offer }: AppProps) => {
-  const { maxXLM } = useActiveAccount();
+  const account = useActiveAccount();
 
-  const balances = Array(5).fill({
-    asset_code: 'XLM',
-    asset_issuer: '123',
-    last_modified_ledger: '234',
-    limit: '567',
-    is_authorized: false,
-    is_authorized_to_maintain_liabilities: true,
-    logo: '',
-    domain: 'Stellar.org',
-    toNative: 1,
-  });
+  const assets = account.assets || [];
+  const mappedAssets = assets.map((asset) => ({
+    label: asset.asset_code || 'XLM',
+    value: asset,
+  }));
 
-  const [sellingAsset, setSellingAsset] = useState(balances[0]);
-  const [buyingAsset, setByingAsset] = useState(balances[0]);
+  const [sellingAsset, setSellingAsset] = useState(mappedAssets[0]);
+  const [buyingAsset, setByingAsset] = useState(mappedAssets[0]);
 
-  const onChangeSellingAmount = (e: ElementOption) =>
-    setSellingAsset(e);
-  const onChangeBuyingAmount = (e: ElementOption) => setByingAsset(e);
+  const onChangeSellingAmount = (
+    e: ElementOption<Horizon.BalanceLine>,
+  ) => setSellingAsset(e);
+  const onChangeBuyingAmount = (
+    e: ElementOption<Horizon.BalanceLine>,
+  ) => setByingAsset(e);
 
-  const validateForm = async (values: FormValidate) => {
-    type HasError = {
-      selling: boolean;
-      buying?: boolean;
-      offerId?: boolean;
+  const validateForm = async (v: FormValidate) => {
+    const values = {
+      ...v,
+      sellingAsset: sellingAsset.value,
+      buyingAsset: buyingAsset.value,
     };
 
     const errors = {} as FormValidate;
@@ -55,87 +60,47 @@ const OfferOps = ({ id, offer }: AppProps) => {
     };
 
     if (!values.selling) {
-      errors.selling = null;
+      errors.selling = '';
       hasError.selling = true;
 
       changeOperationAction(id, {
         checked: false,
       });
     } else {
-      if (sellingAsset.value) {
-        let selectedTokenBalance;
+      if (values.sellingAsset) {
+        if (
+          !isInsufficientAsset(
+            values.sellingAsset,
+            account.subentry_count,
+            values.selling,
+          )
+        ) {
+          errors.selling = `Insufficient ${
+            values.sellingAsset.asset_code || 'XLM'
+          } balance.`;
+          hasError.selling = true;
 
-        if (sellingAsset.asset_type === 'native') {
-          selectedTokenBalance = balances.find(
-            (asset) => asset.asset_type === 'native',
-          );
-        } else {
-          selectedTokenBalance = balances.find((x) =>
-            matchAsset(x, sellingAsset),
-          );
-        }
-
-        if (!selectedTokenBalance) {
-          selectedTokenBalance = {
-            balance: 0,
-          };
-        }
-
-        const { selling_liabilities } = selectedTokenBalance;
-        const numSL = Number(selling_liabilities);
-
-        if (isNative(sellingAsset)) {
-          if (
-            Number(selectedTokenBalance.balance || '0') <
-            Number(values.selling) + maxXLM + numSL
-          ) {
-            errors.selling = `Insufficient ${sellingAsset.value} balance.`;
-            hasError.selling = true;
-
-            changeOperationAction(id, {
-              checked: false,
-            });
-          }
-        } else {
-          if (
-            Number(selectedTokenBalance.balance || '0') <
-            values.selling + numSL
-          ) {
-            errors.selling = `Insufficient ${sellingAsset.value} balance.`;
-            hasError.selling = true;
-
-            changeOperationAction(id, {
-              checked: false,
-            });
-          }
+          changeOperationAction(id, {
+            checked: false,
+          });
         }
       }
     }
 
     if (!values.buying) {
-      errors.buying = null;
+      errors.buying = '';
       hasError.buying = true;
 
       changeOperationAction(id, {
         checked: false,
       });
     } else {
-      if (buyingAsset.value) {
-        let selectedTokenBalance;
-
-        if (buyingAsset.asset_type === 'native') {
-          selectedTokenBalance = balances.find(
-            (x) => x.asset_type === 'native',
-          );
-        } else {
-          selectedTokenBalance = balances.find((x) =>
-            matchAsset(x, buyingAsset),
-          );
-        }
-
-        if (buyingAsset.asset_type !== 'native') {
+      if (values.buyingAsset) {
+        if (values.buyingAsset.asset_type !== 'native') {
           if (
-            Number(selectedTokenBalance.limit || '0') < values.buying
+            new BN(values.buyingAsset.limit || '0').isLessThan(
+              values.buying,
+            )
           ) {
             errors.buying =
               'The balance would exceed the trust of the account in the asset.';
@@ -157,11 +122,11 @@ const OfferOps = ({ id, offer }: AppProps) => {
     ) {
       changeOperationAction(id, {
         checked: true,
-        buying: parseFloat(values.buying, 10).toFixed(7),
+        buying: parseFloat(values.buying).toFixed(7),
         offerId: values.offerId || 0,
-        selling: parseFloat(values.selling, 10).toFixed(7),
-        buyingAsset,
-        sellingAsset,
+        selling: parseFloat(values.selling).toFixed(7),
+        buyingAsset: values.buyingAsset,
+        sellingAsset: values.sellingAsset,
       });
     }
 
@@ -173,7 +138,7 @@ const OfferOps = ({ id, offer }: AppProps) => {
       mutators={{
         sellingMax: (a, s, u) => {
           u.changeValue(s, 'selling', () =>
-            getMaxBalance(sellingAsset),
+            getMaxBalance(sellingAsset.value, account),
           );
         },
       }}
@@ -206,7 +171,7 @@ const OfferOps = ({ id, offer }: AppProps) => {
                     autoFocus
                   />
                   <SelectOption
-                    items={balances}
+                    items={mappedAssets}
                     defaultValue={sellingAsset}
                     onChange={onChangeSellingAmount}
                     variant="outlined"
@@ -238,7 +203,7 @@ const OfferOps = ({ id, offer }: AppProps) => {
                     meta={meta}
                   />
                   <SelectOption
-                    items={balances}
+                    items={mappedAssets}
                     defaultValue={buyingAsset}
                     onChange={onChangeBuyingAmount}
                     variant="outlined"

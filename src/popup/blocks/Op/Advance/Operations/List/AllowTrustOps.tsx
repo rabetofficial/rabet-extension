@@ -1,35 +1,34 @@
 import React from 'react';
-import { Form, Field } from 'react-final-form';
 import { StrKey } from 'stellar-sdk';
+import { Form, Field } from 'react-final-form';
 
 import Input from 'popup/components/common/Input';
-import currentActiveAccount from 'popup/utils/activeAccount';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
-  trustor: string | null;
-  code: string | null;
-  authorize: string | null;
+  trustor: string;
+  code: string;
+  authorize: string;
 };
 
 type AppProps = {
   id: string;
 };
 
+type HasError = {
+  trustor: boolean;
+  code?: boolean;
+  authorize?: boolean;
+};
+
 const AllowTrustOps = ({ id }: AppProps) => {
+  const { publicKey, ...account } = useActiveAccount();
+  const assets = account.assets || [];
+
   const validateForm = (values: FormValidate) => {
-    type HasError = {
-      trustor: boolean;
-      code?: boolean;
-      authorize?: boolean;
-    };
-
-    const { activeAccount } = currentActiveAccount();
-
     const errors = {} as FormValidate;
-    const hasError: HasError = {
-      trustor: false,
-    };
+    const hasError: Partial<HasError> = {};
 
     if (!values.trustor) {
       errors.trustor = null;
@@ -57,15 +56,13 @@ const AllowTrustOps = ({ id }: AppProps) => {
         checked: false,
       });
     } else {
-      const balances = activeAccount.balances || [];
-
-      const ownedAsset = balances.find(
+      const isOwnedAsset = assets.find(
         (x) =>
           x.asset_code === values.code &&
-          x.asset_issuer === activeAccount.publicKey,
+          x.asset_issuer === publicKey,
       );
 
-      if (!ownedAsset) {
+      if (!isOwnedAsset) {
         errors.code = 'You do not own this asset.';
         hasError.code = true;
 

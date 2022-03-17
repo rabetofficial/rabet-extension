@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { StrKey } from 'stellar-sdk';
 import isValidDomain from 'is-valid-domain';
+import { StrKey, Horizon } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
 import BN from 'helpers/BN';
 import Input from 'popup/components/common/Input';
 import getAccountData from 'popup/api/getAccount';
-import * as operationNames from 'popup/staticRes/operations';
 import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
@@ -23,7 +22,7 @@ type InputInfo = {
 
 type AppProps = {
   id: string;
-  type: string;
+  type: Horizon.OperationResponseType | string;
   label: string;
   inputInfo: InputInfo;
 };
@@ -42,13 +41,13 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
         checked: false,
       });
 
-      errors.value = null;
+      errors.value = '';
       hasError.value = true;
     }
 
     if (!hasError.value) {
-      if (type === operationNames.bumpSequence) {
-        if (!new BN(values.value).isNaN()) {
+      if (type === Horizon.OperationResponseType.bumpSequence) {
+        if (new BN(values.value).isNaN()) {
           changeOperationAction(id, {
             checked: false,
             bumpTo: values.value,
@@ -62,7 +61,9 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             bumpTo: values.value,
           });
         }
-      } else if (type === operationNames.accountMerge) {
+      } else if (
+        type === Horizon.OperationResponseType.accountMerge
+      ) {
         if (
           values.value &&
           !StrKey.isValidEd25519PublicKey(values.value)
@@ -79,7 +80,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             values.destination,
           );
 
-          if (accountData.status === 404) {
+          if (!accountData) {
             errors.value =
               'You cannot merge your account to an inactive account.';
             hasError.value = true;
@@ -94,15 +95,21 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             });
           }
         }
-      } else if (type === operationNames.setOptionsSetFlags) {
-        const flagNumber = parseInt(values.value, 10);
+      } else if (
+        type ===
+        `${Horizon.OperationResponseType.setOptions}_set_flag`
+      ) {
+        const flagNumber = new BN(values.value);
 
-        if (!new BN(values.value).isNaN()) {
+        if (flagNumber.isNaN()) {
           changeOperationAction(id, {
             checked: false,
           });
         } else {
-          if (flagNumber < 1 || flagNumber > 15) {
+          if (
+            flagNumber.isLessThan(1) ||
+            flagNumber.isGreaterThan(15)
+          ) {
             errors.value = 'Enter a number between 1 and 15';
             hasError.value = true;
           } else {
@@ -112,8 +119,14 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             });
           }
         }
-      } else if (type === operationNames.setOptionsInflationDest) {
-        if (!StrKey.isValidEd25519PublicKey(values.value)) {
+      } else if (
+        type ===
+        `${Horizon.OperationResponseType.setOptions}_inflation`
+      ) {
+        if (
+          values.value &&
+          !StrKey.isValidEd25519PublicKey(values.value)
+        ) {
           errors.value = 'Invalid destination.';
           hasError.value = true;
 
@@ -126,10 +139,13 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             destination: values.value,
           });
         }
-      } else if (type === operationNames.setOptionsClearFlags) {
-        const flagNumber = parseInt(values.value, 10);
+      } else if (
+        type ===
+        `${Horizon.OperationResponseType.setOptions}_clear_flag`
+      ) {
+        const flagNumber = new BN(values.value);
 
-        if (!new BN(values.value).isNaN()) {
+        if (flagNumber.isNaN()) {
           errors.value = null;
           hasError.value = true;
 
@@ -137,7 +153,10 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             checked: false,
           });
         } else {
-          if (flagNumber < 1 || flagNumber > 15) {
+          if (
+            flagNumber.isLessThan(1) ||
+            flagNumber.isGreaterThan(15)
+          ) {
             errors.value = 'Enter a number between 1 and 15';
             hasError.value = true;
           } else {
@@ -147,7 +166,10 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             });
           }
         }
-      } else if (type === operationNames.setOptionsHomeDomain) {
+      } else if (
+        type ===
+        `${Horizon.OperationResponseType.setOptions}_home_domain`
+      ) {
         if (!isValidDomain(values.value)) {
           errors.value = 'Invalid domain.';
           hasError.value = true;
@@ -161,8 +183,11 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             homeDomain: values.value,
           });
         }
-      } else if (type === operationNames.setOptionsMasterWeight) {
-        if (!new BN(values.value).isNaN()) {
+      } else if (
+        type ===
+        `${Horizon.OperationResponseType.setOptions}_master_weight`
+      ) {
+        if (new BN(values.value).isNaN()) {
           errors.value = null;
           hasError.value = true;
 
@@ -184,7 +209,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
   return (
     <Form
       onSubmit={() => {}}
-      validate={(values: FormValidate) => validateForm(values)}
+      validate={validateForm}
       render={({ submitError, handleSubmit }) => (
         <form
           className={classNames('form')}

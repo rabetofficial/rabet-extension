@@ -1,63 +1,66 @@
+import { Horizon } from 'stellar-sdk';
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import BN from 'helpers/BN';
+import { ElementOption } from 'popup/models';
 import Input from 'popup/components/common/Input';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 import SelectOption from 'popup/components/common/SelectOption';
 import changeOperationAction from 'popup/actions/operations/change';
-import { ElementOption } from 'popup/models';
 
 type FormValidate = {
-  limit: any;
+  limit: string;
 };
 
 type AppProps = {
   id: string;
 };
 
+type HasError = {
+  limit: boolean;
+};
+
 const ChangeTrustOps = ({ id }: AppProps) => {
-  const b = Array(5).fill({
-    asset_code: 'XLM',
-    asset_issuer: '123',
-    last_modified_ledger: '234',
-    limit: '567',
-    is_authorized: false,
-    is_authorized_to_maintain_liabilities: true,
-    logo: '',
-    domain: 'Stellar.org',
-    toNative: 1,
-  });
+  const account = useActiveAccount();
 
-  const balances = b.filter((x) => x.asset_type !== 'native');
+  const assets = account.assets || [];
+  const filteredAssets = assets.filter(
+    (x) =>
+      x.asset_type !== 'native' &&
+      x.asset_type !== 'liquidity_pool_shares',
+  );
+  const mappedAssets = filteredAssets.map((ast) => ({
+    label: ast.asset_code || 'XLM',
+    value: ast,
+  }));
 
-  const [selected, setSelected] = useState(balances[0]);
+  const [selected, setSelected] = useState(mappedAssets[0]);
 
-  const onChange = (e: ElementOption) => setSelected(e);
+  const onChange = (e: ElementOption<Horizon.BalanceLine>) =>
+    setSelected(e);
 
-  const validateForm = async (values: FormValidate) => {
-    type HasError = {
-      limit?: boolean;
-      code: boolean;
+  const validateForm = async (v: FormValidate) => {
+    const values = {
+      ...v,
+      asset: selected.value,
     };
 
-    const errors = {} as FormValidate;
-    const hasError: HasError = {
-      code: false,
-    };
+    const errors: Partial<FormValidate> = {};
+    const hasError: Partial<HasError> = {};
 
-    if (values.limit && !new BN(values.limit).isNaN()) {
-      errors.limit = null;
+    const l = new BN(values.limit);
+    if (values.limit && l.isNaN()) {
+      errors.limit = '';
       hasError.limit = true;
 
       changeOperationAction(id, {
         checked: false,
       });
     } else {
-      const l = parseInt(values.limit, 10);
-
-      if (l > 922337203685 || l < 1) {
+      if (l.isGreaterThan(922_337_203_685) || l.isLessThan(0)) {
         errors.limit =
-          'Limit number must be between 1 and 922,337,203,685';
+          'Limit number must be between 0 and 922,337,203,685';
         hasError.limit = true;
       }
     }
@@ -66,7 +69,7 @@ const ChangeTrustOps = ({ id }: AppProps) => {
       changeOperationAction(id, {
         checked: true,
         limit: values.limit,
-        asset: selected,
+        asset: values.asset,
       });
     }
 
@@ -98,8 +101,9 @@ const ChangeTrustOps = ({ id }: AppProps) => {
                     input={input}
                     meta={meta}
                   />
+
                   <SelectOption
-                    items={balances}
+                    items={mappedAssets}
                     onChange={onChange}
                     variant="outlined"
                     width={99}

@@ -1,62 +1,66 @@
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
-import { StrKey } from 'stellar-sdk';
+import { Horizon, StrKey, AccountResponse } from 'stellar-sdk';
 
-import Input from 'popup/components/common/Input';
+import BN from 'helpers/BN';
+import { ElementOption } from 'popup/models';
 import matchAsset from 'popup/utils/matchAsset';
+import Input from 'popup/components/common/Input';
 import nativeAsset from 'popup/utils/nativeAsset';
 import getMaxBalance from 'popup/utils/maxBalance';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 import SelectOption from 'popup/components/common/SelectOption';
 import getAccountData from 'popup/utils/horizon/isAddressFound';
+import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import changeOperationAction from 'popup/actions/operations/change';
-import useActiveAccount from 'popup/hooks/useActiveAccount';
-import { ElementOption } from 'popup/models';
 
 type FormValidate = {
-  destination: string | null;
-  sendMax: string | null;
-  destAmount: string | null;
+  destination: string;
+  sendMax: string;
+  destAmount: string;
 };
 
 type AppProps = {
   id: string;
 };
 
+type HasError = {
+  destination: boolean;
+  sendMax: boolean;
+  destAmount: boolean;
+};
+
 const PaymentReceiveOps = ({ id }: AppProps) => {
-  const { maxXLM } = useActiveAccount();
+  const account = useActiveAccount();
 
-  const balances = Array(5).fill({
-    asset_code: 'XLM',
-    asset_issuer: '123',
-    last_modified_ledger: '234',
-    limit: '567',
-    is_authorized: false,
-    is_authorized_to_maintain_liabilities: true,
-    logo: '',
-    domain: 'Stellar.org',
-    toNative: 1,
-  });
+  const assets = account.assets || [];
+  const mappedAssets = assets.map((asset) => ({
+    label: asset.asset_code || 'XLM',
+    value: asset,
+  }));
 
-  const [sendAsset, setSendAsset] = useState(balances[0]);
-  const [destAsset, setDestAsset] = useState(balances[0]);
+  const [sendAsset, setSendAsset] = useState(mappedAssets[0]);
+  const [destAsset, setDestAsset] = useState(mappedAssets[0]);
 
-  const onChangeSendAsset = (e: ElementOption) => setSendAsset(e);
-  const onChangeDestAsset = (e: ElementOption) => setDestAsset(e);
+  const onChangeSendAsset = (e: ElementOption<Horizon.BalanceLine>) =>
+    setSendAsset(e);
+  const onChangeDestAsset = (e: ElementOption<Horizon.BalanceLine>) =>
+    setDestAsset(e);
 
-  const validateForm = async (values: FormValidate) => {
-    type HasError = {
-      destination: boolean;
-      sendMax: boolean;
-      destAmount: boolean;
+  const validateForm = async (v: FormValidate) => {
+    const values = {
+      ...v,
+      sendAsset: sendAsset.value,
+      destAsset: destAsset.value,
     };
 
-    let accountData;
+    let accountData: AccountResponse | null = null;
 
     const errors = {} as FormValidate;
     const hasError = {} as HasError;
 
     if (!values.destination) {
-      errors.destination = null;
+      errors.destination = '';
       hasError.destination = true;
 
       changeOperationAction(id, {
@@ -72,15 +76,8 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
     } else {
       accountData = await getAccountData(values.destination);
 
-      if (accountData.status === 404) {
+      if (!accountData) {
         errors.destination = 'Inactive destination.';
-        hasError.destination = true;
-
-        changeOperationAction(id, {
-          checked: false,
-        });
-      } else if (accountData.status === 400) {
-        errors.destination = 'Wrong destination.';
         hasError.destination = true;
 
         changeOperationAction(id, {
@@ -97,54 +94,26 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
         checked: false,
       });
     } else {
-      let selectedTokenBalance;
+      if (
+        !isInsufficientAsset(
+          values.sendAsset,
+          account.subentry_count,
+          values.sendMax,
+        )
+      ) {
+        errors.sendMax = `Insufficient ${
+          values.sendAsset.asset_code || 'XLM'
+        } balance.`;
+        hasError.sendMax = true;
 
-      if (sendAsset.asset_type === 'native') {
-        selectedTokenBalance = balances.find(nativeAsset);
-      } else {
-        selectedTokenBalance = balances.find((x) =>
-          matchAsset(x, sendAsset),
-        );
-      }
-
-      if (!selectedTokenBalance) {
-        selectedTokenBalance = {
-          balance: 0,
-        };
-      }
-
-      const { selling_liabilities } = selectedTokenBalance;
-      const numSL = Number(selling_liabilities);
-
-      if (sendAsset.asset_type === 'native') {
-        if (
-          Number(selectedTokenBalance.balance || '0') <
-          Number(values.sendMax, 10) + maxXLM + numSL
-        ) {
-          errors.sendMax = `Insufficient ${sendAsset.value} balance.`;
-          hasError.sendMax = true;
-
-          changeOperationAction(id, {
-            checked: false,
-          });
-        }
-      } else {
-        if (
-          Number(selectedTokenBalance.balance || '0') <
-          parseFloat(values.sendMax, 10) + numSL
-        ) {
-          errors.sendMax = `Insufficient ${sendAsset.value} balance.`;
-          hasError.sendMax = true;
-
-          changeOperationAction(id, {
-            checked: false,
-          });
-        }
+        changeOperationAction(id, {
+          checked: false,
+        });
       }
     }
 
     if (!values.destAmount) {
-      errors.destAmount = null;
+      errors.destAmount = '';
       hasError.destAmount = true;
 
       changeOperationAction(id, {
@@ -156,19 +125,17 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
       !hasError.destination &&
       !hasError.sendMax &&
       !hasError.destAmount &&
-      sendAsset.value &&
-      destAsset.value
+      values.sendAsset &&
+      values.destAsset
     ) {
       const destinationTokens = accountData.balances || [];
 
       let selectedToken = destinationTokens.find(nativeAsset);
 
-      if (destAsset.asset_type !== 'native') {
+      if (values.destAsset.asset_type !== 'native') {
         selectedToken = destinationTokens.find((x) =>
           matchAsset(x, destAsset),
         );
-      } else {
-        selectedToken.limit = 999999999;
       }
 
       if (!selectedToken) {
@@ -181,8 +148,10 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
         });
       } else {
         if (
-          Number(selectedToken.limit) <
-          Number(values.destAmount) + Number(selectedToken.balance)
+          selectedToken.asset_type !== 'native' &&
+          new BN(selectedToken.limit).isLessThan(
+            new BN(values.destAmount).plus(selectedToken.balance),
+          )
         ) {
           errors.destination =
             'The destination account balance would exceed the trust of the destination in the asset.';
@@ -197,10 +166,10 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
       changeOperationAction(id, {
         checked: true,
         destination: values.destination,
-        sendMax: parseFloat(values.sendMax, 10).toFixed(7),
-        sendAsset,
-        destAmount: parseFloat(values.destAmount, 10).toFixed(7),
-        destAsset,
+        sendMax: parseFloat(values.sendMax).toFixed(7),
+        sendAsset: sendAsset.value,
+        destAmount: parseFloat(values.destAmount).toFixed(7),
+        destAsset: destAsset.value,
       });
     }
 
@@ -211,7 +180,9 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
     <Form
       mutators={{
         sendMaxMax: (a, s, u) => {
-          u.changeValue(s, 'sendMax', () => getMaxBalance(sendAsset));
+          u.changeValue(s, 'sendMax', () =>
+            getMaxBalance(sendAsset.value, account),
+          );
         },
       }}
       onSubmit={() => {}}
@@ -257,7 +228,7 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
                     setMax={form.mutators.sendMaxMax}
                   />
                   <SelectOption
-                    items={balances}
+                    items={mappedAssets}
                     defaultValue={sendAsset}
                     onChange={onChangeSendAsset}
                     variant="outlined"
@@ -289,7 +260,7 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
                     meta={meta}
                   />
                   <SelectOption
-                    items={balances}
+                    items={mappedAssets}
                     defaultValue={destAsset}
                     onChange={onChangeDestAsset}
                     variant="outlined"
