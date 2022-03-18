@@ -2,7 +2,6 @@ import StellarSdk from 'stellar-sdk';
 
 import store from '../../store';
 import config from '../../../config';
-import isNative from '../../utils/isNative';
 import payment from '../../operations/payment';
 import * as route from '../../staticRes/routes';
 import showError from '../../staticRes/errorMessage';
@@ -68,7 +67,7 @@ export default async (push) => {
               }),
             );
           } else {
-            if (isNative(asset)) {
+            if (asset.asset_type === 'native') {
               stellarAsset = StellarSdk.Asset.native();
             } else {
               stellarAsset = new StellarSdk.Asset(

@@ -1,70 +1,79 @@
 import React from 'react';
-import shortid from 'shortid';
-import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import Card from 'popup/components/common/Card';
-import shorter from 'popup/../helpers/shorter';
-import Button from 'popup/components/common/Button';
+import shorter from 'popup/utils/shorter';
 import RouteName from 'popup/staticRes/routes';
-import CopyText from 'popup/components/common/CopyText';
+import Card from 'popup/components/common/Card';
 import PageTitle from 'popup/components/PageTitle';
+import Button from 'popup/components/common/Button';
 import sendAction from 'popup/actions/operations/send';
-import ButtonContainer from '../common/ButtonContainer';
-
+import CopyText from 'popup/components/common/CopyText';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+import operationMapper from 'popup/utils/operationMapper';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 
-const Confirm = ({ options, transaction }) => {
+const Confirm = () => {
   const navigate = useNavigate();
+  const { publicKey } = useActiveAccount();
+  const { memo, operations } = useTypedSelector(
+    (store) => store.transaction,
+  );
+
+  const operationsMapped = operations.map((op) =>
+    operationMapper(op),
+  );
 
   const handleConfirm = () => {
     sendAction(navigate);
   };
- }
 
   return (
     <>
       <S.Confirm className="hidden-scroll content-scroll">
-        <PageTitle
-          status={networkStatus}
-          statusTitle={network}
-          title=""
-        />
+        <PageTitle status="main" statusTitle="mainnet" title="" />
 
         <div className="content">
           <S.Source>
             <S.SourceTitle>Source account:</S.SourceTitle>
             <S.SourceValue>
               <CopyText
-                text={activeAccount.publicKey}
-                button={shorter(activeAccount.publicKey, 5)}
+                text={publicKey}
+                button={shorter(publicKey, 5)}
               />
             </S.SourceValue>
           </S.Source>
+
+          {operationsMapped.map((op) => (
             <S.Box>
               <Card type="secondary">
-                  <S.Title>
-                   Title
-                  </S.Title>
-                  <S.Title>
-                    <S.ValueTitle
-                      style={{ margin: '0' }}
-                    >
-                  Ttile  </S.ValueTitle>
+                <S.Title>Title</S.Title>
+                <S.Title>
+                  <S.ValueTitle style={{ margin: '0' }}>
+                    {op.title}
+                  </S.ValueTitle>
 
-                    <S.Value>someValue</S.Value>
+                  {op.info.map((infos) => (
+                    <>
+                      <S.Value>
+                        {infos.title} {infos.value}
+                      </S.Value>
                       <p className="error">
                         <span className="icon-exclamation-circle" />
                       </p>
-                  </S.Title>
+                    </>
+                  ))}
+                </S.Title>
               </Card>
             </S.Box>
+          ))}
 
-            <Card type="secondary">
-              <S.Title>Memo</S.Title>
-              <S.Value>{memo.text}</S.Value>
-            </Card>
+          <Card type="secondary">
+            <S.Title>Memo</S.Title>
+            <S.Value>{memo.text}</S.Value>
+          </Card>
         </div>
       </S.Confirm>
       <ButtonContainer justify="end" btnSize={100} gap={10} mt={16}>

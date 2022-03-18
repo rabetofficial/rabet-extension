@@ -2,7 +2,7 @@ import * as operations from '../staticRes/operations';
 
 import numberWithCommas from './numberWithCommas';
 
-export default (operation) => {
+export default (operation: any) => {
   // PAYMENT
   // CREATE ACCOUNT
   if (operation.type === operations.payment) {
@@ -15,7 +15,9 @@ export default (operation) => {
         },
         {
           title: 'Amount',
-          value: `${numberWithCommas(operation.amount)} ${operation.asset.asset_code}`,
+          value: `${numberWithCommas(operation.amount)} ${
+            operation.asset.asset_code
+          }`,
         },
       ],
     };
@@ -242,11 +244,15 @@ export default (operation) => {
         },
         {
           title: 'Send Amount',
-          value: `${numberWithCommas(operation.sendAmount)} ${operation.sendAsset.value}`,
+          value: `${numberWithCommas(operation.sendAmount)} ${
+            operation.sendAsset.value
+          }`,
         },
         {
           title: 'Destination Min',
-          value: `${numberWithCommas(operation.destMin)} ${operation.destAsset.value}`,
+          value: `${numberWithCommas(operation.destMin)} ${
+            operation.destAsset.value
+          }`,
         },
       ],
     };
@@ -265,11 +271,15 @@ export default (operation) => {
         },
         {
           title: 'Send Max',
-          value: `${numberWithCommas(operation.sendMax)} ${operation.sendAsset.value}`,
+          value: `${numberWithCommas(operation.sendMax)} ${
+            operation.sendAsset.value
+          }`,
         },
         {
           title: 'Destination Min',
-          value: `${numberWithCommas(operation.destAmount)} ${operation.destAsset.value}`,
+          value: `${numberWithCommas(operation.destAmount)} ${
+            operation.destAsset.value
+          }`,
         },
       ],
     };
@@ -284,11 +294,15 @@ export default (operation) => {
       info: [
         {
           title: 'Selling',
-          value: `${numberWithCommas(operation.selling)} ${operation.sellingAsset.value}`,
+          value: `${numberWithCommas(operation.selling)} ${
+            operation.sellingAsset.value
+          }`,
         },
         {
           title: 'Buying',
-          value: `${numberWithCommas(operation.buying)} ${operation.buyingAsset.value}`,
+          value: `${numberWithCommas(operation.buying)} ${
+            operation.buyingAsset.value
+          }`,
         },
         {
           title: 'Offer ID',
@@ -307,11 +321,15 @@ export default (operation) => {
       info: [
         {
           title: 'Selling',
-          value: `${numberWithCommas(operation.selling)} ${operation.sellingAsset.value}`,
+          value: `${numberWithCommas(operation.selling)} ${
+            operation.sellingAsset.value
+          }`,
         },
         {
           title: 'Buying',
-          value: `${numberWithCommas(operation.buying)} ${operation.buyingAsset.value}`,
+          value: `${numberWithCommas(operation.buying)} ${
+            operation.buyingAsset.value
+          }`,
         },
       ],
     };
