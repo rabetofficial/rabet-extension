@@ -12,10 +12,12 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import operationMapper from 'popup/utils/operationMapper';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import ExclamationCircle from 'popup/svgs/ExclamationCircle';
 
 import * as S from './styles';
 
-const Confirm = () => {
+type ConfirmType = { onClose: () => void };
+const Confirm = ({ onClose }: ConfirmType) => {
   const navigate = useNavigate();
   const { publicKey } = useActiveAccount();
   const { memo, operations } = useTypedSelector(
@@ -31,63 +33,48 @@ const Confirm = () => {
   };
 
   return (
-    <>
-      <S.Confirm className="hidden-scroll content-scroll">
-        <PageTitle status="main" statusTitle="mainnet" title="" />
-
-        <div className="content">
+    <div className="pt-8 px-8 hidden-scroll">
+      <S.Confirm>
+        <div>
           <S.Source>
             <S.SourceTitle>Source account:</S.SourceTitle>
             <S.SourceValue>
               <CopyText
                 text={publicKey}
-                button={shorter(publicKey, 5)}
+                custom={<p>{shorter(publicKey, 5)}</p>}
               />
             </S.SourceValue>
           </S.Source>
 
           {operationsMapped.map((op) => (
-            <S.Box>
-              <Card type="secondary">
-                <S.Title>Title</S.Title>
-                <S.Title>
-                  <S.ValueTitle style={{ margin: '0' }}>
-                    {op.title}
-                  </S.ValueTitle>
+            <Card type="secondary" className="mt-4 px-3 py-6">
+              <S.Title>{op.title}</S.Title>
 
-                  {op.info.map((infos) => (
-                    <>
-                      <S.Value>
-                        {infos.title} {infos.value}
-                      </S.Value>
-                      <p className="error">
-                        <span className="icon-exclamation-circle" />
-                      </p>
-                    </>
-                  ))}
-                </S.Title>
-              </Card>
-            </S.Box>
+              {op.info.map((infos) => (
+                <>
+                  <S.ValueTitle>{infos.title} </S.ValueTitle>
+                  <S.Value>{infos.value}</S.Value>
+                  {/* <p className="error">
+                    <ExclamationCircle />
+                  </p> */}
+                </>
+              ))}
+            </Card>
           ))}
-
-          <Card type="secondary">
-            <S.Title>Memo</S.Title>
-            <S.Value>{memo.text}</S.Value>
-          </Card>
         </div>
       </S.Confirm>
-      <ButtonContainer justify="end" btnSize={100} gap={10} mt={16}>
+      <ButtonContainer
+        justify="end"
+        btnSize={100}
+        gap={10}
+        mt={16}
+        positionStyles={{ bottom: '14px' }}
+      >
         <Button
           variant="default"
           size="medium"
           content="Reject"
-          onClick={() => {
-            navigate(RouteName.Home, {
-              state: {
-                alreadyLoaded: true,
-              },
-            });
-          }}
+          onClick={onClose}
         />
 
         <Button
@@ -97,7 +84,7 @@ const Confirm = () => {
           onClick={handleConfirm}
         />
       </ButtonContainer>
-    </>
+    </div>
   );
 };
 

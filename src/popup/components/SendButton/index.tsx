@@ -6,7 +6,7 @@ import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import openModalAction from 'popup/actions/modal/open';
 import closeModalAction from 'popup/actions/modal/close';
-import Confirm from '../Confirm';
+import Confirm from 'popup/blocks/Op/Advance/Confirm';
 
 const SendButton = () => {
   const navigate = useNavigate();
@@ -17,11 +17,11 @@ const SendButton = () => {
   const handleClick = () => {
     openModalAction({
       isStyled: false,
-      title: 'Create contact',
+      title: '',
       size: 'medium',
       padding: 'large',
-      minHeight: 470,
-      children: <Confirm />,
+      minHeight: 534,
+      children: <Confirm onClose={closeModalAction} />,
     });
   };
 

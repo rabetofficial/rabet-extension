@@ -91,9 +91,9 @@ const BasicConfirmSend = ({ usage, values }: AppProps) => {
             }
           />
 
-          <S.Hr />
           {values.memo ? (
             <>
+              <S.Hr />
               <S.Label>Memo</S.Label>
               <S.Value>{values.memo}</S.Value>
             </>
