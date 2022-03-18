@@ -38,7 +38,9 @@ const Contact = ({ onClose, needTitle, usage }: ContactProps) => {
       size: 'medium',
       padding: 'large',
       minHeight: 470,
-      children: <CreateContact onClose={closeModalAction} />,
+      children: (
+        <CreateContact onClose={closeModalAction} titlePage="" />
+      ),
     });
   };
 

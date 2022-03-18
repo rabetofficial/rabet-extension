@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
+import openModalAction from 'popup/actions/modal/open';
+import closeModalAction from 'popup/actions/modal/close';
+import Confirm from '../Confirm';
 
 const SendButton = () => {
   const navigate = useNavigate();
@@ -12,7 +15,14 @@ const SendButton = () => {
   );
 
   const handleClick = () => {
-    navigate(RouteName.Confirm);
+    openModalAction({
+      isStyled: false,
+      title: 'Create contact',
+      size: 'medium',
+      padding: 'large',
+      minHeight: 470,
+      children: <Confirm />,
+    });
   };
 
   console.log(operations, memo);
