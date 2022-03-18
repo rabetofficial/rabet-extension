@@ -2,9 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import shorter from 'popup/utils/shorter';
-import RouteName from 'popup/staticRes/routes';
 import Card from 'popup/components/common/Card';
-import PageTitle from 'popup/components/PageTitle';
 import Button from 'popup/components/common/Button';
 import sendAction from 'popup/actions/operations/send';
 import CopyText from 'popup/components/common/CopyText';
@@ -33,7 +31,7 @@ const Confirm = ({ onClose }: ConfirmType) => {
   };
 
   return (
-    <div className="pt-8 px-8 hidden-scroll">
+    <S.Container className="hidden-scroll">
       <S.Confirm>
         <div>
           <S.Source>
@@ -47,19 +45,27 @@ const Confirm = ({ onClose }: ConfirmType) => {
           </S.Source>
 
           {operationsMapped.map((op) => (
-            <Card type="secondary" className="mt-4 px-3 py-6">
-              <S.Title>{op.title}</S.Title>
+            <>
+              <Card type="secondary" className="mt-4 px-3 py-6">
+                <S.Title>{op.title}</S.Title>
 
-              {op.info.map((infos) => (
-                <>
-                  <S.ValueTitle>{infos.title} </S.ValueTitle>
-                  <S.Value>{infos.value}</S.Value>
-                  {/* <p className="error">
+                {op.info.map((infos) => (
+                  <>
+                    <S.ValueTitle>{infos.title} </S.ValueTitle>
+                    <S.Value>{infos.value}</S.Value>
+                    {/* <p className="error">
                     <ExclamationCircle />
                   </p> */}
-                </>
-              ))}
-            </Card>
+                  </>
+                ))}
+              </Card>
+              {memo.text && (
+                <Card type="secondary" className="mt-2 px-3 pb-2">
+                  <S.ValueTitle>Memo</S.ValueTitle>
+                  <S.Value>{memo.text}</S.Value>
+                </Card>
+              )}
+            </>
           ))}
         </div>
       </S.Confirm>
@@ -84,7 +90,7 @@ const Confirm = ({ onClose }: ConfirmType) => {
           onClick={handleConfirm}
         />
       </ButtonContainer>
-    </div>
+    </S.Container>
   );
 };
 

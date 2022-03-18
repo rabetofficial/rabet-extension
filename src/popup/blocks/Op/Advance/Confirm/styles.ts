@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  padding: 32px 32px 0px;
+  @media (max-width: 360px) {
+    padding: 16px 16px 0px;
+  } ;
+`;
+
 export const Confirm = styled.div`
   position: relative;
 `;
