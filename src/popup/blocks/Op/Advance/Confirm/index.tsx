@@ -6,11 +6,10 @@ import Card from 'popup/components/common/Card';
 import Button from 'popup/components/common/Button';
 import sendAction from 'popup/actions/operations/send';
 import CopyText from 'popup/components/common/CopyText';
+import operationMapper from 'popup/utils/operationMapper';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
-import operationMapper from 'popup/utils/operationMapper';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-import ExclamationCircle from 'popup/svgs/ExclamationCircle';
 
 import * as S from './styles';
 
@@ -44,18 +43,17 @@ const Confirm = ({ onClose }: ConfirmType) => {
             </S.SourceValue>
           </S.Source>
 
-          {operationsMapped.map((op) => (
+          {operationsMapped.map((op, i) => (
             <>
               <Card type="secondary" className="mt-4 px-3 py-6">
-                <S.Title>{op.title}</S.Title>
+                <S.Title>
+                  #{i + 1} {op.title}
+                </S.Title>
 
                 {op.info.map((infos) => (
                   <>
                     <S.ValueTitle>{infos.title} </S.ValueTitle>
                     <S.Value>{infos.value}</S.Value>
-                    {/* <p className="error">
-                    <ExclamationCircle />
-                  </p> */}
                   </>
                 ))}
               </Card>

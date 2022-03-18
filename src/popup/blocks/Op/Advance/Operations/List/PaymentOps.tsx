@@ -155,7 +155,7 @@ const PaymentOps = ({ id }: AppProps) => {
         isAccountNew,
         amount: parseFloat(values.amount).toFixed(7),
         destination: values.destination,
-        asset: selected,
+        asset: values.asset,
       });
     } else {
       changeOperationAction(id, {

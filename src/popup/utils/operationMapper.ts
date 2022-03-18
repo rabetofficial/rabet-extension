@@ -1,8 +1,18 @@
-import * as operations from '../staticRes/operations';
+import { Horizon } from 'stellar-sdk';
 
-import numberWithCommas from './numberWithCommas';
+import formatBalance from './formatBalance';
 
-export default (operation: any) => {
+const operations = Horizon.OperationResponseType;
+
+type OpMapped = {
+  title: string;
+  info: {
+    title: string;
+    value: string;
+  }[];
+};
+
+export default (operation: any): OpMapped => {
   // PAYMENT
   // CREATE ACCOUNT
   if (operation.type === operations.payment) {
@@ -15,8 +25,8 @@ export default (operation: any) => {
         },
         {
           title: 'Amount',
-          value: `${numberWithCommas(operation.amount)} ${
-            operation.asset.asset_code
+          value: `${formatBalance(operation.amount)} ${
+            operation.asset.asset_code || 'XLM'
           }`,
         },
       ],
@@ -32,7 +42,7 @@ export default (operation: any) => {
       info: [
         {
           title: 'BumpTo',
-          value: numberWithCommas(operation.bumpTo),
+          value: formatBalance(operation.bumpTo),
         },
       ],
     };
@@ -104,11 +114,11 @@ export default (operation: any) => {
       info: [
         {
           title: 'Asset',
-          value: `${operation.asset.value}`,
+          value: `${operation.asset.asset_code || 'XLM'}`,
         },
         {
           title: 'Limit',
-          value: numberWithCommas(operation.limit),
+          value: formatBalance(operation.limit),
         },
       ],
     };
@@ -117,7 +127,7 @@ export default (operation: any) => {
   }
 
   // Set Options (Threshold)
-  if (operation.type === operations.setOptionsThreshold) {
+  if (operation.type === `${operations.setOptions}_threshold`) {
     const mapper = {
       title: 'Set Options (Threshold)',
       info: [
@@ -140,7 +150,7 @@ export default (operation: any) => {
   }
 
   // Set Options (Signer)
-  if (operation.type === operations.setOptionsSigner) {
+  if (operation.type === `${operations.setOptions}_signer`) {
     const mapper = {
       title: 'Set Options (Signer)',
       info: [
@@ -150,7 +160,7 @@ export default (operation: any) => {
         },
         {
           title: 'Weight',
-          value: numberWithCommas(operation.weight),
+          value: formatBalance(operation.weight),
         },
       ],
     };
@@ -159,7 +169,7 @@ export default (operation: any) => {
   }
 
   // Set Options (Home Domain)
-  if (operation.type === operations.setOptionsHomeDomain) {
+  if (operation.type === `${operations.setOptions}_home_domain`) {
     const mapper = {
       title: 'Set Options (Home Domain)',
       info: [
@@ -174,7 +184,7 @@ export default (operation: any) => {
   }
 
   // Set Options (Master Weight)
-  if (operation.type === operations.setOptionsMasterWeight) {
+  if (operation.type === `${operations.setOptions}_master_weight`) {
     const mapper = {
       title: 'Set Options (Master Weight)',
       info: [
@@ -189,7 +199,7 @@ export default (operation: any) => {
   }
 
   // Set Options (Set Flag)
-  if (operation.type === operations.setOptionsSetFlags) {
+  if (operation.type === `${operations.setOptions}_set_flag`) {
     const mapper = {
       title: 'Set Options (Set Flag)',
       info: [
@@ -204,7 +214,7 @@ export default (operation: any) => {
   }
 
   // Set Options (Clear Flag)
-  if (operation.type === operations.setOptionsClearFlags) {
+  if (operation.type === `${operations.setOptions}_clear_flag`) {
     const mapper = {
       title: 'Set Options (Clear Flag)',
       info: [
@@ -219,7 +229,7 @@ export default (operation: any) => {
   }
 
   // Set Options (Inflation)
-  if (operation.type === operations.setOptionsInflationDest) {
+  if (operation.type === `${operations.setOptions}_inflation`) {
     const mapper = {
       title: 'Set Options (Inflation)',
       info: [
@@ -244,14 +254,14 @@ export default (operation: any) => {
         },
         {
           title: 'Send Amount',
-          value: `${numberWithCommas(operation.sendAmount)} ${
-            operation.sendAsset.value
+          value: `${formatBalance(operation.sendAmount)} ${
+            operation.sendAsset.asset_code || 'XLM'
           }`,
         },
         {
           title: 'Destination Min',
-          value: `${numberWithCommas(operation.destMin)} ${
-            operation.destAsset.value
+          value: `${formatBalance(operation.destMin)} ${
+            operation.destAsset.asset_code || 'XLM'
           }`,
         },
       ],
@@ -261,7 +271,7 @@ export default (operation: any) => {
   }
 
   // Path Payment Strict Receive
-  if (operation.type === operations.pathPaymentStrictReceive) {
+  if (operation.type === operations.pathPayment) {
     const mapper = {
       title: 'Path Payment Strict Receive',
       info: [
@@ -271,14 +281,14 @@ export default (operation: any) => {
         },
         {
           title: 'Send Max',
-          value: `${numberWithCommas(operation.sendMax)} ${
-            operation.sendAsset.value
+          value: `${formatBalance(operation.sendMax)} ${
+            operation.sendAsset.asset_code || 'XLM'
           }`,
         },
         {
           title: 'Destination Min',
-          value: `${numberWithCommas(operation.destAmount)} ${
-            operation.destAsset.value
+          value: `${formatBalance(operation.destAmount)} ${
+            operation.destAsset.asset_code || 'XLM'
           }`,
         },
       ],
@@ -294,19 +304,19 @@ export default (operation: any) => {
       info: [
         {
           title: 'Selling',
-          value: `${numberWithCommas(operation.selling)} ${
-            operation.sellingAsset.value
+          value: `${formatBalance(operation.selling)} ${
+            operation.sellingAsset.asset_code || 'XLM'
           }`,
         },
         {
           title: 'Buying',
-          value: `${numberWithCommas(operation.buying)} ${
-            operation.buyingAsset.value
+          value: `${formatBalance(operation.buying)} ${
+            operation.buyingAsset.asset_code || 'XLM'
           }`,
         },
         {
           title: 'Offer ID',
-          value: numberWithCommas(operation.offerId),
+          value: formatBalance(operation.offerId),
         },
       ],
     };
@@ -315,20 +325,20 @@ export default (operation: any) => {
   }
 
   // CREATE PASSIVE SELL OFFER
-  if (operation.type === operations.createPassiveSellOffer) {
+  if (operation.type === operations.createPassiveOffer) {
     const mapper = {
       title: 'Manage Passive Offer',
       info: [
         {
           title: 'Selling',
-          value: `${numberWithCommas(operation.selling)} ${
-            operation.sellingAsset.value
+          value: `${formatBalance(operation.selling)} ${
+            operation.sellingAsset.asset_code || 'XLM'
           }`,
         },
         {
           title: 'Buying',
-          value: `${numberWithCommas(operation.buying)} ${
-            operation.buyingAsset.value
+          value: `${formatBalance(operation.buying)} ${
+            operation.buyingAsset.asset_code || 'XLM'
           }`,
         },
       ],
@@ -337,5 +347,13 @@ export default (operation: any) => {
     return mapper;
   }
 
-  return '';
+  return {
+    title: operation.type,
+    info: [
+      {
+        title: '',
+        value: '',
+      },
+    ],
+  };
 };
