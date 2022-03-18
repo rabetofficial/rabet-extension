@@ -1,15 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
-import useTypedSelector from 'popup/hooks/useTypedSelector';
+import Confirm from 'popup/blocks/Op/Advance/Confirm';
 import openModalAction from 'popup/actions/modal/open';
 import closeModalAction from 'popup/actions/modal/close';
-import Confirm from 'popup/blocks/Op/Advance/Confirm';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 const SendButton = () => {
-  const navigate = useNavigate();
   const { operations, memo } = useTypedSelector(
     (store) => store.transaction,
   );
@@ -21,11 +18,11 @@ const SendButton = () => {
       size: 'medium',
       padding: 'large',
       minHeight: 534,
-      children: <Confirm onClose={closeModalAction} />,
+      children: (
+        <Confirm onClose={closeModalAction} usage="desktop" />
+      ),
     });
   };
-
-  console.log(operations, memo);
 
   let isDisabled = false;
 

@@ -1,20 +1,32 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Usage } from 'popup/models';
 import shorter from 'popup/utils/shorter';
+import RouteName from 'popup/staticRes/routes';
 import Card from 'popup/components/common/Card';
 import Button from 'popup/components/common/Button';
 import sendAction from 'popup/actions/operations/send';
 import CopyText from 'popup/components/common/CopyText';
+import closeModalAction from 'popup/actions/modal/close';
 import operationMapper from 'popup/utils/operationMapper';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import {
+  openErrorModal,
+  openLoadingModal,
+  openSucessModal,
+} from 'popup/components/Modals';
 
 import * as S from './styles';
 
-type ConfirmType = { onClose: () => void };
-const Confirm = ({ onClose }: ConfirmType) => {
+type ConfirmType = {
+  usage: Usage;
+  onClose: () => void;
+};
+
+const Confirm = ({ onClose, usage }: ConfirmType) => {
   const navigate = useNavigate();
   const { publicKey } = useActiveAccount();
   const { memo, operations } = useTypedSelector(
@@ -25,8 +37,34 @@ const Confirm = ({ onClose }: ConfirmType) => {
     operationMapper(op),
   );
 
-  const handleConfirm = () => {
-    sendAction(navigate);
+  const handleConfirm = async () => {
+    if (usage === 'desktop') {
+      openLoadingModal({});
+    } else {
+      navigate(RouteName.LoadingNetwork);
+    }
+
+    const [isDone, message] = await sendAction();
+
+    if (usage === 'desktop') {
+      if (isDone) {
+        openSucessModal({
+          message,
+          onClick: closeModalAction,
+        });
+      } else {
+        openErrorModal({
+          message,
+          onClick: closeModalAction,
+        });
+      }
+    } else {
+      navigate(isDone ? RouteName.Sucess : RouteName.Error, {
+        state: {
+          message,
+        },
+      });
+    }
   };
 
   return (

@@ -78,8 +78,6 @@ const BasicConfirmSwap = ({ usage, values }: AppProps) => {
     asset2Code = values.asset2.asset_code;
   }
 
-  console.log(values);
-
   return (
     <ConfirmLayout usage={usage} handleClick={handleClick}>
       <ScrollBar
