@@ -17,6 +17,7 @@ import addMemoAction from 'popup/actions/operations/addMemo';
 import addOperationAction from 'popup/actions/operations/add';
 import clearOperationsAction from 'popup/actions/operations/clear';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+import { Usage } from 'popup/models';
 
 const PlusIcon = styled.div`
   svg {
@@ -33,7 +34,11 @@ type FormValues = {
   memo: string;
 };
 
-const AdvanceOperation = () => {
+type AdvancedOperationProps = {
+  usage: Usage;
+};
+
+const AdvanceOperation = ({ usage }: AdvancedOperationProps) => {
   const navigate = useNavigate();
   const [operations, setOperations] = useState<OpType[]>([]);
 
@@ -150,14 +155,18 @@ const AdvanceOperation = () => {
         </Card>
 
         <ButtonContainer btnSize={100} justify="end" mt={32} gap={10}>
-          <Button
-            variant="default"
-            size="medium"
-            content="Back"
-            onClick={handleCancel}
-          />
+          {usage === 'extension' ? (
+            <Button
+              variant="default"
+              size="medium"
+              content="Back"
+              onClick={handleCancel}
+            />
+          ) : (
+            ''
+          )}
 
-          <SendButton />
+          <SendButton usage={usage} />
         </ButtonContainer>
       </div>
     </>

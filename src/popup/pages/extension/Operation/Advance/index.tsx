@@ -12,7 +12,7 @@ const OperationAdvance = () => (
 
       <ExtTitle title="Operation" className="content mt-4" />
       <div className="content mt-8">
-        <OpAdvance />
+        <OpAdvance usage="extension" />
       </div>
     </div>
   </ScrollBar>

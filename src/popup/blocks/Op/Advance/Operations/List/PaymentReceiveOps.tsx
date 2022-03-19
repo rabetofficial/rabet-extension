@@ -7,10 +7,10 @@ import { ElementOption } from 'popup/models';
 import matchAsset from 'popup/utils/matchAsset';
 import Input from 'popup/components/common/Input';
 import nativeAsset from 'popup/utils/nativeAsset';
+import getAccountData from 'popup/api/getAccount';
 import getMaxBalance from 'popup/utils/maxBalance';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import SelectOption from 'popup/components/common/SelectOption';
-import getAccountData from 'popup/utils/horizon/isAddressFound';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import changeOperationAction from 'popup/actions/operations/change';
 

@@ -23,7 +23,11 @@ const plugins = [
   }),
   new HtmlWebpackPlugin({
     chunks: ['interaction'],
-    template: `${resolve(__dirname, 'src', 'interaction')}/interaction.html`,
+    template: `${resolve(
+      __dirname,
+      'src',
+      'interaction',
+    )}/interaction.html`,
     filename: `${resolve(`${__dirname}/dist`)}/interaction.html`,
   }),
   new ManifestPlugin(),
@@ -35,7 +39,7 @@ if (!devMode) {
 
 const config = {
   entry: {
-    popup: resolve(`${__dirname}/src/popup/index.jsx`),
+    popup: resolve(`${__dirname}/src/popup/index.tsx`),
     background_script: resolve(
       `${__dirname}/src/background_script/index.js`,
     ),

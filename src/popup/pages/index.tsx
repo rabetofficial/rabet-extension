@@ -28,12 +28,12 @@ import RestoreWallet from './RestoreWallet';
 import DeleteAccount from './DeleteAccount';
 import AddAsset from './extension/AddAssets';
 import AssetInfo from './extension/AssetInfo';
-import LoadingNetwork from './extension/LoadingNetwork';
 import ShowPrivateKey from './ShowPrivateKey';
 import AccountManager from './AccountManager';
 import AddContact from './extension/AddContact';
 import EditContact from './extension/EditContact';
 import ConnectedWebsite from './ConnectedWebsite';
+import LoadingNetwork from './extension/LoadingNetwork';
 import BasicOperation from './extension/Operation/Basic';
 import LoggedCreateWallet from './extension/CreateWallet';
 import LoggedImportWallet from './extension/ImportWallet';
@@ -41,6 +41,7 @@ import AdvanceOperation from './extension/Operation/Advance';
 import SuccessfulSubmission from './extension/SuccessfulSubmission';
 import BasicSendConfirm from './extension/Operation/Basic/ConfirmSend';
 import BasicSwapConfirm from './extension/Operation/Basic/ConfirmSwap';
+import ConfirmAdvancedOperation from './extension/Operation/Advance/Confirm';
 
 const App = () => (
   <div className="layout">
@@ -165,6 +166,15 @@ const App = () => (
         element={
           <ProtectedRoute>
             <BasicOperation />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path={RouteName.Confirm}
+        element={
+          <ProtectedRoute>
+            <ConfirmAdvancedOperation />
           </ProtectedRoute>
         }
       />
