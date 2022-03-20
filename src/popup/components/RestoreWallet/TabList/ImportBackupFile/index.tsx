@@ -1,17 +1,14 @@
 import { useDropzone } from 'react-dropzone';
 import { Form, Field } from 'react-final-form';
-import { useNavigate } from 'react-router-dom';
 import React, { useState, useCallback } from 'react';
 
 import { Usage } from 'popup/models';
 import { decrypt } from 'helpers/crypto';
 import Download from 'popup/svgs/Download';
 import ArrowBack from 'popup/svgs/ArrowBack';
-import RouteName from 'popup/staticRes/routes';
 import Error from 'popup/components/common/Error';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
-import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 import addBackupAccountsAction from 'popup/actions/accounts/addBackup';
 
@@ -63,15 +60,6 @@ const ImportBackupFile = ({
     form.reset();
 
     onCancel();
-    // if (accounts.length) {
-    //   return navigate(RouteName.Home, {
-    //     state: {
-    //       alreadyLoaded: true,
-    //     },
-    //   });
-    // }
-
-    // return navigate(RouteName.First);
   };
 
   const handleSubmitFunc = async (values: FormValues) => {
@@ -91,7 +79,7 @@ const ImportBackupFile = ({
       };
     }
 
-    addBackupAccountsAction(data);
+    await addBackupAccountsAction(data);
 
     onSubmit();
 

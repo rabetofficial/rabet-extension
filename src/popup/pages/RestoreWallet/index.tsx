@@ -63,6 +63,7 @@ const RestoreWallet = () => {
   return (
     <Layout isDashboard={false}>
       <RestoreWalletComponent
+        usage="desktop"
         onCancel={onCancel}
         onSubmit={onSubmit}
         onSubmitBackup={onSubmitBackup}
