@@ -41,12 +41,18 @@ const Slides = () => {
     infinite: false,
     arrows: true,
     prevArrow: (
-      <S.LeftCircle thirdSlide={slideIndex === 3}>
+      <S.LeftCircle
+        thirdSlide={slideIndex === 3}
+        disabled={slideIndex === 0}
+      >
         <SlideLeft disabled={slideIndex === 0} />
       </S.LeftCircle>
     ),
     nextArrow: (
-      <S.RightCircle thirdSlide={slideIndex === 3}>
+      <S.RightCircle
+        thirdSlide={slideIndex === 3}
+        disabled={slideIndex === 0}
+      >
         <SlideRight disabled={slideIndex === 3} />
       </S.RightCircle>
     ),

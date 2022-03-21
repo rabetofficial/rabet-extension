@@ -116,6 +116,7 @@ export const Indicators = styled.div<IndicatorsProps>`
 `;
 
 interface CircleProps {
+  disabled: boolean;
   thirdSlide: boolean;
   theme: any;
 }
@@ -127,12 +128,17 @@ export const Circle = styled.div<CircleProps>`
   align-items: center;
   border: solid 1px ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 50%;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+
   @media (max-width: 630px) and (min-width: 360px) {
     display: ${({ thirdSlide }) => (thirdSlide ? 'none' : 'block')};
   }
+
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primary.lighter};
+    background-color: ${({ theme, disabled }) =>
+      disabled
+        ? theme.colors.primary.lightest
+        : theme.colors.primary.lighter};
     transition: 0.6s background-color;
   }
 `;

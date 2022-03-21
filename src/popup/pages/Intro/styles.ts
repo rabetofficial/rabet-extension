@@ -20,10 +20,10 @@ export const Img = styled.div`
 
 export const MbButton = styled.div`
   padding: 0 17px;
-  margin-top: 48px;
+  margin: 38px 0;
   @media (max-width: 360px) {
     padding: 0;
-    margin-top: 33px;
+    margin: 33px 0 0;
   }
 `;
 export const WelcomeText = styled.p`
@@ -34,7 +34,7 @@ export const WelcomeText = styled.p`
   }
 `;
 export const MainText = styled.p`
-  margin-top: 16px;
+  margin-top: 10px;
   @media (max-width: 360px) {
     margin-top: 7px;
     font-size: 24px;
