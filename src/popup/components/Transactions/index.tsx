@@ -39,13 +39,24 @@ const Transactions = ({
         isHidden
         maxHeight={usage === 'extension' ? 220 : 600}
       >
-        <div className="flex justify-center items-center lg:my-[190px] md:my-[180px] sm:my-[40px] my-[40px]">
-          <Loading size={usage === 'extension' ? 60 : 80} />
-        </div>
+        {usage === 'extension' ? (
+          <div className="flex justify-center items-center my-[40px]">
+            <Loading size={60} />
+          </div>
+        ) : (
+          <div
+            className="flex justify-center items-center"
+            style={{
+              marginTop: transactions.length ? '300px' : '100px',
+            }}
+          >
+            <Loading size={80} />
+          </div>
+        )}
       </ScrollBar>
     );
   }
-  if (transactions.length === 0) {
+  if (!transactions.length) {
     return (
       <div style={{ marginTop: usage === 'extension' ? '31' : '72' }}>
         <Nodata msg="You have no transaction" className="text-base" />

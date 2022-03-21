@@ -15,7 +15,7 @@ const AssetBlock = () => {
       minHeight: 545,
       padding: 'large',
       title: 'Add asset',
-      children: <AddAsset />,
+      children: <AddAsset usage="desktop" />,
     });
   };
 
