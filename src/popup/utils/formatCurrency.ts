@@ -12,7 +12,7 @@ const formatCurrency = (b: string): string => {
     balanceNumber.isGreaterThanOrEqualTo(0) &&
     balanceNumber.isLessThanOrEqualTo(1)
   ) {
-    return balance;
+    return new BN(balance).toString();
   }
 
   if (balanceNumber.isEqualTo(0)) {

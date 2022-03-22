@@ -80,7 +80,7 @@ const Asset = ({ asset }: AssetType) => {
             </div>
             <div className="text-sm text-primary-dark mt-[2px]">
               {handleAssetSymbol(currencies, options)}
-              {formatBalance(price)}
+              {formatBalance('0.00000077')}
             </div>
           </div>
         </div>
