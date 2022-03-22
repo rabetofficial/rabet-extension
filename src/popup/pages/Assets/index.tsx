@@ -12,6 +12,7 @@ const Assets = () => {
   const handleDelete = ({ code, issuer }) => {
     addAssetAction({ code, issuer, limit: '0' }, navigate);
   };
+
   const handleClick = () => {
     handleDelete({ code: asset_code, issuer: asset_issuer });
   };

@@ -1,17 +1,17 @@
 import React from 'react';
 
 import { Tab } from 'popup/models';
+import isEmpty from 'helpers/isEmpty';
 import Tabs from 'popup/components/common/Tabs';
-import isEmpty from '../../../../../helpers/isEmpty';
-import AddressBlock from './AddressBlock';
-import AssetBlock from './AssetBlock';
-import HeaderBlock from './HeaderBlock';
 
 import * as S from './styles';
+import AssetBlock from './AssetBlock';
+import HeaderBlock from './HeaderBlock';
+import AddressBlock from './AddressBlock';
 
 type AppProps = {
-  children?: React.ReactNode;
   tabItems?: Tab[];
+  children?: React.ReactNode;
 };
 
 const ExpandLayout = ({ children, tabItems = [] }: AppProps) => (

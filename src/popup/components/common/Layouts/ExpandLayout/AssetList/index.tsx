@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
-import NoDate from 'popup/components/common/Nodata';
 import AssetInfo from 'popup/components/AssetInfo';
 import openModalAction from 'popup/actions/modal/open';
 import closeModalAction from 'popup/actions/modal/close';
@@ -29,7 +28,7 @@ type AssetsListProps = {
 const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
   const navigate = useNavigate();
   const { assets: asts } = useActiveAccount();
-  const assets = asts || [];
+  let assets = asts || [];
 
   const showDeleteResult = (result: [boolean, string]) => {
     if (result[0]) {
@@ -112,12 +111,14 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
   };
 
   if (!assets.length) {
-    return (
-      <NoDate
-        msg="No Assets"
-        className="flex justify-center items-center min-h-[180px]"
-      />
-    );
+    const XLMAsset: Horizon.BalanceLineNative = {
+      asset_type: 'native',
+      balance: '0',
+      selling_liabilities: '0',
+      buying_liabilities: '0',
+    };
+
+    assets = [...assets, XLMAsset];
   }
 
   return (

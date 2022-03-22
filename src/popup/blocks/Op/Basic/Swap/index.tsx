@@ -64,7 +64,7 @@ const BasicSwap = ({ usage }: AppProps) => {
   const [minimumReceived, setMinimumReceived] = useState(0);
   const [isRotateActive, setIsRotateActive] = useState(false);
 
-  const [asset1, setAsset1] = useState(null);
+  const [asset1, setAsset1] = useState(assets[0]);
   const [asset2, setAsset2] = useState(assetsPlusDefaultAssets[0]);
 
   const timeoutRef = useRef();
@@ -315,9 +315,24 @@ const BasicSwap = ({ usage }: AppProps) => {
   };
 
   const handleSwapPlaces = () => {
-    // const { to, from } = getValues();
-    // setValue('from', to);
-    // setValue('to', from);
+    const { to, from } = getValues();
+
+    setValue('asset1', asset1);
+    setValue('asset2', asset2);
+    setValue('from', to, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+    setValue('to', from);
+
+    setError('from', {
+      type: 'error',
+      message: 'ERROR ERROR ERROR',
+    });
+
+    console.log(getValues());
+
     // calculate();
   };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Horizon } from 'stellar-sdk';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import RouteName from 'popup/staticRes/routes';
@@ -13,7 +14,18 @@ const AssetInfo = () => {
   const account = useActiveAccount();
   const { asset_code, asset_issuer, asset_type } = useParams();
 
-  const assets = account.assets || [];
+  let assets = account.assets || [];
+
+  const XLMAsset: Horizon.BalanceLineNative = {
+    asset_type: 'native',
+    balance: '0',
+    selling_liabilities: '0',
+    buying_liabilities: '0',
+  };
+
+  if (!assets.length) {
+    assets = [...assets, XLMAsset];
+  }
 
   let isNative = false;
   let asset = assets.find(

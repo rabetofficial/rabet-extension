@@ -30,7 +30,7 @@ const AssetBlock = () => {
         </S.AssetTrigger>
       </div>
       <div className="mx-[-24px]">
-        <AssetList />
+        <AssetList usage="desktop" />
       </div>
     </S.Card>
   );
