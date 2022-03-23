@@ -1,7 +1,7 @@
 import { Horizon } from 'stellar-sdk';
 import { useNavigate } from 'react-router-dom';
-import React, { useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import React, { useRef, useState, useEffect } from 'react';
 
 import BN from 'helpers/BN';
 import Swap from 'popup/svgs/Swap';
@@ -70,6 +70,7 @@ const BasicSwap = ({ usage }: AppProps) => {
   const timeoutRef = useRef();
 
   const {
+    trigger,
     control,
     setError,
     setValue,
@@ -86,6 +87,10 @@ const BasicSwap = ({ usage }: AppProps) => {
       asset2: assetsPlusDefaultAssets[0],
     },
   });
+
+  useEffect(() => {
+    trigger();
+  }, []);
 
   const calculate = async () => {
     setIsRotateActive(false);
@@ -317,23 +322,24 @@ const BasicSwap = ({ usage }: AppProps) => {
   const handleSwapPlaces = () => {
     const { to, from } = getValues();
 
-    setValue('asset1', asset1);
-    setValue('asset2', asset2);
-    setValue('from', to, {
-      shouldDirty: true,
-      shouldTouch: true,
-      shouldValidate: true,
-    });
+    if (
+      !assets.find(
+        (ast) =>
+          ast.asset_code === asset2.asset_code &&
+          ast.asset_issuer === asset2.asset_issuer,
+      )
+    ) {
+      setValue('asset1', asset1);
+      setValue('asset2', asset2);
+
+      setAsset1(asset2);
+      setAsset2(asset1);
+    }
+
     setValue('to', from);
+    setValue('from', to);
 
-    setError('from', {
-      type: 'error',
-      message: 'ERROR ERROR ERROR',
-    });
-
-    console.log(getValues());
-
-    // calculate();
+    calculate();
   };
 
   const onSubmit = async (v: FormValues) => {
@@ -378,6 +384,7 @@ const BasicSwap = ({ usage }: AppProps) => {
               placeholder="123"
               size="medium"
               variant="max"
+              value={field.value}
               onChange={(e) => {
                 field.onChange(e);
                 handleFromChange();
@@ -425,6 +432,7 @@ const BasicSwap = ({ usage }: AppProps) => {
               type="number"
               placeholder="123"
               size="medium"
+              value={field.value}
               defaultValue={field.value}
               onChange={field.onChange}
               errorMsg={errors.to}
