@@ -78,7 +78,7 @@ const BasicSwap = ({ usage }: AppProps) => {
     getValues,
     clearErrors,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isDirty },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -168,7 +168,7 @@ const BasicSwap = ({ usage }: AppProps) => {
 
     const minReceived = new BN(calculatedResult.destination_amount)
       .div(100)
-      .times(99.8);
+      .times(99.7);
 
     setMinimumReceived(parseFloat(minReceived.toString()));
     setPath(calculatePath);
@@ -523,6 +523,7 @@ const BasicSwap = ({ usage }: AppProps) => {
           size="medium"
           content="Swap"
           style={{ marginRight: '-12px' }}
+          disabled={!isDirty || !isValid || !showSwapInfo}
         />
       </ButtonContainer>
     </form>
