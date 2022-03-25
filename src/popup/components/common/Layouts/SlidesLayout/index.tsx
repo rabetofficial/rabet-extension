@@ -14,7 +14,7 @@ const Layout = ({
 }: LayoutProps) => (
   <div
     className={classNames(
-      `flex h-screen justify-center ${
+      `flex h-full justify-center ${
         alignCenter ? 'place-items-center' : ' '
       }`,
       className,

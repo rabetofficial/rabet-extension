@@ -101,7 +101,7 @@ interface IndicatorsProps {
 export const Indicators = styled.div<IndicatorsProps>`
   width: 40px;
   height: 2px;
-  margin: -99px 4px 0px 4px;
+  margin: -40px 4px 0px 4px;
   background-color: ${({ theme, disabled }) =>
     disabled
       ? theme.colors.primary.light
