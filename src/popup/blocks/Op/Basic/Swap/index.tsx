@@ -26,6 +26,7 @@ import BasicConfirmSwap from 'popup/blocks/Op/Basic/Confirm/Swap';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
+import config from '../../../../../config';
 import ShowFractional from './ShowFractional';
 
 export type FormValues = {
@@ -168,7 +169,7 @@ const BasicSwap = ({ usage }: AppProps) => {
 
     const minReceived = new BN(calculatedResult.destination_amount)
       .div(100)
-      .times(99.7);
+      .times(config.MIN_RECEIVED);
 
     setMinimumReceived(parseFloat(minReceived.toString()));
     setPath(calculatePath);
