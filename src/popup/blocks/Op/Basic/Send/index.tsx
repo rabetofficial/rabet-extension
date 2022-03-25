@@ -77,6 +77,8 @@ const BasicSend = ({ usage }: AppProps) => {
         ),
       });
     }
+
+    return {};
   };
 
   const validateForm = async (v: FormValues) => {
@@ -185,7 +187,11 @@ const BasicSend = ({ usage }: AppProps) => {
           submitError,
           handleSubmit,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={(e) => {
+              handleSubmit(e).then(form.reset);
+            }}
+          >
             <label className="label-primary block mt-4">Amount</label>
             <ModalInput>
               <div className="flex flex-col grow">

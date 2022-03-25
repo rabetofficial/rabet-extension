@@ -70,6 +70,7 @@ const BasicSwap = ({ usage }: AppProps) => {
   const timeoutRef = useRef();
 
   const {
+    reset,
     trigger,
     control,
     setError,
@@ -369,6 +370,9 @@ const BasicSwap = ({ usage }: AppProps) => {
         ),
       });
     }
+
+    reset();
+    setShowSwapInfo(false);
   };
 
   return (
@@ -391,7 +395,7 @@ const BasicSwap = ({ usage }: AppProps) => {
               }}
               defaultValue={field.value}
               setMax={setFromMax}
-              errorMsg={errors.from}
+              errorMsg={showSwapInfo.from}
               onKeyPress={controlNumberInput}
               styleType="light"
               className="grow"
@@ -426,7 +430,6 @@ const BasicSwap = ({ usage }: AppProps) => {
         <Controller
           name="to"
           control={control}
-          rules={{ required: true }}
           render={({ field }) => (
             <Input
               type="number"
