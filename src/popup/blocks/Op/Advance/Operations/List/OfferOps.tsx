@@ -10,6 +10,7 @@ import SelectOption from 'popup/components/common/SelectOption';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import changeOperationAction from 'popup/actions/operations/change';
 import BN from 'helpers/BN';
+import Error from 'popup/components/common/Error';
 
 type FormValidate = {
   selling: string;
@@ -243,7 +244,7 @@ const OfferOps = ({ id, offer }: AppProps) => {
           ) : (
             ''
           )}
-          {submitError && <div className="error">{submitError}</div>}
+          {submitError && <Error>{submitError}</Error>}
         </form>
       )}
     />

@@ -3,6 +3,7 @@ import { Form, Field } from 'react-final-form';
 
 import Input from 'popup/components/common/Input';
 import changeOperationAction from 'popup/actions/operations/change';
+import Error from 'popup/components/common/Error';
 
 type FormValidate = {
   name: string;
@@ -108,7 +109,7 @@ const ManageDataOps = ({ id }: AppProps) => {
             )}
           </Field>
 
-          {submitError && <div className="error">{submitError}</div>}
+          {submitError && <Error>{submitError}</Error>}
         </form>
       )}
     />
