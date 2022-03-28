@@ -20,7 +20,7 @@ const AssetBlock = () => {
   };
 
   return (
-    <S.Card className="rounded pt-[20px] grow">
+    <S.Card className="rounded pt-[20px] h-[386px]">
       <div className="flex justify-between items-center pb-[15px]">
         <div className="text-lg font-medium">Assets</div>
         <S.AssetTrigger onClick={onOpenModal}>

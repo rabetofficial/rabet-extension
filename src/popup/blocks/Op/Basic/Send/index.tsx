@@ -274,7 +274,7 @@ const BasicSend = ({ usage }: AppProps) => {
             {submitError && <Error>{submitError}</Error>}
 
             <ButtonContainer
-              btnSize={100}
+              btnSize={104}
               justify="end"
               positionStyles={{
                 bottom: usage === 'extension' ? '22px' : '32px',
