@@ -44,12 +44,7 @@ const Transactions = ({
             <Loading size={60} />
           </div>
         ) : (
-          <div
-            className="flex justify-center items-center"
-            style={{
-              marginTop: transactions.length ? '300px' : '100px',
-            }}
-          >
+          <div className="flex justify-center items-center mt-[180px]">
             <Loading size={80} />
           </div>
         )}
@@ -81,7 +76,7 @@ const Transactions = ({
 };
 
 const ContentContainer = styled.div`
-  margin: -24px -20px 0px;
+  margin: -24px -20px;
   @media (max-width: 360px) {
     margin: 0px -16px;
   }
