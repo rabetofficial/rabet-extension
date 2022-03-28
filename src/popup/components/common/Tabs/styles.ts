@@ -12,13 +12,18 @@ export const Tabs = styled.ul`
 export const TabTitle = styled.li`
   background-color: transparent;
   display: inline-block;
-  padding: 9px 15px;
+  padding: 10px 20px;
   color: ${({ theme }) => theme.colors.primary.dark};
   cursor: pointer;
   text-align: center;
   font-size: 16px;
   transition: all ease-in 0.15s;
   position: relative;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
 
   &.active {
     color: black;
@@ -35,7 +40,7 @@ export const TabTitle = styled.li`
     width: 100%;
     height: 1.5px;
     border-radius: 3px;
-    margin-bottom: -1.5px;
+    margin-bottom: 0px;
   }
 
   &::before {

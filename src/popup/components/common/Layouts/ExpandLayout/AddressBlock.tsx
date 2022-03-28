@@ -33,7 +33,13 @@ const AddressBlock = () => {
 
   return (
     <S.Card className="rounded pt-[22px] pb-[18px]">
-      <EditWalletName height={34} checkIconWidth={18} fontSize={14} />
+      <span className="font-medium">
+        <EditWalletName
+          height={34}
+          checkIconWidth={18}
+          fontSize={14}
+        />
+      </span>
 
       <div className="text-3xl font-medium mt-[15px]">
         {handleAssetSymbol(currencies, options)}
