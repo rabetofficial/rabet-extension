@@ -324,19 +324,10 @@ const BasicSwap = ({ usage }: AppProps) => {
   const handleSwapPlaces = () => {
     const { to, from } = getValues();
 
-    if (
-      !assets.find(
-        (ast) =>
-          ast.asset_code === asset2.asset_code &&
-          ast.asset_issuer === asset2.asset_issuer,
-      )
-    ) {
-      setValue('asset1', asset1);
-      setValue('asset2', asset2);
-
-      setAsset1(asset2);
-      setAsset2(asset1);
-    }
+    setValue('asset1', asset2);
+    setAsset1(asset2);
+    setValue('asset2', asset1);
+    setAsset2(asset1);
 
     setValue('to', from);
     setValue('from', to);
@@ -396,7 +387,7 @@ const BasicSwap = ({ usage }: AppProps) => {
               }}
               defaultValue={field.value}
               setMax={setFromMax}
-              errorMsg={showSwapInfo.from}
+              errorMsg={errors.from && errors.from.message}
               onKeyPress={controlNumberInput}
               styleType="light"
               className="grow"
@@ -412,7 +403,7 @@ const BasicSwap = ({ usage }: AppProps) => {
               asset={asset1}
               valueName="asset1"
               setValue={setValue}
-              assets={assets}
+              assets={assetsPlusDefaultAssets}
               onChange={handleAsset1}
             />
           )}
@@ -524,7 +515,9 @@ const BasicSwap = ({ usage }: AppProps) => {
           size="medium"
           content="Swap"
           style={{ marginRight: '-12px' }}
-          disabled={!isDirty || !isValid || !showSwapInfo}
+          disabled={
+            !isDirty || !isValid || !showSwapInfo || !errors.from
+          }
         />
       </ButtonContainer>
     </form>

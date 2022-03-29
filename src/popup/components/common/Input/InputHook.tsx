@@ -7,9 +7,9 @@ import React, {
   ReactNode,
 } from 'react';
 
-import InputBtn from 'popup/components/common/Input/InputBtn';
+import isEmpty from 'helpers/isEmpty';
 import { InputVariant, InputSize } from 'popup/models';
-import isEmpty from '../../../../helpers/isEmpty';
+import InputBtn from 'popup/components/common/Input/InputBtn';
 
 import * as S from './styles';
 
@@ -97,9 +97,7 @@ const Input = (props: AppProps) => {
         />
       </S.Group>
 
-      {!isEmpty(errorMsg) && (
-        <S.ErrorMsg>{errorMsg.message}</S.ErrorMsg>
-      )}
+      {!isEmpty(errorMsg) && <S.ErrorMsg>{errorMsg}</S.ErrorMsg>}
     </div>
   );
 };
