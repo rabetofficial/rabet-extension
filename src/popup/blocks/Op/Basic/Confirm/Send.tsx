@@ -69,12 +69,12 @@ const BasicConfirmSend = ({ usage, values }: AppProps) => {
           <S.Label>Amount</S.Label>
           <S.Value>
             {formatBalance(values.amount)}
-            <img
+            <S.Image
               alt={handleAssetAlt(values.asset)}
               src={handleAssetImage(values.asset, assetImages)}
             />
 
-            <span className="light">
+            <span className="text-lg">
               {values.asset.asset_code || 'XLM'}
             </span>
           </S.Value>

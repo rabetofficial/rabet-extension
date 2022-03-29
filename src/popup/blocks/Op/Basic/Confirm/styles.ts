@@ -28,20 +28,20 @@ export const Value = styled.div`
   display: flex;
   align-items: center;
   margin-top: 2px;
-
-  .light {
-    font-size: 16px;
-    font-weight: normal;
-  }
-
-  img {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    margin: 0 2px 0 6px;
-  }
 `;
 
+export const Image = styled.img`
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50%;
+  margin: 0 2px 0 6px;
+`;
+export const img = styled.div`
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 50%;
+  margin: 0 2px 0 6px;
+`;
 export const Hr = styled.div`
   border: none;
   height: 1px;

@@ -90,12 +90,12 @@ const BasicConfirmSwap = ({ usage, values }: AppProps) => {
           <S.Label>From</S.Label>
           <S.Value>
             {formatBalance(values.from)}
-            <img
+            <S.Image
               src={handleAssetImage(values.asset1, assetImages)}
               alt={asset1Code}
             />
 
-            <span className="light">{asset1Code}</span>
+            <span className="text-lg">{asset1Code}</span>
           </S.Value>
 
           <div className="my-1">
@@ -105,11 +105,11 @@ const BasicConfirmSwap = ({ usage, values }: AppProps) => {
           <S.Label>To</S.Label>
           <S.Value>
             {formatBalance(values.to)}
-            <img
+            <S.Image
               src={handleAssetImage(values.asset2, assetImages)}
               alt={asset2Code}
             />
-            <span className="light">{asset2Code}</span>
+            <span className="text-lg">{asset2Code}</span>
           </S.Value>
 
           <S.Hr />
