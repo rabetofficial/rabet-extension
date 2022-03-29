@@ -20,9 +20,9 @@ export const openLoadingModal = ({
     padding: 'medium',
     children: (
       <Loading
-        size={65}
+        size={110}
         title={message || 'Sending to network'}
-        titleStyle="mt-3"
+        titleNonMargin
       />
     ),
   });
