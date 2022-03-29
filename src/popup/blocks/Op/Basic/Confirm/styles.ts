@@ -31,8 +31,8 @@ export const Value = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 18px !important;
-  height: 18px !important;
+  width: 25px !important;
+  height: 25px !important;
   border-radius: 50%;
   margin: 0 2px 0 6px;
 `;
