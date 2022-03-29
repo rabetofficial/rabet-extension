@@ -38,9 +38,8 @@ export const TabTitle = styled.li`
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 1.5px;
+    height: 1.6px;
     border-radius: 3px;
-    margin-bottom: 0px;
   }
 
   &::before {
