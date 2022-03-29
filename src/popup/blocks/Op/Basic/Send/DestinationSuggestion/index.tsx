@@ -62,7 +62,7 @@ const DestinationSuggest = ({ handleChange }: DestinationProps) => {
 
   return (
     <Popover
-      placement="bottom-start"
+      placement="bottom-end"
       visible={showPopover}
       hideFunc={onHidePopover}
       parent={parent}
