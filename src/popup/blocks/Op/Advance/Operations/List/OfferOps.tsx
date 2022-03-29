@@ -6,6 +6,7 @@ import { ElementOption } from 'popup/models';
 import Input from 'popup/components/common/Input';
 import getMaxBalance from 'popup/utils/maxBalance';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
+import controlNumberInput from 'popup/utils/controlNumberInput';
 import SelectOption from 'popup/components/common/SelectOption';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import changeOperationAction from 'popup/actions/operations/change';
@@ -158,19 +159,24 @@ const OfferOps = ({ id, offer }: AppProps) => {
                   Selling amount
                 </label>
 
-                <div className="flex items-center">
-                  <Input
-                    type="number"
-                    placeholder="1"
-                    size="medium"
-                    input={input}
-                    meta={meta}
-                    variant="max"
-                    className="grow"
-                    styleType="light"
-                    setMax={form.mutators.sellingMax}
-                    autoFocus
-                  />
+                <div className="flex items-start pt-2">
+                  <div className="basis-full">
+                    <Input
+                      noMT
+                      type="number"
+                      placeholder="1"
+                      size="medium"
+                      input={input}
+                      meta={meta}
+                      variant="max"
+                      className="grow"
+                      styleType="light"
+                      setMax={form.mutators.sellingMax}
+                      autoFocus
+                      onKeyPress={controlNumberInput}
+                    />
+                  </div>
+
                   <SelectOption
                     items={mappedAssets}
                     defaultValue={sellingAsset}
@@ -193,16 +199,21 @@ const OfferOps = ({ id, offer }: AppProps) => {
                   Buying amount
                 </label>
 
-                <div className="flex items-center">
-                  <Input
-                    type="number"
-                    placeholder="1"
-                    size="medium"
-                    className="grow"
-                    styleType="light"
-                    input={input}
-                    meta={meta}
-                  />
+                <div className="flex items-start pt-2">
+                  <div className="basis-full">
+                    <Input
+                      noMT
+                      type="number"
+                      placeholder="1"
+                      size="medium"
+                      className="grow"
+                      styleType="light"
+                      input={input}
+                      meta={meta}
+                      onKeyPress={controlNumberInput}
+                    />
+                  </div>
+
                   <SelectOption
                     items={mappedAssets}
                     defaultValue={buyingAsset}
@@ -237,6 +248,7 @@ const OfferOps = ({ id, offer }: AppProps) => {
                     styleType="light"
                     input={input}
                     meta={meta}
+                    onKeyPress={controlNumberInput}
                   />
                 </>
               )}

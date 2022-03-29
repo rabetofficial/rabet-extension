@@ -4,6 +4,7 @@ import { Form, Field } from 'react-final-form';
 
 import Input from 'popup/components/common/Input';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
+import controlNumberInput from 'popup/utils/controlNumberInput';
 import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
@@ -162,6 +163,7 @@ const AllowTrustOps = ({ id }: AppProps) => {
                   styleType="light"
                   input={input}
                   meta={meta}
+                  onKeyPress={controlNumberInput}
                 />
               </>
             )}

@@ -7,6 +7,7 @@ import { ElementOption } from 'popup/models';
 import Input from 'popup/components/common/Input';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import SelectOption from 'popup/components/common/SelectOption';
+import controlNumberInput from 'popup/utils/controlNumberInput';
 import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
@@ -91,16 +92,20 @@ const ChangeTrustOps = ({ id }: AppProps) => {
               <>
                 <label className="label-primary">Limit amount</label>
 
-                <div className="flex items-center">
-                  <Input
-                    type="number"
-                    placeholder="1000"
-                    size="medium"
-                    styleType="light"
-                    className="grow"
-                    input={input}
-                    meta={meta}
-                  />
+                <div className="flex items-start pt-2">
+                  <div className="basis-full">
+                    <Input
+                      noMT
+                      type="number"
+                      placeholder="1000"
+                      size="medium"
+                      styleType="light"
+                      className="grow"
+                      input={input}
+                      meta={meta}
+                      onKeyPress={controlNumberInput}
+                    />
+                  </div>
 
                   <SelectOption
                     items={mappedAssets}

@@ -9,6 +9,7 @@ import getMaxBalance from 'popup/utils/maxBalance';
 import isTransferable from 'popup/utils/isTransferable';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import SelectOption from 'popup/components/common/SelectOption';
+import controlNumberInput from 'popup/utils/controlNumberInput';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import changeOperationAction from 'popup/actions/operations/change';
 
@@ -206,18 +207,22 @@ const PaymentOps = ({ id }: AppProps) => {
               <>
                 <label className="label-primary mt-2">Amount</label>
 
-                <div className="flex items-center">
-                  <Input
-                    type="number"
-                    placeholder="1"
-                    size="medium"
-                    input={input}
-                    meta={meta}
-                    variant="max"
-                    styleType="light"
-                    className="grow"
-                    setMax={form.mutators.setMax}
-                  />
+                <div className="flex items-start pt-2">
+                  <div className="basis-full">
+                    <Input
+                      noMT
+                      type="number"
+                      placeholder="1"
+                      size="medium"
+                      input={input}
+                      meta={meta}
+                      variant="max"
+                      styleType="light"
+                      className="grow"
+                      setMax={form.mutators.setMax}
+                      onKeyPress={controlNumberInput}
+                    />
+                  </div>
 
                   <SelectOption
                     items={assetsMapped}

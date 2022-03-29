@@ -1,9 +1,10 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
 
-import Input from 'popup/components/common/Input';
-import changeOperationAction from 'popup/actions/operations/change';
 import BN from 'helpers/BN';
+import Input from 'popup/components/common/Input';
+import controlNumberInput from 'popup/utils/controlNumberInput';
+import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
   low: string;
@@ -118,6 +119,7 @@ const ThresholdOps = ({ id }: AppProps) => {
                   input={input}
                   meta={meta}
                   autoFocus
+                  onKeyPress={controlNumberInput}
                 />
               </>
             )}
@@ -137,6 +139,7 @@ const ThresholdOps = ({ id }: AppProps) => {
                   styleType="light"
                   input={input}
                   meta={meta}
+                  onKeyPress={controlNumberInput}
                 />
               </>
             )}
@@ -156,6 +159,7 @@ const ThresholdOps = ({ id }: AppProps) => {
                   styleType="light"
                   input={input}
                   meta={meta}
+                  onKeyPress={controlNumberInput}
                 />
               </>
             )}

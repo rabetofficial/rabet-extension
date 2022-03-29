@@ -14,7 +14,12 @@ export const BoxTitle = styled.div`
 
 export const BoxValue = styled.div`
   &.up {
-    color: ${({ theme }) => theme.colors.success.main};
+    color: ${({ theme, color }) =>
+      color === 'green'
+        ? theme.colors.success.main
+        : color === 'orange'
+        ? theme.colors.warn.main
+        : theme.colors.error.main};
   }
 
   &.down {

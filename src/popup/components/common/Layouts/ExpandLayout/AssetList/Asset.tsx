@@ -4,7 +4,6 @@ import { Horizon } from 'stellar-sdk';
 import BlackCheck from 'popup/svgs/BlackCheck';
 import formatBalance from 'popup/utils/formatBalance';
 import useAssetPrice from 'popup/hooks/useAssetPrice';
-import formatCurrency from 'popup/utils/formatCurrency';
 import handleAssetAlt from 'popup/utils/handleAssetAlt';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import handleAssetImage from 'popup/utils/handleAssetImage';
@@ -67,7 +66,7 @@ const Asset = ({ asset }: AssetType) => {
           <div className="flex flex-col">
             <div className="inline-flex text-base">
               <span className=" font-medium">
-                {formatCurrency(asset.balance)}
+                {formatBalance(asset.balance)}
               </span>
               <span className="text-primary-dark font-normal ml-1">
                 {asset_code}

@@ -3,6 +3,7 @@ import { StrKey } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
 import Input from 'popup/components/common/Input';
+import controlNumberInput from 'popup/utils/controlNumberInput';
 import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
@@ -96,6 +97,7 @@ const SignerOps = ({ id }: AppProps) => {
                   size="medium"
                   input={input}
                   meta={meta}
+                  onKeyPress={controlNumberInput}
                 />
               </>
             )}

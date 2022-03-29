@@ -10,6 +10,20 @@ import AngleRight from 'popup/svgs/AngleRight';
 
 import * as S from './styles';
 
+const priceImpactColor = (priceImpact: string) => {
+  const PI = new BN(priceImpact);
+
+  if (PI.isLessThanOrEqualTo(0.5)) {
+    return 'green';
+  }
+
+  if (PI.isLessThanOrEqualTo(10)) {
+    return 'orange';
+  }
+
+  return 'red';
+};
+
 type SwapDetailsProps = {
   path: any[];
   values?: FormValues;
@@ -86,7 +100,10 @@ const SwapDetails = ({
 
       <S.Box>
         <S.BoxTitle>Price impact</S.BoxTitle>
-        <S.BoxValue className="up">
+        <S.BoxValue
+          className="up"
+          color={priceImpactColor(finalPriceImpact)}
+        >
           {finalPriceImpact.toString()}%
         </S.BoxValue>
       </S.Box>

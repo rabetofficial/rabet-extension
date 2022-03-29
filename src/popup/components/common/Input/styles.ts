@@ -6,13 +6,13 @@ export const Group = styled.div.attrs(
   }),
 )`
   border: 1px solid
-    ${(props) =>
-      props.styleType === 'dark'
-        ? props.theme.colors.primary.light
-        : props.theme.colors.primary.lighter};
+    ${({ styleType, theme }) =>
+      styleType === 'dark'
+        ? theme.colors.primary.light
+        : theme.colors.primary.lighter};
   display: flex;
   overflow: hidden;
-  margin-top: 8px;
+  margin-top: ${({ noMT }) => (noMT ? '0px' : '8px')};
   margin-bottom: 8px;
 
   &:focus,
