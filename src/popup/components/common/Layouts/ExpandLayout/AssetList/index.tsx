@@ -28,7 +28,7 @@ type AssetsListProps = {
 const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
   const navigate = useNavigate();
   const { assets: asts } = useActiveAccount();
-  let assets = asts || [];
+  const assets = asts || [];
 
   const showDeleteResult = (result: [boolean, string]) => {
     if (result[0]) {
@@ -109,17 +109,6 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
       );
     }
   };
-
-  if (!assets.length) {
-    const XLMAsset: Horizon.BalanceLineNative = {
-      asset_type: 'native',
-      balance: '0',
-      selling_liabilities: '0',
-      buying_liabilities: '0',
-    };
-
-    assets = [...assets, XLMAsset];
-  }
 
   return (
     <ScrollBar isHidden maxHeight={scrollMaxHeight}>

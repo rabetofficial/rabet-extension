@@ -10,11 +10,12 @@ import Account from './Account';
 export type AccountLike = IAccount | Contact;
 
 type AppProps = {
+  name: 'accounts' | 'contacts';
   accounts: AccountLike[];
   onChange: (publicKey: string) => void;
 };
 
-const AccountList = ({ accounts, onChange }: AppProps) => (
+const AccountList = ({ name, accounts, onChange }: AppProps) => (
   <>
     {accounts.length ? (
       <ScrollBar isHidden maxHeight={210}>
@@ -32,7 +33,7 @@ const AccountList = ({ accounts, onChange }: AppProps) => (
         </S.List>
       </ScrollBar>
     ) : (
-      <S.NotFound>No accounts found</S.NotFound>
+      <S.NotFound>No {name} found</S.NotFound>
     )}
   </>
 );

@@ -62,13 +62,25 @@ const Confirm = () => {
   let transaction;
 
   try {
-    const obj = StellarSdk.xdr.TransactionEnvelope.fromXDR(xdr, 'base64');
+    const obj = StellarSdk.xdr.TransactionEnvelope.fromXDR(
+      xdr,
+      'base64',
+    );
     transaction = new Transaction(obj, StellarSdk.Networks.PUBLIC);
   } catch (e) {
     return (
       <>
-        <div className={classNames(styles.confirm, 'hidden-scroll content-scroll')}>
-          <PageTitle status="Confirm" statusTitle="network" title={network} />
+        <div
+          className={classNames(
+            styles.confirm,
+            'hidden-scroll content-scroll',
+          )}
+        >
+          <PageTitle
+            status="Confirm"
+            statusTitle="network"
+            title={network}
+          />
 
           <div className="content">
             <p>Invalid XDR</p>
@@ -89,45 +101,79 @@ const Confirm = () => {
 
   const { _operations: operations } = transaction;
 
+  const shownName =
+    name.length < 12 ? name : `${name.slice(0, 13)}...`;
+
   return (
     <div>
       <div className={styles.header}>
-        <div className={styles.pageTitle}><PageTitle status="network" statusTitle={network} /></div>
+        <div className={styles.pageTitle}>
+          <PageTitle status="network" statusTitle={network} />
+        </div>
         <div className="content">
           <div className={styles.img}>
             <img
               src={`https://logo.clearbit.com/${host}`}
               alt={host}
               className={!isImageLoaded ? 'image-error' : ''}
-              onError={() => { setIsImageLoaded(false); }}
+              onError={() => {
+                setIsImageLoaded(false);
+              }}
             />
 
-            {!isImageLoaded
-              ? (
-                <div className={styles.hostStyle}>{host[0].toUpperCase()}</div>
-              ) : ''}
+            {!isImageLoaded ? (
+              <div className={styles.hostStyle}>
+                {host[0].toUpperCase()}
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <h1 className={styles.title}>Approve Transaction</h1>
-          <a href="#" className={styles.link}>{host}</a>
+          <a href="#" className={styles.link}>
+            {host}
+          </a>
           <div className={styles.account}>
             <div>Source account</div>
             <div className={styles.accountName}>
-              <CopyText text={publicKey} button={name} />
+              <CopyText text={publicKey} button={shownName} />
             </div>
           </div>
         </div>
       </div>
 
-      <div className={classNames('content hidden-scroll', styles.contentScroll)}>
+      <div
+        className={classNames(
+          'content hidden-scroll',
+          styles.contentScroll,
+        )}
+      >
         <Operations operations={operations} />
       </div>
 
       <div className="content">
-        <div className={classNames('pure-g justify-end', styles.buttons)}>
-          <div className={classNames('pure-g justify-end', styles.buttons)}>
-            <Button variant="btn-default" size="btn-medium" content="Reject" onClick={handleReject} />
+        <div
+          className={classNames('pure-g justify-end', styles.buttons)}
+        >
+          <div
+            className={classNames(
+              'pure-g justify-end',
+              styles.buttons,
+            )}
+          >
+            <Button
+              variant="btn-default"
+              size="btn-medium"
+              content="Reject"
+              onClick={handleReject}
+            />
 
-            <Button variant="btn-primary" size="btn-medium" content="Confirm" onClick={handleConfirm} />
+            <Button
+              variant="btn-primary"
+              size="btn-medium"
+              content="Confirm"
+              onClick={handleConfirm}
+            />
           </div>
         </div>
       </div>

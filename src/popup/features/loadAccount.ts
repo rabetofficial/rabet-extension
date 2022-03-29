@@ -15,7 +15,14 @@ const loadAccount = async (account: IAccount) => {
     store.dispatch(
       addAssets({
         publicKey: account.publicKey,
-        assets: [],
+        assets: [
+          {
+            asset_type: 'native',
+            balance: '0',
+            selling_liabilities: '0',
+            buying_liabilities: '0',
+          },
+        ],
       }),
     );
 

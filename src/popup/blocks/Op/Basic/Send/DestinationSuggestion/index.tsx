@@ -40,14 +40,22 @@ const DestinationSuggest = ({ handleChange }: DestinationProps) => {
       id: '1',
       title: 'My Accounts',
       content: (
-        <AccountList accounts={accounts} onChange={onChange} />
+        <AccountList
+          accounts={accounts}
+          onChange={onChange}
+          name="accounts"
+        />
       ),
     },
     {
       id: '2',
       title: 'My Contacts',
       content: (
-        <AccountList accounts={contacts} onChange={onChange} />
+        <AccountList
+          accounts={contacts}
+          onChange={onChange}
+          name="contacts"
+        />
       ),
     },
   ];
