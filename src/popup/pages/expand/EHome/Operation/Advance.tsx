@@ -8,7 +8,7 @@ const AdvanceOperation = () => (
   <InsideTabLayout>
     <ScrollBar isHidden maxHeight={600}>
       <div className="pb-6">
-        <OpAdvance />
+        <OpAdvance usage="desktop" />
       </div>
     </ScrollBar>
   </InsideTabLayout>

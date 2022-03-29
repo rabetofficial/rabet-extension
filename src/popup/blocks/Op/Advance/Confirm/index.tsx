@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Usage } from 'popup/models';
+import maxText from 'popup/utils/maxText';
 import shorter from 'popup/utils/shorter';
 import RouteName from 'popup/staticRes/routes';
 import Card from 'popup/components/common/Card';
@@ -13,6 +14,7 @@ import operationMapper from 'popup/utils/operationMapper';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
+
 import {
   openErrorModal,
   openLoadingModal,
@@ -28,7 +30,7 @@ type ConfirmType = {
 
 const Confirm = ({ onClose, usage }: ConfirmType) => {
   const navigate = useNavigate();
-  const { publicKey } = useActiveAccount();
+  const { name, publicKey } = useActiveAccount();
   const { memo, operations } = useTypedSelector(
     (store) => store.transaction,
   );
@@ -76,7 +78,7 @@ const Confirm = ({ onClose, usage }: ConfirmType) => {
             <S.SourceValue>
               <CopyText
                 text={publicKey}
-                custom={<p>{shorter(publicKey, 5)}</p>}
+                custom={<p>{maxText(name, 12)}</p>}
               />
             </S.SourceValue>
           </S.Source>
