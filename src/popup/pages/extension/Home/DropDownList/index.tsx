@@ -6,10 +6,13 @@ import ExpandIcon from 'popup/svgs/Expand';
 import RouteName from 'popup/staticRes/routes';
 import worldSrc from 'src/assets/images/world.svg';
 import trashSrc from 'src/assets/images/trash-delete.svg';
+import useTypedSelector from 'popup/hooks/useTypedSelector';
+
 import DropMenu from './DropMenu';
 
 const DropDownList = () => {
   const navigate = useNavigate();
+  const { mode } = useTypedSelector((store) => store.options);
 
   const openInNewTab = (url: string) => {
     const newWindow = window.open(
@@ -38,14 +41,6 @@ const DropDownList = () => {
       },
     },
     {
-      id: 3,
-      label: 'Show flags',
-      icon: 'icon-flag',
-      onClick: () => {
-        navigate(RouteName.Flags);
-      },
-    },
-    {
       id: 4,
       label: 'Connected sites',
       icon: <img src={worldSrc} alt="icon" />,
@@ -62,6 +57,17 @@ const DropDownList = () => {
       },
     },
   ];
+
+  if (mode === 'ADVANCED') {
+    dropMenuItems.splice(2, 0, {
+      id: 3,
+      label: 'Show flags',
+      icon: 'icon-flag',
+      onClick: () => {
+        navigate(RouteName.Flags);
+      },
+    });
+  }
 
   return (
     <DropMenu width={198} items={dropMenuItems}>

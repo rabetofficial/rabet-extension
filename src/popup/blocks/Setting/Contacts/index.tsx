@@ -2,20 +2,21 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Plus from 'popup/svgs/Plus';
+import { Usage } from 'popup/models';
 import EditPen from 'popup/svgs/EditPen';
+import maxText from 'popup/utils/maxText';
 import shorter from 'popup/utils/shorter';
 import Multiply from 'popup/svgs/Multiply';
+import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
 import Button from 'popup/components/common/Button';
 import openModalAction from 'popup/actions/modal/open';
+import CopyText from 'popup/components/common/CopyText';
 import closeModalAction from 'popup/actions/modal/close';
+import ScrollBar from 'popup/components/common/ScrollBar';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import deleteContactAction from 'popup/actions/contacts/delete';
 import { Contact as ContactType } from 'popup/reducers/contacts';
-import CopyText from 'popup/components/common/CopyText';
-import ScrollBar from 'popup/components/common/ScrollBar';
-import RouteName from 'popup/staticRes/routes';
-import { Usage } from 'popup/models';
 
 import * as S from './styles';
 import EditContact from './EditContact';
@@ -141,7 +142,7 @@ const Contact = ({ onClose, needTitle, usage }: ContactProps) => {
                 {contact.memo && (
                   <div>
                     <S.Title>Memo</S.Title>
-                    <S.Code>{contact.memo || '-'}</S.Code>
+                    <S.Code>{maxText(contact.memo, 8) || '-'}</S.Code>
                   </div>
                 )}
 

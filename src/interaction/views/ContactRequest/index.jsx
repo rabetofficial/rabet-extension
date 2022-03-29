@@ -56,7 +56,11 @@ const ContactRequest = () => {
               className="step step-one flex-parent"
               style={{ alignItems: 'center' }}
             >
-              <img src={`https://logo.clearbit.com/${host}?size=55`} style={{ height: 'auto' }} alt={host} />
+              <img
+                src={`https://logo.clearbit.com/${host}?size=55`}
+                style={{ height: 'auto' }}
+                alt={host}
+              />
             </div>
             <div className="step step-two">{shortName(name)}</div>
             <div className="icon-checkmark step-checked" />
@@ -73,12 +77,17 @@ const ContactRequest = () => {
           </div>
         </div>
         <h1 className={styles.title}>
-          {smallDetail(title, 15)}
-          would like to connect to your account
+          {smallDetail(title, 15)} would like to connect to your
+          account
         </h1>
 
         <div className={classNames('pure-g', styles.buttons)}>
-          <Button variant="btn-default" size="btn-medium" content="Reject" onClick={handleReject} />
+          <Button
+            variant="btn-default"
+            size="btn-medium"
+            content="Reject"
+            onClick={handleReject}
+          />
 
           <Button
             type="submit"
