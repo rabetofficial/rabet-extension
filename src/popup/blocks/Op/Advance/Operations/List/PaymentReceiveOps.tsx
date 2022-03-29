@@ -10,6 +10,7 @@ import nativeAsset from 'popup/utils/nativeAsset';
 import getAccountData from 'popup/api/getAccount';
 import getMaxBalance from 'popup/utils/maxBalance';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
+import controlNumberInput from 'popup/utils/controlNumberInput';
 import SelectOption from 'popup/components/common/SelectOption';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import changeOperationAction from 'popup/actions/operations/change';
@@ -215,18 +216,23 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
               <>
                 <label className="label-primary mt-2">Send max</label>
 
-                <div className="flex items-center">
-                  <Input
-                    type="number"
-                    placeholder="1"
-                    size="medium"
-                    input={input}
-                    meta={meta}
-                    variant="max"
-                    className="grow"
-                    styleType="light"
-                    setMax={form.mutators.sendMaxMax}
-                  />
+                <div className="flex items-start pt-2">
+                  <div className="basis-full">
+                    <Input
+                      noMT
+                      type="number"
+                      placeholder="1"
+                      size="medium"
+                      input={input}
+                      meta={meta}
+                      variant="max"
+                      className="grow"
+                      styleType="light"
+                      onKeyPress={controlNumberInput}
+                      setMax={form.mutators.sendMaxMax}
+                    />
+                  </div>
+
                   <SelectOption
                     items={mappedAssets}
                     defaultValue={sendAsset}
@@ -249,16 +255,21 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
                   Destination amount
                 </label>
 
-                <div className="flex items-center">
-                  <Input
-                    type="number"
-                    placeholder="1"
-                    size="medium"
-                    className="grow"
-                    styleType="light"
-                    input={input}
-                    meta={meta}
-                  />
+                <div className="flex items-start pt-2">
+                  <div className="basis-full">
+                    <Input
+                      noMT
+                      type="number"
+                      placeholder="1"
+                      size="medium"
+                      className="grow"
+                      styleType="light"
+                      input={input}
+                      meta={meta}
+                      onKeyPress={controlNumberInput}
+                    />
+                  </div>
+
                   <SelectOption
                     items={mappedAssets}
                     defaultValue={destAsset}

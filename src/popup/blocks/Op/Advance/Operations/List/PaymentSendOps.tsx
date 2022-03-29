@@ -10,6 +10,7 @@ import getAccountData from 'popup/api/getAccount';
 import getMaxBalance from 'popup/utils/maxBalance';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import SelectOption from 'popup/components/common/SelectOption';
+import controlNumberInput from 'popup/utils/controlNumberInput';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import changeOperationAction from 'popup/actions/operations/change';
 
@@ -218,18 +219,23 @@ const PaymentSendOps = ({ id }: AppProps) => {
                   Send amount
                 </label>
 
-                <div className="flex items-center">
-                  <Input
-                    type="number"
-                    placeholder="1"
-                    size="medium"
-                    input={input}
-                    meta={meta}
-                    variant="max"
-                    styleType="light"
-                    className="grow"
-                    setMax={form.mutators.sendAmountMax}
-                  />
+                <div className="flex items-start pt-2">
+                  <div className="basis-full">
+                    <Input
+                      noMT
+                      type="number"
+                      placeholder="1"
+                      size="medium"
+                      input={input}
+                      meta={meta}
+                      variant="max"
+                      styleType="light"
+                      className="grow"
+                      onKeyPress={controlNumberInput}
+                      setMax={form.mutators.sendAmountMax}
+                    />
+                  </div>
+
                   <SelectOption
                     items={mappedAssets}
                     onChange={onChangeSendAsset}
@@ -252,16 +258,21 @@ const PaymentSendOps = ({ id }: AppProps) => {
                   Destination min
                 </label>
 
-                <div className="flex items-center">
-                  <Input
-                    type="number"
-                    placeholder="1"
-                    size="medium"
-                    styleType="light"
-                    className="grow"
-                    input={input}
-                    meta={meta}
-                  />
+                <div className="flex items-start pt-2">
+                  <div className="basis-full">
+                    <Input
+                      noMT
+                      type="number"
+                      placeholder="1"
+                      size="medium"
+                      styleType="light"
+                      className="grow"
+                      input={input}
+                      meta={meta}
+                      onKeyPress={controlNumberInput}
+                    />
+                  </div>
+
                   <SelectOption
                     items={mappedAssets}
                     onChange={onChangeDestAsset}

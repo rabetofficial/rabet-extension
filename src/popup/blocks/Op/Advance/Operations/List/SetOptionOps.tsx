@@ -8,6 +8,7 @@ import { Form, Field } from 'react-final-form';
 import BN from 'helpers/BN';
 import Input from 'popup/components/common/Input';
 import getAccountData from 'popup/api/getAccount';
+import controlNumberInput from 'popup/utils/controlNumberInput';
 import changeOperationAction from 'popup/actions/operations/change';
 
 type FormValidate = {
@@ -206,6 +207,21 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
     return errors;
   };
 
+  let isInputNumber = false;
+
+  const noControl = () => {};
+
+  if (
+    type === Horizon.OperationResponseType.bumpSequence ||
+    type === `${Horizon.OperationResponseType.setOptions}_set_flag` ||
+    type ===
+      `${Horizon.OperationResponseType.setOptions}_clear_flag` ||
+    type ===
+      `${Horizon.OperationResponseType.setOptions}_master_weight`
+  ) {
+    isInputNumber = true;
+  }
+
   return (
     <Form
       onSubmit={() => {}}
@@ -228,6 +244,9 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
                   input={input}
                   meta={meta}
                   autoFocus
+                  onKeyPress={
+                    isInputNumber ? controlNumberInput : noControl
+                  }
                 />
               </>
             )}

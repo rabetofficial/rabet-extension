@@ -12,6 +12,7 @@ import { InputVariant, InputSize } from 'popup/models';
 import * as S from './styles';
 
 type AppProps = {
+  noMT?: boolean;
   type: string;
   size: InputSize;
   variant?: InputVariant;
@@ -33,6 +34,7 @@ type AppProps = {
 
 const Input = (props: AppProps) => {
   const {
+    noMT,
     type,
     defaultValue,
     variant,
@@ -74,6 +76,7 @@ const Input = (props: AppProps) => {
   return (
     <>
       <S.Group
+        noMT={noMT}
         className={`${className} ${size}`}
         style={style}
         styleType={styleType}
@@ -100,6 +103,7 @@ const Input = (props: AppProps) => {
           visibleType={visibleType}
         />
       </S.Group>
+
       {isError && (
         <S.ErrorMsg>{meta.error || meta.submitError}</S.ErrorMsg>
       )}
@@ -108,6 +112,7 @@ const Input = (props: AppProps) => {
 };
 
 Input.defaultProps = {
+  noMT: false,
   defaultValue: '',
   variant: '',
   disabled: false,

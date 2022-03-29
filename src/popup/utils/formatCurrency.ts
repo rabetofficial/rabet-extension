@@ -8,11 +8,8 @@ const formatCurrency = (b: string): string => {
     return '0';
   }
 
-  if (
-    balanceNumber.isGreaterThanOrEqualTo(0) &&
-    balanceNumber.isLessThanOrEqualTo(1)
-  ) {
-    return new BN(balance).toString();
+  if (balanceNumber.isGreaterThan(0) && balanceNumber.isLessThan(1)) {
+    return new BN(balance).toFixed(7);
   }
 
   if (balanceNumber.isEqualTo(0)) {
