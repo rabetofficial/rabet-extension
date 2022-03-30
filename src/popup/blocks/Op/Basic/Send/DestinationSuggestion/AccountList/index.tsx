@@ -12,7 +12,7 @@ export type AccountLike = IAccount | Contact;
 type AppProps = {
   name: 'accounts' | 'contacts';
   accounts: AccountLike[];
-  onChange: (publicKey: string) => void;
+  onChange: (publicKey: string, memo: string) => void;
 };
 
 const AccountList = ({ name, accounts, onChange }: AppProps) => (
@@ -24,7 +24,7 @@ const AccountList = ({ name, accounts, onChange }: AppProps) => (
             <li
               key={`accountsList${account.publicKey}`}
               onClick={() => {
-                onChange(account.publicKey);
+                onChange(account.publicKey, account.memo);
               }}
             >
               <Account account={account} />

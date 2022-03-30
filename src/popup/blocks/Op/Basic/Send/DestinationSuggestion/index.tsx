@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 type DestinationProps = {
-  handleChange: (publicKey: string) => void;
+  handleChange: (publicKey: string, memo: string) => void;
 };
 
 const DestinationSuggest = ({ handleChange }: DestinationProps) => {
@@ -29,10 +29,10 @@ const DestinationSuggest = ({ handleChange }: DestinationProps) => {
   const onHidePopover = () => setShowPopover(false);
   const parent = document.querySelector('#full');
 
-  const onChange = (publicKey: string) => {
+  const onChange = (publicKey: string, memo: string) => {
     setShowPopover(false);
 
-    handleChange(publicKey);
+    handleChange(publicKey, memo);
   };
 
   const tabs: Tab[] = [

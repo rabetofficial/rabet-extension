@@ -177,6 +177,10 @@ const BasicSend = ({ usage }: AppProps) => {
           },
           changeDestination: (args, state, tools) => {
             tools.changeValue(state, 'destination', () => args[0]);
+
+            if (args[1]) {
+              tools.changeValue(state, 'memo', () => args[1]);
+            }
           },
         }}
         render={({
@@ -240,8 +244,8 @@ const BasicSend = ({ usage }: AppProps) => {
 
                   {(meta.active || meta.touched) && (
                     <DestinationSuggest
-                      handleChange={(pk) => {
-                        form.mutators.changeDestination(pk);
+                      handleChange={(pk, memo) => {
+                        form.mutators.changeDestination(pk, memo);
                       }}
                     />
                   )}

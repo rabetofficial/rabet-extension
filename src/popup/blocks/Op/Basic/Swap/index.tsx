@@ -64,6 +64,7 @@ const BasicSwap = ({ usage }: AppProps) => {
   const [showSwapInfo, setShowSwapInfo] = useState(false);
   const [minimumReceived, setMinimumReceived] = useState(0);
   const [isRotateActive, setIsRotateActive] = useState(false);
+  const [shouldRotate, setShouldRotate] = useState(false);
 
   const [asset1, setAsset1] = useState(assets[0]);
   const [asset2, setAsset2] = useState(assetsPlusDefaultAssets[0]);
@@ -177,6 +178,10 @@ const BasicSwap = ({ usage }: AppProps) => {
   };
 
   const setFromMax = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
     clearErrors('from');
 
     const formValues = getValues();
@@ -217,10 +222,17 @@ const BasicSwap = ({ usage }: AppProps) => {
     }
 
     setValue('to', '0');
-    calculate();
+
+    timeoutRef.current = setTimeout(() => {
+      calculate();
+    }, 150);
   };
 
   const handleAsset1 = (asset: Horizon.BalanceLine) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
     const formValues = getValues();
 
     if (!formValues.asset2) {
@@ -295,6 +307,10 @@ const BasicSwap = ({ usage }: AppProps) => {
   };
 
   const handleFromChange = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
     const formValues = getValues();
 
     if (new BN(formValues.from).isNaN()) {
@@ -318,21 +334,31 @@ const BasicSwap = ({ usage }: AppProps) => {
     }
 
     setValue('to', '0');
-    calculate();
+
+    timeoutRef.current = setTimeout(() => {
+      calculate();
+    }, 150);
   };
 
   const handleSwapPlaces = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
     const { to, from } = getValues();
 
     setValue('asset1', asset2);
-    setAsset1(asset2);
     setValue('asset2', asset1);
+
+    setAsset1(asset2);
     setAsset2(asset1);
 
     setValue('to', from);
     setValue('from', to);
 
-    calculate();
+    timeoutRef.current = setTimeout(() => {
+      calculate();
+    }, 150);
   };
 
   const onSubmit = async (v: FormValues) => {
@@ -410,11 +436,10 @@ const BasicSwap = ({ usage }: AppProps) => {
         />
       </S.ModalInput>
 
-      <div
-        onClick={handleSwapPlaces}
-        className="flex justify-center cursor-pointer"
-      >
-        <Swap />
+      <div className="flex justify-center">
+        <span className="cursor-pointer" onClick={handleSwapPlaces}>
+          <Swap />
+        </span>
       </div>
 
       <label className="label-primary block mt-[-21px]">To</label>
@@ -470,8 +495,19 @@ const BasicSwap = ({ usage }: AppProps) => {
               />
             </div>
 
-            <S.Rotate isRotate={isRotateActive}>
-              <Rotate />
+            <S.Rotate isRotate={shouldRotate}>
+              <span
+                onClick={() => {
+                  setIsRotateActive(!isRotateActive);
+                  setShouldRotate(true);
+
+                  setTimeout(() => {
+                    setShouldRotate(false);
+                  }, 500);
+                }}
+              >
+                <Rotate />
+              </span>
             </S.Rotate>
           </div>
 
@@ -516,7 +552,10 @@ const BasicSwap = ({ usage }: AppProps) => {
           content="Swap"
           style={{ marginRight: '-12px' }}
           disabled={
-            !isDirty || !isValid || !showSwapInfo || !errors.from
+            !isDirty ||
+            !isValid ||
+            !showSwapInfo ||
+            (errors.from && errors.from.message)
           }
         />
       </ButtonContainer>
