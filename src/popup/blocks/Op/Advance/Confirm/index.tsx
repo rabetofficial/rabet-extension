@@ -22,6 +22,7 @@ import {
 } from 'popup/components/Modals';
 
 import * as S from './styles';
+import ScrollBar from 'popup/components/common/ScrollBar';
 
 type ConfirmType = {
   usage: Usage;
@@ -70,65 +71,67 @@ const Confirm = ({ onClose, usage }: ConfirmType) => {
   };
 
   return (
-    <S.Container className="hidden-scroll">
-      <S.Confirm>
-        <div>
-          <S.Source>
-            <S.SourceTitle>Source account:</S.SourceTitle>
-            <S.SourceValue>
-              <CopyText
-                text={publicKey}
-                custom={<p>{maxText(name, 12)}</p>}
-              />
-            </S.SourceValue>
-          </S.Source>
+    <ScrollBar isHidden>
+      <S.Container className="hidden-scroll">
+        <S.Confirm>
+          <div>
+            <S.Source>
+              <S.SourceTitle>Source account:</S.SourceTitle>
+              <S.SourceValue>
+                <CopyText
+                  text={publicKey}
+                  custom={<p>{maxText(name, 12)}</p>}
+                />
+              </S.SourceValue>
+            </S.Source>
 
-          {operationsMapped.map((op, i) => (
-            <>
-              <Card type="secondary" className="mt-4 px-3 py-6">
-                <S.Title>
-                  #{i + 1} {op.title}
-                </S.Title>
+            {operationsMapped.map((op, i) => (
+              <>
+                <Card type="secondary" className="mt-4 px-3 py-6">
+                  <S.Title>
+                    #{i + 1} {op.title}
+                  </S.Title>
 
-                {op.info.map((infos) => (
-                  <>
-                    <S.ValueTitle>{infos.title} </S.ValueTitle>
-                    <S.Value>{infos.value}</S.Value>
-                  </>
-                ))}
-              </Card>
-              {memo.text && (
-                <Card type="secondary" className="mt-2 px-3 pb-2">
-                  <S.ValueTitle>Memo</S.ValueTitle>
-                  <S.Value>{memo.text}</S.Value>
+                  {op.info.map((infos) => (
+                    <>
+                      <S.ValueTitle>{infos.title} </S.ValueTitle>
+                      <S.Value>{infos.value}</S.Value>
+                    </>
+                  ))}
                 </Card>
-              )}
-            </>
-          ))}
-        </div>
-      </S.Confirm>
-      <ButtonContainer
-        justify="end"
-        btnSize={100}
-        gap={10}
-        mt={16}
-        positionStyles={{ bottom: '14px' }}
-      >
-        <Button
-          variant="default"
-          size="medium"
-          content="Reject"
-          onClick={onClose}
-        />
+                {memo.text && (
+                  <Card type="secondary" className="mt-2 px-3 pb-2">
+                    <S.ValueTitle>Memo</S.ValueTitle>
+                    <S.Value>{memo.text}</S.Value>
+                  </Card>
+                )}
+              </>
+            ))}
+          </div>
+        </S.Confirm>
+        <ButtonContainer
+          justify="end"
+          btnSize={100}
+          gap={10}
+          mt={16}
+          positionStyles={{ bottom: '14px' }}
+        >
+          <Button
+            variant="default"
+            size="medium"
+            content="Reject"
+            onClick={onClose}
+          />
 
-        <Button
-          variant="primary"
-          size="medium"
-          content="Confirm"
-          onClick={handleConfirm}
-        />
-      </ButtonContainer>
-    </S.Container>
+          <Button
+            variant="primary"
+            size="medium"
+            content="Confirm"
+            onClick={handleConfirm}
+          />
+        </ButtonContainer>
+      </S.Container>
+    </ScrollBar>
   );
 };
 
