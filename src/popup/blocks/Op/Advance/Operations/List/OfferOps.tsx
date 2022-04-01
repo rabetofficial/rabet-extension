@@ -68,6 +68,13 @@ const OfferOps = ({ id, offer }: AppProps) => {
       changeOperationAction(id, {
         checked: false,
       });
+    } else if (new BN(values.selling).isLessThanOrEqualTo('0')) {
+      errors.selling = 'Amount must be bigger than 0.';
+      hasError.selling = true;
+
+      changeOperationAction(id, {
+        checked: false,
+      });
     } else {
       if (values.sellingAsset) {
         if (

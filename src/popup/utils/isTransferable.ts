@@ -5,6 +5,7 @@ import BN from 'helpers/BN';
 type Values = {
   asset: Horizon.BalanceLine;
   amount: string;
+  destination: string;
 };
 
 type IsTransferableReturnType = [
@@ -27,6 +28,10 @@ const isTransferable = (
   }
 
   if (isAssetNative) {
+    return [true, 'ALLOWED'];
+  }
+
+  if (values.asset.asset_issuer === values.destination) {
     return [true, 'ALLOWED'];
   }
 

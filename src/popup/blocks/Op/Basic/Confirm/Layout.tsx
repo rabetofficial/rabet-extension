@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Usage } from 'popup/models';
-import shorter from 'popup/utils/shorter';
+import maxText from 'popup/utils/maxText';
 import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
 import CopyText from 'popup/components/common/CopyText';
@@ -26,7 +26,7 @@ const BasicConfirmLayout = ({
   handleClick,
 }: AppProps) => {
   const navigate = useNavigate();
-  const { publicKey } = useActiveAccount();
+  const { name, publicKey } = useActiveAccount();
 
   const handleCancel = () => {
     if (usage === 'desktop') {
@@ -47,7 +47,7 @@ const BasicConfirmLayout = ({
         <div className="font-medium">
           <CopyText
             text={publicKey}
-            custom={<span>{shorter(publicKey, 4)}</span>}
+            custom={<span>{maxText(name, 12)}</span>}
           />
         </div>
       </S.Account>

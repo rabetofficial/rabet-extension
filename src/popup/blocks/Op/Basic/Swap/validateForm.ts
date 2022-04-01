@@ -2,6 +2,7 @@
 import BN from 'helpers/BN';
 import getStrictSend from 'popup/api/getStrictSend';
 import { IAccount } from 'popup/reducers/accounts2';
+import isAssetEqual from 'popup/utils/swap/isAssetEqual';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 
 import { FormValues } from './index';
@@ -16,6 +17,7 @@ const validateForm = async (
 ) => {
   setValue('to', '');
   setShowSwapInfo(false);
+
   const errors = {};
 
   if (values.from === '') {
@@ -49,6 +51,15 @@ const validateForm = async (
     errors.from = {
       type: 'error',
       message: 'Insufficient amount.',
+    };
+
+    return { values, errors };
+  }
+
+  if (isAssetEqual(values.asset1, values.asset2)) {
+    errors.from = {
+      type: 'error',
+      message: 'Assets cannot be the same.',
     };
 
     return { values, errors };

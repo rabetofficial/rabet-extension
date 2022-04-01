@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Horizon, StrKey } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
+import BN from 'helpers/BN';
 import { ElementOption } from 'popup/models';
 import Input from 'popup/components/common/Input';
 import getAccountData from 'popup/api/getAccount';
@@ -54,6 +55,13 @@ const PaymentOps = ({ id }: AppProps) => {
 
     if (!values.amount) {
       errors.amount = '';
+      hasError.amount = true;
+
+      changeOperationAction(id, {
+        checked: false,
+      });
+    } else if (new BN(values.amount).isLessThanOrEqualTo('0')) {
+      errors.amount = 'Amount must be bigger than 0.';
       hasError.amount = true;
 
       changeOperationAction(id, {

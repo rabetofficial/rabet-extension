@@ -1,7 +1,7 @@
-import { Horizon, ServerApi } from 'stellar-sdk';
 import { useNavigate } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
-import React, { useRef, useState, useEffect } from 'react';
+import { Horizon, ServerApi } from 'stellar-sdk';
+import React, { useState, useEffect } from 'react';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 
 import BN from 'helpers/BN';
 import Swap from 'popup/svgs/Swap';
@@ -49,13 +49,16 @@ type AppProps = {
 const BasicSwap = ({ usage }: AppProps) => {
   const navigate = useNavigate();
   const account = useActiveAccount();
+  const [assets] = useState(() => {
+    const accountAssets = account.assets || [];
 
-  const assets = account.assets || [];
+    const assetsPlusDefaultAssets = combineAssets(
+      accountAssets,
+      defaultAssets,
+    );
 
-  const assetsPlusDefaultAssets = combineAssets(
-    assets,
-    defaultAssets,
-  );
+    return assetsPlusDefaultAssets;
+  });
 
   const [path, setPath] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -64,8 +67,6 @@ const BasicSwap = ({ usage }: AppProps) => {
   const [isRotateActive, setIsRotateActive] = useState(false);
   const [shouldRotate, setShouldRotate] = useState(false);
 
-  const timeoutRef = useRef();
-
   const {
     reset,
     trigger,
@@ -73,14 +74,14 @@ const BasicSwap = ({ usage }: AppProps) => {
     setValue,
     getValues,
     handleSubmit,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid, isDirty, isValidating },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
       to: '',
       from: '',
       asset1: assets[0],
-      asset2: assetsPlusDefaultAssets[0],
+      asset2: assets[1],
     },
     resolver: (formValues) =>
       validateForm(
@@ -97,6 +98,10 @@ const BasicSwap = ({ usage }: AppProps) => {
     calculatedResult: ServerApi.PaymentPathRecord,
   ) {
     const formValues = getValues();
+
+    if (!formValues.from) {
+      return;
+    }
 
     setIsRotateActive(false);
     setValue('to', calculatedResult.destination_amount);
@@ -118,7 +123,7 @@ const BasicSwap = ({ usage }: AppProps) => {
 
   useEffect(() => {
     trigger();
-  }, []);
+  }, [useWatch({ name: ['asset1', 'asset2'], control })]);
 
   const setFromMax = () => {
     const formValues = getValues();
@@ -131,10 +136,6 @@ const BasicSwap = ({ usage }: AppProps) => {
   };
 
   const handleSwapPlaces = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
     const { to, from, asset1, asset2 } = getValues();
 
     setValue('asset1', asset2, {
@@ -148,7 +149,9 @@ const BasicSwap = ({ usage }: AppProps) => {
     setValue('from', to);
   };
 
-  const onSubmit = async (v: FormValues) => {
+  const onSubmit = (v: FormValues) => {
+    setShowSwapInfo(false);
+
     const values = {
       ...v,
       path,
@@ -177,7 +180,6 @@ const BasicSwap = ({ usage }: AppProps) => {
     }
 
     reset();
-    setShowSwapInfo(false);
   };
 
   return (
@@ -213,16 +215,25 @@ const BasicSwap = ({ usage }: AppProps) => {
               valueName="asset1"
               asset={field.value}
               onChange={field.onChange}
-              assets={assetsPlusDefaultAssets}
+              assets={assets}
             />
           )}
         />
       </S.ModalInput>
 
       <div className="flex justify-center">
-        <span className="cursor-pointer" onClick={handleSwapPlaces}>
+        <div
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: '50%',
+            overflow: 'hidden',
+            cursor: 'pointer',
+          }}
+          onClick={handleSwapPlaces}
+        >
           <Swap />
-        </span>
+        </div>
       </div>
 
       <label className="label-primary block mt-[-21px]">To</label>
@@ -252,7 +263,7 @@ const BasicSwap = ({ usage }: AppProps) => {
               usage={usage}
               asset={field.value}
               valueName="asset2"
-              assets={assetsPlusDefaultAssets}
+              assets={assets}
               onChange={field.onChange}
             />
           )}
@@ -333,12 +344,7 @@ const BasicSwap = ({ usage }: AppProps) => {
           size="medium"
           content="Swap"
           style={{ marginRight: '-12px' }}
-          disabled={
-            !isDirty ||
-            !isValid ||
-            !showSwapInfo ||
-            !!(errors.from && errors.from.message)
-          }
+          disabled={!isValid || isValidating || !showSwapInfo}
         />
       </ButtonContainer>
     </form>

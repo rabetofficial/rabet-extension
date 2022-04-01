@@ -17,6 +17,7 @@ const loadAccount = async (account: IAccount) => {
         publicKey: account.publicKey,
         assets: [
           {
+            asset_code: 'XLM',
             asset_type: 'native',
             balance: '0',
             selling_liabilities: '0',
@@ -49,7 +50,10 @@ const loadAccount = async (account: IAccount) => {
   assets = assets.filter((asset) => asset.asset_type !== 'native');
 
   if (nativeAsset) {
-    assets.unshift(nativeAsset);
+    assets.unshift({
+      ...nativeAsset,
+      asset_code: 'XLM',
+    });
   }
 
   store.dispatch(

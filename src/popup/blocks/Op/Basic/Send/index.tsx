@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
+import BN from 'helpers/BN';
 import { Usage } from 'popup/models';
 import getAccount from 'popup/api/getAccount';
 import RouteName from 'popup/staticRes/routes';
@@ -89,6 +90,12 @@ const BasicSend = ({ usage }: AppProps) => {
 
     const errors: Partial<FormValues> = {};
 
+    if (!values.amount) {
+      errors.amount = '';
+    } else if (new BN(values.amount).isLessThanOrEqualTo('0')) {
+      errors.amount = 'Amount must be bigger than 0.';
+    }
+
     if (values.memo && values.memo.length > 28) {
       errors.memo = 'Memo should not be more than 28 characters';
     }
@@ -99,10 +106,6 @@ const BasicSend = ({ usage }: AppProps) => {
       errors.destination = 'Invalid destination.';
     } else if (!values.asset) {
       errors.destination = 'No asset selected.';
-    }
-
-    if (!values.amount) {
-      errors.amount = '';
     }
 
     if (

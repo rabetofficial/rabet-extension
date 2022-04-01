@@ -22,7 +22,9 @@ const Transaction = ({ transaction, publicKey }: TransactionType) => {
     );
   }
 
-  if (op.type === Horizon.OperationResponseType.pathPayment) {
+  if (
+    op.type === Horizon.OperationResponseType.pathPaymentStrictSend
+  ) {
     return (
       <SwapTx
         tx={op.transaction_hash}

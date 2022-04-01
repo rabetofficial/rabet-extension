@@ -68,6 +68,12 @@ const Input = (props: AppProps) => {
   const toggleVisible = () =>
     setVisibleType(visibleType === 'password' ? 'text' : type);
 
+  const inputProps2 = {};
+
+  if (defaultValue) {
+    inputProps2.defaultValue = defaultValue;
+  }
+
   return (
     <div className="flex flex-col grow">
       <S.Group
@@ -79,11 +85,11 @@ const Input = (props: AppProps) => {
           autoComplete="off"
           type={visibleType}
           className="input"
-          defaultValue={defaultValue}
           disabled={disabled}
           placeholder={placeholder}
           name={name}
           {...inputProps}
+          {...inputProps2}
           ref={inputRef}
           onChange={onChange}
         />

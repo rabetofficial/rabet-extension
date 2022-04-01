@@ -21,6 +21,10 @@ const priceImpactColor = (priceImpact: string) => {
     return 'orange';
   }
 
+  if (priceImpact === '<0.01') {
+    return 'green';
+  }
+
   return 'red';
 };
 
