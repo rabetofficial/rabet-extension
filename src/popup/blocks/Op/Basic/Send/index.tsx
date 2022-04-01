@@ -93,7 +93,7 @@ const BasicSend = ({ usage }: AppProps) => {
     if (!values.amount) {
       errors.amount = '';
     } else if (new BN(values.amount).isLessThanOrEqualTo('0')) {
-      errors.amount = 'Amount must be bigger than 0.';
+      errors.amount = 'Amount must be higher than 0.';
     }
 
     if (values.memo && values.memo.length > 28) {

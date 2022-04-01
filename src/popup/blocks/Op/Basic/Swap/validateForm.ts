@@ -35,7 +35,7 @@ const validateForm = async (
   if (new BN(values.from).isLessThanOrEqualTo('0')) {
     errors.from = {
       type: 'error',
-      message: 'Amount must be bigger than 0.',
+      message: 'Amount must be higher than 0.',
     };
 
     return { values, errors };
