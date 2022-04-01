@@ -84,6 +84,7 @@ const SelectAssetModal = ({
       >
         <SearchAsset
           assets={assets}
+          valueName={valueName}
           closeModal={onCloseModal}
           onChange={handleAssetChange}
         />

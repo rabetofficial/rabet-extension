@@ -1,4 +1,4 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon, ServerApi } from 'stellar-sdk';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import React, { useRef, useState, useEffect } from 'react';
@@ -11,9 +11,7 @@ import Loading from 'popup/components/Loading';
 import RouteName from 'popup/staticRes/routes';
 import getMaxBalance from 'popup/utils/maxBalance';
 import Button from 'popup/components/common/Button';
-import getStrictSend from 'popup/api/getStrictSend';
 import openModalAction from 'popup/actions/modal/open';
-import isAssetEqual from 'popup/utils/swap/isAssetEqual';
 import defaultAssets from 'popup/staticRes/defaultAssets';
 import SwapDetail from 'popup/blocks/Op/Basic/Swap/Detail';
 import Input from 'popup/components/common/Input/InputHook';
@@ -21,11 +19,11 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import combineAssets from 'popup/utils/swap/addDefaultAssets';
 import controlNumberInput from 'popup/utils/controlNumberInput';
 import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
-import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import BasicConfirmSwap from 'popup/blocks/Op/Basic/Confirm/Swap';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
+import validateForm from './validateForm';
 import config from '../../../../../config';
 import ShowFractional from './ShowFractional';
 
@@ -66,19 +64,14 @@ const BasicSwap = ({ usage }: AppProps) => {
   const [isRotateActive, setIsRotateActive] = useState(false);
   const [shouldRotate, setShouldRotate] = useState(false);
 
-  const [asset1, setAsset1] = useState(assets[0]);
-  const [asset2, setAsset2] = useState(assetsPlusDefaultAssets[0]);
-
   const timeoutRef = useRef();
 
   const {
     reset,
     trigger,
     control,
-    setError,
     setValue,
     getValues,
-    clearErrors,
     handleSubmit,
     formState: { errors, isValid, isDirty },
   } = useForm({
@@ -89,77 +82,23 @@ const BasicSwap = ({ usage }: AppProps) => {
       asset1: assets[0],
       asset2: assetsPlusDefaultAssets[0],
     },
+    resolver: (formValues) =>
+      validateForm(
+        formValues,
+        account,
+        setValue,
+        setLoading,
+        setRealData,
+        setShowSwapInfo,
+      ),
   });
 
-  useEffect(() => {
-    trigger();
-  }, []);
-
-  const calculate = async () => {
-    setIsRotateActive(false);
-
+  function setRealData(
+    calculatedResult: ServerApi.PaymentPathRecord,
+  ) {
     const formValues = getValues();
 
-    if (!formValues.asset2) {
-      return;
-    }
-
-    if (new BN(formValues.from).isNaN()) {
-      return;
-    }
-
-    clearErrors(['from']);
-
-    if (
-      new BN(formValues.from).isLessThanOrEqualTo('0') ||
-      new BN(formValues.from).isNaN()
-    ) {
-      setError('from', {
-        type: 'error',
-        message: 'Amount must be bigger than 0.',
-      });
-
-      return;
-    }
-
-    if (
-      !isInsufficientAsset(
-        formValues.asset1,
-        account.subentry_count,
-        formValues.from,
-      )
-    ) {
-      setError('from', {
-        type: 'error',
-        message: 'Insufficient amount.',
-      });
-    }
-
-    setLoading(true);
-    const calculatedResult = await getStrictSend(formValues);
-    setLoading(false);
-
-    if (!calculatedResult) {
-      setError('from', {
-        type: 'error',
-        message: 'Could not find a valid path for swap.',
-      });
-
-      return;
-    }
-
-    if (
-      calculatedResult.destination_amount === '0' &&
-      !calculatedResult.path.length
-    ) {
-      setError('from', {
-        type: 'error',
-        message: 'Could not find an order.',
-      });
-
-      return;
-    }
-
+    setIsRotateActive(false);
     setValue('to', calculatedResult.destination_amount);
 
     const calculatePath = [
@@ -175,169 +114,20 @@ const BasicSwap = ({ usage }: AppProps) => {
     setMinimumReceived(parseFloat(minReceived.toString()));
     setPath(calculatePath);
     setShowSwapInfo(true);
-  };
+  }
+
+  useEffect(() => {
+    trigger();
+  }, []);
 
   const setFromMax = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    clearErrors('from');
-
     const formValues = getValues();
-
     const maxValue = getMaxBalance(formValues.asset1, account);
 
-    setValue('from', maxValue);
-
-    if (new BN(maxValue).isNaN()) {
-      return;
-    }
-
-    if (
-      new BN(maxValue).isLessThanOrEqualTo('0') ||
-      new BN(maxValue).isNaN()
-    ) {
-      setError('from', {
-        type: 'error',
-        message: 'Amount must be bigger than 0.',
-      });
-
-      return;
-    }
-
-    if (
-      !isInsufficientAsset(
-        formValues.asset1,
-        account.subentry_count,
-        maxValue,
-      )
-    ) {
-      setError('from', {
-        type: 'error',
-        message: 'Insufficient amount.',
-      });
-
-      return;
-    }
-
+    setValue('from', maxValue, {
+      shouldValidate: true,
+    });
     setValue('to', '0');
-
-    timeoutRef.current = setTimeout(() => {
-      calculate();
-    }, 150);
-  };
-
-  const handleAsset1 = (asset: Horizon.BalanceLine) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    const formValues = getValues();
-
-    if (!formValues.asset2) {
-      return;
-    }
-
-    if (isAssetEqual(asset, formValues.asset2)) {
-      setValue('asset2', formValues.asset1);
-      setAsset2(formValues.asset1);
-    }
-
-    if (
-      !isInsufficientAsset(
-        asset,
-        account.subentry_count,
-        formValues.from,
-      )
-    ) {
-      setShowSwapInfo(false);
-
-      setError('from', {
-        type: 'error',
-        message: 'Insufficient amount.',
-      });
-
-      return;
-    }
-
-    clearErrors(['to']);
-
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    timeoutRef.current = setTimeout(() => {
-      calculate();
-    }, 150);
-  };
-
-  const handleAsset2 = (asset: Horizon.BalanceLineAsset) => {
-    const formValues = getValues();
-
-    if (isAssetEqual(formValues.asset1, asset)) {
-      setValue('asset1', formValues.asset2);
-      setAsset1(formValues.asset2);
-    }
-
-    clearErrors(['to']);
-
-    if (
-      !isInsufficientAsset(
-        formValues.asset1,
-        account.subentry_count,
-        formValues.from,
-      )
-    ) {
-      setError('from', {
-        type: 'error',
-        message: 'Insufficient amount.',
-      });
-
-      return;
-    }
-
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    timeoutRef.current = setTimeout(() => {
-      calculate();
-    }, 150);
-  };
-
-  const handleFromChange = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    const formValues = getValues();
-
-    if (new BN(formValues.from).isNaN()) {
-      setShowSwapInfo(false);
-
-      setValue('to', '');
-
-      return;
-    }
-
-    if (
-      new BN(formValues.from).isLessThanOrEqualTo('0') ||
-      new BN(formValues.from).isNaN()
-    ) {
-      setError('from', {
-        type: 'error',
-        message: 'Amount must be bigger than 0.',
-      });
-
-      return;
-    }
-
-    setValue('to', '0');
-
-    timeoutRef.current = setTimeout(() => {
-      calculate();
-    }, 150);
   };
 
   const handleSwapPlaces = () => {
@@ -345,20 +135,17 @@ const BasicSwap = ({ usage }: AppProps) => {
       clearTimeout(timeoutRef.current);
     }
 
-    const { to, from } = getValues();
+    const { to, from, asset1, asset2 } = getValues();
 
-    setValue('asset1', asset2);
-    setValue('asset2', asset1);
-
-    setAsset1(asset2);
-    setAsset2(asset1);
+    setValue('asset1', asset2, {
+      shouldValidate: true,
+    });
+    setValue('asset2', asset1, {
+      shouldValidate: true,
+    });
 
     setValue('to', from);
     setValue('from', to);
-
-    timeoutRef.current = setTimeout(() => {
-      calculate();
-    }, 150);
   };
 
   const onSubmit = async (v: FormValues) => {
@@ -407,11 +194,7 @@ const BasicSwap = ({ usage }: AppProps) => {
               size="medium"
               variant="max"
               value={field.value}
-              onChange={(e) => {
-                field.onChange(e);
-                handleFromChange();
-              }}
-              defaultValue={field.value}
+              onChange={field.onChange}
               setMax={setFromMax}
               errorMsg={errors.from && errors.from.message}
               onKeyPress={controlNumberInput}
@@ -424,13 +207,13 @@ const BasicSwap = ({ usage }: AppProps) => {
         <Controller
           name="asset1"
           control={control}
-          render={() => (
+          render={({ field }) => (
             <SelectAssetModal
-              asset={asset1}
+              usage={usage}
               valueName="asset1"
-              setValue={setValue}
+              asset={field.value}
+              onChange={field.onChange}
               assets={assetsPlusDefaultAssets}
-              onChange={handleAsset1}
             />
           )}
         />
@@ -453,7 +236,6 @@ const BasicSwap = ({ usage }: AppProps) => {
               placeholder="123"
               size="medium"
               value={field.value}
-              defaultValue={field.value}
               onChange={field.onChange}
               errorMsg={errors.to}
               styleType="light"
@@ -465,13 +247,13 @@ const BasicSwap = ({ usage }: AppProps) => {
         <Controller
           name="asset2"
           control={control}
-          render={() => (
+          render={({ field }) => (
             <SelectAssetModal
-              asset={asset2}
+              usage={usage}
+              asset={field.value}
               valueName="asset2"
-              setValue={setValue}
               assets={assetsPlusDefaultAssets}
-              onChange={handleAsset2}
+              onChange={field.onChange}
             />
           )}
         />
@@ -555,7 +337,7 @@ const BasicSwap = ({ usage }: AppProps) => {
             !isDirty ||
             !isValid ||
             !showSwapInfo ||
-            (errors.from && errors.from.message)
+            !!(errors.from && errors.from.message)
           }
         />
       </ButtonContainer>

@@ -1,7 +1,6 @@
 import { Horizon } from 'stellar-sdk';
 import React, { useState } from 'react';
 
-import BN from 'helpers/BN';
 import Image from 'popup/components/common/Image';
 import formatBalance from 'popup/utils/formatBalance';
 import handleAssetAlt from 'popup/utils/handleAssetAlt';
@@ -17,9 +16,15 @@ type AppProps = {
   assets: Horizon.BalanceLine[];
   closeModal: () => void;
   onChange: (value: Horizon.BalanceLine) => void;
+  valueName: string;
 };
 
-const SearchAsset = ({ assets, closeModal, onChange }: AppProps) => {
+const SearchAsset = ({
+  assets,
+  closeModal,
+  onChange,
+  valueName,
+}: AppProps) => {
   const [searchString, setSearchString] = useState('');
   const assetImages = useTypedSelector((store) => store.assetImages);
 
@@ -67,7 +72,7 @@ const SearchAsset = ({ assets, closeModal, onChange }: AppProps) => {
       <ScrollBar isHidden maxHeight={265}>
         {filteredCurrencies.map((asset) => (
           <S.ListItem
-            key={`send-basic-${handleAssetsKeys(asset)}`}
+            key={`${valueName}-${handleAssetsKeys(asset)}`}
             onClick={() => {
               handleClick(asset);
             }}
