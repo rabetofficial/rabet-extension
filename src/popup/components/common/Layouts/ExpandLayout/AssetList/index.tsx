@@ -123,7 +123,7 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
             }
           }}
         >
-          <Asset asset={asset} />
+          <Asset asset={asset} usage={usage} />
         </Border>
       ))}
     </ScrollBar>

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Horizon } from 'stellar-sdk';
 
 import BlackCheck from 'popup/svgs/BlackCheck';
+import { Usage } from 'popup/models/general.model';
 import formatBalance from 'popup/utils/formatBalance';
 import useAssetPrice from 'popup/hooks/useAssetPrice';
 import handleAssetAlt from 'popup/utils/handleAssetAlt';
@@ -16,9 +17,12 @@ import * as S from './styles';
 
 type AssetType = {
   asset: Horizon.BalanceLine;
+  usage: Usage;
 };
 
-const Asset = ({ asset }: AssetType) => {
+const Asset = ({ asset, usage }: AssetType) => {
+  const [isHover, setHover] = useState(false);
+  const toggleHover = () => setHover(!isHover);
   const [assetImages, currencies, options] = useTypedSelector(
     (store) => [
       store.assetImages,
@@ -53,7 +57,11 @@ const Asset = ({ asset }: AssetType) => {
 
   return (
     <div>
-      <S.Container className="flex items-center">
+      <S.Container
+        className="flex items-center"
+        onMouseEnter={toggleHover}
+        onMouseLeave={toggleHover}
+      >
         <S.Circle>
           <S.Image
             isDark={asset.asset_type === 'native'}
@@ -82,6 +90,13 @@ const Asset = ({ asset }: AssetType) => {
               {formatBalance(price)}
             </div>
           </div>
+          {isHover && usage === 'extension' ? (
+            <div>
+              <span className="icon-long-arrow-right" />
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </S.Container>
     </div>
