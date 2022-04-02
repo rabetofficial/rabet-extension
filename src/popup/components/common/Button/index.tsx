@@ -15,10 +15,14 @@ type ButtonTypes = {
   endIcon?: React.ReactNode;
   onClick?: () => void;
   className?: string | any;
+  iconBtn?: boolean;
+  title?: string;
 };
 
 const Button = ({
   reference,
+  iconBtn,
+  title,
   type,
   variant,
   size,
@@ -30,26 +34,29 @@ const Button = ({
   startIcon,
   endIcon,
 }: ButtonTypes) => (
-  <S.Button
-    ref={reference}
-    className={`${className} ${variant} ${size} button`}
-    style={style}
-    type={type}
-    disabled={disabled}
-    onClick={onClick}
-  >
-    {startIcon && (
-      <S.BurgerImageStyle style={{ marginRight: '6px' }}>
-        {startIcon}
-      </S.BurgerImageStyle>
-    )}
-    {content}
-    {endIcon && (
-      <S.BurgerImageStyle style={{ marginLeft: '6px' }}>
-        {endIcon}
-      </S.BurgerImageStyle>
-    )}
-  </S.Button>
+  <>
+    <S.Button
+      ref={reference}
+      className={`${className} ${variant} ${size} button`}
+      style={style}
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+    >
+      {startIcon && (
+        <S.BurgerImageStyle style={{ marginRight: '6px' }}>
+          {startIcon}
+        </S.BurgerImageStyle>
+      )}
+      {content}
+      {endIcon && (
+        <S.BurgerImageStyle style={{ marginLeft: '6px' }}>
+          {endIcon}
+        </S.BurgerImageStyle>
+      )}
+    </S.Button>
+    {iconBtn && <S.Title>{title}</S.Title>}
+  </>
 );
 
 Button.defaultProps = {
@@ -61,6 +68,8 @@ Button.defaultProps = {
   className: '',
   startIcon: '',
   endIcon: '',
+  title: '',
+  iconBtn: false,
 };
 
 export default Button;

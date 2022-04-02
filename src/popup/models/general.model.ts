@@ -3,6 +3,7 @@ import React, { ReactNode } from 'react';
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
+  | 'icon-circle'
   | 'danger'
   | 'default'
   | 'outlined';

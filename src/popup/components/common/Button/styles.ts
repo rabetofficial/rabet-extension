@@ -4,6 +4,16 @@ export const BurgerImageStyle = styled.div`
   display: flex;
   align-items: center;
 `;
+export const Title = styled.div`
+  text-align: center;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+`;
 
 export const Button = styled.button`
   display: flex;
@@ -97,6 +107,28 @@ export const Button = styled.button`
 
     &:hover {
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.17);
+    }
+  }
+
+  &.icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    background: ${({ theme }) => theme.colors.primary.darkest};
+    border: 2px solid ${({ theme }) => theme.colors.primary.darkest};
+    color: ${({ theme }) => theme.colors.primary.lightest};
+    margin: 0 10px;
+
+    &:hover {
+      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    &:disabled {
+      background: ${({ theme }) => theme.colors.primary.main};
+      border: 2px solid ${({ theme }) => theme.colors.primary.main};
+      color: ${({ theme }) => theme.colors.primary.lightest};
     }
   }
 

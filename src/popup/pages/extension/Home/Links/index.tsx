@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import RouteName from 'popup/staticRes/routes';
 import Button from 'popup/components/common/Button';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
+import { Swap, Send, Receive } from 'popup/svgs/TransactionActions';
 
 const Links = () => {
   const { mode } = useTypedSelector((store) => store.options);
@@ -20,18 +21,29 @@ const Links = () => {
         }
       >
         <Button
+          iconBtn
           size="small"
-          variant="primary"
-          content="Send"
-          style={{ width: '112px', marginRight: '8px' }}
+          variant="icon-circle"
+          content="S"
+          title="test"
         />
       </Link>
       <Link to={RouteName.QRCode}>
         <Button
           size="small"
-          variant="outlined"
-          content="Receive"
-          style={{ width: '112px', marginLeft: '8px' }}
+          variant="icon-circle"
+          content="R"
+          iconBtn
+          title="test"
+        />
+      </Link>
+      <Link to={RouteName.QRCode}>
+        <Button
+          size="small"
+          variant="icon-circle"
+          content="S"
+          iconBtn
+          title="test"
         />
       </Link>
     </div>

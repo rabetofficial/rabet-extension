@@ -60,41 +60,33 @@ const Home = () => {
     <ScrollBar isHidden maxHeight={600}>
       <S.Container>
         <Header />
+        <S.MainInfo>
+          <EditWalletName
+            height={32}
+            checkIconWidth={22}
+            fontSize={14}
+          />
+          <CopyText
+            text={publicKey}
+            custom={
+              <span className="text-xs text-primary-dark">
+                {shorter(publicKey, 6)}
+              </span>
+            }
+          />
+          <span onClick={toggleModal} style={{ cursor: 'pointer' }}>
+            {isConnected ? <S.ModalActive /> : <S.ModalInactive />}
+          </span>
+        </S.MainInfo>
+        <S.DropDown>
+          <DropDownList />
+        </S.DropDown>
 
-        <S.XlmBox>
-          <S.Value>
-            {handleAssetSymbol(currencies, options)}
-            {formatBalance(totalBalance)}
-
-            <span onClick={toggleModal} style={{ cursor: 'pointer' }}>
-              {isConnected ? <S.ModalActive /> : <S.ModalInactive />}
-            </span>
-          </S.Value>
+        <S.Value>
+          {handleAssetSymbol(currencies, options)}
+          {formatBalance(totalBalance)}
           <S.Subject>Total ({activeCurrency.name})</S.Subject>
-        </S.XlmBox>
-
-        <S.InfoBox>
-          <S.Label className="mb-[2px]">Name</S.Label>
-          <S.Info className="mb-[6px] w-[285px]">
-            <EditWalletName
-              height={32}
-              checkIconWidth={22}
-              fontSize={16}
-            />
-          </S.Info>
-
-          <S.DropDown>
-            <DropDownList />
-          </S.DropDown>
-
-          <S.Label className="mb-[6px]">Address</S.Label>
-          <S.Info>
-            <CopyText
-              text={publicKey}
-              custom={<span>{shorter(publicKey, 8)}</span>}
-            />
-          </S.Info>
-        </S.InfoBox>
+        </S.Value>
 
         <Links />
 
