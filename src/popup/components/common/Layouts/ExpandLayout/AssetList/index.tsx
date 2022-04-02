@@ -1,7 +1,8 @@
 import React from 'react';
 import { Horizon } from 'stellar-sdk';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+import Plus from 'popup/svgs/Plus';
 import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
 import AssetInfo from 'popup/components/AssetInfo';
@@ -18,7 +19,7 @@ import {
 import { Usage } from 'popup/models';
 
 import Asset from './Asset';
-import { Border } from './styles';
+import { Hr, AddAssetBox } from './styles';
 
 type AssetsListProps = {
   usage: Usage;
@@ -111,22 +112,42 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
   };
 
   return (
-    <ScrollBar isHidden maxHeight={scrollMaxHeight}>
-      {assets.map((asset) => (
-        <Border
-          key={`assetList${handleAssetsKeys(asset)}`}
-          onClick={() => {
-            if (usage === 'extension') {
-              openAssetInfoPage(asset);
-            } else {
-              openAssetInfoModal(asset);
-            }
-          }}
-        >
-          <Asset asset={asset} usage={usage} />
-        </Border>
-      ))}
-    </ScrollBar>
+    <div className="h-[220px]">
+      <div>
+        <ScrollBar isHidden maxHeight={scrollMaxHeight}>
+          {assets.map((asset, index) => (
+            <div
+              key={`assetList${handleAssetsKeys(asset)}`}
+              onClick={() => {
+                if (usage === 'extension') {
+                  openAssetInfoPage(asset);
+                } else {
+                  openAssetInfoModal(asset);
+                }
+              }}
+            >
+              <Asset asset={asset} usage={usage} />
+              {assets.length !== index + 1 && <Hr />}
+            </div>
+          ))}
+        </ScrollBar>
+      </div>
+      <div>
+        {usage === 'extension' && (
+          <AddAssetBox>
+            <Link
+              to={RouteName.AddAsset}
+              className="inline-flex items-center"
+            >
+              <span className="mr-1">
+                <Plus width="12" height="12" />
+              </span>
+              <p className="font-medium">Add assets</p>
+            </Link>
+          </AddAssetBox>
+        )}
+      </div>
+    </div>
   );
 };
 
