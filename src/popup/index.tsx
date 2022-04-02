@@ -1,6 +1,3 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/no-webpack-loader-syntax */
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
@@ -13,7 +10,6 @@ import Component from './pages';
 import Modal from './components/Modal';
 import loadUser from './actions/user/loadUser';
 import getHost from './actions/options/getHost';
-// import ModalDialog from './components/common/ModalDialog';
 
 import 'react-slideshow-image/dist/styles.css';
 import 'tippy.js/dist/svg-arrow.css';
