@@ -3,13 +3,13 @@ import { Horizon } from 'stellar-sdk';
 
 import BlackCheck from 'popup/svgs/BlackCheck';
 import { Usage } from 'popup/models/general.model';
+import AngleForward from 'popup/svgs/AngleForward';
 import formatBalance from 'popup/utils/formatBalance';
 import useAssetPrice from 'popup/hooks/useAssetPrice';
 import handleAssetAlt from 'popup/utils/handleAssetAlt';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import handleAssetImage from 'popup/utils/handleAssetImage';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
-
 import questionIcon from '../../../../../../assets/images/question-circle.png';
 import ImageOnErrorHandler from '../../../../../../helpers/ImageOnErrorHandler';
 
@@ -92,7 +92,7 @@ const Asset = ({ asset, usage }: AssetType) => {
           </div>
           {isHover && usage === 'extension' ? (
             <div>
-              <span className="icon-long-arrow-right" />
+              <AngleForward />
             </div>
           ) : (
             ''
