@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 
 import isEmpty from 'helpers/isEmpty';
-import matchAsset from 'popup/utils/matchAsset';
 import Input from 'popup/components/common/Input';
 import Button from 'popup/components/common/Button';
 import getAssetsAction from 'popup/api/getSearchedAssets';
@@ -38,7 +37,13 @@ const SearchAsset = ({ onSubmit, onCancel }: AppProps) => {
   };
 
   const setActive = (index: number) => {
-    if (selectedList.some((x) => matchAsset(x, list[index]))) {
+    const selected = selectedList.some(
+      (x) =>
+        x.asset_code === list[index].asset_code &&
+        x.asset_issuer === list[index].asset_issuer,
+    );
+
+    if (selected) {
       const newSelectedList = selectedList.filter(
         (x) => x.asset_issuer !== list[index].asset_issuer,
       );
@@ -63,7 +68,8 @@ const SearchAsset = ({ onSubmit, onCancel }: AppProps) => {
             (asset) =>
               (asset.asset_type === 'credit_alphanum4' ||
                 asset.asset_type === 'credit_alphanum12') &&
-              matchAsset(asset, assetList[i]),
+              asset.asset_code === assetList[i].asset_code &&
+              asset.asset_issuer === assetList[i].asset_issuer,
           );
 
           if (isOld) {

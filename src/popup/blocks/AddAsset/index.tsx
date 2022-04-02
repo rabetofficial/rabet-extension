@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import timeout from 'popup/utils/timeout';
 import {
   openErrorModal,
   openSucessModal,
   openLoadingModal,
 } from 'popup/components/Modals';
+import { Usage, Tab } from 'popup/models';
+import timeout from 'popup/utils/timeout';
 import RouteName from 'popup/staticRes/routes';
 import Tabs from 'popup/components/common/Tabs';
 import closeModalAction from 'popup/actions/modal/close';
@@ -14,7 +15,6 @@ import addAssetAction from 'popup/actions/operations/addAsset';
 import { AssetImageWithActive } from 'popup/reducers/assetImages';
 import addMultipleAssets from 'popup/actions/operations/addMultipleAssets';
 
-import { Usage, Tab } from 'popup/models';
 import SearchAsset from './SearchAsset';
 import CustomAsset, { FormValues } from './CustomAsset';
 
@@ -31,8 +31,11 @@ const AddAsset = ({ children, usage }: AddAssetType) => {
 
     await timeout(200);
 
-    openLoadingModal({});
-
+    if (usage === 'extension') {
+      navigate(RouteName.LoadingNetwork);
+    } else {
+      openLoadingModal({});
+    }
     const [isSuccessful, message] = await addAssetAction(
       values.code,
       values.issuer,
@@ -44,15 +47,31 @@ const AddAsset = ({ children, usage }: AddAssetType) => {
     await timeout(100);
 
     if (isSuccessful) {
-      openSucessModal({
-        message,
-        onClick: closeModalAction,
-      });
+      if (usage === 'extension') {
+        navigate(RouteName.Sucess, {
+          state: {
+            message,
+          },
+        });
+      } else {
+        openSucessModal({
+          message,
+          onClick: closeModalAction,
+        });
+      }
     } else {
-      openErrorModal({
-        message,
-        onClick: closeModalAction,
-      });
+      if (usage === 'extension') {
+        navigate(RouteName.Error, {
+          state: {
+            message,
+          },
+        });
+      } else {
+        openErrorModal({
+          message,
+          onClick: closeModalAction,
+        });
+      }
     }
 
     return values;
@@ -99,6 +118,7 @@ const AddAsset = ({ children, usage }: AddAssetType) => {
       }
     }
   };
+
   const handleCancel = () => {
     navigate(RouteName.Home, {
       state: {
@@ -106,6 +126,7 @@ const AddAsset = ({ children, usage }: AddAssetType) => {
       },
     });
   };
+
   const tabs: Tab[] = [
     {
       id: '1',

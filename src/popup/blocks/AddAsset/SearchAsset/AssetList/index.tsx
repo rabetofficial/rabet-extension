@@ -1,10 +1,10 @@
 import React from 'react';
 
 import ScrollBar from 'popup/components/common/ScrollBar';
+import { AssetImageWithActive } from 'popup/reducers/assetImages';
 
 import Asset from './Asset';
 import { List } from './styles';
-import { AssetImageWithActive } from '../index';
 
 type AppProps = {
   list: AssetImageWithActive[];

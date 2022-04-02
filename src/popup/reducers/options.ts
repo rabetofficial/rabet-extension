@@ -15,7 +15,7 @@ export interface IOption {
 
 const initialState: IOption = {
   privacyMode: true,
-  explorer: 'steexp',
+  explorer: 'stellarexpert',
   network: 'MAINNET',
   autoTimeLocker: 60,
   currency: 'USD',
