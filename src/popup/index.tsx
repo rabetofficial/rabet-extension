@@ -20,6 +20,8 @@ import './styles/font.css';
 import theme from './styles/theme';
 import Global from './styles/global';
 
+localStorage.setItem('isDesktop', process.env.isDesktop);
+
 (async () => {
   await getHost();
   await loadUser();

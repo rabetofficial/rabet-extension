@@ -2,8 +2,31 @@ import { encrypt, decrypt } from './crypto';
 
 export const get = (key: string, password?: string) =>
   new Promise((resolve, reject) => {
-    chrome.storage.local.get([key], (result: any) => {
-      const data = result[key];
+    if (localStorage.getItem('isDesktop') !== 'true') {
+      chrome.storage.local.get([key], (result: any) => {
+        const data = result[key];
+
+        if (!data) {
+          return resolve(null);
+        }
+
+        if (!password) {
+          return resolve(data);
+        }
+
+        const decrypredData = decrypt(password, data);
+        let jsonData;
+
+        try {
+          jsonData = JSON.parse(decrypredData);
+        } catch (e) {
+          return reject();
+        }
+
+        return resolve(jsonData);
+      });
+    } else {
+      const data = localStorage.getItem(key);
 
       if (!data) {
         return resolve(null);
@@ -23,7 +46,7 @@ export const get = (key: string, password?: string) =>
       }
 
       return resolve(jsonData);
-    });
+    }
   });
 
 export const set = (key: string, value: any, password?: string) =>
@@ -42,9 +65,14 @@ export const set = (key: string, value: any, password?: string) =>
         dataToBeSet = value;
       }
 
-      chrome.storage.local.set({ [`${key}`]: dataToBeSet }, () => {
+      if (localStorage.getItem('isDesktop') !== 'true') {
+        chrome.storage.local.set({ [`${key}`]: dataToBeSet }, () => {
+          resolve(true);
+        });
+      } else {
+        localStorage.setItem(key, dataToBeSet);
         resolve(true);
-      });
+      }
     } catch (e) {
       reject();
     }

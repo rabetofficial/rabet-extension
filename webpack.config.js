@@ -11,8 +11,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('./manifestPlugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
+const isDesktop = process.env.PURPOSE === 'desktop';
 
 const plugins = [
+  new webpack.DefinePlugin({
+    'process.env.isDesktop': isDesktop,
+  }),
   new webpack.ProvidePlugin({
     Buffer: ['buffer', 'Buffer'],
   }),
@@ -32,6 +36,27 @@ const plugins = [
   }),
   new ManifestPlugin(),
 ];
+
+const optimization = {
+  minimizer: [
+    new HtmlMinimizerPlugin(),
+    new TerserPlugin({
+      extractComments: false,
+      terserOptions: {
+        format: {
+          comments: false,
+        },
+      },
+    }),
+    new CssMinimizerPlugin(),
+  ],
+};
+
+if (!isDesktop) {
+  optimization.splitChunks = {
+    chunks: 'all',
+  };
+}
 
 if (!devMode) {
   plugins.push(new MiniCssExtractPlugin());
@@ -53,23 +78,7 @@ const config = {
     filename: '[name].js',
     path: resolve(`${__dirname}/dist`),
   },
-  optimization: {
-    minimizer: [
-      new HtmlMinimizerPlugin(),
-      new TerserPlugin({
-        extractComments: false,
-        terserOptions: {
-          format: {
-            comments: false,
-          },
-        },
-      }),
-      new CssMinimizerPlugin(),
-    ],
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
+  optimization,
   module: {
     rules: [
       {
@@ -83,10 +92,6 @@ const config = {
             },
           },
         ],
-        // use: 'ts-loader',
-        // options: {
-        //   ignoreDiagnostics: [2339, 7006, 7016],
-        // },
       },
       {
         test: /\.(js|jsx)$/,
