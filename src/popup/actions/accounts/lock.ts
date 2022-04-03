@@ -7,7 +7,9 @@ import { stop } from 'popup/reducers/interval';
 import RouteName from 'popup/staticRes/routes';
 
 export default (navigate: NavigateFunction) => {
-  localStorage.clear();
+  if (localStorage.getItem('isDesktop') !== 'true') {
+    localStorage.clear();
+  }
 
   store.dispatch(logout());
   store.dispatch(stop());

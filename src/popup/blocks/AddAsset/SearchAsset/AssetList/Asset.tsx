@@ -1,11 +1,9 @@
 import React from 'react';
 
-import matchAsset from 'popup/utils/matchAsset';
 import CheckMarkFill from 'popup/svgs/CheckMarkFill';
+import questionSrc from 'assets/images/question-circle.png';
 import ImageOnErrorHandler from 'helpers/ImageOnErrorHandler';
-
-import { AssetImageWithActive } from '../index';
-import questionSrc from '../../../../../assets/images/question-circle.png';
+import { AssetImageWithActive } from 'popup/reducers/assetImages';
 
 import * as S from './styles';
 
@@ -28,7 +26,11 @@ const Asset = ({
     style={{
       border:
         asset.active &&
-        selectedList.find((a) => matchAsset(a, asset)) &&
+        selectedList.find(
+          (a) =>
+            a.asset_code === asset.asset_code &&
+            a.asset_issuer === asset.asset_issuer,
+        ) &&
         '1px solid black',
     }}
   >

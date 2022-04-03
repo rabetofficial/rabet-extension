@@ -11,6 +11,7 @@ type AppProps = {
   gap?: number;
   mt?: number;
   positionStyles?: React.CSSProperties;
+  className: ?string;
 };
 
 const Container = styled.div.attrs((props: AppProps) => props)`
@@ -35,7 +36,7 @@ const Container = styled.div.attrs((props: AppProps) => props)`
 // for absolute use : positionStyles and justify
 
 const ButtonContainer = (props: AppProps) => {
-  const { children, justify, positionStyles } = props;
+  const { children, justify, positionStyles, className } = props;
   return (
     <>
       {isEmpty(positionStyles) ? (
@@ -44,6 +45,7 @@ const ButtonContainer = (props: AppProps) => {
           className={classNames(
             'flex',
             justify && `justify-${justify}`,
+            className,
           )}
         >
           {children}
@@ -73,6 +75,7 @@ ButtonContainer.defaultProps = {
   mt: 0,
   positionStyles: null,
   justify: '',
+  className: '',
 };
 
 export default ButtonContainer;

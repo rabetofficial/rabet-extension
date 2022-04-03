@@ -1,7 +1,5 @@
-import { Balance } from 'popup/reducers/accounts';
+import { Balance } from 'popup/reducers/accounts2';
 import { AssetImage } from 'popup/reducers/assetImages';
-
-import matchAsset from './matchAsset';
 
 const addAssetImagesToAssets = (
   b: Partial<Balance>[],
@@ -11,7 +9,11 @@ const addAssetImagesToAssets = (
 
   for (let i = 0, len = b.length; i < len; i += 1) {
     const asset = b[i];
-    const assetImage = assetImages.find((x) => matchAsset(x, asset));
+    const assetImage = assetImages.find(
+      (x) =>
+        x.asset_code === asset.asset_code &&
+        x.asset_issuer === asset.asset_issuer,
+    );
 
     balances.push({
       ...b[i],

@@ -57,3 +57,4 @@ web-ext-artifacts
 !.vscode/launch.json
 !.vscode/extensions.json
 manifest.json
+release/

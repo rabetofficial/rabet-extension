@@ -61,7 +61,7 @@ const PaymentOps = ({ id }: AppProps) => {
         checked: false,
       });
     } else if (new BN(values.amount).isLessThanOrEqualTo('0')) {
-      errors.amount = 'Amount must be bigger than 0.';
+      errors.amount = 'Amount must be higher than 0.';
       hasError.amount = true;
 
       changeOperationAction(id, {
