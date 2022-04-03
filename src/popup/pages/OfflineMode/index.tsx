@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 
+import offline from 'assets/images/offline.svg';
 import Layout from 'popup/components/common/Layouts/BaseLayout';
-import offline from 'src/assets/images/offline.svg';
+
 import config from '../../../config';
 
 import * as S from './styles';
@@ -20,6 +21,7 @@ const OfflineMode = () => {
           <S.Z>z</S.Z>
           <S.Z1>z</S.Z1>
           <S.Z2>z</S.Z2>
+
           <img
             src={offline}
             width={58}
@@ -27,7 +29,9 @@ const OfflineMode = () => {
             alt="rabet offline"
           />
         </S.Sleeping>
+
         <S.Title>You are offline</S.Title>
+
         <S.Msg>Go back online to use Rabet</S.Msg>
       </S.Container>
     </Layout>

@@ -1,9 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
-  @media (max-width: 360px) {
-    margin-top: -188px;
-  }
+  margin-top: 150px;
 `;
 
 export const sleepAnimation = keyframes`
