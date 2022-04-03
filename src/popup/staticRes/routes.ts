@@ -22,6 +22,8 @@ enum RouteName {
   AdvancedOperation = '/advance-operation',
   BasicSendConfirm = '/basic-operation/send/confirm',
   BasicSwapConfirm = '/basic-operation/swap/confirm',
+  SendExtension = '/send-extension',
+  SwapExtension = '/swap-extension',
 
   Flags = '/flag',
   AssetInfo = '/asset',

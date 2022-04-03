@@ -114,7 +114,7 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
   return (
     <div
       style={{
-        height: usage === 'extension' && '278px',
+        height: usage === 'extension' && '282px',
       }}
     >
       <div>

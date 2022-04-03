@@ -13,6 +13,7 @@ type AppProps = {
   height: number;
   checkIconWidth: number;
   fontSize: number;
+  editable?: boolean;
 };
 
 type FormValues = {
@@ -23,6 +24,7 @@ const EditWalletName = ({
   checkIconWidth,
   height,
   fontSize,
+  editable,
 }: AppProps) => {
   const { name, publicKey } = useActiveAccount();
   const [isEditable, setEditable] = useState(false);
@@ -45,7 +47,7 @@ const EditWalletName = ({
 
   return (
     <>
-      {isEditable ? (
+      {isEditable || editable ? (
         <Form
           onSubmit={(values: FormValues) => onSubmit(values)}
           validate={(values: FormValues) => validateForm(values)}
@@ -104,5 +106,7 @@ const EditWalletName = ({
     </>
   );
 };
+
+EditWalletName.defaultProps = { editable: false };
 
 export default EditWalletName;

@@ -11,10 +11,13 @@ import useTypedSelector from 'popup/hooks/useTypedSelector';
 
 import DropMenu from './DropMenu';
 
-const DropDownList = () => {
+type DropDawnProps = {
+  setEditableName: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const DropDownList = ({ setEditableName }: DropDawnProps) => {
   const navigate = useNavigate();
   const { mode } = useTypedSelector((store) => store.options);
-
   const openInNewTab = (url: string) => {
     const newWindow = window.open(
       url,
@@ -30,7 +33,7 @@ const DropDownList = () => {
       label: 'Edit Name',
       icon: <PenEdit size="16" />,
       onClick: () => {
-        console.log('change name');
+        setEditableName(true);
       },
     },
     {

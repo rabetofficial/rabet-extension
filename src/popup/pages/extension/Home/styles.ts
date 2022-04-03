@@ -50,7 +50,7 @@ export const DropDown = styled.span`
 `;
 
 export const Value = styled.div`
-  margin: 18px 0 3px;
+  margin: 18px 0 23px;
   font-size: 32px;
   color: black;
   font-weight: normal;
@@ -59,10 +59,4 @@ export const Value = styled.div`
   line-height: 1.31;
   letter-spacing: normal;
   text-align: center;
-`;
-export const Subject = styled.div`
-  font-size: 12px;
-  color: ${({ theme }) => theme.colors.primary.dark};
-  text-align: center;
-  margin: 0 auto;
 `;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import shorter from 'popup/utils/shorter';
@@ -16,7 +16,6 @@ import ScrollBar from 'popup/components/common/ScrollBar';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import EditWalletName from 'popup/components/EditWalletName';
-import useActiveCurrency from 'popup/hooks/useActiveCurrency';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
 import ModalConnectStatus from 'popup/components/ModalConnectStatus';
 
@@ -29,7 +28,7 @@ const Home = () => {
   const { state } = useLocation();
   const isLoading = useLoadHome();
   const totalBalance = useTotalBalance();
-  const activeCurrency = useActiveCurrency();
+  const [editableName, setEditableName] = useState(false);
   const { name, isConnected, publicKey } = useActiveAccount();
 
   const [currencies, options] = useTypedSelector((store) => [
@@ -56,34 +55,44 @@ const Home = () => {
       ),
     });
   };
-
   return (
     <ScrollBar isHidden maxHeight={600}>
       <S.Container>
         <Header />
         <S.MainInfo>
-          <S.NameValue>{name}</S.NameValue>
-          <CopyText
-            text={publicKey}
-            custom={
-              <span className="text-xs text-primary-dark inline-flex items-center gap-1">
-                {shorter(publicKey, 6)}
-                <FilledCopy />
-              </span>
-            }
-          />
+          {editableName ? (
+            <div className="mt-3 w-[196px]">
+              <EditWalletName
+                editable
+                height={36}
+                checkIconWidth={18}
+                fontSize={16}
+              />
+            </div>
+          ) : (
+            <>
+              <S.NameValue>{name}</S.NameValue>
+              <CopyText
+                text={publicKey}
+                custom={
+                  <span className="text-xs text-primary-dark inline-flex items-center gap-1">
+                    {shorter(publicKey, 6)}
+                    <FilledCopy />
+                  </span>
+                }
+              />
+            </>
+          )}
           <span onClick={toggleModal} style={{ cursor: 'pointer' }}>
             {isConnected ? <S.ModalActive /> : <S.ModalInactive />}
           </span>
         </S.MainInfo>
         <S.DropDown>
-          <DropDownList />
+          <DropDownList setEditableName={setEditableName} />
         </S.DropDown>
-
         <S.Value>
           {handleAssetSymbol(currencies, options)}
           {formatBalance(totalBalance)}
-          <S.Subject>Total ({activeCurrency.name})</S.Subject>
         </S.Value>
 
         <Links />
