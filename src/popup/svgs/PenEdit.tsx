@@ -1,11 +1,12 @@
 import React from 'react';
 
-function Icon() {
+type IconProps = { size?: string };
+function Icon({ size }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="13"
-      height="13"
+      width={size}
+      height={size}
       viewBox="0 0 13 13"
     >
       <path
@@ -15,5 +16,7 @@ function Icon() {
     </svg>
   );
 }
+
+Icon.defaultProps = { size: '13' };
 
 export default Icon;

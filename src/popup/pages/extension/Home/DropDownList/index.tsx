@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
+import PenEdit from 'popup/svgs/PenEdit';
 import ExpandIcon from 'popup/svgs/Expand';
 import RouteName from 'popup/staticRes/routes';
 import worldSrc from 'src/assets/images/world.svg';
@@ -26,6 +27,14 @@ const DropDownList = () => {
   const dropMenuItems = [
     {
       id: 1,
+      label: 'Edit Name',
+      icon: <PenEdit size="16" />,
+      onClick: () => {
+        console.log('change name');
+      },
+    },
+    {
+      id: 2,
       label: 'Expand view',
       icon: <ExpandIcon />,
       onClick: () => {
@@ -33,7 +42,7 @@ const DropDownList = () => {
       },
     },
     {
-      id: 2,
+      id: 3,
       label: 'Show private key',
       icon: 'icon-key',
       onClick: () => {

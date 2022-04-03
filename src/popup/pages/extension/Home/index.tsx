@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import shorter from 'popup/utils/shorter';
+import FilledCopy from 'popup/svgs/FilledCopy';
 import LoadingOne from 'popup/pages/LoadingOne';
 import useLoadHome from 'popup/hooks/useLoadHome';
 import Header from 'popup/components/common/Header';
@@ -29,7 +30,7 @@ const Home = () => {
   const isLoading = useLoadHome();
   const totalBalance = useTotalBalance();
   const activeCurrency = useActiveCurrency();
-  const { isConnected, publicKey } = useActiveAccount();
+  const { name, isConnected, publicKey } = useActiveAccount();
 
   const [currencies, options] = useTypedSelector((store) => [
     store.currencies,
@@ -61,16 +62,13 @@ const Home = () => {
       <S.Container>
         <Header />
         <S.MainInfo>
-          <EditWalletName
-            height={32}
-            checkIconWidth={22}
-            fontSize={14}
-          />
+          <S.NameValue>{name}</S.NameValue>
           <CopyText
             text={publicKey}
             custom={
-              <span className="text-xs text-primary-dark">
+              <span className="text-xs text-primary-dark inline-flex items-center gap-1">
                 {shorter(publicKey, 6)}
+                <FilledCopy />
               </span>
             }
           />

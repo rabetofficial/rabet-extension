@@ -85,7 +85,7 @@ const Asset = ({ asset, usage }: AssetType) => {
                 </div>
               )}
             </div>
-            <div className="text-sm text-primary-dark mt-[2px]">
+            <div className="text-xs text-primary-dark mt-[2px]">
               {handleAssetSymbol(currencies, options)}
               {formatBalance(price)}
             </div>

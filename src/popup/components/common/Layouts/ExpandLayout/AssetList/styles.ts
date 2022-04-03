@@ -18,7 +18,7 @@ export const Circle = styled.div`
   min-width: 44px;
   border-radius: 50%;
   background-color: #f8f8f8;
-  margin-right: 12px;
+  margin-right: 3px;
 `;
 interface ImageProps {
   isDark: boolean;

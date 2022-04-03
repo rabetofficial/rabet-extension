@@ -11,8 +11,18 @@ export const MainInfo = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 2px;
 `;
+
+export const NameValue = styled.div`
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+`;
+
 export const ModalInactive = styled.span`
   position: absolute;
   top: 23px;
@@ -32,6 +42,7 @@ export const ModalActive = styled.span`
   height: 12px;
   border-radius: 50%;
 `;
+
 export const DropDown = styled.span`
   position: absolute;
   top: 40px;
