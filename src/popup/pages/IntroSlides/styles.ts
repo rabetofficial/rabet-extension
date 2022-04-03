@@ -183,7 +183,11 @@ export const SlidesContainer = styled.div`
   @media (max-width: 620px) and (min-width: 475px) {
     width: 600px;
   }
-  @media (max-width: 475px) and (min-width: 360px) {
+  @media (max-width: 475px) and (min-width: 400px) {
     width: 400px;
+  }
+  @media (max-width: 400px) and (min-width: 360px) {
+    width: 360px;
+    height: 600px;
   }
 `;
