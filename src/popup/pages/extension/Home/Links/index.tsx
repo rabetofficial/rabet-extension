@@ -24,26 +24,38 @@ const Links = () => {
           iconBtn
           size="small"
           variant="icon-circle"
-          content="S"
-          title="test"
+          content={
+            <span>
+              <Send />
+            </span>
+          }
+          title="Send"
         />
       </Link>
       <Link to={RouteName.QRCode}>
         <Button
           size="small"
           variant="icon-circle"
-          content="R"
+          content={
+            <span>
+              <Swap />
+            </span>
+          }
           iconBtn
-          title="test"
+          title="Swap"
         />
       </Link>
       <Link to={RouteName.QRCode}>
         <Button
           size="small"
           variant="icon-circle"
-          content="S"
+          content={
+            <span>
+              <Receive />
+            </span>
+          }
           iconBtn
-          title="test"
+          title="Receive"
         />
       </Link>
     </div>

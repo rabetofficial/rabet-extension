@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react';
 
 import { ButtonVariant, ButtonSize } from 'popup/models';
 
+import { Swap } from 'popup/svgs/TransactionActions';
 import * as S from './styles';
 
 type ButtonTypes = {

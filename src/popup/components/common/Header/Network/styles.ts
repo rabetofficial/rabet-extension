@@ -26,6 +26,11 @@ const Container = styled.div.attrs((props: ContainerType) => props)`
       color: ${({ isMain, theme }) =>
         isMain ? theme.colors.success.main : theme.colors.warn.main};
     }
+    @media (max-width: 360px) {
+      width: 144px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
   }
 `;
 

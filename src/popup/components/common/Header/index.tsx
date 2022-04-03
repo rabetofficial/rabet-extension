@@ -29,7 +29,7 @@ const Header = () => {
             <RabetLogo />
           </Link>
 
-          <Network theme="dark" />
+          <Network theme="light" />
 
           <SearchAccounts
             usage="extension"

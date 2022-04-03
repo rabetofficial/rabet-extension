@@ -112,7 +112,11 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
   };
 
   return (
-    <div className="h-[220px]">
+    <div
+      style={{
+        height: usage === 'extension' && '278px',
+      }}
+    >
       <div>
         <ScrollBar isHidden maxHeight={scrollMaxHeight}>
           {assets.map((asset, index) => (

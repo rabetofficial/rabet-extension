@@ -39,7 +39,7 @@ export const DropDown = styled.span`
 `;
 
 export const Value = styled.div`
-  margin: 20px 0;
+  margin: 18px 0 3px;
   font-size: 32px;
   color: black;
   font-weight: normal;

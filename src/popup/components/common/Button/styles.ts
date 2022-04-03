@@ -4,9 +4,10 @@ export const BurgerImageStyle = styled.div`
   display: flex;
   align-items: center;
 `;
+
 export const Title = styled.div`
   text-align: center;
-  margin-top: 4px;
+  margin-top: 5px;
   font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
@@ -116,11 +117,13 @@ export const Button = styled.button`
     border-radius: 50%;
     justify-content: center;
     align-items: center;
-    background: ${({ theme }) => theme.colors.primary.darkest};
-    border: 2px solid ${({ theme }) => theme.colors.primary.darkest};
-    color: ${({ theme }) => theme.colors.primary.lightest};
-    margin: 0 10px;
-
+    background-color: ${({ theme }) => theme.colors.primary.darkest};
+    color: white;
+    margin: 0 22.5px;
+    path {
+      fill: ${({ theme }) =>
+        theme.colors.primary.lightest} !important;
+    }
     &:hover {
       box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
     }
