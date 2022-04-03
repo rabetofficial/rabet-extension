@@ -13,14 +13,16 @@ type AppProps = {
   alreadyLoaded?: boolean;
   className?: string;
   onClose?: () => void | undefined;
+  showCancelButton?: boolean;
 };
 
 const ExtTitle = ({
   title,
   status,
-  alreadyLoaded,
-  className,
   onClose,
+  className,
+  alreadyLoaded,
+  showCancelButton,
 }: AppProps) => {
   const navigate = useNavigate();
   const accounts = useTypedSelector((state) => state.accounts);
@@ -62,9 +64,11 @@ const ExtTitle = ({
     <S.Container className={className}>
       <div>{generateTitle()}</div>
 
-      <div className="cursor-pointer" onClick={handleClose}>
-        <Multiply />
-      </div>
+      {showCancelButton && (
+        <div className="cursor-pointer" onClick={handleClose}>
+          <Multiply />
+        </div>
+      )}
     </S.Container>
   );
 };
@@ -75,6 +79,7 @@ ExtTitle.defaultProps = {
   alreadyLoaded: true,
   className: '',
   onClose: undefined,
+  showCancelButton: true,
 };
 
 export default ExtTitle;

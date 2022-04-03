@@ -8,10 +8,12 @@ import ScrollBar from 'popup/components/common/ScrollBar';
 const SuccessfulSubmission = () => (
   <ScrollBar isHidden>
     <Header />
+
     <div className="content">
       <ExtTitle
-        className="content mt-[20px] mb-[87px]"
         alreadyLoaded={false}
+        showCancelButton={false}
+        className="content mt-[20px] mb-[87px]"
       />
       <div className="py-3">
         <LoadingNetwork />
