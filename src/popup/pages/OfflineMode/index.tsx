@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import offline from 'assets/images/offline.svg';
-import Layout from 'popup/components/common/Layouts/BaseLayout';
 
 import config from '../../../config';
 
@@ -15,7 +14,7 @@ const OfflineMode = () => {
   }, []);
 
   return (
-    <Layout alignCenter isDashboard={false}>
+    <div className="flex justify-center items-center h-screen w-screen">
       <S.Container>
         <S.Sleeping>
           <S.Z>z</S.Z>
@@ -34,7 +33,7 @@ const OfflineMode = () => {
 
         <S.Msg>Go back online to use Rabet</S.Msg>
       </S.Container>
-    </Layout>
+    </div>
   );
 };
 
