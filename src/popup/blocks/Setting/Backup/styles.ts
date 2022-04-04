@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  @media (max-height: 600px) {
+    width: 328px;
+  }
+`;
 export const Box = styled.div`
   margin-top: 6px;
   padding: 10px 4px 4px 12px;

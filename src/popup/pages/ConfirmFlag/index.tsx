@@ -43,7 +43,7 @@ const ConfirmFlag = () => {
   };
 
   return (
-    <>
+    <div style={{ maxWidth: '360px' }}>
       <Header />
 
       <div style={{ padding: '16px' }}>
@@ -105,7 +105,7 @@ const ConfirmFlag = () => {
           />
         </ButtonContainer>
       </div>
-    </>
+    </div>
   );
 };
 

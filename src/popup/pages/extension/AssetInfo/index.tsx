@@ -70,7 +70,7 @@ const AssetInfo = () => {
   };
 
   return (
-    <>
+    <div style={{ maxWidth: '360px' }}>
       <ScrollBar isHidden maxHeight={600}>
         <Header />
 
@@ -87,7 +87,7 @@ const AssetInfo = () => {
           />
         </AssetInfoContent>
       </ScrollBar>
-    </>
+    </div>
   );
 };
 

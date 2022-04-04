@@ -20,20 +20,22 @@ const ErrorPage = () => {
   };
 
   return (
-    <ScrollBar isHidden>
-      <Header />
+    <div style={{ maxWidth: '360px' }}>
+      <ScrollBar isHidden>
+        <Header />
 
-      <div className="content">
-        <ExtTitle
-          className="mt-[20px] mb-[87px]"
-          alreadyLoaded={false}
-        />
+        <div className="content">
+          <ExtTitle
+            className="mt-[20px] mb-[87px]"
+            alreadyLoaded={false}
+          />
 
-        <div className="flex">
-          <Error onClick={handleClick} message={state.message} />
+          <div style={{ width: '328px' }}>
+            <Error onClick={handleClick} message={state.message} />
+          </div>
         </div>
-      </div>
-    </ScrollBar>
+      </ScrollBar>
+    </div>
   );
 };
 

@@ -183,171 +183,173 @@ const BasicSwap = ({ usage }: AppProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label className="label-primary block mt-4">From</label>
-      <S.ModalInput>
-        <Controller
-          name="from"
-          control={control}
-          render={({ field }) => (
-            <Input
-              type="number"
-              placeholder="123"
-              size="medium"
-              variant="max"
-              value={field.value}
-              onChange={field.onChange}
-              setMax={setFromMax}
-              errorMsg={errors.from && errors.from.message}
-              onKeyPress={controlNumberInput}
-              styleType="light"
-              className="grow"
-            />
-          )}
-        />
-
-        <Controller
-          name="asset1"
-          control={control}
-          render={({ field }) => (
-            <SelectAssetModal
-              usage={usage}
-              valueName="asset1"
-              asset={field.value}
-              onChange={field.onChange}
-              assets={assets}
-            />
-          )}
-        />
-      </S.ModalInput>
-
-      <div className="flex justify-center">
-        <div
-          style={{
-            width: 32,
-            height: 32,
-            borderRadius: '50%',
-            overflow: 'hidden',
-            cursor: 'pointer',
-          }}
-          onClick={handleSwapPlaces}
-        >
-          <Swap />
-        </div>
-      </div>
-
-      <label className="label-primary block mt-[-21px]">To</label>
-      <S.ModalInput>
-        <Controller
-          name="to"
-          control={control}
-          render={({ field }) => (
-            <Input
-              type="number"
-              placeholder="123"
-              size="medium"
-              value={field.value}
-              onChange={field.onChange}
-              errorMsg={errors.to}
-              styleType="light"
-              className="grow"
-            />
-          )}
-        />
-
-        <Controller
-          name="asset2"
-          control={control}
-          render={({ field }) => (
-            <SelectAssetModal
-              usage={usage}
-              asset={field.value}
-              valueName="asset2"
-              assets={assets}
-              onChange={field.onChange}
-            />
-          )}
-        />
-      </S.ModalInput>
-
-      {loading ? (
-        <div className="flex justify-center">
-          <Loading size={40} className="!p-0" />
-        </div>
-      ) : (
-        ''
-      )}
-
-      {showSwapInfo ? (
-        <>
-          <div className="flex items-center justify-end">
-            <div className="mr-1">
-              <ShowFractional
-                control={control}
-                isRotateActive={isRotateActive}
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label className="label-primary block mt-4">From</label>
+        <S.ModalInput>
+          <Controller
+            name="from"
+            control={control}
+            render={({ field }) => (
+              <Input
+                type="number"
+                placeholder="123"
+                size="medium"
+                variant="max"
+                value={field.value}
+                onChange={field.onChange}
+                setMax={setFromMax}
+                errorMsg={errors.from && errors.from.message}
+                onKeyPress={controlNumberInput}
+                styleType="light"
+                className="grow"
               />
+            )}
+          />
+
+          <Controller
+            name="asset1"
+            control={control}
+            render={({ field }) => (
+              <SelectAssetModal
+                usage={usage}
+                valueName="asset1"
+                asset={field.value}
+                onChange={field.onChange}
+                assets={assets}
+              />
+            )}
+          />
+        </S.ModalInput>
+
+        <div className="flex justify-center">
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+              overflow: 'hidden',
+              cursor: 'pointer',
+            }}
+            onClick={handleSwapPlaces}
+          >
+            <Swap />
+          </div>
+        </div>
+
+        <label className="label-primary block mt-[-21px]">To</label>
+        <S.ModalInput>
+          <Controller
+            name="to"
+            control={control}
+            render={({ field }) => (
+              <Input
+                type="number"
+                placeholder="123"
+                size="medium"
+                value={field.value}
+                onChange={field.onChange}
+                errorMsg={errors.to}
+                styleType="light"
+                className="grow"
+              />
+            )}
+          />
+
+          <Controller
+            name="asset2"
+            control={control}
+            render={({ field }) => (
+              <SelectAssetModal
+                usage={usage}
+                asset={field.value}
+                valueName="asset2"
+                assets={assets}
+                onChange={field.onChange}
+              />
+            )}
+          />
+        </S.ModalInput>
+
+        {loading ? (
+          <div className="flex justify-center">
+            <Loading size={40} className="!p-0" />
+          </div>
+        ) : (
+          ''
+        )}
+
+        {showSwapInfo ? (
+          <>
+            <div className="flex items-center justify-end">
+              <div className="mr-1">
+                <ShowFractional
+                  control={control}
+                  isRotateActive={isRotateActive}
+                />
+              </div>
+
+              <S.Rotate isRotate={shouldRotate}>
+                <span
+                  onClick={() => {
+                    setIsRotateActive(!isRotateActive);
+                    setShouldRotate(true);
+
+                    setTimeout(() => {
+                      setShouldRotate(false);
+                    }, 500);
+                  }}
+                >
+                  <Rotate />
+                </span>
+              </S.Rotate>
             </div>
 
-            <S.Rotate isRotate={shouldRotate}>
-              <span
-                onClick={() => {
-                  setIsRotateActive(!isRotateActive);
-                  setShouldRotate(true);
+            <S.Hr />
 
-                  setTimeout(() => {
-                    setShouldRotate(false);
-                  }, 500);
-                }}
-              >
-                <Rotate />
-              </span>
-            </S.Rotate>
-          </div>
+            <SwapDetail
+              path={path}
+              control={control}
+              minimumReceived={minimumReceived}
+            />
+          </>
+        ) : (
+          ''
+        )}
 
-          <S.Hr />
-
-          <SwapDetail
-            path={path}
-            control={control}
-            minimumReceived={minimumReceived}
-          />
-        </>
-      ) : (
-        ''
-      )}
-
-      <ButtonContainer
-        btnSize={104}
-        justify="end"
-        positionStyles={{
-          bottom: usage === 'extension' ? '22px' : '32px',
-        }}
-        mt={40}
-      >
-        <Button
-          type="button"
-          variant="default"
-          size="medium"
-          content="Cancel"
-          onClick={() => {
-            navigate('/', {
-              state: {
-                alreadyLoaded: true,
-              },
-            });
+        <ButtonContainer
+          btnSize={104}
+          justify="end"
+          positionStyles={{
+            bottom: usage === 'extension' ? '22px' : '32px',
           }}
-        />
+          mt={40}
+        >
+          <Button
+            type="button"
+            variant="default"
+            size="medium"
+            content="Cancel"
+            onClick={() => {
+              navigate('/', {
+                state: {
+                  alreadyLoaded: true,
+                },
+              });
+            }}
+          />
 
-        <Button
-          type="submit"
-          variant="primary"
-          size="medium"
-          content="Swap"
-          style={{ marginRight: '-12px' }}
-          disabled={!isValid || isValidating || !showSwapInfo}
-        />
-      </ButtonContainer>
-    </form>
+          <Button
+            type="submit"
+            variant="primary"
+            size="medium"
+            content="Swap"
+            style={{ marginRight: '-12px' }}
+            disabled={!isValid || isValidating || !showSwapInfo}
+          />
+        </ButtonContainer>
+      </form>
+    </div>
   );
 };
 

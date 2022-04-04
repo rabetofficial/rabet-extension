@@ -11,6 +11,12 @@ export const Container = styled.div`
   }
 `;
 
+export const Media = styled.div`
+  @media (max-width: 600px) {
+    width: 328px;
+  }
+`;
+
 export const Msg = styled.div`
   font-size: 14px;
   line-height: 1.43;
@@ -51,6 +57,6 @@ export const Copy = styled.div`
 `;
 export const ButtonContainer = styled.div`
   @media (max-width: 360px) {
-    margin-top: 106px;
+    margin-top: 136px;
   }
 `;

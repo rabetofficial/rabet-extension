@@ -61,7 +61,7 @@ const Backup = ({ onClose, needTitle }: BackupProps) => {
   };
 
   return (
-    <div style={{ maxWidth: '460px' }}>
+    <S.Container style={{ maxWidth: '460px' }}>
       {needTitle && (
         <PageTitle
           isSetting
@@ -142,7 +142,7 @@ const Backup = ({ onClose, needTitle }: BackupProps) => {
           </form>
         )}
       />
-    </div>
+    </S.Container>
   );
 };
 Backup.defaultProps = { needTitle: true };

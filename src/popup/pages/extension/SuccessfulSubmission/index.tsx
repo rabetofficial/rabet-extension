@@ -20,23 +20,25 @@ const SuccessfulSubmission = () => {
   };
 
   return (
-    <ScrollBar isHidden>
-      <Header />
+    <div style={{ maxWidth: '360px' }}>
+      <ScrollBar isHidden>
+        <Header />
 
-      <div className="content">
-        <ExtTitle
-          className="mt-[20px] mb-[87px]"
-          alreadyLoaded={false}
-        />
-
-        <div className="flex">
-          <SuccessfulSubmissionComponent
-            onClick={handleClick}
-            message={state.message}
+        <div className="content">
+          <ExtTitle
+            className="mt-[20px] mb-[87px]"
+            alreadyLoaded={false}
           />
+
+          <div style={{ width: '328px' }}>
+            <SuccessfulSubmissionComponent
+              onClick={handleClick}
+              message={state.message}
+            />
+          </div>
         </div>
-      </div>
-    </ScrollBar>
+      </ScrollBar>
+    </div>
   );
 };
 

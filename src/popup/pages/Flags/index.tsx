@@ -109,7 +109,7 @@ const Flags = () => {
   };
 
   return (
-    <>
+    <div style={{ maxWidth: '360px' }}>
       <ScrollBar isHidden maxHeight={600}>
         <Header />
 
@@ -210,6 +210,7 @@ const Flags = () => {
             gap={12}
             mt={12}
             btnSize={100}
+            positionStyles={{ bottom: '16px' }}
             justify="end"
           >
             <Button
@@ -229,7 +230,7 @@ const Flags = () => {
           </ButtonContainer>
         </S.Content>
       </ScrollBar>
-    </>
+    </div>
   );
 };
 

@@ -1,11 +1,18 @@
 import styled from 'styled-components';
 
+export const Media = styled.div`
+  @media (max-height: 600px) {
+    width: 360px;
+  } ;
+`;
+
 export const Note = styled.div`
   p {
     padding-top: 20px;
     margin-top: 0;
   }
 `;
+
 export const Icon = styled.div`
   width: auto;
   height: auto;
@@ -15,10 +22,11 @@ export const Icon = styled.div`
     font-size: 25px;
   }
 `;
+
 export const Msg = styled.div`
   font-size: 14px;
   line-height: 1.43;
-  color: @dove-gray;
+  color: ${({ theme }) => theme.colors.primary.dark};
   margin-top: 8px;
 
   span {

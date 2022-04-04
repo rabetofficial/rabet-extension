@@ -89,7 +89,9 @@ const AdvanceOperation = ({ usage }: AdvancedOperationProps) => {
   };
 
   return (
-    <>
+    <div
+      style={{ maxWidth: usage === 'extension' ? '328px' : '460px' }}
+    >
       <Button
         variant="outlined"
         size="medium"
@@ -169,7 +171,7 @@ const AdvanceOperation = ({ usage }: AdvancedOperationProps) => {
           <SendButton usage={usage} />
         </ButtonContainer>
       </div>
-    </>
+    </div>
   );
 };
 

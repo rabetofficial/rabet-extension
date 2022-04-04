@@ -25,13 +25,15 @@ const DeleteAccount = () => {
   };
 
   return (
-    <DeleteAccountComponent
-      onClick={handleDelete}
-      onCancel={handleCancel}
-    >
-      <Header />
-      <ExtTitle title="Delete account" className=" mt-5 mx-4" />
-    </DeleteAccountComponent>
+    <div style={{ maxWidth: '360px' }}>
+      <DeleteAccountComponent
+        onClick={handleDelete}
+        onCancel={handleCancel}
+      >
+        <Header />
+        <ExtTitle title="Delete account" className=" mt-5 mx-4" />
+      </DeleteAccountComponent>
+    </div>
   );
 };
 

@@ -24,7 +24,7 @@ const BackupFile = ({ onClick, children }: BackupTypes) => {
 
   return (
     <S.Container>
-      <div>
+      <S.Media>
         {children}
         <S.Msg>
           <span>Make a backup of your private key! </span>secure it
@@ -62,7 +62,7 @@ const BackupFile = ({ onClick, children }: BackupTypes) => {
             />
           </ButtonContainer>
         </S.ButtonContainer>
-      </div>
+      </S.Media>
     </S.Container>
   );
 };

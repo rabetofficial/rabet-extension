@@ -13,27 +13,29 @@ const PrivateKey = () => {
   const { activeAccount } = currentActiveAccount();
 
   return (
-    <S.Note>
-      <Header />
+    <S.Media>
+      <S.Note>
+        <Header />
 
-      <div className="content py-4">
-        <ExtTitle title="Show private key" />
-        <S.Msg>
-          <span>Do not lose it!</span> It cannot be recovered if you
-          lose it. <br />
-          <span>Do not share it!</span> Your funds will be stolen if
-          you use this file on a phishing site.
-        </S.Msg>
-        <div className="label-primary mb-[6px] mt-[32px] font-medium">
-          Private Key
+        <div className="content py-4">
+          <ExtTitle title="Show private key" />
+          <S.Msg>
+            <span>Do not lose it!</span> It cannot be recovered if you
+            lose it. <br />
+            <span>Do not share it!</span> Your funds will be stolen if
+            you use this file on a phishing site.
+          </S.Msg>
+          <div className="label-primary mb-[6px] mt-[32px] font-medium">
+            Private Key
+          </div>
+          <S.Box>
+            <Card type="primary">
+              <CopyKey keyValue={activeAccount.privateKey} />
+            </Card>
+          </S.Box>
         </div>
-        <S.Box>
-          <Card type="primary">
-            <CopyKey keyValue={activeAccount.privateKey} />
-          </Card>
-        </S.Box>
-      </div>
-    </S.Note>
+      </S.Note>
+    </S.Media>
   );
 };
 

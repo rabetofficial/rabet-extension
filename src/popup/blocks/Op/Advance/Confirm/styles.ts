@@ -4,6 +4,9 @@ export const Container = styled.div`
   padding: 32px 32px 0px;
   @media (max-width: 360px) {
     padding: 16px 16px 0px;
+  }
+  @media (max-height: 600px) {
+    width: 360px;
   } ;
 `;
 

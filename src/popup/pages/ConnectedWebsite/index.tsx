@@ -29,7 +29,7 @@ const ConnectedWebsite = () => {
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: '360px' }}>
       <Header />
 
       <div className="content mt-4">

@@ -5,7 +5,7 @@ import LoadingNetwork from 'popup/pages/LoadingNetwork';
 import ExtTitle from 'popup/components/common/Title/Ext';
 import ScrollBar from 'popup/components/common/ScrollBar';
 
-const SuccessfulSubmission = () => (
+const LoadingNerwork = () => (
   <ScrollBar isHidden>
     <Header />
 
@@ -22,4 +22,4 @@ const SuccessfulSubmission = () => (
   </ScrollBar>
 );
 
-export default SuccessfulSubmission;
+export default LoadingNerwork;
