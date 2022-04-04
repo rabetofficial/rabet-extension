@@ -71,9 +71,8 @@ const AssetInfo = () => {
 
   return (
     <div style={{ maxWidth: '360px' }}>
-      <ScrollBar isHidden maxHeight={600}>
-        <Header />
-
+      <Header />
+      <ScrollBar isHidden maxHeight={540}>
         <AssetInfoContent
           asset={asset}
           isNative={isNative}
