@@ -184,7 +184,7 @@ const BasicSwap = ({ usage }: AppProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label className="label-primary block mt-4">From</label>
+      <label className="label-primary block mt-[12px]">From</label>
       <S.ModalInput>
         <Controller
           name="from"
@@ -236,7 +236,7 @@ const BasicSwap = ({ usage }: AppProps) => {
         </div>
       </div>
 
-      <label className="label-primary block mt-[-21px]">To</label>
+      <label className="label-primary block mt-[-28px]">To</label>
       <S.ModalInput>
         <Controller
           name="to"
@@ -317,10 +317,10 @@ const BasicSwap = ({ usage }: AppProps) => {
       )}
 
       <ButtonContainer
-        btnSize={104}
+        btnSize={usage === 'extension' ? 100 : 104}
         justify="end"
         positionStyles={{
-          bottom: usage === 'extension' ? '22px' : '32px',
+          bottom: '32px',
         }}
         mt={40}
       >
@@ -336,6 +336,7 @@ const BasicSwap = ({ usage }: AppProps) => {
               },
             });
           }}
+          style={{ marginRight: '7px' }}
         />
 
         <Button

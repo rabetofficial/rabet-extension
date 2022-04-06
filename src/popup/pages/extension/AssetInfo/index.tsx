@@ -70,10 +70,9 @@ const AssetInfo = () => {
   };
 
   return (
-    <>
-      <ScrollBar isHidden maxHeight={600}>
-        <Header />
-
+    <div style={{ maxHeight: '600px', width: '360px' }}>
+      <Header />
+      <ScrollBar isHidden maxHeight={540}>
         <AssetInfoContent
           asset={asset}
           isNative={isNative}
@@ -82,12 +81,12 @@ const AssetInfo = () => {
           onBeforeDelete={handleBeforeDelete}
         >
           <ExtTitle
-            className="mt-[20px]"
+            className="mt-[16px]"
             title={`Assets | ${asset_code || 'XLM'}`}
           />
         </AssetInfoContent>
       </ScrollBar>
-    </>
+    </div>
   );
 };
 

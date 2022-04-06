@@ -12,7 +12,6 @@ import CopyText from 'popup/components/common/CopyText';
 import closeModalAction from 'popup/actions/modal/close';
 import ExtTitle from 'popup/components/common/Title/Ext';
 import useTotalBalance from 'popup/hooks/useTotalBalance';
-import ScrollBar from 'popup/components/common/ScrollBar';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import EditWalletName from 'popup/components/EditWalletName';
@@ -56,7 +55,7 @@ const Home = () => {
     });
   };
   return (
-    <ScrollBar isHidden maxHeight={600}>
+    <div style={{ width: '360px', height: '600px' }}>
       <S.Container>
         <Header />
         <S.MainInfo>
@@ -101,7 +100,7 @@ const Home = () => {
           <TabList />
         </div>
       </S.Container>
-    </ScrollBar>
+    </div>
   );
 };
 
