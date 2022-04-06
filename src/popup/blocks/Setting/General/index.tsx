@@ -38,7 +38,7 @@ const currenciesList = currencies.map((x) => ({
 
 const modeOptions = [
   { value: 'BASIC', label: 'Basic' },
-  { value: 'ADVANCED', label: 'Advance' },
+  { value: 'ADVANCED', label: 'Advanced' },
 ];
 
 type SettingProps = {
@@ -200,7 +200,7 @@ const SettingGeneral = ({ onClose, needTitle }: SettingProps) => {
       <div className="flex justify-between items-center mt-[20px]">
         <TooltipLabel
           text="Currency conversion"
-          tooltipText="some info"
+          tooltipText="Rabet supports popular global currencies, and you can change your wallet currency here."
         />
 
         <S.Select>
@@ -218,7 +218,10 @@ const SettingGeneral = ({ onClose, needTitle }: SettingProps) => {
       <S.Hr />
 
       <div className="flex justify-between items-center mt-[20px]">
-        <TooltipLabel text="Mode" tooltipText="some info" />
+        <TooltipLabel
+          text="Mode"
+          tooltipText="Rabet advanced mode supports other Stellar operations and is suitable for people who have a high level of knowledge in Stellar."
+        />
 
         <S.Select>
           <SelectOption
