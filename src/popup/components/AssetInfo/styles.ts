@@ -72,6 +72,11 @@ export const BoxContainer = styled.div`
   margin-top: 23px;
 `;
 
+export const Media = styled.div`
+  @media (min-width: 362px) {
+    margin-top: 30px;
+  } ;
+`;
 export const Info = styled.p`
   font-size: 16px;
   color: ${({ theme }) => theme.colors.primary.darkest};

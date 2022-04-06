@@ -67,6 +67,7 @@ const AssetInfo = ({
         href={`https://${assetData?.home_domain}`}
         target="_blank"
         rel="noreferrer"
+        style={{ color: 'black' }}
       >
         {assetData?.home_domain}
       </a>
@@ -79,16 +80,16 @@ const AssetInfo = ({
     }
 
     return (
-      <div>
+      <div className="inline-flex">
         <CopyText
           text={assetData?.asset_issuer || ''}
           custom={
-            <S.Value className="inline-flex">
-              {shorter(assetData?.asset_issuer, 6)}
-              <ShareArrow />
-            </S.Value>
+            <S.Value>{shorter(assetData?.asset_issuer, 6)}</S.Value>
           }
         />
+        <span className="cursor-pointer">
+          <ShareArrow />
+        </span>
       </div>
     );
   };
@@ -202,29 +203,31 @@ const AssetInfo = ({
           {notDeletableReason}
         </S.ErrorBox>
       )}
-      <ButtonContainer
-        btnSize={102}
-        justify="end"
-        mt={!isDeletable ? 45 : 4}
-        gap={5}
-      >
-        <Button
-          variant="default"
-          size="medium"
-          content="Cancel"
-          onClick={onCancel}
-        />
+      <S.Media>
+        <ButtonContainer
+          btnSize={102}
+          justify="end"
+          mt={!isDeletable ? 45 : 4}
+          gap={5}
+        >
+          <Button
+            variant="default"
+            size="medium"
+            content="Cancel"
+            onClick={onCancel}
+          />
 
-        <Button
-          type="button"
-          variant="danger"
-          size="medium"
-          content="Delete"
-          disabled={isDeletable}
-          onClick={handleDelete}
-          startIcon={<Trash />}
-        />
-      </ButtonContainer>
+          <Button
+            type="button"
+            variant="danger"
+            size="medium"
+            content="Delete"
+            disabled={isDeletable}
+            onClick={handleDelete}
+            startIcon={<Trash />}
+          />
+        </ButtonContainer>
+      </S.Media>
     </S.Page>
   );
 };
