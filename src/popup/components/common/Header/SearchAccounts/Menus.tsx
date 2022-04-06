@@ -173,7 +173,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     id: 3,
     link: RouteName.Setting,
     icon: <Setting />,
-    label: 'Setting',
+    label: 'Settings',
   };
 
   const lockMenu: Menu = {
