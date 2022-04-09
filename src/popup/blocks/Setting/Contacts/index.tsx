@@ -104,7 +104,7 @@ const Contact = ({ onClose, needTitle, usage }: ContactProps) => {
 
       <ScrollBar isHidden>
         <S.Container>
-          {contacts.map((contact) => (
+          {contacts.map((contact, index) => (
             <div key={`contact${contact.publicKey}`}>
               <S.ContentContainer>
                 <div style={{ display: 'flex' }}>
@@ -165,8 +165,7 @@ const Contact = ({ onClose, needTitle, usage }: ContactProps) => {
                   </span>
                 </S.ActionIcons>
               </S.ContentContainer>
-
-              <S.Hr />
+              {contacts.length !== index + 1 && <S.Hr />}
             </div>
           ))}
         </S.Container>
