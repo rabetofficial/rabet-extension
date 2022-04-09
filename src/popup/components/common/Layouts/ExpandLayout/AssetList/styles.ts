@@ -48,4 +48,8 @@ export const AddAssetBox = styled.div`
   justify-content: center;
   background-color: white;
   border: 1.2px solid ${({ theme }) => theme.colors.primary.lighter};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.primary.lighter};
+    transition: 1s background-color;
+  }
 `;

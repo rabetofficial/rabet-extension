@@ -138,17 +138,14 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
       </div>
       <div>
         {usage === 'extension' && (
-          <AddAssetBox>
-            <Link
-              to={RouteName.AddAsset}
-              className="inline-flex items-center"
-            >
+          <Link to={RouteName.AddAsset}>
+            <AddAssetBox className="inline-flex items-center">
               <span className="mr-1">
                 <Plus width="12" height="12" />
               </span>
               <p className="font-medium">Add assets</p>
-            </Link>
-          </AddAssetBox>
+            </AddAssetBox>
+          </Link>
         )}
       </div>
     </div>
