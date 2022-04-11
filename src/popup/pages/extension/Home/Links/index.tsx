@@ -17,24 +17,29 @@ const Links = () => {
         <>
           <Link to={RouteName.AdvancedOperation}>
             <Button
+              iconBtn
               size="small"
-              variant="primary"
-              content="Send"
-              style={{
-                width: '112px',
-                margin: '18px 8px 18px 0',
-              }}
+              variant="icon-circle"
+              content={
+                <span>
+                  <Send size="16" />
+                </span>
+              }
+              title="Send"
             />
           </Link>
+
           <Link to={RouteName.QRCode}>
             <Button
+              iconBtn
               size="small"
-              variant="outlined"
-              content="Receive"
-              style={{
-                width: '112px',
-                margin: '18px 8px 18px 0',
-              }}
+              variant="icon-circle"
+              content={
+                <span>
+                  <Receive size="16" />
+                </span>
+              }
+              title="Receive"
             />
           </Link>
         </>
@@ -53,6 +58,7 @@ const Links = () => {
               title="Send"
             />
           </Link>
+
           <Link to={RouteName.SwapExtension}>
             <Button
               size="small"
@@ -66,6 +72,7 @@ const Links = () => {
               title="Swap"
             />
           </Link>
+
           <Link to={RouteName.QRCode}>
             <Button
               size="small"
