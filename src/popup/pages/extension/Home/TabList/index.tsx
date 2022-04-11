@@ -11,7 +11,7 @@ const TabList = () => {
       title: 'Assets',
       content: (
         <>
-          <AssetList scrollMaxHeight={232} usage="extension" />
+          <AssetList scrollMaxHeight={278} usage="extension" />
         </>
       ),
     },

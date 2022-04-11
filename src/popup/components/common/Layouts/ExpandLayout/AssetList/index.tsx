@@ -134,19 +134,26 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
               {assets.length !== index + 1 && <Hr />}
             </div>
           ))}
+          <div>
+            {usage === 'extension' && (
+              <Link to={RouteName.AddAsset}>
+                <AddAssetBox
+                  className="inline-flex items-center"
+                  style={{
+                    position:
+                      assets.length < 4 ? 'absolute' : 'static',
+                    bottom: assets.length < 4 ? '6px' : '0',
+                  }}
+                >
+                  <span className="mr-1">
+                    <Plus width="12" height="12" />
+                  </span>
+                  <p className="font-medium">Add assets</p>
+                </AddAssetBox>
+              </Link>
+            )}
+          </div>
         </ScrollBar>
-      </div>
-      <div>
-        {usage === 'extension' && (
-          <Link to={RouteName.AddAsset}>
-            <AddAssetBox className="inline-flex items-center">
-              <span className="mr-1">
-                <Plus width="12" height="12" />
-              </span>
-              <p className="font-medium">Add assets</p>
-            </AddAssetBox>
-          </Link>
-        )}
       </div>
     </div>
   );
