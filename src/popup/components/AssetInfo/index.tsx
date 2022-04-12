@@ -4,10 +4,13 @@ import { Horizon } from 'stellar-sdk';
 import BN from 'helpers/BN';
 import Trash from 'popup/svgs/Trash';
 import shorter from 'popup/utils/shorter';
+import createTab from 'popup/utils/createTab';
 import ShareArrow from 'popup/svgs/ShareArrow';
 import xlmLogo from 'assets/images/xlm-logo.svg';
 import Button from 'popup/components/common/Button';
+import formatBalance from 'popup/utils/formatBalance';
 import CopyText from 'popup/components/common/CopyText';
+import accountLink from 'popup/utils/horizon/accountLink';
 import addAssetAction from 'popup/actions/operations/addAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
@@ -87,27 +90,38 @@ const AssetInfo = ({
             <S.Value>{shorter(assetData?.asset_issuer, 6)}</S.Value>
           }
         />
-        <span className="cursor-pointer">
+
+        <span
+          className="cursor-pointer"
+          onClick={() => {
+            createTab(accountLink(assetData?.asset_issuer));
+          }}
+        >
           <ShareArrow />
         </span>
       </div>
     );
   };
 
+  const liabilities = new BN(
+    assetData?.selling_liabilities || 0,
+  ).plus(assetData?.buying_liabilities || 0);
+
   const assetBalance = [
     {
       title: 'Available',
-      value: assetData?.asset_code || 'LOADING',
+      value: formatBalance(assetData?.balance) || 'LOADING',
     },
     {
       title: 'liabilities',
-      value: assetData?.asset_code || 'LOADING',
+      value: formatBalance(liabilities.toString()),
     },
     {
       title: 'Total',
-      value: assetData?.asset_code || 'LOADING',
+      value: formatBalance(assetData?.balance) || 'LOADING',
     },
   ];
+
   const assetInfo = [
     {
       title: 'Assets code',

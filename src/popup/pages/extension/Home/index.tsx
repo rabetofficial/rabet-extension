@@ -63,6 +63,7 @@ const Home = () => {
             <div className="mt-3 w-[196px]">
               <EditWalletName
                 editable
+                setEditableName={setEditableName}
                 height={36}
                 checkIconWidth={18}
                 fontSize={16}

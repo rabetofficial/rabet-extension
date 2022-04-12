@@ -183,7 +183,7 @@ const CreateContact = ({
                 <Button
                   variant="default"
                   size="medium"
-                  content="Reject"
+                  content="Cancel"
                   onClick={onClose}
                 />
 
@@ -191,7 +191,7 @@ const CreateContact = ({
                   type="submit"
                   variant="primary"
                   size="medium"
-                  content="Confirm"
+                  content="Add"
                   disabled={pristine || submitting || invalid}
                 />
               </ButtonContainer>

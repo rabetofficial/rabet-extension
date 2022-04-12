@@ -14,6 +14,7 @@ type AppProps = {
   checkIconWidth: number;
   fontSize: number;
   editable?: boolean;
+  setEditableName?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 type FormValues = {
@@ -25,6 +26,7 @@ const EditWalletName = ({
   height,
   fontSize,
   editable,
+  setEditableName,
 }: AppProps) => {
   const { name, publicKey } = useActiveAccount();
   const [isEditable, setEditable] = useState(false);
@@ -33,6 +35,10 @@ const EditWalletName = ({
     changeNameAction(values.name, publicKey);
 
     setEditable(!isEditable);
+
+    if (setEditableName) {
+      setEditableName(!editable);
+    }
   };
 
   const validateForm = (values: FormValues) => {
