@@ -199,7 +199,7 @@ const BasicSend = ({ usage }: AppProps) => {
               handleSubmit(e).then(form.reset);
             }}
           >
-            <label className="label-primary block mt-4">Amount</label>
+            <label className="label-primary block mt-3">Amount</label>
             <ModalInput>
               <div className="flex flex-col grow">
                 <Field name="amount">
@@ -233,7 +233,7 @@ const BasicSend = ({ usage }: AppProps) => {
             <Field name="destination">
               {({ input, meta }) => (
                 <PopoverContainer className="relative" id="full">
-                  <label className="label-primary block mt-4">
+                  <label className="label-primary block mt-[6px]">
                     Destination
                   </label>
                   <Input
@@ -259,7 +259,7 @@ const BasicSend = ({ usage }: AppProps) => {
             <Field name="memo">
               {({ input, meta }) => (
                 <>
-                  <label className="label-primary block mt-4">
+                  <label className="label-primary block mt-[11px]">
                     Memo
                     <span className="label-optional">
                       {' '}
@@ -281,10 +281,10 @@ const BasicSend = ({ usage }: AppProps) => {
             {submitError && <Error>{submitError}</Error>}
 
             <ButtonContainer
-              btnSize={104}
+              btnSize={usage === 'extension' ? 100 : 104}
               justify="end"
               positionStyles={{
-                bottom: usage === 'extension' ? '22px' : '32px',
+                bottom: '32px',
               }}
               mt={40}
             >
@@ -295,6 +295,7 @@ const BasicSend = ({ usage }: AppProps) => {
                   size="medium"
                   content="Cancel"
                   onClick={handleCancel}
+                  style={{ marginRight: '7px' }}
                 />
               )}
 

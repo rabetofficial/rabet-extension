@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import shorter from 'popup/utils/shorter';
+import FilledCopy from 'popup/svgs/FilledCopy';
 import LoadingOne from 'popup/pages/LoadingOne';
 import useLoadHome from 'popup/hooks/useLoadHome';
 import Header from 'popup/components/common/Header';
@@ -11,11 +12,9 @@ import CopyText from 'popup/components/common/CopyText';
 import closeModalAction from 'popup/actions/modal/close';
 import ExtTitle from 'popup/components/common/Title/Ext';
 import useTotalBalance from 'popup/hooks/useTotalBalance';
-import ScrollBar from 'popup/components/common/ScrollBar';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import EditWalletName from 'popup/components/EditWalletName';
-import useActiveCurrency from 'popup/hooks/useActiveCurrency';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
 import ModalConnectStatus from 'popup/components/ModalConnectStatus';
 
@@ -28,8 +27,8 @@ const Home = () => {
   const { state } = useLocation();
   const isLoading = useLoadHome();
   const totalBalance = useTotalBalance();
-  const activeCurrency = useActiveCurrency();
-  const { isConnected, publicKey } = useActiveAccount();
+  const [editableName, setEditableName] = useState(false);
+  const { name, isConnected, publicKey } = useActiveAccount();
 
   const [currencies, options] = useTypedSelector((store) => [
     store.currencies,
@@ -55,46 +54,46 @@ const Home = () => {
       ),
     });
   };
-
   return (
-    <ScrollBar isHidden maxHeight={600}>
+    <div style={{ width: '360px', height: '600px' }}>
       <S.Container>
         <Header />
-
-        <S.XlmBox>
-          <S.Value>
-            {handleAssetSymbol(currencies, options)}
-            {formatBalance(totalBalance)}
-
-            <span onClick={toggleModal} style={{ cursor: 'pointer' }}>
-              {isConnected ? <S.ModalActive /> : <S.ModalInactive />}
-            </span>
-          </S.Value>
-          <S.Subject>Total ({activeCurrency.name})</S.Subject>
-        </S.XlmBox>
-
-        <S.InfoBox>
-          <S.Label className="mb-[2px]">Name</S.Label>
-          <S.Info className="mb-[6px] w-[285px]">
-            <EditWalletName
-              height={32}
-              checkIconWidth={22}
-              fontSize={16}
-            />
-          </S.Info>
-
-          <S.DropDown>
-            <DropDownList />
-          </S.DropDown>
-
-          <S.Label className="mb-[6px]">Address</S.Label>
-          <S.Info>
-            <CopyText
-              text={publicKey}
-              custom={<span>{shorter(publicKey, 8)}</span>}
-            />
-          </S.Info>
-        </S.InfoBox>
+        <S.MainInfo>
+          {editableName ? (
+            <div className="mt-3 w-[196px]">
+              <EditWalletName
+                editable
+                setEditableName={setEditableName}
+                height={36}
+                checkIconWidth={18}
+                fontSize={16}
+              />
+            </div>
+          ) : (
+            <>
+              <S.NameValue>{name}</S.NameValue>
+              <CopyText
+                text={publicKey}
+                custom={
+                  <span className="text-xs text-primary-dark inline-flex items-center gap-1">
+                    {shorter(publicKey, 6)}
+                    <FilledCopy />
+                  </span>
+                }
+              />
+            </>
+          )}
+          <span onClick={toggleModal} style={{ cursor: 'pointer' }}>
+            {isConnected ? <S.ModalActive /> : <S.ModalInactive />}
+          </span>
+        </S.MainInfo>
+        <S.DropDown>
+          <DropDownList setEditableName={setEditableName} />
+        </S.DropDown>
+        <S.Value>
+          {handleAssetSymbol(currencies, options)}
+          {formatBalance(totalBalance)}
+        </S.Value>
 
         <Links />
 
@@ -102,7 +101,7 @@ const Home = () => {
           <TabList />
         </div>
       </S.Container>
-    </ScrollBar>
+    </div>
   );
 };
 

@@ -16,7 +16,11 @@ const BackupFile = () => {
   return (
     <Container>
       <BackupFileComponent onClick={handleClick}>
-        <PageTitle title="Backup" padding="0" />
+        <PageTitle
+          padding="0"
+          title="Backup"
+          showMultiplyIcon={false}
+        />
       </BackupFileComponent>
     </Container>
   );

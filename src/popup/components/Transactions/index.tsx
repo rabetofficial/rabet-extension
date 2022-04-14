@@ -37,10 +37,10 @@ const Transactions = ({
     return (
       <ScrollBar
         isHidden
-        maxHeight={usage === 'extension' ? 220 : 600}
+        maxHeight={usage === 'extension' ? 278 : 600}
       >
         {usage === 'extension' ? (
-          <div className="flex justify-center items-center my-[40px]">
+          <div className="flex justify-center items-center h-[278px]">
             <Loading size={60} />
           </div>
         ) : (

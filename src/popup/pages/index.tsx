@@ -11,6 +11,8 @@ import Intro from './Intro';
 import Login from './Login';
 import Flags from './Flags';
 import EHome from './expand/EHome';
+import Send from './extension/Send';
+import Swap from './extension/Swap';
 import Home from './extension/Home';
 import FirstPage from './FirstPage';
 import Error from './extension/Error';
@@ -56,7 +58,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.Error}
         element={
@@ -65,7 +66,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.QRCode}
         element={
@@ -74,7 +74,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.Setting}
         element={
@@ -83,7 +82,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.AddContact}
         element={
@@ -92,7 +90,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.EditContact}
         element={
@@ -101,7 +98,23 @@ const App = () => (
           </ProtectedRoute>
         }
       />
+      <Route
+        path={RouteName.SendExtension}
+        element={
+          <ProtectedRoute>
+            <Send />
+          </ProtectedRoute>
+        }
+      />
 
+      <Route
+        path={RouteName.SwapExtension}
+        element={
+          <ProtectedRoute>
+            <Swap />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path={RouteName.AddAsset}
         element={
@@ -110,7 +123,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.PrivateKey}
         element={
@@ -119,7 +131,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.ShowPrivateKey}
         element={
@@ -128,12 +139,10 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.AccountManager}
         element={<AccountManager />}
       />
-
       <Route
         path={`${RouteName.AssetInfo}/:asset_code/:asset_issuer/:asset_type`}
         element={
@@ -142,7 +151,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.Sucess}
         element={
@@ -151,7 +159,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.BackupFile}
         element={
@@ -160,7 +167,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.BasicOperation}
         element={
@@ -169,7 +175,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.Confirm}
         element={
@@ -178,7 +183,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.BasicSwapConfirm}
         element={
@@ -187,7 +191,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.BasicSendConfirm}
         element={
@@ -196,7 +199,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.AdvancedOperation}
         element={
@@ -205,7 +207,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.Introduction}
         element={
@@ -214,7 +215,6 @@ const App = () => (
           </UnprotectedRoute>
         }
       />
-
       <Route
         path={RouteName.IntroSlides}
         element={
@@ -223,9 +223,7 @@ const App = () => (
           </UnprotectedRoute>
         }
       />
-
       <Route path={RouteName.Flags} element={<Flags />} />
-
       <Route
         path={RouteName.ConfirmFlag}
         element={
@@ -234,20 +232,14 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route path={RouteName.Login} element={<Login />} />
-
       <Route path={RouteName.First} element={<FirstPage />} />
-
       <Route path={RouteName.LoadingOne} element={<LoadingOne />} />
-
       <Route
         path={RouteName.LoadingNetwork}
         element={<LoadingNetwork />}
       />
-
       <Route path={RouteName.OfflineMode} element={<OfflineMode />} />
-
       <Route
         path={RouteName.Register}
         element={
@@ -256,12 +248,10 @@ const App = () => (
           </UnprotectedRoute>
         }
       />
-
       <Route
         path={RouteName.CreateWallet}
         element={<CreateWallet />}
       />
-
       <Route
         path={RouteName.LoggedCreateWallet}
         element={
@@ -270,7 +260,6 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.LoggedImportWallet}
         element={
@@ -279,17 +268,14 @@ const App = () => (
           </ProtectedRoute>
         }
       />
-
       <Route
         path={RouteName.RestoreWallet}
         element={<RestoreWallet />}
       />
-
       <Route
         path={RouteName.DeleteAccount}
         element={<DeleteAccount />}
       />
-
       <Route
         path={RouteName.ConnectedWebsites}
         element={<ConnectedWebsite />}

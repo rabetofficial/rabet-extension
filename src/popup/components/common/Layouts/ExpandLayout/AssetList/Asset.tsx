@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Horizon } from 'stellar-sdk';
 
 import BlackCheck from 'popup/svgs/BlackCheck';
+import { Usage } from 'popup/models/general.model';
+import AngleForward from 'popup/svgs/AngleForward';
 import formatBalance from 'popup/utils/formatBalance';
 import useAssetPrice from 'popup/hooks/useAssetPrice';
 import handleAssetAlt from 'popup/utils/handleAssetAlt';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import handleAssetImage from 'popup/utils/handleAssetImage';
 import handleAssetSymbol from 'popup/utils/handleAssetSymbol';
-
 import questionIcon from '../../../../../../assets/images/question-circle.png';
 import ImageOnErrorHandler from '../../../../../../helpers/ImageOnErrorHandler';
 
@@ -16,9 +17,12 @@ import * as S from './styles';
 
 type AssetType = {
   asset: Horizon.BalanceLine;
+  usage: Usage;
 };
 
-const Asset = ({ asset }: AssetType) => {
+const Asset = ({ asset, usage }: AssetType) => {
+  const [isHover, setHover] = useState(false);
+  const toggleHover = () => setHover(!isHover);
   const [assetImages, currencies, options] = useTypedSelector(
     (store) => [
       store.assetImages,
@@ -53,7 +57,11 @@ const Asset = ({ asset }: AssetType) => {
 
   return (
     <div>
-      <S.Container className="flex items-center">
+      <S.Container
+        className="flex items-center"
+        onMouseEnter={toggleHover}
+        onMouseLeave={toggleHover}
+      >
         <S.Circle>
           <S.Image
             isDark={asset.asset_type === 'native'}
@@ -77,11 +85,18 @@ const Asset = ({ asset }: AssetType) => {
                 </div>
               )}
             </div>
-            <div className="text-sm text-primary-dark mt-[2px]">
+            <div className="text-xs text-primary-dark mt-[2px]">
               {handleAssetSymbol(currencies, options)}
               {formatBalance(price)}
             </div>
           </div>
+          {isHover && usage === 'extension' ? (
+            <div>
+              <AngleForward />
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       </S.Container>
     </div>

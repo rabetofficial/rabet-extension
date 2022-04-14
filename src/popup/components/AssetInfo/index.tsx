@@ -3,14 +3,19 @@ import { Horizon } from 'stellar-sdk';
 
 import BN from 'helpers/BN';
 import Trash from 'popup/svgs/Trash';
+import shorter from 'popup/utils/shorter';
+import ShareArrow from 'popup/svgs/ShareArrow';
 import xlmLogo from 'assets/images/xlm-logo.svg';
 import Button from 'popup/components/common/Button';
+import formatBalance from 'popup/utils/formatBalance';
 import CopyText from 'popup/components/common/CopyText';
+import accountLink from 'popup/utils/horizon/accountLink';
 import addAssetAction from 'popup/actions/operations/addAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import * as S from './styles';
 import useAssetInfo from './useAssetInfo';
+import Card from '../common/Card';
 
 type AssetType = {
   isNative?: boolean;
@@ -64,6 +69,7 @@ const AssetInfo = ({
         href={`https://${assetData?.home_domain}`}
         target="_blank"
         rel="noreferrer"
+        style={{ color: 'black' }}
       >
         {assetData?.home_domain}
       </a>
@@ -72,77 +78,45 @@ const AssetInfo = ({
 
   const HandleIssuer = () => {
     if (loading) {
-      return (
-        <S.Info className="h-[52px] flex justify-start items-center">
-          Loading
-        </S.Info>
-      );
+      return <S.Info>Loading</S.Info>;
     }
 
     return (
-      <div>
+      <div className="inline-flex">
         <CopyText
           text={assetData?.asset_issuer || ''}
-          custom={<S.Value>{assetData?.asset_issuer}</S.Value>}
+          custom={
+            <S.Value>{shorter(assetData?.asset_issuer, 6)}</S.Value>
+          }
         />
+
+        <a
+          href={accountLink(assetData?.asset_issuer)}
+          target="_blank"
+          rel="noreferrer"
+          className="cursor-pointer"
+        >
+          <ShareArrow />
+        </a>
       </div>
     );
   };
 
-  const HandleFlags = () => {
-    let required = '';
-    let revocable = '';
-    let immutable = '';
-
-    if (loading) {
-      required = 'Loading';
-      revocable = 'Loading';
-      immutable = 'Loading';
-    }
-
-    if (error) {
-      required = 'Error';
-      revocable = 'Error';
-      immutable = 'Error';
-    }
-
-    if (!assetData?.flags) {
-      required = '-';
-      revocable = '-';
-      immutable = '-';
-    } else {
-      required = assetData?.flags.auth_revocable ? 'True' : 'False';
-      revocable = assetData?.flags.auth_revocable ? 'True' : 'False';
-      immutable = assetData?.flags.auth_revocable ? 'True' : 'False';
-    }
-
-    return (
-      <S.Table>
-        <table>
-          <thead>
-            <tr>
-              <th>Required</th>
-              <th>Revocable</th>
-              <th>Immutable</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <S.Info>{required}</S.Info>
-              </td>
-              <td>
-                <S.Info>{revocable}</S.Info>
-              </td>
-              <td>
-                <S.Info>{immutable}</S.Info>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </S.Table>
-    );
-  };
+  const assetBalance = [
+    {
+      title: 'Balance',
+      value: formatBalance(assetData?.balance) || 'LOADING',
+    },
+    {
+      title: 'Selling liabilities',
+      value: formatBalance(assetData?.selling_liabilities),
+    },
+    {
+      title: 'Bying liabilities',
+      value:
+        formatBalance(assetData?.buying_liabilities) || 'LOADING',
+    },
+  ];
 
   const assetInfo = [
     {
@@ -156,10 +130,6 @@ const AssetInfo = ({
     {
       title: 'Website',
       value: <HandleDomain />,
-    },
-    {
-      title: 'Assets type',
-      value: asset.asset_type,
     },
   ];
 
@@ -179,14 +149,10 @@ const AssetInfo = ({
   let isDeletable = false;
   let notDeletableReason = '';
 
-  if (!nBalance.isEqualTo('0')) {
+  if (!nBalance.isEqualTo('0') || !nSL.plus(nBL).isEqualTo('0')) {
     isDeletable = true;
     notDeletableReason =
-      "You cannot remove this asset unless the asset's balance is zero.";
-  } else if (!nSL.plus(nBL).isEqualTo('0')) {
-    isDeletable = true;
-    notDeletableReason =
-      "You cannot remove this asset unless the asset's liabilities are zero.";
+      'You cannot remove this asset unless the balance and liabilities are zero.';
   }
 
   if (isNative) {
@@ -214,24 +180,42 @@ const AssetInfo = ({
     <S.Page>
       {children}
 
-      <S.Content>
-        {assetInfo.map((item, index) => (
-          <div key={item.title}>
-            <S.Title>{item.title}</S.Title>
-            <S.Value>{item.value}</S.Value>
-            {assetInfo.length - 1 !== index && <S.Hr />}
-          </div>
-        ))}
+      <S.BoxContainer>
+        <S.Label>Your balance</S.Label>
+        <Card type="secondary" className="px-[11px] py-[6px]">
+          {assetBalance.map((item) => (
+            <S.InfoContainer key={item.title}>
+              <S.Title>{item.title}</S.Title>
+              <S.Value>{item.value}</S.Value>
+            </S.InfoContainer>
+          ))}
+        </Card>
+      </S.BoxContainer>
 
-        <HandleFlags />
+      <S.BoxContainer>
+        <S.Label>Asset info</S.Label>
+        <Card type="secondary" className="px-[11px] py-[6px]">
+          {assetInfo.map((item) => (
+            <S.InfoContainer key={item.title}>
+              <S.Title>{item.title}</S.Title>
+              <S.Value>{item.value}</S.Value>
+            </S.InfoContainer>
+          ))}
+        </Card>
+      </S.BoxContainer>
 
-        {isDeletable && (
-          <S.ErrorBox className="text-error">
-            {notDeletableReason}
-          </S.ErrorBox>
-        )}
-
-        <ButtonContainer btnSize={102} justify="end" mt={32} gap={5}>
+      {isDeletable && (
+        <S.ErrorBox className="text-error">
+          {notDeletableReason}
+        </S.ErrorBox>
+      )}
+      <S.Media>
+        <ButtonContainer
+          btnSize={102}
+          justify="end"
+          mt={!isDeletable ? 45 : 4}
+          gap={5}
+        >
           <Button
             variant="default"
             size="medium"
@@ -249,7 +233,7 @@ const AssetInfo = ({
             startIcon={<Trash />}
           />
         </ButtonContainer>
-      </S.Content>
+      </S.Media>
     </S.Page>
   );
 };

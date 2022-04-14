@@ -70,7 +70,7 @@ const AssetInfo = () => {
   };
 
   return (
-    <div style={{ maxWidth: '360px' }}>
+    <div style={{ maxHeight: '600px', width: '360px' }}>
       <Header />
       <ScrollBar isHidden maxHeight={540}>
         <AssetInfoContent
@@ -81,7 +81,7 @@ const AssetInfo = () => {
           onBeforeDelete={handleBeforeDelete}
         >
           <ExtTitle
-            className="mt-[20px]"
+            className="mt-[16px]"
             title={`Assets | ${asset_code || 'XLM'}`}
           />
         </AssetInfoContent>

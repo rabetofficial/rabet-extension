@@ -14,6 +14,7 @@ type PageTitleTypes = {
   isSetting?: boolean;
   onClose?: () => void;
   titleStyle?: string;
+  showMultiplyIcon?: boolean;
 };
 
 const PageTitle = ({
@@ -24,6 +25,7 @@ const PageTitle = ({
   isSetting,
   onClose,
   titleStyle,
+  showMultiplyIcon,
 }: PageTitleTypes) => {
   const closePageTitle = () => {
     closeModalAction();
@@ -97,7 +99,7 @@ const PageTitle = ({
 
       <S.Icon>
         <span onClick={closePageTitle}>
-          <Multiply />
+          {showMultiplyIcon && <Multiply />}
         </span>
       </S.Icon>
     </S.Container>
@@ -111,6 +113,7 @@ PageTitle.defaultProps = {
   isSetting: false,
   onClose: () => {},
   titleStyle: '',
+  showMultiplyIcon: true,
 };
 
 export default PageTitle;

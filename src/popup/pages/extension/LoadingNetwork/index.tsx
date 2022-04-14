@@ -10,11 +10,7 @@ const LoadingNerwork = () => (
     <Header />
 
     <div className="content">
-      <ExtTitle
-        alreadyLoaded={false}
-        showCancelButton={false}
-        className="content mt-[20px] mb-[87px]"
-      />
+      <ExtTitle alreadyLoaded={false} noMultiplyIcon />
       <div className="py-3">
         <LoadingNetwork />
       </div>

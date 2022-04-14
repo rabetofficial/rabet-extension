@@ -1,7 +1,8 @@
 import React from 'react';
 import { Horizon } from 'stellar-sdk';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+import Plus from 'popup/svgs/Plus';
 import RouteName from 'popup/staticRes/routes';
 import PageTitle from 'popup/components/PageTitle';
 import AssetInfo from 'popup/components/AssetInfo';
@@ -18,7 +19,7 @@ import {
 import { Usage } from 'popup/models';
 
 import Asset from './Asset';
-import { Border } from './styles';
+import { Hr, AddAssetBox } from './styles';
 
 type AssetsListProps = {
   usage: Usage;
@@ -111,22 +112,50 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
   };
 
   return (
-    <ScrollBar isHidden maxHeight={scrollMaxHeight}>
-      {assets.map((asset) => (
-        <Border
-          key={`assetList${handleAssetsKeys(asset)}`}
-          onClick={() => {
-            if (usage === 'extension') {
-              openAssetInfoPage(asset);
-            } else {
-              openAssetInfoModal(asset);
-            }
-          }}
-        >
-          <Asset asset={asset} />
-        </Border>
-      ))}
-    </ScrollBar>
+    <div
+      style={{
+        height: usage === 'extension' && '282px',
+      }}
+    >
+      <div>
+        <ScrollBar isHidden maxHeight={scrollMaxHeight}>
+          {assets.map((asset, index) => (
+            <div
+              key={`assetList${handleAssetsKeys(asset)}`}
+              onClick={() => {
+                if (usage === 'extension') {
+                  openAssetInfoPage(asset);
+                } else {
+                  openAssetInfoModal(asset);
+                }
+              }}
+            >
+              <Asset asset={asset} usage={usage} />
+              {assets.length !== index + 1 && <Hr />}
+            </div>
+          ))}
+          <div>
+            {usage === 'extension' && (
+              <Link to={RouteName.AddAsset}>
+                <AddAssetBox
+                  className="inline-flex items-center"
+                  style={{
+                    position:
+                      assets.length < 4 ? 'absolute' : 'static',
+                    bottom: assets.length < 4 ? '6px' : '0',
+                  }}
+                >
+                  <span className="mr-1">
+                    <Plus width="12" height="12" />
+                  </span>
+                  <p className="font-medium">Add assets</p>
+                </AddAssetBox>
+              </Link>
+            )}
+          </div>
+        </ScrollBar>
+      </div>
+    </div>
   );
 };
 
