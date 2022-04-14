@@ -13,6 +13,7 @@ type AppProps = {
   alreadyLoaded?: boolean;
   className?: string;
   onClose?: () => void | undefined;
+  noMultiplyIcon?: boolean;
 };
 
 const ExtTitle = ({
@@ -21,6 +22,7 @@ const ExtTitle = ({
   alreadyLoaded,
   className,
   onClose,
+  noMultiplyIcon,
 }: AppProps) => {
   const navigate = useNavigate();
   const accounts = useTypedSelector((state) => state.accounts);
@@ -62,9 +64,13 @@ const ExtTitle = ({
     <S.Container className={className}>
       <div>{generateTitle()}</div>
 
-      <div className="cursor-pointer" onClick={handleClose}>
-        <Multiply />
-      </div>
+      {!noMultiplyIcon ? (
+        <div className="cursor-pointer" onClick={handleClose}>
+          <Multiply />
+        </div>
+      ) : (
+        ''
+      )}
     </S.Container>
   );
 };
@@ -75,6 +81,7 @@ ExtTitle.defaultProps = {
   alreadyLoaded: true,
   className: '',
   onClose: undefined,
+  noMultiplyIcon: false,
 };
 
 export default ExtTitle;

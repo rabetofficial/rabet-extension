@@ -118,7 +118,10 @@ const AssetInfo = ({
     },
     {
       title: 'Total',
-      value: formatBalance(assetData?.balance) || 'LOADING',
+      value:
+        formatBalance(
+          new BN(assetData?.balance).plus(liabilities).toString(),
+        ) || 'LOADING',
     },
   ];
 
@@ -156,11 +159,11 @@ const AssetInfo = ({
   if (!nBalance.isEqualTo('0')) {
     isDeletable = true;
     notDeletableReason =
-      "You cannot remove this asset unless the asset's balance is zero.";
+      'You cannot remove this asset unless the balance is zero.';
   } else if (!nSL.plus(nBL).isEqualTo('0')) {
     isDeletable = true;
     notDeletableReason =
-      "You cannot remove this asset unless the asset's liabilities are zero.";
+      'You cannot remove this asset unless the liabilities are zero.';
   }
 
   if (isNative) {

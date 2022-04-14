@@ -12,6 +12,7 @@ const SuccessfulSubmission = () => (
       <ExtTitle
         className="content mt-[20px] mb-[87px]"
         alreadyLoaded={false}
+        noMultiplyIcon
       />
       <div className="py-3">
         <LoadingNetwork />
