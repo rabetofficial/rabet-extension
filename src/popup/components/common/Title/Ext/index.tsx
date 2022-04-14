@@ -21,6 +21,8 @@ const ExtTitle = ({
   status,
   onClose,
   noMultiplyIcon,
+  className,
+  alreadyLoaded,
 }: AppProps) => {
   const navigate = useNavigate();
   const accounts = useTypedSelector((state) => state.accounts);
@@ -59,17 +61,33 @@ const ExtTitle = ({
   };
 
   return (
-    <S.Container className={className}>
-      <div>{generateTitle()}</div>
+    <>
+      {className ? (
+        <S.Container className={className}>
+          <div>{generateTitle()}</div>
 
-      {!noMultiplyIcon ? (
-        <div className="cursor-pointer" onClick={handleClose}>
-          <Multiply />
-        </div>
+          {!noMultiplyIcon ? (
+            <div className="cursor-pointer" onClick={handleClose}>
+              <Multiply />
+            </div>
+          ) : (
+            ''
+          )}
+        </S.Container>
       ) : (
-        ''
+        <S.Container>
+          <div>{generateTitle()}</div>
+
+          {!noMultiplyIcon ? (
+            <div className="cursor-pointer" onClick={handleClose}>
+              <Multiply />
+            </div>
+          ) : (
+            ''
+          )}
+        </S.Container>
       )}
-    </S.Container>
+    </>
   );
 };
 
