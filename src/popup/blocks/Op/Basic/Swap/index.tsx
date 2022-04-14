@@ -325,19 +325,21 @@ const BasicSwap = ({ usage }: AppProps) => {
           }}
           mt={40}
         >
-          <Button
-            type="button"
-            variant="default"
-            size="medium"
-            content="Cancel"
-            onClick={() => {
-              navigate('/', {
-                state: {
-                  alreadyLoaded: true,
-                },
-              });
-            }}
-          />
+          {usage === 'extension' && (
+            <Button
+              type="button"
+              variant="default"
+              size="medium"
+              content="Cancel"
+              onClick={() => {
+                navigate('/', {
+                  state: {
+                    alreadyLoaded: true,
+                  },
+                });
+              }}
+            />
+          )}
 
           <Button
             type="submit"

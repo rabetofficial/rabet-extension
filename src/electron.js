@@ -1,5 +1,5 @@
 const { join } = require('path');
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, shell } = require('electron');
 
 let win;
 
@@ -11,7 +11,12 @@ const createWindow = () => {
     center: true,
     minWidth: 600,
     minHeight: 600,
-    icon: join(__dirname, '../logo/128x128.png'),
+    icon: join(__dirname, '../desktop-logo/png/rabet128.png'),
+  });
+
+  win.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
   });
 
   win.loadFile('dist/popup.html');

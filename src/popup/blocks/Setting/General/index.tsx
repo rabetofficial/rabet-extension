@@ -237,17 +237,21 @@ const SettingGeneral = ({ onClose, needTitle }: SettingProps) => {
 
       <S.Hr />
 
-      <div className="flex justify-between items-center mt-[20px]">
-        <TooltipLabel
-          text="Privacy mode"
-          tooltipText="Websites must request access to view your account information."
-        />
+      {localStorage.getItem('isDesktop') !== 'true' ? (
+        <div className="flex justify-between items-center mt-[20px]">
+          <TooltipLabel
+            text="Privacy mode"
+            tooltipText="Websites must request access to view your account information."
+          />
 
-        <ToggleSwitch
-          checked={checked}
-          handleChange={handleChecked}
-        />
-      </div>
+          <ToggleSwitch
+            checked={checked}
+            handleChange={handleChecked}
+          />
+        </div>
+      ) : (
+        ''
+      )}
 
       <ButtonContainer
         btnSize={100}

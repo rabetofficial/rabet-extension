@@ -1,6 +1,6 @@
 import React from 'react';
-
 import styled from 'styled-components';
+
 import NoteCard from 'popup/components/NoteCard';
 import createTab from 'popup/utils/createTab';
 import BlackCheck from 'popup/svgs/BlackCheck';
@@ -26,9 +26,9 @@ const SuccessfulSubmission = ({
     <>
       <span>{message}</span>
       <ShareLink
-        onClick={() => {
-          createTab(explorer(message));
-        }}
+        href={explorer(message)}
+        target="_blank"
+        rel="noreferrer"
       >
         <ShareArrowSquare />
       </ShareLink>

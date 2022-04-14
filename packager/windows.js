@@ -5,6 +5,9 @@ const resultPromise = electronInstaller.createWindowsInstaller({
   authors: 'Rabet',
   outputDirectory: './dist/installer',
   appDirectory: './dist/rabet-win32-x64',
+  iconUrl: './desktop-logo/ico/rabet256.ico',
+  setupIcon: './desktop-logo/ico/rabet256.ico',
+  version: '1.5.0',
 });
 
 resultPromise.then(

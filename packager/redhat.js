@@ -5,7 +5,7 @@ const options = {
   src: 'release/rabet-linux-x64',
   dest: 'release/installers/',
   arch: 'amd64',
-  icon: './logo/128x128.png',
+  icon: './desktop-logo/png/rabet128.png',
   categories: ['Utility'],
 };
 

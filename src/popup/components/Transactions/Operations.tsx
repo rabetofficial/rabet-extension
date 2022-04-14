@@ -2,7 +2,6 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 
-import createTab from 'popup/utils/createTab';
 import formatBalance from 'popup/utils/formatBalance';
 import * as Icons from 'popup/svgs/TransactionActions';
 import transactionLink from 'popup/utils/horizon/transactionLink';
@@ -48,11 +47,7 @@ export const TransferTx = ({
   date,
   tx,
 }: TransferTypes) => (
-  <div
-    onClick={() => {
-      createTab(transactionLink(tx));
-    }}
-  >
+  <a href={transactionLink(tx)} target="_blank" rel="noreferrer">
     <S.Container>
       <S.MainPart>
         <S.ImgContainer>
@@ -67,7 +62,7 @@ export const TransferTx = ({
         {DateTime.fromISO(date).toFormat('MMM dd')}
       </S.DateContainer>
     </S.Container>
-  </div>
+  </a>
 );
 
 export const SwapTx = ({
@@ -78,11 +73,7 @@ export const SwapTx = ({
   date,
   tx,
 }: SwapTypes) => (
-  <div
-    onClick={() => {
-      createTab(transactionLink(tx));
-    }}
-  >
+  <a href={transactionLink(tx)} target="_blank" rel="noreferrer">
     <S.Container>
       <S.MainPart>
         <S.ImgContainer>
@@ -100,7 +91,7 @@ export const SwapTx = ({
         {DateTime.fromISO(date).toFormat('MMM dd')}
       </S.DateContainer>
     </S.Container>
-  </div>
+  </a>
 );
 
 export const OperationsTx = ({
@@ -119,11 +110,7 @@ export const OperationsTx = ({
   }
 
   return (
-    <div
-      onClick={() => {
-        createTab(transactionLink(tx));
-      }}
-    >
+    <a href={transactionLink(tx)} target="_blank" rel="noreferrer">
       <S.Container>
         <S.MainPart>
           <S.ImgContainer>
@@ -140,6 +127,6 @@ export const OperationsTx = ({
           {DateTime.fromISO(date).toFormat('MMM dd')}
         </S.DateContainer>
       </S.Container>
-    </div>
+    </a>
   );
 };
