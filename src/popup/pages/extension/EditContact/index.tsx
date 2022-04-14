@@ -23,6 +23,7 @@ const EditContact = () => {
       <Header />
 
       <EditContactComponent
+        usage="extension"
         onClose={handleClose}
         contact={state.contact}
         titlePage={false}

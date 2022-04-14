@@ -37,14 +37,12 @@ export const Hr = styled.div`
 `;
 
 export const AddAssetBox = styled.div`
-  width: 328px;
+  width: 91%;
   height: 40px;
-  /* bottom: 6px; */
   display: flex;
-  margin: 0 16px;
+  margin: 0 16px 2px;
   font-size: 14px;
   border-radius: 2px;
-  /* position: absolute; */
   justify-content: center;
   background-color: white;
   border: 1.2px solid ${({ theme }) => theme.colors.primary.lighter};

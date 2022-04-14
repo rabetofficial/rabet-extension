@@ -116,6 +116,7 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
     <div
       style={{
         height: usage === 'extension' && '282px',
+        width: usage === 'extension' && '360px',
       }}
     >
       <div>
@@ -143,7 +144,7 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
                   style={{
                     position:
                       assets.length < 4 ? 'absolute' : 'static',
-                    bottom: assets.length < 4 ? '6px' : '0',
+                    bottom: assets.length < 4 ? '4px' : '0',
                   }}
                 >
                   <span className="mr-1">
