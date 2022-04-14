@@ -13,6 +13,7 @@ import accountLink from 'popup/utils/horizon/accountLink';
 import addAssetAction from 'popup/actions/operations/addAsset';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
+import { Usage } from 'popup/models/general.model';
 import * as S from './styles';
 import useAssetInfo from './useAssetInfo';
 import Card from '../common/Card';
@@ -24,6 +25,7 @@ type AssetType = {
   children?: React.ReactNode;
   asset: Horizon.BalanceLine;
   onBeforeDelete: () => void;
+  usage: Usage;
 };
 
 const AssetInfo = ({
@@ -33,6 +35,7 @@ const AssetInfo = ({
   onCancel,
   children,
   onBeforeDelete,
+  usage,
 }: AssetType) => {
   const { loading, error, assetData } = useAssetInfo(asset);
 
@@ -204,10 +207,16 @@ const AssetInfo = ({
         </Card>
       </S.BoxContainer>
 
-      {isDeletable && (
+      {isDeletable ? (
         <S.ErrorBox className="text-error">
           {notDeletableReason}
         </S.ErrorBox>
+      ) : (
+        <div
+          style={{
+            height: usage === 'desktop' ? '55px' : 0,
+          }}
+        />
       )}
       <S.Media>
         <ButtonContainer

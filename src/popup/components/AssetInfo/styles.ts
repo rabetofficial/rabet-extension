@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+export const Page = styled.div`
+  position: relative;
+  padding: 30px 32px 24px;
+  @media (max-width: 360px) {
+    padding: 0px 16px 16px;
+  }
+`;
+
 export const Container = styled.div`
   padding: 30px 32px;
   @media (max-width: 360px) {
@@ -13,13 +21,7 @@ export const InfoContainer = styled.div`
   justify-content: space-between;
   margin: 8px 0;
 `;
-export const Page = styled.div`
-  position: relative;
-  padding: 30px 32px 24px;
-  @media (max-width: 360px) {
-    padding: 0px 16px 16px;
-  }
-`;
+
 export const Label = styled.p`
   margin-bottom: 8px;
   font-size: 16px;

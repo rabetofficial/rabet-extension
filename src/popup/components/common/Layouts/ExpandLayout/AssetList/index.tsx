@@ -80,6 +80,7 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
         minHeight: 597,
         children: (
           <AssetInfo
+            usage="desktop"
             asset={asset}
             onCancel={closeModalAction}
             onDelete={showDeleteResult}

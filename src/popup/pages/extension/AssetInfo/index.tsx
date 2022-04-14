@@ -74,6 +74,7 @@ const AssetInfo = () => {
       <Header />
       <ScrollBar isHidden maxHeight={540}>
         <AssetInfoContent
+          usage="extension"
           asset={asset}
           isNative={isNative}
           onCancel={onCancel}
