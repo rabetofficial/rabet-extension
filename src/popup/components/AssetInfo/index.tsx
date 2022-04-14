@@ -102,25 +102,19 @@ const AssetInfo = ({
     );
   };
 
-  const liabilities = new BN(
-    assetData?.selling_liabilities || 0,
-  ).plus(assetData?.buying_liabilities || 0);
-
   const assetBalance = [
     {
-      title: 'Available',
+      title: 'Balance',
       value: formatBalance(assetData?.balance) || 'LOADING',
     },
     {
-      title: 'liabilities',
-      value: formatBalance(liabilities.toString()),
+      title: 'Selling liabilities',
+      value: formatBalance(assetData?.selling_liabilities),
     },
     {
-      title: 'Total',
+      title: 'Bying liabilities',
       value:
-        formatBalance(
-          new BN(assetData?.balance).plus(liabilities).toString(),
-        ) || 'LOADING',
+        formatBalance(assetData?.buying_liabilities) || 'LOADING',
     },
   ];
 
@@ -155,14 +149,10 @@ const AssetInfo = ({
   let isDeletable = false;
   let notDeletableReason = '';
 
-  if (!nBalance.isEqualTo('0')) {
+  if (!nBalance.isEqualTo('0') || !nSL.plus(nBL).isEqualTo('0')) {
     isDeletable = true;
     notDeletableReason =
-      'You cannot remove this asset unless the balance is zero.';
-  } else if (!nSL.plus(nBL).isEqualTo('0')) {
-    isDeletable = true;
-    notDeletableReason =
-      'You cannot remove this asset unless the liabilities are zero.';
+      'You cannot remove this asset unless the balance and liabilities are zero.';
   }
 
   if (isNative) {
