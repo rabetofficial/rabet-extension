@@ -6,16 +6,18 @@ import ExtTitle from 'popup/components/common/Title/Ext';
 import ScrollBar from 'popup/components/common/ScrollBar';
 
 const LoadingNerwork = () => (
-  <ScrollBar isHidden>
-    <Header />
+  <div style={{ maxWidth: '360px' }}>
+    <ScrollBar isHidden>
+      <Header />
 
-    <div className="content">
-      <ExtTitle alreadyLoaded={false} noMultiplyIcon />
-      <div className="py-3">
-        <LoadingNetwork />
+      <div className="content ">
+        <ExtTitle alreadyLoaded={false} noMultiplyIcon />
+        <div className="mt-[150px]" style={{ width: '328px' }}>
+          <LoadingNetwork />
+        </div>
       </div>
-    </div>
-  </ScrollBar>
+    </ScrollBar>
+  </div>
 );
 
 export default LoadingNerwork;
