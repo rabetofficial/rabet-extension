@@ -4,7 +4,6 @@ import { Horizon } from 'stellar-sdk';
 import BN from 'helpers/BN';
 import Trash from 'popup/svgs/Trash';
 import shorter from 'popup/utils/shorter';
-import createTab from 'popup/utils/createTab';
 import ShareArrow from 'popup/svgs/ShareArrow';
 import xlmLogo from 'assets/images/xlm-logo.svg';
 import Button from 'popup/components/common/Button';
@@ -91,14 +90,14 @@ const AssetInfo = ({
           }
         />
 
-        <span
+        <a
+          href={accountLink(assetData?.asset_issuer)}
+          target="_blank"
+          rel="noreferrer"
           className="cursor-pointer"
-          onClick={() => {
-            createTab(accountLink(assetData?.asset_issuer));
-          }}
         >
           <ShareArrow />
-        </span>
+        </a>
       </div>
     );
   };
