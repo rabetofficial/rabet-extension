@@ -115,7 +115,7 @@ const AssetInfo = ({
       value: formatBalance(assetData?.selling_liabilities),
     },
     {
-      title: 'Bying liabilities',
+      title: 'Buying liabilities',
       value:
         formatBalance(assetData?.buying_liabilities) || 'LOADING',
     },

@@ -12,10 +12,10 @@
     "copy:source": "mkdir ../$BUILD; cp -r logo src .babelrc manifest.json package.json package-lock.json postcss.config.js webpack.config.js tsconfig.json externals.d.ts .eslintrc.json ../$BUILD",
     "package:linux": "electron-packager ./ rabet --platform=linux --asar --arch=x64 --icon=./desktop-logo/png/rabet256.png --out=release --overwrite",
     "package:windows": "electron-packager . rabet --platform=win32 --asar --arch=x64 --icon=./desktop-logo/ico/rabet256.ico --out=release --overwrite",
-    "package:macos": "electron-packager ./ rabet --platform=darwin --asar --arch=x64 --icon=./desktop-logo/icns/rabet256.icns --out=release --overwrite",
+    "package:macos": "electron-packager ./ rabet --platform=darwin --asar --arch=x64 --icon=./desktop-logo/icns/rabet256r.icns --out=release --overwrite",
     "build:deb": "node packager/deb.js",
     "build:redhat": "node packager/redhat.js",
-    "build:dmg": "electron-installer-dmg ./release/rabet-darwin-x64/rabet.app Rabet --icon=./desktop-logo/icns/rabet256.icns --out=./release/installers/ --title=Rabet --overwrite"
+    "build:dmg": "electron-installer-dmg ./release/rabet-darwin-x64/rabet.app Rabet --icon=./desktop-logo/icns/rabet256r.icns --out=./release/installers/ --title=Rabet --overwrite"
   },
   "repository": {
     "type": "git",
