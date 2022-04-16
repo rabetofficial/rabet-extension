@@ -33,7 +33,7 @@ export const get = (key: string, password?: string) =>
       }
 
       if (!password) {
-        return resolve(data);
+        return resolve(JSON.parse(data));
       }
 
       const decrypredData = decrypt(password, data);
