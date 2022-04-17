@@ -62,7 +62,7 @@ export const set = (key: string, value: any, password?: string) =>
 
         dataToBeSet = encryptedData;
       } else {
-        dataToBeSet = value;
+        dataToBeSet = JSON.stringify(value);
       }
 
       if (localStorage.getItem('isDesktop') !== 'true') {

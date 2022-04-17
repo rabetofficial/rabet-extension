@@ -1,4 +1,5 @@
 const { join } = require('path');
+const process = require('process');
 const { app, BrowserWindow, shell } = require('electron');
 
 let win;
@@ -11,7 +12,7 @@ const createWindow = () => {
     center: true,
     minWidth: 600,
     minHeight: 600,
-    icon: join(__dirname, '../desktop-logo/png/rabet128.png'),
+    icon: join(__dirname, '../desktop-logo/png/rabet128r.png'),
   });
 
   win.webContents.setWindowOpenHandler(({ url }) => {
@@ -21,14 +22,21 @@ const createWindow = () => {
 
   win.loadFile('dist/popup.html');
 
-  win.on('closed', () => {
-    win = null;
+  win.on('before-quit', (event) => {
+    event.preventDefault();
   });
 };
 
 app.on('ready', createWindow);
 
-app.on('window-all-closed', () => {
+app.on('close', (event) => {
+  event.preventDefault();
+  app.quit();
+});
+
+app.on('window-all-closed', (e) => {
+  e.preventDefault();
+
   if (process.platform !== 'darwin') {
     app.quit();
   }
