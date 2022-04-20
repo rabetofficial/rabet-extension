@@ -1,16 +1,20 @@
-const electronInstaller = require('electron-winstaller');
+const installer = require('electron-installer-windows');
 
-const resultPromise = electronInstaller.createWindowsInstaller({
-  exe: 'rabet.exe',
-  authors: 'Rabet',
-  outputDirectory: './release/installer',
-  appDirectory: './release/rabet-win32-x64',
-  // iconUrl: './desktop-logo/ico/rabet256t.ico',
-  // setupIcon: './desktop-logo/ico/rabet256t.ico',
-  // version: '1.6.2',
-});
+const options = {
+  src: 'release/rabet-win32-x64/',
+  dest: './release/installer',
+  icon: './desktop-logo/ico/rabet256t.ico',
+};
 
-resultPromise.then(
-  () => console.log('Successful'),
-  (e) => console.log(`Error: ${e.message}`),
-);
+async function main(options) {
+  console.log('Creating package (this may take a while)');
+  try {
+    await installer(options);
+    console.log(`Successfully created package at ${options.dest}`);
+  } catch (err) {
+    console.error(err, err.stack);
+    process.exit(1);
+  }
+}
+
+main(options);
