@@ -15,7 +15,8 @@
     "package:macos": "electron-packager ./ rabet --platform=darwin --asar --arch=x64 --icon=./desktop-logo/icns/rabet256r.icns --out=release --overwrite",
     "build:deb": "node packager/deb.js",
     "build:rpm": "node packager/redhat.js",
-    "build:dmg": "electron-installer-dmg ./release/rabet-darwin-x64/rabet.app Rabet --icon=./desktop-logo/icns/rabet256r.icns --out=./release/installers/ --title=Rabet --overwrite"
+    "build:dmg": "electron-installer-dmg ./release/rabet-darwin-x64/rabet.app Rabet --icon=./desktop-logo/icns/rabet256r.icns --out=./release/installers/ --title=Rabet --overwrite",
+    "build:windows": "node packager/win.js"
   },
   "repository": {
     "type": "git",
@@ -47,7 +48,6 @@
     "crypto-browserify": "^3.12.0",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.1.1",
-    "electron-installer-debian": "^3.1.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
