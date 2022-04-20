@@ -7,7 +7,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlMinimizerPlugin = require('html-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ManifestPlugin = require('./manifestPlugin');
 
 const devMode = process.env.NODE_ENV !== 'production';
@@ -52,6 +51,14 @@ const optimization = {
   ],
 };
 
+const fallback = {
+  crypto: require.resolve('crypto-browserify'),
+  http: require.resolve('stream-http'),
+  https: require.resolve('https-browserify'),
+  stream: require.resolve('stream-browserify'),
+  buffer: require.resolve('buffer'),
+};
+
 if (!isDesktop) {
   optimization.splitChunks = {
     chunks: 'all',
@@ -73,6 +80,7 @@ const config = {
     ),
     client_script: resolve(`${__dirname}/src/client_script/index.js`),
     interaction: resolve(`${__dirname}/src/interaction/index.jsx`),
+    electron: resolve(`${__dirname}/src/electron.js`),
   },
   output: {
     filename: '[name].js',
@@ -138,13 +146,7 @@ const config = {
   },
   plugins,
   resolve: {
-    fallback: {
-      crypto: require.resolve('crypto-browserify'),
-      http: require.resolve('stream-http'),
-      https: require.resolve('https-browserify'),
-      stream: require.resolve('stream-browserify'),
-      buffer: require.resolve('buffer'),
-    },
+    fallback,
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
       src: resolve(__dirname, 'src'),
@@ -157,7 +159,7 @@ const config = {
     },
   },
   watch: devMode,
-  target: 'web',
+  target: isDesktop ? 'electron-renderer' : 'web',
 };
 
 if (devMode) {

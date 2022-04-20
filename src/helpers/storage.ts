@@ -1,78 +1,67 @@
+import fs from 'fs';
+import { ipcRenderer } from 'electron';
+
 import { encrypt, decrypt } from './crypto';
 
 export const get = (key: string, password?: string) =>
   new Promise((resolve, reject) => {
-    if (localStorage.getItem('isDesktop') !== 'true') {
-      chrome.storage.local.get([key], (result: any) => {
-        const data = result[key];
+    const storageFileName = ipcRenderer.sendSync('user-data');
 
-        if (!data) {
-          return resolve(null);
-        }
-
-        if (!password) {
-          return resolve(data);
-        }
-
-        const decrypredData = decrypt(password, data);
-        let jsonData;
-
-        try {
-          jsonData = JSON.parse(decrypredData);
-        } catch (e) {
-          return reject();
-        }
-
-        return resolve(jsonData);
-      });
-    } else {
-      const data = localStorage.getItem(key);
-
-      if (!data) {
-        return resolve(null);
-      }
-
-      if (!password) {
-        return resolve(JSON.parse(data));
-      }
-
-      const decrypredData = decrypt(password, data);
-      let jsonData;
-
-      try {
-        jsonData = JSON.parse(decrypredData);
-      } catch (e) {
-        return reject();
-      }
-
-      return resolve(jsonData);
+    if (!fs.existsSync(storageFileName)) {
+      fs.writeFileSync(storageFileName, '{}');
     }
+
+    const storageFile = fs.readFileSync(storageFileName, 'utf8');
+    const data = JSON.parse(storageFile);
+
+    const result = data[key];
+
+    if (!result) {
+      return resolve(null);
+    }
+
+    if (!password) {
+      try {
+        return resolve(JSON.parse(result));
+      } catch (e) {
+        return resolve(result);
+      }
+    }
+
+    const decrypredData = decrypt(password, result);
+
+    let jsonData;
+
+    try {
+      jsonData = JSON.parse(decrypredData);
+    } catch (e) {
+      return reject();
+    }
+
+    return resolve(jsonData);
   });
 
 export const set = (key: string, value: any, password?: string) =>
   new Promise((resolve, reject) => {
     try {
-      let dataToBeSet;
+      const storageFileName = ipcRenderer.sendSync('user-data');
+
+      if (!fs.existsSync(storageFileName)) {
+        fs.writeFileSync(storageFileName, '{}');
+      }
+
+      const storageFile = fs.readFileSync(storageFileName, 'utf8');
+      const data = JSON.parse(storageFile);
 
       if (password) {
-        const encryptedData = encrypt(
-          password,
-          JSON.stringify(value),
-        );
-
-        dataToBeSet = encryptedData;
+        data[key] = encrypt(password, JSON.stringify(value));
       } else {
-        dataToBeSet = JSON.stringify(value);
+        data[key] = JSON.stringify(value);
       }
 
-      if (localStorage.getItem('isDesktop') !== 'true') {
-        chrome.storage.local.set({ [`${key}`]: dataToBeSet }, () => {
-          resolve(true);
-        });
-      } else {
-        localStorage.setItem(key, dataToBeSet);
-        resolve(true);
-      }
+      fs.writeFileSync(storageFileName, JSON.stringify(data), 'utf8');
+
+      resolve(true);
     } catch (e) {
       reject();
     }

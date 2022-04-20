@@ -1,6 +1,7 @@
-const { join } = require('path');
+/* eslint-disable import/prefer-default-export */
+const { resolve, join } = require('path');
 const process = require('process');
-const { app, BrowserWindow, shell } = require('electron');
+const { app, BrowserWindow, shell, ipcMain } = require('electron');
 
 let win;
 
@@ -13,6 +14,12 @@ const createWindow = () => {
     minWidth: 600,
     minHeight: 600,
     icon: join(__dirname, '../desktop-logo/png/rabet128r.png'),
+    webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true,
+      contextIsolation: false,
+      preload: `${resolve(__dirname, 'preload.js')}`,
+    },
   });
 
   win.webContents.setWindowOpenHandler(({ url }) => {
@@ -20,7 +27,7 @@ const createWindow = () => {
     return { action: 'deny' };
   });
 
-  win.loadFile('dist/popup.html');
+  win.loadURL(`file://${resolve(__dirname, 'popup.html')}`);
 
   win.on('before-quit', (event) => {
     event.preventDefault();
@@ -46,4 +53,11 @@ app.on('activate', () => {
   if (win === null) {
     createWindow();
   }
+});
+
+ipcMain.on('user-data', (event) => {
+  const path = app.getPath('userData');
+  const storageFile = resolve(path, 'storage.json');
+
+  event.returnValue = storageFile;
 });
