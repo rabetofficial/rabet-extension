@@ -1,7 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 const { resolve, join } = require('path');
 const process = require('process');
-const { app, BrowserWindow, shell, ipcMain } = require('electron');
+const {
+  app,
+  BrowserWindow,
+  shell,
+  ipcMain,
+  Menu,
+} = require('electron');
 
 let win;
 
@@ -61,3 +67,5 @@ ipcMain.on('user-data', (event) => {
 
   event.returnValue = storageFile;
 });
+
+Menu.setApplicationMenu(Menu.buildFromTemplate([]));

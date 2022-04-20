@@ -1,13 +1,13 @@
 const electronInstaller = require('electron-winstaller');
 
 const resultPromise = electronInstaller.createWindowsInstaller({
-  exe: 'Rabet.exe',
+  exe: 'rabet.exe',
   authors: 'Rabet',
-  outputDirectory: './dist/installer',
-  appDirectory: './dist/rabet-win32-x64',
-  iconUrl: './desktop-logo/ico/rabet256t.ico',
-  setupIcon: './desktop-logo/ico/rabet256t.ico',
-  version: '1.6.2',
+  outputDirectory: './release/installer',
+  appDirectory: './release/rabet-win32-x64',
+  // iconUrl: './desktop-logo/ico/rabet256t.ico',
+  // setupIcon: './desktop-logo/ico/rabet256t.ico',
+  // version: '1.6.2',
 });
 
 resultPromise.then(
