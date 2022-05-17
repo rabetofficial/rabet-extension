@@ -53,7 +53,7 @@ const validateForm = async (
       message: 'Insufficient amount.',
     };
 
-    return { values, errors };
+    // return { values, errors };
   }
 
   if (isAssetEqual(values.asset1, values.asset2)) {

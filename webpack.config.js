@@ -59,6 +59,20 @@ const fallback = {
   buffer: require.resolve('buffer'),
 };
 
+const entry = {
+  popup: resolve(`${__dirname}/src/popup/index.tsx`),
+  background_script: resolve(
+    `${__dirname}/src/background_script/index.js`,
+  ),
+  content_script: resolve(`${__dirname}/src/content_script/index.js`),
+  client_script: resolve(`${__dirname}/src/client_script/index.js`),
+  interaction: resolve(`${__dirname}/src/interaction/index.jsx`),
+};
+
+if (isDesktop) {
+  entry.electron = resolve(`${__dirname}/src/electron.js`);
+}
+
 if (!isDesktop) {
   optimization.splitChunks = {
     chunks: 'all',
@@ -70,18 +84,7 @@ if (!devMode) {
 }
 
 const config = {
-  entry: {
-    popup: resolve(`${__dirname}/src/popup/index.tsx`),
-    background_script: resolve(
-      `${__dirname}/src/background_script/index.js`,
-    ),
-    content_script: resolve(
-      `${__dirname}/src/content_script/index.js`,
-    ),
-    client_script: resolve(`${__dirname}/src/client_script/index.js`),
-    interaction: resolve(`${__dirname}/src/interaction/index.jsx`),
-    electron: resolve(`${__dirname}/src/electron.js`),
-  },
+  entry,
   output: {
     filename: '[name].js',
     path: resolve(`${__dirname}/dist`),

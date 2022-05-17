@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
+import isValidDomain from 'is-valid-domain';
 
 import isEmpty from 'helpers/isEmpty';
 import Input from 'popup/components/common/Input';
@@ -55,12 +56,18 @@ const SearchAsset = ({ onSubmit, onCancel }: AppProps) => {
   };
 
   const validateForm = async (values: FormValues) => {
+    let isDomain = false;
+
+    if (isValidDomain(values.asset)) {
+      isDomain = true;
+    }
+
     if (values.asset && value !== values.asset) {
       setValue(values.asset);
 
       const assets = account.assets || [];
 
-      getAssetsAction(values.asset).then((assetList) => {
+      getAssetsAction(values.asset, isDomain).then((assetList) => {
         const newAssetList = [];
 
         for (let i = 0; i < assetList.length; i += 1) {

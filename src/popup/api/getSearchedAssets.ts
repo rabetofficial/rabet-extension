@@ -4,10 +4,16 @@ import { AssetImage } from 'popup/reducers/assetImages';
 
 import config from '../../config';
 
-export default async (asset_code: string): Promise<AssetImage[]> => {
+export default async (
+  value: string,
+  isDomain: boolean,
+): Promise<AssetImage[]> => {
   try {
+    const domainQS = isDomain ? 'domain' : 'asset_code';
+    const sentValue = isDomain ? value : value.toUpperCase();
+
     const assets: AssetImage[] = await fetch(
-      `${config.ASSET_SERVER}?asset_code=${asset_code.toUpperCase()}`,
+      `${config.ASSET_SERVER}?${domainQS}=${sentValue}`,
     ).then((res) => res.json());
 
     return assets;
