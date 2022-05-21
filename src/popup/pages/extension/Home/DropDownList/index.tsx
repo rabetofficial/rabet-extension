@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import PenEdit from 'popup/svgs/PenEdit';
 import ExpandIcon from 'popup/svgs/Expand';
+import HandCoins from 'popup/svgs/HandCoins';
 import RouteName from 'popup/staticRes/routes';
 import worldSrc from 'src/assets/images/world.svg';
 import trashSrc from 'src/assets/images/trash-delete.svg';
@@ -62,6 +63,14 @@ const DropDownList = ({ setEditableName }: DropDawnProps) => {
     },
     {
       id: 5,
+      label: 'Claimable balance',
+      icon: <HandCoins />,
+      onClick: () => {
+        navigate(RouteName.AdvancedOperation);
+      },
+    },
+    {
+      id: 6,
       label: <p className="text-error">Delete account</p>,
       icon: <img src={trashSrc} alt="icon" />,
       onClick: () => {

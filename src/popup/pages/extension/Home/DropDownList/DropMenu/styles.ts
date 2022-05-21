@@ -28,13 +28,13 @@ export const Menu = styled.div`
 
   ul {
     list-style: none;
-    padding-left: 0;
     margin: 0;
+    padding: 10px 0;
 
     li {
       cursor: pointer;
       width: 100%;
-      padding: 15px 16px;
+      padding: 8px 16px;
       transition: background 0.25s, color 0.25s;
       display: flex;
       align-items: center;
