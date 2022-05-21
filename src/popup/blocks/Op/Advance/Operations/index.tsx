@@ -5,6 +5,7 @@ import React, {
   useReducer,
 } from 'react';
 import styled from 'styled-components';
+import { Horizon } from 'stellar-sdk';
 
 import Trash from 'popup/svgs/Trash';
 import Card from 'popup/components/common/Card';
@@ -26,6 +27,7 @@ import ManageDataOps from './List/ManageDataOps';
 import PaymentSendOps from './List/PaymentSendOps';
 import ChangeTrustOps from './List/ChangeTrustops';
 import PaymentReceiveOps from './List/PaymentReceiveOps';
+import ClaimableBalance from './List/claimable‌‌‌Balance';
 
 const Container = styled.div`
   .ops__option {
@@ -76,99 +78,104 @@ const Operation = ({
     setOperations(newOperations);
   };
 
+  const opType = Horizon.OperationResponseType;
+
   const generateOption = () => {
-    if (selected.value === options[0].value)
+    if (selected.value === opType.payment)
       return <PaymentOps id={operation.id} />;
-    if (selected.value === options[1].value)
+    if (selected.value === opType.pathPaymentStrictSend)
       return <PaymentSendOps id={operation.id} />;
-    if (selected.value === options[2].value)
+    if (selected.value === opType.pathPayment)
       return <PaymentReceiveOps id={operation.id} />;
-    if (selected.value === options[3].value)
+    if (selected.value === opType.manageBuyOffer)
       return <OfferOps key="offer1" id={operation.id} offer />;
-    if (selected.value === options[4].value)
+    if (selected.value === opType.createPassiveOffer)
       return (
         <OfferOps key="offer2" id={operation.id} offer={false} />
       );
-    if (selected.value === options[5].value)
+    if (selected.value === `${opType.setOptions}_inflation`)
       return (
         <SetOptionOps
           key="Inflation"
           label="Inflation destination"
           inputInfo={{ type: 'text', placeholder: 'G…' }}
           id={operation.id}
-          type={options[5].value}
+          type={`${opType.setOptions}_inflation`}
         />
       );
-    if (selected.value === options[6].value)
+    if (selected.value === `${opType.setOptions}_clear_flag`)
       return (
         <SetOptionOps
           key="flag1"
           label="Flag number"
           inputInfo={{ type: 'number', placeholder: '1' }}
           id={operation.id}
-          type={options[6].value}
+          type={`${opType.setOptions}_clear_flag`}
         />
       );
-    if (selected.value === options[7].value)
+    if (selected.value === `${opType.setOptions}_set_flag`)
       return (
         <SetOptionOps
           key="flag2"
           label="Flag number"
           inputInfo={{ type: 'number', placeholder: '1' }}
           id={operation.id}
-          type={options[7].value}
+          type={`${opType.setOptions}_set_flag`}
         />
       );
-    if (selected.value === options[8].value)
+    if (selected.value === `${opType.setOptions}_master_weight`)
       return (
         <SetOptionOps
           key="weight"
           label="Weight"
           inputInfo={{ type: 'number', placeholder: '1' }}
           id={operation.id}
-          type={options[8].value}
+          type={`${opType.setOptions}_master_weight`}
         />
       );
-    if (selected.value === options[9].value)
+    if (selected.value === `${opType.setOptions}_home_domain`)
       return (
         <SetOptionOps
           key="domain"
           label="Domain address"
           inputInfo={{ type: 'text', placeholder: 'sample.com' }}
           id={operation.id}
-          type={options[9].value}
+          type={`${opType.setOptions}_home_domain`}
         />
       );
-    if (selected.value === options[10].value)
+    if (selected.value === `${opType.setOptions}_signer`)
       return <SignerOps id={operation.id} />;
-    if (selected.value === options[11].value)
+    if (selected.value === `${opType.setOptions}_threshold`)
       return <ThresholdOps id={operation.id} />;
-    if (selected.value === options[12].value)
+    if (selected.value === opType.changeTrust)
       return <ChangeTrustOps id={operation.id} />;
-    if (selected.value === options[13].value)
+    if (selected.value === opType.allowTrust)
       return <AllowTrustOps id={operation.id} />;
-    if (selected.value === options[14].value)
+    if (selected.value === opType.accountMerge)
       return (
         <SetOptionOps
           key="destination"
           label="Destination"
           inputInfo={{ type: 'text', placeholder: 'G...' }}
           id={operation.id}
-          type={options[14].value}
+          type={opType.accountMerge}
         />
       );
-    if (selected.value === options[15].value)
+    if (selected.value === opType.manageData)
       return <ManageDataOps id={operation.id} />;
-    if (selected.value === options[16].value)
+    if (selected.value === opType.bumpSequence)
       return (
         <SetOptionOps
           key="bump"
           label="Bump to"
           inputInfo={{ type: 'number', placeholder: '1234' }}
           id={operation.id}
-          type={options[16].value}
+          type={opType.bumpSequence}
         />
       );
+    if (selected.value === opType.claimClaimableBalance)
+      return <ClaimableBalance id={operation.id} />;
+
     return <PaymentOps id={operation.id} />;
   };
 

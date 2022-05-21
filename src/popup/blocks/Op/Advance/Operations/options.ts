@@ -18,6 +18,10 @@ const options: OptionType[] = [
     label: 'Path payment strict receive',
   },
   {
+    value: operation.claimClaimableBalance,
+    label: 'Create claimable balance',
+  },
+  {
     value: operation.manageBuyOffer,
     label: 'Manage offer',
   },
