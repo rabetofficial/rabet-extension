@@ -11,11 +11,11 @@ export default async () => {
     const contacts = await get('contacts');
 
     if (contacts && contacts.length) {
-      store.dispatch(loadContacts(contacts));
+      store.dispatch(loadContacts(JSON.parse(contacts)));
     }
 
     if (options) {
-      store.dispatch(load(options));
+      store.dispatch(load(JSON.parse(options)));
     }
 
     store.dispatch(fixUsd());
