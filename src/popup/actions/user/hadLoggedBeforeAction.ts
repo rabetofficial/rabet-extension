@@ -2,8 +2,9 @@ import { get } from 'helpers/storage';
 import { decrypt } from 'helpers/crypto';
 
 export default async (): Promise<string> => {
-  const timer = await get('timer');
+  const rawTimer = await get('timer');
   const now = Date.now();
+  const timer = JSON.parse(rawTimer);
 
   if (!timer || !timer.date) {
     return '';
