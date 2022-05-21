@@ -55,8 +55,9 @@ const PrivateKey = ({
                     Private key
                   </S.Label>
                   <Input
-                    type="text"
+                    type="password"
                     size="medium"
+                    variant="password"
                     placeholder="S..."
                     input={input}
                     meta={meta}
