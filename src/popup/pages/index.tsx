@@ -44,6 +44,7 @@ import SuccessfulSubmission from './extension/SuccessfulSubmission';
 import BasicSendConfirm from './extension/Operation/Basic/ConfirmSend';
 import BasicSwapConfirm from './extension/Operation/Basic/ConfirmSwap';
 import ConfirmAdvancedOperation from './extension/Operation/Advance/Confirm';
+import TestPage from './test';
 
 const App = () => (
   <div className="layout">
@@ -280,6 +281,7 @@ const App = () => (
         path={RouteName.ConnectedWebsites}
         element={<ConnectedWebsite />}
       />
+      <Route path="/test" element={<TestPage />} />
     </Routes>
   </div>
 );
