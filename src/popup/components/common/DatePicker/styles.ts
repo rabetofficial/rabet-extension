@@ -24,12 +24,13 @@ export const DatepickerContainer = styled.div`
   }
 
   .react-datepicker-popper {
-    transition: linear 0.23s, opacity 400ms;
+    transition: transform 0.3s, opacity 400ms;
   }
 
   .react-datepicker__header {
-    border-bottom: 1px solid black;
-    background-color: black;
+    border-bottom: 1px solid
+      ${({ theme }) => theme.colors.primary.darkest};
+    background-color: ${({ theme }) => theme.colors.primary.darkest};
     font-family: 'Roboto', sans-serif;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
@@ -54,18 +55,21 @@ export const DatepickerContainer = styled.div`
   }
 
   .react-datepicker__triangle::before {
-    border-top-color: black !important;
-    border-bottom-color: black !important;
+    border-top-color: ${({ theme }) =>
+      theme.colors.primary.darkest} !important;
+    border-bottom-color: ${({ theme }) =>
+      theme.colors.primary.darkest} !important;
     top: 0 !important;
   }
 
   .react-datepicker__triangle::after {
-    border-bottom-color: black !important;
+    border-bottom-color: ${({ theme }) =>
+      theme.colors.primary.darkest} !important;
   }
 
   .react-datepicker__day--selected,
   .react-datepicker__day--keyboard-selected {
-    background-color: black;
+    background-color: ${({ theme }) => theme.colors.primary.darkest};
     color: white;
     border-radius: 2px;
 
