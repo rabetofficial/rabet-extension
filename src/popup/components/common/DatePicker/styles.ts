@@ -7,12 +7,18 @@ export const CustomInputContainer = styled.div`
   font-size: 14px;
   border: 1px solid ${({ theme }) => theme.colors.primary.lighter};
   border-radius: 2px;
-  width: 145px;
+  width: 100%;
   height: 48px;
   padding: 0 8px;
+
+  svg {
+    margin-left: 16px;
+  }
 `;
 
 export const DatepickerContainer = styled.div`
+  position: relative;
+
   .react-datepicker-wrapper {
     width: fit-content;
   }
@@ -34,6 +40,7 @@ export const DatepickerContainer = styled.div`
     font-family: 'Roboto', sans-serif;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
+    margin-top: -1px;
   }
 
   .react-datepicker__current-month {
@@ -55,11 +62,9 @@ export const DatepickerContainer = styled.div`
   }
 
   .react-datepicker__triangle::before {
-    border-top-color: ${({ theme }) =>
-      theme.colors.primary.darkest} !important;
+    border-top-color: transparent !important;
     border-bottom-color: ${({ theme }) =>
       theme.colors.primary.darkest} !important;
-    top: 0 !important;
   }
 
   .react-datepicker__triangle::after {

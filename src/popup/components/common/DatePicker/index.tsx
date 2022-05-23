@@ -15,6 +15,7 @@ type AppProps = {
   value: Date;
   onChange: (arg: Date) => void;
   disabled?: boolean;
+  className?: string;
 };
 
 const CustomInput = forwardRef(
@@ -29,13 +30,18 @@ const CustomInput = forwardRef(
   ),
 );
 
-const DatePicker = ({ value, onChange, disabled }: AppProps) => {
+const DatePicker = ({
+  value,
+  onChange,
+  disabled,
+  className,
+}: AppProps) => {
   const onChangeDate = (date) => {
     onChange(date);
   };
 
   return (
-    <S.DatepickerContainer>
+    <S.DatepickerContainer className={className}>
       <Datepicker
         selected={value}
         onChange={onChangeDate}
@@ -48,6 +54,7 @@ const DatePicker = ({ value, onChange, disabled }: AppProps) => {
 
 DatePicker.defaultProps = {
   disabled: false,
+  className: '',
 };
 
 CustomInput.defaultProps = {

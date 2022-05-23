@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {Field, Form} from "react-final-form";
-import {Asset, Horizon} from "stellar-sdk";
+import {Horizon} from "stellar-sdk";
 
 import Input from "popup/components/common/Input";
 import controlNumberInput from "popup/utils/controlNumberInput";
 import SelectOption from "popup/components/common/SelectOption";
 import {ElementOption} from "popup/models";
 import useActiveAccount from "popup/hooks/useActiveAccount";
+import DatePicker from "popup/components/common/DatePicker";
 
 type FormValidate = {
     amount: string;
@@ -18,6 +19,9 @@ type AppProps = {
 };
 
 const ClaimableBalance = ({ id }: AppProps) => {
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
     const account = useActiveAccount();
     const assets = account.assets || [];
     const assetsMapped = assets.map((asset) => ({
@@ -30,6 +34,9 @@ const ClaimableBalance = ({ id }: AppProps) => {
     const onChange = (e: ElementOption<Horizon.BalanceLine>) => {
         setSelected(e);
     };
+
+    const onChangeStartDate = (e: Date) => setStartDate(e);
+    const onChangeEndDate = (e: Date) => setEndDate(e);
 
     const validateForm = async (v: FormValidate) => {}
     return (
@@ -96,6 +103,18 @@ const ClaimableBalance = ({ id }: AppProps) => {
                 </>
               )}
             </Field>
+
+            <div className="flex items-center space-x-4 mt-2">
+                <div className="flex-1">
+                    <label className="label-primary">From</label>
+                    <DatePicker value={startDate} onChange={onChangeStartDate} className="my-2" />
+                </div>
+
+                <div className="flex-1">
+                    <label className="label-primary">To</label>
+                    <DatePicker value={endDate} onChange={onChangeEndDate} className="my-2" />
+                </div>
+            </div>
 
             {submitError && (
               <div className="error">{submitError}</div>
