@@ -19,6 +19,7 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import combineAssets from 'popup/utils/swap/addDefaultAssets';
 import controlNumberInput from 'popup/utils/controlNumberInput';
 import SelectAssetModal from 'popup/blocks/Op/Basic/SelectAsset';
+import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import BasicConfirmSwap from 'popup/blocks/Op/Basic/Confirm/Swap';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
@@ -34,6 +35,7 @@ export type FormValues = {
   from: string;
   asset1: Horizon.BalanceLine;
   asset2: Horizon.BalanceLine;
+  lastField: string;
 };
 
 declare global {
@@ -74,7 +76,8 @@ const BasicSwap = ({ usage }: AppProps) => {
     setValue,
     getValues,
     handleSubmit,
-    formState: { errors, isValid, isDirty, isValidating },
+    clearErrors,
+    formState: { errors, isValid, isValidating },
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -82,6 +85,7 @@ const BasicSwap = ({ usage }: AppProps) => {
       from: '',
       asset1: assets[0],
       asset2: assets[1],
+      lastField: 'from',
     },
     resolver: (formValues) =>
       validateForm(
@@ -95,29 +99,52 @@ const BasicSwap = ({ usage }: AppProps) => {
   });
 
   function setRealData(
+    values: FormValues,
     calculatedResult: ServerApi.PaymentPathRecord,
   ) {
-    const formValues = getValues();
-
-    if (!formValues.from) {
-      return;
-    }
+    clearErrors('from');
+    clearErrors('to');
 
     setIsRotateActive(false);
-    setValue('to', calculatedResult.destination_amount);
 
     const calculatePath = [
-      formValues.asset1,
+      values.asset1,
       ...calculatedResult.path,
-      formValues.asset2,
+      values.asset2,
     ];
-
-    const minReceived = new BN(calculatedResult.destination_amount)
-      .div(100)
-      .times(config.MIN_RECEIVED);
-
-    setMinimumReceived(parseFloat(minReceived.toString()));
     setPath(calculatePath);
+
+    if (values.lastField === 'from') {
+      setValue('to', calculatedResult.destination_amount);
+
+      const minReceived = new BN(calculatedResult.destination_amount)
+        .div(100)
+        .times(config.MIN_RECEIVED);
+
+      setMinimumReceived(parseFloat(minReceived.toString()));
+    } else {
+      setValue('from', calculatedResult.source_amount);
+
+      if (
+        !isInsufficientAsset(
+          values.asset1,
+          account.subentry_count,
+          values.from,
+        )
+      ) {
+        errors.from = {
+          type: 'error',
+          message: 'Insufficient amount.',
+        };
+      }
+
+      const minReceived = new BN(calculatedResult.source_amount)
+        .div(100)
+        .times(config.MIN_RECEIVED);
+
+      setMinimumReceived(parseFloat(minReceived.toString()));
+    }
+
     setShowSwapInfo(true);
   }
 
@@ -187,6 +214,21 @@ const BasicSwap = ({ usage }: AppProps) => {
       <label className="label-primary block mt-[12px]">From</label>
       <S.ModalInput>
         <Controller
+          name="lastField"
+          control={control}
+          render={({ field }) => (
+            <Input
+              invisible
+              type="text"
+              size="medium"
+              value={field.value}
+              onChange={field.onChange}
+              errorMsg={errors.lastField && errors.lastField.message}
+            />
+          )}
+        />
+
+        <Controller
           name="from"
           control={control}
           render={({ field }) => (
@@ -196,7 +238,10 @@ const BasicSwap = ({ usage }: AppProps) => {
               size="medium"
               variant="max"
               value={field.value}
-              onChange={field.onChange}
+              onChange={(e) => {
+                setValue('lastField', 'from');
+                field.onChange(e);
+              }}
               setMax={setFromMax}
               errorMsg={errors.from && errors.from.message}
               onKeyPress={controlNumberInput}
@@ -247,8 +292,12 @@ const BasicSwap = ({ usage }: AppProps) => {
               placeholder="123"
               size="medium"
               value={field.value}
-              onChange={field.onChange}
-              errorMsg={errors.to}
+              onChange={(e) => {
+                setValue('lastField', 'to');
+                field.onChange(e);
+              }}
+              errorMsg={errors.to && errors.to.message}
+              onKeyPress={controlNumberInput}
               styleType="light"
               className="grow"
             />
@@ -324,20 +373,24 @@ const BasicSwap = ({ usage }: AppProps) => {
         }}
         mt={40}
       >
-        <Button
-          type="button"
-          variant="default"
-          size="medium"
-          content="Cancel"
-          onClick={() => {
-            navigate('/', {
-              state: {
-                alreadyLoaded: true,
-              },
-            });
-          }}
-          style={{ marginRight: '7px' }}
-        />
+        {usage !== 'desktop' ? (
+          <Button
+            type="button"
+            variant="default"
+            size="medium"
+            content="Cancel"
+            onClick={() => {
+              navigate('/', {
+                state: {
+                  alreadyLoaded: true,
+                },
+              });
+            }}
+            style={{ marginRight: '7px' }}
+          />
+        ) : (
+          ''
+        )}
 
         <Button
           type="submit"

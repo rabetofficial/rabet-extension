@@ -23,6 +23,7 @@ type AppProps = {
   type: string;
   size: InputSize;
   variant?: InputVariant;
+  invisible?: boolean;
   defaultValue?: string | number;
   disabled?: boolean;
   placeholder?: string;
@@ -42,6 +43,7 @@ const Input = (props: AppProps) => {
   const {
     type,
     defaultValue,
+    invisible,
     variant,
     size,
     disabled,
@@ -75,7 +77,10 @@ const Input = (props: AppProps) => {
   }
 
   return (
-    <div className="flex flex-col grow">
+    <div
+      className="flex flex-col grow"
+      style={{ display: invisible ? 'none' : 'block' }}
+    >
       <S.Group
         className={`${className} ${size}`}
         style={style}
@@ -120,6 +125,7 @@ Input.defaultProps = {
   autoFocus: false,
   setMax: () => {},
   onChange: () => {},
+  invisible: false,
   styleType: 'dark',
 };
 
