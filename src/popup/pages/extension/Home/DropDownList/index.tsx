@@ -66,7 +66,7 @@ const DropDownList = ({ setEditableName }: DropDawnProps) => {
       label: 'Claimable balance',
       icon: <HandCoins />,
       onClick: () => {
-        navigate(RouteName.AdvancedOperation);
+        navigate(RouteName.ClaimableBalances);
       },
     },
     {

@@ -24,6 +24,7 @@ enum RouteName {
   BasicSwapConfirm = '/basic-operation/swap/confirm',
   SendExtension = '/send-extension',
   SwapExtension = '/swap-extension',
+  ClaimableBalances = '/claimable-balances',
 
   Flags = '/flag',
   AssetInfo = '/asset',
@@ -84,3 +85,4 @@ export const basicOperationPage = '/basic-operation';
 export const basicSwapConfirmPage = '/basic-operation/swap/confirm';
 export const basicSendConfirmPage = '/basic-operation/send/confirm';
 export const advanceOperationPage = '/advance-operation';
+export const claimableBalances = '/claimableBalances';

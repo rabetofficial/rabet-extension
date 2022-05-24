@@ -40,6 +40,7 @@ import BasicOperation from './extension/Operation/Basic';
 import LoggedCreateWallet from './extension/CreateWallet';
 import LoggedImportWallet from './extension/ImportWallet';
 import AdvanceOperation from './extension/Operation/Advance';
+import ClaimableBalances from './ClaimableBalances';
 import SuccessfulSubmission from './extension/SuccessfulSubmission';
 import BasicSendConfirm from './extension/Operation/Basic/ConfirmSend';
 import BasicSwapConfirm from './extension/Operation/Basic/ConfirmSwap';
@@ -116,6 +117,16 @@ const App = () => (
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path={RouteName.ClaimableBalances}
+        element={
+          <ProtectedRoute>
+            <ClaimableBalances />
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path={RouteName.AddAsset}
         element={
