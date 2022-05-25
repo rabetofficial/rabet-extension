@@ -1,6 +1,5 @@
-import styled from 'styled-components';
-import { Form, Field } from 'react-final-form';
 import React, { useState, useEffect } from 'react';
+import { Form, Field } from 'react-final-form';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import Logo from 'popup/components/Logo';
@@ -16,12 +15,6 @@ import hadLoggedBeforeAction from 'popup/actions/user/hadLoggedBeforeAction';
 type FormValues = {
   password: string;
 };
-
-const Container = styled.div`
-  .form {
-    margin-top: 78px;
-  }
-`;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -66,52 +59,57 @@ const Login = () => {
 
   return (
     <Layout isDashboard={false}>
-      <Container>
-        <Logo />
+      <Logo />
 
-        <Form
-          onSubmit={onSubmit}
-          render={({
-            submitError,
-            handleSubmit,
-            submitting,
-            pristine,
-          }) => (
-            <form
-              className="form"
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
-              <Field name="password">
-                {({ input, meta }) => (
-                  <Input
-                    type="password"
-                    placeholder="Password"
-                    size="medium"
-                    variant="password"
-                    input={input}
-                    meta={meta}
-                    autoFocus
-                  />
-                )}
-              </Field>
+      <h1 className="text-2xl text-center mt-4 font-bold">
+        Welcome back!
+      </h1>
+      <p className="text-sm text-primary-dark text-center mt-[6px]">
+        Log back into your future in finance
+      </p>
 
-              {submitError && (
-                <div className="error">{submitError}</div>
+      <Form
+        onSubmit={onSubmit}
+        render={({
+          submitError,
+          handleSubmit,
+          submitting,
+          pristine,
+        }) => (
+          <form
+            className="mt-[40px]"
+            onSubmit={handleSubmit}
+            autoComplete="off"
+          >
+            <Field name="password">
+              {({ input, meta }) => (
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  size="medium"
+                  variant="password"
+                  input={input}
+                  meta={meta}
+                  autoFocus
+                />
               )}
+            </Field>
 
-              <Button
-                type="submit"
-                variant="primary"
-                size="medium"
-                content="Unlock"
-                className="mt-8"
-                disabled={pristine || submitting}
-              />
-            </form>
-          )}
-        />
-      </Container>
+            {submitError && (
+              <div className="error">{submitError}</div>
+            )}
+
+            <Button
+              type="submit"
+              variant="primary"
+              size="medium"
+              content="Unlock"
+              className="mt-8"
+              disabled={pristine || submitting}
+            />
+          </form>
+        )}
+      />
     </Layout>
   );
 };
