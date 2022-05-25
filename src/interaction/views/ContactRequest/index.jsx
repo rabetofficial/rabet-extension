@@ -68,11 +68,9 @@ const ContactRequest = () => {
           <div className="pure-g step-name-container">
             <div className="pure-u-4-24">
               <p className="step-name">{smallDetail(title, 15)}</p>
-              <p className="step-detail">{host}</p>
             </div>
             <div className="pure-u-5-24">
               <p className="step-name">{name}</p>
-              <p className="step-detail">{shorter(publicKey, 5)}</p>
             </div>
           </div>
         </div>
