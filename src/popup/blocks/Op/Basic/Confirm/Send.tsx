@@ -29,7 +29,10 @@ type AppProps = {
 
 const BasicConfirmSend = ({ usage, values }: AppProps) => {
   const navigate = useNavigate();
-  const assetImages = useTypedSelector((store) => store.assetImages);
+  const [assetImages, accounts] = useTypedSelector((store) => [
+    store.assetImages,
+    store.accounts,
+  ]);
 
   const handleClick = async () => {
     if (usage === 'desktop') {
@@ -61,6 +64,18 @@ const BasicConfirmSend = ({ usage, values }: AppProps) => {
     }
   };
 
+  const showDestination = () => {
+    const userAccount = accounts.find(
+      (act) => act.publicKey === values.destination,
+    );
+
+    if (!userAccount) {
+      return shorter(values.destination, 4);
+    }
+
+    return userAccount.name;
+  };
+
   return (
     <ConfirmLayout usage={usage} handleClick={handleClick}>
       <ScrollBar isHidden maxHeight={292}>
@@ -86,7 +101,7 @@ const BasicConfirmSend = ({ usage, values }: AppProps) => {
             text={values.destination}
             custom={
               <span className="text-lg font-medium">
-                {shorter(values.destination, 4)}
+                {showDestination()}
               </span>
             }
           />

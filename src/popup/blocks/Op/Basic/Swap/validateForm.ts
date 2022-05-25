@@ -5,7 +5,19 @@ import { IAccount } from 'popup/reducers/accounts2';
 import isAssetEqual from 'popup/utils/swap/isAssetEqual';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 
+import getStrictReceive from 'popup/api/getStrictReceive';
 import { FormValues } from './index';
+
+type SwapFormError = {
+  from: {
+    type: string;
+    message: string;
+  };
+  to: {
+    type: string;
+    message: string;
+  };
+};
 
 const validateForm = async (
   values: FormValues,
@@ -15,25 +27,32 @@ const validateForm = async (
   setRealData,
   setShowSwapInfo,
 ) => {
-  setValue('to', '');
+  const otherField = values.lastField === 'to' ? 'from' : 'to';
+
+  const fieldValue =
+    values.lastField === 'to' ? values.to : values.from;
   setShowSwapInfo(false);
 
-  const errors = {};
+  const errors = {} as SwapFormError;
 
-  if (values.from === '') {
+  if (fieldValue === '') {
+    setValue(otherField, '');
     return { values, errors: {} };
   }
 
-  if (new BN(values.from).isNaN()) {
-    setValue('to', '');
+  if (new BN(fieldValue).isNaN()) {
+    setValue(otherField, '');
 
-    errors.from = { type: 'error', message: 'Invalid amount' };
+    errors[values.lastField] = {
+      type: 'error',
+      message: 'Invalid amount',
+    };
 
     return { values, errors };
   }
 
-  if (new BN(values.from).isLessThanOrEqualTo('0')) {
-    errors.from = {
+  if (new BN(fieldValue).isLessThanOrEqualTo('0')) {
+    errors[values.lastField] = {
       type: 'error',
       message: 'Amount must be higher than 0.',
     };
@@ -42,6 +61,7 @@ const validateForm = async (
   }
 
   if (
+    values.lastField === 'from' &&
     !isInsufficientAsset(
       values.asset1,
       account.subentry_count,
@@ -52,8 +72,6 @@ const validateForm = async (
       type: 'error',
       message: 'Insufficient amount.',
     };
-
-    // return { values, errors };
   }
 
   if (isAssetEqual(values.asset1, values.asset2)) {
@@ -66,11 +84,18 @@ const validateForm = async (
   }
 
   setLoading(true);
-  const calculatedResult = await getStrictSend(values);
+  let calculatedResult;
+
+  if (values.lastField === 'from') {
+    calculatedResult = await getStrictSend(values);
+  } else {
+    calculatedResult = await getStrictReceive(values);
+  }
+
   setLoading(false);
 
   if (!calculatedResult) {
-    errors.from = {
+    errors[values.lastField] = {
       type: 'error',
       message: 'Could not find a valid path for swap.',
     };
@@ -78,19 +103,31 @@ const validateForm = async (
     return { values, errors };
   }
 
-  if (
-    calculatedResult.destination_amount === '0' &&
-    !calculatedResult.path.length
-  ) {
-    errors.from = {
-      type: 'error',
-      message: 'Could not find an order.',
-    };
+  if (values.lastField === 'from') {
+    if (
+      calculatedResult.destination_amount === '0' &&
+      !calculatedResult.path.length
+    ) {
+      errors.from = {
+        type: 'error',
+        message: 'Could not find an order.',
+      };
 
-    return { values, errors };
+      return { values, errors };
+    }
+  } else {
+    if (
+      calculatedResult.source_amount === '0' &&
+      !calculatedResult.path.length
+    ) {
+      errors.to = {
+        type: 'error',
+        message: 'Could not find an order',
+      };
+    }
   }
 
-  setRealData(calculatedResult);
+  setRealData(values, calculatedResult);
 
   return {
     errors,
