@@ -234,7 +234,7 @@ const BasicSwap = ({ usage }: AppProps) => {
           render={({ field }) => (
             <Input
               type="number"
-              placeholder="123"
+              placeholder="0.0"
               size="medium"
               variant="max"
               value={field.value}
@@ -289,7 +289,7 @@ const BasicSwap = ({ usage }: AppProps) => {
           render={({ field }) => (
             <Input
               type="number"
-              placeholder="123"
+              placeholder="0.0"
               size="medium"
               value={field.value}
               onChange={(e) => {

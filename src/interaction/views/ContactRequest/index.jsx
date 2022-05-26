@@ -67,7 +67,7 @@ const ContactRequest = () => {
           </div>
           <div className="pure-g step-name-container">
             <div className="pure-u-4-24">
-              <p className="step-name">{smallDetail(title, 15)}</p>
+              <p className="step-name">{host}</p>
             </div>
             <div className="pure-u-5-24">
               <p className="step-name">{name}</p>
@@ -75,8 +75,18 @@ const ContactRequest = () => {
           </div>
         </div>
         <h1 className={styles.title}>
-          {smallDetail(title, 15)} would like to connect to your
-          account
+          <a
+            style={{
+              color: '#3277ff',
+              textDecoration: 'none',
+              cursor: 'pointer',
+            }}
+            href={`https://${host}`}
+            target="_blank"
+          >
+            {host}
+          </a>{' '}
+          would like to connect to your account
         </h1>
 
         <div className={classNames('pure-g', styles.buttons)}>

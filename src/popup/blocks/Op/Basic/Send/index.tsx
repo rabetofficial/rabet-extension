@@ -206,7 +206,7 @@ const BasicSend = ({ usage }: AppProps) => {
                   {({ input, meta }) => (
                     <Input
                       type="number"
-                      placeholder="123"
+                      placeholder="0.0"
                       size="medium"
                       input={input}
                       meta={meta}
