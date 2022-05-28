@@ -7,10 +7,12 @@ export default async (password: string): Promise<boolean> => {
   try {
     const { host } = store.getState();
     const accounts: IAccount[] = await get('data', password);
-    const rawConnectedWebsites: string[] =
-      (await get('connectedWebsites')) || [];
-
-    const connectedWebsites = JSON.parse(rawConnectedWebsites);
+    const rawConnectedWebsites: string[] = await get(
+      'connectedWebsites',
+    );
+    console.log(rawConnectedWebsites);
+    const connectedWebsites = JSON.parse(rawConnectedWebsites) || [];
+    console.log(typeof connectedWebsites);
 
     const newAccounts = accounts.map((account) => ({
       ...account,
@@ -25,6 +27,7 @@ export default async (password: string): Promise<boolean> => {
 
     return true;
   } catch (e) {
+    console.log(e);
     return false;
   }
 };

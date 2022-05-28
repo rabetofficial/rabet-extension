@@ -138,7 +138,7 @@ const BasicSwap = ({ usage }: AppProps) => {
         };
       }
 
-      const minReceived = new BN(calculatedResult.source_amount)
+      const minReceived = new BN(values.to)
         .div(100)
         .times(config.MIN_RECEIVED);
 
