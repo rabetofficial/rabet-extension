@@ -53,7 +53,10 @@ const Login = () => {
           const response = JSON.parse(rp);
 
           if (response.ok) {
-            sessionStorage.setItem('accountPublicKey', response.message.publicKey);
+            sessionStorage.setItem(
+              'accountPublicKey',
+              response.message.publicKey,
+            );
             navigate('/confirm');
           } else {
             if (response.message === 'wrong-password') {
@@ -78,8 +81,14 @@ const Login = () => {
           const response = JSON.parse(rp);
 
           if (response.ok) {
-            sessionStorage.setItem('accountName', response.message.name);
-            sessionStorage.setItem('accountPublicKey', response.message.publicKey);
+            sessionStorage.setItem(
+              'accountName',
+              response.message.name,
+            );
+            sessionStorage.setItem(
+              'accountPublicKey',
+              response.message.publicKey,
+            );
 
             navigate('/contact-request');
           } else {

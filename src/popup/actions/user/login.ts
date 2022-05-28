@@ -7,8 +7,10 @@ export default async (password: string): Promise<boolean> => {
   try {
     const { host } = store.getState();
     const accounts: IAccount[] = await get('data', password);
-    const connectedWebsites: string[] =
+    const rawConnectedWebsites: string[] =
       (await get('connectedWebsites')) || [];
+
+    const connectedWebsites = JSON.parse(rawConnectedWebsites);
 
     const newAccounts = accounts.map((account) => ({
       ...account,

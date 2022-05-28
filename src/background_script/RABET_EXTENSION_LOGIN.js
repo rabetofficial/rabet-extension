@@ -2,20 +2,32 @@ import setTimer from './utils/setTimer';
 import { get } from '../helpers/storage';
 import WindowManager from './utils/Window';
 
-export default (message, sender, sendResponse, sendResponseCollection, window) => {
+export default (
+  message,
+  sender,
+  sendResponse,
+  sendResponseCollection,
+  window,
+) => {
   get('data', message.values.password)
     .then((accounts) => {
       setTimer(message.values.password);
 
       if (!accounts) {
-        sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
+        sendResponseCollection[message.id]({
+          ok: false,
+          message: 'no-account',
+        });
         WindowManager.remove(window.id);
 
         return;
       }
 
       if (!accounts.length) {
-        sendResponseCollection[message.id]({ ok: false, message: 'no-account' });
+        sendResponseCollection[message.id]({
+          ok: false,
+          message: 'no-account',
+        });
         WindowManager.remove(window.id);
 
         return;
@@ -45,14 +57,18 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
           return;
         }
 
-        get('connectedWebsites').then((connectedWebsites) => {
+        get('connectedWebsites').then((rawConnectedWebsites) => {
+          const connectedWebsites = JSON.parse(rawConnectedWebsites);
+
           let isHostConnected = false;
 
           if (!connectedWebsites || !connectedWebsites.length) {
             isHostConnected = false;
           } else {
             isHostConnected = connectedWebsites.some(
-              (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
+              (x) =>
+                x ===
+                `${message.detail.host}/${activeAcconut.publicKey}`,
             );
           }
 

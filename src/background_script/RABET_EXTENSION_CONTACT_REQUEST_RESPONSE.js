@@ -1,9 +1,18 @@
 import WindowManager from './utils/Window';
 import { get, set } from '../helpers/storage';
 
-export default (message, sender, sendResponse, sendResponseCollection, window) => {
+export default (
+  message,
+  sender,
+  sendResponse,
+  sendResponseCollection,
+  window,
+) => {
   if (message.result === 'reject') {
-    sendResponseCollection[message.id]({ ok: false, message: 'user-rejected' });
+    sendResponseCollection[message.id]({
+      ok: false,
+      message: 'user-rejected',
+    });
   } else if (message.result === 'confirm') {
     get('options').then((options) => {
       sendResponseCollection[message.id]({
@@ -22,7 +31,8 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
       }
 
       if (isPrivacyModeOn) {
-        get('connectedWebsites').then((websites) => {
+        get('connectedWebsites').then((rawConnectedWebsites) => {
+          const websites = JSON.parse(rawConnectedWebsites);
           const newWebsites = websites || [];
           const newWebsite = `${message.detail.host}/${message.activeAcconut.publicKey}`;
 
@@ -35,7 +45,10 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
       }
     });
   } else {
-    sendResponseCollection[message.id]({ ok: false, message: 'user-rejected' });
+    sendResponseCollection[message.id]({
+      ok: false,
+      message: 'user-rejected',
+    });
   }
 
   WindowManager.remove(window.id);

@@ -4,7 +4,12 @@ import getNetwork from '../helpers/getNetwork';
 import sendInterval from './utils/sendInterval';
 import hasLoggedBefore from './utils/hasLoggedBefore';
 
-export default (message, sender, sendResponse, sendResponseCollection) =>
+export default (
+  message,
+  sender,
+  sendResponse,
+  sendResponseCollection,
+) =>
   new Promise((resolve) => {
     const network = getNetwork(message.detail.network);
     const { screenX, screenY, outerWidth } = message.detail;
@@ -26,22 +31,22 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                 const generatedId = Date.now().toString();
                 sendResponseCollection[generatedId] = sendResponse;
 
-                sendInterval(
-                  newWindow.tabs[0].id,
-                  {
-                    generatedId,
-                    page: '/login',
-                    detail: message.detail,
-                    destination: 'sign',
-                    xdr: {
-                      xdr: message.detail.xdr,
-                      network,
-                    },
+                sendInterval(newWindow.tabs[0].id, {
+                  generatedId,
+                  page: '/login',
+                  detail: message.detail,
+                  destination: 'sign',
+                  xdr: {
+                    xdr: message.detail.xdr,
+                    network,
                   },
-                );
+                });
               })
               .catch(() => {
-                sendResponse({ ok: false, message: 'internal-error' });
+                sendResponse({
+                  ok: false,
+                  message: 'internal-error',
+                });
               });
 
             return;
@@ -63,10 +68,14 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
               return;
             }
 
-            const activeAcconut = accounts.find((x) => x.active === true);
+            const activeAcconut = accounts.find(
+              (x) => x.active === true,
+            );
 
             get('options').then((options) => {
-              const isPrivacyModeOn = !options ? true : options.privacyMode;
+              const isPrivacyModeOn = !options
+                ? true
+                : options.privacyMode;
 
               if (!isPrivacyModeOn) {
                 WindowManager.create(screenX, screenY, outerWidth)
@@ -74,74 +83,90 @@ export default (message, sender, sendResponse, sendResponseCollection) =>
                     resolve(newWindow);
 
                     const generatedId = Date.now().toString();
-                    sendResponseCollection[generatedId] = sendResponse;
+                    sendResponseCollection[generatedId] =
+                      sendResponse;
 
-                    sendInterval(
-                      newWindow.tabs[0].id,
-                      {
-                        generatedId,
-                        type: 'RABET_GENERATED_ID',
-                        page: '/confirm',
-                        detail: message.detail,
-                        xdr: {
-                          xdr: message.detail.xdr,
-                          network,
-                        },
-                        activeAcconut: {
-                          name: activeAcconut.name,
-                          publicKey: activeAcconut.publicKey,
-                        },
+                    sendInterval(newWindow.tabs[0].id, {
+                      generatedId,
+                      type: 'RABET_GENERATED_ID',
+                      page: '/confirm',
+                      detail: message.detail,
+                      xdr: {
+                        xdr: message.detail.xdr,
+                        network,
                       },
-                    );
+                      activeAcconut: {
+                        name: activeAcconut.name,
+                        publicKey: activeAcconut.publicKey,
+                      },
+                    });
                   })
                   .catch(() => {
-                    sendResponse({ ok: false, message: 'internal-error' });
+                    sendResponse({
+                      ok: false,
+                      message: 'internal-error',
+                    });
                   });
               } else {
                 // When user has accounts and privacyMode is on
-                get('connectedWebsites').then((connectedWebsites) => {
-                  let isHostConnected = false;
-
-                  if (!connectedWebsites || !connectedWebsites.length) {
-                    isHostConnected = false;
-                  } else {
-                    isHostConnected = connectedWebsites.some(
-                      (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
+                get('connectedWebsites').then(
+                  (rawConnectedWebsites) => {
+                    const connectedWebsites = JSON.parse(
+                      rawConnectedWebsites,
                     );
-                  }
 
-                  // When the host is trusted
-                  if (isHostConnected) {
-                    WindowManager.create(screenX, screenY, outerWidth)
-                      .then((newWindow) => {
+                    let isHostConnected = false;
+
+                    if (
+                      !connectedWebsites ||
+                      !connectedWebsites.length
+                    ) {
+                      isHostConnected = false;
+                    } else {
+                      isHostConnected = connectedWebsites.some(
+                        (x) =>
+                          x ===
+                          `${message.detail.host}/${activeAcconut.publicKey}`,
+                      );
+                    }
+
+                    // When the host is trusted
+                    if (isHostConnected) {
+                      WindowManager.create(
+                        screenX,
+                        screenY,
+                        outerWidth,
+                      ).then((newWindow) => {
                         resolve(newWindow);
 
                         const generatedId = Date.now().toString();
-                        sendResponseCollection[generatedId] = sendResponse;
+                        sendResponseCollection[generatedId] =
+                          sendResponse;
 
-                        sendInterval(
-                          newWindow.tabs[0].id,
-                          {
-                            generatedId,
-                            page: '/confirm',
-                            detail: message.detail,
-                            xdr: {
-                              xdr: message.detail.xdr,
-                              network,
-                            },
-                            activeAcconut: {
-                              name: activeAcconut.name,
-                              publicKey: activeAcconut.publicKey,
-                            },
+                        sendInterval(newWindow.tabs[0].id, {
+                          generatedId,
+                          page: '/confirm',
+                          detail: message.detail,
+                          xdr: {
+                            xdr: message.detail.xdr,
+                            network,
                           },
-                        );
+                          activeAcconut: {
+                            name: activeAcconut.name,
+                            publicKey: activeAcconut.publicKey,
+                          },
+                        });
                       });
-                  }
-                  // When the host is not trusted
-                  else {
-                    sendResponse({ ok: false, message: 'not-connected' });
-                  }
-                });
+                    }
+                    // When the host is not trusted
+                    else {
+                      sendResponse({
+                        ok: false,
+                        message: 'not-connected',
+                      });
+                    }
+                  },
+                );
               }
             });
           });
