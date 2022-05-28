@@ -111,9 +111,19 @@ export default (
                 // When user has accounts and privacyMode is on
                 get('connectedWebsites').then(
                   (rawConnectedWebsites) => {
-                    const connectedWebsites = JSON.parse(
-                      rawConnectedWebsites,
-                    );
+                    let connectedWebsites;
+
+                    if (typeof rawConnectedWebsites === 'string') {
+                      connectedWebsites = JSON.parse(
+                        rawConnectedWebsites,
+                      );
+                    } else if (
+                      typeof rawConnectedWebsites === 'object'
+                    ) {
+                      connectedWebsites = rawConnectedWebsites;
+                    } else {
+                      connectedWebsites = [];
+                    }
 
                     let isHostConnected = false;
 

@@ -32,7 +32,16 @@ export default (
 
       if (isPrivacyModeOn) {
         get('connectedWebsites').then((rawConnectedWebsites) => {
-          const websites = JSON.parse(rawConnectedWebsites);
+          let websites;
+
+          if (typeof rawConnectedWebsites === 'string') {
+            websites = JSON.parse(rawConnectedWebsites);
+          } else if (typeof rawConnectedWebsites === 'object') {
+            websites = rawConnectedWebsites;
+          } else {
+            websites = [];
+          }
+
           const newWebsites = websites || [];
           const newWebsite = `${message.detail.host}/${message.activeAcconut.publicKey}`;
 

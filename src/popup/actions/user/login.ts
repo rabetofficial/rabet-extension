@@ -10,9 +10,16 @@ export default async (password: string): Promise<boolean> => {
     const rawConnectedWebsites: string[] = await get(
       'connectedWebsites',
     );
-    console.log(rawConnectedWebsites);
-    const connectedWebsites = JSON.parse(rawConnectedWebsites) || [];
-    console.log(typeof connectedWebsites);
+
+    let connectedWebsites;
+
+    if (typeof rawConnectedWebsites === 'string') {
+      connectedWebsites = JSON.parse(rawConnectedWebsites);
+    } else if (typeof rawConnectedWebsites === 'object') {
+      connectedWebsites = rawConnectedWebsites;
+    } else {
+      connectedWebsites = [];
+    }
 
     const newAccounts = accounts.map((account) => ({
       ...account,
