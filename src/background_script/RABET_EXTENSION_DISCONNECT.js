@@ -1,16 +1,11 @@
 import { get, set } from '../helpers/storage';
+import readConnectedWebsites from '../helpers/readConnectedWebsites';
 
 export default (message, sender, sendResponse) => {
   get('connectedWebsites').then((rawConnectedWebsites) => {
-    let connectedWebsites;
-
-    if (typeof rawConnectedWebsites === 'string') {
-      connectedWebsites = JSON.parse(rawConnectedWebsites);
-    } else if (typeof rawConnectedWebsites === 'object') {
-      connectedWebsites = rawConnectedWebsites;
-    } else {
-      connectedWebsites = [];
-    }
+    const connectedWebsites = readConnectedWebsites(
+      rawConnectedWebsites,
+    );
 
     let newConnectedWebsites = connectedWebsites;
 

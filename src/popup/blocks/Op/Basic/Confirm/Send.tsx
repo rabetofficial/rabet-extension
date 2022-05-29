@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import showName from 'helpers/showName';
 import shorter from 'popup/utils/shorter';
 import RouteName from 'popup/staticRes/routes';
 import Card from 'popup/components/common/Card';
@@ -29,10 +30,9 @@ type AppProps = {
 
 const BasicConfirmSend = ({ usage, values }: AppProps) => {
   const navigate = useNavigate();
-  const [assetImages, accounts] = useTypedSelector((store) => [
-    store.assetImages,
-    store.accounts,
-  ]);
+  const [assetImages, accounts, contacts] = useTypedSelector(
+    (store) => [store.assetImages, store.accounts, store.contacts],
+  );
 
   const handleClick = async () => {
     if (usage === 'desktop') {
@@ -69,11 +69,19 @@ const BasicConfirmSend = ({ usage, values }: AppProps) => {
       (act) => act.publicKey === values.destination,
     );
 
-    if (!userAccount) {
-      return shorter(values.destination, 4);
+    const contactAccount = contacts.find(
+      (cnt) => cnt.publicKey === values.destination,
+    );
+
+    if (contactAccount) {
+      return showName(contactAccount.name);
     }
 
-    return userAccount.name;
+    if (userAccount) {
+      return showName(userAccount.name);
+    }
+
+    return shorter(values.destination, 4);
   };
 
   return (

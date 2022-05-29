@@ -10,7 +10,9 @@ export default async (
 ): Promise<AssetImage[]> => {
   try {
     const domainQS = isDomain ? 'domain' : 'asset_code';
-    const sentValue = isDomain ? value : value.toUpperCase();
+    const sentValue = isDomain
+      ? value.toLowerCase()
+      : value.toUpperCase();
 
     const assets: AssetImage[] = await fetch(
       `${config.ASSET_SERVER}?${domainQS}=${sentValue}`,

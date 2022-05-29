@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Plus from 'popup/svgs/Plus';
 import { Usage } from 'popup/models';
+import showName from 'helpers/showName';
 import EditPen from 'popup/svgs/EditPen';
 import maxText from 'popup/utils/maxText';
 import shorter from 'popup/utils/shorter';
@@ -118,14 +119,7 @@ const Contact = ({ onClose, needTitle, usage }: ContactProps) => {
 
                   <div>
                     <S.Name>
-                      {contact.name.length > 20 ? (
-                        <span>{`${contact.name.slice(
-                          0,
-                          10,
-                        )}...`}</span>
-                      ) : (
-                        <span>{contact.name}</span>
-                      )}
+                      <span>{showName(contact.name)}</span>
                     </S.Name>
 
                     <CopyText

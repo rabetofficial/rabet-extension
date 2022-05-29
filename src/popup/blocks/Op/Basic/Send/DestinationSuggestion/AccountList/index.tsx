@@ -10,12 +10,18 @@ import Account from './Account';
 export type AccountLike = IAccount | Contact;
 
 type AppProps = {
+  purpose?: string;
   name: 'accounts' | 'contacts';
   accounts: AccountLike[];
   onChange: (publicKey: string, memo: string) => void;
 };
 
-const AccountList = ({ name, accounts, onChange }: AppProps) => (
+const AccountList = ({
+  name,
+  accounts,
+  onChange,
+  purpose,
+}: AppProps) => (
   <>
     {accounts.length ? (
       <ScrollBar isHidden maxHeight={210}>
@@ -27,7 +33,7 @@ const AccountList = ({ name, accounts, onChange }: AppProps) => (
                 onChange(account.publicKey, account.memo);
               }}
             >
-              <Account account={account} />
+              <Account account={account} purpose={purpose} />
             </li>
           ))}
         </S.List>
@@ -37,5 +43,9 @@ const AccountList = ({ name, accounts, onChange }: AppProps) => (
     )}
   </>
 );
+
+AccountList.defaultProps = {
+  purpose: '',
+};
 
 export default AccountList;

@@ -1,3 +1,4 @@
+import readConnectedWebsites from '../helpers/readConnectedWebsites';
 import WindowManager from './utils/Window';
 import { get, set } from '../helpers/storage';
 
@@ -32,17 +33,9 @@ export default (
 
       if (isPrivacyModeOn) {
         get('connectedWebsites').then((rawConnectedWebsites) => {
-          let websites;
-
-          if (typeof rawConnectedWebsites === 'string') {
-            websites = JSON.parse(rawConnectedWebsites);
-          } else if (typeof rawConnectedWebsites === 'object') {
-            websites = rawConnectedWebsites;
-          } else {
-            websites = [];
-          }
-
-          const newWebsites = websites || [];
+          const newWebsites = readConnectedWebsites(
+            rawConnectedWebsites,
+          );
           const newWebsite = `${message.detail.host}/${message.activeAcconut.publicKey}`;
 
           if (!newWebsites.some((x) => x === newWebsite)) {

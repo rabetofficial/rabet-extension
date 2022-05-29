@@ -1,4 +1,4 @@
-export default (name) => {
+export default (name: string): string => {
   const nameSplitter = name.split(' ');
 
   const first = nameSplitter[0].charAt(0);

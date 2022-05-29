@@ -8,10 +8,11 @@ import * as S from './styles';
 import { AccountLike } from './index';
 
 type AppProps = {
+  purpose: string;
   account: AccountLike;
 };
 
-const Account = ({ account }: AppProps) => {
+const Account = ({ account, purpose }: AppProps) => {
   const [host] = useTypedSelector((store) => [store.host]);
   const [isImageLoaded, setIsImageLoaded] = useState(true);
 
@@ -33,7 +34,7 @@ const Account = ({ account }: AppProps) => {
         <S.Detail>{publicKey && shorter(publicKey, 8)}</S.Detail>
       </div>
 
-      {isConnected ? (
+      {isConnected && purpose !== 'suggestion' ? (
         <S.ImageContainer>
           <img
             src={img}
@@ -51,6 +52,10 @@ const Account = ({ account }: AppProps) => {
       )}
     </div>
   );
+};
+
+Account.defaultProps = {
+  purpose: '',
 };
 
 export default Account;

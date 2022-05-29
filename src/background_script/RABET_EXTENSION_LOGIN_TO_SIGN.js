@@ -1,3 +1,4 @@
+import readConnectedWebsites from '../helpers/readConnectedWebsites';
 import { get } from '../helpers/storage';
 import setTimer from './utils/setTimer';
 import WindowManager from './utils/Window';
@@ -55,15 +56,9 @@ export default (
         }
 
         get('connectedWebsites').then((rawConnectedWebsites) => {
-          let connectedWebsites;
-
-          if (typeof rawConnectedWebsites === 'string') {
-            connectedWebsites = JSON.parse(rawConnectedWebsites);
-          } else if (typeof rawConnectedWebsites === 'object') {
-            connectedWebsites = rawConnectedWebsites;
-          } else {
-            connectedWebsites = [];
-          }
+          const connectedWebsites = readConnectedWebsites(
+            rawConnectedWebsites,
+          );
 
           let isHostConnected = false;
 

@@ -2,6 +2,7 @@ import { get } from '../helpers/storage';
 import WindowManager from './utils/Window';
 import sendInterval from './utils/sendInterval';
 import hasLoggedBefore from './utils/hasLoggedBefore';
+import readConnectedWebsites from '../helpers/readConnectedWebsites';
 
 export default (
   message,
@@ -90,19 +91,9 @@ export default (
               // When user has accounts and privacyMode is on
               get('connectedWebsites').then(
                 (rawConnectedWebsites) => {
-                  let connectedWebsites;
-
-                  if (typeof rawConnectedWebsites === 'string') {
-                    connectedWebsites = JSON.parse(
-                      rawConnectedWebsites,
-                    );
-                  } else if (
-                    typeof rawConnectedWebsites === 'object'
-                  ) {
-                    connectedWebsites = rawConnectedWebsites;
-                  } else {
-                    connectedWebsites = [];
-                  }
+                  const connectedWebsites = readConnectedWebsites(
+                    rawConnectedWebsites,
+                  );
 
                   let isHostConnected = false;
 

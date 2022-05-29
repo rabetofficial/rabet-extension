@@ -41,6 +41,7 @@ const DestinationSuggest = ({ handleChange }: DestinationProps) => {
       title: 'My Accounts',
       content: (
         <AccountList
+          purpose="suggestion"
           accounts={accounts}
           onChange={onChange}
           name="accounts"
