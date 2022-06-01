@@ -1,50 +1,67 @@
+import fs from 'fs';
+import { ipcRenderer } from 'electron';
+
 import { encrypt, decrypt } from './crypto';
 
 export const get = (key: string, password?: string) =>
   new Promise((resolve, reject) => {
-    chrome.storage.local.get([key], (result: any) => {
-      const data = result[key];
+    const storageFileName = ipcRenderer.sendSync('user-data');
 
-      if (!data) {
-        return resolve(null);
-      }
+    if (!fs.existsSync(storageFileName)) {
+      fs.writeFileSync(storageFileName, '{}');
+    }
 
-      if (!password) {
-        return resolve(data);
-      }
+    const storageFile = fs.readFileSync(storageFileName, 'utf8');
+    const data = JSON.parse(storageFile);
 
-      const decrypredData = decrypt(password, data);
-      let jsonData;
+    const result = data[key];
 
+    if (!result) {
+      return resolve(null);
+    }
+
+    if (!password) {
       try {
-        jsonData = JSON.parse(decrypredData);
+        return resolve(JSON.parse(result));
       } catch (e) {
-        return reject();
+        return resolve(result);
       }
+    }
 
-      return resolve(jsonData);
-    });
+    const decrypredData = decrypt(password, result);
+
+    let jsonData;
+
+    try {
+      jsonData = JSON.parse(decrypredData);
+    } catch (e) {
+      return reject();
+    }
+
+    return resolve(jsonData);
   });
 
 export const set = (key: string, value: any, password?: string) =>
   new Promise((resolve, reject) => {
     try {
-      let dataToBeSet;
+      const storageFileName = ipcRenderer.sendSync('user-data');
 
-      if (password) {
-        const encryptedData = encrypt(
-          password,
-          JSON.stringify(value),
-        );
-
-        dataToBeSet = encryptedData;
-      } else {
-        dataToBeSet = JSON.stringify(value);
+      if (!fs.existsSync(storageFileName)) {
+        fs.writeFileSync(storageFileName, '{}');
       }
 
-      chrome.storage.local.set({ [`${key}`]: dataToBeSet }, () => {
-        resolve(true);
-      });
+      const storageFile = fs.readFileSync(storageFileName, 'utf8');
+      const data = JSON.parse(storageFile);
+
+      if (password) {
+        data[key] = encrypt(password, JSON.stringify(value));
+      } else {
+        data[key] = JSON.stringify(value);
+      }
+
+      fs.writeFileSync(storageFileName, JSON.stringify(data), 'utf8');
+
+      resolve(true);
     } catch (e) {
       reject();
     }
