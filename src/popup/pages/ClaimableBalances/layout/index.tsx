@@ -10,9 +10,7 @@ import ShortRightArrow from 'popup/svgs/ShortRightArrow';
 import * as S from './styles';
 
 const Layout = () => {
-  const onChange = () => {
-    console.log('hey');
-  };
+  const onChange = () => {};
 
   const modes = ['All', 'Claimable', 'On hold', 'Expired'];
 
