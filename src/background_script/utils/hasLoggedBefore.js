@@ -4,10 +4,8 @@ import { decrypt } from '../../helpers/crypto';
 export default () =>
   new Promise((resolve) => {
     get('timer')
-      .then((rawTimer) => {
+      .then((timer) => {
         const now = Date.now();
-
-        const timer = JSON.parse(rawTimer);
 
         if (!timer || !timer.date) {
           resolve(false);

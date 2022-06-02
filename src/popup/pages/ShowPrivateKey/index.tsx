@@ -19,7 +19,9 @@ const ShowPrivateKey = () => {
     if (!isLogged) {
       return { key: 'Incorrect password.' };
     }
+
     navigate(RouteName.PrivateKey);
+
     return {};
   };
 
@@ -30,6 +32,7 @@ const ShowPrivateKey = () => {
       },
     });
   };
+
   return (
     <ShowPrivateKeyComponent onCancel={onCancel} onSubmit={onSubmit}>
       <ExtTitle title="Show private key" />
