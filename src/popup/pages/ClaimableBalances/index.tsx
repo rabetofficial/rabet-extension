@@ -14,7 +14,15 @@ const ClaimableBalances = () => (
       <div style={{ maxWidth: '360px' }}>
         <div className="content">
           <ExtTitle title="Claimable balance" className="mt-4" />
-          <ClaimableBalancesComponent />
+          <ClaimableBalancesComponent
+            amount={1111}
+            assetCode="XLM"
+            status="early"
+            fromDate="22 Feb 2020"
+            toDate="28 Feb 2022"
+            assetImg="https://rabet.io/static/rabet-coin-64.png"
+            sponsorId="GA22XVEJYXFFWJPL5Q4DKN3EWMGA3P5TWV5ZKKSBNJKJZCTZSJ4N75VN"
+          />
         </div>
       </div>
     </ScrollBar>

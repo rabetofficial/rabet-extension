@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import shorter from 'popup/utils/shorter';
+import FilledCopy from 'popup/svgs/FilledCopy';
 import Card from 'popup/components/common/Card';
 import Button from 'popup/components/common/Button';
+import CopyText from 'popup/components/common/CopyText';
 import SelectOption from 'popup/components/common/SelectOption';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
@@ -9,75 +12,90 @@ import ShortRightArrow from 'popup/svgs/ShortRightArrow';
 
 import * as S from './styles';
 
+type ClaimableStatus = 'claimable' | 'early' | 'expired';
+
+type ButtonComponentProps = {
+  status: ClaimableStatus;
+  onClick: () => void;
+};
+
 type ClaimableBalancesType = {
   amount: number;
   assetImg: string;
-  assetType: string;
+  assetCode: string;
   fromDate: string;
   toDate: string;
   sponsorId: string;
+  status: ClaimableStatus;
 };
-const ClaimableBalances = ({
-  amount,
-  assetImg,
-  assetType,
-  fromDate,
-  toDate,
-  sponsorId,
-}: ClaimableBalancesType) => {
-  const onChange = () => {
-    console.log('hey');
-  };
 
-  const modes = ['All', 'Claimable', 'early', 'Expired'];
-
-  const handleTypes = () => {
-    if (Claimable) {
-      return Claimable;
-    }
-    if (Expired) {
-      return Expired;
-    }
-    return Early;
-  };
-
-  const Claimable = () => (
-    <>
-      <ButtonContainer btnSize={90} justify="end" mt={24}>
-        <Button variant="primary" content="Claim" size="medium" />
-      </ButtonContainer>
-    </>
-  );
-  const Expired = () => (
-    <>
-      <ButtonContainer btnSize={90} justify="end" mt={24}>
-        <Button
-          style={{
-            backgroundColor: '#fff4f4',
-            border: '1px solid #fff4f4',
-            borderRadius: '3px',
-          }}
-          variant="danger"
-          content="Expired"
-          size="medium"
-        />
-      </ButtonContainer>
-    </>
-  );
-  const Early = () => (
-    <>
+const ButtonComponent = ({
+  status,
+  onClick,
+}: ButtonComponentProps) => {
+  if (status === 'early') {
+    return (
       <S.Note>
         <S.Text>Will be claimable in 2 Days 3 Hours 30 Min</S.Text>
       </S.Note>
-    </>
+    );
+  }
+
+  return (
+    <ButtonContainer btnSize={90} justify="end" mt={24}>
+      <Button
+        style={
+          status === 'expired'
+            ? {
+                backgroundColor: '#fff4f4',
+                border: '1px solid #fff4f4',
+                borderRadius: '3px',
+                color: '#ce3d3d',
+              }
+            : {}
+        }
+        variant={status === 'expired' ? 'danger' : 'primary'}
+        content={status === 'expired' ? 'Expired' : 'Claim'}
+        size="medium"
+        disabled={status === 'expired'}
+        onClick={onClick}
+      />
+    </ButtonContainer>
   );
+};
+
+const ClaimableBalances = ({
+  amount,
+  assetImg,
+  assetCode,
+  fromDate,
+  toDate,
+  sponsorId,
+  status,
+}: ClaimableBalancesType) => {
+  const [selected, setSelected] = useState({
+    value: 'all',
+    label: 'All',
+  });
+
+  const onChange = (e) => {
+    setSelected(e);
+  };
+
+  const selectOptions = [
+    { value: 'all', label: 'All' },
+    { value: 'early', label: 'Early' },
+    { value: 'expired', label: 'Expired' },
+    { value: 'claimable', label: 'Claimable' },
+  ];
 
   return (
     <div className="mt-5">
       <SelectOption
-        defaultValue={modes[0]}
+        defaultValue={selectOptions[0]}
+        selected={selected}
         variant="outlined"
-        items={modes}
+        items={selectOptions}
         onChange={onChange}
         isSearchable={false}
       />
@@ -87,8 +105,15 @@ const ClaimableBalances = ({
           <div className="inline-flex items-center">
             <S.Info>{amount}</S.Info>
             <S.Type>
-              <div className="mr-[2px]">{assetImg}</div>
-              {assetType}
+              <div className="mr-[2px]">
+                <img
+                  src={assetImg}
+                  alt="logo"
+                  width={18}
+                  height={18}
+                />
+              </div>
+              {assetCode}
             </S.Type>
           </div>
         </div>
@@ -104,8 +129,17 @@ const ClaimableBalances = ({
         </div>
         <div className="mt-4">
           <S.InfoTitle>Sponsor</S.InfoTitle>
-          <S.Info>{sponsorId}</S.Info>
+          <CopyText
+            text={sponsorId}
+            custom={
+              <span className="text-[18px] inline-flex items-center gap-1">
+                <p>{shorter(sponsorId, 6)}</p>
+                <FilledCopy />
+              </span>
+            }
+          />
         </div>
+        <ButtonComponent status={status} onClick={() => {}} />
       </Card>
     </div>
   );

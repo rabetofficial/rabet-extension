@@ -85,4 +85,3 @@ export const basicOperationPage = '/basic-operation';
 export const basicSwapConfirmPage = '/basic-operation/swap/confirm';
 export const basicSendConfirmPage = '/basic-operation/send/confirm';
 export const advanceOperationPage = '/advance-operation';
-export const claimableBalances = '/claimableBalances';
