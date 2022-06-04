@@ -8,10 +8,10 @@ export const InfoTitle = styled.p`
   line-height: 1.63;
   letter-spacing: normal;
   font-size: 16px;
+  margin-bottom: 3px;
 `;
 
 export const Info = styled.div`
-  margin-top: 3px;
   font-size: 20px;
   font-weight: 500;
   font-stretch: normal;
@@ -19,6 +19,18 @@ export const Info = styled.div`
   line-height: 1.5;
   letter-spacing: normal;
   display: inline-flex;
+  align-items: center;
+`;
+
+export const Type = styled.div`
+  margin-left: 6px;
+  font-size: 18px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  display: inline-flex;
+  align-items: center;
 `;
 
 export const Note = styled.div`

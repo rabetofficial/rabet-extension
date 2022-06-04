@@ -61,14 +61,14 @@ const DropDownList = ({ setEditableName }: DropDawnProps) => {
         navigate(RouteName.ConnectedWebsites);
       },
     },
-    // {
-    //   id: 5,
-    //   label: 'Claimable balance',
-    //   icon: <HandCoins />,
-    //   onClick: () => {
-    //     navigate(RouteName.ClaimableBalances);
-    //   },
-    // },
+    {
+      id: 5,
+      label: 'Claimable balance',
+      icon: <HandCoins />,
+      onClick: () => {
+        navigate(RouteName.ClaimableBalances);
+      },
+    },
     {
       id: 6,
       label: <p className="text-error">Delete account</p>,

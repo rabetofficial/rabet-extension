@@ -4,7 +4,7 @@ import Header from 'popup/components/common/Header';
 import ScrollBar from 'popup/components/common/ScrollBar';
 import ExtTitle from 'popup/components/common/Title/Ext';
 
-import Layout from './layout';
+import ClaimableBalancesComponent from 'popup/blocks/ClaimableBalances';
 
 const ClaimableBalances = () => (
   <>
@@ -14,7 +14,7 @@ const ClaimableBalances = () => (
       <div style={{ maxWidth: '360px' }}>
         <div className="content">
           <ExtTitle title="Claimable balance" className="mt-4" />
-          <Layout />
+          <ClaimableBalancesComponent />
         </div>
       </div>
     </ScrollBar>
