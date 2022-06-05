@@ -1,11 +1,10 @@
-import { Horizon } from 'stellar-sdk';
-
+import { AssetLike } from 'popup/models';
 import getJSONAssets from 'popup/utils/getJSONAssets';
 import { AssetImage } from 'popup/reducers/assetImages';
 
 import config from '../../config';
 
-const getAssetImages = async (assets: Horizon.BalanceLine[]) => {
+const getAssetImages = async <T extends AssetLike>(assets: T[]) => {
   const assetsInJSON = getJSONAssets(assets);
 
   const assetImagesResult = await fetch(`${config.ASSET_SERVER}`, {

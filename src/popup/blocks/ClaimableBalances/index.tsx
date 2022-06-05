@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import shorter from 'popup/utils/shorter';
 import FilledCopy from 'popup/svgs/FilledCopy';
 import Card from 'popup/components/common/Card';
+import Image from 'popup/components/common/Image';
+import humanizeAmount from 'helpers/humanizeAmount';
 import Button from 'popup/components/common/Button';
 import CopyText from 'popup/components/common/CopyText';
-import SelectOption from 'popup/components/common/SelectOption';
-import ButtonContainer from 'popup/components/common/ButtonContainer';
-
 import ShortRightArrow from 'popup/svgs/ShortRightArrow';
+import questionLogo from 'assets/images/question-circle.png';
+import ButtonContainer from 'popup/components/common/ButtonContainer';
+import { ClaimableBalanceWithAssetImage } from 'popup/api/getClaimableBalances';
 
 import * as S from './styles';
 
@@ -20,13 +22,7 @@ type ButtonComponentProps = {
 };
 
 type ClaimableBalancesType = {
-  amount: number;
-  assetImg: string;
-  assetCode: string;
-  fromDate: string;
-  toDate: string;
-  sponsorId: string;
-  status: ClaimableStatus;
+  claimableData: ClaimableBalanceWithAssetImage;
 };
 
 const ButtonComponent = ({
@@ -65,83 +61,56 @@ const ButtonComponent = ({
 };
 
 const ClaimableBalances = ({
-  amount,
-  assetImg,
-  assetCode,
-  fromDate,
-  toDate,
-  sponsorId,
-  status,
-}: ClaimableBalancesType) => {
-  const [selected, setSelected] = useState({
-    value: 'all',
-    label: 'All',
-  });
-
-  const onChange = (e) => {
-    setSelected(e);
-  };
-
-  const selectOptions = [
-    { value: 'all', label: 'All' },
-    { value: 'early', label: 'Early' },
-    { value: 'expired', label: 'Expired' },
-    { value: 'claimable', label: 'Claimable' },
-  ];
-
-  return (
-    <div className="mt-5">
-      <SelectOption
-        defaultValue={selectOptions[0]}
-        selected={selected}
-        variant="outlined"
-        items={selectOptions}
-        onChange={onChange}
-        isSearchable={false}
-      />
-      <Card type="secondary" className="my-4 py-4 px-[11px]">
-        <div>
-          <S.InfoTitle>Amount</S.InfoTitle>
-          <div className="inline-flex items-center">
-            <S.Info>{amount}</S.Info>
-            <S.Type>
-              <div className="mr-[2px]">
-                <img
-                  src={assetImg}
-                  alt="logo"
-                  width={18}
-                  height={18}
-                />
-              </div>
-              {assetCode}
-            </S.Type>
-          </div>
-        </div>
-        <div className="mt-4">
-          <S.InfoTitle>Period</S.InfoTitle>
+  claimableData,
+}: ClaimableBalancesType) => (
+  <div className="mt-5">
+    <Card type="secondary" className="my-4 py-4 px-[11px]">
+      <div>
+        <S.InfoTitle>Amount</S.InfoTitle>
+        <div className="inline-flex items-center">
           <S.Info>
-            <p>{fromDate}</p>
-            <span className="m-2.5">
-              <ShortRightArrow />
-            </span>
-            <p>{toDate}</p>
+            {humanizeAmount(
+              parseFloat(claimableData.amount).toString(),
+            )}
           </S.Info>
+          <S.Type>
+            <div className="mr-[2px]">
+              <Image
+                src={claimableData.logo}
+                alt="L"
+                style={{ width: 18, height: 18 }}
+                fallBack={questionLogo}
+              />
+            </div>
+
+            {claimableData.asset.split(':')[0]}
+          </S.Type>
         </div>
-        <div className="mt-4">
-          <S.InfoTitle>Sponsor</S.InfoTitle>
-          <CopyText
-            text={sponsorId}
-            custom={
-              <span className="text-[18px] inline-flex items-center gap-1">
-                <p>{shorter(sponsorId, 6)}</p>
-                <FilledCopy />
-              </span>
-            }
-          />
-        </div>
-        <ButtonComponent status={status} onClick={() => {}} />
-      </Card>
-    </div>
-  );
-};
+      </div>
+      <div className="mt-4">
+        <S.InfoTitle>Period</S.InfoTitle>
+        <S.Info>
+          <p>20 Feb 2022</p>
+          <span className="m-2.5">
+            <ShortRightArrow />
+          </span>
+          <p>25 Dec 2022</p>
+        </S.Info>
+      </div>
+      <div className="mt-4">
+        <S.InfoTitle>Sponsor</S.InfoTitle>
+        <CopyText
+          text={claimableData.sponsor}
+          custom={
+            <span className="text-[18px] inline-flex items-center gap-1">
+              <p>{shorter(claimableData.sponsor, 6)}</p>
+              <FilledCopy />
+            </span>
+          }
+        />
+      </div>
+      <ButtonComponent status="claimable" onClick={() => {}} />
+    </Card>
+  </div>
+);
 export default ClaimableBalances;

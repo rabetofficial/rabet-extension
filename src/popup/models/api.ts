@@ -8,3 +8,8 @@ export type CoinGeckoResult = {
   rub: number;
   cny: number;
 };
+
+export interface AssetLike {
+  asset_code: string;
+  asset_issuer: string;
+}

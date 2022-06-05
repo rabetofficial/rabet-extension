@@ -1,27 +1,22 @@
-import { Horizon } from 'stellar-sdk';
+import { AssetLike } from 'popup/models';
 
 type JSONAsset = {
   asset_code: string;
   asset_issuer: string;
 };
 
-const getJSONAssets = (
-  assets: Horizon.BalanceLine[],
+const getJSONAssets = <T extends AssetLike>(
+  assets: T[],
 ): JSONAsset[] => {
   const newAssets: JSONAsset[] = [];
 
   for (let i = 0; i < assets.length; i += 1) {
     const asset = assets[i];
 
-    if (
-      asset.asset_type === 'credit_alphanum4' ||
-      asset.asset_type === 'credit_alphanum12'
-    ) {
-      newAssets.push({
-        asset_code: asset.asset_code,
-        asset_issuer: asset.asset_issuer,
-      });
-    }
+    newAssets.push({
+      asset_code: asset.asset_code,
+      asset_issuer: asset.asset_issuer,
+    });
   }
 
   return newAssets;

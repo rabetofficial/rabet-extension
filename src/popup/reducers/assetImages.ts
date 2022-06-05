@@ -21,8 +21,7 @@ const assetImagesSlice = createSlice({
   name: 'assetImages',
   initialState,
   reducers: {
-    load: (state, action: PayloadAction<AssetImage[]>) =>
-      action.payload,
+    load: (_, action: PayloadAction<AssetImage[]>) => action.payload,
   },
 });
 
