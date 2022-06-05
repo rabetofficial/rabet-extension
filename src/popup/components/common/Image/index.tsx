@@ -1,27 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, CSSProperties } from 'react';
 
 type AppProps = {
   src: string;
   fallBack: string;
   alt?: string;
   className?: string;
+  style?: CSSProperties;
 };
 
-const Image = ({ src, alt, fallBack, className }: AppProps) => {
-  const [hadError, setHadError] = useState(false);
+const Image = ({
+  src,
+  alt,
+  fallBack,
+  className,
+  style,
+}: AppProps) => {
+  const [source, setSource] = useState(src);
 
   const handleError = () => {
-    setHadError(true);
+    setSource(fallBack);
   };
-
-  if (hadError) {
-    return <img src={fallBack} alt={alt} className={className} />;
-  }
 
   return (
     <img
-      src={src}
+      src={source}
       alt={alt}
+      style={style}
       className={className}
       onError={handleError}
     />
@@ -31,6 +35,7 @@ const Image = ({ src, alt, fallBack, className }: AppProps) => {
 Image.defaultProps = {
   alt: '',
   className: '',
+  style: {},
 };
 
 export default Image;
