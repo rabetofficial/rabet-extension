@@ -34,8 +34,8 @@ const ClaimableBalances = () => {
 
   if (isLoading) {
     return (
-      <ScrollBar isHidden maxHeight={278}>
-        <div className="flex justify-center items-center h-[278px]">
+      <ScrollBar isHidden>
+        <div className="flex justify-center items-center h-[600px]">
           <Loading size={60} />
         </div>
       </ScrollBar>
@@ -61,16 +61,16 @@ const ClaimableBalances = () => {
         <div style={{ maxWidth: '360px' }}>
           <div className="content">
             <ExtTitle title="Claimable balance" className="mt-4" />
-
-            <SelectOption
-              defaultValue={selectOptions[0]}
-              selected={selected}
-              variant="outlined"
-              items={selectOptions}
-              onChange={selectOnChange}
-              isSearchable={false}
-            />
-
+            <div className="mt-5">
+              <SelectOption
+                defaultValue={selectOptions[0]}
+                selected={selected}
+                variant="outlined"
+                items={selectOptions}
+                onChange={selectOnChange}
+                isSearchable={false}
+              />
+            </div>
             {cbs.map((cb) => (
               <ClaimableBalancesComponent
                 key={cb.id}
