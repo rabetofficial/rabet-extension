@@ -1,7 +1,6 @@
 import { Server, ServerApi } from 'stellar-sdk';
 
 import currentNetwork from 'popup/utils/currentNetwork';
-import ClaimableBalance from 'popup/blocks/Op/Advance/Operations/List/claimable‌‌‌Balance';
 import getAssetImages from './getAssetImages';
 
 export interface ClaimableBalanceWithAssetImage
@@ -37,7 +36,7 @@ const getClaimableBalances = async (publicKey: string) => {
     const totalCBs = [
       ...sponsorResult.records,
       ...claimantResult.records,
-    ];
+    ].filter((v, i, a) => a.findIndex((v2) => v2.id === v.id) === i);
 
     totalCBs.sort(
       (a, b) => b.last_modified_ledger - a.last_modified_ledger,
@@ -71,6 +70,7 @@ const getClaimableBalances = async (publicKey: string) => {
           logo,
         };
       });
+
     return claimableBalanceWithAssetLogo;
   } catch (e) {
     return [];

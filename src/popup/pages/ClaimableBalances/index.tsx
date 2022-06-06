@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ServerApi } from 'stellar-sdk';
 
 import Header from 'popup/components/common/Header';
 import ScrollBar from 'popup/components/common/ScrollBar';
@@ -10,11 +9,12 @@ import ClaimableBalancesComponent from 'popup/blocks/ClaimableBalances';
 import loadClaimableBalances from 'popup/features/loadClaimableBalances';
 import Loading from 'popup/components/Loading';
 import { ElementOption } from 'popup/models';
+import { ClaimableBalanceWithAssetImage } from 'popup/api/getClaimableBalances';
 
 const ClaimableBalances = () => {
   const activeAccount = useActiveAccount();
   const [isLoading, setIsLoading] = useState(true);
-  const [cbs, setCbs] = useState<ServerApi.ClaimableBalanceRecord[]>(
+  const [cbs, setCbs] = useState<ClaimableBalanceWithAssetImage[]>(
     [],
   );
 
@@ -72,7 +72,10 @@ const ClaimableBalances = () => {
             />
 
             {cbs.map((cb) => (
-              <ClaimableBalancesComponent claimableData={cb} />
+              <ClaimableBalancesComponent
+                key={cb.id}
+                claimableData={cb}
+              />
             ))}
           </div>
         </div>

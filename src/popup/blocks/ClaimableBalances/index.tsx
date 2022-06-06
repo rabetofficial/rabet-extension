@@ -1,4 +1,5 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 
 import shorter from 'popup/utils/shorter';
 import FilledCopy from 'popup/svgs/FilledCopy';
@@ -9,12 +10,19 @@ import Button from 'popup/components/common/Button';
 import CopyText from 'popup/components/common/CopyText';
 import ShortRightArrow from 'popup/svgs/ShortRightArrow';
 import questionLogo from 'assets/images/question-circle.png';
+import xlmLogo from 'assets/images/xlm-logo.svg';
+import useActiveAccount from 'popup/hooks/useActiveAccount';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 import { ClaimableBalanceWithAssetImage } from 'popup/api/getClaimableBalances';
+import {
+  predicateFromHorizonResponse,
+  getPredicateInformation,
+  PredicateInformation,
+} from 'popup/utils/stellarResolveClaimantPredicates';
 
 import * as S from './styles';
 
-type ClaimableStatus = 'claimable' | 'early' | 'expired';
+type ClaimableStatus = 'claimable' | 'upcoming' | 'expired';
 
 type ButtonComponentProps = {
   status: ClaimableStatus;
@@ -29,7 +37,7 @@ const ButtonComponent = ({
   status,
   onClick,
 }: ButtonComponentProps) => {
-  if (status === 'early') {
+  if (status === 'upcoming') {
     return (
       <S.Note>
         <S.Text>Will be claimable in 2 Days 3 Hours 30 Min</S.Text>
@@ -60,57 +68,136 @@ const ButtonComponent = ({
   );
 };
 
-const ClaimableBalances = ({
-  claimableData,
-}: ClaimableBalancesType) => (
-  <div className="mt-5">
-    <Card type="secondary" className="my-4 py-4 px-[11px]">
-      <div>
-        <S.InfoTitle>Amount</S.InfoTitle>
-        <div className="inline-flex items-center">
-          <S.Info>
-            {humanizeAmount(
-              parseFloat(claimableData.amount).toString(),
-            )}
-          </S.Info>
-          <S.Type>
-            <div className="mr-[2px]">
-              <Image
-                src={claimableData.logo}
-                alt="L"
-                style={{ width: 18, height: 18 }}
-                fallBack={questionLogo}
-              />
-            </div>
+const Period = (predicateInfo: PredicateInformation) => {
+  const { predicate } = predicateInfo;
 
-            {claimableData.asset.split(':')[0]}
-          </S.Type>
-        </div>
-      </div>
-      <div className="mt-4">
-        <S.InfoTitle>Period</S.InfoTitle>
-        <S.Info>
-          <p>20 Feb 2022</p>
+  console.log(predicate.validFrom * 1000);
+
+  /* {' '}
           <span className="m-2.5">
             <ShortRightArrow />
           </span>
-          <p>25 Dec 2022</p>
+          */
+
+  return (
+    <div className="mt-4">
+      <S.InfoTitle>Period</S.InfoTitle>
+      {!predicate.validTo && !predicate.validFrom && (
+        <S.Info>Unconditional</S.Info>
+      )}
+
+      {!predicate.validTo && predicate.validFrom && (
+        <S.Info>
+          <p>
+            Can be claimed from{' '}
+            {DateTime.fromSeconds(predicate.validFrom).toFormat(
+              'MMM dd yyyy',
+            )}
+          </p>
         </S.Info>
-      </div>
-      <div className="mt-4">
-        <S.InfoTitle>Sponsor</S.InfoTitle>
-        <CopyText
-          text={claimableData.sponsor}
-          custom={
-            <span className="text-[18px] inline-flex items-center gap-1">
-              <p>{shorter(claimableData.sponsor, 6)}</p>
-              <FilledCopy />
-            </span>
-          }
+      )}
+
+      {predicate.validTo && !predicate.validFrom && (
+        <S.Info>
+          <span>
+            Can be claimed until{' '}
+            {DateTime.fromSeconds(predicate.validTo).toFormat(
+              'MMM dd yyyy',
+            )}
+          </span>
+        </S.Info>
+      )}
+    </div>
+  );
+};
+
+const ClaimableBalances = ({
+  claimableData,
+}: ClaimableBalancesType) => {
+  const activeAccount = useActiveAccount();
+
+  const foundClaimant = claimableData.claimants.find(
+    (claimant) => claimant.destination === activeAccount.publicKey,
+  );
+
+  let predicateInformation: PredicateInformation;
+
+  if (!foundClaimant) {
+    predicateInformation = {
+      status: 'upcoming',
+      validFrom: 1685976895967,
+      validTo: 1685986895967,
+    };
+  } else {
+    const canClaim = predicateFromHorizonResponse(
+      foundClaimant.predicate,
+    );
+
+    predicateInformation = getPredicateInformation(
+      canClaim,
+      new Date(),
+    );
+  }
+
+  const [assetCode, assetIssuer] = claimableData.asset.split(':');
+  let showAssetCode = assetCode;
+  let showAssetLogo = claimableData.logo;
+
+  if (assetCode === 'native' && !assetIssuer) {
+    showAssetCode = 'XLM';
+    showAssetLogo = xlmLogo;
+  }
+
+  return (
+    <div className="mt-5">
+      <Card type="secondary" className="my-4 py-4 px-[11px]">
+        <div>
+          <S.InfoTitle>Amount</S.InfoTitle>
+          <div className="inline-flex items-center">
+            <S.Info>
+              {humanizeAmount(
+                parseFloat(claimableData.amount).toString(),
+              )}
+            </S.Info>
+            <S.Type>
+              <div className="mr-[2px]">
+                <Image
+                  src={showAssetLogo}
+                  alt="L"
+                  style={{ width: 18, height: 18 }}
+                  fallBack={questionLogo}
+                />
+              </div>
+
+              {showAssetCode}
+            </S.Type>
+          </div>
+        </div>
+
+        <Period predicate={predicateInformation} />
+
+        <div className="mt-4">
+          <S.InfoTitle>Sponsor</S.InfoTitle>
+          <CopyText
+            text={claimableData.sponsor}
+            custom={
+              <span className="text-[18px] inline-flex items-center gap-1">
+                <p>
+                  {activeAccount.publicKey === claimableData.sponsor
+                    ? 'Me'
+                    : shorter(claimableData.sponsor, 6)}
+                </p>
+                <FilledCopy />
+              </span>
+            }
+          />
+        </div>
+        <ButtonComponent
+          status={predicateInformation.status}
+          onClick={() => {}}
         />
-      </div>
-      <ButtonComponent status="claimable" onClick={() => {}} />
-    </Card>
-  </div>
-);
+      </Card>
+    </div>
+  );
+};
 export default ClaimableBalances;
