@@ -27,6 +27,7 @@ type ClaimableStatus = 'claimable' | 'upcoming' | 'expired';
 type ButtonComponentProps = {
   status: ClaimableStatus;
   onClick: () => void;
+  predicateInfo: PredicateInformation;
 };
 
 type ClaimableBalancesType = {
@@ -36,11 +37,40 @@ type ClaimableBalancesType = {
 const ButtonComponent = ({
   status,
   onClick,
+  predicateInfo,
 }: ButtonComponentProps) => {
   if (status === 'upcoming') {
+    const now = DateTime.now();
+    const then = DateTime.fromSeconds(predicateInfo.validFrom);
+
+    const diff = then.diff(now, [
+      'days',
+      'hours',
+      'minutes',
+      'seconds',
+    ]);
+
+    let message: string = '';
+
+    if (diff.values.days) {
+      message += `${diff.values.days} Days `;
+    }
+
+    if (diff.values.hours) {
+      message += `${diff.values.hours} Hours `;
+    }
+
+    if (diff.values.minutes) {
+      message += `${diff.values.minutes} Minutes `;
+    }
+
+    if (diff.values.seconds) {
+      message += `${diff.values.seconds} Seconds `;
+    }
+
     return (
       <S.Note>
-        <S.Text>Will be claimable in 2 Days 3 Hours 30 Min</S.Text>
+        <S.Text>Will be claimable in {message}</S.Text>
       </S.Note>
     );
   }
@@ -71,42 +101,74 @@ const ButtonComponent = ({
 const Period = (predicateInfo: PredicateInformation) => {
   const { predicate } = predicateInfo;
 
-  console.log(predicate.validFrom * 1000);
+  let element: JSX.Element;
 
-  /* {' '}
+  const validFromText = () => {
+    element = (
+      <S.Info>
+        <p>
+          Can be claimed from{' '}
+          {DateTime.fromSeconds(predicate.validFrom).toFormat(
+            'MMM dd yyyy',
+          )}
+        </p>
+      </S.Info>
+    );
+  };
+
+  const validUntilText = () => {
+    element = (
+      <S.Info>
+        <span>
+          Can be claimed until{' '}
+          {DateTime.fromSeconds(predicate.validTo).toFormat(
+            'MMM dd yyyy',
+          )}
+        </span>
+      </S.Info>
+    );
+  };
+
+  if (!predicate.validTo && !predicate.validFrom) {
+    element = <S.Info>Unconditional</S.Info>;
+  } else if (!predicate.validTo && predicate.validFrom) {
+    validFromText();
+  } else if (predicate.validTo && !predicate.validFrom) {
+    validUntilText();
+  } else {
+    const isDuring = predicate.validFrom < predicate.validTo;
+
+    if (isDuring) {
+      element = (
+        <S.Info>
+          {DateTime.fromSeconds(predicate.validFrom).toFormat(
+            'MMM dd yyyy',
+          )}
+
           <span className="m-2.5">
             <ShortRightArrow />
           </span>
-          */
+
+          {DateTime.fromSeconds(predicate.validTo).toFormat(
+            'MMM dd yyyy',
+          )}
+        </S.Info>
+      );
+    } else {
+      const now = Date.now();
+
+      if (now < predicate.validTo * 1000) {
+        validUntilText();
+      } else {
+        validFromText();
+      }
+    }
+  }
 
   return (
     <div className="mt-4">
       <S.InfoTitle>Period</S.InfoTitle>
-      {!predicate.validTo && !predicate.validFrom && (
-        <S.Info>Unconditional</S.Info>
-      )}
-
-      {!predicate.validTo && predicate.validFrom && (
-        <S.Info>
-          <p>
-            Can be claimed from{' '}
-            {DateTime.fromSeconds(predicate.validFrom).toFormat(
-              'MMM dd yyyy',
-            )}
-          </p>
-        </S.Info>
-      )}
-
-      {predicate.validTo && !predicate.validFrom && (
-        <S.Info>
-          <span>
-            Can be claimed until{' '}
-            {DateTime.fromSeconds(predicate.validTo).toFormat(
-              'MMM dd yyyy',
-            )}
-          </span>
-        </S.Info>
-      )}
+      {element}
     </div>
   );
 };
@@ -146,6 +208,22 @@ const ClaimableBalances = ({
   if (assetCode === 'native' && !assetIssuer) {
     showAssetCode = 'XLM';
     showAssetLogo = xlmLogo;
+  }
+
+  if (predicateInformation.validFrom) {
+    const now = DateTime.now();
+    const then = DateTime.fromSeconds(predicateInformation.validFrom);
+
+    const diff = then.diff(now, [
+      'days',
+      'hours',
+      'minutes',
+      'seconds',
+    ]);
+
+    if (diff.days > 10_000_000) {
+      return '';
+    }
   }
 
   return (
@@ -195,6 +273,7 @@ const ClaimableBalances = ({
         <ButtonComponent
           status={predicateInformation.status}
           onClick={() => {}}
+          predicateInfo={predicateInformation}
         />
       </Card>
     </div>
