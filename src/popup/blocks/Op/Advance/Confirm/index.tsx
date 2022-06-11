@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { Usage } from 'popup/models';
 import maxText from 'popup/utils/maxText';
-import shorter from 'popup/utils/shorter';
 import RouteName from 'popup/staticRes/routes';
 import Card from 'popup/components/common/Card';
 import Button from 'popup/components/common/Button';
@@ -13,6 +12,7 @@ import closeModalAction from 'popup/actions/modal/close';
 import operationMapper from 'popup/utils/operationMapper';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
+import ScrollBar from 'popup/components/common/ScrollBar';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import {
@@ -22,7 +22,6 @@ import {
 } from 'popup/components/Modals';
 
 import * as S from './styles';
-import ScrollBar from 'popup/components/common/ScrollBar';
 
 type ConfirmType = {
   usage: Usage;

@@ -27,7 +27,7 @@ import ManageDataOps from './List/ManageDataOps';
 import PaymentSendOps from './List/PaymentSendOps';
 import ChangeTrustOps from './List/ChangeTrustops';
 import PaymentReceiveOps from './List/PaymentReceiveOps';
-import ClaimableBalance from './List/claimable‌‌‌Balance';
+import ClaimableBalance from './List/CreateClaimableBalance';
 
 const Container = styled.div`
   .ops__option {
@@ -173,7 +173,7 @@ const Operation = ({
           type={opType.bumpSequence}
         />
       );
-    if (selected.value === opType.claimClaimableBalance)
+    if (selected.value === opType.createClaimableBalance)
       return <ClaimableBalance id={operation.id} />;
 
     return <PaymentOps id={operation.id} />;

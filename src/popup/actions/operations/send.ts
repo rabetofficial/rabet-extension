@@ -4,6 +4,7 @@ import {
   Server,
   Keypair,
   Horizon,
+  Claimant,
   Operation,
   TransactionBuilder,
 } from 'stellar-sdk';
@@ -346,6 +347,41 @@ export default async () => {
             transaction = transaction.addOperation(
               Operation.pathPaymentStrictReceive(params),
             );
+          } else if (
+            operations[i].type ===
+            operationsName.createClaimableBalance
+          ) {
+            let asset;
+            if (operations[i].asset.asset_type === 'native') {
+              asset = Asset.native();
+            } else {
+              asset = new Asset(
+                operations[i].asset.asset_code,
+                operations[i].asset.asset_issuer,
+              );
+            }
+
+            const sDate = +operations[i].startDate / 1000;
+            const eDate = +operations[i].endDate / 1000;
+
+            const canClaim = Claimant.predicateAnd(
+              Claimant.predicateNot(
+                Claimant.predicateBeforeAbsoluteTime(
+                  sDate.toFixed(0),
+                ),
+              ),
+              Claimant.predicateBeforeAbsoluteTime(eDate.toFixed(0)),
+            );
+
+            transaction = transaction.addOperation(
+              Operation.createClaimableBalance({
+                asset,
+                amount: operations[i].amount,
+                claimants: [
+                  new Claimant(operations[i].destination, canClaim),
+                ],
+              }),
+            );
           }
         }
 
@@ -362,6 +398,7 @@ export default async () => {
 
     return [true, result.hash];
   } catch (err: any) {
+    console.log(err);
     if (err && err.response && err.response.data) {
       return [false, showError(err.response.data)];
     }

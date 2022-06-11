@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { Horizon } from 'stellar-sdk';
 
 import formatBalance from './formatBalance';
@@ -340,6 +341,34 @@ export default (operation: any): OpMapped => {
           value: `${formatBalance(operation.buying)} ${
             operation.buyingAsset.asset_code || 'XLM'
           }`,
+        },
+      ],
+    };
+
+    return mapper;
+  }
+
+  if (operation.type === operations.createClaimableBalance) {
+    const mapper = {
+      title: 'Create Claimable Balance',
+      info: [
+        {
+          title: 'Destination',
+          value: operation.destination,
+        },
+        {
+          title: 'Amount',
+          value: `${formatBalance(operation.amount)} ${
+            operation.asset.asset_code || 'XLM'
+          }`,
+        },
+        {
+          title: 'Claimable in',
+          value: `${DateTime.fromJSDate(operation.startDate).toFormat(
+            'yyyy LLL dd',
+          )} > ${DateTime.fromJSDate(operation.endDate).toFormat(
+            'yyyy LLL dd',
+          )}`,
         },
       ],
     };
