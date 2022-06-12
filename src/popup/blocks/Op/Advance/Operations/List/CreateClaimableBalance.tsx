@@ -18,6 +18,8 @@ import changeOperationAction from 'popup/actions/operations/change';
 type FormValidate = {
   amount: string;
   destination: string;
+  startDate: string;
+  endDate: string;
 };
 
 type AppProps = {
@@ -63,7 +65,15 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
     const hasError = {
       amount: false,
       destination: false,
+      startDate: false,
+      endDate: false,
     };
+
+    hasError.startDate = true;
+    errors.startDate = 'some errors';
+
+    hasError.endDate = true;
+    errors.endDate = 'some new errors';
 
     const sDate =
       DateTime.fromJSDate(startDate).toFormat('yyyy LLL dd');
@@ -143,7 +153,7 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
         });
       }
     }
-
+    console.warn(errors);
     return errors;
   };
 
@@ -212,27 +222,45 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
             )}
           </Field>
 
-          <div className="flex items-center space-x-4 mt-2">
+          <div className="flex items-start space-x-4 mt-2">
             <div className="flex-1">
               <label className="label-primary">From</label>
-              <DatePicker
-                value={startDate}
-                onChange={(e) => {
-                  onChangeDate(e, 'start');
-                }}
-                className="my-2"
-              />
+              <Field name="startDate">
+                {({ meta }) => (
+                  <>
+                    <DatePicker
+                      value={startDate}
+                      onChange={(e) => {
+                        onChangeDate(e, 'start');
+                      }}
+                      className="my-2"
+                    />
+                    <span className="error">
+                      {meta.error || meta.submitError}
+                    </span>
+                  </>
+                )}
+              </Field>
             </div>
 
             <div className="flex-1">
               <label className="label-primary">To</label>
-              <DatePicker
-                value={endDate}
-                onChange={(e) => {
-                  onChangeDate(e, 'end');
-                }}
-                className="my-2"
-              />
+              <Field name="endDate">
+                {({ meta }) => (
+                  <>
+                    <DatePicker
+                      value={endDate}
+                      onChange={(e) => {
+                        onChangeDate(e, 'end');
+                      }}
+                      className="my-2"
+                    />
+                    <span className="error">
+                      {meta.error || meta.submitError}
+                    </span>
+                  </>
+                )}
+              </Field>
             </div>
           </div>
 
