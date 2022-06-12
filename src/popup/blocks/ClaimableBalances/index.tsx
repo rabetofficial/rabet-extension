@@ -1,19 +1,23 @@
 import React from 'react';
 import { DateTime } from 'luxon';
+import { useNavigate } from 'react-router-dom';
 
+import timeout from 'popup/utils/timeout';
 import shorter from 'popup/utils/shorter';
+import RouteName from 'popup/staticRes/routes';
 import FilledCopy from 'popup/svgs/FilledCopy';
 import Card from 'popup/components/common/Card';
+import xlmLogo from 'assets/images/xlm-logo.svg';
 import Image from 'popup/components/common/Image';
 import humanizeAmount from 'helpers/humanizeAmount';
 import Button from 'popup/components/common/Button';
 import CopyText from 'popup/components/common/CopyText';
 import ShortRightArrow from 'popup/svgs/ShortRightArrow';
 import questionLogo from 'assets/images/question-circle.png';
-import xlmLogo from 'assets/images/xlm-logo.svg';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 import { ClaimableBalanceWithAssetImage } from 'popup/api/getClaimableBalances';
+import claimClaimableBalanceAction from 'popup/actions/operations/claimClaimableBalance';
 import {
   predicateFromHorizonResponse,
   getPredicateInformation,
@@ -32,6 +36,11 @@ type ButtonComponentProps = {
 
 type ClaimableBalancesType = {
   claimableData: ClaimableBalanceWithAssetImage;
+};
+
+type PeriodProps = {
+  createdAt: string;
+  predicate: PredicateInformation;
 };
 
 const ButtonComponent = ({
@@ -53,19 +62,19 @@ const ButtonComponent = ({
     let message: string = '';
 
     if (diff.values.days) {
-      message += `${diff.values.days} Days `;
+      message += `${diff.values.days.toFixed(0)} Days `;
     }
 
     if (diff.values.hours) {
-      message += `${diff.values.hours} Hours `;
+      message += `${diff.values.hours.toFixed(0)} Hours `;
     }
 
     if (diff.values.minutes) {
-      message += `${diff.values.minutes} Minutes `;
+      message += `${diff.values.minutes.toFixed(0)} Minutes `;
     }
 
     if (diff.values.seconds) {
-      message += `${diff.values.seconds} Seconds `;
+      message += `${diff.values.seconds.toFixed(0)} Seconds `;
     }
 
     return (
@@ -98,50 +107,30 @@ const ButtonComponent = ({
   );
 };
 
-const Period = (predicateInfo: PredicateInformation) => {
-  const { predicate } = predicateInfo;
-
+const Period = ({ predicate, createdAt }: PeriodProps) => {
   let element: JSX.Element;
 
   const validFromText = () => {
     element = (
       <S.Info>
         <p>
-          Can be claimed from{' '}
           {DateTime.fromSeconds(predicate.validFrom).toFormat(
             'MMM dd yyyy',
           )}
+          <span className="m-2.5">
+            <ShortRightArrow />
+          </span>
+          infinity
         </p>
       </S.Info>
     );
   };
 
-  const validUntilText = () => {
+  const validUntilText = (isFinite: boolean) => {
     element = (
       <S.Info>
         <span>
-          Can be claimed until{' '}
-          {DateTime.fromSeconds(predicate.validTo).toFormat(
-            'MMM dd yyyy',
-          )}
-        </span>
-      </S.Info>
-    );
-  };
-
-  if (!predicate.validTo && !predicate.validFrom) {
-    element = <S.Info>Unconditional</S.Info>;
-  } else if (!predicate.validTo && predicate.validFrom) {
-    validFromText();
-  } else if (predicate.validTo && !predicate.validFrom) {
-    validUntilText();
-  } else {
-    const isDuring = predicate.validFrom < predicate.validTo;
-
-    if (isDuring) {
-      element = (
-        <S.Info>
-          {DateTime.fromSeconds(predicate.validFrom).toFormat(
+          {DateTime.fromJSDate(new Date(createdAt)).toFormat(
             'MMM dd yyyy',
           )}
 
@@ -149,20 +138,42 @@ const Period = (predicateInfo: PredicateInformation) => {
             <ShortRightArrow />
           </span>
 
-          {DateTime.fromSeconds(predicate.validTo).toFormat(
-            'MMM dd yyyy',
+          {isFinite ? (
+            <>
+              {DateTime.fromSeconds(predicate.validTo).toFormat(
+                'MMM dd yyyy',
+              )}
+            </>
+          ) : (
+            <>Infinity</>
           )}
-        </S.Info>
-      );
-    } else {
-      const now = Date.now();
+        </span>
+      </S.Info>
+    );
+  };
 
-      if (now < predicate.validTo * 1000) {
-        validUntilText();
-      } else {
-        validFromText();
-      }
-    }
+  if (!predicate.validTo && !predicate.validFrom) {
+    validUntilText(false);
+  } else if (!predicate.validTo && predicate.validFrom) {
+    validFromText();
+  } else if (predicate.validTo && !predicate.validFrom) {
+    validUntilText(true);
+  } else {
+    element = (
+      <S.Info>
+        {DateTime.fromSeconds(predicate.validFrom).toFormat(
+          'MMM dd yyyy',
+        )}
+
+        <span className="m-2.5">
+          <ShortRightArrow />
+        </span>
+
+        {DateTime.fromSeconds(predicate.validTo).toFormat(
+          'MMM dd yyyy',
+        )}
+      </S.Info>
+    );
   }
 
   return (
@@ -176,6 +187,7 @@ const Period = (predicateInfo: PredicateInformation) => {
 const ClaimableBalances = ({
   claimableData,
 }: ClaimableBalancesType) => {
+  const navigate = useNavigate();
   const activeAccount = useActiveAccount();
 
   const foundClaimant = claimableData.claimants.find(
@@ -222,9 +234,33 @@ const ClaimableBalances = ({
     ]);
 
     if (diff.days > 10_000_000) {
-      return '';
+      return <span />;
     }
   }
+
+  const handleSubmit = async () => {
+    navigate(RouteName.LoadingNetwork);
+
+    const [isSuccessful, message] = await claimClaimableBalanceAction(
+      claimableData,
+    );
+
+    await timeout(100);
+
+    if (isSuccessful) {
+      navigate(RouteName.Sucess, {
+        state: {
+          message,
+        },
+      });
+    } else {
+      navigate(RouteName.Error, {
+        state: {
+          message,
+        },
+      });
+    }
+  };
 
   return (
     <div className="mt-5">
@@ -252,7 +288,10 @@ const ClaimableBalances = ({
           </div>
         </div>
 
-        <Period predicate={predicateInformation} />
+        <Period
+          predicate={predicateInformation}
+          createdAt={claimableData.last_modified_time}
+        />
 
         <div className="mt-4">
           <S.InfoTitle>Sponsor</S.InfoTitle>
@@ -272,7 +311,7 @@ const ClaimableBalances = ({
         </div>
         <ButtonComponent
           status={predicateInformation.status}
-          onClick={() => {}}
+          onClick={handleSubmit}
           predicateInfo={predicateInformation}
         />
       </Card>

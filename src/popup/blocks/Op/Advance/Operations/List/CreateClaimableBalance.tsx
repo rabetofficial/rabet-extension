@@ -74,6 +74,9 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
     if (sDate === eDate) {
       hasError.amount = true;
       errors.amount = 'Dates cannot be the same.';
+    } else if (+startDate > +endDate) {
+      hasError.amount = true;
+      errors.amount = 'End date should be after start date.';
     }
 
     if (!values.amount) {
