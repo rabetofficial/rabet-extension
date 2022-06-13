@@ -2,6 +2,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import { useNavigate } from 'react-router-dom';
 
+import Infinity from 'popup/svgs/Infinity';
 import timeout from 'popup/utils/timeout';
 import shorter from 'popup/utils/shorter';
 import RouteName from 'popup/staticRes/routes';
@@ -25,6 +26,8 @@ import {
 } from 'popup/utils/stellarResolveClaimantPredicates';
 
 import * as S from './styles';
+import TooltipLabel from 'popup/components/common/TooltipLabel';
+import Tooltips from 'popup/components/common/Tooltips';
 
 type ClaimableStatus = 'claimable' | 'upcoming' | 'expired';
 
@@ -70,12 +73,12 @@ const ButtonComponent = ({
     }
 
     if (diff.values.minutes) {
-      message += `${diff.values.minutes.toFixed(0)} Minutes `;
+      message += `${diff.values.minutes.toFixed(0)} Min `;
     }
 
-    if (diff.values.seconds) {
-      message += `${diff.values.seconds.toFixed(0)} Seconds `;
-    }
+    // if (diff.values.seconds) {
+    //   message += `${diff.values.seconds.toFixed(0)} Sec `;
+    // }
 
     return (
       <S.Note>
@@ -117,11 +120,13 @@ const Period = ({ predicate, createdAt }: PeriodProps) => {
           {DateTime.fromSeconds(predicate.validFrom).toFormat(
             'MMM dd yyyy',
           )}
-          <span className="m-2.5">
-            <ShortRightArrow />
-          </span>
-          infinity
         </p>
+        <span className="m-2.5">
+          <ShortRightArrow />
+        </span>
+        <Tooltips text="Infinit" placement="top" isVisible controlled>
+          <Infinity />
+        </Tooltips>
       </S.Info>
     );
   };
@@ -145,7 +150,14 @@ const Period = ({ predicate, createdAt }: PeriodProps) => {
               )}
             </>
           ) : (
-            <>Infinity</>
+            <Tooltips
+              text="Infinit"
+              placement="top"
+              isVisible
+              controlled
+            >
+              <Infinity />
+            </Tooltips>
           )}
         </span>
       </S.Info>

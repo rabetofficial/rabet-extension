@@ -18,10 +18,14 @@ const ClaimableBalances = () => {
     [],
   );
 
-  const [selected, setSelected] = useState<ElementOption<string>>({
-    value: 'all',
-    label: 'All',
-  });
+  const selectOptions = [
+    { value: 'all', label: 'All' },
+    { value: 'pending', label: 'Pending' },
+    { value: 'expired', label: 'Expired' },
+    { value: 'claimable', label: 'Claimable' },
+  ];
+
+  const [selected, setSelected] = useState(selectOptions[0]);
 
   useEffect(() => {
     loadClaimableBalances(activeAccount.publicKey).then(
@@ -42,16 +46,9 @@ const ClaimableBalances = () => {
     );
   }
 
-  const selectOnChange = (e: ElementOption<string>) => {
+  const selectOnChange = (e: ElementOption) => {
     setSelected(e);
   };
-
-  const selectOptions = [
-    { value: 'all', label: 'All' },
-    { value: 'pending', label: 'Pending' },
-    { value: 'expired', label: 'Expired' },
-    { value: 'claimable', label: 'Claimable' },
-  ];
 
   return (
     <>
