@@ -54,20 +54,19 @@ const ClaimableBalances = () => {
     <>
       <Header />
 
-      <ScrollBar isHidden maxHeight={540}>
-        <div style={{ maxWidth: '360px' }}>
+      <ScrollBar isHidden>
+        <div style={{ maxWidth: '360px', maxHeight: '600px' }}>
           <div className="content">
             <ExtTitle title="Claimable balance" className="mt-4" />
-            <div className="mt-5">
-              <SelectOption
-                defaultValue={selectOptions[0]}
-                selected={selected}
-                variant="outlined"
-                items={selectOptions}
-                onChange={selectOnChange}
-                isSearchable={false}
-              />
-            </div>
+            <SelectOption
+              className="mt-5"
+              defaultValue={selectOptions[0]}
+              selected={selected}
+              variant="outlined"
+              items={selectOptions}
+              onChange={selectOnChange}
+              isSearchable={false}
+            />
             {cbs.map((cb) => (
               <ClaimableBalancesComponent
                 key={cb.id}
