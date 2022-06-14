@@ -73,6 +73,8 @@ const ClaimableBalances = () => {
                 claimableData={cb}
               />
             ))}
+
+            {!cbs.length && <p>You have no claimable balances</p>}
           </div>
         </div>
       </ScrollBar>
