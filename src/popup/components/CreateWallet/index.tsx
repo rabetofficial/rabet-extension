@@ -108,7 +108,9 @@ const CreateWallet = ({
                 />
 
                 <Button
-                  style={{ marginTop: '12px' }}
+                  style={{
+                    marginTop: usage === 'desktop' ? '12px' : '8px',
+                  }}
                   variant="default"
                   size="medium"
                   content="Back"
