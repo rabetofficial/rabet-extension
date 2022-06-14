@@ -24,10 +24,9 @@ import {
   getPredicateInformation,
   PredicateInformation,
 } from 'popup/utils/stellarResolveClaimantPredicates';
+import Tooltips from 'popup/components/common/Tooltips';
 
 import * as S from './styles';
-import TooltipLabel from 'popup/components/common/TooltipLabel';
-import Tooltips from 'popup/components/common/Tooltips';
 
 type ClaimableStatus = 'claimable' | 'upcoming' | 'expired';
 
@@ -55,12 +54,7 @@ const ButtonComponent = ({
     const now = DateTime.now();
     const then = DateTime.fromSeconds(predicateInfo.validFrom);
 
-    const diff = then.diff(now, [
-      'days',
-      'hours',
-      'minutes',
-      'seconds',
-    ]);
+    const diff = then.diff(now, ['days', 'hours', 'minutes']);
 
     let message: string = '';
 
@@ -73,16 +67,16 @@ const ButtonComponent = ({
     }
 
     if (diff.values.minutes) {
-      message += `${diff.values.minutes.toFixed(0)} Min `;
+      if (diff.values.minutes < 1) {
+        message += `less than 1 Min `;
+      } else {
+        message += `${diff.values.minutes.toFixed(0)} Min `;
+      }
     }
-
-    // if (diff.values.seconds) {
-    //   message += `${diff.values.seconds.toFixed(0)} Sec `;
-    // }
 
     return (
       <S.Note>
-        <S.Text>Will be claimable in {message}</S.Text>
+        <S.Text>Claimable in {message}</S.Text>
       </S.Note>
     );
   }
@@ -124,7 +118,12 @@ const Period = ({ predicate, createdAt }: PeriodProps) => {
         <span className="m-2.5">
           <ShortRightArrow />
         </span>
-        <Tooltips text="Infinit" placement="top" isVisible controlled>
+        <Tooltips
+          text="Infinite"
+          placement="top"
+          isVisible
+          controlled
+        >
           <Infinity />
         </Tooltips>
       </S.Info>
@@ -151,7 +150,7 @@ const Period = ({ predicate, createdAt }: PeriodProps) => {
             </>
           ) : (
             <Tooltips
-              text="Infinit"
+              text="Infinite"
               placement="top"
               isVisible
               controlled
@@ -238,12 +237,7 @@ const ClaimableBalances = ({
     const now = DateTime.now();
     const then = DateTime.fromSeconds(predicateInformation.validFrom);
 
-    const diff = then.diff(now, [
-      'days',
-      'hours',
-      'minutes',
-      'seconds',
-    ]);
+    const diff = then.diff(now, ['days', 'hours', 'minutes']);
 
     if (diff.days > 10_000_000) {
       return <span />;

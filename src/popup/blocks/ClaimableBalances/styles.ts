@@ -42,7 +42,7 @@ export const Note = styled.div`
 `;
 
 export const Text = styled.p`
-  font-size: 14px;
+  font-size: 16px;
   white-space: nowrap;
   font-weight: normal;
   font-stretch: normal;
