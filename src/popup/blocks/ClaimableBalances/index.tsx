@@ -115,15 +115,12 @@ const Period = ({ predicate, createdAt }: PeriodProps) => {
             'MMM dd yyyy',
           )}
         </p>
-        <span className="m-2.5">
+
+        <div className="m-2.5">
           <ShortRightArrow />
-        </span>
-        <Tooltips
-          text="Infinite"
-          placement="top"
-          isVisible
-          controlled
-        >
+        </div>
+
+        <Tooltips text="Infinite" placement="top" controlled>
           <Infinity />
         </Tooltips>
       </S.Info>
@@ -133,32 +130,25 @@ const Period = ({ predicate, createdAt }: PeriodProps) => {
   const validUntilText = (isFinite: boolean) => {
     element = (
       <S.Info>
-        <span>
-          {DateTime.fromJSDate(new Date(createdAt)).toFormat(
-            'MMM dd yyyy',
-          )}
+        {DateTime.fromJSDate(new Date(createdAt)).toFormat(
+          'MMM dd yyyy',
+        )}
 
-          <span className="m-2.5">
-            <ShortRightArrow />
-          </span>
+        <div className="m-2.5">
+          <ShortRightArrow />
+        </div>
 
-          {isFinite ? (
-            <>
-              {DateTime.fromSeconds(predicate.validTo).toFormat(
-                'MMM dd yyyy',
-              )}
-            </>
-          ) : (
-            <Tooltips
-              text="Infinite"
-              placement="top"
-              isVisible
-              controlled
-            >
-              <Infinity />
-            </Tooltips>
-          )}
-        </span>
+        {isFinite ? (
+          <>
+            {DateTime.fromSeconds(predicate.validTo).toFormat(
+              'MMM dd yyyy',
+            )}
+          </>
+        ) : (
+          <Tooltips text="Infinite" placement="top" controlled>
+            <Infinity />
+          </Tooltips>
+        )}
       </S.Info>
     );
   };
@@ -176,9 +166,9 @@ const Period = ({ predicate, createdAt }: PeriodProps) => {
           'MMM dd yyyy',
         )}
 
-        <span className="m-2.5">
+        <div className="m-2.5">
           <ShortRightArrow />
-        </span>
+        </div>
 
         {DateTime.fromSeconds(predicate.validTo).toFormat(
           'MMM dd yyyy',

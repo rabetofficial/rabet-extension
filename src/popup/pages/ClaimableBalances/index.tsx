@@ -8,8 +8,8 @@ import SelectOption from 'popup/components/common/SelectOption';
 import ClaimableBalancesComponent from 'popup/blocks/ClaimableBalances';
 import loadClaimableBalances from 'popup/features/loadClaimableBalances';
 import Loading from 'popup/components/Loading';
-import { ElementOption } from 'popup/models';
 import { ClaimableBalanceWithAssetImage } from 'popup/api/getClaimableBalances';
+import Nodata from 'popup/components/common/Nodata';
 
 const ClaimableBalances = () => {
   const activeAccount = useActiveAccount();
@@ -46,18 +46,17 @@ const ClaimableBalances = () => {
     );
   }
 
-  const selectOnChange = (e: ElementOption) => {
+  const selectOnChange = (e) => {
     setSelected(e);
   };
 
   return (
     <>
       <Header />
-
-      <ScrollBar isHidden>
-        <div style={{ maxWidth: '360px', maxHeight: '600px' }}>
-          <div className="content">
-            <ExtTitle title="Claimable balance" className="mt-4" />
+      <ScrollBar isHidden maxHeight={540}>
+        <div className="content">
+          <ExtTitle title="Claimable balance" className="mt-4" />
+          <div style={{ height: !cbs.length ? '160px' : '' }}>
             <SelectOption
               className="mt-5"
               defaultValue={selectOptions[0]}
@@ -67,15 +66,19 @@ const ClaimableBalances = () => {
               onChange={selectOnChange}
               isSearchable={false}
             />
-            {cbs.map((cb) => (
-              <ClaimableBalancesComponent
-                key={cb.id}
-                claimableData={cb}
-              />
-            ))}
-
-            {!cbs.length && <p>You have no claimable balances</p>}
           </div>
+          {cbs.map((cb) => (
+            <ClaimableBalancesComponent
+              key={cb.id}
+              claimableData={cb}
+            />
+          ))}
+          {!cbs.length && (
+            <Nodata
+              msg="You have no claimable balance"
+              className="text-base"
+            />
+          )}
         </div>
       </ScrollBar>
     </>
