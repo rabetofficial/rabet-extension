@@ -16,6 +16,7 @@ type AppProps<T = string> = {
   isSearchable?: boolean;
   className?: string;
   width?: number | null;
+  height?: number | null;
 };
 
 const SelectOption = <T extends unknown>({
@@ -27,6 +28,7 @@ const SelectOption = <T extends unknown>({
   selected,
   className,
   width,
+  height,
   indicatorSize,
 }: AppProps<T>) => {
   const borderColor = variant === 'default' ? '#f8f8f8' : '#f3f3f3';
@@ -53,6 +55,7 @@ const SelectOption = <T extends unknown>({
     <Container
       className={`${variant} ${className} indicator-${indicatorSize}`}
       width={width}
+      height={height}
     >
       <Select
         classNamePrefix="ops"
@@ -74,6 +77,7 @@ SelectOption.defaultProps = {
   selected: {},
   className: '',
   width: null,
+  height: null,
   indicatorSize: 'large',
 };
 

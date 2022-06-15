@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const Container = styled.div.attrs(
-  (props: { width: number | null }) => ({
+  (props: { width: number | null; height: number | null }) => ({
     width: props.width,
+    height: props.height,
   }),
 )`
   .ops__control {
@@ -18,7 +19,8 @@ const Container = styled.div.attrs(
   }
 
   .ops__menu-list {
-    max-height: 200px;
+    height: ${(props) =>
+      props.height ? `${props.height}px` : '200px'};
     padding-top: 0;
     padding-bottom: 0;
   }

@@ -58,6 +58,7 @@ const ClaimableBalances = () => {
           <ExtTitle title="Claimable balance" className="mt-4" />
           <div style={{ height: !cbs.length ? '160px' : '' }}>
             <SelectOption
+              height={500}
               className="mt-5"
               defaultValue={selectOptions[0]}
               selected={selected}
