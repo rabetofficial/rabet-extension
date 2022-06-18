@@ -15,11 +15,13 @@ const Container = styled.div.attrs(
 
   .ops__menu {
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(134, 146, 164, 0.08);
+    box-shadow: 0 1px 10px rgba(134, 146, 164, 0.08);
+    margin-bottom: 0;
+    margin-top: 2px;
   }
 
   .ops__menu-list {
-    height: ${(props) =>
+    max-height: ${(props) =>
       props.height ? `${props.height}px` : '200px'};
     padding-top: 0;
     padding-bottom: 0;
@@ -110,7 +112,8 @@ const Container = styled.div.attrs(
   }
 
   .ops__menu-list {
-    max-height: 160px;
+    max-height: ${(props) =>
+      props.height ? `${props.height}px` : '160px'};
   }
 }
 

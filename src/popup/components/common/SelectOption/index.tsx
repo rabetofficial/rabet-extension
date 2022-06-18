@@ -57,6 +57,7 @@ const SelectOption = <T extends unknown>({
       width={width}
       height={height}
     >
+      {/* menuIsOpen */}
       <Select
         classNamePrefix="ops"
         closeMenuOnSelect
