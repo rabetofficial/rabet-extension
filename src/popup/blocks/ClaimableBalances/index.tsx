@@ -28,7 +28,7 @@ import Tooltips from 'popup/components/common/Tooltips';
 
 import * as S from './styles';
 
-type ClaimableStatus = 'claimable' | 'upcoming' | 'expired';
+type ClaimableStatus = 'all' | 'claimable' | 'upcoming' | 'expired';
 
 type ButtonComponentProps = {
   status: ClaimableStatus;
@@ -38,6 +38,7 @@ type ButtonComponentProps = {
 
 type ClaimableBalancesType = {
   claimableData: ClaimableBalanceWithAssetImage;
+  selected: ClaimableStatus;
 };
 
 type PeriodProps = {
@@ -220,6 +221,7 @@ const Period = ({
 
 const ClaimableBalances = ({
   claimableData,
+  selected,
 }: ClaimableBalancesType) => {
   const navigate = useNavigate();
   const activeAccount = useActiveAccount();
@@ -245,6 +247,13 @@ const ClaimableBalances = ({
       canClaim,
       new Date(),
     );
+  }
+
+  if (
+    selected !== 'all' &&
+    selected !== predicateInformation.status
+  ) {
+    return <span />;
   }
 
   const [assetCode, assetIssuer] = claimableData.asset.split(':');

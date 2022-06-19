@@ -20,7 +20,7 @@ const ClaimableBalances = () => {
 
   const selectOptions = [
     { value: 'all', label: 'All' },
-    { value: 'pending', label: 'Pending' },
+    { value: 'upcoming', label: 'Pending' },
     { value: 'expired', label: 'Expired' },
     { value: 'claimable', label: 'Claimable' },
   ];
@@ -72,6 +72,7 @@ const ClaimableBalances = () => {
             <ClaimableBalancesComponent
               key={cb.id}
               claimableData={cb}
+              selected={selected.value}
             />
           ))}
           {!cbs.length && (
