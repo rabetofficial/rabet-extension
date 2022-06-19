@@ -14,6 +14,11 @@ export const Confirm = styled.div`
   position: relative;
 `;
 
+export const Info = styled.div`
+  display: inline-flex;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.primary.dark};
+`;
 export const Source = styled.p`
   margin: 0;
   display: flex;

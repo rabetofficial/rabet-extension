@@ -21,6 +21,7 @@ import {
   openSucessModal,
 } from 'popup/components/Modals';
 
+import ShortRightArrow from 'popup/svgs/ShortRightArrow';
 import * as S from './styles';
 
 type ConfirmType = {
@@ -96,11 +97,13 @@ const Confirm = ({ onClose, usage }: ConfirmType) => {
                         <S.ValueTitle>{infos.title} </S.ValueTitle>
 
                         {infos.title === 'Claimable in' ? (
-                          <>
+                          <S.Info>
                             <p>{infos.value[0]}</p>
-                            {'->'}
+                            <div className="m-2.5">
+                              <ShortRightArrow />
+                            </div>
                             <p>{infos.value[1]}</p>
-                          </>
+                          </S.Info>
                         ) : (
                           <>
                             <S.Value>{infos.value}</S.Value>
