@@ -14,6 +14,7 @@ import controlNumberInput from 'popup/utils/controlNumberInput';
 import SelectOption from 'popup/components/common/SelectOption';
 import isInsufficientAsset from 'popup/utils/isInsufficientAsset';
 import changeOperationAction from 'popup/actions/operations/change';
+import getMaxBalance from 'popup/utils/maxBalance';
 
 type FormValidate = {
   amount: string;
@@ -28,8 +29,11 @@ type AppProps = {
 
 const CreateClaimableBalance = ({ id }: AppProps) => {
   const [currentDate] = useState(new Date());
+  const tomorrow = new Date(new Date());
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
   const [startDate, setStartDate] = useState(currentDate);
-  const [endDate, setEndDate] = useState(currentDate);
+  const [endDate, setEndDate] = useState(tomorrow);
 
   const account = useActiveAccount();
 
@@ -69,12 +73,6 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
       endDate: false,
     };
 
-    hasError.startDate = true;
-    errors.startDate = 'some errors';
-
-    hasError.endDate = true;
-    errors.endDate = 'some new errors';
-
     const sDate =
       DateTime.fromJSDate(startDate).toFormat('yyyy LLL dd');
 
@@ -82,11 +80,11 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
       DateTime.fromJSDate(endDate).toFormat('yyyy LLL dd');
 
     if (sDate === eDate) {
-      hasError.amount = true;
-      errors.amount = 'Dates cannot be the same.';
+      hasError.startDate = true;
+      errors.startDate = 'Dates cannot be the same.';
     } else if (+startDate > +endDate) {
-      hasError.amount = true;
-      errors.amount = 'End date should be after start date.';
+      hasError.endDate = true;
+      errors.endDate = 'End date should be after start date.';
     }
 
     if (!values.amount) {
@@ -136,7 +134,13 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
       }
     }
 
-    if (!hasError.amount && !hasError.destination && values.asset) {
+    if (
+      !hasError.amount &&
+      !hasError.destination &&
+      !hasError.startDate &&
+      !hasError.endDate &&
+      values.asset
+    ) {
       const accountData = await getAccountData(values.destination);
 
       const [, resultCode] = isTransferable(values, accountData);
@@ -156,7 +160,7 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
         });
       }
     }
-    console.warn(errors);
+
     return errors;
   };
 
@@ -164,6 +168,13 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
     <Form
       onSubmit={() => {}}
       validate={(values: FormValidate) => validateForm(values)}
+      mutators={{
+        setMax: (_, s, u) => {
+          u.changeValue(s, 'amount', () =>
+            getMaxBalance(selected.value, account),
+          );
+        },
+      }}
       render={({ submitError, handleSubmit, form }) => (
         <form
           className="form"

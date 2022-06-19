@@ -94,7 +94,18 @@ const Confirm = ({ onClose, usage }: ConfirmType) => {
                     {op.info.map((infos) => (
                       <>
                         <S.ValueTitle>{infos.title} </S.ValueTitle>
-                        <S.Value>{infos.value}</S.Value>
+
+                        {infos.title === 'Claimable in' ? (
+                          <>
+                            <p>{infos.value[0]}</p>
+                            {'->'}
+                            <p>{infos.value[1]}</p>
+                          </>
+                        ) : (
+                          <>
+                            <S.Value>{infos.value}</S.Value>
+                          </>
+                        )}
                       </>
                     ))}
                   </Card>

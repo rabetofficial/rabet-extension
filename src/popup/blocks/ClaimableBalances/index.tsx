@@ -43,6 +43,7 @@ type ClaimableBalancesType = {
 type PeriodProps = {
   createdAt: string;
   predicate: PredicateInformation;
+  claimableData: ClaimableBalanceWithAssetImage;
 };
 
 const ButtonComponent = ({
@@ -104,10 +105,16 @@ const ButtonComponent = ({
   );
 };
 
-const Period = ({ predicate, createdAt }: PeriodProps) => {
+const Period = ({
+  predicate,
+  createdAt,
+  claimableData,
+}: PeriodProps) => {
+  const activeAccount = useActiveAccount();
+
   let element: JSX.Element;
 
-  const validFromText = () => {
+  const validFromText = (abs_before_epoch: string) => {
     element = (
       <S.Info>
         <p>
@@ -120,9 +127,17 @@ const Period = ({ predicate, createdAt }: PeriodProps) => {
           <ShortRightArrow />
         </div>
 
-        <Tooltips text="Infinite" placement="top" controlled>
-          <Infinity />
-        </Tooltips>
+        {abs_before_epoch ? (
+          <p>
+            {DateTime.fromSeconds(
+              parseInt(abs_before_epoch, 10),
+            ).toFormat('MMM dd yyyy')}
+          </p>
+        ) : (
+          <Tooltips text="Infinite" placement="top" controlled>
+            <Infinity />
+          </Tooltips>
+        )}
       </S.Info>
     );
   };
@@ -156,7 +171,25 @@ const Period = ({ predicate, createdAt }: PeriodProps) => {
   if (!predicate.validTo && !predicate.validFrom) {
     validUntilText(false);
   } else if (!predicate.validTo && predicate.validFrom) {
-    validFromText();
+    const foundClaimant = claimableData.claimants.find(
+      (x) => x.destination === activeAccount.publicKey,
+    );
+
+    if (foundClaimant) {
+      if (foundClaimant.predicate.and) {
+        const foundPredicate = foundClaimant.predicate.and.find(
+          (x) => x.abs_before,
+        );
+
+        if (foundPredicate) {
+          validFromText(foundPredicate.abs_before_epoch);
+        }
+      } else {
+        validFromText();
+      }
+    } else {
+      validFromText();
+    }
   } else if (predicate.validTo && !predicate.validFrom) {
     validUntilText(true);
   } else {
@@ -285,6 +318,7 @@ const ClaimableBalances = ({
         </div>
 
         <Period
+          claimableData={claimableData}
           predicate={predicateInformation}
           createdAt={claimableData.last_modified_time}
         />

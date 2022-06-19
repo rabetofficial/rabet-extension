@@ -364,11 +364,14 @@ export default (operation: any): OpMapped => {
         },
         {
           title: 'Claimable in',
-          value: `${DateTime.fromJSDate(operation.startDate).toFormat(
-            'yyyy LLL dd',
-          )} > ${DateTime.fromJSDate(operation.endDate).toFormat(
-            'yyyy LLL dd',
-          )}`,
+          value: [
+            DateTime.fromJSDate(operation.startDate).toFormat(
+              'yyyy LLL dd',
+            ),
+            DateTime.fromJSDate(operation.endDate).toFormat(
+              'yyyy LLL dd',
+            ),
+          ],
         },
       ],
     };
