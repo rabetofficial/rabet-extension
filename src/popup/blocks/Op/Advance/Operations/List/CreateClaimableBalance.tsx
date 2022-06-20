@@ -82,9 +82,17 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
     if (sDate === eDate) {
       hasError.startDate = true;
       errors.startDate = 'Dates cannot be the same.';
+
+      changeOperationAction(id, {
+        checked: false,
+      });
     } else if (+startDate > +endDate) {
       hasError.endDate = true;
       errors.endDate = 'End date should be after start date.';
+
+      changeOperationAction(id, {
+        checked: false,
+      });
     }
 
     if (!values.amount) {
@@ -240,19 +248,14 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
             <div className="flex-1">
               <label className="label-primary">From</label>
               <Field name="startDate">
-                {({ meta }) => (
-                  <>
-                    <DatePicker
-                      value={startDate}
-                      onChange={(e) => {
-                        onChangeDate(e, 'start');
-                      }}
-                      className="my-2"
-                    />
-                    {/* <span className="error"> */}
-                    {/*  {meta.error || meta.submitError} */}
-                    {/* </span> */}
-                  </>
+                {() => (
+                  <DatePicker
+                    value={startDate}
+                    onChange={(e) => {
+                      onChangeDate(e, 'start');
+                    }}
+                    className="my-2"
+                  />
                 )}
               </Field>
             </div>
@@ -260,19 +263,14 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
             <div className="flex-1">
               <label className="label-primary">To</label>
               <Field name="endDate">
-                {({ meta }) => (
-                  <>
-                    <DatePicker
-                      value={endDate}
-                      onChange={(e) => {
-                        onChangeDate(e, 'end');
-                      }}
-                      className="my-2"
-                    />
-                    {/* <span className="error"> */}
-                    {/*  {meta.error || meta.submitError} */}
-                    {/* </span> */}
-                  </>
+                {() => (
+                  <DatePicker
+                    value={endDate}
+                    onChange={(e) => {
+                      onChangeDate(e, 'end');
+                    }}
+                    className="my-2"
+                  />
                 )}
               </Field>
             </div>
