@@ -81,7 +81,7 @@ const DropDownList = ({ setEditableName }: DropDawnProps) => {
 
   if (mode === 'ADVANCED') {
     dropMenuItems.splice(2, 0, {
-      id: 3,
+      id: 7,
       label: 'Show flags',
       icon: 'icon-flag',
       onClick: () => {

@@ -175,7 +175,7 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
           );
         },
       }}
-      render={({ submitError, handleSubmit, form }) => (
+      render={({ submitError, handleSubmit, errors, form }) => (
         <form
           className="form"
           onSubmit={handleSubmit}
@@ -249,9 +249,9 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
                       }}
                       className="my-2"
                     />
-                    <span className="error">
-                      {meta.error || meta.submitError}
-                    </span>
+                    {/* <span className="error"> */}
+                    {/*  {meta.error || meta.submitError} */}
+                    {/* </span> */}
                   </>
                 )}
               </Field>
@@ -269,13 +269,18 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
                       }}
                       className="my-2"
                     />
-                    <span className="error">
-                      {meta.error || meta.submitError}
-                    </span>
+                    {/* <span className="error"> */}
+                    {/*  {meta.error || meta.submitError} */}
+                    {/* </span> */}
                   </>
                 )}
               </Field>
             </div>
+          </div>
+
+          <div className="error">
+            {(errors && errors.startDate) ||
+              (errors && errors.endDate)}
           </div>
 
           {submitError && <div className="error">{submitError}</div>}
