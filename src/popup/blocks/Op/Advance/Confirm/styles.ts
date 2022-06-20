@@ -17,7 +17,8 @@ export const Confirm = styled.div`
 export const Info = styled.div`
   display: inline-flex;
   align-items: center;
-  color: ${({ theme }) => theme.colors.primary.dark};
+  color: ${({ theme }) => theme.colors.primary.darker};
+  font-size: 22px:
 `;
 export const Source = styled.p`
   margin: 0;
