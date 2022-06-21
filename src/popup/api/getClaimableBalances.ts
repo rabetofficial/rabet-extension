@@ -1,11 +1,20 @@
 import { Server, ServerApi } from 'stellar-sdk';
 
 import currentNetwork from 'popup/utils/currentNetwork';
+import { PredicateInformation } from 'popup/utils/stellarResolveClaimantPredicates';
+
 import getAssetImages from './getAssetImages';
 
 export interface ClaimableBalanceWithAssetImage
   extends ServerApi.ClaimableBalanceRecord {
   logo: string;
+}
+
+export interface ClaimableBalanceDetailed
+  extends ClaimableBalanceWithAssetImage {
+  status: PredicateInformation;
+  showAssetCode: string;
+  showAssetLogo: string;
 }
 
 const getClaimableBalances = async (publicKey: string) => {

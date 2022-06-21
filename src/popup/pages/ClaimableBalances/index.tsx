@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import Loading from 'popup/components/Loading';
+import Nodata from 'popup/components/common/Nodata';
 import Header from 'popup/components/common/Header';
 import ScrollBar from 'popup/components/common/ScrollBar';
 import ExtTitle from 'popup/components/common/Title/Ext';
@@ -7,16 +9,12 @@ import useActiveAccount from 'popup/hooks/useActiveAccount';
 import SelectOption from 'popup/components/common/SelectOption';
 import ClaimableBalancesComponent from 'popup/blocks/ClaimableBalances';
 import loadClaimableBalances from 'popup/features/loadClaimableBalances';
-import Loading from 'popup/components/Loading';
-import { ClaimableBalanceWithAssetImage } from 'popup/api/getClaimableBalances';
-import Nodata from 'popup/components/common/Nodata';
+import { ClaimableBalanceDetailed } from 'popup/api/getClaimableBalances';
 
 const ClaimableBalances = () => {
   const activeAccount = useActiveAccount();
   const [isLoading, setIsLoading] = useState(true);
-  const [cbs, setCbs] = useState<ClaimableBalanceWithAssetImage[]>(
-    [],
-  );
+  const [cbs, setCbs] = useState<ClaimableBalanceDetailed[]>([]);
 
   const selectOptions = [
     { value: 'all', label: 'All' },
@@ -46,16 +44,19 @@ const ClaimableBalances = () => {
     );
   }
 
-  const selectOnChange = (e) => {
-    setSelected(e);
-  };
+  const filteredCbs = cbs.filter(
+    (cb) =>
+      selected.value === 'all' || cb.status.status === selected.value,
+  );
 
   return (
     <>
       <Header />
+
       <ScrollBar isHidden maxHeight={540}>
         <div className="content">
           <ExtTitle title="Claimable balance" className="mt-4" />
+
           <div style={{ height: !cbs.length && '160px' }}>
             <SelectOption
               height={176}
@@ -64,7 +65,7 @@ const ClaimableBalances = () => {
               selected={selected}
               variant="outlined"
               items={selectOptions}
-              onChange={selectOnChange}
+              onChange={setSelected}
               isSearchable={false}
             />
           </div>
@@ -77,11 +78,10 @@ const ClaimableBalances = () => {
               className="text-base"
             />
           ) : (
-            cbs.map((cb) => (
+            filteredCbs.map((cb) => (
               <ClaimableBalancesComponent
                 key={cb.id}
                 claimableData={cb}
-                selected={selected.value}
               />
             ))
           )}

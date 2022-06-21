@@ -17,44 +17,37 @@ import ShortRightArrow from 'popup/svgs/ShortRightArrow';
 import questionLogo from 'assets/images/question-circle.png';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
-import { ClaimableBalanceWithAssetImage } from 'popup/api/getClaimableBalances';
-import claimClaimableBalanceAction from 'popup/actions/operations/claimClaimableBalance';
 import {
-  predicateFromHorizonResponse,
-  getPredicateInformation,
-  PredicateInformation,
-} from 'popup/utils/stellarResolveClaimantPredicates';
+  ClaimableBalanceDetailed,
+  ClaimableBalanceWithAssetImage,
+} from 'popup/api/getClaimableBalances';
 import Tooltips from 'popup/components/common/Tooltips';
+import claimClaimableBalanceAction from 'popup/actions/operations/claimClaimableBalance';
 
 import * as S from './styles';
 
 type ClaimableStatus = 'all' | 'claimable' | 'upcoming' | 'expired';
 
 type ButtonComponentProps = {
-  status: ClaimableStatus;
   onClick: () => void;
-  predicateInfo: PredicateInformation;
+  claimableData: ClaimableBalanceDetailed;
 };
 
 type ClaimableBalancesType = {
-  claimableData: ClaimableBalanceWithAssetImage;
-  selected: ClaimableStatus;
+  claimableData: ClaimableBalanceDetailed;
 };
 
 type PeriodProps = {
-  createdAt: string;
-  predicate: PredicateInformation;
-  claimableData: ClaimableBalanceWithAssetImage;
+  claimableData: ClaimableBalanceDetailed;
 };
 
 const ButtonComponent = ({
-  status,
   onClick,
-  predicateInfo,
+  claimableData,
 }: ButtonComponentProps) => {
-  if (status === 'upcoming') {
+  if (claimableData.status.status === 'upcoming') {
     const now = DateTime.now();
-    const then = DateTime.fromSeconds(predicateInfo.validFrom);
+    const then = DateTime.fromSeconds(claimableData.status.validFrom);
 
     const diff = then.diff(now, ['days', 'hours', 'minutes']);
 
@@ -87,7 +80,7 @@ const ButtonComponent = ({
     <ButtonContainer btnSize={90} justify="end" mt={24}>
       <Button
         style={
-          status === 'expired'
+          claimableData.status.status === 'expired'
             ? {
                 backgroundColor: '#fff4f4',
                 border: '1px solid #fff4f4',
@@ -96,32 +89,36 @@ const ButtonComponent = ({
               }
             : {}
         }
-        variant={status === 'expired' ? 'danger' : 'primary'}
-        content={status === 'expired' ? 'Expired' : 'Claim'}
+        variant={
+          claimableData.status.status === 'expired'
+            ? 'danger'
+            : 'primary'
+        }
+        content={
+          claimableData.status.status === 'expired'
+            ? 'Expired'
+            : 'Claim'
+        }
         size="medium"
-        disabled={status === 'expired'}
+        disabled={claimableData.status.status === 'expired'}
         onClick={onClick}
       />
     </ButtonContainer>
   );
 };
 
-const Period = ({
-  predicate,
-  createdAt,
-  claimableData,
-}: PeriodProps) => {
+const Period = ({ claimableData }: PeriodProps) => {
   const activeAccount = useActiveAccount();
 
   let element: JSX.Element;
 
-  const validFromText = (abs_before_epoch: string) => {
+  const validFromText = (abs_before_epoch?: string) => {
     element = (
       <S.Info>
         <p>
-          {DateTime.fromSeconds(predicate.validFrom).toFormat(
-            'MMM dd yyyy',
-          )}
+          {DateTime.fromSeconds(
+            claimableData.status.validFrom,
+          ).toFormat('MMM dd yyyy')}
         </p>
 
         <div className="m-2.5">
@@ -146,9 +143,9 @@ const Period = ({
   const validUntilText = (isFinite: boolean) => {
     element = (
       <S.Info>
-        {DateTime.fromJSDate(new Date(createdAt)).toFormat(
-          'MMM dd yyyy',
-        )}
+        {DateTime.fromJSDate(
+          new Date(claimableData.last_modified_time),
+        ).toFormat('MMM dd yyyy')}
 
         <div className="m-2.5">
           <ShortRightArrow />
@@ -156,9 +153,9 @@ const Period = ({
 
         {isFinite ? (
           <>
-            {DateTime.fromSeconds(predicate.validTo).toFormat(
-              'MMM dd yyyy',
-            )}
+            {DateTime.fromSeconds(
+              claimableData.status.validTo,
+            ).toFormat('MMM dd yyyy')}
           </>
         ) : (
           <Tooltips text="Infinite" placement="top" controlled>
@@ -169,9 +166,15 @@ const Period = ({
     );
   };
 
-  if (!predicate.validTo && !predicate.validFrom) {
+  if (
+    !claimableData.status.validTo &&
+    !claimableData.status.validFrom
+  ) {
     validUntilText(false);
-  } else if (!predicate.validTo && predicate.validFrom) {
+  } else if (
+    !claimableData.status.validTo &&
+    claimableData.status.validFrom
+  ) {
     const foundClaimant = claimableData.claimants.find(
       (x) => x.destination === activeAccount.publicKey,
     );
@@ -191,20 +194,23 @@ const Period = ({
     } else {
       validFromText();
     }
-  } else if (predicate.validTo && !predicate.validFrom) {
+  } else if (
+    claimableData.status.validTo &&
+    !claimableData.status.validFrom
+  ) {
     validUntilText(true);
   } else {
     element = (
       <S.Info>
-        {DateTime.fromSeconds(predicate.validFrom).toFormat(
-          'MMM dd yyyy',
-        )}
+        {DateTime.fromSeconds(
+          claimableData.status.validFrom,
+        ).toFormat('MMM dd yyyy')}
 
         <div className="m-2.5">
           <ShortRightArrow />
         </div>
 
-        {DateTime.fromSeconds(predicate.validTo).toFormat(
+        {DateTime.fromSeconds(claimableData.status.validTo).toFormat(
           'MMM dd yyyy',
         )}
       </S.Info>
@@ -221,60 +227,9 @@ const Period = ({
 
 const ClaimableBalances = ({
   claimableData,
-  selected,
 }: ClaimableBalancesType) => {
   const navigate = useNavigate();
   const activeAccount = useActiveAccount();
-
-  const foundClaimant = claimableData.claimants.find(
-    (claimant) => claimant.destination === activeAccount.publicKey,
-  );
-
-  let predicateInformation: PredicateInformation;
-
-  if (!foundClaimant) {
-    predicateInformation = {
-      status: 'upcoming',
-      validFrom: 1685976895967,
-      validTo: 1685986895967,
-    };
-  } else {
-    const canClaim = predicateFromHorizonResponse(
-      foundClaimant.predicate,
-    );
-
-    predicateInformation = getPredicateInformation(
-      canClaim,
-      new Date(),
-    );
-  }
-
-  if (
-    selected !== 'all' &&
-    selected !== predicateInformation.status
-  ) {
-    return <span />;
-  }
-
-  const [assetCode, assetIssuer] = claimableData.asset.split(':');
-  let showAssetCode = assetCode;
-  let showAssetLogo = claimableData.logo;
-
-  if (assetCode === 'native' && !assetIssuer) {
-    showAssetCode = 'XLM';
-    showAssetLogo = xlmLogo;
-  }
-
-  if (predicateInformation.validFrom) {
-    const now = DateTime.now();
-    const then = DateTime.fromSeconds(predicateInformation.validFrom);
-
-    const diff = then.diff(now, ['days', 'hours', 'minutes']);
-
-    if (diff.days > 10_000_000) {
-      return <span />;
-    }
-  }
 
   const handleSubmit = async () => {
     navigate(RouteName.LoadingNetwork);
@@ -314,23 +269,19 @@ const ClaimableBalances = ({
             <S.Type>
               <div className="mr-[2px]">
                 <Image
-                  src={showAssetLogo}
+                  src={claimableData.showAssetLogo}
                   alt="L"
                   style={{ width: 18, height: 18 }}
                   fallBack={questionLogo}
                 />
               </div>
 
-              {showAssetCode}
+              {claimableData.showAssetCode}
             </S.Type>
           </div>
         </div>
 
-        <Period
-          claimableData={claimableData}
-          predicate={predicateInformation}
-          createdAt={claimableData.last_modified_time}
-        />
+        <Period claimableData={claimableData} />
 
         <div className="mt-4">
           <S.InfoTitle>Sponsor</S.InfoTitle>
@@ -343,15 +294,16 @@ const ClaimableBalances = ({
                     ? 'Me'
                     : shorter(claimableData.sponsor, 6)}
                 </p>
+
                 <FilledCopy />
               </span>
             }
           />
         </div>
+
         <ButtonComponent
-          status={predicateInformation.status}
           onClick={handleSubmit}
-          predicateInfo={predicateInformation}
+          claimableData={claimableData}
         />
       </Card>
     </div>
