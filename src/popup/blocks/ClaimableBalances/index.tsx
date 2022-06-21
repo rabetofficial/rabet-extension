@@ -140,12 +140,16 @@ const Period = ({ claimableData }: PeriodProps) => {
     );
   };
 
-  const validUntilText = (isFinite: boolean) => {
+  const validUntilText = (isFinite: boolean, abs_before?: string) => {
     element = (
       <S.Info>
-        {DateTime.fromJSDate(
-          new Date(claimableData.last_modified_time),
-        ).toFormat('MMM dd yyyy')}
+        {abs_before
+          ? DateTime.fromJSDate(new Date(abs_before)).toFormat(
+              'MMM dd yyyy',
+            )
+          : DateTime.fromJSDate(
+              new Date(claimableData.last_modified_time),
+            ).toFormat('MMM dd yyyy')}
 
         <div className="m-2.5">
           <ShortRightArrow />
@@ -166,6 +170,10 @@ const Period = ({ claimableData }: PeriodProps) => {
     );
   };
 
+  const foundClaimant = claimableData.claimants.find(
+    (x) => x.destination === activeAccount.publicKey,
+  );
+
   if (
     !claimableData.status.validTo &&
     !claimableData.status.validFrom
@@ -175,10 +183,6 @@ const Period = ({ claimableData }: PeriodProps) => {
     !claimableData.status.validTo &&
     claimableData.status.validFrom
   ) {
-    const foundClaimant = claimableData.claimants.find(
-      (x) => x.destination === activeAccount.publicKey,
-    );
-
     if (foundClaimant) {
       if (foundClaimant.predicate.and) {
         const foundPredicate = foundClaimant.predicate.and.find(
@@ -198,7 +202,17 @@ const Period = ({ claimableData }: PeriodProps) => {
     claimableData.status.validTo &&
     !claimableData.status.validFrom
   ) {
-    validUntilText(true);
+    if (foundClaimant.predicate.and) {
+      const foundAnd = foundClaimant.predicate.and.find((x) => x.not);
+
+      if (foundAnd) {
+        validUntilText(true, foundAnd.not.abs_before);
+      } else {
+        validUntilText(true);
+      }
+    } else {
+      validUntilText(true);
+    }
   } else {
     element = (
       <S.Info>

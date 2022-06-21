@@ -99,9 +99,11 @@ const Confirm = ({ onClose, usage }: ConfirmType) => {
                         {infos.title === 'Claimable in' ? (
                           <S.Info>
                             <p>{infos.value[0]}</p>
+
                             <div className="m-2.5">
                               <ShortRightArrow />
                             </div>
+
                             <p>{infos.value[1]}</p>
                           </S.Info>
                         ) : (

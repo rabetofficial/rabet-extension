@@ -366,10 +366,10 @@ export default (operation: any): OpMapped => {
           title: 'Claimable in',
           value: [
             DateTime.fromJSDate(operation.startDate).toFormat(
-              'yyyy LLL dd',
+              'MMM dd yyyy',
             ),
             DateTime.fromJSDate(operation.endDate).toFormat(
-              'yyyy LLL dd',
+              'MMM dd yyyy',
             ),
           ],
         },
