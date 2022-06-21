@@ -17,10 +17,14 @@ const ClaimableBalances = () => {
   const [cbs, setCbs] = useState<ClaimableBalanceDetailed[]>([]);
 
   const selectOptions = [
-    { value: 'all', label: 'All' },
-    { value: 'upcoming', label: 'Pending' },
-    { value: 'expired', label: 'Expired' },
-    { value: 'claimable', label: 'Claimable' },
+    { value: 'all', label: 'All', userText: '' },
+    { value: 'upcoming', label: 'Pending', userText: ' pending' },
+    { value: 'expired', label: 'Expired', userText: ' expired' },
+    {
+      value: 'claimable',
+      label: 'Claimable',
+      userText: ' claimable',
+    },
   ];
 
   const [selected, setSelected] = useState(selectOptions[0]);
@@ -70,11 +74,9 @@ const ClaimableBalances = () => {
             />
           </div>
 
-          {!cbs.length ? (
+          {!filteredCbs.length ? (
             <Nodata
-              msg={`You have no${
-                selected.label === 'All' ? '' : ` ${selected.label}`
-              } claimable balances`}
+              msg={`You have no${selected.userText} claimable balances`}
               className="text-base"
             />
           ) : (
