@@ -18,8 +18,13 @@ export const Info = styled.div`
   display: inline-flex;
   align-items: center;
   color: ${({ theme }) => theme.colors.primary.darker};
-  font-size: 22px:
+  font-size: 20px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
 `;
+
 export const Source = styled.p`
   margin: 0;
   display: flex;
