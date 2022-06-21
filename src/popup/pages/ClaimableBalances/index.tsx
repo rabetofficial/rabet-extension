@@ -56,7 +56,7 @@ const ClaimableBalances = () => {
       <ScrollBar isHidden maxHeight={540}>
         <div className="content">
           <ExtTitle title="Claimable balance" className="mt-4" />
-          <div style={{ height: !cbs.length ? '160px' : '' }}>
+          <div style={{ height: !cbs.length && '160px' }}>
             <SelectOption
               height={176}
               className="mt-5"
@@ -68,18 +68,22 @@ const ClaimableBalances = () => {
               isSearchable={false}
             />
           </div>
-          {cbs.map((cb) => (
-            <ClaimableBalancesComponent
-              key={cb.id}
-              claimableData={cb}
-              selected={selected.value}
-            />
-          ))}
-          {!cbs.length && (
+
+          {!cbs.length ? (
             <Nodata
-              msg="You have no claimable balance"
+              msg={`You have no${
+                selected.label === 'All' ? '' : ` ${selected.label}`
+              } claimable balances`}
               className="text-base"
             />
+          ) : (
+            cbs.map((cb) => (
+              <ClaimableBalancesComponent
+                key={cb.id}
+                claimableData={cb}
+                selected={selected.value}
+              />
+            ))
           )}
         </div>
       </ScrollBar>
