@@ -54,7 +54,10 @@ const Transactions = ({
   if (!transactions.length) {
     return (
       <div style={{ marginTop: usage === 'extension' ? '31' : '72' }}>
-        <Nodata msg="You have no transaction" className="text-base" />
+        <Nodata
+          msg="You have no transactions"
+          className="text-base"
+        />
       </div>
     );
   }
