@@ -58,10 +58,10 @@ const ClaimableBalances = () => {
       <Header />
 
       <ScrollBar isHidden maxHeight={540}>
-        <div className="content">
+        <div className="content" style={{ height: '540px' }}>
           <ExtTitle title="Claimable balance" className="mt-4" />
 
-          <div style={{ height: !cbs.length && '160px' }}>
+          <div>
             <SelectOption
               height={176}
               className="mt-5"
@@ -77,7 +77,7 @@ const ClaimableBalances = () => {
           {!filteredCbs.length ? (
             <Nodata
               msg={`You have no${selected.userText} claimable balances`}
-              className="text-base"
+              className="text-base mt-[120px]"
             />
           ) : (
             filteredCbs.map((cb) => (
