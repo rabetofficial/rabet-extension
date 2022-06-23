@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Rabet",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "description": "Rabet extension, a simple way to interact with Stellar network.",
     "homepage_url": "https://rabet.io",
     "icons": {
@@ -26,7 +26,7 @@
     ],
     "web_accessible_resources": ["dist/*.*"],
     "background": {
-        "scripts": ["dist/background_script.js","dist/vendors-node_modules_aes256_index_js-node_modules_babel-polyfill_lib_index_js-node_modules_st-aa6ffa.js"],
+        "scripts": ["dist/background_script.js","dist/727.js"],
         "persistent": false
     }
 }

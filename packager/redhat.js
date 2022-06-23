@@ -7,7 +7,7 @@ const options = {
   dest: 'release/installers/',
   arch: 'amd64',
   productName: 'Rabet',
-  version: '1.7.0',
+  version: '1.7.1',
   genericName: 'Rabet',
   icon: './desktop-logo/png/rabet128r.png',
   categories: ['Utility'],

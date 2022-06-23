@@ -1,6 +1,6 @@
 {
     "name": "rabet",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "description": "Rabet extension, a simple way to interact with Stellar network.",
     "main": "dist/electron.js",
     "scripts": {
@@ -22,11 +22,7 @@
         "type": "git",
         "url": "git@github.com:rabetofficial/rabet-extension.git"
     },
-    "keywords": [
-        "stellar",
-        "wallet",
-        "extension"
-    ],
+    "keywords": ["stellar", "wallet", "extension"],
     "author": "Alper Polat <alper95polat@gmail.com>",
     "license": "ISC",
     "devDependencies": {
