@@ -1,15 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 
-import { SlideTwo } from 'popup/svgs/SlidesLogo';
+import secureSrc from 'assets/images/slides/secure.png';
 
 import * as S from './styles';
 
 const SecondSlide = () => (
   <>
-    <S.ImgSlideTwo>
-      <SlideTwo />
-    </S.ImgSlideTwo>
+    <S.ImgSlideTwo src={secureSrc} />
     <S.TextContainer>
       <S.HeadText className="mt-[51px]">Secure by default</S.HeadText>
       <S.MainText>

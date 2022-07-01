@@ -1,15 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 
-import { SlideThree } from 'popup/svgs/SlidesLogo';
+import interactionSrc from 'assets/images/slides/intraction.png';
 
 import * as S from './styles';
 
 const ThirdSlide = () => (
   <>
-    <S.ImgSlideThird>
-      <SlideThree />
-    </S.ImgSlideThird>
+    <S.ImgSlideThird src={interactionSrc} />
     <S.TextContainer>
       <S.HeadText className="mt-[62px]">
         Made for interaction

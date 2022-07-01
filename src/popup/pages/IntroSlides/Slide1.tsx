@@ -2,16 +2,14 @@
 import React from 'react';
 
 import SlidesLayout from 'popup/components/common/Layouts/SlidesLayout';
-import { SlideOne } from 'popup/svgs/SlidesLogo';
+import designSrc from 'assets/images/slides/design.png';
 
 import * as S from './styles';
 
 const FirstSlide = () => (
   <>
     <SlidesLayout>
-      <S.ImgSlideOne>
-        <SlideOne />
-      </S.ImgSlideOne>
+      <S.ImgSlideOne src={designSrc} />
       <S.TextContainer>
         <S.HeadText className="mt-[47px]">
           Useful by design

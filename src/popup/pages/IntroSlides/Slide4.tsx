@@ -4,7 +4,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from 'popup/components/common/Button';
-import { SlideFour } from 'popup/svgs/SlidesLogo';
+import identitySrc from 'assets/images/slides/identity.png';
 
 import RouteName from 'popup/staticRes/routes';
 
@@ -19,9 +19,7 @@ const ForthSlide = () => {
 
   return (
     <>
-      <S.ImgSlideForth>
-        <SlideFour />
-      </S.ImgSlideForth>
+      <S.ImgSlideForth src={identitySrc} />
       <S.TextContainer>
         <S.HeadText className="mt-[56px]">
           Rabet is Your Identity

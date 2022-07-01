@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ImgSlideOne = styled.div`
+export const ImgSlideOne = styled.img`
   margin: 90px auto 0 auto;
   width: 291px;
   height: 364px;
@@ -13,7 +13,7 @@ export const ImgSlideOne = styled.div`
   }
 `;
 
-export const ImgSlideTwo = styled.div`
+export const ImgSlideTwo = styled.img`
   margin: 105px auto 0 151px;
   width: 334px;
   height: 348px;
@@ -29,7 +29,7 @@ export const ImgSlideTwo = styled.div`
   }
 `;
 
-export const ImgSlideThird = styled.div`
+export const ImgSlideThird = styled.img`
   margin: 55px auto 0 auto;
   width: 352px;
   height: 385px;
@@ -42,7 +42,7 @@ export const ImgSlideThird = styled.div`
   }
 `;
 
-export const ImgSlideForth = styled.div`
+export const ImgSlideForth = styled.img`
   margin: 72px auto 0 auto;
   width: 288px;
   height: 376px;
