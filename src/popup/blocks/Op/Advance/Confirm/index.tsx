@@ -66,51 +66,52 @@ const Confirm = ({ usage }: ConfirmType) => {
   };
 
   return (
-    <ConfirmLayout
-      handleClick={handleConfirm}
-      usage={usage}
-      className="px-[11px] py-[16px]"
-    >
-      <ScrollBar isHidden maxHeight={410}>
-        {operationsMapped.map((op, i) => (
-          <>
-            <Card type="secondary" className="px-3 py-6">
-              <S.Title>
-                #{i + 1} {op.title}
-              </S.Title>
+    <S.Container>
+      <ConfirmLayout handleClick={handleConfirm} usage={usage}>
+        <ScrollBar
+          isHidden
+          maxHeight={usage === 'extension' ? 410 : 376}
+        >
+          {operationsMapped.map((op, i) => (
+            <>
+              <Card type="secondary" className="px-3 py-6">
+                <S.Title>
+                  #{i + 1} {op.title}
+                </S.Title>
 
-              {op.info.map((infos) => (
-                <>
-                  <S.ValueTitle>{infos.title} </S.ValueTitle>
+                {op.info.map((infos) => (
+                  <>
+                    <S.ValueTitle>{infos.title} </S.ValueTitle>
 
-                  {infos.title === 'Claimable in' ? (
-                    <S.Info>
-                      <p>{infos.value[0]}</p>
+                    {infos.title === 'Claimable in' ? (
+                      <S.Info>
+                        <p>{infos.value[0]}</p>
 
-                      <div className="m-2.5">
-                        <ShortRightArrow />
-                      </div>
+                        <div className="m-2.5">
+                          <ShortRightArrow />
+                        </div>
 
-                      <p>{infos.value[1]}</p>
-                    </S.Info>
-                  ) : (
-                    <>
-                      <S.Value>{infos.value}</S.Value>
-                    </>
-                  )}
-                </>
-              ))}
+                        <p>{infos.value[1]}</p>
+                      </S.Info>
+                    ) : (
+                      <>
+                        <S.Value>{infos.value}</S.Value>
+                      </>
+                    )}
+                  </>
+                ))}
+              </Card>
+            </>
+          ))}
+          {memo.text && (
+            <Card type="secondary" className="mt-2 px-3 pb-2">
+              <S.ValueTitle>Memo</S.ValueTitle>
+              <S.Value>{memo.text}</S.Value>
             </Card>
-          </>
-        ))}
-        {memo.text && (
-          <Card type="secondary" className="mt-2 px-3 pb-2">
-            <S.ValueTitle>Memo</S.ValueTitle>
-            <S.Value>{memo.text}</S.Value>
-          </Card>
-        )}
-      </ScrollBar>
-    </ConfirmLayout>
+          )}
+        </ScrollBar>
+      </ConfirmLayout>
+    </S.Container>
   );
 };
 

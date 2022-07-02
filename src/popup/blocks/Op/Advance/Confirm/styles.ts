@@ -10,10 +10,6 @@ export const Container = styled.div`
   } ;
 `;
 
-export const Confirm = styled.div`
-  position: relative;
-`;
-
 export const Info = styled.div`
   display: inline-flex;
   align-items: center;
@@ -23,27 +19,6 @@ export const Info = styled.div`
   font-stretch: normal;
   font-style: normal;
   line-height: 1.5;
-`;
-
-export const Source = styled.p`
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  background: ${({ theme }) => theme.colors.primary.lighter};
-  border-radius: 4px;
-  padding: 12px 11px;
-  align-items: center;
-`;
-
-export const SourceTitle = styled.span`
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.primary.dark};
-`;
-
-export const SourceValue = styled.span`
-  font-size: 14px;
-  font-weight: 500;
-  color: black;
 `;
 
 export const Title = styled.h1`
