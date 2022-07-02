@@ -58,7 +58,7 @@ const BasicConfirmLayout = ({
         btnSize={100}
         justify="end"
         positionStyles={{
-          bottom: usage === 'extension' ? '40px' : '14px',
+          bottom: usage === 'extension' ? '24px' : '14px',
         }}
       >
         <Button

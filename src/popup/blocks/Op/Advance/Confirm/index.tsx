@@ -2,18 +2,13 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Usage } from 'popup/models';
-import maxText from 'popup/utils/maxText';
 import RouteName from 'popup/staticRes/routes';
 import Card from 'popup/components/common/Card';
-import Button from 'popup/components/common/Button';
 import sendAction from 'popup/actions/operations/send';
-import CopyText from 'popup/components/common/CopyText';
 import closeModalAction from 'popup/actions/modal/close';
 import operationMapper from 'popup/utils/operationMapper';
-import useActiveAccount from 'popup/hooks/useActiveAccount';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import ScrollBar from 'popup/components/common/ScrollBar';
-import ButtonContainer from 'popup/components/common/ButtonContainer';
 
 import {
   openErrorModal,
@@ -22,6 +17,7 @@ import {
 } from 'popup/components/Modals';
 
 import ShortRightArrow from 'popup/svgs/ShortRightArrow';
+import ConfirmLayout from '../../Basic/Confirm/Layout';
 import * as S from './styles';
 
 type ConfirmType = {
@@ -29,9 +25,8 @@ type ConfirmType = {
   onClose: () => void;
 };
 
-const Confirm = ({ onClose, usage }: ConfirmType) => {
+const Confirm = ({ usage }: ConfirmType) => {
   const navigate = useNavigate();
-  const { name, publicKey } = useActiveAccount();
   const { memo, operations } = useTypedSelector(
     (store) => store.transaction,
   );
@@ -71,83 +66,51 @@ const Confirm = ({ onClose, usage }: ConfirmType) => {
   };
 
   return (
-    <S.Container>
-      <S.Confirm>
-        <div>
-          <S.Source>
-            <S.SourceTitle>Source account:</S.SourceTitle>
-            <S.SourceValue>
-              <CopyText
-                text={publicKey}
-                custom={<p>{maxText(name, 12)}</p>}
-              />
-            </S.SourceValue>
-          </S.Source>
-          <div className="h-[360px]">
-            <ScrollBar isHidden maxHeight={360}>
-              {operationsMapped.map((op, i) => (
+    <ConfirmLayout
+      handleClick={handleConfirm}
+      usage={usage}
+      className="px-[11px] py-[16px]"
+    >
+      <ScrollBar isHidden maxHeight={410}>
+        {operationsMapped.map((op, i) => (
+          <>
+            <Card type="secondary" className="px-3 py-6">
+              <S.Title>
+                #{i + 1} {op.title}
+              </S.Title>
+
+              {op.info.map((infos) => (
                 <>
-                  <Card type="secondary" className="mt-4 px-3 py-6">
-                    <S.Title>
-                      #{i + 1} {op.title}
-                    </S.Title>
+                  <S.ValueTitle>{infos.title} </S.ValueTitle>
 
-                    {op.info.map((infos) => (
-                      <>
-                        <S.ValueTitle>{infos.title} </S.ValueTitle>
+                  {infos.title === 'Claimable in' ? (
+                    <S.Info>
+                      <p>{infos.value[0]}</p>
 
-                        {infos.title === 'Claimable in' ? (
-                          <S.Info>
-                            <p>{infos.value[0]}</p>
+                      <div className="m-2.5">
+                        <ShortRightArrow />
+                      </div>
 
-                            <div className="m-2.5">
-                              <ShortRightArrow />
-                            </div>
-
-                            <p>{infos.value[1]}</p>
-                          </S.Info>
-                        ) : (
-                          <>
-                            <S.Value>{infos.value}</S.Value>
-                          </>
-                        )}
-                      </>
-                    ))}
-                  </Card>
+                      <p>{infos.value[1]}</p>
+                    </S.Info>
+                  ) : (
+                    <>
+                      <S.Value>{infos.value}</S.Value>
+                    </>
+                  )}
                 </>
               ))}
-              {memo.text && (
-                <Card type="secondary" className="mt-2 px-3 pb-2">
-                  <S.ValueTitle>Memo</S.ValueTitle>
-                  <S.Value>{memo.text}</S.Value>
-                </Card>
-              )}
-            </ScrollBar>
-          </div>
-        </div>
-      </S.Confirm>
-      <ButtonContainer
-        justify="end"
-        btnSize={100}
-        gap={10}
-        mt={16}
-        positionStyles={{ bottom: '14px' }}
-      >
-        <Button
-          variant="default"
-          size="medium"
-          content="Reject"
-          onClick={onClose}
-        />
-
-        <Button
-          variant="primary"
-          size="medium"
-          content="Confirm"
-          onClick={handleConfirm}
-        />
-      </ButtonContainer>
-    </S.Container>
+            </Card>
+          </>
+        ))}
+        {memo.text && (
+          <Card type="secondary" className="mt-2 px-3 pb-2">
+            <S.ValueTitle>Memo</S.ValueTitle>
+            <S.Value>{memo.text}</S.Value>
+          </Card>
+        )}
+      </ScrollBar>
+    </ConfirmLayout>
   );
 };
 
