@@ -1,9 +1,4 @@
-import {
-  xdr,
-  Keypair,
-  Networks,
-  Transaction,
-} from 'stellar-sdk';
+import { xdr, Keypair, Networks, Transaction } from 'stellar-sdk';
 
 export default (userXdr, network, account) => {
   try {

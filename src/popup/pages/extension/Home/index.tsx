@@ -54,6 +54,7 @@ const Home = () => {
       ),
     });
   };
+
   return (
     <div style={{ width: '360px', height: '600px' }}>
       <S.Container>

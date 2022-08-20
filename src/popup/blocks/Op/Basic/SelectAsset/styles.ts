@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Image from 'popup/components/common/Image';
 
 const width = 107;
 
@@ -32,8 +31,9 @@ export const ModalTrigger = styled.div`
   padding: 0 10px 0 7px;
 `;
 
-export const Img = styled(Image)`
+export const Img = styled.img`
   width: 24px;
   height: auto;
   margin-right: 4px;
+  height: 24px;
 `;
