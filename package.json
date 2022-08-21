@@ -1,6 +1,6 @@
 {
     "name": "rabet",
-    "version": "1.7.2",
+    "version": "1.7.3",
     "description": "Rabet extension, a simple way to interact with Stellar network.",
     "main": "dist/electron.js",
     "scripts": {
