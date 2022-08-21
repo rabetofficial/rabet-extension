@@ -53,8 +53,6 @@ const ClaimableBalances = () => {
       selected.value === 'all' || cb.status.status === selected.value,
   );
 
-  console.log(filteredCbs);
-
   return (
     <>
       <Header />

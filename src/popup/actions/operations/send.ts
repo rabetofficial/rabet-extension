@@ -398,7 +398,6 @@ export default async () => {
 
     return [true, result.hash];
   } catch (err: any) {
-    console.log(err);
     if (err && err.response && err.response.data) {
       return [false, showError(err.response.data)];
     }

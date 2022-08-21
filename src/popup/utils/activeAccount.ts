@@ -1,10 +1,14 @@
 import store from 'popup/store';
+import { IAccount } from 'popup/reducers/accounts2';
 
-export default () => {
+export default (): {
+  activeAccount: IAccount;
+  activeAccountIndex: number;
+} => {
   const { accounts } = store.getState();
 
-  let activeAccount;
-  let activeAccountIndex;
+  let activeAccount: IAccount;
+  let activeAccountIndex: number;
 
   for (let i = 0; i < accounts.length; i += 1) {
     if (accounts[i].active) {

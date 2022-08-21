@@ -21,24 +21,49 @@ export default async (
   const server = new Server(url);
   const sourceKeys = Keypair.fromSecret(account.privateKey);
 
+  let isAssetTrusted = true;
+
+  const [code, issuer] = claimableData.asset.split(':');
+
+  if (claimableData.asset !== 'native') {
+    const foundAsset = account.assets.find(
+      (ast) => ast.asset_code === code && ast.asset_issuer === issuer,
+    );
+
+    if (!foundAsset) {
+      isAssetTrusted = false;
+    }
+  }
+
   try {
     const sourceAccount = await server.loadAccount(
       sourceKeys.publicKey(),
     );
 
-    const transaction = new TransactionBuilder(sourceAccount, {
+    let transaction = new TransactionBuilder(sourceAccount, {
       fee: config.BASE_FEE,
       networkPassphrase: passphrase,
-    })
-      .addOperation(
-        Operation.claimClaimableBalance({
-          balanceId: claimableData.id,
+    });
+
+    if (!isAssetTrusted) {
+      transaction = transaction.addOperation(
+        Operation.changeTrust({
+          limit: '922337203685',
+          asset: new Asset(code, issuer),
         }),
-      )
-      .setTimeout(180)
-      .build();
+      );
+    }
+
+    transaction = transaction.addOperation(
+      Operation.claimClaimableBalance({
+        balanceId: claimableData.id,
+      }),
+    );
+
+    transaction = transaction.setTimeout(180).build();
 
     transaction.sign(sourceKeys);
+
     const result = await server.submitTransaction(transaction);
 
     return [true, result.hash];

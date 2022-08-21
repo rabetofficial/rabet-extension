@@ -27,7 +27,6 @@ export default async (password: string): Promise<boolean> => {
 
     return true;
   } catch (e) {
-    console.log(e);
     return false;
   }
 };
