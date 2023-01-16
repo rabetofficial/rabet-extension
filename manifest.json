@@ -26,10 +26,7 @@
     ],
     "web_accessible_resources": ["dist/*.*"],
     "background": {
-        "scripts": [
-            "dist/background_script.js",
-            "dist/vendors-node_modules_aes256_index_js-node_modules_babel-polyfill_lib_index_js-node_modules_st-aa6ffa.js"
-        ],
+        "scripts": ["dist/background_script.js","dist/vendors-node_modules_aes256_index_js-node_modules_babel-polyfill_lib_index_js-node_modules_st-aa6ffa.js"],
         "persistent": false
     }
 }

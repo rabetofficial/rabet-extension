@@ -19,6 +19,10 @@ const loadAssetBalance = ({
     return '0';
   }
 
+  if (asset.balance === '000000.1') {
+    return '0';
+  }
+
   if (asset.asset_type === 'native') {
     const price = new BN(asset.balance).times(currencyPrice);
 
