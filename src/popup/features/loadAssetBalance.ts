@@ -19,7 +19,7 @@ const loadAssetBalance = ({
     return '0';
   }
 
-  if (asset.balance === '000000.1') {
+  if (asset.balance === '0.0000001') {
     return '0';
   }
 
