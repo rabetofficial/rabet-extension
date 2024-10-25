@@ -30,7 +30,8 @@ const Input = ({
     }
   };
 
-  const isError = meta && (meta.error || meta.submitError) && meta.touched;
+  const isError =
+    meta && (meta.error || meta.submitError) && meta.touched;
   const errorBtn = (
     <button type="button" className={styles.icon}>
       <span className="icon-exclamation-circle" />
@@ -45,19 +46,34 @@ const Input = ({
           className={styles.icon}
           onClick={toggleVisible}
         >
-          <span className={visibleType !== 'text' ? 'icon-invisible' : 'icon-visible-eye'} />
+          <span
+            className={
+              visibleType !== 'text'
+                ? 'icon-invisible'
+                : 'icon-visible-eye'
+            }
+          />
         </button>
       );
     }
 
     if (variant === inputTypes.max) {
       return (
-        <button
-          type="button"
-          className={styles.max}
-        >
-          <Tooltip trigger="hover" tooltip="Send entire" placement="top">
-            <span className={classNames('icon-double-arrow-up', styles.maxIcon)} onClick={() => { setMax(); }} />
+        <button type="button" className={styles.max}>
+          <Tooltip
+            trigger="hover"
+            tooltip="Send entire"
+            placement="top"
+          >
+            <span
+              className={classNames(
+                'icon-double-arrow-up',
+                styles.maxIcon,
+              )}
+              onClick={() => {
+                setMax();
+              }}
+            />
           </Tooltip>
         </button>
       );
@@ -95,7 +111,11 @@ const Input = ({
         {generateBtn()}
       </div>
 
-      {isError && (<p className={styles.error}>{meta.error || meta.submitError}</p>)}
+      {isError && (
+        <p className={styles.error}>
+          {meta.error || meta.submitError}
+        </p>
+      )}
     </>
   );
 };

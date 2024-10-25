@@ -7,7 +7,7 @@ import config from '../../config';
 const getAssetImages = async <T extends AssetLike>(assets: T[]) => {
   const assetsInJSON = getJSONAssets(assets);
 
-  const assetImagesResult = await fetch(`${config.ASSET_SERVER}`, {
+  const assetImagesResult = await fetch(config.ASSET_SERVER, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

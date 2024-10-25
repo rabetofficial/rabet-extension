@@ -1,32 +1,50 @@
 {
-    "manifest_version": 2,
-    "name": "Rabet",
-    "version": "1.7.3",
-    "description": "Rabet extension, a simple way to interact with Stellar network.",
-    "homepage_url": "https://rabet.io",
-    "icons": {
-        "16": "logo/16x16.png",
-        "32": "logo/32x32.png",
-        "48": "logo/48x48.png",
-        "128": "logo/128x128.png"
-    },
-    "browser_action": {
-        "default_title": "Rabet",
-        "default_icon": "logo/128x128.png",
-        "default_popup": "dist/popup.html"
-    },
-    "permissions": ["storage", "tabs"],
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["dist/content_script.js"],
-            "match_about_blank": true,
-            "all_frames": true
-        }
-    ],
-    "web_accessible_resources": ["dist/*.*"],
-    "background": {
-        "scripts": "@@background_script@@",
-        "persistent": false
+  "manifest_version": 3,
+  "name": "Rabet",
+  "version": "1.7.3",
+  "description": "Rabet extension, a simple way to interact with Stellar network.",
+  "homepage_url": "https://rabet.io",
+  "icons": {
+    "16": "logo/16x16.png",
+    "32": "logo/32x32.png",
+    "48": "logo/48x48.png",
+    "128": "logo/128x128.png"
+  },
+  "action": {
+    "default_title": "Rabet",
+    "default_icon": "logo/128x128.png",
+    "default_popup": "dist/popup.html"
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "dist/content_script.js"
+      ],
+      "match_about_blank": true,
+      "all_frames": true
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "dist/*.*"
+      ],
+      "matches": [
+        "<all_urls>",
+        "*://*/*"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "dist/background_script.js",
+    "old_service_worker": "@@background_script@@",
+    "type": "module"
+  }
 }

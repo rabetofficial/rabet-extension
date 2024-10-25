@@ -1,5 +1,3 @@
-import 'babel-polyfill';
-
 import sendResponseFactory from './utils/sendResponseFactory';
 
 import RABET_EXTENSION_SIGN from './RABET_EXTENSION_SIGN';
@@ -18,6 +16,12 @@ let mainWindow;
 const sendResponseCollection = {};
 
 chrome.runtime.onMessage.addListener((message, sender, send) => {
+  console.log(message);
+  console.log(sender);
+  console.log(send);
+
+  console.log('hello');
+
   const sendResponse = sendResponseFactory(send);
 
   if (message.detail && message.detail.href) {

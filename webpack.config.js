@@ -49,6 +49,15 @@ const optimization = {
     }),
     new CssMinimizerPlugin(),
   ],
+  splitChunks: {
+    chunks: 'async', // Only split async (dynamic) imports
+    cacheGroups: {
+      // Disable any default cache groups
+      default: false,
+      vendors: false,
+    },
+  },
+  runtimeChunk: false, // No runtime chunk should be created
 };
 
 const fallback = {
@@ -74,9 +83,9 @@ if (isDesktop) {
 }
 
 if (!isDesktop) {
-  optimization.splitChunks = {
-    chunks: 'all',
-  };
+  optimization.splitChunks = false;
+  // chunks: 'all',
+  // };
 }
 
 if (!devMode) {
