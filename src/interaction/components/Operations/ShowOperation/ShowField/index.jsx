@@ -1,23 +1,19 @@
 import React from 'react';
-import StellarSdk from 'stellar-sdk';
+import { StrKey } from '@stellar/stellar-sdk';
 
 import showObject from '../../../../utils/showObject';
 import styles from '../../../../views/Confirm/styles.less';
 
 const ShowfieldJSX = ({ tKey, value }) => (
   <>
-    <div className={styles.cardSubject}>
-      {tKey}
-    </div>
+    <div className={styles.cardSubject}>{tKey}</div>
 
-    <p className={styles.cardValue}>
-      {value}
-    </p>
+    <p className={styles.cardValue}>{value}</p>
   </>
 );
 
 const ShowField = ({ keyValue }) => {
-  const { isValidEd25519PublicKey: isPubValid } = StellarSdk.StrKey;
+  const { isValidEd25519PublicKey: isPubValid } = StrKey;
   const [key, value] = keyValue;
 
   const isObject = typeof value === 'object';
@@ -28,7 +24,12 @@ const ShowField = ({ keyValue }) => {
     }
 
     if (!isNaN(value)) {
-      return <ShowfieldJSX tKey={key} value={parseFloat(value, 10).toString()} />;
+      return (
+        <ShowfieldJSX
+          tKey={key}
+          value={parseFloat(value, 10).toString()}
+        />
+      );
     }
 
     return <ShowfieldJSX tKey={key} value={value} />;

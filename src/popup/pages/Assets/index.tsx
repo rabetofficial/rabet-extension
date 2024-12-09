@@ -16,6 +16,7 @@ const Assets = () => {
   const handleClick = () => {
     handleDelete({ code: asset_code, issuer: asset_issuer });
   };
+
   const handleCancel = () => {
     navigate(RouteName.Home, {
       state: {

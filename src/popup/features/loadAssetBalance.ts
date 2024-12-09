@@ -1,11 +1,11 @@
 import BigNumber from 'bignumber.js';
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import BN from 'helpers/BN';
 import { Bid } from 'popup/reducers/bids';
 
 type LoadAssetbalanceType = {
-  asset: Horizon.BalanceLine;
+  asset: Horizon.HorizonApi.BalanceLine;
   currencyPrice: BigNumber;
   bids: Bid[];
 };

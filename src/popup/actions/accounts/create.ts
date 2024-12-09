@@ -1,4 +1,4 @@
-import { Keypair } from 'stellar-sdk';
+import { Keypair } from '@stellar/stellar-sdk';
 
 import store from 'popup/store';
 import { add, IAccount } from 'popup/reducers/accounts2';

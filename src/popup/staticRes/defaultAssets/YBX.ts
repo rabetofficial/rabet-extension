@@ -1,6 +1,6 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
-const YBX: Horizon.BalanceLineAsset<'credit_alphanum4'> = {
+const YBX: Horizon.HorizonApi.BalanceLineAsset<'credit_alphanum4'> = {
   asset_code: 'YBX',
   asset_issuer:
     'GBUYYBXWCLT2MOSSHRFCKMEDFOVSCAXNIEW424GLN666OEXHAAWBDYMX',
@@ -13,6 +13,7 @@ const YBX: Horizon.BalanceLineAsset<'credit_alphanum4'> = {
   is_authorized: true,
   is_authorized_to_maintain_liabilities: true,
   is_clawback_enabled: true,
+  // @ts-ignore
   domain: 'script3.io',
   logo: 'https://uploads-ssl.webflow.com/607f603d2f412c67690368b8/60df683719cc056004ea932b_YBX%20token%20web%20bad.png',
 };

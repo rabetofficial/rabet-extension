@@ -1,4 +1,4 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import React, { useEffect, useState } from 'react';
 
 import { Usage } from 'popup/models';
@@ -13,8 +13,8 @@ import * as S from './styles';
 import SearchAsset from './Search';
 
 type AppProps = {
-  asset: Horizon.BalanceLine;
-  assets: Horizon.BalanceLine[];
+  asset: Horizon.HorizonApi.BalanceLine;
+  assets: Horizon.HorizonApi.BalanceLine[];
   onChange: (value: any) => void;
   usage: Usage;
   valueName?: string;
@@ -46,7 +46,9 @@ const SelectAssetModal = ({
     }
   }, [asset]);
 
-  const handleAssetChange = (newAsset: Horizon.BalanceLine) => {
+  const handleAssetChange = (
+    newAsset: Horizon.HorizonApi.BalanceLine,
+  ) => {
     setCurrentAsset(newAsset);
 
     onChange(newAsset);

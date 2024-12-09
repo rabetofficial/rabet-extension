@@ -1,4 +1,4 @@
-import StellarSdk from 'stellar-sdk';
+import { Operation } from '@stellar/stellar-sdk';
 
 export default ({
   selling,
@@ -7,11 +7,12 @@ export default ({
   price,
   offerId,
   source,
-}) => StellarSdk.Operation.manageSellOffer({
-  price,
-  amount,
-  buying,
-  source,
-  selling,
-  offerId,
-});
+}) =>
+  Operation.manageSellOffer({
+    price,
+    amount,
+    buying,
+    source,
+    selling,
+    offerId,
+  });

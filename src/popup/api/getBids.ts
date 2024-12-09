@@ -1,11 +1,11 @@
-import { Horizon, Server, Asset } from 'stellar-sdk';
+import { Horizon, Asset } from '@stellar/stellar-sdk';
 
 import currentNetwork from 'popup/utils/currentNetwork';
 
-const getBids = async (assets: Horizon.BalanceLine[]) => {
+const getBids = async (assets: Horizon.HorizonApi.BalanceLine[]) => {
   const serverURL = currentNetwork().url;
 
-  const server = new Server(serverURL);
+  const server = new Horizon.Server(serverURL);
 
   const orderbooks = [];
 

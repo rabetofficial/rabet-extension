@@ -1,7 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import classNames from 'classnames';
+import styled from 'styled-components';
+
 import { JustifyContent } from 'popup/models';
+
 import isEmpty from '../../../../helpers/isEmpty';
 
 type AppProps = {
@@ -11,7 +13,7 @@ type AppProps = {
   gap?: number;
   mt?: number;
   positionStyles?: React.CSSProperties;
-  className: ?string;
+  className?: string;
 };
 
 const Container = styled.div.attrs((props: AppProps) => props)`

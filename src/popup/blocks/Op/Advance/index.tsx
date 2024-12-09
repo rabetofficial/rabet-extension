@@ -1,5 +1,5 @@
 import shortid from 'shortid';
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { Field, Form } from 'react-final-form';
@@ -46,7 +46,7 @@ const AdvanceOperation = ({ usage }: AdvancedOperationProps) => {
     const operation = {
       checked: false,
       id: shortid.generate(),
-      type: Horizon.OperationResponseType.payment,
+      type: Horizon.HorizonApi.OperationResponseType.payment,
     };
 
     setOperations([...operations, operation]);

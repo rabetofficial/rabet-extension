@@ -1,10 +1,8 @@
-import StellarSdk from 'stellar-sdk';
+import { Networks } from '@stellar/stellar-sdk';
 
 const changeNetworkEvent = (n = 'TESTNET') => {
   const network =
-    n === 'MAINNET'
-      ? StellarSdk.Networks.PUBLIC
-      : StellarSdk.Networks.TESTNET;
+    n === 'MAINNET' ? Networks.PUBLIC : Networks.TESTNET;
 
   if (localStorage.getItem('isDesktop') !== 'true') {
     chrome.tabs.query({}, (tabs) => {

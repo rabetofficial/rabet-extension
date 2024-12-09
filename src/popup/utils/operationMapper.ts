@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon';
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import formatBalance from './formatBalance';
 
-const operations = Horizon.OperationResponseType;
+const operations = Horizon.HorizonApi.OperationResponseType;
 
 type OpMapped = {
   title: string;

@@ -1,4 +1,4 @@
-import StellarSdk from 'stellar-sdk';
+import { Operation } from '@stellar/stellar-sdk';
 
 export default ({
   sendAsset,
@@ -7,11 +7,12 @@ export default ({
   destAsset,
   destMin,
   path,
-}) => StellarSdk.Operation.pathPaymentStrictSend({
-  path,
-  destMin,
-  destAsset,
-  sendAsset,
-  sendAmount,
-  destination,
-});
+}) =>
+  Operation.pathPaymentStrictSend({
+    path,
+    destMin,
+    destAsset,
+    sendAsset,
+    sendAmount,
+    destination,
+  });

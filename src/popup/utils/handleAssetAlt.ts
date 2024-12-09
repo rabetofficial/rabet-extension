@@ -1,6 +1,6 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
-const handleAssetAlt = (asset: Horizon.BalanceLine) => {
+const handleAssetAlt = (asset: Horizon.HorizonApi.BalanceLine) => {
   if (asset.asset_type === 'native') {
     return 'X';
   }

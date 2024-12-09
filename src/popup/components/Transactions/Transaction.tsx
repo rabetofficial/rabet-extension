@@ -1,11 +1,11 @@
 import React from 'react';
-import { ServerApi, Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import { OperationsTx, TransferTx, SwapTx } from './Operations';
 
 type TransactionType = {
   publicKey: string;
-  transaction: ServerApi.CollectionPage<ServerApi.OperationRecord>;
+  transaction: Horizon.ServerApi.CollectionPage<Horizon.ServerApi.OperationRecord>;
 };
 
 const Transaction = ({ transaction, publicKey }: TransactionType) => {
@@ -23,7 +23,8 @@ const Transaction = ({ transaction, publicKey }: TransactionType) => {
   }
 
   if (
-    op.type === Horizon.OperationResponseType.pathPaymentStrictSend
+    op.type ===
+    Horizon.HorizonApi.OperationResponseType.pathPaymentStrictSend
   ) {
     return (
       <SwapTx
@@ -38,7 +39,8 @@ const Transaction = ({ transaction, publicKey }: TransactionType) => {
   }
 
   if (
-    op.type === Horizon.OperationResponseType.createAccount &&
+    op.type ===
+      Horizon.HorizonApi.OperationResponseType.createAccount &&
     op.funder === publicKey
   ) {
     return (
@@ -53,7 +55,8 @@ const Transaction = ({ transaction, publicKey }: TransactionType) => {
   }
 
   if (
-    op.type === Horizon.OperationResponseType.createAccount &&
+    op.type ===
+      Horizon.HorizonApi.OperationResponseType.createAccount &&
     op.funder !== publicKey
   ) {
     return (
@@ -68,7 +71,7 @@ const Transaction = ({ transaction, publicKey }: TransactionType) => {
   }
 
   if (
-    op.type === Horizon.OperationResponseType.payment &&
+    op.type === Horizon.HorizonApi.OperationResponseType.payment &&
     op.from === publicKey
   ) {
     return (
@@ -83,7 +86,7 @@ const Transaction = ({ transaction, publicKey }: TransactionType) => {
   }
 
   if (
-    op.type === Horizon.OperationResponseType.payment &&
+    op.type === Horizon.HorizonApi.OperationResponseType.payment &&
     op.from !== publicKey
   ) {
     return (

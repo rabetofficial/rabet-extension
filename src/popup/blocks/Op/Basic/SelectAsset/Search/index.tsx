@@ -1,5 +1,5 @@
-import { Horizon } from 'stellar-sdk';
 import React, { useState } from 'react';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import Image from 'popup/components/common/Image';
 import formatBalance from 'popup/utils/formatBalance';
@@ -13,9 +13,9 @@ import questionLogo from 'assets/images/question-circle.png';
 import * as S from './styles';
 
 type AppProps = {
-  assets: Horizon.BalanceLine[];
+  assets: Horizon.HorizonApi.BalanceLine[];
   closeModal: () => void;
-  onChange: (value: Horizon.BalanceLine) => void;
+  onChange: (value: Horizon.HorizonApi.BalanceLine) => void;
   valueName: string;
 };
 
@@ -36,13 +36,15 @@ const SearchAsset = ({
     new RegExp(searchString, 'i').test(asset.asset_code),
   );
 
-  const handleClick = (asset: Horizon.BalanceLine) => {
+  const handleClick = (asset: Horizon.HorizonApi.BalanceLine) => {
     onChange(asset);
 
     closeModal();
   };
 
-  const handleShowDomain = (asset: Horizon.BalanceLine) => {
+  const handleShowDomain = (
+    asset: Horizon.HorizonApi.BalanceLine,
+  ) => {
     const foundAssetImage = assetImages.find(
       (assetImage) =>
         assetImage.asset_code === asset.asset_code &&

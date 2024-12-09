@@ -1,10 +1,10 @@
 import {
   Asset,
-  Server,
+  Horizon,
   Keypair,
   Operation,
   TransactionBuilder,
-} from 'stellar-sdk';
+} from '@stellar/stellar-sdk';
 
 import currentNetwork from 'popup/utils/currentNetwork';
 import currentActiveAccount from 'popup/utils/activeAccount';
@@ -20,7 +20,7 @@ const addMultipleAssets = async (
   const { activeAccount } = currentActiveAccount();
   const { url, passphrase } = currentNetwork();
 
-  const server = new Server(url);
+  const server = new Horizon.Server(url);
   const sourceKeys = Keypair.fromSecret(activeAccount.privateKey);
 
   let transaction;

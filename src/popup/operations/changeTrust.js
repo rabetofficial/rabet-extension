@@ -1,7 +1,8 @@
-import StellarSdk from 'stellar-sdk';
+import { Operation } from '@stellar/stellar-sdk';
 
-export default ({ asset, limit, source }) => StellarSdk.Operation.changeTrust({
-  source,
-  asset,
-  limit,
-});
+export default ({ asset, limit, source }) =>
+  Operation.changeTrust({
+    source,
+    asset,
+    limit,
+  });

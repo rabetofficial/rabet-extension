@@ -1,9 +1,9 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import BN from 'helpers/BN';
 
 const isInsufficientAsset = (
-  asset: Horizon.BalanceLine,
+  asset: Horizon.HorizonApi.BalanceLine,
   maxXLM: number,
   amount: string,
 ) => {
@@ -16,12 +16,10 @@ const isInsufficientAsset = (
 
   const SL = new BN(asset.selling_liabilities);
 
-  let subentries;
+  let subentries = SL;
 
   if (asset.asset_type === 'native') {
     subentries = SL.plus(maxXLM);
-  } else {
-    subentries = SL;
   }
 
   if (balance.isLessThanOrEqualTo(0)) {

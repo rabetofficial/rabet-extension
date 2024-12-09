@@ -1,10 +1,9 @@
-import { Balance } from 'popup/reducers/accounts2';
 import { AssetImage } from 'popup/reducers/assetImages';
 
 const addAssetImagesToAssets = (
-  b: Partial<Balance>[],
+  b: Partial<any>[],
   assetImages: AssetImage[],
-): Balance[] => {
+): any[] => {
   const balances = [];
 
   for (let i = 0, len = b.length; i < len; i += 1) {

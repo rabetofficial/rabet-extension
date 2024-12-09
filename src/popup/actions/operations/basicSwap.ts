@@ -1,10 +1,10 @@
 import {
   Asset,
-  Server,
+  Horizon,
   Keypair,
   Operation,
   TransactionBuilder,
-} from 'stellar-sdk';
+} from '@stellar/stellar-sdk';
 
 import matchAsset from 'popup/utils/matchAsset';
 import showError from 'popup/staticRes/errorMessage';
@@ -21,7 +21,7 @@ const basicSendAction = async (values: FormValues) => {
 
   const assets = activeAccount.assets || [];
 
-  const server = new Server(url);
+  const server = new Horizon.Server(url);
   const sourceKeys = Keypair.fromSecret(activeAccount.privateKey);
 
   let transaction;

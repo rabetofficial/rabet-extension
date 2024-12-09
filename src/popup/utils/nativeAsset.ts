@@ -1,6 +1,7 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
-const nativeAsset = (asset: Horizon.BalanceLine): boolean =>
-  asset.asset_type === 'native';
+const nativeAsset = (
+  asset: Horizon.HorizonApi.BalanceLine,
+): boolean => asset.asset_type === 'native';
 
 export default nativeAsset;

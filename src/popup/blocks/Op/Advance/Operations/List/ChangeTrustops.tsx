@@ -1,5 +1,5 @@
-import { Horizon } from 'stellar-sdk';
 import React, { useState } from 'react';
+import { Horizon } from '@stellar/stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
 import BN from 'helpers/BN';
@@ -38,8 +38,9 @@ const ChangeTrustOps = ({ id }: AppProps) => {
 
   const [selected, setSelected] = useState(mappedAssets[0]);
 
-  const onChange = (e: ElementOption<Horizon.BalanceLine>) =>
-    setSelected(e);
+  const onChange = (
+    e: ElementOption<Horizon.HorizonApi.BalanceLine>,
+  ) => setSelected(e);
 
   const validateForm = async (v: FormValidate) => {
     const values = {

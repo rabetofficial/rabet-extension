@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ServerApi } from 'stellar-sdk';
+import { ServerApi } from '@stellar/stellar-sdk';
 import React, { useEffect, useState } from 'react';
 
 import { Usage } from 'popup/models';

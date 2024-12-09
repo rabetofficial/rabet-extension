@@ -1,4 +1,4 @@
-import { Horizon, StrKey } from 'stellar-sdk';
+import { Horizon, StrKey } from '@stellar/stellar-sdk';
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { DateTime } from 'luxon';
@@ -45,7 +45,9 @@ const CreateClaimableBalance = ({ id }: AppProps) => {
 
   const [selected, setSelected] = useState(assetsMapped[0]);
 
-  const onChange = (e: ElementOption<Horizon.BalanceLine>) => {
+  const onChange = (
+    e: ElementOption<Horizon.HorizonApi.BalanceLine>,
+  ) => {
     setSelected(e);
   };
 

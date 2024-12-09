@@ -1,5 +1,4 @@
 import {
-  Server,
   Horizon,
   Keypair,
   Operation,
@@ -7,7 +6,7 @@ import {
   AuthRevocableFlag,
   AuthImmutableFlag,
   TransactionBuilder,
-} from 'stellar-sdk';
+} from '@stellar/stellar-sdk';
 
 import RouteName from 'popup/staticRes/routes';
 import { NavigateFunction } from 'react-router-dom';
@@ -17,7 +16,7 @@ import currentActiveAccount from 'popup/utils/activeAccount';
 import config from '../../../config';
 
 export default async (
-  flags: Horizon.Flags,
+  flags: Horizon.HorizonApi.Flags,
   push: NavigateFunction,
 ) => {
   push(RouteName.LoadingNetwork);
@@ -52,7 +51,7 @@ export default async (
     clearFlags |= 8;
   }
 
-  const server = new Server(url);
+  const server = new Horizon.Server(url);
   const sourceKeys = Keypair.fromSecret(activeAccount.privateKey);
 
   let transaction;

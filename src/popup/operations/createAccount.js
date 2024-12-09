@@ -1,7 +1,8 @@
-import StellarSdk from 'stellar-sdk';
+import { Operation } from '@stellar/stellar-sdk';
 
-export default ({ startingBalance, destination, source }) => StellarSdk.Operation.createAccount({
-  source,
-  destination,
-  startingBalance,
-});
+export default ({ startingBalance, destination, source }) =>
+  Operation.createAccount({
+    source,
+    destination,
+    startingBalance,
+  });

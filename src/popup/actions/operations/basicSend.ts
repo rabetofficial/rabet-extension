@@ -1,11 +1,11 @@
 import {
+  Memo,
   Asset,
-  Server,
+  Horizon,
   Keypair,
   Operation,
   TransactionBuilder,
-  Memo,
-} from 'stellar-sdk';
+} from '@stellar/stellar-sdk';
 
 import { SendValues } from 'popup/models';
 import showError from 'popup/staticRes/errorMessage';
@@ -18,7 +18,7 @@ export default async (values: SendValues) => {
   const { activeAccount: account } = currentActiveAccount();
   const { url, passphrase } = currentNetwork();
 
-  const server = new Server(url);
+  const server = new Horizon.Server(url);
   const sourceKeys = Keypair.fromSecret(account.privateKey);
 
   let transaction;

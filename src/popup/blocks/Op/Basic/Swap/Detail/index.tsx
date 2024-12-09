@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
 import BigNumber from 'bignumber.js';
 import { useWatch } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
 
 import BN from 'helpers/BN';
+import AngleRight from 'popup/svgs/AngleRight';
 import formatBalance from 'popup/utils/formatBalance';
 import { FormValues } from 'popup/blocks/Op/Basic/Swap';
 import calculatePriceImpact from 'popup/api/calculatePriceImpact';
-import AngleRight from 'popup/svgs/AngleRight';
 
 import * as S from './styles';
 

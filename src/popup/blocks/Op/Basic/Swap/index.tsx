@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Horizon, ServerApi } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import React, { useState, useEffect } from 'react';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 
@@ -33,8 +33,8 @@ export type FormValues = {
   minimumReceived: number;
   to: string;
   from: string;
-  asset1: Horizon.BalanceLine;
-  asset2: Horizon.BalanceLine;
+  asset1: Horizon.HorizonApi.BalanceLine;
+  asset2: Horizon.HorizonApi.BalanceLine;
   lastField: string;
 };
 
@@ -100,7 +100,7 @@ const BasicSwap = ({ usage }: AppProps) => {
 
   function setRealData(
     values: FormValues,
-    calculatedResult: ServerApi.PaymentPathRecord,
+    calculatedResult: Horizon.ServerApi.PaymentPathRecord,
   ) {
     clearErrors('from');
     clearErrors('to');

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import classNames from 'classnames';
-import StellarSdk, { Transaction } from 'stellar-sdk';
+import React, { useState } from 'react';
+import { xdr, Transaction, Networks } from '@stellar/stellar-sdk';
 
 import Button from '../../components/Button';
 import PageTitle from '../../components/PageTitle';
@@ -13,7 +13,7 @@ const Confirm = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(true);
 
   const name = global.sessionStorage.getItem('accountName');
-  const xdr = global.sessionStorage.getItem('xdr');
+  const xdrText = global.sessionStorage.getItem('xdr');
   const host = global.sessionStorage.getItem('host');
   const title = global.sessionStorage.getItem('title');
   const network = global.sessionStorage.getItem('network');
@@ -29,7 +29,7 @@ const Confirm = () => {
         title,
       },
       xdr: {
-        xdr,
+        xdrText,
         network,
       },
     });
@@ -45,7 +45,7 @@ const Confirm = () => {
         title,
       },
       xdr: {
-        xdr,
+        xdr: xdrText,
         network,
       },
     });
@@ -62,11 +62,8 @@ const Confirm = () => {
   let transaction;
 
   try {
-    const obj = StellarSdk.xdr.TransactionEnvelope.fromXDR(
-      xdr,
-      'base64',
-    );
-    transaction = new Transaction(obj, StellarSdk.Networks.PUBLIC);
+    const obj = xdr.TransactionEnvelope.fromXDR(xdrText, 'base64');
+    transaction = new Transaction(obj, Networks.PUBLIC);
   } catch (e) {
     return (
       <>

@@ -1,5 +1,5 @@
-import { Horizon } from 'stellar-sdk';
 import React, { useState } from 'react';
+import { Horizon } from '@stellar/stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
 import { ElementOption } from 'popup/models';
@@ -43,10 +43,10 @@ const OfferOps = ({ id, offer }: AppProps) => {
   const [buyingAsset, setByingAsset] = useState(mappedAssets[0]);
 
   const onChangeSellingAmount = (
-    e: ElementOption<Horizon.BalanceLine>,
+    e: ElementOption<Horizon.HorizonApi.BalanceLine>,
   ) => setSellingAsset(e);
   const onChangeBuyingAmount = (
-    e: ElementOption<Horizon.BalanceLine>,
+    e: ElementOption<Horizon.HorizonApi.BalanceLine>,
   ) => setByingAsset(e);
 
   const validateForm = async (v: FormValidate) => {

@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Memo {
@@ -10,7 +10,7 @@ export interface Memo {
 export type OpType = {
   id: string;
   checked: boolean;
-  type: Horizon.OperationResponseType;
+  type: Horizon.HorizonApi.OperationResponseType;
 };
 
 // interface Operation {

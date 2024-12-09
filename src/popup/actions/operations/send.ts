@@ -1,13 +1,12 @@
 import {
   Memo,
   Asset,
-  Server,
   Keypair,
   Horizon,
   Claimant,
   Operation,
   TransactionBuilder,
-} from 'stellar-sdk';
+} from '@stellar/stellar-sdk';
 
 import store from 'popup/store';
 import showError from 'popup/staticRes/errorMessage';
@@ -16,7 +15,7 @@ import getActiveAccount from 'popup/utils/activeAccount';
 
 import config from '../../../config';
 
-const operationsName = Horizon.OperationResponseType;
+const operationsName = Horizon.HorizonApi.OperationResponseType;
 
 export default async () => {
   const { operations, memo } = store.getState().transaction;
@@ -24,7 +23,7 @@ export default async () => {
   const { activeAccount } = getActiveAccount();
   const { url, passphrase } = currentNetwork();
 
-  const server = new Server(url);
+  const server = new Horizon.Server(url);
   const sourceKeys = Keypair.fromSecret(activeAccount.privateKey);
 
   let transaction;

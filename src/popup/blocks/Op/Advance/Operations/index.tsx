@@ -5,7 +5,7 @@ import React, {
   useReducer,
 } from 'react';
 import styled from 'styled-components';
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import Trash from 'popup/svgs/Trash';
 import Card from 'popup/components/common/Card';
@@ -78,7 +78,7 @@ const Operation = ({
     setOperations(newOperations);
   };
 
-  const opType = Horizon.OperationResponseType;
+  const opType = Horizon.HorizonApi.OperationResponseType;
 
   const generateOption = () => {
     if (selected.value === opType.payment)

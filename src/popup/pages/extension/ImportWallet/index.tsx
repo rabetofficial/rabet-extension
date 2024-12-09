@@ -1,5 +1,5 @@
 import React from 'react';
-import { StrKey } from 'stellar-sdk';
+import { StrKey } from '@stellar/stellar-sdk';
 import { useNavigate } from 'react-router-dom';
 
 import RouteName from 'popup/staticRes/routes';

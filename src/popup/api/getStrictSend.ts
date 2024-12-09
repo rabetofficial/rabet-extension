@@ -1,18 +1,18 @@
-import { Server, Asset, Horizon } from 'stellar-sdk';
+import { Asset, Horizon } from '@stellar/stellar-sdk';
 
 import currentNetwork from 'popup/utils/currentNetwork';
 
 type Values = {
   to: string;
   from: string;
-  asset1: Horizon.BalanceLine;
-  asset2: Horizon.BalanceLine;
+  asset1: Horizon.HorizonApi.BalanceLine;
+  asset2: Horizon.HorizonApi.BalanceLine;
 };
 
 const getStrictSend = async (values: Values) => {
   const serverURL = currentNetwork().url;
 
-  const server = new Server(serverURL);
+  const server = new Horizon.Server(serverURL);
 
   try {
     let asset1 = Asset.native();

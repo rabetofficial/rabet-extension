@@ -1,5 +1,5 @@
 import React from 'react';
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import BN from 'helpers/BN';
 import Trash from 'popup/svgs/Trash';
@@ -23,7 +23,7 @@ type AssetType = {
   onDelete: (result: [boolean, string]) => void;
   onCancel: () => void;
   children?: React.ReactNode;
-  asset: Horizon.BalanceLine;
+  asset: Horizon.HorizonApi.BalanceLine;
   onBeforeDelete: () => void;
   usage: Usage;
 };

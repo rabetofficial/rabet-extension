@@ -1,4 +1,4 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import { useState, useEffect } from 'react';
 
 import getAccount from 'popup/api/getAccount';
@@ -8,7 +8,7 @@ type AssetInfo = {
   asset_code: string;
   asset_issuer: string;
   home_domain?: string;
-  flags?: Horizon.Flags;
+  flags?: Horizon.HorizonApi.Flags;
   selling_liabilities: string;
   buying_liabilities: string;
 };
@@ -20,7 +20,7 @@ type useAssetInfoResult = {
 };
 
 const useAssetInfo = (
-  asset: Horizon.BalanceLine,
+  asset: Horizon.HorizonApi.BalanceLine,
 ): useAssetInfoResult => {
   const [assetData, setAssetData] = useState<AssetInfo | null>(null);
   const [loading, setLoading] = useState(true);

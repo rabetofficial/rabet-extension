@@ -1,10 +1,10 @@
 import {
   Asset,
-  Server,
+  Horizon,
   Keypair,
-  TransactionBuilder,
   Operation,
-} from 'stellar-sdk';
+  TransactionBuilder,
+} from '@stellar/stellar-sdk';
 
 import currentNetwork from 'popup/utils/currentNetwork';
 import getActiveAccount from 'popup/utils/activeAccount';
@@ -19,7 +19,7 @@ export default async (
   const { activeAccount: account } = getActiveAccount();
   const { url, passphrase } = currentNetwork();
 
-  const server = new Server(url);
+  const server = new Horizon.Server(url);
   const sourceKeys = Keypair.fromSecret(account.privateKey);
 
   try {

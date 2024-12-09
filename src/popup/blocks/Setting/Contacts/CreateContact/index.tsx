@@ -1,5 +1,5 @@
 import React from 'react';
-import { StrKey } from 'stellar-sdk';
+import { StrKey } from '@stellar/stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
 import { Usage } from 'popup/models';

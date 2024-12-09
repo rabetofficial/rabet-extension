@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 
-import CopyText from 'popup/components/common/CopyText';
 import Button from 'popup/components/common/Button';
+import CopyText from 'popup/components/common/CopyText';
 import useActiveAccount from 'popup/hooks/useActiveAccount';
 import ButtonContainer from 'popup/components/common/ButtonContainer';
 

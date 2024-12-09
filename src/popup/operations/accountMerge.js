@@ -1,6 +1,7 @@
-import StellarSdk from 'stellar-sdk';
+import { Operation } from '@stellar/stellar-sdk';
 
-export default ({ destination, source }) => StellarSdk.Operation.accountMerge({
-  destination,
-  source,
-});
+export default ({ destination, source }) =>
+  Operation.accountMerge({
+    destination,
+    source,
+  });

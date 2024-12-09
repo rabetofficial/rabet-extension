@@ -1,4 +1,4 @@
-import { StrKey } from 'stellar-sdk';
+import { StrKey } from '@stellar/stellar-sdk';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 

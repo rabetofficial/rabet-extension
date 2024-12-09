@@ -1,6 +1,6 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
-const LSP: Horizon.BalanceLineAsset<'credit_alphanum4'> = {
+const LSP: Horizon.HorizonApi.BalanceLineAsset<'credit_alphanum4'> = {
   asset_code: 'LSP',
   asset_issuer:
     'GAB7STHVD5BDH3EEYXPI3OM7PCS4V443PYB5FNT6CFGJVPDLMKDM24WK',
@@ -13,6 +13,7 @@ const LSP: Horizon.BalanceLineAsset<'credit_alphanum4'> = {
   is_authorized: true,
   is_authorized_to_maintain_liabilities: true,
   is_clawback_enabled: true,
+  // @ts-ignore
   domain: 'lumenswap.io',
   logo: 'https://lumenswap.io/t/Lumenswap144.png',
 };

@@ -1,11 +1,11 @@
-import { Server } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import currentNetwork from 'popup/utils/currentNetwork';
 
 const assetExistsOnNetwork = async (code: string, issuer: string) => {
   const serverURL = currentNetwork().url;
 
-  const server = new Server(serverURL);
+  const server = new Horizon.Server(serverURL);
 
   try {
     const assetResult = await server

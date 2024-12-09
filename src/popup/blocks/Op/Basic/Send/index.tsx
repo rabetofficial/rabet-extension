@@ -1,4 +1,4 @@
-import { StrKey } from 'stellar-sdk';
+import { StrKey } from '@stellar/stellar-sdk';
 import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';

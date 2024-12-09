@@ -1,8 +1,8 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 const matchAsset = (
-  asset1: Horizon.BalanceLine,
-  asset2: Horizon.BalanceLine,
+  asset1: Horizon.HorizonApi.BalanceLine,
+  asset2: Horizon.HorizonApi.BalanceLine,
 ): boolean => {
   if (
     asset1.asset_type === 'native' &&

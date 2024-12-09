@@ -3,7 +3,13 @@ import { get } from '../helpers/storage';
 import WindowManager from './utils/Window';
 import hasLoggedBefore from './utils/hasLoggedBefore';
 
-export default (message, sender, sendResponse, sendResponseCollection, window) => {
+export default (
+  message,
+  sender,
+  sendResponse,
+  sendResponseCollection,
+  window,
+) => {
   if (message.result === 'confirm') {
     hasLoggedBefore()
       .then((hasLogged) => {
@@ -29,8 +35,18 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
             });
           }
 
-          const activeAcconut = accounts.find((x) => x.active === true);
-          const signed = sign(message.xdr.xdr, message.xdr.network, activeAcconut);
+          const activeAcconut = accounts.find(
+            (x) => x.active === true,
+          );
+
+          console.log('message');
+          console.log(message);
+
+          const signed = sign(
+            message.xdr.xdr,
+            message.xdr.network,
+            activeAcconut,
+          );
 
           sendResponseCollection[message.id]({
             ok: true,
@@ -52,7 +68,10 @@ export default (message, sender, sendResponse, sendResponseCollection, window) =
       message: 'invalid-xdr',
     });
   } else {
-    sendResponseCollection[message.id]({ ok: false, message: 'user-rejected' });
+    sendResponseCollection[message.id]({
+      ok: false,
+      message: 'user-rejected',
+    });
   }
 
   WindowManager.remove(window.id);

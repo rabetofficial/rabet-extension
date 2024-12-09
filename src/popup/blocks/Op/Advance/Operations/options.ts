@@ -1,9 +1,9 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
-const operation = Horizon.OperationResponseType;
+const operation = Horizon.HorizonApi.OperationResponseType;
 
 type OptionType = {
-  value: Horizon.OperationResponseType | string;
+  value: Horizon.HorizonApi.OperationResponseType | string;
   label: string;
 };
 

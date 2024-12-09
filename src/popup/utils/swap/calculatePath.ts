@@ -1,4 +1,4 @@
-import { Asset } from 'stellar-sdk';
+import { Asset } from '@stellar/stellar-sdk';
 
 const calculatePath = (paths: any[]) => {
   const path = [...paths.slice(1, paths.length - 1)];

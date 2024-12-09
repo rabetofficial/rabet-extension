@@ -1,7 +1,8 @@
-import StellarSdk from 'stellar-sdk';
+import { Operation } from '@stellar/stellar-sdk';
 
-export default ({ name, value, source }) => StellarSdk.Operation.manageData({
-  name,
-  value,
-  source,
-});
+export default ({ name, value, source }) =>
+  Operation.manageData({
+    name,
+    value,
+    source,
+  });

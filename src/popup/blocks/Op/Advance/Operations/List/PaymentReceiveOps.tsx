@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Field } from 'react-final-form';
-import { Horizon, StrKey, AccountResponse } from 'stellar-sdk';
+import { Horizon, StrKey } from '@stellar/stellar-sdk';
 
 import BN from 'helpers/BN';
 import { ElementOption } from 'popup/models';
@@ -43,10 +43,12 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
   const [sendAsset, setSendAsset] = useState(mappedAssets[0]);
   const [destAsset, setDestAsset] = useState(mappedAssets[0]);
 
-  const onChangeSendAsset = (e: ElementOption<Horizon.BalanceLine>) =>
-    setSendAsset(e);
-  const onChangeDestAsset = (e: ElementOption<Horizon.BalanceLine>) =>
-    setDestAsset(e);
+  const onChangeSendAsset = (
+    e: ElementOption<Horizon.HorizonApi.BalanceLine>,
+  ) => setSendAsset(e);
+  const onChangeDestAsset = (
+    e: ElementOption<Horizon.HorizonApi.BalanceLine>,
+  ) => setDestAsset(e);
 
   const validateForm = async (v: FormValidate) => {
     const values = {
@@ -55,7 +57,7 @@ const PaymentReceiveOps = ({ id }: AppProps) => {
       destAsset: destAsset.value,
     };
 
-    let accountData: AccountResponse | null = null;
+    let accountData: Horizon.AccountResponse | null = null;
 
     const errors = {} as FormValidate;
     const hasError = {} as HasError;

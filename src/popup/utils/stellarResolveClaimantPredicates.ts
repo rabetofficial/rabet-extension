@@ -1,4 +1,4 @@
-import { Claimant, Horizon, xdr } from 'stellar-sdk';
+import { Claimant, Horizon, xdr } from '@stellar/stellar-sdk';
 import BigNumber from 'bignumber.js';
 
 export type PredicateInformation = {
@@ -15,7 +15,7 @@ export type PredicateInformation = {
  * @returns {xdr.ClaimPredicate}
  */
 const predicateFromHorizonResponse = (
-  horizonPredicate: Horizon.Predicate,
+  horizonPredicate: Horizon.HorizonApi.Predicate,
 ): xdr.ClaimPredicate => {
   let xdrPredicate = Claimant.predicateUnconditional();
 

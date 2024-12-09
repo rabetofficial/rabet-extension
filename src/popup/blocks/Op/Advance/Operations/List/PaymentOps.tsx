@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Horizon, StrKey } from 'stellar-sdk';
 import { Form, Field } from 'react-final-form';
+import { Horizon, StrKey } from '@stellar/stellar-sdk';
 
 import BN from 'helpers/BN';
 import { ElementOption } from 'popup/models';
@@ -36,7 +36,9 @@ const PaymentOps = ({ id }: AppProps) => {
 
   const [selected, setSelected] = useState(assetsMapped[0]);
 
-  const onChange = (e: ElementOption<Horizon.BalanceLine>) => {
+  const onChange = (
+    e: ElementOption<Horizon.HorizonApi.BalanceLine>,
+  ) => {
     setSelected(e);
   };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Plus from 'popup/svgs/Plus';
@@ -45,7 +45,9 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
     }
   };
 
-  const openAssetInfoModal = (asset: Horizon.BalanceLine) => {
+  const openAssetInfoModal = (
+    asset: Horizon.HorizonApi.BalanceLine,
+  ) => {
     if (asset.asset_type === 'native') {
       openModalAction({
         isStyled: false,
@@ -99,7 +101,9 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
     }
   };
 
-  const openAssetInfoPage = (asset: Horizon.BalanceLine) => {
+  const openAssetInfoPage = (
+    asset: Horizon.HorizonApi.BalanceLine,
+  ) => {
     if (
       asset.asset_type === 'native' ||
       asset.asset_type === 'liquidity_pool_shares'

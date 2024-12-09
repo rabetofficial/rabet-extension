@@ -1,4 +1,4 @@
-import StellarSdk from 'stellar-sdk';
+import { Operation } from '@stellar/stellar-sdk';
 
 export default ({
   signer,
@@ -11,15 +11,16 @@ export default ({
   medThreshold,
   highThreshold,
   inflationDest,
-}) => StellarSdk.Operation.setOptions({
-  signer,
-  source,
-  setFlags,
-  clearFlags,
-  homeDomain,
-  masterWeight,
-  lowThreshold,
-  medThreshold,
-  highThreshold,
-  inflationDest,
-});
+}) =>
+  Operation.setOptions({
+    signer,
+    source,
+    setFlags,
+    clearFlags,
+    homeDomain,
+    masterWeight,
+    lowThreshold,
+    medThreshold,
+    highThreshold,
+    inflationDest,
+  });

@@ -1,4 +1,4 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
@@ -19,9 +19,8 @@ import * as S from './styles';
 const Flags = () => {
   const navigate = useNavigate();
   const account = useActiveAccount();
-  const [flags, setFlags] = useState<Partial<Horizon.Flags> | null>(
-    null,
-  );
+  const [flags, setFlags] =
+    useState<Partial<Horizon.HorizonApi.Flags> | null>(null);
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import Alert from 'popup/components/common/Alert';
@@ -15,7 +15,7 @@ const ConfirmFlag = () => {
   const { state } = useLocation();
   const account = useActiveAccount();
 
-  const newFlags: Horizon.Flags = state.flags;
+  const newFlags: Horizon.HorizonApi.Flags = state.flags;
   const isAuthClawbackEnabledAlreadyEnabled =
     !!account.flags?.auth_clawback_enabled;
 

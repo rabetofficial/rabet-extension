@@ -1,6 +1,7 @@
-import StellarSdk from 'stellar-sdk';
+import { Operation } from '@stellar/stellar-sdk';
 
-export default ({ bumpTo, source }) => StellarSdk.Operation.bumpSequence({
-  bumpTo,
-  source,
-});
+export default ({ bumpTo, source }) =>
+  Operation.bumpSequence({
+    bumpTo,
+    source,
+  });

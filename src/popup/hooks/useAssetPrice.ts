@@ -1,4 +1,4 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import BN from 'helpers/BN';
 import loadAssetBalance from 'popup/features/loadAssetBalance';
@@ -6,7 +6,7 @@ import loadAssetBalance from 'popup/features/loadAssetBalance';
 import useTypedSelector from './useTypedSelector';
 import useActiveCurrency from './useActiveCurrency';
 
-const useAssetPrice = (asset: Horizon.BalanceLine) => {
+const useAssetPrice = (asset: Horizon.HorizonApi.BalanceLine) => {
   const activeCurrency = useActiveCurrency();
   const bids = useTypedSelector((store) => store.bids);
 

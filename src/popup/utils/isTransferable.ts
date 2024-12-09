@@ -1,9 +1,9 @@
-import { Horizon, AccountResponse } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import BN from 'helpers/BN';
 
 type Values = {
-  asset: Horizon.BalanceLine;
+  asset: Horizon.HorizonApi.BalanceLine;
   amount: string;
   destination: string;
 };
@@ -15,7 +15,7 @@ type IsTransferableReturnType = [
 
 const isTransferable = (
   values: Values,
-  destinationAccount: AccountResponse | null,
+  destinationAccount: Horizon.AccountResponse | null,
 ): IsTransferableReturnType => {
   const isAssetNative = values.asset.asset_type === 'native';
 

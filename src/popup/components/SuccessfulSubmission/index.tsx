@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import NoteCard from 'popup/components/NoteCard';
-import createTab from 'popup/utils/createTab';
 import BlackCheck from 'popup/svgs/BlackCheck';
+import NoteCard from 'popup/components/NoteCard';
 import ShareArrowSquare from 'popup/svgs/ShareArrowSqaure';
 import explorer from 'popup/utils/horizon/transactionLink';
 

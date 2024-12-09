@@ -1,4 +1,4 @@
-import { Server, ServerApi } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import currentNetwork from 'popup/utils/currentNetwork';
 import { PredicateInformation } from 'popup/utils/stellarResolveClaimantPredicates';
@@ -6,7 +6,7 @@ import { PredicateInformation } from 'popup/utils/stellarResolveClaimantPredicat
 import getAssetImages from './getAssetImages';
 
 export interface ClaimableBalanceWithAssetImage
-  extends ServerApi.ClaimableBalanceRecord {
+  extends Horizon.ServerApi.ClaimableBalanceRecord {
   logo: string;
 }
 
@@ -20,7 +20,7 @@ export interface ClaimableBalanceDetailed
 const getClaimableBalances = async (publicKey: string) => {
   const serverURL = currentNetwork().url;
 
-  const server = new Server(serverURL);
+  const server = new Horizon.Server(serverURL);
 
   try {
     const sponsorCBs = server

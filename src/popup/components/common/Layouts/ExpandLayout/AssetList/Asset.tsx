@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import BlackCheck from 'popup/svgs/BlackCheck';
 import { Usage } from 'popup/models/general.model';
@@ -16,7 +16,7 @@ import ImageOnErrorHandler from '../../../../../../helpers/ImageOnErrorHandler';
 import * as S from './styles';
 
 type AssetType = {
-  asset: Horizon.BalanceLine;
+  asset: Horizon.HorizonApi.BalanceLine;
   usage: Usage;
 };
 

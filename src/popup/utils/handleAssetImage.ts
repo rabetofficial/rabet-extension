@@ -1,18 +1,20 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
-import { AssetImage } from 'popup/reducers/assetImages';
 import xlmLogo from '../../assets/images/xlm-logo.svg';
+import { AssetImage } from 'popup/reducers/assetImages';
 import questionLogo from '../../assets/images/question-circle.png';
 
 const handleAssetImage = (
-  asset: Horizon.BalanceLine,
+  asset: Horizon.HorizonApi.BalanceLine,
   assetImages: AssetImage[],
 ) => {
   if (!asset) {
     return questionLogo;
   }
 
+  // @ts-ignore
   if (asset.logo) {
+    // @ts-ignore
     return asset.logo;
   }
 

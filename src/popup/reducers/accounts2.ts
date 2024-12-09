@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IAccount {
@@ -10,18 +10,18 @@ export interface IAccount {
   inactive?: boolean;
   isConnected: boolean;
   subentry_count: number;
-  assets?: Horizon.BalanceLine[];
-  flags?: Horizon.Flags;
+  assets?: Horizon.HorizonApi.BalanceLine[];
+  flags?: Horizon.HorizonApi.Flags;
 }
 
 type AddAssetsAction = {
   publicKey: string;
-  assets: Horizon.BalanceLine[];
+  assets: Horizon.HorizonApi.BalanceLine[];
 };
 
 type AddFlagsAction = {
   publicKey: string;
-  flags: Horizon.Flags;
+  flags: Horizon.HorizonApi.Flags;
 };
 
 type AddSubAction = {

@@ -1,11 +1,11 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import matchAsset from '../matchAsset';
 
 const addDefaultAssets = (
-  assets: Horizon.BalanceLine[],
-  defaultAssets: Horizon.BalanceLineAsset<'credit_alphanum4'>[],
-): Horizon.BalanceLine[] => {
+  assets: Horizon.HorizonApi.BalanceLine[],
+  defaultAssets: Horizon.HorizonApi.BalanceLineAsset<'credit_alphanum4'>[],
+): Horizon.HorizonApi.BalanceLine[] => {
   const newAssets = [...assets];
 
   for (let i = 0; i < defaultAssets.length; i += 1) {

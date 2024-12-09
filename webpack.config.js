@@ -13,6 +13,10 @@ const devMode = process.env.NODE_ENV !== 'production';
 const isDesktop = process.env.PURPOSE === 'desktop';
 
 const plugins = [
+  new webpack.ProvidePlugin({
+    process: 'process/browser',
+    Buffer: ['buffer', 'Buffer'],
+  }),
   new webpack.DefinePlugin({
     'process.env.isDesktop': isDesktop,
   }),
@@ -161,6 +165,9 @@ const config = {
     fallback,
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
+      process: 'process/browser',
+      stream: 'stream-browserify',
+      zlib: 'browserify-zlib',
       src: resolve(__dirname, 'src'),
       popup: resolve(__dirname, 'src', 'popup'),
       helpers: resolve(__dirname, 'src', 'helpers'),

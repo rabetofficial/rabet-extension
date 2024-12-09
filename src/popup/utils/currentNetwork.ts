@@ -1,4 +1,4 @@
-import StellarSdk from 'stellar-sdk';
+import { Networks } from '@stellar/stellar-sdk';
 
 import store from 'popup/store';
 import config from '../../config';
@@ -9,19 +9,19 @@ export default () => {
   if (options.network === 'MAINNET') {
     return {
       url: config.HORIZON.mainnet,
-      passphrase: StellarSdk.Networks.PUBLIC,
+      passphrase: Networks.PUBLIC,
     };
   }
 
   if (options.network === 'TESTNET') {
     return {
       url: config.HORIZON.testnet,
-      passphrase: StellarSdk.Networks.TESTNET,
+      passphrase: Networks.TESTNET,
     };
   }
 
   return {
     url: config.HORIZON.mainnet,
-    passphrase: StellarSdk.Networks.PUBLIC,
+    passphrase: Networks.PUBLIC,
   };
 };

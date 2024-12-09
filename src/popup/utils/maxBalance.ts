@@ -1,10 +1,10 @@
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 
 import BN from 'helpers/BN';
 import { IAccount } from 'popup/reducers/accounts2';
 
 const getMaxBalance = (
-  asset: Horizon.BalanceLine,
+  asset: Horizon.HorizonApi.BalanceLine,
   account: IAccount,
 ) => {
   const maxXLM =

@@ -1,11 +1,11 @@
-import { Asset, Horizon, Server } from 'stellar-sdk';
+import { Asset, Horizon } from '@stellar/stellar-sdk';
 
 import BN from 'helpers/BN';
 import currentNetwork from 'popup/utils/currentNetwork';
 
 const calculatePriceImpact = async (
-  asset1: Horizon.BalanceLine,
-  asset2: Horizon.BalanceLine,
+  asset1: Horizon.HorizonApi.BalanceLine,
+  asset2: Horizon.HorizonApi.BalanceLine,
 ) => {
   try {
     let asset1StellarAsset = Asset.native();
@@ -33,7 +33,7 @@ const calculatePriceImpact = async (
     }
 
     const { url } = currentNetwork();
-    const server = new Server(url);
+    const server = new Horizon.Server(url);
 
     if (
       asset1.asset_type === 'native' &&

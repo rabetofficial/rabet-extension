@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isValidDomain from 'is-valid-domain';
-import { StrKey, Horizon } from 'stellar-sdk';
+import { StrKey, Horizon } from '@stellar/stellar-sdk';
 import { Form, Field } from 'react-final-form';
 
 import BN from 'helpers/BN';
@@ -23,7 +23,7 @@ type InputInfo = {
 
 type AppProps = {
   id: string;
-  type: Horizon.OperationResponseType | string;
+  type: Horizon.HorizonApi.OperationResponseType | string;
   label: string;
   inputInfo: InputInfo;
 };
@@ -47,7 +47,9 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
     }
 
     if (!hasError.value) {
-      if (type === Horizon.OperationResponseType.bumpSequence) {
+      if (
+        type === Horizon.HorizonApi.OperationResponseType.bumpSequence
+      ) {
         if (new BN(values.value).isNaN()) {
           changeOperationAction(id, {
             checked: false,
@@ -63,7 +65,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
           });
         }
       } else if (
-        type === Horizon.OperationResponseType.accountMerge
+        type === Horizon.HorizonApi.OperationResponseType.accountMerge
       ) {
         if (
           values.value &&
@@ -98,7 +100,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
         }
       } else if (
         type ===
-        `${Horizon.OperationResponseType.setOptions}_set_flag`
+        `${Horizon.HorizonApi.OperationResponseType.setOptions}_set_flag`
       ) {
         const flagNumber = new BN(values.value);
 
@@ -122,7 +124,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
         }
       } else if (
         type ===
-        `${Horizon.OperationResponseType.setOptions}_inflation`
+        `${Horizon.HorizonApi.OperationResponseType.setOptions}_inflation`
       ) {
         if (
           values.value &&
@@ -142,7 +144,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
         }
       } else if (
         type ===
-        `${Horizon.OperationResponseType.setOptions}_clear_flag`
+        `${Horizon.HorizonApi.OperationResponseType.setOptions}_clear_flag`
       ) {
         const flagNumber = new BN(values.value);
 
@@ -169,7 +171,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
         }
       } else if (
         type ===
-        `${Horizon.OperationResponseType.setOptions}_home_domain`
+        `${Horizon.HorizonApi.OperationResponseType.setOptions}_home_domain`
       ) {
         if (!isValidDomain(values.value)) {
           errors.value = 'Invalid domain.';
@@ -186,7 +188,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
         }
       } else if (
         type ===
-        `${Horizon.OperationResponseType.setOptions}_master_weight`
+        `${Horizon.HorizonApi.OperationResponseType.setOptions}_master_weight`
       ) {
         if (new BN(values.value).isNaN()) {
           errors.value = null;
@@ -212,12 +214,13 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
   const noControl = () => {};
 
   if (
-    type === Horizon.OperationResponseType.bumpSequence ||
-    type === `${Horizon.OperationResponseType.setOptions}_set_flag` ||
+    type === Horizon.HorizonApi.OperationResponseType.bumpSequence ||
     type ===
-      `${Horizon.OperationResponseType.setOptions}_clear_flag` ||
+      `${Horizon.HorizonApi.OperationResponseType.setOptions}_set_flag` ||
     type ===
-      `${Horizon.OperationResponseType.setOptions}_master_weight`
+      `${Horizon.HorizonApi.OperationResponseType.setOptions}_clear_flag` ||
+    type ===
+      `${Horizon.HorizonApi.OperationResponseType.setOptions}_master_weight`
   ) {
     isInputNumber = true;
   }

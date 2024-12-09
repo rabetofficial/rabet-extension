@@ -1,5 +1,5 @@
 import React from 'react';
-import { Horizon } from 'stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import RouteName from 'popup/staticRes/routes';

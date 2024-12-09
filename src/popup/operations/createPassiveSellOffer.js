@@ -1,15 +1,10 @@
-import StellarSdk from 'stellar-sdk';
+import { Operation } from '@stellar/stellar-sdk';
 
-export default ({
-  selling,
-  buying,
-  amount,
-  price,
-  source,
-}) => StellarSdk.Operation.createPassiveSellOffer({
-  price,
-  amount,
-  source,
-  buying,
-  selling,
-});
+export default ({ selling, buying, amount, price, source }) =>
+  Operation.createPassiveSellOffer({
+    price,
+    amount,
+    source,
+    buying,
+    selling,
+  });
