@@ -1,6 +1,6 @@
 {
   "name": "rabet",
-  "version": "1.7.4",
+  "version": "1.7.6",
   "description": "Rabet extension, a simple way to interact with Stellar network.",
   "main": "dist/electron.js",
   "scripts": {
@@ -34,6 +34,7 @@
     "@babel/plugin-transform-runtime": "^7.25.7",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
+    "@types/chrome": "^0.0.287",
     "@types/luxon": "^2.0.9",
     "@types/qrcode.react": "^1.0.2",
     "@types/react-copy-to-clipboard": "^5.0.2",

@@ -53,10 +53,7 @@ export default async () => {
               if (asset.asset_type === 'native') {
                 stellarAsset = Asset.native();
               } else {
-                stellarAsset = new Asset(
-                  asset.asset_code,
-                  asset.asset_issuer,
-                );
+                stellarAsset = new Asset(asset.asset_code, asset.asset_issuer);
               }
 
               transaction = transaction.addOperation(
@@ -67,34 +64,26 @@ export default async () => {
                 }),
               );
             }
-          } else if (
-            operations[i].type === operationsName.bumpSequence
-          ) {
+          } else if (operations[i].type === operationsName.bumpSequence) {
             transaction = transaction.addOperation(
               Operation.bumpSequence({
                 bumpTo: operations[i].bumpTo,
               }),
             );
-          } else if (
-            operations[i].type === operationsName.manageData
-          ) {
+          } else if (operations[i].type === operationsName.manageData) {
             transaction = transaction.addOperation(
               Operation.manageData({
                 name: operations[i].name,
                 value: operations[i].value,
               }),
             );
-          } else if (
-            operations[i].type === operationsName.accountMerge
-          ) {
+          } else if (operations[i].type === operationsName.accountMerge) {
             transaction = transaction.addOperation(
               Operation.accountMerge({
                 destination: operations[i].destination,
               }),
             );
-          } else if (
-            operations[i].type === operationsName.allowTrust
-          ) {
+          } else if (operations[i].type === operationsName.allowTrust) {
             transaction = transaction.addOperation(
               Operation.allowTrust({
                 trustor: operations[i].trustor,
@@ -102,9 +91,7 @@ export default async () => {
                 authorize: operations[i].authorize,
               }),
             );
-          } else if (
-            operations[i].type === operationsName.changeTrust
-          ) {
+          } else if (operations[i].type === operationsName.changeTrust) {
             transaction = transaction.addOperation(
               Operation.changeTrust({
                 limit: operations[i].limit,
@@ -114,10 +101,7 @@ export default async () => {
                 ),
               }),
             );
-          } else if (
-            operations[i].type ===
-            `${operationsName.setOptions}_signer`
-          ) {
+          } else if (operations[i].type === `${operationsName.setOptions}_signer`) {
             transaction = transaction.addOperation(
               Operation.setOptions({
                 signer: {
@@ -126,28 +110,19 @@ export default async () => {
                 },
               }),
             );
-          } else if (
-            operations[i].type ===
-            `${operationsName.setOptions}_set_flags`
-          ) {
+          } else if (operations[i].type === `${operationsName.setOptions}_set_flags`) {
             transaction = transaction.addOperation(
               Operation.setOptions({
                 setFlags: operations[i].setFlags,
               }),
             );
-          } else if (
-            operations[i].type ===
-            `${operationsName.setOptions}_inflation`
-          ) {
+          } else if (operations[i].type === `${operationsName.setOptions}_inflation`) {
             transaction = transaction.addOperation(
               Operation.setOptions({
                 inflationDest: operations[i].destination,
               }),
             );
-          } else if (
-            operations[i].type ===
-            `${operationsName.setOptions}_threshold`
-          ) {
+          } else if (operations[i].type === `${operationsName.setOptions}_threshold`) {
             transaction = transaction.addOperation(
               Operation.setOptions({
                 lowThreshold: operations[i].low,
@@ -155,36 +130,27 @@ export default async () => {
                 highThreshold: operations[i].high,
               }),
             );
-          } else if (
-            operations[i].type ===
-            `${operationsName.setOptions}_clear_flag`
-          ) {
+          } else if (operations[i].type === `${operationsName.setOptions}_clear_flag`) {
             transaction = transaction.addOperation(
               Operation.setOptions({
                 clearFlags: operations[i].clearFlags,
               }),
             );
-          } else if (
-            operations[i].type ===
-            `${operationsName.setOptions}_home_domain`
-          ) {
+          } else if (operations[i].type === `${operationsName.setOptions}_home_domain`) {
             transaction = transaction.addOperation(
               Operation.setOptions({
                 homeDomain: operations[i].homeDomain,
               }),
             );
           } else if (
-            operations[i].type ===
-            `${operationsName.setOptions}_master_weight`
+            operations[i].type === `${operationsName.setOptions}_master_weight`
           ) {
             transaction = transaction.addOperation(
               Operation.setOptions({
                 masterWeight: operations[i].masterWeight,
               }),
             );
-          } else if (
-            operations[i].type === operationsName.manageBuyOffer
-          ) {
+          } else if (operations[i].type === operationsName.manageBuyOffer) {
             let sellingAsset;
             let buyingAsset;
 
@@ -214,17 +180,14 @@ export default async () => {
                 price: {
                   n: 1 * 10 ** 7,
                   d: Math.round(
-                    (Number(operations[i].buying) /
-                      Number(operations[i].selling)) *
+                    (Number(operations[i].buying) / Number(operations[i].selling)) *
                       10 ** 7,
                   ),
                 },
                 offerId: operations[i].offerId,
               }),
             );
-          } else if (
-            operations[i].type === operationsName.createPassiveOffer
-          ) {
+          } else if (operations[i].type === operationsName.createPassiveOffer) {
             let sellingAsset;
             let buyingAsset;
 
@@ -254,17 +217,13 @@ export default async () => {
                 price: {
                   n: 1 * 10 ** 7,
                   d: Math.round(
-                    (Number(operations[i].selling) /
-                      Number(operations[i].buying)) *
+                    (Number(operations[i].selling) / Number(operations[i].buying)) *
                       10 ** 7,
                   ),
                 },
               }),
             );
-          } else if (
-            operations[i].type ===
-            operationsName.pathPaymentStrictSend
-          ) {
+          } else if (operations[i].type === operationsName.pathPaymentStrictSend) {
             let sendAsset;
             let destAsset;
             let isOneXLM = false;
@@ -304,9 +263,7 @@ export default async () => {
             transaction = transaction.addOperation(
               Operation.pathPaymentStrictSend(params),
             );
-          } else if (
-            operations[i].type === operationsName.pathPayment
-          ) {
+          } else if (operations[i].type === operationsName.pathPayment) {
             let sendAsset;
             let destAsset;
             let isOneXLM = false;
@@ -346,10 +303,7 @@ export default async () => {
             transaction = transaction.addOperation(
               Operation.pathPaymentStrictReceive(params),
             );
-          } else if (
-            operations[i].type ===
-            operationsName.createClaimableBalance
-          ) {
+          } else if (operations[i].type === operationsName.createClaimableBalance) {
             let asset;
             if (operations[i].asset.asset_type === 'native') {
               asset = Asset.native();
@@ -365,9 +319,7 @@ export default async () => {
 
             const canClaim = Claimant.predicateAnd(
               Claimant.predicateNot(
-                Claimant.predicateBeforeAbsoluteTime(
-                  sDate.toFixed(0),
-                ),
+                Claimant.predicateBeforeAbsoluteTime(sDate.toFixed(0)),
               ),
               Claimant.predicateBeforeAbsoluteTime(eDate.toFixed(0)),
             );
@@ -376,9 +328,7 @@ export default async () => {
               Operation.createClaimableBalance({
                 asset,
                 amount: operations[i].amount,
-                claimants: [
-                  new Claimant(operations[i].destination, canClaim),
-                ],
+                claimants: [new Claimant(operations[i].destination, canClaim)],
               }),
             );
           }
@@ -401,9 +351,6 @@ export default async () => {
       return [false, showError(err.response.data)];
     }
 
-    return [
-      false,
-      'One of the operations failed (none were applied).',
-    ];
+    return [false, 'One of the operations failed (none were applied).'];
   }
 };

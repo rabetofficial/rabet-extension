@@ -75,10 +75,10 @@ const fallback = {
 const entry = {
   popup: resolve(`${__dirname}/src/popup/index.tsx`),
   background_script: resolve(
-    `${__dirname}/src/background_script/index.js`,
+    `${__dirname}/src/background_script/index.ts`,
   ),
   content_script: resolve(`${__dirname}/src/content_script/index.js`),
-  client_script: resolve(`${__dirname}/src/client_script/index.js`),
+  client_script: resolve(`${__dirname}/src/client_script/index.ts`),
   interaction: resolve(`${__dirname}/src/interaction/index.jsx`),
 };
 

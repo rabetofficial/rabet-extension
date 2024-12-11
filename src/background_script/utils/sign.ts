@@ -7,15 +7,8 @@ import {
 
 export default (userXdr, network, account) => {
   try {
-    console.log('account');
-    console.log(account);
     const key = Keypair.fromSecret(account.privateKey);
-    console.log('key');
-    console.log(key);
-    console.log(userXdr);
     const obj = xdr.TransactionEnvelope.fromXDR(userXdr, 'base64');
-    console.log('obj');
-    console.log(obj);
 
     let stellarNetwork;
 

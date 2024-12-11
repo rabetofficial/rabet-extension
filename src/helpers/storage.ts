@@ -1,7 +1,7 @@
 import { encrypt, decrypt } from './crypto';
 
 export const get = (key: string, password?: string) =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve, _) => {
     chrome.storage.local.get([key], (result: any) => {
       const data = result[key];
 
@@ -13,7 +13,7 @@ export const get = (key: string, password?: string) =>
         return resolve(data);
       }
 
-      let jsonData;
+      let jsonData: any;
 
       try {
         const decrypredData = decrypt(password, data);
@@ -30,7 +30,7 @@ export const get = (key: string, password?: string) =>
 export const set = (key: string, value: any, password?: string) =>
   new Promise((resolve, reject) => {
     try {
-      let dataToBeSet;
+      let dataToBeSet: any;
 
       if (password) {
         const encryptedData = encrypt(
