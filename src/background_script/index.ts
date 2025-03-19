@@ -37,7 +37,9 @@ chrome.runtime.onMessage.addListener((message, _, sendRaw) => {
 
   if (message.type === E_CONNECT) {
     connect(message, send, sendCol).then((w) => {
-      window = w;
+      if (w) {
+        window = w;
+      }
     });
   } else if (message.type === E_LOGIN) {
     login(message, send, sendCol, window);

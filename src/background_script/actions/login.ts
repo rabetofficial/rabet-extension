@@ -1,10 +1,10 @@
 import setTimer from '../utils/setTimer';
 import { get } from '../../helpers/storage';
 import { ISend, ISendCollection } from '../types';
-import WindowManager from '../utils/WindowManager';
 import { IOption } from '../../popup/reducers/options';
 import { IAccount } from '../../popup/reducers/accounts2';
 import { LoginMessageType } from '../../common/messageTypes';
+import { removeWindow } from 'background_script/utils/window';
 import readConnectedWebsites from '../../helpers/readConnectedWebsites';
 import { R_INCORRECT_PASSWORD, R_NO_ACCOUNT } from '../../common/responses';
 
@@ -20,7 +20,7 @@ const login = (
 
       if (!accounts || !accounts.length) {
         sendCol[message.id](R_NO_ACCOUNT);
-        WindowManager.remove(window.id);
+        removeWindow(window.id);
 
         return;
       }
@@ -42,7 +42,7 @@ const login = (
             },
           });
 
-          WindowManager.remove(window.id);
+          removeWindow(window.id);
 
           return;
         }
@@ -69,7 +69,7 @@ const login = (
               },
             });
 
-            WindowManager.remove(window.id);
+            removeWindow(window.id);
           } else {
             send({
               ok: true,

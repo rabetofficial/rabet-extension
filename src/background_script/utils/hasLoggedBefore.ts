@@ -1,25 +1,31 @@
-import { get } from '../../helpers/storage';
 import { decrypt } from '../../helpers/crypto';
+import { getAsync } from '../../helpers/chromeHelper';
 
-export default () =>
-  new Promise((resolve) => {
-    get('timer')
-      .then((timer) => {
-        const now = Date.now();
+interface ITimer {
+  date: number;
+  name: string;
+}
 
-        if (!timer || !timer.date) {
-          resolve(false);
-        }
+const hasLoggedBefore = async () => {
+  try {
+    const timer = await getAsync<ITimer>('timer');
 
-        if (timer.date < now) {
-          resolve(false);
-        }
+    const now = Date.now();
 
-        const name = decrypt(`${timer.date}`, timer.name);
+    if (!timer || !timer.date) {
+      return null;
+    }
 
-        resolve(name);
-      })
-      .catch(() => {
-        resolve(false);
-      });
-  });
+    if (timer.date < now) {
+      return null;
+    }
+
+    const password: string = decrypt(`${timer.date}`, timer.name);
+
+    return password;
+  } catch (e) {
+    return null;
+  }
+};
+
+export default hasLoggedBefore;
