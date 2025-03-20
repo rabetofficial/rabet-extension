@@ -2,7 +2,7 @@ import { getAsync } from './chromeHelper';
 import { encrypt, decrypt } from './crypto';
 
 export const get = <T>(key: string, password?: string) =>
-  new Promise((resolve, _) => {
+  new Promise((resolve, reject) => {
     chrome.storage.local.get([key], (result: any) => {
       const data = result[key];
 
@@ -21,7 +21,7 @@ export const get = <T>(key: string, password?: string) =>
 
         jsonData = JSON.parse(decrypredData);
       } catch (e) {
-        return resolve(null);
+        return reject(null);
       }
 
       return resolve(jsonData);

@@ -3,10 +3,12 @@ import { ConnectMessageType } from '../common/messageTypes';
 import { E_CONNECT, E_CONNECT_RES } from '../common/messageEvents';
 
 interface IRabet {
+  // TODO: change any to something
   close: () => any;
   connect: () => any;
   disconnect: () => any;
   isUnlocked: () => any;
+  network: () => any;
   sign: (xdr: string, network: string) => any;
   on: (eventName: string, cb: (network?: string) => void) => any;
 }
@@ -182,6 +184,22 @@ rabet.isUnlocked = () =>
 
       if (detail.ok) {
         resolve(detail.isUnlocked);
+      }
+    });
+  });
+
+rabet.network = () =>
+  new Promise((resolve) => {
+    document.dispatchEvent(
+      new CustomEvent('RABET_EXTENSION_NETWORK', {}),
+    );
+
+    document.addEventListener('RABET_EXTENSION_NETWORK_RESPONSE', (e) => {
+      // @ts-ignore
+      const detail = JSON.parse(e.detail);
+
+      if (detail.ok) {
+        resolve(detail.network);
       }
     });
   });

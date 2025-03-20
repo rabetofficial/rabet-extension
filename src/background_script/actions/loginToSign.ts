@@ -1,85 +1,60 @@
 import setTimer from '../utils/setTimer';
 import { get } from '../../helpers/storage';
-import { ISend, ISendCollection } from '../types';
-import WindowManager from '../utils/WindowManager';
-import { IOption } from '../../popup/reducers/options';
+import { removeWindow } from '../utils/window';
 import { IAccount } from '../../popup/reducers/accounts2';
+import isWebsiteConnected from '../utils/isWebsiteConnected';
+import { ActionState, ISend, ISendCollection } from '../types';
 import { LoginToSignMessageType } from '../../common/messageTypes';
-import readConnectedWebsites from '../../helpers/readConnectedWebsites';
 import {
-  R_INCORRECT_PASSWORD,
   R_NOT_CONNECTED,
-  R_NO_ACCOUNT,
+  R_INCORRECT_PASSWORD,
 } from '../../common/responses';
 
-const loginToSign = (
+const loginToSign = async (
   message: LoginToSignMessageType,
+  state: ActionState,
   send: ISend,
   sendCol: ISendCollection,
   window: chrome.windows.Window,
 ) => {
-  get('data', message.values.password)
-    .then((accounts: IAccount[]) => {
-      setTimer(message.values.password);
+  try {
+    const accounts = await get('data', message.values.password) as IAccount[];
 
-      if (!accounts || !accounts.length) {
-        sendCol[message.id](R_NO_ACCOUNT);
-        WindowManager.remove(window.id);
+    setTimer(message.values.password);
 
-        return;
-      }
+    let activeAccount = accounts.find((x) => x.active === true);
+    if (!activeAccount) {
+      activeAccount = accounts[0];
+    }
 
-      const activeAcconut = accounts.find((x) => x.active === true);
-
-      get('options').then((options: IOption) => {
-        let isPrivacyModeOn = true;
-
-        if (options) {
-          isPrivacyModeOn = options.privacyMode;
-        }
-
-        if (!isPrivacyModeOn) {
-          send({
-            ok: true,
-            message: {
-              publicKey: activeAcconut.publicKey,
-            },
-          });
-          return;
-        }
-
-        get('connectedWebsites').then((rawConnectedWebsites: string) => {
-          const connectedWebsites = readConnectedWebsites(rawConnectedWebsites);
-
-          let isHostConnected = false;
-
-          if (!connectedWebsites || !connectedWebsites.length) {
-            isHostConnected = false;
-          } else {
-            isHostConnected = connectedWebsites.some(
-              (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
-            );
-          }
-
-          // When the host is trusted
-          if (isHostConnected) {
-            send({
-              ok: true,
-              message: {
-                publicKey: activeAcconut.publicKey,
-              },
-            });
-          } else {
-            sendCol[message.id](R_NOT_CONNECTED);
-
-            WindowManager.remove(window.id);
-          }
-        });
+    if (!state.options.privacyMode) {
+      send({
+        ok: true,
+        message: {
+          publicKey: activeAccount.publicKey,
+        },
       });
-    })
-    .catch(() => {
-      send(R_INCORRECT_PASSWORD);
-    });
+
+      return;
+    }
+
+    const isHostConnected = isWebsiteConnected(state.connectedWebsites, message.detail.host, activeAccount.publicKey);
+
+    if (isHostConnected) {
+      send({
+        ok: true,
+        message: {
+          publicKey: activeAccount.publicKey,
+        },
+      });
+    } else {
+      sendCol[message.id](R_NOT_CONNECTED);
+
+      removeWindow(window.id);
+    }
+  } catch (e) {
+    send(R_INCORRECT_PASSWORD);
+  }
 };
 
 export default loginToSign;

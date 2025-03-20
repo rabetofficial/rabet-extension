@@ -1,90 +1,65 @@
 import setTimer from '../utils/setTimer';
 import { get } from '../../helpers/storage';
-import { ISend, ISendCollection } from '../types';
-import { IOption } from '../../popup/reducers/options';
+import { removeWindow } from '../utils/window';
 import { IAccount } from '../../popup/reducers/accounts2';
+import isWebsiteConnected from '../utils/isWebsiteConnected';
 import { LoginMessageType } from '../../common/messageTypes';
-import { removeWindow } from 'background_script/utils/window';
-import readConnectedWebsites from '../../helpers/readConnectedWebsites';
-import { R_INCORRECT_PASSWORD, R_NO_ACCOUNT } from '../../common/responses';
+import { R_INCORRECT_PASSWORD } from '../../common/responses';
+import { ActionState, ISend, ISendCollection } from '../types';
 
-const login = (
+const login = async (
   message: LoginMessageType,
+  state: ActionState,
   send: ISend,
   sendCol: ISendCollection,
   window: chrome.windows.Window,
 ) => {
-  get('data', message.values.password)
-    .then((accounts: IAccount[]) => {
-      setTimer(message.values.password);
+  try {
+    const accounts = await get('data', message.values.password) as IAccount[];
 
-      if (!accounts || !accounts.length) {
-        sendCol[message.id](R_NO_ACCOUNT);
-        removeWindow(window.id);
+    setTimer(message.values.password);
 
-        return;
-      }
+    let activeAccount = accounts.find((x) => x.active === true);
+    if (!activeAccount) {
+      activeAccount = accounts[0];
+    }
 
-      const activeAcconut = accounts.find((x) => x.active === true);
-
-      get('options').then((options: IOption) => {
-        let isPrivacyModeOn = true;
-
-        if (options) {
-          isPrivacyModeOn = options.privacyMode;
-        }
-
-        if (!isPrivacyModeOn) {
-          sendCol[message.id]({
-            ok: true,
-            message: {
-              publicKey: activeAcconut.publicKey,
-            },
-          });
-
-          removeWindow(window.id);
-
-          return;
-        }
-
-        get('connectedWebsites').then((rawConnectedWebsites: string) => {
-          const connectedWebsites = readConnectedWebsites(rawConnectedWebsites);
-
-          let isHostConnected = false;
-
-          if (!connectedWebsites || !connectedWebsites.length) {
-            isHostConnected = false;
-          } else {
-            isHostConnected = connectedWebsites.some(
-              (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
-            );
-          }
-
-          // When the host is trusted
-          if (isHostConnected) {
-            sendCol[message.id]({
-              ok: true,
-              message: {
-                publicKey: activeAcconut.publicKey,
-              },
-            });
-
-            removeWindow(window.id);
-          } else {
-            send({
-              ok: true,
-              message: {
-                name: activeAcconut.name,
-                publicKey: activeAcconut.publicKey,
-              },
-            });
-          }
-        });
+    if (!state.options.privacyMode) {
+      sendCol[message.id]({
+        ok: true,
+        message: {
+          publicKey: activeAccount.publicKey,
+        },
       });
-    })
-    .catch(() => {
-      send(R_INCORRECT_PASSWORD);
-    });
+
+      removeWindow(window.id);
+
+      return;
+    }
+
+    const isHostConnected = isWebsiteConnected(state.connectedWebsites, message.detail.host, activeAccount.publicKey);
+
+    if (isHostConnected) {
+      sendCol[message.id]({
+        ok: true,
+        message: {
+          publicKey: activeAccount.publicKey,
+        },
+      });
+
+      removeWindow(window.id);
+    } else {
+      send({
+        ok: true,
+        message: {
+          name: activeAccount.name,
+          publicKey: activeAccount.publicKey,
+        },
+      });
+    }
+  } catch (e) {
+    send(R_INCORRECT_PASSWORD);
+  }
 };
 
 export default login;

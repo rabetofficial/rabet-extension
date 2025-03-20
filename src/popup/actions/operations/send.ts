@@ -1,4 +1,4 @@
-import = 4 {
+import {
   Memo,
   Asset,
   Keypair,

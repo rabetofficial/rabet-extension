@@ -1,46 +1,24 @@
+import { createWindow } from '../utils/window';
 import getNetwork from '../../helpers/getNetwork';
-import { ISend, ISendCollection } from '../types';
-import { getAndDecrypt } from '../../helpers/storage';
-import hasLoggedBefore from '../utils/hasLoggedBefore';
-import { IOption } from '../../popup/reducers/options';
-import { IAccount } from '../../popup/reducers/accounts2';
 import { SignMessageType } from '../../common/messageTypes';
 import { E_GENERATED_ID } from '../../common/messageEvents';
-import readConnectedWebsites from '../../helpers/readConnectedWebsites';
+import isWebsiteConnected from '../utils/isWebsiteConnected';
+import { ActionState, ISend, ISendCollection } from '../types';
 import {
-  R_INCORRECT_PASSWORD,
-  R_INTERNAL_ERROR,
   R_NOT_CONNECTED,
-  R_NO_ACCOUNT,
+  R_INTERNAL_ERROR,
 } from '../../common/responses';
-import { getAsync } from 'helpers/chromeHelper';
-import { createWindow } from 'background_script/utils/window';
 
 const sign = async (
   message: SignMessageType,
+  state: ActionState,
   send: ISend,
   sendCol: ISendCollection,
 ): Promise<chrome.windows.Window | null> => {
   const network = getNetwork(message.detail.network);
   const { screenX, screenY, outerWidth } = message.detail;
 
-  const rawData = await getAsync<string>('data');
-
-  if (!rawData) {
-    return send(R_NO_ACCOUNT);
-  }
-
-  let password: string;
-
-  try {
-    password = await hasLoggedBefore();
-  } catch (e) {
-    send(R_INCORRECT_PASSWORD);
-
-    return null;
-  }
-
-  if (!password) {
+  if (state.needsLogin) {
     try {
       const { window, generatedId } = await createWindow(
         { screenX, screenY, outerWidth },
@@ -65,23 +43,7 @@ const sign = async (
     }
   }
 
-  // When the user has logged before
-  const accounts = await getAndDecrypt<IAccount[]>('data', password);
-
-  // When user has no accounts
-  if (!accounts || !accounts.length) {
-    send(R_NO_ACCOUNT);
-
-    return;
-  }
-
-  const activeAcconut = accounts.find((x) => x.active === true);
-
-  const options = await getAsync<IOption>('options');
-
-  const isPrivacyModeOn = !options ? true : options.privacyMode;
-
-  if (!isPrivacyModeOn) {
+  if (!state.options.privacyMode) {
     try {
       const { window, generatedId } = await createWindow(
         { screenX, screenY, outerWidth },
@@ -94,8 +56,8 @@ const sign = async (
             network,
           },
           activeAcconut: {
-            name: activeAcconut.name,
-            publicKey: activeAcconut.publicKey,
+            name: state.activeAccount.name,
+            publicKey: state.activeAccount.publicKey,
           },
         },
       );
@@ -109,19 +71,7 @@ const sign = async (
       return null;
     }
   } else {
-    // When user has accounts and privacyMode is on
-    const rawConnectedWebsites = await getAsync<string | string[]>('connectedWebsites');
-    const connectedWebsites = readConnectedWebsites(rawConnectedWebsites);
-
-    let isHostConnected = false;
-
-    if (!connectedWebsites || !connectedWebsites.length) {
-      isHostConnected = false;
-    } else {
-      isHostConnected = connectedWebsites.some(
-        (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
-      );
-    }
+    const isHostConnected = isWebsiteConnected(state.connectedWebsites, message.detail.host, state.activeAccount.publicKey);
 
     // When the host is trusted
     if (isHostConnected) {
@@ -140,8 +90,8 @@ const sign = async (
               network,
             },
             activeAcconut: {
-              name: activeAcconut.name,
-              publicKey: activeAcconut.publicKey,
+              name: state.activeAccount.name,
+              publicKey: state.activeAccount.publicKey,
             },
           },
         );

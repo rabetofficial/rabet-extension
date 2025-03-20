@@ -58,6 +58,15 @@ document.addEventListener(
   ),
 );
 
+document.addEventListener(
+  'RABET_EXTENSION_NETWORK',
+  createEventListener(
+    'RABET_EXTENSION_NETWORK',
+    'RABET_EXTENSION_NETWORK_RESPONSE',
+    true,
+  ),
+);
+
 chrome.runtime.onMessage.addListener((message) => {
   if (message.type === 'RABET_EXTENSION_CHANGE_ACCOUNT_EVENT') {
     document.dispatchEvent(new CustomEvent('RABET_EXTENSION_CHANGE_ACCOUNT_EVENT', {}));

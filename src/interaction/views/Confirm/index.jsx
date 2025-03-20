@@ -12,11 +12,11 @@ import styles from './styles.less';
 const Confirm = () => {
   const [isImageLoaded, setIsImageLoaded] = useState(true);
 
-  const name = global.sessionStorage.getItem('accountName');
-  const xdrText = global.sessionStorage.getItem('xdr');
   const host = global.sessionStorage.getItem('host');
   const title = global.sessionStorage.getItem('title');
+  const xdrText = global.sessionStorage.getItem('xdr');
   const network = global.sessionStorage.getItem('network');
+  const name = global.sessionStorage.getItem('accountName');
   const publicKey = global.sessionStorage.getItem('accountPublicKey');
 
   const handleReject = () => {

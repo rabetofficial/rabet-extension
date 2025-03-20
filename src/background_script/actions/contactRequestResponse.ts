@@ -1,20 +1,19 @@
-import { ISendCollection } from '../types';
-import { get, set } from '../../helpers/storage';
-import WindowManager from '../utils/WindowManager';
-import { IOption } from '../../popup/reducers/options';
+import { set } from '../../helpers/storage';
+import { removeWindow } from '../utils/window';
+import { ActionState, ISendCollection } from '../types';
 import { R_USER_REJECTED } from '../../common/responses';
-import readConnectedWebsites from '../../helpers/readConnectedWebsites';
+import isWebsiteConnected from '../utils/isWebsiteConnected';
 import { ContactRequestResponseMessageType } from '../../common/messageTypes';
 
 const contactRequestResponse = (
   message: ContactRequestResponseMessageType,
+  state: ActionState,
   sendCol: ISendCollection,
   window: chrome.windows.Window,
 ) => {
   if (message.result === 'reject') {
     sendCol[message.id](R_USER_REJECTED);
   } else if (message.result === 'confirm') {
-    get('options').then((options: IOption) => {
       sendCol[message.id]({
         ok: true,
         message: {
@@ -22,30 +21,23 @@ const contactRequestResponse = (
         },
       });
 
-      let isPrivacyModeOn = true;
+      if (state.options.privacyMode) {
+        const isHostConnected = isWebsiteConnected(state.connectedWebsites, message.detail.host, message.activeAcconut.publicKey);
 
-      if (options) {
-        isPrivacyModeOn = options.privacyMode;
+        const newWebsites = [...state.connectedWebsites]
+        const newWebsite = `${message.detail.host}/${message.activeAcconut.publicKey}`;
+
+        if (!isHostConnected) {
+          newWebsites.push(newWebsite);
+        }
+
+        set('connectedWebsites', newWebsites);
       }
-
-      if (isPrivacyModeOn) {
-        get('connectedWebsites').then((rawConnectedWebsites: string) => {
-          const newWebsites = readConnectedWebsites(rawConnectedWebsites);
-          const newWebsite = `${message.detail.host}/${message.activeAcconut.publicKey}`;
-
-          if (!newWebsites.some((x) => x === newWebsite)) {
-            newWebsites.push(newWebsite);
-          }
-
-          set('connectedWebsites', newWebsites);
-        });
-      }
-    });
   } else {
     sendCol[message.id](R_USER_REJECTED);
   }
 
-  WindowManager.remove(window.id);
+  removeWindow(window.id);
 };
 
 export default contactRequestResponse;

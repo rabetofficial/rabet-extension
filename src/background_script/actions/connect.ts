@@ -1,31 +1,18 @@
-import { getAsync } from 'helpers/chromeHelper';
-import { ISend, ISendCollection } from '../types';
-import { getAndDecrypt } from '../../helpers/storage';
-import hasLoggedBefore from '../utils/hasLoggedBefore';
-import { IOption } from '../../popup/reducers/options';
-import { IAccount } from '../../popup/reducers/accounts2';
-import { createWindow } from 'background_script/utils/window';
+import { createWindow } from '../utils/window';
+import { R_INTERNAL_ERROR } from '../../common/responses';
+import isWebsiteConnected from '../utils/isWebsiteConnected';
+import { ActionState, ISend, ISendCollection } from '../types';
 import { ConnectMessageType } from '../../common/messageTypes';
-import { R_NO_ACCOUNT, R_INTERNAL_ERROR } from '../../common/responses';
 
 const connect = async (
   message: ConnectMessageType,
+  state: ActionState,
   send: ISend,
   sendCol: ISendCollection,
 ): Promise<chrome.windows.Window | null> => {
   const { screenX, screenY, outerWidth } = message.detail;
 
-  const rawData = await getAsync<string>('data');
-
-  if (!rawData) {
-    send(R_NO_ACCOUNT);
-
-    return null;
-  }
-
-  const password = await hasLoggedBefore();
-
-  if (!password) {
+  if (state.needsLogin) {
     try {
       const { window, generatedId } = await createWindow(
         { screenX, screenY, outerWidth },
@@ -45,52 +32,26 @@ const connect = async (
     }
   }
 
-  const accounts = await getAndDecrypt<IAccount[]>('data', password);
+  console.log(state)
 
-  if (!accounts || !accounts.length) {
-    send(R_NO_ACCOUNT);
-
-    return null;
-  }
-
-  const activeAcconut = accounts.find((x) => x.active === true);
-  const options = await getAsync<IOption | null>('options');
-
-  let isPrivacyModeOn = true;
-  if (options) {
-    isPrivacyModeOn = options.privacyMode;
-  }
-
-  // When user has accounts and privacyMode is off
-  if (!isPrivacyModeOn) {
+  if (!state.options.privacyMode) {
     send({
       ok: true,
       message: {
-        publicKey: activeAcconut.publicKey,
+        publicKey: state.activeAccount.publicKey,
       },
     });
 
     return null;
   }
 
-  // When user has accounts and privacyMode is on
-  const connectedWebsites = await getAsync<string[]>('connectedWebsites');
-
-  let isHostConnected = false;
-
-  if (!connectedWebsites || !connectedWebsites.length) {
-    isHostConnected = false;
-  } else {
-    isHostConnected = connectedWebsites.some(
-      (x) => x === `${message.detail.host}/${activeAcconut.publicKey}`,
-    );
-  }
+  const isHostConnected = isWebsiteConnected(state.connectedWebsites, message.detail.host, state.activeAccount.publicKey);
 
   if (isHostConnected) {
     send({
       ok: true,
       message: {
-        publicKey: activeAcconut.publicKey,
+        publicKey: state.activeAccount.publicKey,
       },
     });
 
@@ -104,8 +65,8 @@ const connect = async (
         page: '/contact-request',
         detail: message.detail,
         activeAcconut: {
-          name: activeAcconut.name,
-          publicKey: activeAcconut.publicKey,
+          name: state.activeAccount.name,
+          publicKey: state.activeAccount.publicKey,
         },
       },
     );
