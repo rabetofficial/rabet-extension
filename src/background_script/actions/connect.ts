@@ -32,8 +32,6 @@ const connect = async (
     }
   }
 
-  console.log(state)
-
   if (!state.options.privacyMode) {
     send({
       ok: true,

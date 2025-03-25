@@ -116,6 +116,7 @@ const handleActions = (message: any, state: ActionState, send: ISend) => {
   if (message.type === E_CONNECT) {
     connect(message, state, send, sendCol).then((w) => {
       if (w) {
+        window = w;
       }
     });
   } else if (message.type === E_LOGIN) {

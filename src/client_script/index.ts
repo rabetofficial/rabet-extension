@@ -8,7 +8,7 @@ interface IRabet {
   connect: () => any;
   disconnect: () => any;
   isUnlocked: () => any;
-  network: () => any;
+  getNetwork: () => any;
   sign: (xdr: string, network: string) => any;
   on: (eventName: string, cb: (network?: string) => void) => any;
 }
@@ -188,7 +188,7 @@ rabet.isUnlocked = () =>
     });
   });
 
-rabet.network = () =>
+rabet.getNetwork = () =>
   new Promise((resolve) => {
     document.dispatchEvent(
       new CustomEvent('RABET_EXTENSION_NETWORK', {}),
