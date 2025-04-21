@@ -100,12 +100,12 @@ chrome.runtime.onMessage.addListener((message, _, sendRaw) => {
   })
 
   chrome.windows.onRemoved.addListener((wIndex) => {
-    if (wIndex === window.id && window && window.id) {
+    if (sendCol[wIndex]) {
       setTimeout(() => {
-        send(R_USER_REJECTED);
-      }, 200);
+        sendCol[wIndex](R_USER_REJECTED);
 
-      window = null;
+        delete sendCol[wIndex];
+      }, 200);
     }
   });
 

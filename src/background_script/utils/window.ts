@@ -32,7 +32,7 @@ export const createWindow = async (metrics: ScreenMetrics, details: any) => {
     chrome.windows.remove(window.id);
   }, config.WINDOW_TIMEOUT_SECONDS * 1000);
 
-  const generatedId = Date.now().toString();
+  const generatedId = window.id;
 
   sendInterval(window.tabs[0].id, {
     generatedId,

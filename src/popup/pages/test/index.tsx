@@ -5,7 +5,6 @@ const TestPage = () => {
   const [startDate, setStartDate] = useState(new Date());
 
   const onchange = (e: Date) => {
-    console.warn(e);
     setStartDate(e);
   };
 
