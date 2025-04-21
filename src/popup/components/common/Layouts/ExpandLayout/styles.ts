@@ -3,7 +3,7 @@ import Copy from 'popup/svgs/Copy';
 import svgToMarkupString from '../../../../../helpers/svgToMarkupString';
 
 export const Container = styled.div`
-  padding: 23px 54px 23px 54px;
+  padding: 11px 54px 11px 54px;
   background-color: ${({ theme }) => theme.colors.primary.lighter};
   min-height: 100vh;
   height: 100%;
