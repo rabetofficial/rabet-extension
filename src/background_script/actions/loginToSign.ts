@@ -5,10 +5,7 @@ import { IAccount } from '../../popup/reducers/accounts2';
 import isWebsiteConnected from '../utils/isWebsiteConnected';
 import { ActionState, ISend, ISendCollection } from '../types';
 import { LoginToSignMessageType } from '../../common/messageTypes';
-import {
-  R_NOT_CONNECTED,
-  R_INCORRECT_PASSWORD,
-} from '../../common/responses';
+import { R_NOT_CONNECTED, R_INCORRECT_PASSWORD } from '../../common/responses';
 
 const loginToSign = async (
   message: LoginToSignMessageType,
@@ -18,7 +15,7 @@ const loginToSign = async (
   window: chrome.windows.Window,
 ) => {
   try {
-    const accounts = await get('data', message.values.password) as IAccount[];
+    const accounts = (await get('data', message.values.password)) as IAccount[];
 
     setTimer(message.values.password);
 
@@ -31,6 +28,7 @@ const loginToSign = async (
       send({
         ok: true,
         message: {
+          name: activeAccount.name,
           publicKey: activeAccount.publicKey,
         },
       });
@@ -38,12 +36,17 @@ const loginToSign = async (
       return;
     }
 
-    const isHostConnected = isWebsiteConnected(state.connectedWebsites, message.detail.host, activeAccount.publicKey);
+    const isHostConnected = isWebsiteConnected(
+      state.connectedWebsites,
+      message.detail.host,
+      activeAccount.publicKey,
+    );
 
     if (isHostConnected) {
       send({
         ok: true,
         message: {
+          name: activeAccount.name,
           publicKey: activeAccount.publicKey,
         },
       });

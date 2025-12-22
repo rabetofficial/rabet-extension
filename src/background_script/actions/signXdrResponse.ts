@@ -2,11 +2,7 @@ import sign from '../utils/sign';
 import { removeWindow } from '../utils/window';
 import { ActionState, ISendCollection } from '../types';
 import { SignXdrResponseType } from '../../common/messageTypes';
-import {
-  R_INVALID_XDR,
-  R_USER_REJECTED,
-  R_NO_USER_LOGGED,
-} from '../../common/responses';
+import { R_INVALID_XDR, R_USER_REJECTED, R_NO_USER_LOGGED } from '../../common/responses';
 
 const signXdrResponse = (
   message: SignXdrResponseType,

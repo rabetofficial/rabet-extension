@@ -1,16 +1,13 @@
 import { createWindow } from '../utils/window';
 import getNetwork from '../../helpers/getNetwork';
-import { SignMessageType } from '../../common/messageTypes';
+import { SignTransactionDetailType } from '../../common/messageTypes';
 import { E_GENERATED_ID } from '../../common/messageEvents';
 import isWebsiteConnected from '../utils/isWebsiteConnected';
 import { ActionState, ISend, ISendCollection } from '../types';
-import {
-  R_NOT_CONNECTED,
-  R_INTERNAL_ERROR,
-} from '../../common/responses';
+import { R_NOT_CONNECTED, R_INTERNAL_ERROR } from '../../common/responses';
 
 const sign = async (
-  message: SignMessageType,
+  message: SignTransactionDetailType,
   state: ActionState,
   send: ISend,
   sendCol: ISendCollection,
@@ -71,7 +68,11 @@ const sign = async (
       return null;
     }
   } else {
-    const isHostConnected = isWebsiteConnected(state.connectedWebsites, message.detail.host, state.activeAccount.publicKey);
+    const isHostConnected = isWebsiteConnected(
+      state.connectedWebsites,
+      message.detail.host,
+      state.activeAccount.publicKey,
+    );
 
     // When the host is trusted
     if (isHostConnected) {

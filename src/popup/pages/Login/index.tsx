@@ -61,26 +61,15 @@ const Login = () => {
     <Layout isDashboard={false}>
       <Logo />
 
-      <h1 className="text-2xl text-center mt-4 font-bold">
-        Welcome back!
-      </h1>
+      <h1 className="text-2xl text-center mt-4 font-bold">Welcome back!</h1>
       <p className="text-sm text-primary-dark text-center mt-[6px]">
         Log back into your future in finance
       </p>
 
       <Form
         onSubmit={onSubmit}
-        render={({
-          submitError,
-          handleSubmit,
-          submitting,
-          pristine,
-        }) => (
-          <form
-            className="mt-[40px]"
-            onSubmit={handleSubmit}
-            autoComplete="off"
-          >
+        render={({ submitError, handleSubmit, submitting, pristine }) => (
+          <form className="mt-[40px]" onSubmit={handleSubmit} autoComplete="off">
             <Field name="password">
               {({ input, meta }) => (
                 <Input
@@ -95,9 +84,7 @@ const Login = () => {
               )}
             </Field>
 
-            {submitError && (
-              <div className="error">{submitError}</div>
-            )}
+            {submitError && <div className="error">{submitError}</div>}
 
             <Button
               type="submit"

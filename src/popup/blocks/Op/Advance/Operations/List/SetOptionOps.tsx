@@ -47,9 +47,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
     }
 
     if (!hasError.value) {
-      if (
-        type === Horizon.HorizonApi.OperationResponseType.bumpSequence
-      ) {
+      if (type === Horizon.HorizonApi.OperationResponseType.bumpSequence) {
         if (new BN(values.value).isNaN()) {
           changeOperationAction(id, {
             checked: false,
@@ -64,13 +62,8 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             bumpTo: values.value,
           });
         }
-      } else if (
-        type === Horizon.HorizonApi.OperationResponseType.accountMerge
-      ) {
-        if (
-          values.value &&
-          !StrKey.isValidEd25519PublicKey(values.value)
-        ) {
+      } else if (type === Horizon.HorizonApi.OperationResponseType.accountMerge) {
+        if (values.value && !StrKey.isValidEd25519PublicKey(values.value)) {
           changeOperationAction(id, {
             checked: false,
             destination: values.value,
@@ -79,13 +72,10 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
           errors.value = 'Invalid destination.';
           hasError.value = true;
         } else {
-          const accountData = await getAccountData(
-            values.destination,
-          );
+          const accountData = await getAccountData(values.destination);
 
           if (!accountData) {
-            errors.value =
-              'You cannot merge your account to an inactive account.';
+            errors.value = 'You cannot merge your account to an inactive account.';
             hasError.value = true;
 
             changeOperationAction(id, {
@@ -99,8 +89,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
           }
         }
       } else if (
-        type ===
-        `${Horizon.HorizonApi.OperationResponseType.setOptions}_set_flag`
+        type === `${Horizon.HorizonApi.OperationResponseType.setOptions}_set_flag`
       ) {
         const flagNumber = new BN(values.value);
 
@@ -109,10 +98,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             checked: false,
           });
         } else {
-          if (
-            flagNumber.isLessThan(1) ||
-            flagNumber.isGreaterThan(15)
-          ) {
+          if (flagNumber.isLessThan(1) || flagNumber.isGreaterThan(15)) {
             errors.value = 'Enter a number between 1 and 15';
             hasError.value = true;
           } else {
@@ -123,13 +109,9 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
           }
         }
       } else if (
-        type ===
-        `${Horizon.HorizonApi.OperationResponseType.setOptions}_inflation`
+        type === `${Horizon.HorizonApi.OperationResponseType.setOptions}_inflation`
       ) {
-        if (
-          values.value &&
-          !StrKey.isValidEd25519PublicKey(values.value)
-        ) {
+        if (values.value && !StrKey.isValidEd25519PublicKey(values.value)) {
           errors.value = 'Invalid destination.';
           hasError.value = true;
 
@@ -143,8 +125,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
           });
         }
       } else if (
-        type ===
-        `${Horizon.HorizonApi.OperationResponseType.setOptions}_clear_flag`
+        type === `${Horizon.HorizonApi.OperationResponseType.setOptions}_clear_flag`
       ) {
         const flagNumber = new BN(values.value);
 
@@ -156,10 +137,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
             checked: false,
           });
         } else {
-          if (
-            flagNumber.isLessThan(1) ||
-            flagNumber.isGreaterThan(15)
-          ) {
+          if (flagNumber.isLessThan(1) || flagNumber.isGreaterThan(15)) {
             errors.value = 'Enter a number between 1 and 15';
             hasError.value = true;
           } else {
@@ -170,8 +148,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
           }
         }
       } else if (
-        type ===
-        `${Horizon.HorizonApi.OperationResponseType.setOptions}_home_domain`
+        type === `${Horizon.HorizonApi.OperationResponseType.setOptions}_home_domain`
       ) {
         if (!isValidDomain(values.value)) {
           errors.value = 'Invalid domain.';
@@ -187,8 +164,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
           });
         }
       } else if (
-        type ===
-        `${Horizon.HorizonApi.OperationResponseType.setOptions}_master_weight`
+        type === `${Horizon.HorizonApi.OperationResponseType.setOptions}_master_weight`
       ) {
         if (new BN(values.value).isNaN()) {
           errors.value = null;
@@ -211,30 +187,23 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
 
   let isInputNumber = false;
 
-  const noControl = () => {};
+  const noControl = () => { };
 
   if (
     type === Horizon.HorizonApi.OperationResponseType.bumpSequence ||
-    type ===
-      `${Horizon.HorizonApi.OperationResponseType.setOptions}_set_flag` ||
-    type ===
-      `${Horizon.HorizonApi.OperationResponseType.setOptions}_clear_flag` ||
-    type ===
-      `${Horizon.HorizonApi.OperationResponseType.setOptions}_master_weight`
+    type === `${Horizon.HorizonApi.OperationResponseType.setOptions}_set_flag` ||
+    type === `${Horizon.HorizonApi.OperationResponseType.setOptions}_clear_flag` ||
+    type === `${Horizon.HorizonApi.OperationResponseType.setOptions}_master_weight`
   ) {
     isInputNumber = true;
   }
 
   return (
     <Form
-      onSubmit={() => {}}
+      onSubmit={() => { }}
       validate={validateForm}
       render={({ submitError, handleSubmit }) => (
-        <form
-          className={classNames('form')}
-          onSubmit={handleSubmit}
-          autoComplete="off"
-        >
+        <form className={classNames('form')} onSubmit={handleSubmit} autoComplete="off">
           <Field name="value">
             {({ input, meta }) => (
               <>
@@ -247,9 +216,7 @@ const SetOptionOps = ({ id, type, label, inputInfo }: AppProps) => {
                   input={input}
                   meta={meta}
                   autoFocus
-                  onKeyPress={
-                    isInputNumber ? controlNumberInput : noControl
-                  }
+                  onKeyPress={isInputNumber ? controlNumberInput : noControl}
                 />
               </>
             )}

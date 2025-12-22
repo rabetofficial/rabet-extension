@@ -3,13 +3,13 @@ import { ConnectMessageType } from '../common/messageTypes';
 import { E_CONNECT, E_CONNECT_RES } from '../common/messageEvents';
 
 interface IRabet {
-  // TODO: change any to something
   close: () => any;
   connect: () => any;
   disconnect: () => any;
   isUnlocked: () => any;
   getNetwork: () => any;
   sign: (xdr: string, network: string) => any;
+  signMessage: (message: string) => any;
   on: (eventName: string, cb: (network?: string) => void) => any;
 }
 
@@ -56,20 +56,6 @@ rabet.connect = () =>
 
 rabet.sign = (xdr, network) =>
   new Promise((resolve, reject) => {
-    document.dispatchEvent(
-      new CustomEvent('RABET_EXTENSION_SIGN', {
-        detail: {
-          xdr,
-          network,
-          host: window.location.host || 'test.org',
-          title: document.title,
-          screenX: window.screenX,
-          screenY: window.screenY,
-          outerWidth: window.outerWidth,
-        },
-      }),
-    );
-
     if (!xdr) {
       reject({
         error: 'No XDR',
@@ -86,6 +72,20 @@ rabet.sign = (xdr, network) =>
       return;
     }
 
+    document.dispatchEvent(
+      new CustomEvent('RABET_EXTENSION_SIGN', {
+        detail: {
+          xdr,
+          network,
+          host: window.location.host || 'test.org',
+          title: document.title,
+          screenX: window.screenX,
+          screenY: window.screenY,
+          outerWidth: window.outerWidth,
+        },
+      }),
+    );
+
     document.addEventListener('RABET_EXTENSION_SIGN_RESPONSE', (e) => {
       // @ts-ignore
       const detail = JSON.parse(e.detail);
@@ -99,6 +99,55 @@ rabet.sign = (xdr, network) =>
       }
 
       // const detail = JSON.parse(e.detail);
+
+      if (!detail.ok) {
+        reject({
+          error: detail.message,
+        });
+
+        return;
+      }
+
+      resolve({
+        ...detail.message,
+      });
+    });
+  });
+
+rabet.signMessage = (message) =>
+  new Promise((resolve, reject) => {
+    if (!message) {
+      reject({
+        error: 'No Message provided',
+      });
+
+      return;
+    }
+
+    document.dispatchEvent(
+      new CustomEvent('RABET_EXTENSION_SIGN_MESSAGE', {
+        detail: {
+          message,
+          host: window.location.host || 'test.org',
+          title: document.title,
+          screenX: window.screenX,
+          screenY: window.screenY,
+          outerWidth: window.outerWidth,
+        },
+      }),
+    );
+
+    document.addEventListener('RABET_EXTENSION_SIGN_MESSAGE_RESPONSE', (e) => {
+      // @ts-ignore
+      const detail = JSON.parse(e.detail);
+
+      if (!detail) {
+        reject({
+          error: 'no-message-received',
+        });
+
+        return;
+      }
 
       if (!detail.ok) {
         reject({
@@ -190,9 +239,7 @@ rabet.isUnlocked = () =>
 
 rabet.getNetwork = () =>
   new Promise((resolve) => {
-    document.dispatchEvent(
-      new CustomEvent('RABET_EXTENSION_NETWORK', {}),
-    );
+    document.dispatchEvent(new CustomEvent('RABET_EXTENSION_NETWORK', {}));
 
     document.addEventListener('RABET_EXTENSION_NETWORK_RESPONSE', (e) => {
       // @ts-ignore

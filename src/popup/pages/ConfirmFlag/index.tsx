@@ -16,8 +16,7 @@ const ConfirmFlag = () => {
   const account = useActiveAccount();
 
   const newFlags: Horizon.HorizonApi.Flags = state.flags;
-  const isAuthClawbackEnabledAlreadyEnabled =
-    !!account.flags?.auth_clawback_enabled;
+  const isAuthClawbackEnabledAlreadyEnabled = !!account.flags?.auth_clawback_enabled;
 
   const handleSubmit = () => {
     const flags = {
@@ -55,16 +54,16 @@ const ConfirmFlag = () => {
               text="Are you sure you want to activate Immutable Flag?"
             />
             <p className="text-primary-dark mt-[14px] text-base">
-              If this is set then none of the authorization flags can
-              be changed and the account can never be deleted.
+              If this is set then none of the authorization flags can be changed and the
+              account can never be deleted.
             </p>
           </>
         ) : (
           ''
         )}
         {newFlags.auth_clawback_enabled &&
-        !newFlags.auth_revocable &&
-        !isAuthClawbackEnabledAlreadyEnabled ? (
+          !newFlags.auth_revocable &&
+          !isAuthClawbackEnabledAlreadyEnabled ? (
           <>
             <Alert
               type="alert-warning"
@@ -75,8 +74,8 @@ const ConfirmFlag = () => {
           ''
         )}
         {newFlags.auth_clawback_enabled &&
-        !newFlags.auth_revocable &&
-        isAuthClawbackEnabledAlreadyEnabled ? (
+          !newFlags.auth_revocable &&
+          isAuthClawbackEnabledAlreadyEnabled ? (
           <>
             <Alert
               type="alert-warning"

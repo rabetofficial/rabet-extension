@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 
@@ -7,12 +7,7 @@ import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import hadLoggedBeforeAction from '../../actions/hadLoggedBeforeAction';
-import {
-  buttonSizes,
-  buttonTypes,
-  inputSize,
-  inputTypes,
-} from '../../staticRes/enum';
+import { buttonSizes, buttonTypes, inputSize, inputTypes } from '../../staticRes/enum';
 
 import styles from './styles.less';
 
@@ -48,15 +43,16 @@ const Login = () => {
             xdr: global.sessionStorage.getItem('xdr'),
             network: global.sessionStorage.getItem('network'),
           },
+          message: {
+            message: global.sessionStorage.getItem('message'),
+          },
         },
         (rp) => {
           const response = JSON.parse(rp);
 
           if (response.ok) {
-            sessionStorage.setItem(
-              'accountPublicKey',
-              response.message.publicKey,
-            );
+            sessionStorage.setItem('accountName', response.message.name);
+            sessionStorage.setItem('accountPublicKey', response.message.publicKey);
             navigate('/confirm');
           } else {
             if (response.message === 'wrong-password') {
@@ -81,14 +77,8 @@ const Login = () => {
           const response = JSON.parse(rp);
 
           if (response.ok) {
-            sessionStorage.setItem(
-              'accountName',
-              response.message.name,
-            );
-            sessionStorage.setItem(
-              'accountPublicKey',
-              response.message.publicKey,
-            );
+            sessionStorage.setItem('accountName', response.message.name);
+            sessionStorage.setItem('accountPublicKey', response.message.publicKey);
 
             navigate('/contact-request');
           } else {
@@ -107,7 +97,7 @@ const Login = () => {
         <Logo />
         <Form
           onSubmit={(values) => onSubmit(values)}
-          validate={() => () => {}}
+          validate={() => () => { }}
           render={({ handleSubmit, submitting, pristine }) => (
             <form
               className={classNames(styles.form, 'form')}

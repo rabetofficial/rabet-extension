@@ -51,7 +51,7 @@ export interface ContactRequestResponseMessageType {
   };
 }
 
-export interface SignMessageDetail {
+export interface SignTransactionDetail {
   xdr: string;
   network: string;
   host: string;
@@ -61,8 +61,35 @@ export interface SignMessageDetail {
   outerWidth: number;
 }
 
-export interface SignMessageType {
+export interface SignTransactionDetailType {
+  detail: SignTransactionDetail;
+}
+
+export interface SignMessageDetail {
+  message: string;
+  network: string;
+  host: string;
+  title: string;
+  screenX: number;
+  screenY: number;
+  outerWidth: number;
+}
+
+export interface SignMessageDetailType {
   detail: SignMessageDetail;
+}
+
+export interface SignMessageResponseType {
+  type: 'RABET_EXTENSION_SIGN_MESSAGE_RESPONSE';
+  id: string;
+  result: 'close' | 'confirm' | 'reject';
+  detail: {
+    host: string;
+    title: string;
+  };
+  message: {
+    message: string;
+  };
 }
 
 export interface SignXdrResponseType {

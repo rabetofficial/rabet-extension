@@ -14,38 +14,33 @@ type AppProps = {
 };
 
 const Account = ({ account }: AppProps) => {
-  const [host, currencies, options, user] = useTypedSelector(
-    (store) => [
-      store.host,
-      store.currencies,
-      store.options,
-      store.user,
-    ],
-  );
+  const [host, currencies, options, user] = useTypedSelector((store) => [
+    store.host,
+    store.currencies,
+    store.options,
+    store.user,
+  ]);
   const [isImageLoaded, setIsImageLoaded] = useState(true);
   const totalBalance = useTotalBalance(account);
   const [imageSrc, setImageSrc] = useState('');
 
   useEffect(() => {
     if (host) {
-      setImageSrc(`https://logo.clearbit.com/${host}?size=30`);
+      setImageSrc(`https://img.logo.dev/${host}?token=pk_NPIE3R4ASi6FbsyheABqjw`);
     }
   }, [host, user.connectedWebsites]);
 
   const { name, isConnected, publicKey } = account;
 
   const isConnectedAndExistsInConnectedWebsites =
-    isConnected &&
-    user.connectedWebsites.includes(`${host}/${publicKey}`);
+    isConnected && user.connectedWebsites.includes(`${host}/${publicKey}`);
 
   return (
     <S.Item>
       <S.Avatar>{abbr(name)}</S.Avatar>
 
       <S.Container>
-        <S.Name>
-          {name.length > 13 ? `${name.slice(0, 13)}...` : name}
-        </S.Name>
+        <S.Name>{name.length > 13 ? `${name.slice(0, 13)}...` : name}</S.Name>
 
         <S.Amount>
           {handleAssetSymbol(currencies, options)}

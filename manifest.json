@@ -31,7 +31,7 @@
     }
   ],
   "background": {
-    "service_worker": "dist/background_script.js",
+    "scripts": ["dist/background_script.js"],
     "type": "module"
   }
 }

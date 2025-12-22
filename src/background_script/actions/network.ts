@@ -1,6 +1,6 @@
-import { ActionState, ISend } from '../types';
-
 import { Networks } from '@stellar/stellar-sdk';
+
+import { ActionState, ISend } from '../types';
 
 const getNetwork = async (send: ISend, state: ActionState) => {
   let networkName = 'MAINNET';
@@ -16,7 +16,7 @@ const getNetwork = async (send: ISend, state: ActionState) => {
     network: {
       passphrase,
       network: networkName,
-    }
+    },
   });
 };
 

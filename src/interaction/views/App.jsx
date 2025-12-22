@@ -14,10 +14,7 @@ export default () => (
     <Routes>
       <Route path={route.ConfirmPage} element={<Confirm />} />
       <Route path={route.loginPage} element={<Login />} />
-      <Route
-        path={route.loadingNetworkPage}
-        element={<LoadingNetwork />}
-      />
+      <Route path={route.loadingNetworkPage} element={<LoadingNetwork />} />
       <Route path={route.contactPage} element={<ContactRequest />} />
       <Route path="/" element={<Login />} />
     </Routes>

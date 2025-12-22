@@ -16,15 +16,12 @@ const BackupFile = () => {
   return (
     <Container>
       <BackupFileComponent onClick={handleClick}>
-        <PageTitle
-          padding="0"
-          title="Backup"
-          showMultiplyIcon={false}
-        />
+        <PageTitle padding="0" title="Backup" showMultiplyIcon={false} />
       </BackupFileComponent>
     </Container>
   );
 };
+
 const Container = styled.div`
   display: flex;
   align-items: center;

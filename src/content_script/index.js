@@ -32,6 +32,15 @@ document.addEventListener(
 );
 
 document.addEventListener(
+  'RABET_EXTENSION_SIGN_MESSAGE',
+  createEventListener(
+    'RABET_EXTENSION_SIGN_MESSAGE',
+    'RABET_EXTENSION_SIGN_MESSAGE_RESPONSE',
+    true,
+  ),
+);
+
+document.addEventListener(
   'RABET_EXTENSION_CLOSE_WINDOW',
   createEventListener(
     'RABET_EXTENSION_CLOSE_WINDOW',

@@ -21,16 +21,14 @@ const Account = ({ account, purpose }: AppProps) => {
   let img = '';
 
   if (host) {
-    img = `https://logo.clearbit.com/${host}?size=30`;
+    img = `https://img.logo.dev/${host}?token=pk_NPIE3R4ASi6FbsyheABqjw`;
   }
 
   return (
     <div className="flex">
       <S.Avatar>{abbr(name)}</S.Avatar>
       <div className="flex flex-col">
-        <S.Name>
-          {name.length > 13 ? `${name.slice(0, 13)}...` : name}
-        </S.Name>
+        <S.Name>{name.length > 13 ? `${name.slice(0, 13)}...` : name}</S.Name>
         <S.Detail>{publicKey && shorter(publicKey, 8)}</S.Detail>
       </div>
 

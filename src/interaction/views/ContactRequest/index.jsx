@@ -52,8 +52,8 @@ const ContactRequest = () => {
         <li>
           <div className={styles['step-value']}>
             <img
-              src={`https://logo.clearbit.com/${host}?size=55`}
-              style={{ height: 'auto' }}
+              src={`https://img.logo.dev/${host}?token=pk_NPIE3R4ASi6FbsyheABqjw`}
+              style={{ height: '55px' }}
               alt={host}
             />
           </div>
@@ -63,9 +63,7 @@ const ContactRequest = () => {
         <div className="icon-checkmark" />
 
         <li>
-          <div className={styles['step-value']}>
-            {shortName(name)}
-          </div>
+          <div className={styles['step-value']}>{shortName(name)}</div>
           <div className={styles['step-label']}>{name}</div>
         </li>
       </ul>

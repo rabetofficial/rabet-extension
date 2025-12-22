@@ -35,10 +35,7 @@ const ModalConnectStatus = () => {
   if (isConnected) {
     return (
       <>
-        <S.Msg>
-          This account is connected to this site. Do you want to
-          Disconnect?
-        </S.Msg>
+        <S.Msg>This account is connected to this site. Do you want to Disconnect?</S.Msg>
 
         <S.ButtonContainer>
           <Button
@@ -58,8 +55,8 @@ const ModalConnectStatus = () => {
     return (
       <>
         <S.Msg>
-          You have an account connected to this site. Do you want to
-          connect with this account?
+          You have an account connected to this site. Do you want to connect with this
+          account?
         </S.Msg>
 
         <S.ButtonContainer>
@@ -78,8 +75,8 @@ const ModalConnectStatus = () => {
 
   return (
     <S.Msg className="pb-2 px-2">
-      Rabet is not connected to this site. To connect it, find connect
-      button on their site.
+      Rabet is not connected to this site. To connect it, find connect button on their
+      site.
     </S.Msg>
   );
 };

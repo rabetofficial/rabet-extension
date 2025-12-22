@@ -14,25 +14,29 @@ const contactRequestResponse = (
   if (message.result === 'reject') {
     sendCol[message.id](R_USER_REJECTED);
   } else if (message.result === 'confirm') {
-      sendCol[message.id]({
-        ok: true,
-        message: {
-          publicKey: message.activeAcconut.publicKey,
-        },
-      });
+    sendCol[message.id]({
+      ok: true,
+      message: {
+        publicKey: message.activeAcconut.publicKey,
+      },
+    });
 
-      if (state.options.privacyMode) {
-        const isHostConnected = isWebsiteConnected(state.connectedWebsites, message.detail.host, message.activeAcconut.publicKey);
+    if (state.options.privacyMode) {
+      const isHostConnected = isWebsiteConnected(
+        state.connectedWebsites,
+        message.detail.host,
+        message.activeAcconut.publicKey,
+      );
 
-        const newWebsites = [...state.connectedWebsites]
-        const newWebsite = `${message.detail.host}/${message.activeAcconut.publicKey}`;
+      const newWebsites = [...state.connectedWebsites];
+      const newWebsite = `${message.detail.host}/${message.activeAcconut.publicKey}`;
 
-        if (!isHostConnected) {
-          newWebsites.push(newWebsite);
-        }
-
-        set('connectedWebsites', newWebsites);
+      if (!isHostConnected) {
+        newWebsites.push(newWebsite);
       }
+
+      set('connectedWebsites', newWebsites);
+    }
   } else {
     sendCol[message.id](R_USER_REJECTED);
   }

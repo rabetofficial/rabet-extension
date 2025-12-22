@@ -15,7 +15,7 @@ const login = async (
   window: chrome.windows.Window,
 ) => {
   try {
-    const accounts = await get('data', message.values.password) as IAccount[];
+    const accounts = (await get('data', message.values.password)) as IAccount[];
 
     setTimer(message.values.password);
 
@@ -37,7 +37,11 @@ const login = async (
       return;
     }
 
-    const isHostConnected = isWebsiteConnected(state.connectedWebsites, message.detail.host, activeAccount.publicKey);
+    const isHostConnected = isWebsiteConnected(
+      state.connectedWebsites,
+      message.detail.host,
+      activeAccount.publicKey,
+    );
 
     if (isHostConnected) {
       sendCol[message.id]({
