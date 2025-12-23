@@ -19,8 +19,7 @@ import * as S from './styles';
 const Flags = () => {
   const navigate = useNavigate();
   const account = useActiveAccount();
-  const [flags, setFlags] =
-    useState<Partial<Horizon.HorizonApi.Flags> | null>(null);
+  const [flags, setFlags] = useState<Partial<Horizon.HorizonApi.Flags> | null>(null);
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
@@ -116,8 +115,8 @@ const Flags = () => {
           <ExtTitle title="Flags" />
 
           <S.Ttile>
-            Currently, there are 4 flags, used by issuers of assets.
-            in below you can see your flags status:
+            Currently, there are 4 flags, used by issuers of assets. in below you can see
+            your flags status:
           </S.Ttile>
 
           <S.Div>
@@ -198,8 +197,8 @@ const Flags = () => {
 
           {disabled ? (
             <S.ErrorBox style={{ marginTop: '8px' }}>
-              You can no longer change the status of your flags
-              because you have already activated the Immutable flag.
+              You can no longer change the status of your flags because you have already
+              activated the Immutable flag.
             </S.ErrorBox>
           ) : (
             ''
@@ -212,12 +211,7 @@ const Flags = () => {
             positionStyles={{ bottom: '16px' }}
             justify="end"
           >
-            <Button
-              variant="default"
-              size="medium"
-              content="Cancel"
-              onClick={onCancel}
-            />
+            <Button variant="default" size="medium" content="Cancel" onClick={onCancel} />
 
             <Button
               disabled={disabled}

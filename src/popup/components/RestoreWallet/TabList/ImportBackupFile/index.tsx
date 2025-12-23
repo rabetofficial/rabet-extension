@@ -38,8 +38,8 @@ const ImportBackupFile = ({
 
     const reader = new FileReader();
 
-    reader.onabort = () => {};
-    reader.onerror = () => {};
+    reader.onabort = () => { };
+    reader.onerror = () => { };
     reader.onload = () => {
       const binaryStr = reader.result;
       const enc = new TextDecoder('utf-8');
@@ -108,9 +108,7 @@ const ImportBackupFile = ({
           type="file"
           variant="outlined"
           size="medium"
-          content={
-            isUploaded ? acceptedFiles[0].name : 'Select backup file'
-          }
+          content={isUploaded ? acceptedFiles[0].name : 'Select backup file'}
           startIcon={isUploaded ? '' : <Download />}
           style={{
             borderRadius: '4px',
@@ -124,11 +122,7 @@ const ImportBackupFile = ({
           onSubmit={handleSubmitFunc}
           validate={validateForm}
           render={({ submitError, handleSubmit, form, pristine }) => (
-            <form
-              className="form"
-              onSubmit={handleSubmit}
-              autoComplete="off"
-            >
+            <form className="form" onSubmit={handleSubmit} autoComplete="off">
               <Field name="key">
                 {({ input, meta }) => (
                   <S.InputContainer>

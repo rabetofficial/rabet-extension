@@ -14,13 +14,7 @@ type AppProps = {
   onChange: (current: ElementOption) => void;
 };
 
-const DropDown = ({
-  width,
-  items,
-  buttonClassName,
-  selected,
-  onChange,
-}: AppProps) => {
+const DropDown = ({ width, items, buttonClassName, selected, onChange }: AppProps) => {
   const [visible, setVisible] = useState(false);
   const show = () => setVisible(true);
   const hide = () => setVisible(false);
@@ -33,14 +27,9 @@ const DropDown = ({
   return (
     <Tippy
       content={
-        <S.Content
-          style={{ width: width === 0 ? '100%' : `${width}px` }}
-        >
+        <S.Content style={{ width: width === 0 ? '100%' : `${width}px` }}>
           {items.map((item) => (
-            <li
-              key={item.value.trim()}
-              onClick={() => handleOption(item)}
-            >
+            <li key={item.value.trim()} onClick={() => handleOption(item)}>
               {item.label}
             </li>
           ))}

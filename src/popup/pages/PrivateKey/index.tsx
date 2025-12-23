@@ -20,14 +20,11 @@ const PrivateKey = () => {
         <div className="content py-4">
           <ExtTitle title="Show private key" />
           <S.Msg>
-            <span>Do not lose it!</span> It cannot be recovered if you
-            lose it. <br />
-            <span>Do not share it!</span> Your funds will be stolen if
-            you use this file on a phishing site.
+            <span>Do not lose it!</span> It cannot be recovered if you lose it. <br />
+            <span>Do not share it!</span> Your funds will be stolen if you use this file
+            on a phishing site.
           </S.Msg>
-          <div className="label-primary mb-[6px] mt-[32px] font-medium">
-            Private Key
-          </div>
+          <div className="label-primary mb-[6px] mt-[32px] font-medium">Private Key</div>
           <S.Box>
             <Card type="primary">
               <CopyKey keyValue={activeAccount.privateKey} />

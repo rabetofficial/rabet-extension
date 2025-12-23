@@ -14,14 +14,7 @@ type NoteCardType = {
   icon: React.ReactNode;
   btnText?: boolean | string;
 };
-const NoteCard = ({
-  title,
-  message,
-  icon,
-  onClick,
-  copy,
-  btnText,
-}: NoteCardType) => (
+const NoteCard = ({ title, message, icon, onClick, copy, btnText }: NoteCardType) => (
   <S.container>
     <Note>
       <div>
@@ -35,12 +28,7 @@ const NoteCard = ({
 
         {btnText ? (
           <S.Btn>
-            <Button
-              variant="outlined"
-              content={btnText}
-              size="small"
-              onClick={onClick}
-            />
+            <Button variant="outlined" content={btnText} size="small" onClick={onClick} />
           </S.Btn>
         ) : (
           ''

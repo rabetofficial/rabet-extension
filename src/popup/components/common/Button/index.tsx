@@ -50,9 +50,7 @@ const Button = ({
       )}
       {content}
       {endIcon && (
-        <S.BurgerImageStyle style={{ marginLeft: '6px' }}>
-          {endIcon}
-        </S.BurgerImageStyle>
+        <S.BurgerImageStyle style={{ marginLeft: '6px' }}>{endIcon}</S.BurgerImageStyle>
       )}
     </S.Button>
     {iconBtn && <S.Title>{title}</S.Title>}
@@ -61,7 +59,7 @@ const Button = ({
 
 Button.defaultProps = {
   disabled: false,
-  onClick: () => {},
+  onClick: () => { },
   style: {},
   type: 'button',
   size: '',

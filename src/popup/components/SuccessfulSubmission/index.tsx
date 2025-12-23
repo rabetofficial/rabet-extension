@@ -11,10 +11,7 @@ export type SuccessfulSubmissionType = {
   message: string;
 };
 
-const SuccessfulSubmission = ({
-  onClick,
-  message,
-}: SuccessfulSubmissionType) => {
+const SuccessfulSubmission = ({ onClick, message }: SuccessfulSubmissionType) => {
   const ShareLink = styled.a`
     margin-left: 4px;
     cursor: pointer;
@@ -24,11 +21,7 @@ const SuccessfulSubmission = ({
   const Text = (
     <>
       <span>{message}</span>
-      <ShareLink
-        href={explorer(message)}
-        target="_blank"
-        rel="noreferrer"
-      >
+      <ShareLink href={explorer(message)} target="_blank" rel="noreferrer">
         <ShareArrowSquare />
       </ShareLink>
     </>

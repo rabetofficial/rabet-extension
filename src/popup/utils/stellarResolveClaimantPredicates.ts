@@ -21,14 +21,10 @@ const predicateFromHorizonResponse = (
 
   if (horizonPredicate.abs_before)
     xdrPredicate = Claimant.predicateBeforeAbsoluteTime(
-      new BigNumber(Date.parse(horizonPredicate.abs_before))
-        .idiv(1000)
-        .toString(),
+      new BigNumber(Date.parse(horizonPredicate.abs_before)).idiv(1000).toString(),
     );
   if (horizonPredicate.rel_before)
-    xdrPredicate = Claimant.predicateBeforeRelativeTime(
-      horizonPredicate.rel_before,
-    );
+    xdrPredicate = Claimant.predicateBeforeRelativeTime(horizonPredicate.rel_before);
   if (horizonPredicate.and)
     xdrPredicate = Claimant.predicateAnd(
       predicateFromHorizonResponse(horizonPredicate.and[0]),
@@ -57,57 +53,40 @@ const isPredicateClaimableAt = (
   claimPredicate: xdr.ClaimPredicate,
   claimingAtDate: Date = new Date(),
 ): boolean => {
-  const claimingAtSeconds = new BigNumber(claimingAtDate.getTime())
-    .idiv(1000)
-    .toNumber();
+  const claimingAtSeconds = new BigNumber(claimingAtDate.getTime()).idiv(1000).toNumber();
   switch (claimPredicate.switch()) {
     case xdr.ClaimPredicateType.claimPredicateUnconditional():
       return true;
 
     case xdr.ClaimPredicateType.claimPredicateAnd():
       return (
-        isPredicateClaimableAt(
-          claimPredicate.andPredicates()[0],
-          claimingAtDate,
-        ) &&
-        isPredicateClaimableAt(
-          claimPredicate.andPredicates()[1],
-          claimingAtDate,
-        )
+        isPredicateClaimableAt(claimPredicate.andPredicates()[0], claimingAtDate) &&
+        isPredicateClaimableAt(claimPredicate.andPredicates()[1], claimingAtDate)
       );
 
     case xdr.ClaimPredicateType.claimPredicateOr():
       return (
-        isPredicateClaimableAt(
-          claimPredicate.orPredicates()[0],
-          claimingAtDate,
-        ) ||
-        isPredicateClaimableAt(
-          claimPredicate.orPredicates()[1],
-          claimingAtDate,
-        )
+        isPredicateClaimableAt(claimPredicate.orPredicates()[0], claimingAtDate) ||
+        isPredicateClaimableAt(claimPredicate.orPredicates()[1], claimingAtDate)
       );
 
     case xdr.ClaimPredicateType.claimPredicateNot():
-      return !isPredicateClaimableAt(
-        claimPredicate.notPredicate(),
-        claimingAtDate,
-      );
+      return !isPredicateClaimableAt(claimPredicate.notPredicate(), claimingAtDate);
 
     case xdr.ClaimPredicateType.claimPredicateBeforeAbsoluteTime():
-      return new BigNumber(
-        claimPredicate.absBefore().toString(),
-      ).isGreaterThan(claimingAtSeconds);
+      return new BigNumber(claimPredicate.absBefore().toString()).isGreaterThan(
+        claimingAtSeconds,
+      );
 
     case xdr.ClaimPredicateType.claimPredicateBeforeRelativeTime():
       // add the relative time given in seconds to current timestamp for estimation
-      const absPredicateTime = new BigNumber(
-        claimPredicate.relBefore().toString(),
-      ).plus(new BigNumber(Date.now()).idiv(1000));
+      const absPredicateTime = new BigNumber(claimPredicate.relBefore().toString()).plus(
+        new BigNumber(Date.now()).idiv(1000),
+      );
       return absPredicateTime.isGreaterThan(claimingAtSeconds);
+    default:
+      return true;
   }
-
-  return true;
 };
 
 /**
@@ -121,9 +100,7 @@ const flattenPredicate = (
   claimPredicate: xdr.ClaimPredicate,
   claimingAtDate: Date = new Date(),
 ): xdr.ClaimPredicate => {
-  const claimAtSeconds = new BigNumber(claimingAtDate.getTime())
-    .idiv(1000)
-    .toNumber();
+  const claimAtSeconds = new BigNumber(claimingAtDate.getTime()).idiv(1000).toNumber();
   switch (claimPredicate.switch()) {
     case xdr.ClaimPredicateType.claimPredicateUnconditional():
       break;
@@ -173,29 +150,21 @@ const flattenPredicateAnd = (
       relevant = getEarliestNotBeforeAbsolutePredicate(
         flatPredicates.filter(isNotPredicate),
       );
-    if (!relevant)
-      Claimant.predicateNot(Claimant.predicateUnconditional());
+    if (!relevant) Claimant.predicateNot(Claimant.predicateUnconditional());
     return relevant;
   }
   if (claimablePredicates.length === 1) {
     return flatPredicates.find((p) => !isPredicateClaimableAt(p));
   }
-  const expiringPredicates = flatPredicates.filter(
-    isAbsBeforePredicate,
-  );
+  const expiringPredicates = flatPredicates.filter(isAbsBeforePredicate);
   const validFromPredicates = flatPredicates.filter(isNotPredicate);
   if (
     claimablePredicates.find(isUnconditionalPredicate) ||
     validFromPredicates.length === 2 ||
     expiringPredicates.length === 2
   ) {
-    let relevant = getEarliestBeforeAbsolutePredicate(
-      expiringPredicates,
-    );
-    if (!relevant)
-      relevant = getLatestNotBeforeAbsolutePredicate(
-        validFromPredicates,
-      );
+    let relevant = getEarliestBeforeAbsolutePredicate(expiringPredicates);
+    if (!relevant) relevant = getLatestNotBeforeAbsolutePredicate(validFromPredicates);
     if (!relevant) relevant = Claimant.predicateUnconditional();
     return relevant;
   }
@@ -203,10 +172,7 @@ const flattenPredicateAnd = (
   return claimPredicate;
 };
 
-const flattenPredicateOr = (
-  claimPredicate: xdr.ClaimPredicate,
-  claimingAtDate: Date,
-) => {
+const flattenPredicateOr = (claimPredicate: xdr.ClaimPredicate, claimingAtDate: Date) => {
   const predicates: xdr.ClaimPredicate[] = claimPredicate
     .orPredicates()
     .map((p) => flattenPredicate(p, claimingAtDate));
@@ -217,52 +183,34 @@ const flattenPredicateOr = (
     isPredicateClaimableAt(p, claimingAtDate),
   );
   if (claimablePredicates.length === 0) {
-    let relevant = getLatestNotBeforeAbsolutePredicate(
-      predicates.filter(isNotPredicate),
-    );
+    let relevant = getLatestNotBeforeAbsolutePredicate(predicates.filter(isNotPredicate));
     if (!relevant)
       relevant = getLatestBeforeAbsolutePredicate(
         predicates.filter(isAbsBeforePredicate),
       );
-    if (!relevant)
-      relevant = Claimant.predicateOr(predicates[0], predicates[1]);
+    if (!relevant) relevant = Claimant.predicateOr(predicates[0], predicates[1]);
     return relevant;
   }
   if (claimablePredicates.length === 1) {
     return claimablePredicates[0];
   }
-  let relevant = getLatestBeforeAbsolutePredicate(
-    claimablePredicates,
-  );
-  if (!relevant)
-    relevant = getEarliestNotBeforeAbsolutePredicate(
-      claimablePredicates,
-    );
+  let relevant = getLatestBeforeAbsolutePredicate(claimablePredicates);
+  if (!relevant) relevant = getEarliestNotBeforeAbsolutePredicate(claimablePredicates);
   if (relevant) return relevant;
 
   return Claimant.predicateUnconditional();
 };
 
-const isUnconditionalPredicate = (
-  claimPredicate: xdr.ClaimPredicate,
-): boolean =>
-  claimPredicate.switch() ===
-  xdr.ClaimPredicateType.claimPredicateUnconditional();
-const isAbsBeforePredicate = (
-  claimPredicate: xdr.ClaimPredicate,
-): boolean =>
-  claimPredicate.switch() ===
-  xdr.ClaimPredicateType.claimPredicateBeforeAbsoluteTime();
-const isNotPredicate = (
-  claimPredicate: xdr.ClaimPredicate,
-): boolean =>
-  claimPredicate.switch() ===
-  xdr.ClaimPredicateType.claimPredicateNot();
+const isUnconditionalPredicate = (claimPredicate: xdr.ClaimPredicate): boolean =>
+  claimPredicate.switch() === xdr.ClaimPredicateType.claimPredicateUnconditional();
+const isAbsBeforePredicate = (claimPredicate: xdr.ClaimPredicate): boolean =>
+  claimPredicate.switch() === xdr.ClaimPredicateType.claimPredicateBeforeAbsoluteTime();
+const isNotPredicate = (claimPredicate: xdr.ClaimPredicate): boolean =>
+  claimPredicate.switch() === xdr.ClaimPredicateType.claimPredicateNot();
 const predicatesAreTheSameType = (claimablePredicates) =>
   claimablePredicates
     .map((p) => p.switch())
-    .filter((value, index, self) => self.indexOf(value) === index)
-    .length === 1;
+    .filter((value, index, self) => self.indexOf(value) === index).length === 1;
 
 /**
  * For any given number of `{@link xdr.ClaimPredicate}`s of `{@link xdr.ClaimPredicateType}` 'claimPredicateBeforeAbsoluteTime'
@@ -305,9 +253,7 @@ const getLatestNotBeforeAbsolutePredicate = (
             .map((p) => p.notPredicate().value())
             // if there is a number => through recursive flattening it's from an absolute predicate
             .filter((v): v is xdr.Int64 => v instanceof xdr.Int64)
-            .map((int64) =>
-              new BigNumber(int64.toString()).toNumber(),
-            )
+            .map((int64) => new BigNumber(int64.toString()).toNumber())
             .reduce((p, c) => Math.max(p, c), 0)
             .toString(),
         ),
@@ -357,13 +303,8 @@ const getEarliestNotBeforeAbsolutePredicate = (
             .map((p) => p.notPredicate().value())
             // if there is a number => through recursive flattening it's from an absolute predicate
             .filter((v): v is xdr.Int64 => v instanceof xdr.Int64)
-            .map((int64) =>
-              new BigNumber(int64.toString()).toNumber(),
-            )
-            .reduce(
-              (p, c) => Math.min(p, c),
-              Number.POSITIVE_INFINITY,
-            )
+            .map((int64) => new BigNumber(int64.toString()).toNumber())
+            .reduce((p, c) => Math.min(p, c), Number.POSITIVE_INFINITY)
             .toString(),
         ),
       );
@@ -382,10 +323,7 @@ const getPredicateInformation = (
   claimPredicate: xdr.ClaimPredicate,
   claimingAtDate: Date,
 ): PredicateInformation => {
-  const flatPredicate = flattenPredicate(
-    claimPredicate,
-    claimingAtDate,
-  );
+  const flatPredicate = flattenPredicate(claimPredicate, claimingAtDate);
   const information: PredicateInformation = {
     predicate: flatPredicate,
     validFrom: undefined,
@@ -399,27 +337,19 @@ const getPredicateInformation = (
       : undefined;
   const getValidFrom = (currentPredicate) =>
     isNotPredicate(currentPredicate) &&
-    isAbsBeforePredicate(currentPredicate.notPredicate())
-      ? new BigNumber(
-          currentPredicate.notPredicate().value(),
-        ).toNumber()
+      isAbsBeforePredicate(currentPredicate.notPredicate())
+      ? new BigNumber(currentPredicate.notPredicate().value()).toNumber()
       : undefined;
   const getRange = (currentPredicate) => ({
     validFrom: getValidFrom(currentPredicate),
     validTo: getValidTo(currentPredicate),
   });
 
-  const isClaimable = isPredicateClaimableAt(
-    flatPredicate,
-    claimingAtDate,
-  );
+  const isClaimable = isPredicateClaimableAt(flatPredicate, claimingAtDate);
   const { validFrom, validTo } = getRange(flatPredicate);
   if (isClaimable) {
     information.status = 'claimable';
-    if (
-      flatPredicate.switch() ===
-      xdr.ClaimPredicateType.claimPredicateAnd()
-    ) {
+    if (flatPredicate.switch() === xdr.ClaimPredicateType.claimPredicateAnd()) {
       const range = flatPredicate
         .andPredicates()
         .map(getRange)

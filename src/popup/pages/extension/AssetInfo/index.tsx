@@ -81,10 +81,7 @@ const AssetInfo = () => {
           onDelete={onDelete}
           onBeforeDelete={handleBeforeDelete}
         >
-          <ExtTitle
-            className="mt-[16px]"
-            title={`Assets | ${asset_code || 'XLM'}`}
-          />
+          <ExtTitle className="mt-[16px]" title={`Assets | ${asset_code || 'XLM'}`} />
         </AssetInfoContent>
       </ScrollBar>
     </div>

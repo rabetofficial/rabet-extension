@@ -1,15 +1,11 @@
 import styled from 'styled-components';
 
-export const Group = styled.div.attrs(
-  (props: { styleType: 'dark' | 'light' }) => ({
-    styleType: props.styleType,
-  }),
-)`
+export const Group = styled.div.attrs((props: { styleType: 'dark' | 'light' }) => ({
+  styleType: props.styleType,
+}))`
   border: 1px solid
     ${({ styleType, theme }) =>
-      styleType === 'dark'
-        ? theme.colors.primary.light
-        : theme.colors.primary.lighter};
+    styleType === 'dark' ? theme.colors.primary.light : theme.colors.primary.lighter};
   display: flex;
   overflow: hidden;
   margin-top: ${({ noMT }) => (noMT ? '0px' : '8px')};

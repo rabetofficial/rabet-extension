@@ -10,15 +10,11 @@ export default async (password: string): Promise<boolean> => {
     const accounts: IAccount[] = await get('data', password);
     const rawConnectedWebsites = await get('connectedWebsites');
 
-    const connectedWebsites = readConnectedWebsites(
-      rawConnectedWebsites,
-    );
+    const connectedWebsites = readConnectedWebsites(rawConnectedWebsites);
 
     const newAccounts = accounts.map((account) => ({
       ...account,
-      isConnected: connectedWebsites.some(
-        (y) => y === `${host}/${account.publicKey}`,
-      ),
+      isConnected: connectedWebsites.some((y) => y === `${host}/${account.publicKey}`),
     }));
 
     store.dispatch(login(password));

@@ -27,8 +27,8 @@ const BackupFile = ({ onClick, children }: BackupTypes) => {
       <S.Media>
         {children}
         <S.Msg>
-          <span>Make a backup of your private key! </span>secure it
-          like the millions of dollars it may one day be worth.
+          <span>Make a backup of your private key! </span>secure it like the millions of
+          dollars it may one day be worth.
         </S.Msg>
 
         <S.Label>Private Key</S.Label>
@@ -47,12 +47,7 @@ const BackupFile = ({ onClick, children }: BackupTypes) => {
           </S.Copy>
         </S.Box>
         <S.ButtonContainer>
-          <ButtonContainer
-            mt={32}
-            btnSize={100}
-            justify="end"
-            gap={7}
-          >
+          <ButtonContainer mt={32} btnSize={100} justify="end" gap={7}>
             <Button
               reference={btnRef}
               variant="primary"

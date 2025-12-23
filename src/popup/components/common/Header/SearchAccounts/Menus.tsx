@@ -46,9 +46,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     lockAction(navigate);
   };
 
-  const handleCreateWallet = async (
-    values: CreateWalletFormValues,
-  ) => {
+  const handleCreateWallet = async (values: CreateWalletFormValues) => {
     const isDone = await createAccountAction(values.name);
 
     if (!isDone) {
@@ -73,16 +71,12 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
     return {};
   };
 
-  const handleRestoreWallet = async (
-    values: RestoreWalletFormValues,
-  ) => {
+  const handleRestoreWallet = async (values: RestoreWalletFormValues) => {
     if (!StrKey.isValidEd25519SecretSeed(values.key)) {
       return { key: 'Invalid private key.' };
     }
 
-    const isDuplicated = accounts.some(
-      (x) => x.privateKey === values.key,
-    );
+    const isDuplicated = accounts.some((x) => x.privateKey === values.key);
 
     if (isDuplicated) {
       return { key: 'Account is duplicated.' };
@@ -117,11 +111,7 @@ const Menus = ({ usage, onHidePopover }: AppProps) => {
       padding: 'large',
       minHeight: 462,
       children: (
-        <CreateWallet
-          isModal
-          onCancel={closeModalAction}
-          onSubmit={handleCreateWallet}
-        />
+        <CreateWallet isModal onCancel={closeModalAction} onSubmit={handleCreateWallet} />
       ),
     });
   };

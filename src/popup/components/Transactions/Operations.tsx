@@ -40,13 +40,7 @@ type SingleOperationTypes = {
 
 type OperationTypes = SingleOperationTypes | MultiOperationTypes;
 
-export const TransferTx = ({
-  type,
-  asset_code,
-  amount,
-  date,
-  tx,
-}: TransferTypes) => (
+export const TransferTx = ({ type, asset_code, amount, date, tx }: TransferTypes) => (
   <a href={transactionLink(tx)} target="_blank" rel="noreferrer">
     <S.Container>
       <S.MainPart>
@@ -54,8 +48,8 @@ export const TransferTx = ({
           {type === 'send' ? <Icons.Send /> : <Icons.Receive />}
         </S.ImgContainer>
         <S.TextContainer>
-          {type === 'send' ? 'Send' : 'Receive'}{' '}
-          {formatBalance(amount.toString())} {asset_code}
+          {type === 'send' ? 'Send' : 'Receive'} {formatBalance(amount.toString())}{' '}
+          {asset_code}
         </S.TextContainer>
       </S.MainPart>
       <S.DateContainer className="xl:mr-[56px] lg:mr-[32px] md:mr-[16px] sm:mr-[10px]">
@@ -94,12 +88,7 @@ export const SwapTx = ({
   </a>
 );
 
-export const OperationsTx = ({
-  type,
-  date,
-  tx,
-  ...props
-}: OperationTypes) => {
+export const OperationsTx = ({ type, date, tx, ...props }: OperationTypes) => {
   let name = 'Multi Operations';
 
   if (type === 'single') {
@@ -114,11 +103,7 @@ export const OperationsTx = ({
       <S.Container>
         <S.MainPart>
           <S.ImgContainer>
-            {type === 'single' ? (
-              <Icons.SingleDot />
-            ) : (
-              <Icons.MultiDots />
-            )}
+            {type === 'single' ? <Icons.SingleDot /> : <Icons.MultiDots />}
           </S.ImgContainer>
           <S.TextContainer>{name}</S.TextContainer>
         </S.MainPart>

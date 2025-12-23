@@ -9,8 +9,7 @@ const BasicConfirmSend = () => {
   const { state } = useLocation();
   const { network } = useTypedSelector((store) => store.options);
 
-  const networkTitle =
-    network === 'MAINNET' ? 'Main network' : 'Test network';
+  const networkTitle = network === 'MAINNET' ? 'Main network' : 'Test network';
 
   const status = network === 'MAINNET' ? 'success' : 'warn';
 

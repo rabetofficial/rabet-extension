@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ServerApi } from '@stellar/stellar-sdk';
+import { Horizon } from '@stellar/stellar-sdk';
 import React, { useEffect, useState } from 'react';
 
 import { Usage } from 'popup/models';
@@ -16,13 +16,10 @@ type TransactionsType = {
   usage: Usage;
 };
 
-const Transactions = ({
-  scrollMaxHeight,
-  usage,
-}: TransactionsType) => {
+const Transactions = ({ scrollMaxHeight, usage }: TransactionsType) => {
   const { publicKey } = useActiveAccount();
   const [transactions, setTransactions] = useState<
-    ServerApi.CollectionPage<ServerApi.OperationRecord>[]
+    Horizon.ServerApi.CollectionPage<Horizon.ServerApi.OperationRecord>[]
   >([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,10 +32,7 @@ const Transactions = ({
 
   if (isLoading) {
     return (
-      <ScrollBar
-        isHidden
-        maxHeight={usage === 'extension' ? 278 : 600}
-      >
+      <ScrollBar isHidden maxHeight={usage === 'extension' ? 278 : 600}>
         {usage === 'extension' ? (
           <div className="flex justify-center items-center h-[278px]">
             <Loading size={60} />
@@ -54,10 +48,7 @@ const Transactions = ({
   if (!transactions.length) {
     return (
       <div style={{ marginTop: usage === 'extension' ? '31' : '72' }}>
-        <Nodata
-          msg="You have no transactions"
-          className="text-base"
-        />
+        <Nodata msg="You have no transactions" className="text-base" />
       </div>
     );
   }

@@ -1,3 +1,4 @@
+import { rejects } from 'assert';
 import { R_NO_MSG_RECEIVED } from '../common/responses';
 import { ConnectMessageType } from '../common/messageTypes';
 import { E_CONNECT, E_CONNECT_RES } from '../common/messageEvents';
@@ -210,7 +211,9 @@ rabet.disconnect = () =>
         resolve();
       } else {
         reject({
+          ok: false,
           error: 'unknown-error',
+          message: 'unknown-error',
         });
       }
     });
@@ -238,15 +241,26 @@ rabet.isUnlocked = () =>
   });
 
 rabet.getNetwork = () =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     document.dispatchEvent(new CustomEvent('RABET_EXTENSION_NETWORK', {}));
 
     document.addEventListener('RABET_EXTENSION_NETWORK_RESPONSE', (e) => {
       // @ts-ignore
       const detail = JSON.parse(e.detail);
 
+      if (!detail) {
+        reject({
+          ok: false,
+          message: 'not-connected',
+        });
+
+        return;
+      }
+
       if (detail.ok) {
         resolve(detail.network);
+      } else {
+        resolve(detail);
       }
     });
   });

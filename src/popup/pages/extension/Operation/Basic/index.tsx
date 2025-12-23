@@ -21,10 +21,7 @@ const OperationBasic = () => {
       <Header />
 
       <div className="content">
-        <ExtTitle
-          title={`${selected.label}`.toString()}
-          className="mt-[20px]"
-        />
+        <ExtTitle title={`${selected.label}`.toString()} className="mt-[20px]" />
         <div className="mt-[20px]">
           <OpBasic
             onChange={onChange}

@@ -45,9 +45,7 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
     }
   };
 
-  const openAssetInfoModal = (
-    asset: Horizon.HorizonApi.BalanceLine,
-  ) => {
+  const openAssetInfoModal = (asset: Horizon.HorizonApi.BalanceLine) => {
     if (asset.asset_type === 'native') {
       openModalAction({
         isStyled: false,
@@ -65,11 +63,7 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
               openLoadingModal({});
             }}
           >
-            <PageTitle
-              title="Asset | XLM"
-              padding="0"
-              onClose={closeModalAction}
-            />
+            <PageTitle title="Asset | XLM" padding="0" onClose={closeModalAction} />
           </AssetInfo>
         ),
       });
@@ -90,24 +84,15 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
               openLoadingModal({});
             }}
           >
-            <PageTitle
-              title="Asset info"
-              padding="0"
-              onClose={closeModalAction}
-            />
+            <PageTitle title="Asset info" padding="0" onClose={closeModalAction} />
           </AssetInfo>
         ),
       });
     }
   };
 
-  const openAssetInfoPage = (
-    asset: Horizon.HorizonApi.BalanceLine,
-  ) => {
-    if (
-      asset.asset_type === 'native' ||
-      asset.asset_type === 'liquidity_pool_shares'
-    ) {
+  const openAssetInfoPage = (asset: Horizon.HorizonApi.BalanceLine) => {
+    if (asset.asset_type === 'native' || asset.asset_type === 'liquidity_pool_shares') {
       navigate(`${RouteName.AssetInfo}/XLM/none/native`);
     } else {
       navigate(
@@ -146,8 +131,7 @@ const AssetList = ({ usage, scrollMaxHeight }: AssetsListProps) => {
                 <AddAssetBox
                   className="inline-flex items-center"
                   style={{
-                    position:
-                      assets.length < 4 ? 'absolute' : 'static',
+                    position: assets.length < 4 ? 'absolute' : 'static',
                     bottom: assets.length < 4 ? '4px' : '0',
                   }}
                 >

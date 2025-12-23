@@ -39,14 +39,10 @@ const loadAccount = async (account: IAccount) => {
 
   let assets = accountResult.balances;
   // Remove liquidity pool assets
-  assets = assets.filter(
-    (asset) => asset.asset_type !== 'liquidity_pool_shares',
-  );
+  assets = assets.filter((asset) => asset.asset_type !== 'liquidity_pool_shares');
 
   // Move XLM to the first element
-  const nativeAsset = assets.find(
-    (asset) => asset.asset_type === 'native',
-  );
+  const nativeAsset = assets.find((asset) => asset.asset_type === 'native');
   assets = assets.filter((asset) => asset.asset_type !== 'native');
 
   if (nativeAsset) {
@@ -59,8 +55,7 @@ const loadAccount = async (account: IAccount) => {
   store.dispatch(
     addSubentryCount({
       publicKey: account.publicKey,
-      subentry_count:
-        (accountResult.subentry_count + 2) * 0.5 + 0.005,
+      subentry_count: (accountResult.subentry_count + 2) * 0.5 + 0.005,
     }),
   );
 

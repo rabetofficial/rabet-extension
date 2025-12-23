@@ -6,9 +6,7 @@ import Layout from 'popup/components/common/Layouts/BaseLayout';
 import RouteName from 'popup/staticRes/routes';
 import useTypedSelector from 'popup/hooks/useTypedSelector';
 import createAccountAction from 'popup/actions/accounts/create';
-import CreateWalletComponent, {
-  FormValues,
-} from 'popup/components/CreateWallet';
+import CreateWalletComponent, { FormValues } from 'popup/components/CreateWallet';
 
 const CreateWallet = () => {
   const navigate = useNavigate();
@@ -42,10 +40,7 @@ const CreateWallet = () => {
 
   return (
     <Layout isDashboard={false}>
-      <CreateWalletComponent
-        onSubmit={onSubmit}
-        onCancel={handleCancel}
-      >
+      <CreateWalletComponent onSubmit={onSubmit} onCancel={handleCancel}>
         <Logo />
       </CreateWalletComponent>
     </Layout>

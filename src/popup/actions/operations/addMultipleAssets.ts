@@ -37,10 +37,7 @@ const addMultipleAssets = async (
         for (let i = 0; i < assets.length; i += 1) {
           transaction = transaction.addOperation(
             Operation.changeTrust({
-              asset: new Asset(
-                assets[i].asset_code,
-                assets[i].asset_issuer,
-              ),
+              asset: new Asset(assets[i].asset_code, assets[i].asset_issuer),
             }),
           );
         }

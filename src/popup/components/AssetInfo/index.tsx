@@ -46,11 +46,9 @@ const AssetInfo = ({
     ) {
       onBeforeDelete();
 
-      addAssetAction(asset.asset_code, asset.asset_issuer, '0').then(
-        (result) => {
-          onDelete(result);
-        },
-      );
+      addAssetAction(asset.asset_code, asset.asset_issuer, '0').then((result) => {
+        onDelete(result);
+      });
     }
   };
 
@@ -88,9 +86,7 @@ const AssetInfo = ({
       <div className="inline-flex">
         <CopyText
           text={assetData?.asset_issuer || ''}
-          custom={
-            <S.Value>{shorter(assetData?.asset_issuer, 6)}</S.Value>
-          }
+          custom={<S.Value>{shorter(assetData?.asset_issuer, 6)}</S.Value>}
         />
 
         <a
@@ -116,8 +112,7 @@ const AssetInfo = ({
     },
     {
       title: 'Buying liabilities',
-      value:
-        formatBalance(assetData?.buying_liabilities) || 'LOADING',
+      value: formatBalance(assetData?.buying_liabilities) || 'LOADING',
     },
   ];
 
@@ -169,11 +164,10 @@ const AssetInfo = ({
             </S.ImgContainer>
           </S.Circle>
           <p className="text-base">
-            <strong className="text-lg">XLM</strong> is the native
-            currency of the network. An XLM is the only asset type
-            that can be used on the Stellar network that doesn&apos;t
-            require an issuer or a trustline. Any account can hold
-            XLM. You can trade XLM for other assets in the network
+            <strong className="text-lg">XLM</strong> is the native currency of the
+            network. An XLM is the only asset type that can be used on the Stellar network
+            that doesn&apos;t require an issuer or a trustline. Any account can hold XLM.
+            You can trade XLM for other assets in the network
           </p>
         </div>
       </S.Container>
@@ -208,9 +202,7 @@ const AssetInfo = ({
       </S.BoxContainer>
 
       {isDeletable ? (
-        <S.ErrorBox className="text-error">
-          {notDeletableReason}
-        </S.ErrorBox>
+        <S.ErrorBox className="text-error">{notDeletableReason}</S.ErrorBox>
       ) : (
         <div
           style={{
@@ -219,18 +211,8 @@ const AssetInfo = ({
         />
       )}
       <S.Media>
-        <ButtonContainer
-          btnSize={102}
-          justify="end"
-          mt={!isDeletable ? 45 : 4}
-          gap={5}
-        >
-          <Button
-            variant="default"
-            size="medium"
-            content="Cancel"
-            onClick={onCancel}
-          />
+        <ButtonContainer btnSize={102} justify="end" mt={!isDeletable ? 45 : 4} gap={5}>
+          <Button variant="default" size="medium" content="Cancel" onClick={onCancel} />
 
           <Button
             type="button"

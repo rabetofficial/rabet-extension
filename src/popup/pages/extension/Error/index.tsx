@@ -25,10 +25,7 @@ const ErrorPage = () => {
         <Header />
 
         <div className="content">
-          <ExtTitle
-            className="mt-[20px] mb-[87px]"
-            alreadyLoaded={false}
-          />
+          <ExtTitle className="mt-[20px] mb-[87px]" alreadyLoaded={false} />
 
           <div style={{ width: '328px' }}>
             <Error onClick={handleClick} message={state.message} />

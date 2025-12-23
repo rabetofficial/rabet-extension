@@ -181,7 +181,7 @@ export default async () => {
                   n: 1 * 10 ** 7,
                   d: Math.round(
                     (Number(operations[i].buying) / Number(operations[i].selling)) *
-                      10 ** 7,
+                    10 ** 7,
                   ),
                 },
                 offerId: operations[i].offerId,
@@ -218,7 +218,7 @@ export default async () => {
                   n: 1 * 10 ** 7,
                   d: Math.round(
                     (Number(operations[i].selling) / Number(operations[i].buying)) *
-                      10 ** 7,
+                    10 ** 7,
                   ),
                 },
               }),

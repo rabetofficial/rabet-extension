@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  CSSProperties,
-  ChangeEvent,
-} from 'react';
+import React, { useState, useEffect, useRef, CSSProperties, ChangeEvent } from 'react';
 
 import InputBtn from 'popup/components/common/Input/InputBtn';
 import { InputVariant, InputSize } from 'popup/models';
@@ -62,8 +56,7 @@ const Input = (props: AppProps) => {
     }
   }, []);
 
-  const toggleVisible = () =>
-    setVisibleType(visibleType === 'password' ? 'text' : type);
+  const toggleVisible = () => setVisibleType(visibleType === 'password' ? 'text' : type);
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     input.onChange(e);
@@ -104,9 +97,7 @@ const Input = (props: AppProps) => {
         />
       </S.Group>
 
-      {isError && (
-        <S.ErrorMsg>{meta.error || meta.submitError}</S.ErrorMsg>
-      )}
+      {isError && <S.ErrorMsg>{meta.error || meta.submitError}</S.ErrorMsg>}
     </>
   );
 };
@@ -122,8 +113,8 @@ Input.defaultProps = {
   style: {},
   className: '',
   autoFocus: false,
-  setMax: () => {},
-  onChange: () => {},
+  setMax: () => { },
+  onChange: () => { },
   styleType: 'dark',
 };
 
